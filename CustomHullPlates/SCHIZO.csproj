@@ -32,13 +32,18 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);Publicizer001</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buildables.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Ermfish.cs" />
     <Compile Include="HullPlates.cs" />
+    <Compile Include="LocalSoundCollection.cs" />
     <Compile Include="SchizoPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoundCollection.cs" />

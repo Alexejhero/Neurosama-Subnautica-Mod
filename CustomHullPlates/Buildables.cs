@@ -90,7 +90,9 @@ namespace SCHIZO
 
 			GameObject GetPrefab()
 			{
-				var prefab = SchizoPlugin.ermBundle.LoadAsset<GameObject>("erm");
+				var prefab = SchizoPlugin.ermBundle.LoadAsset<GameObject>("erm_fishes");
+				prefab.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+				prefab.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
 				PrefabUtils.AddBasicComponents(prefab, customPrefab.Info.ClassID, customPrefab.Info.TechType, LargeWorldEntity.CellLevel.Far);
 				var con = PrefabUtils.AddConstructable(prefab, customPrefab.Info.TechType, ConstructableFlags.Outside | ConstructableFlags.Base | ConstructableFlags.Submarine | ConstructableFlags.AllowedOnConstructable | ConstructableFlags.Ground | ConstructableFlags.Inside, prefab.FindChild("erm"));
 

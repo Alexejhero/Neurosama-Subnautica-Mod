@@ -1,7 +1,9 @@
 ﻿using System.IO;
 using System.Reflection;
 using BepInEx;
+using ECCLibrary;
 using HarmonyLib;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
 
@@ -14,6 +16,8 @@ namespace SCHIZO
 		// ReSharper disable once AssignNullToNotNullAttribute
 		public static string assetsFolder => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Assets");
 		public static AssetBundle ermBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly.GetExecutingAssembly(), "erm");
+
+		public static Config config = OptionsPanelHandler.RegisterModOptions<Config>();
 
 		private void Awake()
 		{

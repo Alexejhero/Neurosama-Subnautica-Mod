@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace SCHIZO
 {
-    public sealed class SoundCollection
+    public sealed class LocalSoundCollection
     {
         private readonly List<string> _remainingSounds = new List<string>();
         private readonly List<string> _playedSounds = new List<string>();
@@ -16,7 +16,7 @@ namespace SCHIZO
 
         private readonly List<Coroutine> _runningCoroutines = new List<Coroutine>();
 
-        public SoundCollection(string dirpath, string bus)
+        public LocalSoundCollection(string dirpath, string bus)
         {
             foreach (string soundFile in Directory.GetFiles(dirpath))
             {
@@ -28,20 +28,20 @@ namespace SCHIZO
             _remainingSounds.Shuffle();
         }
 
-        public void Play(float delay = 0)
+        public void Play(FMOD_CustomEmitter emitter, float delay = 0)
         {
             if (!CanPlay()) return;
 
             if (delay == 0)
             {
-                PlaySound();
+                PlaySound(emitter);
                 return;
             }
 
             IEnumerator PlayWithDelay(float del)
             {
                 yield return new WaitForSeconds(del);
-                PlaySound();
+                PlaySound(emitter);
             }
 
             Coroutine c = GameInput.instance.StartCoroutine(PlayWithDelay(delay));
@@ -58,9 +58,9 @@ namespace SCHIZO
             _runningCoroutines.Clear();
         }
 
-        private bool CanPlay() => !SchizoPlugin.config.DisableErmfishAllNoises;
+        private bool CanPlay() => !SchizoPlugin.config.DisableErmfishAllNoises && !SchizoPlugin.config.DisableErmfishRandomNoises;
 
-        private void PlaySound()
+        private void PlaySound(FMOD_CustomEmitter emitter)
         {
             lastPlay = Time.time;
 
@@ -70,7 +70,11 @@ namespace SCHIZO
                 _playedSounds.Clear();
             }
 
-            CustomSoundHandler.TryPlayCustomSound(_remainingSounds[0], out _);
+            var asset = ScriptableObject.CreateInstance<FMODAsset>();
+            asset.path = _remainingSounds[0];
+            emitter.SetAsset(asset);
+            emitter.Play();
+
             _playedSounds.Add(_remainingSounds[0]);
             _remainingSounds.RemoveAt(0);
         }
