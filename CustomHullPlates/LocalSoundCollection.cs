@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
+using FMOD;
 using Nautilus.Handlers;
 using UnityEngine;
 
@@ -21,7 +23,8 @@ namespace SCHIZO
             foreach (string soundFile in Directory.GetFiles(dirpath))
             {
                 string id = Guid.NewGuid().ToString();
-                CustomSoundHandler.RegisterCustomSound(id, soundFile, bus);
+                Sound s = CustomSoundHandler.RegisterCustomSound(id, soundFile, bus, MODE._3D);
+                s.set3DMinMaxDistance(1, 30000);
                 _remainingSounds.Add(id);
             }
 
@@ -30,7 +33,8 @@ namespace SCHIZO
 
         public void Play(FMOD_CustomEmitter emitter, float delay = 0)
         {
-            if (!CanPlay()) return;
+            if (!emitter) return;
+            if (SchizoPlugin.config.DisableAllNoises) return;
 
             if (delay == 0)
             {
@@ -57,8 +61,6 @@ namespace SCHIZO
 
             _runningCoroutines.Clear();
         }
-
-        private bool CanPlay() => !SchizoPlugin.config.DisableErmfishAllNoises && !SchizoPlugin.config.DisableErmfishRandomNoises;
 
         private void PlaySound(FMOD_CustomEmitter emitter)
         {

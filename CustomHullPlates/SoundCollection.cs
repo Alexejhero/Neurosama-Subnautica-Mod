@@ -30,7 +30,7 @@ namespace SCHIZO
 
         public void Play(float delay = 0)
         {
-            if (!CanPlay()) return;
+            if (SchizoPlugin.config.DisableAllNoises) return;
 
             if (delay == 0)
             {
@@ -57,8 +57,6 @@ namespace SCHIZO
 
             _runningCoroutines.Clear();
         }
-
-        private bool CanPlay() => !SchizoPlugin.config.DisableErmfishAllNoises;
 
         private void PlaySound()
         {

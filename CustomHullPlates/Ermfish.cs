@@ -6,7 +6,6 @@ using System.Linq;
 using ECCLibrary;
 using ECCLibrary.Data;
 using ECCLibrary.Mono;
-using FMODUnity;
 using HarmonyLib;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
@@ -27,11 +26,11 @@ namespace SCHIZO
 	    public static SoundCollection cookingSounds;
 	    public static SoundCollection eatingSounds;
 	    public static SoundCollection equippingSounds;
-	    public static SoundCollection hurtSounds;
+	    public static LocalSoundCollection hurtSounds;
 	    public static SoundCollection pickupSounds;
 	    public static SoundCollection playerDeathSounds;
 	    public static SoundCollection randomSounds;
-	    public static SoundCollection releaseSounds;
+	    public static LocalSoundCollection releaseSounds;
 	    public static SoundCollection scanSounds;
 	    public static SoundCollection unequippingSounds;
 
@@ -45,11 +44,11 @@ namespace SCHIZO
 	        cookingSounds = new SoundCollection(Path.Combine(SchizoPlugin.assetsFolder, "sounds", "cooking"), AudioUtils.BusPaths.PDAVoice);
 	        eatingSounds = new SoundCollection(Path.Combine(SchizoPlugin.assetsFolder, "sounds", "eating"), AudioUtils.BusPaths.PDAVoice);
 	        equippingSounds = new SoundCollection(Path.Combine(SchizoPlugin.assetsFolder, "sounds", "equipping"), AudioUtils.BusPaths.PDAVoice);
-	        hurtSounds = new SoundCollection(Path.Combine(SchizoPlugin.assetsFolder, "sounds", "hurt"), AudioUtils.BusPaths.PDAVoice);
+	        hurtSounds = new LocalSoundCollection(Path.Combine(SchizoPlugin.assetsFolder, "sounds", "hurt"), AudioUtils.BusPaths.PDAVoice);
 	        pickupSounds = new SoundCollection(Path.Combine(SchizoPlugin.assetsFolder, "sounds", "pickup"), AudioUtils.BusPaths.PDAVoice);
 	        playerDeathSounds = new SoundCollection(Path.Combine(SchizoPlugin.assetsFolder, "sounds", "player_death"), "bus:/master/SFX_for_pause/nofilter");
 	        randomSounds = new SoundCollection(Path.Combine(SchizoPlugin.assetsFolder, "sounds", "noises"), AudioUtils.BusPaths.PDAVoice);
-	        releaseSounds = new SoundCollection(Path.Combine(SchizoPlugin.assetsFolder, "sounds", "release"), AudioUtils.BusPaths.PDAVoice);
+	        releaseSounds = new LocalSoundCollection(Path.Combine(SchizoPlugin.assetsFolder, "sounds", "release"), AudioUtils.BusPaths.PDAVoice);
 	        scanSounds = new SoundCollection(Path.Combine(SchizoPlugin.assetsFolder, "sounds", "scan"), AudioUtils.BusPaths.PDAVoice);
 	        unequippingSounds = new SoundCollection(Path.Combine(SchizoPlugin.assetsFolder, "sounds", "unequipping"), AudioUtils.BusPaths.PDAVoice);
 
@@ -202,36 +201,53 @@ namespace SCHIZO
     {
 	    private Pickupable _pickupable;
 	    private FMOD_CustomEmitter _emitter;
-	    private float _timer = -1;
+	    private float _inventoryTimer = -1;
+	    private float _worldTimer = -1;
 
 	    private void Awake()
 	    {
-		    if (_timer != -1) return;
+		    if (_inventoryTimer != -1) return;
 
 		    _pickupable = GetComponent<Pickupable>();
 		    _emitter = gameObject.AddComponent<FMOD_CustomEmitter>();
 		    _emitter.followParent = true;
-		    BehaviourUpdateUtils.RegisterForUpdate(_emitter);
-		    _timer = UnityEngine.Random.Range(SchizoPlugin.config.ErmfishMinRandomNoiseTime, SchizoPlugin.config.ErmfishMaxRandomNoiseTime);
+		    _inventoryTimer = UnityEngine.Random.Range(SchizoPlugin.config.MinInventoryNoiseDelay, SchizoPlugin.config.MaxInventoryNoiseDelay);
+		    _worldTimer = UnityEngine.Random.Range(SchizoPlugin.config.MinWorldNoiseDelay, SchizoPlugin.config.MaxWorldNoiseDelay);
 	    }
 
 	    public void Update()
 	    {
-		    if (_timer == -1) Awake();
+		    if (_inventoryTimer == -1) Awake();
 
-		    if (SchizoPlugin.config.DisableErmfishRandomNoises) return;
-		    if (SchizoPlugin.config.DisableErmfishAllNoises) return;
+		    if (SchizoPlugin.config.DisableAllNoises) return;
 
-		    _timer -= Time.deltaTime;
+		    if (!Inventory.main.Contains(_pickupable)) WorldUpdate();
+		    else InventoryUpdate();
+	    }
 
-		    if (_timer < 0)
+	    private void InventoryUpdate()
+	    {
+		    if (SchizoPlugin.config.DisableInventoryNoises) return;
+
+		    _inventoryTimer -= Time.deltaTime;
+
+		    if (_inventoryTimer < 0)
 		    {
-			    _timer = UnityEngine.Random.Range(SchizoPlugin.config.ErmfishMinRandomNoiseTime, SchizoPlugin.config.ErmfishMaxRandomNoiseTime);
+			    _inventoryTimer = UnityEngine.Random.Range(SchizoPlugin.config.MinInventoryNoiseDelay, SchizoPlugin.config.MaxInventoryNoiseDelay);
+				Ermfish.randomSounds.Play();
+		    }
+	    }
 
-			    if (!Inventory.main.Contains(_pickupable))
-				    Ermfish.ambientSounds.Play(_emitter);
-			    else
-				    Ermfish.randomSounds.Play();
+	    private void WorldUpdate()
+	    {
+		    if (SchizoPlugin.config.DisableWorldNoises) return;
+
+		    _worldTimer -= Time.deltaTime;
+
+		    if (_worldTimer < 0)
+		    {
+			    _worldTimer = UnityEngine.Random.Range(SchizoPlugin.config.MinWorldNoiseDelay, SchizoPlugin.config.MaxWorldNoiseDelay);
+			    Ermfish.ambientSounds.Play(_emitter);
 		    }
 	    }
     }
@@ -253,7 +269,7 @@ namespace SCHIZO
 	    {
 		    if (!Ermfish.ErmfishTechTypes.Contains(__instance.GetTechType())) return;
 		    Ermfish.unequippingSounds.CancelAllDelayed();
-		    Ermfish.releaseSounds.Play();
+		    Ermfish.releaseSounds.Play(__instance.GetComponent<FMOD_CustomEmitter>());
 	    }
 
 	    [HarmonyPatch(typeof(PlayerTool), nameof(PlayerTool.OnDraw))]
@@ -318,7 +334,7 @@ namespace SCHIZO
 	    {
 		    var pickupable = __instance.GetComponent<Pickupable>();
 		    if (!pickupable || !Ermfish.ErmfishTechTypes.Contains(pickupable.GetTechType())) return;
-		    Ermfish.hurtSounds.Play();
+		    Ermfish.hurtSounds.Play(__instance.GetComponent<FMOD_CustomEmitter>());
 	    }
 
 	    [HarmonyPatch(typeof(Player), nameof(Player.Update))]
