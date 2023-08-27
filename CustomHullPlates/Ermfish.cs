@@ -60,18 +60,31 @@ namespace SCHIZO
 	        var pi = PrefabInfo.WithTechType("ermfish", "Ermfish", "erm\n<size=75%>(Model by w1n7er)</size>").WithIcon(ImageUtils.LoadSpriteFromFile(Path.Combine(SchizoPlugin.assetsFolder, "erm.png")));
 	        var creature = new Ermfish(pi);
 	        creature.Register();
-	        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(creature, "Lifeforms/Fauna/SmallHerbivores", "Ermfish", "erm", 5, null, null);
+	        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(creature, "Lifeforms/Fauna/SmallHerbivores", "Ermfish", @"An entity of unknown origin, it does not appear to be indigenous to 4546B. Although at first glance it appears to be an aquatic lifeform, it does not possess the necessary survival facilities.
+
+This species appears to consist mostly of a fibrous muscle mass, no internal organs can be located inside the creature. This unique biology may indicate its purpose as part of a larger organism instead of an individual.
+
+1. Ears:
+The ears situated at the top of the Ermfish have no opening and appear to be a type of mobility organ for swimming or maintaining balance in the water.
+
+2. Antenna:
+Between the ears there is a single antenna-like organ that emits a faint radio-signal. This could indicate communication between the species or another entity altogether.
+
+Being in the vicinity of an Ermfish may cause auditory hallucinations that cannot be reproduced on the audio recordings. The effect is magnified proportionally to the number of Ermfish present. Long-term effects are uncertain, but it is speculated that it may cause irreversible damage to the exposed individual.
+
+Assessment: Experimental results have shown that Ermfish is technically suitable for human consumption. However, high mental fortitude is required to go to such desperate lengths.", 5, null, null);
 
 	        var biomes = new List<LootDistributionData.BiomeData>();
 	        foreach (object biome in Enum.GetValues(typeof(BiomeType)))
 	        {
-		        biomes.Add(new LootDistributionData.BiomeData() { biome = (BiomeType)biome, count = 1, probability = 0.3f });
+		        biomes.Add(new LootDistributionData.BiomeData() { biome = (BiomeType)biome, count = 1, probability = 0.02f });
+		        biomes.Add(new LootDistributionData.BiomeData() { biome = (BiomeType)biome, count = 20, probability = 0.002f });
 	        }
 
 	        ItemActionHandler.RegisterMiddleClickAction(pi.TechType, item => randomSounds.Play(), "pull ahoge", "English");
 	        LootDistributionHandler.AddLootDistributionData(creature.ClassID, creature.PrefabInfo.PrefabFileName, biomes.ToArray());
 
-	        var cooked = new CustomPrefab("cookedermfish", "Cooked ermfish", "erm\n<size=75%>(Model by w1n7er)</size>");
+	        var cooked = new CustomPrefab("cookedermfish", "Cooked Ermfish", "erm\n<size=75%>(Model by w1n7er)</size>");
 	        cooked.Info.WithIcon(ImageUtils.LoadSpriteFromFile(Path.Combine(SchizoPlugin.assetsFolder, "erm_cooked.png")));
 	        cooked.AddGadget(new CraftingGadget(cooked, new RecipeData(new CraftData.Ingredient(creature.TechType)))
 		        .WithFabricatorType(CraftTree.Type.Fabricator).WithStepsToFabricatorTab("Survival", "CookedFood"));
@@ -100,7 +113,7 @@ namespace SCHIZO
 	        CraftDataHandler.SetEquipmentType(cooked.Info.TechType, EquipmentType.Hand);
 	        ItemActionHandler.RegisterMiddleClickAction(cooked.Info.TechType, item => randomSounds.Play(), "pull ahoge", "English");
 
-	        var cured = new CustomPrefab("curedermfish", "Cured ermfish", "erm\n<size=75%>(Model by w1n7er)</size>");
+	        var cured = new CustomPrefab("curedermfish", "Cured Ermfish", "erm\n<size=75%>(Model by w1n7er)</size>");
 	        cured.Info.WithIcon(ImageUtils.LoadSpriteFromFile(Path.Combine(SchizoPlugin.assetsFolder, "erm_cured.png")));
 	        cured.AddGadget(new CraftingGadget(cured, new RecipeData(new CraftData.Ingredient(creature.TechType), new CraftData.Ingredient(TechType.Salt)))
 		        .WithFabricatorType(CraftTree.Type.Fabricator).WithStepsToFabricatorTab("Survival", "CuredFood"));
@@ -191,6 +204,15 @@ namespace SCHIZO
         {
 	        prefab.GetComponent<HeldFish>().ikAimLeftArm = true;
 	        prefab.EnsureComponent<ErmfishNoises>();
+
+	        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Heat, 0f);
+	        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
+	        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Cold, 0f);
+	        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Fire, 0f);
+	        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Poison, 0f);
+	        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Radiation, 0f);
+	        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Starve, 0f);
+
 	        yield break;
         }
 
@@ -330,8 +352,9 @@ namespace SCHIZO
 
 	    [HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.NotifyAllAttachedDamageReceivers))]
 	    [HarmonyPostfix]
-	    public static void PlayErmfishHurtSound(LiveMixin __instance)
+	    public static void PlayErmfishHurtSound(LiveMixin __instance, DamageInfo inDamage)
 	    {
+		    if (inDamage.damage == 0) return;
 		    var pickupable = __instance.GetComponent<Pickupable>();
 		    if (!pickupable || !Ermfish.ErmfishTechTypes.Contains(pickupable.GetTechType())) return;
 		    Ermfish.hurtSounds.Play(__instance.GetComponent<FMOD_CustomEmitter>());

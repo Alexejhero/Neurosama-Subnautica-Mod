@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
 using BepInEx;
-using ECCLibrary;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;

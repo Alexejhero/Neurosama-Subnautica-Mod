@@ -23,8 +23,8 @@ namespace SCHIZO
             foreach (string soundFile in Directory.GetFiles(dirpath))
             {
                 string id = Guid.NewGuid().ToString();
-                Sound s = CustomSoundHandler.RegisterCustomSound(id, soundFile, bus, MODE._3D);
-                s.set3DMinMaxDistance(1, 30000);
+                Sound s = CustomSoundHandler.RegisterCustomSound(id, soundFile, bus, MODE._3D | MODE._3D_LINEARSQUAREROLLOFF);
+                s.set3DMinMaxDistance(1, 30);
                 _remainingSounds.Add(id);
             }
 

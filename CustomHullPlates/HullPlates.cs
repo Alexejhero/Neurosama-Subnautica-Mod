@@ -22,6 +22,7 @@ namespace SCHIZO
                 string text2 = Path.Combine(text, "info.json");
                 string text3 = Path.Combine(text, "icon.png");
                 string text4 = Path.Combine(text, "texture.png");
+                string text5 = Path.Combine(text, "override-icon.png");
                 if (File.Exists(text2) && File.Exists(text3) && File.Exists(text4))
                 {
                     try
@@ -35,7 +36,13 @@ namespace SCHIZO
                         Texture2D texture = ImageUtils.LoadTextureFromFile(text4);
                         if (hullPlateInfo != null && icon != null && texture != null)
                         {
-                            PatchHullPlate(hullPlateInfo.InternalName, hullPlateInfo.DisplayName, hullPlateInfo.Description, icon, texture);
+                            Texture2D iconTexture = texture;
+                            if (File.Exists(text5))
+                            {
+                                iconTexture = ImageUtils.LoadTextureFromFile(text5);
+                            }
+                            Texture2D newIcon = TextureUtils.CombineTextures(icon, iconTexture);
+                            PatchHullPlate(hullPlateInfo.InternalName, hullPlateInfo.DisplayName, hullPlateInfo.Description, newIcon, texture);
                         }
                         else
                         {
