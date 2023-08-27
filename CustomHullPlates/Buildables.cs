@@ -3,6 +3,7 @@ using System.Reflection;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace SCHIZO
     public static class Buildables
     {
 	    private static AssetBundle turtleBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly.GetExecutingAssembly(), "turtle");
-	    private static AssetBundle fumoBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly.GetExecutingAssembly(), "neurofumo2");
+	    private static AssetBundle fumoBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly.GetExecutingAssembly(), "neurofumo");
 	    private static AssetBundle operBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly.GetExecutingAssembly(), "neurooper");
 
         public static void Load()
@@ -62,14 +63,14 @@ namespace SCHIZO
 
 			GameObject GetPrefab()
 			{
-				var prefab = fumoBundle.LoadAsset<GameObject>("neurofumo");
+				var prefab = fumoBundle.LoadAsset<GameObject>("neurofuno");
 				PrefabUtils.AddBasicComponents(prefab, customPrefab.Info.ClassID, customPrefab.Info.TechType, LargeWorldEntity.CellLevel.Far);
-				var child = prefab.FindChild("neuofumo");
-				child.transform.Rotate(0, 180, 0);
+				var child = prefab.transform.GetChild(0).gameObject;
+				child.transform.Rotate(0, 180, 180);
 				var con = PrefabUtils.AddConstructable(prefab, customPrefab.Info.TechType, ConstructableFlags.Outside | ConstructableFlags.Base | ConstructableFlags.Submarine | ConstructableFlags.AllowedOnConstructable | ConstructableFlags.Ground | ConstructableFlags.Inside, child);
 
 				MaterialUtils.ApplySNShaders(prefab, 1);
-				prefab.transform.localScale *= 0.15f;
+				prefab.transform.localScale *= 0.3f;
 				con.rotationEnabled = true;
 
 				return prefab;

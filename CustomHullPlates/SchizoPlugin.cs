@@ -22,9 +22,14 @@ namespace SCHIZO
 		{
 			HullPlates.Load();
 			Buildables.Load();
-            Ermfish.Load();
+			Ermfish.Load();
 
-            Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+			/*Buildables.ermPrefab.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.CopperWire, 2), new CraftData.Ingredient(TechType.Silicone, 2), new CraftData.Ingredient(TechType.Battery), new CraftData.Ingredient(TechType.Titanium, 4), new CraftData.Ingredient(Ermfish.ermfishTechType)));
+			Buildables.ermPrefab.SetPdaGroupCategory(TechGroup.Miscellaneous, TechCategory.Misc);
+			Buildables.ermPrefab.SetUnlock(Ermfish.ermfishTechType);
+			Buildables.ermPrefab.Register();*/
+
+			Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 		}
-    }
+	}
 }
