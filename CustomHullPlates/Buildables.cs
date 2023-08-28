@@ -51,7 +51,7 @@ namespace SCHIZO
 
 		private static void LoadNeuroFumo()
 		{
-			var customPrefab = new CustomPrefab("NeuroFumo", "Neuro fumo", "Just don't turn it around Clueless\n<size=75%>(Model by YuG)</size>");
+			var customPrefab = new CustomPrefab("NeuroFumo", "Neuro fumo", "<size=75%>(Model by YuG)</size>");
 
 			customPrefab.SetGameObject(GetPrefab);
 			customPrefab.Info.WithIcon(ImageUtils.LoadSpriteFromFile(Path.Combine(SchizoPlugin.assetsFolder, "neurofumo.png")));
