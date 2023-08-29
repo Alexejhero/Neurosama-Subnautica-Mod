@@ -15,6 +15,7 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Random = System.Random;
 
 namespace SCHIZO
 {
@@ -82,8 +83,8 @@ Assessment: Experimental results have shown that Ermfish is technically suitable
 	        var biomes = new List<LootDistributionData.BiomeData>();
 	        foreach (object biome in Enum.GetValues(typeof(BiomeType)))
 	        {
-		        biomes.Add(new LootDistributionData.BiomeData() { biome = (BiomeType)biome, count = 1, probability = 0.1f });
-		        biomes.Add(new LootDistributionData.BiomeData() { biome = (BiomeType)biome, count = 10, probability = 0.05f });
+		        biomes.Add(new LootDistributionData.BiomeData { biome = (BiomeType)biome, count = 1, probability = 0.1f });
+		        biomes.Add(new LootDistributionData.BiomeData { biome = (BiomeType)biome, count = 10, probability = 0.05f });
 	        }
 
 	        ItemActionHandler.RegisterMiddleClickAction(pi.TechType, item => randomSounds.Play(), "pull ahoge", "English");
@@ -95,7 +96,7 @@ Assessment: Experimental results have shown that Ermfish is technically suitable
 		        .WithFabricatorType(CraftTree.Type.Fabricator).WithStepsToFabricatorTab("Survival", "CookedFood"));
 	        cooked.SetGameObject(new CloneTemplate(cooked.Info, creature.TechType)
 	        {
-		        ModifyPrefab = (prefab) =>
+		        ModifyPrefab = prefab =>
 		        {
 			        Eatable eatable = prefab.EnsureComponent<Eatable>();
 			        eatable.foodValue = 23;
@@ -124,7 +125,7 @@ Assessment: Experimental results have shown that Ermfish is technically suitable
 		        .WithFabricatorType(CraftTree.Type.Fabricator).WithStepsToFabricatorTab("Survival", "CuredFood"));
 	        cured.SetGameObject(new CloneTemplate(cured.Info, creature.TechType)
 	        {
-		        ModifyPrefab = (prefab) =>
+		        ModifyPrefab = prefab =>
 		        {
 			        Eatable eatable = prefab.EnsureComponent<Eatable>();
 			        eatable.foodValue = 23;
@@ -221,7 +222,7 @@ Assessment: Experimental results have shown that Ermfish is technically suitable
 	        yield break;
         }
 
-        protected override void ApplyMaterials(GameObject prefab) => MaterialUtils.ApplySNShaders(prefab, 1f, 1f, 1f);
+        protected override void ApplyMaterials(GameObject prefab) => MaterialUtils.ApplySNShaders(prefab, 1f);
     }
 
     public sealed class ErmfishNoises : MonoBehaviour
@@ -230,16 +231,20 @@ Assessment: Experimental results have shown that Ermfish is technically suitable
 	    private FMOD_CustomEmitter _emitter;
 	    private float _inventoryTimer = -1;
 	    private float _worldTimer = -1;
+	    private Random _random;
 
 	    private void Awake()
 	    {
 		    if (_inventoryTimer != -1) return;
 
+		    _random = new Random(GetInstanceID());
+
 		    _pickupable = GetComponent<Pickupable>();
 		    _emitter = gameObject.AddComponent<FMOD_CustomEmitter>();
 		    _emitter.followParent = true;
-		    _inventoryTimer = UnityEngine.Random.Range(SchizoPlugin.config.MinInventoryNoiseDelay, SchizoPlugin.config.MaxInventoryNoiseDelay);
-		    _worldTimer = UnityEngine.Random.Range(SchizoPlugin.config.MinWorldNoiseDelay, SchizoPlugin.config.MaxWorldNoiseDelay);
+
+		    _inventoryTimer = _random.Next(SchizoPlugin.config.MinInventoryNoiseDelay, SchizoPlugin.config.MaxInventoryNoiseDelay);
+		    _worldTimer = _random.Next(SchizoPlugin.config.MinWorldNoiseDelay, SchizoPlugin.config.MaxWorldNoiseDelay);
 	    }
 
 	    public void Update()
@@ -260,7 +265,7 @@ Assessment: Experimental results have shown that Ermfish is technically suitable
 
 		    if (_inventoryTimer < 0)
 		    {
-			    _inventoryTimer = UnityEngine.Random.Range(SchizoPlugin.config.MinInventoryNoiseDelay, SchizoPlugin.config.MaxInventoryNoiseDelay);
+			    _inventoryTimer = _random.Next(SchizoPlugin.config.MinInventoryNoiseDelay, SchizoPlugin.config.MaxInventoryNoiseDelay);
 				Ermfish.randomSounds.Play();
 		    }
 	    }
@@ -273,7 +278,7 @@ Assessment: Experimental results have shown that Ermfish is technically suitable
 
 		    if (_worldTimer < 0)
 		    {
-			    _worldTimer = UnityEngine.Random.Range(SchizoPlugin.config.MinWorldNoiseDelay, SchizoPlugin.config.MaxWorldNoiseDelay);
+			    _worldTimer = _random.Next(SchizoPlugin.config.MinWorldNoiseDelay, SchizoPlugin.config.MaxWorldNoiseDelay);
 			    Ermfish.ambientSounds.Play(_emitter);
 		    }
 	    }
