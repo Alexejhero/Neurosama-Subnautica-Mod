@@ -5,7 +5,7 @@ namespace SCHIZO.Ermshark;
 public sealed class Ermshark : Creature, IOnTakeDamage
 {
     private bool isReal = true;
-    public int mitosisRemaining = 1; // 2^4 = 16 max ermsharks from one single spawn
+    public int mitosisRemaining = 4; // 2^4 = 16 max ermsharks from one single spawn
 
     public void OnTakeDamage(DamageInfo damageInfo)
     {
