@@ -1,65 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B37C5667-2245-47BC-B268-AA7D2FE105FE}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>SCHIZO</RootNamespace>
-    <AssemblyName>SCHIZO</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup>
-    <NoWarn>$(NoWarn);Publicizer001</NoWarn>
-  </PropertyGroup>
-  <ItemGroup>
-    <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Buildables.cs" />
-    <Compile Include="Config.cs" />
-    <Compile Include="Ermfish.cs" />
-    <Compile Include="HullPlates.cs" />
-    <Compile Include="LocalSoundCollection.cs" />
-    <Compile Include="SchizoPlugin.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SoundCollection.cs" />
-    <Compile Include="TextureUtils.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
-    <PackageReference Include="BepInEx.Core" Version="5.4.21" />
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
-    <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" IncludeAssets="compile" />
-    <PackageReference Include="Subnautica.GameLibs" Version="49371.0.0.1-r.0" />
-    <PackageReference Include="Subnautica.Nautilus" Version="1.*-*" PrivateAssets="all" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\ECCLibrary\ECCLibrary.dll" />
-    <Reference Include="C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\FMODUnity.dll" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Version>1.0.0</Version>
+        <Authors>Alexejhero</Authors>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/Alexejhero/Vedal-Subnautica-Mod</RepositoryUrl>
+
+        <NoWarn>$(NoWarn);Publicizer001</NoWarn>
+
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <DebugType>embedded</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+        <TargetFramework>net472</TargetFramework>
+        <LangVersion>preview</LangVersion>
+        <Configurations>Debug;Release</Configurations>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+        <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" IncludeAssets="compile" />
+        <PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0" />
+
+        <PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
+        <PackageReference Include="BepInEx.AutoPlugin" Version="1.1.0" PrivateAssets="all" />
+        <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.20" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\ECCLibrary\ECCLibrary.dll" />
+        <Reference Include="C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\FMODUnity.dll" />
+    </ItemGroup>
 </Project>
