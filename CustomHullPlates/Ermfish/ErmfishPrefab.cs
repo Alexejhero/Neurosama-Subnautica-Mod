@@ -9,9 +9,9 @@ using Object = UnityEngine.Object;
 
 namespace SCHIZO.Ermfish;
 
-public class Ermfish : CreatureAsset
+public class ErmfishPrefab : CreatureAsset
 {
-	public Ermfish(PrefabInfo prefabInfo) : base(prefabInfo)
+	public ErmfishPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
 	{
 	}
 
@@ -19,16 +19,25 @@ public class Ermfish : CreatureAsset
 	{
 		const float swimVelocity = 8f;
 
-		CreatureTemplate template = new(GetModel(), BehaviourType.SmallFish, EcoTargetType.Peeper, float.MaxValue);
-		CreatureTemplateUtils.SetCreatureDataEssentials(template, LargeWorldEntity.CellLevel.Medium, 10, bioReactorCharge: 420);
-		CreatureTemplateUtils.SetCreatureMotionEssentials(template, new SwimRandomData(0.2f, swimVelocity, new Vector3(20, 5, 20)), new StayAtLeashData(0.6f, swimVelocity * 1.25f, 14f));
-		CreatureTemplateUtils.SetPreyEssentials(template, swimVelocity, new PickupableFishData(TechType.Floater, "WM", "VM"), new EdibleData(13, -7, false, 1f));
-		template.ScannerRoomScannable = true;
-		template.CanBeInfected = false;
-		template.AvoidObstaclesData = new AvoidObstaclesData(1f, swimVelocity, false, 5f, 5f);
-		template.SizeDistribution = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 1f));
-		template.AnimateByVelocityData = new AnimateByVelocityData(swimVelocity);
-		template.SwimInSchoolData = new SwimInSchoolData(0.5f, swimVelocity, 2f, 0.5f, 1f, 0.1f, 25f);
+		CreatureTemplate template = new(GetModel(), BehaviourType.SmallFish, EcoTargetType.Peeper, float.MaxValue)
+		{
+			CellLevel = LargeWorldEntity.CellLevel.Medium,
+			Mass = 10,
+			BioReactorCharge = 420,
+			EyeFOV = 0,
+			SwimRandomData = new SwimRandomData(0.2f, swimVelocity, new Vector3(20, 5, 20)),
+			StayAtLeashData = new StayAtLeashData(0.6f, swimVelocity * 1.25f, 14f),
+			ScareableData = new ScareableData(),
+			FleeWhenScaredData = new FleeWhenScaredData(0.8f, swimVelocity),
+			PickupableFishData = new PickupableFishData(TechType.Floater, "WM", "VM"),
+			EdibleData = new EdibleData(13, -7, false, 1f),
+			ScannerRoomScannable = true,
+			CanBeInfected = false,
+			AvoidObstaclesData = new AvoidObstaclesData(1f, swimVelocity, false, 5f, 5f),
+			SizeDistribution = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 1f)),
+			AnimateByVelocityData = new AnimateByVelocityData(swimVelocity),
+			SwimInSchoolData = new SwimInSchoolData(0.5f, swimVelocity, 2f, 0.5f, 1f, 0.1f, 25f),
+		};
 		template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.1f, 0.5f, 1f, 1.5f, true, true, ClassID));
 
 		return template;

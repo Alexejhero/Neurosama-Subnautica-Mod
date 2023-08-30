@@ -52,7 +52,7 @@ public static class ErmfishLoader
 
     private static void LoadErmfish()
     {
-		Ermfish creature = new(ErmfishTypes.Regular);
+		ErmfishPrefab creature = new(ErmfishTypes.Regular);
 		creature.PrefabInfo.WithIcon(AssetLoader.GetAtlasSprite("erm.png"));
 		creature.Register();
 

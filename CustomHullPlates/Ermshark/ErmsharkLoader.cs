@@ -1,4 +1,5 @@
 ﻿using Nautilus.Assets;
+using SCHIZO.Ermfish;
 
 namespace SCHIZO.Ermshark;
 
@@ -6,6 +7,6 @@ public static class ErmsharkLoader
 {
     public static void Load()
     {
-        new Ermshark(PrefabInfo.WithTechType("ermshark", "Ermshark", "erm")).Register();
+        new ErmsharkPrefab(ErmsharkData.Info).Register();
     }
 }
