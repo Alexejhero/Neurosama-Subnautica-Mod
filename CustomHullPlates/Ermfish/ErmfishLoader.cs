@@ -37,17 +37,17 @@ public static class ErmfishLoader
 
     private static void LoadSounds()
     {
-        CraftSounds = new SoundCollection(Path.Combine(AssetLoader.AssetsFolder, "sounds", "cooking"), AudioUtils.BusPaths.PDAVoice);
-        DropSounds = new LocalSoundCollection(Path.Combine(AssetLoader.AssetsFolder, "sounds", "release"), AudioUtils.BusPaths.PDAVoice);
-        EatSounds = new SoundCollection(Path.Combine(AssetLoader.AssetsFolder, "sounds", "eating"), AudioUtils.BusPaths.PDAVoice);
-        EquipSounds = new SoundCollection(Path.Combine(AssetLoader.AssetsFolder, "sounds", "equipping"), AudioUtils.BusPaths.PDAVoice);
-        HurtSounds = new LocalSoundCollection(Path.Combine(AssetLoader.AssetsFolder, "sounds", "hurt"), AudioUtils.BusPaths.PDAVoice);
-        InventorySounds = new SoundCollection(Path.Combine(AssetLoader.AssetsFolder, "sounds", "noises"), AudioUtils.BusPaths.PDAVoice);
-        PickupSounds = new SoundCollection(Path.Combine(AssetLoader.AssetsFolder, "sounds", "pickup"), AudioUtils.BusPaths.PDAVoice);
-        PlayerDeathSounds = new SoundCollection(Path.Combine(AssetLoader.AssetsFolder, "sounds", "player_death"), "bus:/master/SFX_for_pause/nofilter");
-        ScanSounds = new SoundCollection(Path.Combine(AssetLoader.AssetsFolder, "sounds", "scan"), AudioUtils.BusPaths.PDAVoice);
-        UnequipSounds = new SoundCollection(Path.Combine(AssetLoader.AssetsFolder, "sounds", "unequipping"), AudioUtils.BusPaths.PDAVoice);
-        WorldSounds = new LocalSoundCollection(Path.Combine(AssetLoader.AssetsFolder, "sounds", "noises"), AudioUtils.BusPaths.UnderwaterCreatures);
+        CraftSounds = new SoundCollection("sounds/cooking", AudioUtils.BusPaths.PDAVoice);
+        DropSounds = new LocalSoundCollection("sounds/release", AudioUtils.BusPaths.PDAVoice);
+        EatSounds = new SoundCollection("sounds/eating", AudioUtils.BusPaths.PDAVoice);
+        EquipSounds = new SoundCollection("sounds/equipping", AudioUtils.BusPaths.PDAVoice);
+        HurtSounds = new LocalSoundCollection("sounds/hurt", AudioUtils.BusPaths.PDAVoice);
+        InventorySounds = new SoundCollection("sounds/noises", AudioUtils.BusPaths.PDAVoice);
+        PickupSounds = new SoundCollection("sounds/pickup", AudioUtils.BusPaths.PDAVoice);
+        PlayerDeathSounds = new SoundCollection("sounds/player_death", "bus:/master/SFX_for_pause/nofilter");
+        ScanSounds = new SoundCollection("sounds/scan", AudioUtils.BusPaths.PDAVoice);
+        UnequipSounds = new SoundCollection("sounds/unequipping", AudioUtils.BusPaths.PDAVoice);
+        WorldSounds = new LocalSoundCollection("sounds/noises", AudioUtils.BusPaths.UnderwaterCreatures);
     }
 
     private static void LoadErmfish()

@@ -15,8 +15,10 @@ public sealed class SoundCollection
 
     public float LastPlay { get; private set; } = -1;
 
-    public SoundCollection(string dirpath, string bus)
+    public SoundCollection(string path, string bus)
     {
+        string dirpath = Path.Combine(AssetLoader.AssetsFolder, path);
+
         foreach (string soundFile in Directory.GetFiles(dirpath))
         {
             string id = Guid.NewGuid().ToString();

@@ -31,7 +31,7 @@ public sealed class ErmfishNoises : MonoBehaviour
 
         if (Plugin.Config.DisableAllNoises) return;
 
-        if (!Inventory.main.Contains(_pickupable)) WorldUpdate();
+        if (!_pickupable || !Inventory.main.Contains(_pickupable)) WorldUpdate();
         else InventoryUpdate();
     }
 

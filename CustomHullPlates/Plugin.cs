@@ -16,7 +16,7 @@ public partial class Plugin : BaseUnityPlugin
 	private void Awake()
 	{
 		HullPlateLoader.Load();
-		BuildableLoader.Load();
+		BuildablesLoader.Load();
 		ErmfishLoader.Load();
 
 		Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
