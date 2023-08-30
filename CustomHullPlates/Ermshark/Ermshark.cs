@@ -2,21 +2,28 @@
 
 namespace SCHIZO.Ermshark;
 
-public sealed class Ermshark : Creature
+public sealed class Ermshark : Creature, IOnTakeDamage
 {
-    private new void OnDisable()
-    {
-        base.OnDisable();
+    private bool isReal = true;
 
-        for (int i = 0; i < 2; i++)
-        {
-            GameObject child = Instantiate(ErmsharkData.Prefab, transform.position + Random.insideUnitSphere * 2, Quaternion.identity);
-            child.transform.GetChild(0).localScale = transform.GetChild(0).localScale * 0.75f;
-            LargeWorldEntity.Register(child);
-            CrafterLogic.NotifyCraftEnd(child, ErmsharkData.Info.TechType);
-            child.SendMessage("StartConstruction", SendMessageOptions.DontRequireReceiver);
-        }
+    public void OnTakeDamage(DamageInfo damageInfo)
+    {
+        if (liveMixin.health > 0) return;
+
+        GameObject firstChild = Instantiate(ErmsharkData.Prefab, transform.position + Random.insideUnitSphere * 2, Quaternion.identity);
+        firstChild.transform.GetChild(0).localScale = transform.GetChild(0).localScale * 0.65f;
+        if (!isReal) MarkFake(firstChild);
+
+        GameObject secondChild = Instantiate(ErmsharkData.Prefab, transform.position + Random.insideUnitSphere * 2, Quaternion.identity);
+        secondChild.transform.GetChild(0).localScale = transform.GetChild(0).localScale * 0.65f;
+        MarkFake(secondChild);
 
         Destroy(gameObject);
+    }
+
+    private static void MarkFake(GameObject child)
+    {
+        child.GetComponentInChildren<Ermshark>(true).isReal = false;
+        Destroy(child.GetComponentInChildren<LargeWorldEntity>());
     }
 }
