@@ -1,7 +1,4 @@
-﻿using Nautilus.Assets;
-using SCHIZO.Ermfish;
-
-namespace SCHIZO.Ermshark;
+﻿namespace SCHIZO.Ermshark;
 
 public static class ErmsharkLoader
 {
