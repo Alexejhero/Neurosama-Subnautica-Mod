@@ -27,7 +27,7 @@ public class Ermfish : CreatureAsset
 		template.CanBeInfected = false;
 		template.AvoidObstaclesData = new AvoidObstaclesData(1f, swimVelocity, false, 5f, 5f);
 		template.SizeDistribution = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 1f));
-		template.AnimateByVelocityData = new AnimateByVelocityData(3f);
+		template.AnimateByVelocityData = new AnimateByVelocityData(swimVelocity);
 		template.SwimInSchoolData = new SwimInSchoolData(0.5f, swimVelocity, 2f, 0.5f, 1f, 0.1f, 25f);
 		template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.1f, 0.5f, 1f, 1.5f, true, true, ClassID));
 

@@ -4,6 +4,7 @@ using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Buildables;
 using SCHIZO.Ermfish;
+using SCHIZO.Ermshark;
 using SCHIZO.HullPlates;
 
 namespace SCHIZO;
@@ -18,6 +19,7 @@ public partial class Plugin : BaseUnityPlugin
 		HullPlateLoader.Load();
 		BuildablesLoader.Load();
 		ErmfishLoader.Load();
+		ErmsharkLoader.Load();
 
 		Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 	}
