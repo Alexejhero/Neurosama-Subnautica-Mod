@@ -77,7 +77,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
 
         for (int i = 0; i < 4; i++)
         {
-            var tail = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            GameObject tail = GameObject.CreatePrimitive(PrimitiveType.Cube);
             tail.name = "TailSegment_phys";
             GameObject.DestroyImmediate(tail.GetComponent<Collider>());
             tail.transform.parent = parent;

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace SCHIZO.Events;
+
 public class CustomEventManager : MonoBehaviour
 {
     public CustomEventManager main;
@@ -14,30 +16,31 @@ public class CustomEventManager : MonoBehaviour
         DevConsole.RegisterConsoleCommand(this, "event");
     }
 
-    public void AddEvent<T>(string name = null)
+    public void AddEvent<T>(string eventName = null)
         where T : ICustomEvent, new()
     {
-        name ??= new T().Name;
-        if (Events.ContainsKey(name))
+        eventName ??= new T().Name;
+        if (Events.ContainsKey(eventName))
         {
-            Debug.LogError($"Event {name} already registered");
+            Debug.LogError($"Event {eventName} already registered");
             return;
         }
-        var evt = typeof(T);
-        Events.Add(name, evt);
+        Type evt = typeof(T);
+        Events.Add(eventName, evt);
         gameObject.EnsureComponent(evt);
     }
 
-    public void RemoveEvent(string name)
+    public void RemoveEvent(string eventName)
     {
-        if (Events.TryGetValue(name, out var eventType))
+        if (Events.TryGetValue(eventName, out Type eventType))
         {
-            Events.Remove(name);
-            var comp = gameObject.GetComponent(eventType);
+            Events.Remove(eventName);
+            Component comp = gameObject.GetComponent(eventType);
             Destroy(comp);
         }
     }
 
+    [UsedImplicitly]
     private void OnConsoleCommand_event(NotificationCenter.Notification n)
     {
         if (n?.data?.Count is null or 0)
@@ -45,46 +48,50 @@ public class CustomEventManager : MonoBehaviour
             ErrorMessage.AddDebug($"Events: {string.Join(", ", Events.Keys)}");
             return;
         }
-        string eventName = n.data[0] as string;
-        if (!Events.TryGetValue(eventName, out var eventType))
+
+        string eventName = (string) n.data[0];
+        if (!Events.TryGetValue(eventName, out Type eventType))
         {
             ErrorMessage.AddDebug($"Event '{eventName}' not found, use \"event\" to list events");
             return;
         }
-        var eventComp = gameObject.GetComponent(eventType);
+
+        Component eventComp = gameObject.GetComponent(eventType);
         if (eventComp is not ICustomEvent evt)
         {
             Debug.LogError($"Event '{eventName}' has component of wrong type");
             return;
         }
+
         if (n.data.Count == 1)
         {
             ErrorMessage.AddDebug($"Event '{eventName}' is {(evt.IsOccurring ? "" : "not ")}occurring");
             return;
         }
-        var startOrEndArg = n.data[1] as string;
+
+        string startOrEndArg = (string) n.data[1];
         bool? isStartMaybe = startOrEndArg switch
         {
-            "start" or "1" or "on" => true,
-            "end" or "0" or "off" => false,
+            "start" or "1" or "on" or "true" => true,
+            "end" or "0" or "off" or "false" => false,
             _ => null
         };
-        if (isStartMaybe is bool isStart)
-        {
-            if (evt.IsOccurring == isStart)
-            {
-                ErrorMessage.AddDebug($"Event '{eventName}' is already {(evt.IsOccurring ? "" : "not ")}occurring");
-                return;
-            }
-            if (isStart)
-                evt.StartEvent();
-            else
-                evt.EndEvent();
-            ErrorMessage.AddDebug($"Event '{eventName}' {(isStart ? "start" : "end")}ed");
-        }
-        else
+        if (isStartMaybe is not bool isStart)
         {
             ErrorMessage.AddDebug("Syntax: event [name] [start|end]");
+            return;
         }
+
+        if (evt.IsOccurring == isStart)
+        {
+            ErrorMessage.AddDebug($"Event '{eventName}' is already {(evt.IsOccurring ? "" : "not ")}occurring");
+            return;
+        }
+
+        if (isStart)
+            evt.StartEvent();
+        else
+            evt.EndEvent();
+        ErrorMessage.AddDebug($"Event '{eventName}' {(isStart ? "start" : "end")}ed");
     }
 }

@@ -7,26 +7,27 @@ namespace SCHIZO.Events
 {
     public sealed class ErmMoonEvent : MonoBehaviour, ICustomEvent
     {
-        private static uSkyManager _skyManager;
-        private static Texture2D _normalMoonTex;
-        private static Texture2D _readableMoonTex;
-        private static Texture2D _ermTex;
-        private static Texture2D _ermMoonTex;
-        private static float _normalMoonSize;
+        private uSkyManager _skyManager;
+        private Texture2D _normalMoonTex;
+        private Texture2D _readableMoonTex;
+        private Texture2D _ermTex;
+        private Texture2D _ermMoonTex;
+        private float _normalMoonSize;
 
-        public static string EventName => "ErmMoon";
-        public string Name => EventName;
+        public string Name => "ErmMoon";
         public bool IsOccurring { get; set; }
-        
+
         private float ermMoonSize;
         public double DayLastOccurred = 0;
+
         /// <summary>
         /// Whether the event will occur on the next night, rolled each morning based on <see cref="Config.MoonEventFrequency"/>
         /// </summary>
-        public bool WillOccurTonight;
-        
+
+        private bool _hasRolled = false;
+
         // these messages are mostly placeholders
-        public List<string> StartMessages { get; } = new List<string>
+        private List<string> StartMessages { get; } = new()
         {
             "You are being watched.",
             "You feel an evil presence watching you...",
@@ -40,7 +41,7 @@ namespace SCHIZO.Events
             "", // surprise
         };
         // especially these
-        public List<string> EndMessages { get; } = new List<string>
+        private List<string> EndMessages { get; } = new()
         {
             "You are spared today.",
             "Its influence wanes.",
@@ -52,49 +53,45 @@ namespace SCHIZO.Events
         private void Awake()
         {
             _skyManager = FindObjectOfType<uSkyManager>();
-            
+
             _normalMoonSize = _skyManager.MoonSize;
             ermMoonSize = _normalMoonSize * 2;
-            
+
             _ermTex = AssetLoader.GetTexture("erm.png");
             _ermTex = _ermTex.Rotate180(); // moon texture is upside down
             _ermTex.name = "erm";
 
             _normalMoonTex = _skyManager.MoonTexture;
             _readableMoonTex = _normalMoonTex.GetReadable();
-            
+
             _ermMoonTex = TextureUtils.BlendAlpha(_readableMoonTex, _ermTex, 0.30f, true);
             _ermMoonTex.wrapMode = _normalMoonTex.wrapMode;
             _ermMoonTex.Apply(false, true); // send to gpu
             _ermMoonTex.name = _normalMoonTex.name + "_erm";
-            
+
             DayNightCycle.main.dayNightCycleChangedEvent.AddHandler(this, (isDay) =>
             {
-                if (isDay)
-                    Roll();
+                if (isDay) _hasRolled = false;
             });
         }
 
-        private void Roll()
+        private bool ShouldStartEvent()
         {
             float eventFrequency = Plugin.Config.MoonEventFrequency;
-            if (eventFrequency == 0)
-                WillOccurTonight = false;
-            else
-            {
-                var roll = UnityEngine.Random.Range(0f, 1f);
-                var cooldownDays = 9 / eventFrequency;
-                var chancePerNight = math.pow(0.789f, 10f - eventFrequency);
-                
-                // pity system/"pseudo"-random roll
-                float daysSinceLast = (float)DaysSinceLastOccurred();
-                if (daysSinceLast > 2*cooldownDays)
-                    chancePerNight *= (daysSinceLast / cooldownDays)-1;
+            if (eventFrequency == 0) return false;
 
-                //Debug.LogWarning($"cd={cooldownDays},daysSinceLast={daysSinceLast:F2},chance={chancePerNight:F3},roll={roll:F3}");
-                WillOccurTonight = daysSinceLast > cooldownDays
-                    && roll < chancePerNight;
-            }
+            float roll = UnityEngine.Random.Range(0f, 1f);
+            float cooldownDays = 9 / eventFrequency;
+            float chancePerNight = Mathf.Pow(0.789f, 10f - eventFrequency);
+
+            // pity system/"pseudo"-random roll
+            float daysSinceLast = (float) DaysSinceLastOccurred();
+            if (daysSinceLast > 2 * cooldownDays)
+                chancePerNight *= (daysSinceLast / cooldownDays) - 1;
+
+            //Debug.LogWarning($"cd={cooldownDays},daysSinceLast={daysSinceLast:F2},chance={chancePerNight:F3},roll={roll:F3}");
+            return daysSinceLast > cooldownDays
+                   && roll < chancePerNight;
         }
 
         // controls the moon size cycle
@@ -102,15 +99,15 @@ namespace SCHIZO.Events
         private const float maxMoonSizeMulti = 4;
         private void Update()
         {
-            var day = (float)GetCurrentDay();
-            var dayFraction = DayNightUtils.dayScalar;
+            float day = (float)GetCurrentDay();
+            float dayFraction = DayNightUtils.dayScalar;
 
             // refactor into a separate DayNightUtils if you need these anywhere else
             // docs for day/night cycle - .125 is night->day, .875 is day->night
             // moon appears a bit before and disappears a bit after
-            var isMorning = dayFraction is > 0.14f and < 0.15f;
+            bool isMorning = dayFraction is > 0.14f and < 0.15f;
             //var isDay = dayFraction is >0.15f and <0.85f;
-            var isEvening = dayFraction is > 0.85f and < 0.87f;
+            bool isEvening = dayFraction is > 0.85f and < 0.87f;
             //var isNight = dayFraction is >0.87f or <0.14f;
 
             if (IsOccurring)
@@ -122,8 +119,11 @@ namespace SCHIZO.Events
                 return;
             }
 
-            if (WillOccurTonight && isEvening && !IsOccurring)
-                StartEvent();
+            if (isEvening && !_hasRolled)
+            {
+                _hasRolled = true;
+                if (ShouldStartEvent()) StartEvent();
+            }
         }
 
         private void OnDisable()
@@ -141,6 +141,7 @@ namespace SCHIZO.Events
             //Debug.Log($"Started {EventName} on day {GetCurrentDay()}");
             //DevConsole.SendConsoleCommand("daynightspeed 1");
         }
+
         public void EndEvent()
         {
             if (IsOccurring)
@@ -156,14 +157,16 @@ namespace SCHIZO.Events
         {
             _skyManager.SkyboxMaterial.SetTexture(ShaderPropertyID._MoonSampler, isVisible ? _ermMoonTex : _normalMoonTex);
         }
+
         private void UpdateErmMoon(float size)
         {
             _skyManager.SkyboxMaterial.SetFloat(ShaderPropertyID._MoonSize, size);
         }
 
-        private double GetCurrentDay()
-            => DayNightCycle.main.GetDay();
         private double DaysSinceLastOccurred()
             => GetCurrentDay() - DayLastOccurred;
+
+        private static double GetCurrentDay()
+            => DayNightCycle.main.GetDay();
     }
 }

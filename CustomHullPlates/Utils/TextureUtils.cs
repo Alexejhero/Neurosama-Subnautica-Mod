@@ -94,7 +94,7 @@ public static class TextureUtils
         Color[] original = originalTexture.GetPixels();
         Color[] rotated = new Color[original.Length];
 
-        for (var i = 0; i < original.Length; i++)
+        for (int i = 0; i < original.Length; i++)
             rotated[original.Length-1-i] = original[i];
 
         Texture2D rotatedTexture = new Texture2D(originalTexture.height, originalTexture.width);
