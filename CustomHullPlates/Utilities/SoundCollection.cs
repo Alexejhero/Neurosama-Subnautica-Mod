@@ -5,7 +5,7 @@ using System.IO;
 using Nautilus.Handlers;
 using UnityEngine;
 
-namespace SCHIZO.Creatures.Ermfish;
+namespace SCHIZO.Utilities;
 
 public sealed class SoundCollection
 {
@@ -17,7 +17,7 @@ public sealed class SoundCollection
 
     public SoundCollection(string path, string bus)
     {
-        string dirpath = Path.Combine(AssetLoader.AssetsFolder, path);
+        string dirpath = Path.Combine(AssetLoader.AssetsFolder, "sounds", path);
 
         foreach (string soundFile in Directory.GetFiles(dirpath))
         {

@@ -8,6 +8,7 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Utilities;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
@@ -36,17 +37,17 @@ public static class ErmfishLoader
 
     private static void LoadSounds()
     {
-        CraftSounds = new SoundCollection("sounds/cooking", AudioUtils.BusPaths.PDAVoice);
-        DropSounds = new LocalSoundCollection("sounds/release", AudioUtils.BusPaths.PDAVoice);
-        EatSounds = new SoundCollection("sounds/eating", AudioUtils.BusPaths.PDAVoice);
-        EquipSounds = new SoundCollection("sounds/equipping", AudioUtils.BusPaths.PDAVoice);
-        HurtSounds = new LocalSoundCollection("sounds/hurt", AudioUtils.BusPaths.PDAVoice);
-        InventorySounds = new SoundCollection("sounds/noises", AudioUtils.BusPaths.PDAVoice);
-        PickupSounds = new SoundCollection("sounds/pickup", AudioUtils.BusPaths.PDAVoice);
-        PlayerDeathSounds = new SoundCollection("sounds/player_death", "bus:/master/SFX_for_pause/nofilter");
-        ScanSounds = new SoundCollection("sounds/scan", AudioUtils.BusPaths.PDAVoice);
-        UnequipSounds = new SoundCollection("sounds/unequipping", AudioUtils.BusPaths.PDAVoice);
-        WorldSounds = new LocalSoundCollection("sounds/noises", AudioUtils.BusPaths.UnderwaterCreatures);
+        CraftSounds = new SoundCollection("cooking", AudioUtils.BusPaths.PDAVoice);
+        DropSounds = new LocalSoundCollection("release", AudioUtils.BusPaths.PDAVoice);
+        EatSounds = new SoundCollection("eating", AudioUtils.BusPaths.PDAVoice);
+        EquipSounds = new SoundCollection("equipping", AudioUtils.BusPaths.PDAVoice);
+        HurtSounds = new LocalSoundCollection("hurt", AudioUtils.BusPaths.PDAVoice);
+        InventorySounds = new SoundCollection("noises", AudioUtils.BusPaths.PDAVoice);
+        PickupSounds = new SoundCollection("pickup", AudioUtils.BusPaths.PDAVoice);
+        PlayerDeathSounds = new SoundCollection("player_death", "bus:/master/SFX_for_pause/nofilter");
+        ScanSounds = new SoundCollection("scan", AudioUtils.BusPaths.PDAVoice);
+        UnequipSounds = new SoundCollection("unequipping", AudioUtils.BusPaths.PDAVoice);
+        WorldSounds = new LocalSoundCollection("noises", AudioUtils.BusPaths.UnderwaterCreatures);
     }
 
     private static void LoadErmfish()
@@ -82,8 +83,8 @@ public static class ErmfishLoader
 		List<LootDistributionData.BiomeData> biomes = new();
 		foreach (BiomeType biome in Enum.GetValues(typeof(BiomeType)).Cast<BiomeType>())
 		{
-			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.1f });
-			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 10, probability = 0.05f });
+			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.025f });
+			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 5, probability = 0.010f });
 		}
 		LootDistributionHandler.AddLootDistributionData(creature.ClassID, creature.PrefabInfo.PrefabFileName, biomes.ToArray());
 

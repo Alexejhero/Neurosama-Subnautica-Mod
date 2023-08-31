@@ -1,5 +1,6 @@
 ﻿using Nautilus.Crafting;
 using SCHIZO.Creatures.Ermfish;
+using SCHIZO.Utilities;
 using UnityEngine;
 
 namespace SCHIZO.Buildables;
@@ -16,7 +17,7 @@ public static class BuildablesLoader
 		DisabledParent.gameObject.SetActive(false);
 		GameObject.DontDestroyOnLoad(DisabledParent);
 
-		ErmWorldSounds = new LocalSoundCollection("sounds/noises", "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds");
+		ErmWorldSounds = new LocalSoundCollection("noises", "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds");
 
 		new BuildablePrefab("VedalTurtle", "Tutel", "<size=75%>(Model by FutabaKuuhaku)</size>")
 		{
@@ -78,7 +79,7 @@ public static class BuildablesLoader
 		new BuildablePrefab("NeuroFumo2", "Neuro fumo", "Fumo collection 2/2\n<size=75%>(Model by Kat)</size>")
 		{
 			AssetBundleName = "neurofumo2",
-			IconFileName = "neurofumo.png",
+			IconFileName = "neurofumo2.png",
 			Recipe = new RecipeData(new CraftData.Ingredient(TechType.CopperWire), new CraftData.Ingredient(TechType.Silicone, 2), new CraftData.Ingredient(TechType.JeweledDiskPiece, 2), new CraftData.Ingredient(TechType.Gold)),
 			PrefabName = "neurofumo2",
 			TechGroup = TechGroup.Miscellaneous,

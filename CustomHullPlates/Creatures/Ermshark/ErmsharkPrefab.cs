@@ -73,8 +73,8 @@ public sealed class ErmsharkPrefab : CreatureAsset
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
-        // GameObject mouth = prefab.SearchChild("attack_collider");
-        // CreaturePrefabUtils.AddMeleeAttack<MeleeAttack>(prefab, components, mouth, true, 15);
+        GameObject mouth = prefab.SearchChild("attack_collider");
+        CreaturePrefabUtils.AddMeleeAttack<MeleeAttack>(prefab, components, mouth, true, 15);
 
         ErmsharkData.Prefab = prefab;
 
