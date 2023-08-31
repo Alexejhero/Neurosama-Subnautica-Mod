@@ -1,5 +1,5 @@
 ﻿using Nautilus.Crafting;
-using SCHIZO.Ermfish;
+using SCHIZO.Creatures.Ermfish;
 using UnityEngine;
 
 namespace SCHIZO.Buildables;
@@ -63,7 +63,7 @@ public static class BuildablesLoader
 			}
 		}.Register();
 
-		new BuildablePrefab("NeuroFumo", "Neuro fumo", "<size=75%>(Model by YuG)</size>")
+		new BuildablePrefab("NeuroFumo", "Low-poly Neuro fumo", "Fumo collection 1/2\n<size=75%>(Model by YuG)</size>")
 		{
 			AssetBundleName = "neurofumo",
 			IconFileName = "neurofumo.png",
@@ -73,6 +73,17 @@ public static class BuildablesLoader
 			TechCategory = TechCategory.Misc,
 			PrefabRotationEuler = new Vector3(0, 180, 180),
 			PrefabScaleMultiplier = 0.3f,
+		}.Register();
+
+		new BuildablePrefab("NeuroFumo2", "Neuro fumo", "Fumo collection 2/2\n<size=75%>(Model by Kat)</size>")
+		{
+			AssetBundleName = "neurofumo2",
+			IconFileName = "neurofumo.png",
+			Recipe = new RecipeData(new CraftData.Ingredient(TechType.CopperWire), new CraftData.Ingredient(TechType.Silicone, 2), new CraftData.Ingredient(TechType.JeweledDiskPiece, 2), new CraftData.Ingredient(TechType.Gold)),
+			PrefabName = "neurofumo2",
+			TechGroup = TechGroup.Miscellaneous,
+			TechCategory = TechCategory.Misc,
+			PrefabScaleMultiplier = 0.1f,
 		}.Register();
 
 		new BuildablePrefab("Neuroopper", "Neurooper", "<size=75%>(Model by greencap, original art by Sandro)</size>")

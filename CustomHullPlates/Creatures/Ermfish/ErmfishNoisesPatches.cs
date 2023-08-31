@@ -3,7 +3,7 @@ using System.Linq;
 using HarmonyLib;
 using UnityEngine;
 
-namespace SCHIZO.Ermfish;
+namespace SCHIZO.Creatures.Ermfish;
 
 [HarmonyPatch]
 public static class ErmfishNoisesPatches

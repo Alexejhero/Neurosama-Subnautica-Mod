@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Random = System.Random;
 
-namespace SCHIZO.Ermfish;
+namespace SCHIZO.Creatures.Ermfish;
 
 public sealed class ErmfishNoises : MonoBehaviour
 {

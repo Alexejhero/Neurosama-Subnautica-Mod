@@ -4,6 +4,7 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
+using SCHIZO.Utilities;
 using UnityEngine;
 
 namespace SCHIZO.Buildables;
@@ -36,7 +37,7 @@ public sealed class BuildablePrefab : CustomPrefab
 
     private GameObject GetPrefab()
     {
-        GameObject prefab = AssetLoader.GetAssetBundle(AssetBundleName).LoadAsset<GameObject>(PrefabName);
+        GameObject prefab = AssetLoader.GetAssetBundle(AssetBundleName).LoadAssetSafe<GameObject>(PrefabName);
         GameObject instance = GameObject.Instantiate(prefab, BuildablesLoader.DisabledParent);
         PrefabUtils.AddBasicComponents(instance, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Medium);
 

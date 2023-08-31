@@ -3,8 +3,8 @@ using BepInEx;
 using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Buildables;
-using SCHIZO.Ermfish;
-using SCHIZO.Ermshark;
+using SCHIZO.Creatures.Ermfish;
+using SCHIZO.Creatures.Ermshark;
 using SCHIZO.HullPlates;
 
 namespace SCHIZO;

@@ -76,7 +76,7 @@ public class CustomEventManager : MonoBehaviour
             "end" or "0" or "off" or "false" => false,
             _ => null
         };
-        if (isStartMaybe is not bool isStart)
+        if (isStartMaybe is not { } isStart)
         {
             ErrorMessage.AddDebug("Syntax: event [name] [start|end]");
             return;

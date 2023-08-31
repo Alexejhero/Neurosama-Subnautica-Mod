@@ -1,4 +1,4 @@
-﻿namespace SCHIZO.Ermshark;
+﻿namespace SCHIZO.Creatures.Ermshark;
 
 public static class ErmsharkLoader
 {

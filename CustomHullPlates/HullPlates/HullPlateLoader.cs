@@ -7,7 +7,7 @@ using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
 using Newtonsoft.Json;
-using SCHIZO.Utils;
+using SCHIZO.Utilities;
 using UnityEngine;
 
 namespace SCHIZO.HullPlates;

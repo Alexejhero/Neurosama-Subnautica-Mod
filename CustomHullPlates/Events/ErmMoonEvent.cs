@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SCHIZO.Utils;
+using SCHIZO.Utilities;
 using Unity.Mathematics;
 using UnityEngine;
 

@@ -1,5 +1,9 @@
 ﻿using Nautilus.Json;
 using Nautilus.Options.Attributes;
+using SCHIZO.Events;
+
+// ReSharper disable ConvertToConstant.Global
+// ReSharper disable FieldCanBeMadeReadOnly.Global
 
 namespace SCHIZO;
 
@@ -29,9 +33,9 @@ public sealed class Config : ConfigFile
 
     /// <summary>
     /// Inverse scaling for the cooldown/nightly chance of a <see cref="Events.ErmMoonEvent"/> occurring.<br/>
-    /// Scales approximately logarithmically. You can adjust the rates in <see cref="Events.ErmMoonEvent.Roll"/>
+    /// Scales approximately logarithmically. You can adjust the rates in <see cref="ErmMoonEvent.ShouldStartEvent"/>
     /// </summary>
     // 0 - never, 1 - every 10-30 days, 3 - every 4-9 days, 6 - every 3-5 days, 9 - almost every night, 10 - guaranteed
-    [Slider("Threat", 0, 10, DefaultValue = 3, Format = "{0:F0}", Step = 1)]
+    [Slider("(???) Threat", 0, 10, DefaultValue = 3, Format = "{0:F0}", Step = 1)]
     public float MoonEventFrequency = 3;
 }

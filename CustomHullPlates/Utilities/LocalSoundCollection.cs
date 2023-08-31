@@ -6,7 +6,7 @@ using FMOD;
 using Nautilus.Handlers;
 using UnityEngine;
 
-namespace SCHIZO.Ermfish;
+namespace SCHIZO.Creatures.Ermfish;
 
 public sealed class LocalSoundCollection
 {

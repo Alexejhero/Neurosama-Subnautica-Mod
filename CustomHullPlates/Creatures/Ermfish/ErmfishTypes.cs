@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Nautilus.Assets;
 
-namespace SCHIZO.Ermfish;
+namespace SCHIZO.Creatures.Ermfish;
 
 public static class ErmfishTypes
 {

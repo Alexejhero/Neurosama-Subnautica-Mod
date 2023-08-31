@@ -4,10 +4,11 @@ using ECCLibrary.Data;
 using ECCLibrary.Mono;
 using Nautilus.Assets;
 using Nautilus.Utility;
+using SCHIZO.Utilities;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace SCHIZO.Ermfish;
+namespace SCHIZO.Creatures.Ermfish;
 
 public class ErmfishPrefab : CreatureAsset
 {
@@ -56,7 +57,7 @@ public class ErmfishPrefab : CreatureAsset
 			}
 		};
 
-		GameObject erm = AssetLoader.GetAssetBundle("erm").LoadAsset<GameObject>("erm_fishes");
+		GameObject erm = AssetLoader.GetAssetBundle("erm").LoadAssetSafe<GameObject>("erm_fishes");
 		GameObject ermInstance = GameObject.Instantiate(erm, worldModel.transform, true);
 		ermInstance.transform.GetChild(0).localPosition = Vector3.zero;
 		ermInstance.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);

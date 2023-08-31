@@ -1,7 +1,7 @@
 ﻿using Nautilus.Assets;
 using UnityEngine;
 
-namespace SCHIZO.Ermshark;
+namespace SCHIZO.Creatures.Ermshark;
 
 public static class ErmsharkData
 {

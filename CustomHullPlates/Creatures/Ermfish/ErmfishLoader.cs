@@ -10,7 +10,7 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
 
-namespace SCHIZO.Ermfish;
+namespace SCHIZO.Creatures.Ermfish;
 
 public static class ErmfishLoader
 {

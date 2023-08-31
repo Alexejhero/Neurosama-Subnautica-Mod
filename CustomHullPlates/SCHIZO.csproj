@@ -29,4 +29,8 @@
         <Reference Include="C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\ECCLibrary\ECCLibrary.dll" />
         <Reference Include="C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\FMODUnity.dll" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Creatures\" />
+    </ItemGroup>
 </Project>

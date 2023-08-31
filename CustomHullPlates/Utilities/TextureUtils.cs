@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SCHIZO.Utils;
+namespace SCHIZO.Utilities;
 
 public static class TextureUtils
 {
