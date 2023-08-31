@@ -44,7 +44,7 @@ public static class GymbagLoader
         GameObject carryallModel = prefab.GetComponentInChildren<MeshRenderer>().gameObject;
         carryallModel.SetActive(false);
 
-        GameObject ourModel = AssetLoader.GetAssetBundle("gymbag").LoadAssetSafe<GameObject>("gymbag");
+        GameObject ourModel = AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("gymbag");
         GameObject instance = GameObject.Instantiate(ourModel, carryallModel.transform.parent);
 
         MaterialUtils.ApplySNShaders(instance);

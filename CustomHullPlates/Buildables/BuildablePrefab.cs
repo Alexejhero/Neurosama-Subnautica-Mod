@@ -15,10 +15,7 @@ public sealed class BuildablePrefab : CustomPrefab
     public TechGroup TechGroup { get; init; } = TechGroup.Uncategorized;
     public TechCategory TechCategory { get; init; }
     public RecipeData Recipe { get; init; }
-    public string AssetBundleName { get; init; }
     public string PrefabName { get; init; }
-    public Vector3 PrefabRotationEuler { get; init; } = Vector3.zero;
-    public float PrefabScaleMultiplier { get; init; } = 1;
     public Action<GameObject> ModifyPrefab { get; init; } = _ => { };
 
     [SetsRequiredMembers]
@@ -37,16 +34,14 @@ public sealed class BuildablePrefab : CustomPrefab
 
     private GameObject GetPrefab()
     {
-        GameObject prefab = AssetLoader.GetAssetBundle(AssetBundleName).LoadAssetSafe<GameObject>(PrefabName);
+        GameObject prefab = AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>(PrefabName);
         GameObject instance = GameObject.Instantiate(prefab, BuildablesLoader.DisabledParent);
         PrefabUtils.AddBasicComponents(instance, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Medium);
 
         Transform child = instance.transform.GetChild(0);
-        child.Rotate(PrefabRotationEuler.x, PrefabRotationEuler.y, PrefabRotationEuler.z);
 
         Constructable con = PrefabUtils.AddConstructable(instance, Info.TechType, ConstructableFlags.Outside | ConstructableFlags.Base | ConstructableFlags.Submarine | ConstructableFlags.AllowedOnConstructable | ConstructableFlags.Ground | ConstructableFlags.Inside, child.gameObject);
 
-        instance.transform.localScale *= PrefabScaleMultiplier;
         con.rotationEnabled = true;
 
         ModifyPrefab(instance);

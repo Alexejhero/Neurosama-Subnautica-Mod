@@ -15,7 +15,9 @@ public static class AssetLoader
     private static readonly Dictionary<string, Texture2D> _textureCache = new();
     private static readonly Dictionary<string, Atlas.Sprite> _atlasSpriteCache = new();
 
-    public static AssetBundle GetAssetBundle(string name)
+    public static AssetBundle GetMainAssetBundle() => GetAssetBundle("assets");
+
+    private static AssetBundle GetAssetBundle(string name)
     {
         if (_assetBundleCache.TryGetValue(name, out AssetBundle cached)) return cached;
         return _assetBundleCache[name] = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly.GetExecutingAssembly(), $"assetbundles/{name}")

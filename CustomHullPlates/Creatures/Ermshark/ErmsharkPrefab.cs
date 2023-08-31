@@ -58,7 +58,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
             }
         };
 
-        GameObject shark = AssetLoader.GetAssetBundle("ermshark").LoadAssetSafe<GameObject>("erm_shark");
+        GameObject shark = AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("erm_shark");
         GameObject sharkInstance = GameObject.Instantiate(shark, worldModel.transform, true);
         Transform child = sharkInstance.transform.GetChild(0);
         child.localScale *= 0.45f;

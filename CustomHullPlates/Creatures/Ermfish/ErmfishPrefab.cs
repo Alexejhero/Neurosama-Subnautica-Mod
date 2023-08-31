@@ -57,12 +57,10 @@ public class ErmfishPrefab : CreatureAsset
 			}
 		};
 
-		GameObject erm = AssetLoader.GetAssetBundle("erm").LoadAssetSafe<GameObject>("erm_fishes");
+		GameObject erm = AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("erm_fishes");
 		GameObject ermInstance = GameObject.Instantiate(erm, worldModel.transform, true);
 		ermInstance.transform.GetChild(0).localPosition = Vector3.zero;
-		ermInstance.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
-		ermInstance.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
-		ermInstance.transform.localScale *= 0.2f;
+		ermInstance.transform.localScale = Vector3.one * 0.2f;
 
 		GameObject viewModel = Object.Instantiate(worldModel, model.transform, true);
 		viewModel.name = "VM";
