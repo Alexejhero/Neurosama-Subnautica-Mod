@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6545657541904188755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8734106914099715241}
+  m_Layer: 0
+  m_Name: Neurofumo2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8734106914099715241
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6545657541904188755}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.228371, y: -1.9829012, z: -28.34497}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6510881641187214509}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7047664876931915882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6510881641187214509}
+  - component: {fileID: 1355581149197585892}
+  m_Layer: 0
+  m_Name: Neurofumo2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6510881641187214509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047664876931915882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_Children:
+  - {fileID: 7564847552704999669}
+  m_Father: {fileID: 8734106914099715241}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1355581149197585892
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047664876931915882}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.8707888, y: 4.105617, z: 3.0320394}
+  m_Center: {x: -0.010881305, y: 2.0998838, z: -0.027089953}
+--- !u!1001 &8030205905528919838
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6510881641187214509}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.4663545
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.062362
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.7340081
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8745814
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.48487875
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -4.3265682e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 4.326569e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c45e9b25134b8c44abe705f179978065, type: 2}
+    - target: {fileID: 919132149155446097, guid: b651ea472a831e34d84b2f21eb8a7125,
+        type: 3}
+      propertyPath: m_Name
+      value: Neurosama_fumo_with_texture
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b651ea472a831e34d84b2f21eb8a7125, type: 3}
+--- !u!4 &7564847552704999669 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b651ea472a831e34d84b2f21eb8a7125,
+    type: 3}
+  m_PrefabInstance: {fileID: 8030205905528919838}
+  m_PrefabAsset: {fileID: 0}
