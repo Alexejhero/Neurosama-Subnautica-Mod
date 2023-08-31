@@ -52,7 +52,7 @@ public static class GymbagPatches
 
         if (opener.CurrentOpenedRootGymbag != null && !opener.OpeningGymbag)
         {
-            opener.InventoryUGUI.items.GetOrDefault(opener.CurrentOpenedRootGymbag, null).SetChroma(1f);
+            opener.GetItemIcon(opener.CurrentOpenedRootGymbag)?.SetChroma(1f);
             opener.CurrentOpenedRootGymbag.isEnabled = true;
             opener.CurrentOpenedRootGymbag = null;
         }

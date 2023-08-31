@@ -59,8 +59,9 @@ public class ErmfishPrefab : CreatureAsset
 
 		GameObject erm = AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("erm_fishes");
 		GameObject ermInstance = GameObject.Instantiate(erm, worldModel.transform, true);
-		ermInstance.transform.GetChild(0).localPosition = Vector3.zero;
-		ermInstance.transform.localScale = Vector3.one * 0.2f;
+		Transform child = ermInstance.transform.GetChild(0);
+		child.localPosition = Vector3.zero;
+		child.localScale = Vector3.one * 0.2f;
 
 		GameObject viewModel = Object.Instantiate(worldModel, model.transform, true);
 		viewModel.name = "VM";

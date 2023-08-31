@@ -38,7 +38,7 @@ public static class GymbagLoader
     private static void ModifyPrefab(GameObject prefab)
     {
         StorageContainer container = prefab.GetComponentInChildren<StorageContainer>();
-        container.width = 5;
+        container.width = 4;
         container.height = 4;
 
         GameObject carryallModel = prefab.GetComponentInChildren<MeshRenderer>().gameObject;

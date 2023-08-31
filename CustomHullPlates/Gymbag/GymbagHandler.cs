@@ -38,15 +38,20 @@ public sealed class GymbagHandler : MonoBehaviour
             if (CurrentOpenedRootGymbag != null)
             {
                 CurrentOpenedRootGymbag.isEnabled = true;
-                InventoryUGUI.items[CurrentOpenedRootGymbag]?.SetChroma(1f);
+                GetItemIcon(CurrentOpenedRootGymbag)?.SetChroma(1f);
             }
 
             item.isEnabled = false;
-            InventoryUGUI.items[item]?.SetChroma(0f);
+            GetItemIcon(item)?.SetChroma(0f);
             CurrentOpenedRootGymbag = item;
         }
 
         FindObjectOfType<GameInput>().StartCoroutine(ResetCursor(cursorPosition));
+    }
+
+    public uGUI_ItemIcon GetItemIcon(InventoryItem item)
+    {
+        return InventoryUGUI.items.GetOrDefault(item, null);
     }
 
     private static bool PlayerInventoryContains(InventoryItem item)
