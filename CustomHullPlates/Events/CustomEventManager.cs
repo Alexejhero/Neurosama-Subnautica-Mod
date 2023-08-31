@@ -46,7 +46,6 @@ public class CustomEventManager : MonoBehaviour
             return;
         }
         string eventName = n.data[0] as string;
-        eventName = eventName?.ToLower();
         if (!Events.TryGetValue(eventName, out var eventType))
         {
             ErrorMessage.AddDebug($"Event '{eventName}' not found, use \"event\" to list events");

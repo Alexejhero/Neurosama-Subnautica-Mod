@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Nautilus.Assets;
 using SCHIZO.Utils;
 using Unity.Mathematics;
 using UnityEngine;
@@ -9,7 +8,6 @@ namespace SCHIZO.Events
     public sealed class ErmMoonEvent : MonoBehaviour, ICustomEvent
     {
         private static uSkyManager _skyManager;
-        private static PrefabInfo _ermPrefab;
         private static Texture2D _normalMoonTex;
         private static Texture2D _readableMoonTex;
         private static Texture2D _ermTex;
@@ -65,7 +63,7 @@ namespace SCHIZO.Events
             _normalMoonTex = _skyManager.MoonTexture;
             _readableMoonTex = _normalMoonTex.GetReadable();
             
-            _ermMoonTex = TextureUtils.BlendAlpha(_readableMoonTex, _ermTex, 0.30f);
+            _ermMoonTex = TextureUtils.BlendAlpha(_readableMoonTex, _ermTex, 0.30f, true);
             _ermMoonTex.wrapMode = _normalMoonTex.wrapMode;
             _ermMoonTex.Apply(false, true); // send to gpu
             _ermMoonTex.name = _normalMoonTex.name + "_erm";
@@ -99,7 +97,7 @@ namespace SCHIZO.Events
             }
         }
 
-        // one full cycle (scale 1->max->1) every 2*((multi-1)/timeScale) days
+        // controls the moon size cycle
         private const float moonSizeTimeScale = 0.5f;
         private const float maxMoonSizeMulti = 4;
         private void Update()
@@ -113,7 +111,7 @@ namespace SCHIZO.Events
             var isMorning = dayFraction is > 0.14f and < 0.15f;
             //var isDay = dayFraction is >0.15f and <0.85f;
             var isEvening = dayFraction is > 0.85f and < 0.87f;
-            //var isNight = dayFraction is >0.87f or <0.13f;
+            //var isNight = dayFraction is >0.87f or <0.14f;
 
             if (IsOccurring)
             {

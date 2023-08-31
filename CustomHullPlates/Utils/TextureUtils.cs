@@ -52,12 +52,8 @@ public static class TextureUtils
             Color aColor = a[i];
             Color bColor = b[i];
             float blendFactor = bColor.a * blend;
-            Color blendedColor = new Color(
-                aColor.r + (bColor.r * blendFactor),
-                aColor.g + (bColor.g * blendFactor),
-                aColor.b + (bColor.b * blendFactor),
-                aColor.a
-                );
+            Color blendedColor = aColor + (bColor * blendFactor);
+            blendedColor.a = aColor.a;
             result[i] = blendedColor;
         }
         return result;
@@ -89,7 +85,6 @@ public static class TextureUtils
 
         RenderTexture.active = prev;
         RenderTexture.ReleaseTemporary(tmp);
-
 
         return copy;
     }
