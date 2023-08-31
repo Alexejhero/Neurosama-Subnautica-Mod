@@ -5,6 +5,7 @@ using Nautilus.Handlers;
 using SCHIZO.Buildables;
 using SCHIZO.Creatures.Ermfish;
 using SCHIZO.Creatures.Ermshark;
+using SCHIZO.Gymbag;
 using SCHIZO.HullPlates;
 
 namespace SCHIZO;
@@ -20,6 +21,7 @@ public partial class Plugin : BaseUnityPlugin
 		BuildablesLoader.Load();
 		ErmfishLoader.Load();
 		ErmsharkLoader.Load();
+		GymbagLoader.Load();
 
 		Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 	}

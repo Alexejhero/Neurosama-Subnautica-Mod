@@ -31,8 +31,8 @@ public static class ErmfishLoader
     {
         LoadSounds();
         LoadErmfish();
-        LoadErmfishVariant(ErmfishTypes.Cooked, "erm_cooked.png", new RecipeData(new CraftData.Ingredient(ErmfishTypes.Regular.TechType)), 23, 4, true, "CookedFood", TechCategory.CookedFood, 2);
-        LoadErmfishVariant(ErmfishTypes.Cured, "erm_cured.png", new RecipeData(new CraftData.Ingredient(ErmfishTypes.Regular.TechType), new CraftData.Ingredient(TechType.Salt)), 23, -2, false, "CuredFood", TechCategory.CuredFood, 1);
+        LoadErmfishVariant(ErmfishTypes.Cooked, "erm_cooked.png", new RecipeData(new CraftData.Ingredient(ErmfishTypes.Regular.TechType)), 23, 4, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
+        LoadErmfishVariant(ErmfishTypes.Cured, "erm_cured.png", new RecipeData(new CraftData.Ingredient(ErmfishTypes.Regular.TechType), new CraftData.Ingredient(TechType.Salt)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
     }
 
     private static void LoadSounds()
@@ -78,6 +78,8 @@ public static class ErmfishLoader
 			Being in the vicinity of an Ermfish may cause auditory hallucinations that cannot be reproduced on audio recordings. The effect is magnified proportionally to the number of Ermfish present. Long-term effects are uncertain, but it is speculated that it may cause irreversible damage to the exposed individual.
 
 			Assessment: Experimental results have shown that Ermfish is technically suitable for human consumption. However, high mental fortitude is required to go to such desperate lengths.
+			
+			<size=75%>(Databank art by CJMAXiK)</size>
 			""", 5, databankTexture, unlockSprite);
 
 		List<LootDistributionData.BiomeData> biomes = new();
@@ -91,14 +93,14 @@ public static class ErmfishLoader
 		ItemActionHandler.RegisterMiddleClickAction(creature.PrefabInfo.TechType, _ => InventorySounds.Play(), "pull ahoge", "English");
     }
 
-    private static void LoadErmfishVariant(PrefabInfo info, string iconPath, RecipeData recipe, float foodValue, float waterValue, bool decomposes, string survivalCraftingTab, TechCategory techCategory, int childModelIndex)
+    private static void LoadErmfishVariant(PrefabInfo info, string iconPath, RecipeData recipe, float foodValue, float waterValue, bool decomposes, string[] craftingTabPath, TechCategory techCategory, int childModelIndex)
     {
 	    CustomPrefab variant = new(info);
 		variant.Info.WithIcon(AssetLoader.GetAtlasSprite(iconPath));
 
 		CraftingGadget crafting = new(variant, recipe);
 		crafting.WithFabricatorType(CraftTree.Type.Fabricator);
-		crafting.WithStepsToFabricatorTab("Survival", survivalCraftingTab);
+		crafting.WithStepsToFabricatorTab(craftingTabPath);
 		variant.AddGadget(crafting);
 
 		variant.SetGameObject(new CloneTemplate(variant.Info, ErmfishTypes.Regular.TechType)

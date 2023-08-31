@@ -29,20 +29,34 @@ public static class ErmfishNoisesPatches
 	[HarmonyPostfix]
 	public static void PlayErmfishDrawSound(PlayerTool __instance)
 	{
-		if (!ErmfishTypes.AllTechTypes.Contains(__instance.pickupable.GetTechType())) return;
-		if (Time.time < ErmfishLoader.PickupSounds.LastPlay + 0.5f) return;
-		ErmfishLoader.EquipSounds.Play();
+		try
+		{
+			if (!__instance.pickupable || !ErmfishTypes.AllTechTypes.Contains(__instance.pickupable.GetTechType())) return;
+			if (Time.time < ErmfishLoader.PickupSounds.LastPlay + 0.5f) return;
+			ErmfishLoader.EquipSounds.Play();
+		}
+		catch
+		{
+			// ignore
+		}
 	}
 
 	[HarmonyPatch(typeof(PlayerTool), nameof(PlayerTool.OnHolster))]
 	[HarmonyPostfix]
 	public static void PlayErmfishHolsterSound(PlayerTool __instance)
 	{
-		if (!ErmfishTypes.AllTechTypes.Contains(__instance.pickupable.GetTechType())) return;
-		if (Time.time < ErmfishLoader.DropSounds.LastPlay + 0.5f) return;
-		if (Time.time < ErmfishLoader.EatSounds.LastPlay + 0.5f) return;
-		if (Time.time < ErmfishLoader.CraftSounds.LastPlay + 0.5f) return;
-		ErmfishLoader.UnequipSounds.Play(0.15f);
+		try
+		{
+			if (!__instance.pickupable || !ErmfishTypes.AllTechTypes.Contains(__instance.pickupable.GetTechType())) return;
+			if (Time.time < ErmfishLoader.DropSounds.LastPlay + 0.5f) return;
+			if (Time.time < ErmfishLoader.EatSounds.LastPlay + 0.5f) return;
+			if (Time.time < ErmfishLoader.CraftSounds.LastPlay + 0.5f) return;
+			ErmfishLoader.UnequipSounds.Play(0.15f);
+		}
+		catch
+		{
+			// ignore
+		}
 	}
 
 	[HarmonyPatch(typeof(PDAScanner), nameof(PDAScanner.Unlock))]
