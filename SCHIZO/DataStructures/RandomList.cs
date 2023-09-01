@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace SCHIZO.Utilities;
+namespace SCHIZO.DataStructures;
 
 public sealed class RandomList<T> : IEnumerable<T>
 {

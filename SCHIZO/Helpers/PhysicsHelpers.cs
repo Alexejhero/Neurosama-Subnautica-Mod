@@ -3,9 +3,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace SCHIZO.Utilities;
+namespace SCHIZO.Helpers;
 
-public static class PhysicsUtils
+public static class PhysicsHelpers
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IEnumerable<GameObject> ObjectsInRange(GameObject center, float radius)

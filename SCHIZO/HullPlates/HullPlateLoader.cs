@@ -6,7 +6,7 @@ using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
 using Newtonsoft.Json;
-using SCHIZO.Utilities;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.HullPlates;
@@ -42,7 +42,7 @@ public static class HullPlateLoader
             spriteOverride = ImageUtils.LoadTextureFromFile(spriteOverridePath);
         }
 
-        Texture2D newIcon = TextureUtils.BlendAlpha(icon, spriteOverride);
+        Texture2D newIcon = TextureHelpers.BlendAlpha(icon, spriteOverride);
         PatchHullPlate(hullPlateInfo!.InternalName, hullPlateInfo.DisplayName, hullPlateInfo.Description, newIcon, texture, hullPlateInfo.Expensive);
     }
 

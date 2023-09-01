@@ -2,7 +2,7 @@
 using UnityEngine;
 using Random = System.Random;
 
-namespace SCHIZO.Utilities.Sounds;
+namespace SCHIZO.Sounds;
 
 public sealed class InventorySoundPlayer : MonoBehaviour
 {

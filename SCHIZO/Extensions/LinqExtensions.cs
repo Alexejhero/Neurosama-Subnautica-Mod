@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace SCHIZO.Utilities;
+namespace SCHIZO.Extensions;
 public static class LinqExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

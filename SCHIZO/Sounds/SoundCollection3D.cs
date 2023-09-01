@@ -3,7 +3,7 @@ using FMOD;
 using Nautilus.Handlers;
 using UnityEngine;
 
-namespace SCHIZO.Utilities.Sounds;
+namespace SCHIZO.Sounds;
 
 public sealed class SoundCollection3D : SoundCollection
 {

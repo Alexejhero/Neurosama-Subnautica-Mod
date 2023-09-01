@@ -1,6 +1,6 @@
 ﻿using Nautilus.Crafting;
-using SCHIZO.Utilities;
-using SCHIZO.Utilities.Sounds;
+using SCHIZO.DataStructures;
+using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Buildables;

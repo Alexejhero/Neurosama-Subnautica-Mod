@@ -8,7 +8,7 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using SCHIZO.Utilities.Sounds;
+using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;

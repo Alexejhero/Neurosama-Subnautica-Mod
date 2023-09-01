@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using SCHIZO.DataStructures;
 using UnityEngine;
 
-namespace SCHIZO.Utilities.Sounds;
+namespace SCHIZO.Sounds;
 
 public abstract class SoundCollection : ScriptableObject
 {

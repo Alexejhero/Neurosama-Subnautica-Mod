@@ -2,7 +2,7 @@
 using Nautilus.Handlers;
 using UnityEngine;
 
-namespace SCHIZO.Utilities.Sounds;
+namespace SCHIZO.Sounds;
 
 public sealed class SoundCollection2D : SoundCollection
 {

@@ -2,7 +2,7 @@
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace SCHIZO.Utilities;
+namespace SCHIZO.Extensions;
 
 public static class ResourceExtensions
 {

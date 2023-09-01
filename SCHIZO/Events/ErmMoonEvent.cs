@@ -1,4 +1,5 @@
-﻿using SCHIZO.Utilities;
+﻿using SCHIZO.DataStructures;
+using SCHIZO.Helpers;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -61,7 +62,7 @@ public sealed class ErmMoonEvent : MonoBehaviour, ICustomEvent
         _normalMoonTex = _skyManager.MoonTexture;
         _readableMoonTex = _normalMoonTex.GetReadable();
 
-        _ermMoonTex = TextureUtils.BlendAlpha(_readableMoonTex, _ermTex, 0.30f, true);
+        _ermMoonTex = TextureHelpers.BlendAlpha(_readableMoonTex, _ermTex, 0.30f, true);
         _ermMoonTex.wrapMode = _normalMoonTex.wrapMode;
         _ermMoonTex.Apply(false, true); // send to gpu
         _ermMoonTex.name = _normalMoonTex.name + "_erm";

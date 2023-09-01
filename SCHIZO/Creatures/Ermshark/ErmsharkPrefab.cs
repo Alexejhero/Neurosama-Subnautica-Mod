@@ -4,8 +4,8 @@ using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Utility;
-using SCHIZO.Utilities;
-using SCHIZO.Utilities.Sounds;
+using SCHIZO.Extensions;
+using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;

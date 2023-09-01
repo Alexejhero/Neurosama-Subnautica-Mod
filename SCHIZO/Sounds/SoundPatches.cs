@@ -2,7 +2,7 @@
 using System.Linq;
 using HarmonyLib;
 
-namespace SCHIZO.Utilities.Sounds;
+namespace SCHIZO.Sounds;
 
 [HarmonyPatch]
 public static class SoundPatches

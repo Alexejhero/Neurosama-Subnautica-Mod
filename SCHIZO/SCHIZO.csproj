@@ -17,6 +17,7 @@
 
     <ItemGroup>
         <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+        <PackageReference Include="TwitchLib" Version="3.5.3" />
         <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" IncludeAssets="compile" />
         <PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0" />
 

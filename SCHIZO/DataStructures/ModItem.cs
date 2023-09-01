@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Nautilus.Assets;
 
-namespace SCHIZO.Utilities;
+namespace SCHIZO.DataStructures;
 
 public sealed class ModItem
 {

@@ -7,7 +7,8 @@ namespace SCHIZO.Events;
 
 public class CustomEventManager : MonoBehaviour
 {
-    public CustomEventManager main;
+    public static CustomEventManager main;
+
     private readonly Dictionary<string, Type> Events = new(StringComparer.InvariantCultureIgnoreCase);
 
     public void Awake()

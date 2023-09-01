@@ -4,14 +4,14 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using SCHIZO.Utilities;
+using SCHIZO.Extensions;
 using UnityEngine;
 
 namespace SCHIZO.Gymbag;
 
 public static class GymbagLoader
 {
-    public static void Load()
+    public static void Load() // todo: fix not being able to scroll to the item
     {
         CustomPrefab prefab = new(ModItems.Gymbag);
         prefab.Info.WithSizeInInventory(new Vector2int(2, 2));

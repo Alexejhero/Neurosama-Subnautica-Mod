@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace SCHIZO.Utilities;
+namespace SCHIZO.Helpers;
 
-public static class TextureUtils
+public static class TextureHelpers
 {
     public static Texture2D BlendAlpha(Texture2D baseTex, Texture2D appliedTex, float blend = 1f, bool clipToBase = false)
     {
