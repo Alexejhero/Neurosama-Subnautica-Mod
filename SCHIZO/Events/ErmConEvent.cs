@@ -13,11 +13,11 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
 
     public bool IsOccurring => ConMembers.Count > 0;
 
-    public int MinAttendance = 10;
+    public int MinAttendance = 10; // PROBLEM too many?
     public int MaxAttendance = 50;
     public float SearchRadius = 250f;
     public float ErmQueenSearchRadius = 50f;
-    public float EventDurationSeconds = 120f;
+    public float EventDurationSeconds = 120f; // PROBLEM unused
     public float CooldownSeconds = 1800f;
 
     public bool OnlyStare;
@@ -64,8 +64,8 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         // If a Queen Erm cannot be located or designated, the swarm becomes distressed, and seeks the nearest intelligent(?) being capable of designating the Queen for the swarm.
         // It is not currently known whether Ermfish swarm behaviors change if deprived of their Queen for too long.
         // Everyone who has so far been resourceful enough to survive on 4546B has displayed sufficient sensibility in choosing not to test that theory.
-        int ermsInRange = AreaUtils.ObjectsInRange(CongregationTarget, SearchRadius)
-            .ThatHaveComponent<ErmfishNoises>()
+        int ermsInRange = PhysicsUtils.ObjectsInRange(CongregationTarget, SearchRadius)
+            .WithComponent<ErmfishNoises>()
             .Count();
         if (ermsInRange < MinAttendance)
         {
@@ -75,8 +75,8 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         return true;
     }
 
+    private const float _minSearchInterval = 1f;
     private float _lastSearchTime;
-    private float _minSearchInterval = 1f;
     private float _stareTime;
     private void Update()
     {
@@ -158,10 +158,10 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         if (!CongregationTarget)
             CongregationTarget = gameObject;
 
-        List<Creature> withinRadius = AreaUtils.ObjectsInRange(CongregationTarget, SearchRadius)
-            .ThatHaveComponent<ErmfishNoises>()
+        List<Creature> withinRadius = PhysicsUtils.ObjectsInRange(CongregationTarget, SearchRadius)
+            .WithComponent<ErmfishNoises>()
             .OrderBy(creature => creature.gameObject.transform.position.DistanceSqrXZ(CongregationTarget.transform.position))
-            .ToComponent<Creature>()
+            .SelectComponent<Creature>()
             .ToList();
         int totalAttendance = Mathf.Min(MaxAttendance, withinRadius.Count);
         Debug.Log($"{totalAttendance} Ermfish will be attending the ErmCon");
@@ -188,7 +188,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
     private bool TryFindErmQueen(GameObject center, out ErmNoises ermQueen)
     {
         ermQueen = null;
-        IEnumerable<ErmNoises> ermBuildables = AreaUtils.ObjectsInRange(center, ErmQueenSearchRadius)
+        IEnumerable<ErmNoises> ermBuildables = PhysicsUtils.ObjectsInRange(center, ErmQueenSearchRadius)
             .Select(obj => obj.GetComponentInParent<ErmNoises>())
             .Where(comp => comp)
             .OrderBy(comp => comp.transform.position.DistanceSqrXZ(center.transform.position));

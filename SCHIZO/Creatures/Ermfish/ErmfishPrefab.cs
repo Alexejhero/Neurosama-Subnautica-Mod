@@ -16,6 +16,8 @@ public class ErmfishPrefab : CreatureAsset
 	{
 	}
 
+	private static GameObject Prefab => AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("ermfish");
+
 	protected override CreatureTemplate CreateTemplate()
 	{
 		const float swimVelocity = 8f;
@@ -46,41 +48,14 @@ public class ErmfishPrefab : CreatureAsset
 
 	private static GameObject GetModel()
 	{
-		GameObject model = new("Ermfish model");
-		model.SetActive(false);
+		GameObject prefab = GameObject.Instantiate(Prefab);
+        prefab.SetActive(false);
 
-		GameObject worldModel = new("WM")
-		{
-			transform =
-			{
-				parent = model.transform
-			}
-		};
+		prefab.transform.Find("WM").localPosition = Vector3.zero;
 
-		GameObject erm = AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("erm_fishes");
-		GameObject ermInstance = GameObject.Instantiate(erm, worldModel.transform, true);
-		Transform child = ermInstance.transform.GetChild(0);
-		child.localPosition = Vector3.zero;
-		child.localScale = Vector3.one * 0.2f;
+		Object.DontDestroyOnLoad(prefab);
 
-		GameObject viewModel = Object.Instantiate(worldModel, model.transform, true);
-		viewModel.name = "VM";
-		viewModel.SetActive(false);
-		viewModel.transform.localScale *= 0.35f;
-		viewModel.transform.Rotate(180, 180, 0);
-
-		worldModel.AddComponent<Animator>();
-		viewModel.AddComponent<Animator>();
-
-		foreach (Collider col in model.GetComponentsInChildren<Collider>(true))
-		{
-			Object.DestroyImmediate(col);
-		}
-		model.gameObject.AddComponent<SphereCollider>();
-
-		Object.DontDestroyOnLoad(model);
-
-		return model;
+		return prefab;
 	}
 
 	protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)

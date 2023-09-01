@@ -44,6 +44,7 @@ public class CustomEventManager : MonoBehaviour
     [UsedImplicitly]
     private void OnConsoleCommand_events(NotificationCenter.Notification n)
         => OnConsoleCommand_event(n);
+
     private void OnConsoleCommand_event(NotificationCenter.Notification n)
     {
         if (n?.data?.Count is null or 0)
@@ -75,7 +76,7 @@ public class CustomEventManager : MonoBehaviour
         string startOrEndArg = (string) n.data[1];
         bool? isStartMaybe = startOrEndArg switch
         {
-            "start" or "1" or "on" or "true" or "play" => true,
+            "start" or "1" or "on" or "true" or "play" or "start" => true,
             "end" or "0" or "off" or "false" or "stop" => false,
             _ => null
         };

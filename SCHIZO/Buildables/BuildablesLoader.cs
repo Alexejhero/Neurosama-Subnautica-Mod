@@ -28,13 +28,13 @@ public static class BuildablesLoader
 			PrefabName = "turtle",
 			TechGroup = TechGroup.Miscellaneous,
 			TechCategory = TechCategory.Misc,
-		}.WithOldVersion("VerdalTurtle").Register();
+		}.WithOldVersion("VedalTurtle").Register();
 
 		new BuildablePrefab("NeuroErm2", "Erm", "<size=75%>(Model by w1n7er)</size>")
 		{
 			IconFileName = "erm.png",
 			Recipe = new RecipeData(new CraftData.Ingredient(TechType.CopperWire, 2), new CraftData.Ingredient(TechType.Silicone, 2), new CraftData.Ingredient(TechType.Battery), new CraftData.Ingredient(TechType.Titanium, 4), new CraftData.Ingredient(ErmfishTypes.Regular.TechType)),
-			PrefabName = "erm_fishes",
+			PrefabName = "neuroerm",
 			TechGroup = TechGroup.Miscellaneous,
 			TechCategory = TechCategory.Misc,
 			ModifyPrefab = prefab =>
@@ -77,12 +77,12 @@ public static class BuildablesLoader
 		{
 			IconFileName = "erm.png",
 			Recipe = new RecipeData(new CraftData.Ingredient(TechType.CopperWire, 2), new CraftData.Ingredient(TechType.Silicone, 2), new CraftData.Ingredient(TechType.Battery), new CraftData.Ingredient(TechType.Titanium, 4)),
-			PrefabName = "erm_fishes",
+			PrefabName = "neuroerm",
 			ModifyPrefab = prefab =>
 			{
-				prefab.transform.GetChild(0).localScale = new Vector3(1, -1, 1);
-				prefab.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-				prefab.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+				prefab.transform.Find("WM").localScale = new Vector3(1, -1, 1);
+				prefab.transform.Find("WM/erm/regular").gameObject.SetActive(false);
+				prefab.transform.Find("WM/erm/cured").gameObject.SetActive(true);
 				prefab.GetComponentsInChildren<MeshRenderer>().ForEach(r => r.material.color = new Color(0.75f, 0, 0.75f));
 			}
 		}.Register();

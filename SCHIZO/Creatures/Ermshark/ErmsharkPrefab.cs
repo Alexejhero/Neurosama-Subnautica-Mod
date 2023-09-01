@@ -14,9 +14,11 @@ public sealed class ErmsharkPrefab : CreatureAsset
     {
     }
 
+    private static GameObject Prefab => AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("erm_shark");
+
     protected override CreatureTemplate CreateTemplate()
     {
-        const float swimVelocity = 2;// 10f;
+        const float swimVelocity = 2;// TODO: 10f;
 
         CreatureTemplate template = new(GetModel(), BehaviourType.Shark, EcoTargetType.Shark, 20) // TODO: Figure out health
         {
@@ -47,28 +49,12 @@ public sealed class ErmsharkPrefab : CreatureAsset
 
     private static GameObject GetModel()
     {
-        GameObject model = new("Ermshark model");
-        model.SetActive(false);
+        GameObject shark = GameObject.Instantiate(Prefab);
+        shark.SetActive(false);
 
-        GameObject worldModel = new("WM")
-        {
-            transform =
-            {
-                parent = model.transform
-            }
-        };
+        GameObject.DontDestroyOnLoad(shark);
 
-        GameObject shark = AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("erm_shark");
-        GameObject sharkInstance = GameObject.Instantiate(shark, worldModel.transform, true);
-        Transform child = sharkInstance.transform.GetChild(0);
-        child.localScale *= 0.45f;
-        child.transform.Rotate(0, 180, 0);
-
-        worldModel.AddComponent<Animator>();
-
-        GameObject.DontDestroyOnLoad(model);
-
-        return model;
+        return shark;
     }
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)

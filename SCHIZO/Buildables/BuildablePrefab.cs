@@ -59,7 +59,7 @@ public sealed class BuildablePrefab : CustomPrefab
         GameObject instance = GameObject.Instantiate(prefab, BuildablesLoader.DisabledParent);
         PrefabUtils.AddBasicComponents(instance, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Medium);
 
-        Transform child = instance.transform.GetChild(0);
+        Transform child = instance.transform.GetChild(0); // each buildable should have an unique child with an appropriate collider
 
         Constructable con = PrefabUtils.AddConstructable(instance, Info.TechType, ConstructableFlags.Outside | ConstructableFlags.Base | ConstructableFlags.Submarine | ConstructableFlags.AllowedOnConstructable | ConstructableFlags.Ground | ConstructableFlags.Inside, child.gameObject);
 

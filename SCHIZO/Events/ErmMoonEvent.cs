@@ -32,7 +32,7 @@ namespace SCHIZO.Events
             "The Erm Moon is rising...",
             "[Server] PvP has been enabled.",
             "Don't forget to save ;)",
-            "Invaded by dark spirit wideNeuroErm",
+            "You have angered the gods.",
             "", // surprise
         };
         private List<string> EndMessageList { get; } = new()
@@ -41,11 +41,11 @@ namespace SCHIZO.Events
             "Its influence wanes.",
             "The Erm Moon recedes... for now.",
             "The ancient spirits are calm once more.",
-            "Alexejhero has left the server.",
+            "Alex has left the server.",
             "The Time God has deducted 50 neuros from your balance. (protection fee)",
-            "A fumo can ward off evil spirits.", // lie?
-            "Don't forget to charge your gymbag.",
-            "Your fortune today is: 'Watch out for sharks'.",
+            // "A fumo can ward off evil spirits.", // lie?
+            // "Don't forget to charge your gymbag.",
+            // "Your fortune today is: 'Watch out for sharks'.",
             "evilfumosittingverycomfortablewhilesheroastsvedalwithherfriends",
         };
         private int _startMessageIndex;
@@ -173,7 +173,7 @@ namespace SCHIZO.Events
             => DayNightCycle.main.GetDay();
 
         // todo auto-shuffler for lists
-        private string GetStartMessage()
+        private string GetStartMessage() // PROBLEM Why not just GetRandom?
         {
             var msg = StartMessageList[_startMessageIndex];
             _startMessageIndex++;

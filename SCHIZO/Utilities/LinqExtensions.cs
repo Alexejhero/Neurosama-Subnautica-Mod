@@ -8,24 +8,24 @@ namespace SCHIZO.Utilities;
 public static class LinqExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IEnumerable<TComponent> ToComponent<TComponent>(this IEnumerable<GameObject> gameObjects)
+    public static IEnumerable<TComponent> SelectComponent<TComponent>(this IEnumerable<GameObject> gameObjects)
         where TComponent : Component
         => gameObjects
             .Select(gameObj => gameObj.GetComponent<TComponent>())
             .Where(comp => comp);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IEnumerable<Component> ToComponent(this IEnumerable<GameObject> gameObjects, Type componentType)
+    public static IEnumerable<Component> SelectComponent(this IEnumerable<GameObject> gameObjects, Type componentType)
         => gameObjects
             .Select(gameObj => gameObj.GetComponent(componentType))
             .Where(comp => comp);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IEnumerable<GameObject> ThatHaveComponent<TComponent>(this IEnumerable<GameObject> gameObjects)
+    public static IEnumerable<GameObject> WithComponent<TComponent>(this IEnumerable<GameObject> gameObjects)
         where TComponent : Component
         => gameObjects.Where(gameObj => gameObj.GetComponent<TComponent>());
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IEnumerable<GameObject> ThatHaveComponent(this IEnumerable<GameObject> gameObjects, Type componentType)
+    public static IEnumerable<GameObject> WithComponent(this IEnumerable<GameObject> gameObjects, Type componentType)
         => gameObjects.Where(gameObj => gameObj.GetComponent(componentType));
 }

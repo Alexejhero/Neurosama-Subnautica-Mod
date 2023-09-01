@@ -161,7 +161,7 @@ StyleCopReport.xml
 *_p.c
 *_h.h
 *.ilk
-*.meta
+#*.meta
 *.obj
 *.iobj
 *.pch
@@ -471,3 +471,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,jetbrains+all,vs
+
+Assets/assetbundles/assetbundles
+Assets/assetbundles/assetbundles.manifest
+Assets/assetbundles/assets.manifest

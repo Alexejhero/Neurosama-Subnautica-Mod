@@ -113,13 +113,11 @@ public static class ErmfishLoader
 				eatable.kDecayRate = 0.015f;
 				eatable.decomposes = decomposes;
 
-				// WM
-				prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(false);
-				prefab.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(childModelIndex).gameObject.SetActive(true);
+				prefab.transform.Find("WM/erm/regular").gameObject.SetActive(false);
+				prefab.transform.Find("WM/erm").GetChild(childModelIndex).gameObject.SetActive(true);
 
-				// VM
-				prefab.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(false);
-				prefab.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(childModelIndex).gameObject.SetActive(true);
+				prefab.transform.Find("VM/erm/regular").gameObject.SetActive(false);
+				prefab.transform.Find("VM/erm").GetChild(childModelIndex).gameObject.SetActive(true);
 			}
 		});
 		variant.SetPdaGroupCategory(TechGroup.Survival, techCategory);
