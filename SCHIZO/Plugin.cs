@@ -26,7 +26,7 @@ public partial class Plugin : BaseUnityPlugin
 		ErmsharkLoader.Load();
 		GymbagLoader.Load();
 
-		new TwitchIntegration().Connect();
+        gameObject.AddComponent<TwitchIntegration>();
 
 		Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 	}
