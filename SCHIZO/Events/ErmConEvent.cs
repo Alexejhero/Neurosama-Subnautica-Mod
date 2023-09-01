@@ -13,11 +13,11 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
 
     public bool IsOccurring => ConMembers.Count > 0;
 
-    public int MinAttendance = 10; // PROBLEM too many?
+    public int MinAttendance = 10;
     public int MaxAttendance = 50;
     public float SearchRadius = 250f;
     public float ErmQueenSearchRadius = 50f;
-    public float EventDurationSeconds = 120f; // PROBLEM unused
+    public float EventDurationSeconds = 120f;
     public float CooldownSeconds = 1800f;
 
     public bool OnlyStare;
@@ -25,17 +25,17 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
     public GameObject CongregationTarget;
 
     private readonly List<Creature> ConMembers = new();
-    private float _lastEventEndTime;
+    private float _eventStartTime;
     private bool _hasRolled;
 
     private void Awake()
     {
         // let's not wait the whole cooldown on load
-        _lastEventEndTime = -CooldownSeconds/2;
+        _eventStartTime = -CooldownSeconds/2;
     }
     private bool ShouldStartEvent()
     {
-        float sinceLastEvent = Time.time - _lastEventEndTime;
+        float sinceLastEvent = Time.time - (_eventStartTime+EventDurationSeconds);
         if (sinceLastEvent < CooldownSeconds)
             return false;
         // roll every 6 in-game hours (5min real time)
@@ -50,7 +50,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
             var roll = Random.Range(0f, 1f);
             if (roll > chance)
             {
-                Debug.Log($"roll failed {roll}>{chance}");
+                //Debug.Log($"roll failed {roll}>{chance}");
                 return false;
             }
         }
@@ -92,7 +92,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         }
         else
         {
-            if (Time.time > _lastEventEndTime)
+            if (Time.time > _eventStartTime+EventDurationSeconds)
             {
                 EndEvent();
                 return;
@@ -144,7 +144,6 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
                         targetPos -= mayorPersonalSpaceRange * directionToTarget;
                     }
                     swim.SwimTo(targetPos, haveQueen ? 2f : 1f);
-
                 }
                 // stop looking away, too!!!!!!!
                 swim.LookAt(CongregationTarget.transform);
@@ -170,6 +169,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
             Creature fish = withinRadius[i];
             ConMembers.Add(fish);
         }
+        _eventStartTime = Time.time;
     }
 
     public void EndEvent()
@@ -182,7 +182,6 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
             fish.GetComponent<SwimBehaviour>().LookForward();
         }
         ConMembers.Clear();
-        _lastEventEndTime = Time.time;
     }
 
     private bool TryFindErmQueen(GameObject center, out ErmNoises ermQueen)
