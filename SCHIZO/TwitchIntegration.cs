@@ -39,20 +39,16 @@ public sealed class TwitchIntegration : MonoBehaviour
     private void Client_OnMessageReceived(object _, OnMessageReceivedArgs evt)
     {
         ChatMessage message = evt.ChatMessage;
-        string messageContent = message.Message.ToLower();
 
         if (message.Username.ToLower() != "alexejherodev") return; // ensure I don't get isekaid
+        if (!message.Message.ToLower().StartsWith("!s ")) return;
 
-        ErrorMessage.AddDebug(messageContent);
-
-        if (!messageContent.StartsWith("!s ")) return;
-
-        HandleMessage(messageContent[3..]);
+        HandleMessage(message.Message[3..]);
     }
 
     private void HandleMessage(string message)
     {
-        if (message.StartsWith("c ")) DevConsole.SendConsoleCommand(message[2..]);
+        if (message.ToLower().StartsWith("c ")) DevConsole.SendConsoleCommand(message[2..]);
     }
 
     [UsedImplicitly]
