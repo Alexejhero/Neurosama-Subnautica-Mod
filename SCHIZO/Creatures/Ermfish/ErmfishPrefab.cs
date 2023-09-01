@@ -6,7 +6,6 @@ using Nautilus.Assets;
 using Nautilus.Utility;
 using SCHIZO.Utilities;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace SCHIZO.Creatures.Ermfish;
 
@@ -18,11 +17,11 @@ public class ErmfishPrefab : CreatureAsset
 
 	private static GameObject Prefab => AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("ermfish");
 
-	protected override CreatureTemplate CreateTemplate()
+	public override CreatureTemplate CreateTemplate()
 	{
 		const float swimVelocity = 8f;
 
-		CreatureTemplate template = new(GetModel(), BehaviourType.SmallFish, EcoTargetType.Peeper, float.MaxValue)
+		CreatureTemplate template = new(Prefab, BehaviourType.SmallFish, EcoTargetType.Peeper, float.MaxValue)
 		{
 			CellLevel = LargeWorldEntity.CellLevel.Medium,
 			Mass = 10,
@@ -46,19 +45,7 @@ public class ErmfishPrefab : CreatureAsset
 		return template;
 	}
 
-	private static GameObject GetModel()
-	{
-		GameObject prefab = GameObject.Instantiate(Prefab);
-        prefab.SetActive(false);
-
-		prefab.transform.Find("WM").localPosition = Vector3.zero;
-
-		Object.DontDestroyOnLoad(prefab);
-
-		return prefab;
-	}
-
-	protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
+	public override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
 	{
 		prefab.GetComponent<HeldFish>().ikAimLeftArm = true;
 		prefab.EnsureComponent<ErmfishNoises>();
@@ -74,5 +61,5 @@ public class ErmfishPrefab : CreatureAsset
 		yield break;
 	}
 
-	protected override void ApplyMaterials(GameObject prefab) => MaterialUtils.ApplySNShaders(prefab, 1f);
+	public override void ApplyMaterials(GameObject prefab) => MaterialUtils.ApplySNShaders(prefab, 1f);
 }

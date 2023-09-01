@@ -52,15 +52,15 @@ public static class ErmfishLoader
 
     private static void LoadErmfish()
     {
-		ErmfishPrefab creature = new(ErmfishTypes.Regular);
-		creature.PrefabInfo.WithIcon(AssetLoader.GetAtlasSprite("erm.png"));
-		creature.Register();
+		ErmfishPrefab ermfish = new(ErmfishTypes.Regular);
+		ermfish.PrefabInfo.WithIcon(AssetLoader.GetAtlasSprite("erm.png"));
+		ermfish.Register();
 
 		Texture2D databankTexture = AssetLoader.GetTexture("ermfish-databank.png");
 		Texture2D unlockTexture = AssetLoader.GetTexture("ermfish-unlock.png");
 		Sprite unlockSprite = Sprite.Create(unlockTexture, new Rect(0, 0, unlockTexture.width, unlockTexture.height), Vector2.zero);
 
-		CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(creature, "Lifeforms/Fauna/SmallHerbivores", "Ermfish",
+		CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermfish, "Lifeforms/Fauna/SmallHerbivores", "Ermfish",
 			"""
 			An entity of unknown origin, it does not appear to be indigenous to 4546B. Although at first glance it appears to be an aquatic lifeform, it does not possess the necessary survival facilities.
 
@@ -88,9 +88,9 @@ public static class ErmfishLoader
 			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.025f });
 			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 5, probability = 0.010f });
 		}
-		LootDistributionHandler.AddLootDistributionData(creature.ClassID, creature.PrefabInfo.PrefabFileName, biomes.ToArray());
+		LootDistributionHandler.AddLootDistributionData(ermfish.ClassID, ermfish.PrefabInfo.PrefabFileName, biomes.ToArray());
 
-		ItemActionHandler.RegisterMiddleClickAction(creature.PrefabInfo.TechType, _ => InventorySounds.Play(), "pull ahoge", "English");
+		ItemActionHandler.RegisterMiddleClickAction(ermfish.PrefabInfo.TechType, _ => InventorySounds.Play(), "pull ahoge", "English");
     }
 
     private static void LoadErmfishVariant(PrefabInfo info, string iconPath, RecipeData recipe, float foodValue, float waterValue, bool decomposes, string[] craftingTabPath, TechCategory techCategory, int childModelIndex)

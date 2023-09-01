@@ -21,12 +21,13 @@
         <PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0" />
 
         <PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
+        <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.1" PrivateAssets="all" />
         <PackageReference Include="BepInEx.AutoPlugin" Version="1.1.0" PrivateAssets="all" />
         <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.20" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\ECCLibrary\ECCLibrary.dll" />
+        <Reference Include="C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\ECCLibrary\ECCLibrary.dll" Publicize="true" />
         <Reference Include="C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\FMODUnity.dll" />
     </ItemGroup>
 
