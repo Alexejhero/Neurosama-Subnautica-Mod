@@ -1,21 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Random = System.Random;
 
 namespace SCHIZO.Utilities.Sounds;
 
 public sealed class WorldSoundPlayer : MonoBehaviour
 {
-    private Pickupable _pickupable;
-    private FMOD_CustomEmitter _emitter;
-    private SoundCollection3D _sounds;
+    [SerializeField] private Pickupable _pickupable;
+    [SerializeField] private FMOD_CustomEmitter _emitter;
+    [SerializeField] private SoundCollection3D _sounds;
+
     private float _timer = -1;
     private Random _random;
 
-    public static WorldSoundPlayer Add(GameObject obj, SoundCollection3D sounds)
+    public static void Add(GameObject obj, SoundCollection3D sounds)
     {
-        WorldSoundPlayer player = obj.EnsureComponent<WorldSoundPlayer>();
+        if (sounds == null) throw new ArgumentNullException(nameof(sounds));
+        WorldSoundPlayer player = obj.AddComponent<WorldSoundPlayer>();
         player._sounds = sounds;
-        return player;
     }
 
     private void Awake()
@@ -26,13 +28,13 @@ public sealed class WorldSoundPlayer : MonoBehaviour
         _emitter = gameObject.AddComponent<FMOD_CustomEmitter>();
         _emitter.followParent = true;
 
-        _timer = _random.Next(Plugin.CONFIG.MinWorldNoiseDelay, Plugin.CONFIG.MaxWorldNoiseDelay);
+        _timer = _random.Next(CONFIG.MinWorldNoiseDelay, CONFIG.MaxWorldNoiseDelay);
     }
 
     private void Update()
     {
-        if (Plugin.CONFIG.DisableAllNoises) return;
-        if (Plugin.CONFIG.DisableWorldNoises) return;
+        if (CONFIG.DisableAllNoises) return;
+        if (CONFIG.DisableWorldNoises) return;
 
         if (_pickupable && Inventory.main.Contains(_pickupable)) return;
 
@@ -40,7 +42,7 @@ public sealed class WorldSoundPlayer : MonoBehaviour
 
         if (_timer < 0)
         {
-            _timer = _random.Next(Plugin.CONFIG.MinWorldNoiseDelay, Plugin.CONFIG.MaxWorldNoiseDelay);
+            _timer = _random.Next(CONFIG.MinWorldNoiseDelay, CONFIG.MaxWorldNoiseDelay);
             _sounds.Play(_emitter);
         }
     }

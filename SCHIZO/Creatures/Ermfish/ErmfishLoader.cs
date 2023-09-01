@@ -15,39 +15,23 @@ namespace SCHIZO.Creatures.Ermfish;
 
 public static class ErmfishLoader
 {
-    public static SoundCollection CraftSounds { get; private set; }
-    public static SoundCollection3D DropSounds { get; private set; }
-    public static SoundCollection EatSounds { get; private set; }
-    public static SoundCollection EquipSounds { get; private set; }
-    public static SoundCollection3D HurtSounds { get; private set; }
-    public static SoundCollection InventorySounds { get; private set; }
-    public static SoundCollection PickupSounds { get; private set; }
-    public static SoundCollection PlayerDeathSounds { get; private set; }
-    public static SoundCollection ScanSounds { get; private set; }
-    public static SoundCollection UnequipSounds { get; private set; }
-    public static SoundCollection3D WorldSounds { get; private set; } // todo: get rid of fmod erros for loading the same audio file twice
+    public static readonly SoundCollection2D CraftSounds = SoundCollection2D.Create("ermfish/cooking", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection3D DropSounds = SoundCollection3D.Create("ermfish/release", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection2D EatSounds = SoundCollection2D.Create("ermfish/eating", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection2D EquipSounds = SoundCollection2D.Create("ermfish/equipping", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection3D HurtSounds = SoundCollection3D.Create("ermfish/hurt", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection2D InventorySounds = SoundCollection2D.Create("ermfish/noises", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection2D PickupSounds = SoundCollection2D.Create("ermfish/pickup", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection2D PlayerDeathSounds = SoundCollection2D.Create("ermfish/player_death", "bus:/master/SFX_for_pause/nofilter");
+    public static readonly SoundCollection2D ScanSounds = SoundCollection2D.Create("ermfish/scan", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection2D UnequipSounds = SoundCollection2D.Create("ermfish/unequipping", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection3D WorldSounds = SoundCollection3D.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures); // todo: get rid of fmod erros for loading the same audio file twice
 
     public static void Load()
     {
-        LoadSounds();
         LoadErmfish();
         LoadErmfishVariant(ModItems.CookedErmfish, "erm_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Ermfish)), 23, 4, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
         LoadErmfishVariant(ModItems.CuredErmfish, "erm_cured.png", new RecipeData(new CraftData.Ingredient(ModItems.Ermfish), new CraftData.Ingredient(TechType.Salt)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
-    }
-
-    private static void LoadSounds()
-    {
-        CraftSounds = new SoundCollection("ermfish/cooking", AudioUtils.BusPaths.PDAVoice);
-        DropSounds = new SoundCollection3D("ermfish/release", AudioUtils.BusPaths.PDAVoice);
-        EatSounds = new SoundCollection("ermfish/eating", AudioUtils.BusPaths.PDAVoice);
-        EquipSounds = new SoundCollection("ermfish/equipping", AudioUtils.BusPaths.PDAVoice);
-        HurtSounds = new SoundCollection3D("ermfish/hurt", AudioUtils.BusPaths.PDAVoice);
-        InventorySounds = new SoundCollection("ermfish/noises", AudioUtils.BusPaths.PDAVoice);
-        PickupSounds = new SoundCollection("ermfish/pickup", AudioUtils.BusPaths.PDAVoice);
-        PlayerDeathSounds = new SoundCollection("ermfish/player_death", "bus:/master/SFX_for_pause/nofilter");
-        ScanSounds = new SoundCollection("ermfish/scan", AudioUtils.BusPaths.PDAVoice);
-        UnequipSounds = new SoundCollection("ermfish/unequipping", AudioUtils.BusPaths.PDAVoice);
-        WorldSounds = new SoundCollection3D("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures);
     }
 
     private static void LoadErmfish()

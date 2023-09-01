@@ -2,6 +2,7 @@
 using SCHIZO.Utilities;
 using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace SCHIZO.Events
 {
@@ -18,9 +19,9 @@ namespace SCHIZO.Events
         public bool IsOccurring { get; private set; }
 
         private float ermMoonSize;
-        public double DayLastOccurred = 0;
+        public double DayLastOccurred;
 
-        private bool _hasRolled = false;
+        private bool _hasRolled;
 
         private List<string> StartMessageList { get; } = new()
         {
@@ -70,7 +71,7 @@ namespace SCHIZO.Events
             _ermMoonTex.Apply(false, true); // send to gpu
             _ermMoonTex.name = _normalMoonTex.name + "_erm";
 
-            DayNightCycle.main.dayNightCycleChangedEvent.AddHandler(this, (isDay) =>
+            DayNightCycle.main.dayNightCycleChangedEvent.AddHandler(this, isDay =>
             {
                 if (isDay) _hasRolled = false;
             });
@@ -80,10 +81,10 @@ namespace SCHIZO.Events
 
         private bool ShouldStartEvent()
         {
-            float eventFrequency = Plugin.CONFIG.MoonEventFrequency;
+            float eventFrequency = CONFIG.MoonEventFrequency;
             if (eventFrequency == 0) return false;
 
-            float roll = UnityEngine.Random.Range(0f, 1f);
+            float roll = Random.Range(0f, 1f);
             float cooldownDays = 9 / eventFrequency;
             float chancePerNight = Mathf.Pow(0.789f, 10f - eventFrequency);
 
@@ -173,7 +174,7 @@ namespace SCHIZO.Events
             => DayNightCycle.main.GetDay();
 
         // todo auto-shuffler for lists
-        private string GetStartMessage() // PROBLEM Why not just GetRandom?
+        private string GetStartMessage()
         {
             var msg = StartMessageList[_startMessageIndex];
             _startMessageIndex++;

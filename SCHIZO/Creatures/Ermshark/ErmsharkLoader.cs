@@ -7,8 +7,8 @@ namespace SCHIZO.Creatures.Ermshark;
 
 public static class ErmsharkLoader
 {
-    public static readonly SoundCollection3D AmbientSounds = new("ermshark/ambient", AudioUtils.BusPaths.UnderwaterCreatures);
-    public static readonly SoundCollection3D AttackSounds = new("ermshark/attack", AudioUtils.BusPaths.UnderwaterCreatures);
+    public static readonly SoundCollection3D AmbientSounds = SoundCollection3D.Create("ermshark/ambient", AudioUtils.BusPaths.UnderwaterCreatures);
+    public static readonly SoundCollection3D AttackSounds = SoundCollection3D.Create("ermshark/attack", AudioUtils.BusPaths.UnderwaterCreatures);
 
     public static void Load()
     {

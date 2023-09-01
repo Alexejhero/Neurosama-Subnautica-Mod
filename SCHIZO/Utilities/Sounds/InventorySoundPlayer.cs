@@ -1,21 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Random = System.Random;
 
 namespace SCHIZO.Utilities.Sounds;
 
 public sealed class InventorySoundPlayer : MonoBehaviour
 {
-    private Pickupable _pickupable;
-    private FMOD_CustomEmitter _emitter;
+    [SerializeField] private Pickupable _pickupable;
+    [SerializeField] private FMOD_CustomEmitter _emitter;
+    [SerializeField] private SoundCollection2D _sounds;
+
     private float _timer = -1;
     private Random _random;
-    private SoundCollection _sounds;
 
-    public static InventorySoundPlayer Add(GameObject obj, SoundCollection sounds)
+    public static void Add(GameObject obj, SoundCollection2D sounds)
     {
-        InventorySoundPlayer player = obj.EnsureComponent<InventorySoundPlayer>();
+        if (sounds == null) throw new ArgumentNullException(nameof(sounds));
+        InventorySoundPlayer player = obj.AddComponent<InventorySoundPlayer>();
         player._sounds = sounds;
-        return player;
     }
 
     private void Awake()
@@ -28,15 +30,15 @@ public sealed class InventorySoundPlayer : MonoBehaviour
         _emitter = gameObject.AddComponent<FMOD_CustomEmitter>();
         _emitter.followParent = true;
 
-        _timer = _random.Next(Plugin.CONFIG.MinInventoryNoiseDelay, Plugin.CONFIG.MaxInventoryNoiseDelay);
+        _timer = _random.Next(CONFIG.MinInventoryNoiseDelay, CONFIG.MaxInventoryNoiseDelay);
     }
 
     public void Update()
     {
         if (_timer == -1) Awake();
 
-        if (Plugin.CONFIG.DisableAllNoises) return;
-        if (Plugin.CONFIG.DisableInventoryNoises) return;
+        if (CONFIG.DisableAllNoises) return;
+        if (CONFIG.DisableInventoryNoises) return;
 
         if (!_pickupable || !Inventory.main.Contains(_pickupable)) return;
 
@@ -44,7 +46,7 @@ public sealed class InventorySoundPlayer : MonoBehaviour
 
         if (_timer < 0)
         {
-            _timer = _random.Next(Plugin.CONFIG.MinInventoryNoiseDelay, Plugin.CONFIG.MaxInventoryNoiseDelay);
+            _timer = _random.Next(CONFIG.MinInventoryNoiseDelay, CONFIG.MaxInventoryNoiseDelay);
             _sounds.Play();
         }
     }

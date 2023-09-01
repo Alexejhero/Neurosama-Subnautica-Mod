@@ -1,40 +1,31 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections;
 using FMOD;
 using Nautilus.Handlers;
 using UnityEngine;
 
 namespace SCHIZO.Utilities.Sounds;
 
-public sealed class SoundCollection3D
+public sealed class SoundCollection3D : SoundCollection
 {
-    private readonly List<string> _remainingSounds = new();
-    private readonly List<string> _playedSounds = new();
-    private readonly List<Coroutine> _runningCoroutines = new();
+    private SoundCollection3D() {}
 
-    public float LastPlay { get; private set; } = -1;
-
-    public SoundCollection3D(string path, string bus)
+    public static SoundCollection3D Create(string path, string bus)
     {
-        string dirpath = Path.Combine(AssetLoader.AssetsFolder, "sounds", path);
+        SoundCollection3D result = CreateInstance<SoundCollection3D>();
+        result.Initialize(path, bus);
+        return result;
+    }
 
-        foreach (string soundFile in Directory.GetFiles(dirpath))
-        {
-            string id = Guid.NewGuid().ToString();
-            Sound s = CustomSoundHandler.RegisterCustomSound(id, soundFile, bus, MODE._3D | MODE._3D_LINEARSQUAREROLLOFF);
-            s.set3DMinMaxDistance(1, 30);
-            _remainingSounds.Add(id);
-        }
-
-        _remainingSounds.Shuffle();
+    protected override void RegisterSound(string id, string soundFile, string bus)
+    {
+        Sound s = CustomSoundHandler.RegisterCustomSound(id, soundFile, bus, MODE._3D | MODE._3D_LINEARSQUAREROLLOFF);
+        s.set3DMinMaxDistance(1, 30);
     }
 
     public void Play(FMOD_CustomEmitter emitter, float delay = 0)
     {
         if (!emitter) return;
-        if (Plugin.CONFIG.DisableAllNoises) return;
+        if (CONFIG.DisableAllNoises) return;
 
         if (delay == 0)
         {
@@ -42,8 +33,7 @@ public sealed class SoundCollection3D
             return;
         }
 
-        Coroutine c = GameInput.instance.StartCoroutine(PlayWithDelay(delay));
-        _runningCoroutines.Add(c);
+        StartSoundCoroutine(PlayWithDelay(delay));
         return;
 
         IEnumerator PlayWithDelay(float del)
@@ -51,16 +41,6 @@ public sealed class SoundCollection3D
             yield return new WaitForSeconds(del);
             PlaySound(emitter);
         }
-    }
-
-    public void CancelAllDelayed()
-    {
-        foreach (Coroutine c in _runningCoroutines)
-        {
-            GameInput.instance.StopCoroutine(c);
-        }
-
-        _runningCoroutines.Clear();
     }
 
     private void PlaySound(FMOD_CustomEmitter emitter)
@@ -73,7 +53,7 @@ public sealed class SoundCollection3D
             _playedSounds.Clear();
         }
 
-        FMODAsset asset = ScriptableObject.CreateInstance<FMODAsset>();
+        FMODAsset asset = CreateInstance<FMODAsset>();
         asset.path = _remainingSounds[0];
         emitter.SetAsset(asset);
         emitter.Play();

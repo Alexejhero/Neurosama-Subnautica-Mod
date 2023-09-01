@@ -1,9 +1,13 @@
-﻿using Nautilus.Assets;
+﻿using System;
+using System.Collections.Generic;
+using Nautilus.Assets;
 
 namespace SCHIZO.Utilities;
 
 public sealed class ModItem
 {
+    private static readonly List<string> _registeredItems = new();
+
     private readonly PrefabInfo _info;
 
     public string ClassId => _info.ClassID;
@@ -14,6 +18,11 @@ public sealed class ModItem
 
     public ModItem(string classId, string displayName, string tooltip)
     {
+        LOGGER.LogDebug("Registering item " + classId + " with name " + displayName);
+
+        if (_registeredItems.Contains(classId)) throw new Exception("Item with classId " + classId + " has already been registered!");
+        _registeredItems.Add(classId);
+
         _info = PrefabInfo.WithTechType(classId, displayName, tooltip);
         DisplayName = displayName;
         Tooltip = tooltip;

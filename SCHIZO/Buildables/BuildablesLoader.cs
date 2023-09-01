@@ -9,15 +9,13 @@ public static class BuildablesLoader
 {
 	public static Transform DisabledParent { get; private set; }
 
-	public static SoundCollection3D ErmWorldSounds { get; private set; }
+	private static readonly SoundCollection3D ErmWorldSounds = SoundCollection3D.Create("ermfish/noises", "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds");
 
 	public static void Load()
 	{
 		DisabledParent = new GameObject("SCHIZO DISABLED PARENT").transform;
 		DisabledParent.gameObject.SetActive(false);
 		GameObject.DontDestroyOnLoad(DisabledParent);
-
-		ErmWorldSounds = new SoundCollection3D("ermfish/noises", "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds");
 
 		LoadOldVersions();
 

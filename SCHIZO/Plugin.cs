@@ -15,7 +15,7 @@ namespace SCHIZO;
 [BepInAutoPlugin]
 public partial class Plugin : BaseUnityPlugin
 {
-	public static ManualLogSource LOGGER = BepInEx.Logging.Logger.CreateLogSource("SCHIZO"); // TODO: move old logs to this
+	public static readonly ManualLogSource LOGGER = BepInEx.Logging.Logger.CreateLogSource("SCHIZO"); // TODO: move old logs to this
 	public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();
 
 	private void Awake()
