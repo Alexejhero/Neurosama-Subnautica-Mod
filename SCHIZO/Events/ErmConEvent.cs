@@ -16,7 +16,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
     public int MinAttendance = 10;
     public int MaxAttendance = 50;
     public float SearchRadius = 250f;
-    public float ErmQueenSearchRadius = 50f;
+    public float ErmQueenSearchRadius = 30f;
     public float EventDurationSeconds = 120f;
     public float CooldownSeconds = 1800f;
 
