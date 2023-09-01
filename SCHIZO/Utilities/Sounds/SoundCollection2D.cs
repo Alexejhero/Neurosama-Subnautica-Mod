@@ -41,14 +41,6 @@ public sealed class SoundCollection2D : SoundCollection
     {
         LastPlay = Time.time;
 
-        if (_remainingSounds.Count == 0)
-        {
-            _remainingSounds.AddRange(_playedSounds);
-            _playedSounds.Clear();
-        }
-
-        CustomSoundHandler.TryPlayCustomSound(_remainingSounds[0], out _);
-        _playedSounds.Add(_remainingSounds[0]);
-        _remainingSounds.RemoveAt(0);
+        CustomSoundHandler.TryPlayCustomSound(_sounds.GetRandom(), out _);
     }
 }

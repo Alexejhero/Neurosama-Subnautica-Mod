@@ -8,8 +8,7 @@ namespace SCHIZO.Utilities.Sounds;
 
 public abstract class SoundCollection : ScriptableObject
 {
-    protected readonly List<string> _remainingSounds = new();
-    protected readonly List<string> _playedSounds = new();
+    protected readonly RandomList<string> _sounds = new();
 
     private readonly List<Coroutine> _runningCoroutines = new();
 
@@ -23,10 +22,10 @@ public abstract class SoundCollection : ScriptableObject
         {
             string id = Guid.NewGuid().ToString();
             RegisterSound(id, soundFile, bus);
-            _remainingSounds.Add(id);
+            _sounds.Add(id);
         }
 
-        _remainingSounds.Shuffle();
+        _sounds.Shuffle();
     }
 
     protected void StartSoundCoroutine(IEnumerator coroutine)

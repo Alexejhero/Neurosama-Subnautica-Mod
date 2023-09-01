@@ -24,8 +24,8 @@ public sealed class SoundCollection3D : SoundCollection
 
     public void Play(FMOD_CustomEmitter emitter, float delay = 0)
     {
-        if (!emitter) return;
         if (CONFIG.DisableAllNoises) return;
+        if (!emitter) return;
 
         if (delay == 0)
         {
@@ -47,18 +47,9 @@ public sealed class SoundCollection3D : SoundCollection
     {
         LastPlay = Time.time;
 
-        if (_remainingSounds.Count == 0)
-        {
-            _remainingSounds.AddRange(_playedSounds);
-            _playedSounds.Clear();
-        }
-
         FMODAsset asset = CreateInstance<FMODAsset>();
-        asset.path = _remainingSounds[0];
+        asset.path = _sounds.GetRandom();
         emitter.SetAsset(asset);
         emitter.Play();
-
-        _playedSounds.Add(_remainingSounds[0]);
-        _remainingSounds.RemoveAt(0);
     }
 }
