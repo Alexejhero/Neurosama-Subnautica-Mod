@@ -15,19 +15,14 @@ namespace SCHIZO.Events
         private float _normalMoonSize;
 
         public string Name => "ErmMoon";
-        public bool IsOccurring { get; set; }
+        public bool IsOccurring { get; private set; }
 
         private float ermMoonSize;
         public double DayLastOccurred = 0;
 
-        /// <summary>
-        /// Whether the event will occur on the next night, rolled each morning based on <see cref="Config.MoonEventFrequency"/>
-        /// </summary>
-
         private bool _hasRolled = false;
 
-        // these messages are mostly placeholders
-        private List<string> StartMessages { get; } = new()
+        private List<string> StartMessageList { get; } = new()
         {
             "You are being watched.",
             "You feel an evil presence watching you...",
@@ -37,18 +32,24 @@ namespace SCHIZO.Events
             "The Erm Moon is rising...",
             "[Server] PvP has been enabled.",
             "Don't forget to save ;)",
-            "You have angered the gods.",
+            "Invaded by dark spirit wideNeuroErm",
             "", // surprise
         };
-        // especially these
-        private List<string> EndMessages { get; } = new()
+        private List<string> EndMessageList { get; } = new()
         {
             "You are spared today.",
             "Its influence wanes.",
-            "Breathe out. You're safe.",
-            "You were allowed to live... for now.",
+            "The Erm Moon recedes... for now.",
             "The ancient spirits are calm once more.",
+            "Alexejhero has left the server.",
+            "The Time God has deducted 50 neuros from your balance. (protection fee)",
+            "A fumo can ward off evil spirits.", // lie?
+            "Don't forget to charge your gymbag.",
+            "Your fortune today is: 'Watch out for sharks'.",
+            "evilfumosittingverycomfortablewhilesheroastsvedalwithherfriends",
         };
+        private int _startMessageIndex;
+        private int _endMessageIndex;
 
         private void Awake()
         {
@@ -73,6 +74,8 @@ namespace SCHIZO.Events
             {
                 if (isDay) _hasRolled = false;
             });
+            StartMessageList.Shuffle();
+            EndMessageList.Shuffle();
         }
 
         private bool ShouldStartEvent()
@@ -134,7 +137,7 @@ namespace SCHIZO.Events
         public void StartEvent()
         {
             if (!IsOccurring)
-                ErrorMessage.AddWarning(StartMessages.GetRandom());
+                ErrorMessage.AddWarning(GetStartMessage());
             IsOccurring = true;
             DayLastOccurred = math.trunc(GetCurrentDay());
             ToggleErmDeity(true);
@@ -145,7 +148,7 @@ namespace SCHIZO.Events
         public void EndEvent()
         {
             if (IsOccurring)
-                ErrorMessage.AddMessage(EndMessages.GetRandom());
+                ErrorMessage.AddMessage(GetEndMessage());
             ToggleErmDeity(false);
             UpdateErmMoon(_normalMoonSize);
             IsOccurring = false;
@@ -168,5 +171,29 @@ namespace SCHIZO.Events
 
         private static double GetCurrentDay()
             => DayNightCycle.main.GetDay();
+
+        // todo auto-shuffler for lists
+        private string GetStartMessage()
+        {
+            var msg = StartMessageList[_startMessageIndex];
+            _startMessageIndex++;
+            if (_startMessageIndex >= StartMessageList.Count)
+            {
+                StartMessageList.Shuffle();
+                _startMessageIndex = 0;
+            }
+            return msg;
+        }
+        private string GetEndMessage()
+        {
+            var msg = EndMessageList[_endMessageIndex];
+            _endMessageIndex++;
+            if (_endMessageIndex >= EndMessageList.Count)
+            {
+                EndMessageList.Shuffle();
+                _endMessageIndex = 0;
+            }
+            return msg;
+        }
     }
 }

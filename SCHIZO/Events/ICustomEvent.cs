@@ -3,7 +3,7 @@
     public interface ICustomEvent
     {
         string Name { get; }
-        bool IsOccurring { get; set; }
+        bool IsOccurring { get; }
         void StartEvent();
         void EndEvent();
     }
