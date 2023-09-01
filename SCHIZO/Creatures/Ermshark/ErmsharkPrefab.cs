@@ -5,6 +5,7 @@ using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using SCHIZO.Utilities;
+using SCHIZO.Utilities.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
@@ -48,6 +49,8 @@ public sealed class ErmsharkPrefab : CreatureAsset
 
     public override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
+        WorldSoundPlayer.Add(prefab, ErmsharkLoader.AmbientSounds);
+
         AggressiveWhenSeePlayer aggressive = prefab.AddComponent<AggressiveWhenSeePlayer>();
         aggressive.maxRangeMultiplier = CreaturePrefabUtils.maxRangeMultiplierCurve;
         aggressive.distanceAggressionMultiplier = CreaturePrefabUtils.distanceAggressionMultiplierCurve;

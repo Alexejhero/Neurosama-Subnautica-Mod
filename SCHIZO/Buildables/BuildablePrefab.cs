@@ -19,15 +19,18 @@ public sealed class BuildablePrefab : CustomPrefab
     public string PrefabName { get; init; }
     public Action<GameObject> ModifyPrefab { get; init; } = _ => { };
 
-    private readonly string _friendlyName;
-    private readonly string _description;
+    private readonly ModItem _modItem;
     private readonly List<BuildablePrefab> _oldVersions = new();
 
     [SetsRequiredMembers]
-    public BuildablePrefab(string classId, string friendlyName, string description) : base(classId, friendlyName, description)
+    public BuildablePrefab(ModItem item) : base(item)
     {
-        _friendlyName = friendlyName;
-        _description = description;
+        _modItem = item;
+    }
+
+    [SetsRequiredMembers]
+    private BuildablePrefab(string classId, string displayName, string tooltip) : base(classId, displayName, tooltip)
+    {
     }
 
     public new void Register()
@@ -43,7 +46,9 @@ public sealed class BuildablePrefab : CustomPrefab
 
     public BuildablePrefab WithOldVersion(string oldClassId)
     {
-        _oldVersions.Add(new BuildablePrefab(oldClassId, _friendlyName + " (OLD VERSION, PLEASE REBUILD)", _description + " (OLD VERSION, PLEASE REBUILD)")
+        if (_modItem == null) throw new InvalidOperationException($"Cannot add an old version to buildable which is already an old version (tying to add {oldClassId} to {Info.ClassID})");
+
+        _oldVersions.Add(new BuildablePrefab(oldClassId, _modItem.DisplayName + " (OLD VERSION, PLEASE REBUILD)", _modItem.Tooltip + " (OLD VERSION, PLEASE REBUILD)")
         {
             IconFileName = IconFileName,
             Recipe = Recipe,

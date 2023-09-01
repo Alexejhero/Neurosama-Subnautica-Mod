@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using HarmonyLib;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
 
 [HarmonyPatch]
-public static class ErmfishNoisesPatches
+public static class ErmfishPatches
 {
 	[HarmonyPatch(typeof(Pickupable), nameof(Pickupable.PlayPickupSound))]
 	[HarmonyPostfix]
 	public static void PlayErmfishPickupSound(Pickupable __instance)
 	{
-		if (!ErmfishTypes.AllTechTypes.Contains(__instance.GetTechType())) return;
+		if (!ErmfishLoader.ErmfishTechTypes.Contains(__instance.GetTechType())) return;
 		ErmfishLoader.PickupSounds.Play();
 	}
 
@@ -20,7 +19,7 @@ public static class ErmfishNoisesPatches
 	[HarmonyPostfix]
 	public static void PlayErmfishDropSound(Pickupable __instance)
 	{
-		if (!ErmfishTypes.AllTechTypes.Contains(__instance.GetTechType())) return;
+		if (!ErmfishLoader.ErmfishTechTypes.Contains(__instance.GetTechType())) return;
 		ErmfishLoader.UnequipSounds.CancelAllDelayed();
 		ErmfishLoader.DropSounds.Play(__instance.GetComponent<FMOD_CustomEmitter>());
 	}
@@ -31,7 +30,7 @@ public static class ErmfishNoisesPatches
 	{
 		try
 		{
-			if (!__instance.pickupable || !ErmfishTypes.AllTechTypes.Contains(__instance.pickupable.GetTechType())) return;
+			if (!__instance.pickupable || !ErmfishLoader.ErmfishTechTypes.Contains(__instance.pickupable.GetTechType())) return;
 			if (Time.time < ErmfishLoader.PickupSounds.LastPlay + 0.5f) return;
 			ErmfishLoader.EquipSounds.Play();
 		}
@@ -47,7 +46,7 @@ public static class ErmfishNoisesPatches
 	{
 		try
 		{
-			if (!__instance.pickupable || !ErmfishTypes.AllTechTypes.Contains(__instance.pickupable.GetTechType())) return;
+			if (!__instance.pickupable || !ErmfishLoader.ErmfishTechTypes.Contains(__instance.pickupable.GetTechType())) return;
 			if (Time.time < ErmfishLoader.DropSounds.LastPlay + 0.5f) return;
 			if (Time.time < ErmfishLoader.EatSounds.LastPlay + 0.5f) return;
 			if (Time.time < ErmfishLoader.CraftSounds.LastPlay + 0.5f) return;
@@ -63,7 +62,7 @@ public static class ErmfishNoisesPatches
 	[HarmonyPostfix]
 	public static void PlayErmfishScanSound(PDAScanner.EntryData entryData)
 	{
-		if (!ErmfishTypes.AllTechTypes.Contains(entryData.key)) return;
+		if (!ErmfishLoader.ErmfishTechTypes.Contains(entryData.key)) return;
 		ErmfishLoader.ScanSounds.Play();
 	}
 
@@ -71,7 +70,7 @@ public static class ErmfishNoisesPatches
 	[HarmonyPostfix]
 	public static void PlayErmfishEatSound(TechType techType)
 	{
-		if (!ErmfishTypes.AllTechTypes.Contains(techType)) return;
+		if (!ErmfishLoader.ErmfishTechTypes.Contains(techType)) return;
 		if (Time.time < ErmfishLoader.EatSounds.LastPlay + 0.1f) return;
 		ErmfishLoader.UnequipSounds.CancelAllDelayed();
 		ErmfishLoader.EatSounds.Play();
@@ -81,7 +80,7 @@ public static class ErmfishNoisesPatches
 	[HarmonyPostfix]
 	public static void PlayErmfishCookSound(TechType techType)
 	{
-		if (!ErmfishTypes.AllTechTypes.Contains(techType)) return;
+		if (!ErmfishLoader.ErmfishTechTypes.Contains(techType)) return;
 		ErmfishLoader.UnequipSounds.CancelAllDelayed();
 		ErmfishLoader.CraftSounds.Play();
 	}
@@ -91,7 +90,7 @@ public static class ErmfishNoisesPatches
 	public static void PlayPlayerDeathSound(LiveMixin __instance)
 	{
 		if (Player.main.liveMixin != __instance) return;
-		if (ErmfishTypes.AllTechTypes.All(t => !Inventory.main.container.Contains(t))) return;
+		if (ErmfishLoader.ErmfishTechTypes.All(t => !Inventory.main.container.Contains(t))) return;
 		ErmfishLoader.PlayerDeathSounds.Play(0.15f);
 	}
 
@@ -101,18 +100,7 @@ public static class ErmfishNoisesPatches
 	{
 		if (inDamage.damage == 0) return;
 		Pickupable pickupable = __instance.GetComponent<Pickupable>();
-		if (!pickupable || !ErmfishTypes.AllTechTypes.Contains(pickupable.GetTechType())) return;
+		if (!pickupable || !ErmfishLoader.ErmfishTechTypes.Contains(pickupable.GetTechType())) return;
 		ErmfishLoader.HurtSounds.Play(__instance.GetComponent<FMOD_CustomEmitter>());
-	}
-
-	[HarmonyPatch(typeof(Player), nameof(Player.Update))]
-	[HarmonyPostfix]
-	public static void PlayErmfishRandomSound()
-	{
-		foreach (InventoryItem item in ErmfishTypes.AllTechTypes.SelectMany(t => Inventory.main.container.GetItems(t) ?? new List<InventoryItem>()))
-		{
-			if (!item.item || item.item.gameObject.activeInHierarchy) continue;
-			item.item.GetComponent<ErmfishNoises>()?.Update();
-		}
 	}
 }

@@ -5,6 +5,7 @@ using ECCLibrary.Mono;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using SCHIZO.Utilities;
+using SCHIZO.Utilities.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
@@ -48,7 +49,9 @@ public class ErmfishPrefab : CreatureAsset
 	public override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
 	{
 		prefab.GetComponent<HeldFish>().ikAimLeftArm = true;
-		prefab.EnsureComponent<ErmfishNoises>();
+
+		InventorySoundPlayer.Add(prefab, ErmfishLoader.InventorySounds);
+		WorldSoundPlayer.Add(prefab, ErmfishLoader.WorldSounds);
 
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Heat, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);

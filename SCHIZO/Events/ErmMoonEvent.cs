@@ -80,7 +80,7 @@ namespace SCHIZO.Events
 
         private bool ShouldStartEvent()
         {
-            float eventFrequency = Plugin.Config.MoonEventFrequency;
+            float eventFrequency = Plugin.CONFIG.MoonEventFrequency;
             if (eventFrequency == 0) return false;
 
             float roll = UnityEngine.Random.Range(0f, 1f);

@@ -1,5 +1,7 @@
-﻿using System.Reflection;
+﻿global using static SCHIZO.Plugin;
+using System.Reflection;
 using BepInEx;
+using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Buildables;
@@ -13,11 +15,12 @@ namespace SCHIZO;
 [BepInAutoPlugin]
 public partial class Plugin : BaseUnityPlugin
 {
-	public new static readonly Config Config = OptionsPanelHandler.RegisterModOptions<Config>();
+	public static ManualLogSource LOGGER = BepInEx.Logging.Logger.CreateLogSource("SCHIZO"); // TODO: move old logs to this
+	public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();
 
 	private void Awake()
 	{
-		HullPlateLoader.Load();
+        HullPlateLoader.Load();
 		BuildablesLoader.Load();
 		ErmfishLoader.Load();
 		ErmsharkLoader.Load();

@@ -2,13 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using FMOD;
 using Nautilus.Handlers;
 using UnityEngine;
 
-namespace SCHIZO.Utilities;
+namespace SCHIZO.Utilities.Sounds;
 
-public sealed class LocalSoundCollection
+public sealed class SoundCollection
 {
     private readonly List<string> _remainingSounds = new();
     private readonly List<string> _playedSounds = new();
@@ -16,29 +15,27 @@ public sealed class LocalSoundCollection
 
     public float LastPlay { get; private set; } = -1;
 
-    public LocalSoundCollection(string path, string bus)
+    public SoundCollection(string path, string bus)
     {
         string dirpath = Path.Combine(AssetLoader.AssetsFolder, "sounds", path);
 
         foreach (string soundFile in Directory.GetFiles(dirpath))
         {
             string id = Guid.NewGuid().ToString();
-            Sound s = CustomSoundHandler.RegisterCustomSound(id, soundFile, bus, MODE._3D | MODE._3D_LINEARSQUAREROLLOFF);
-            s.set3DMinMaxDistance(1, 30);
+            CustomSoundHandler.RegisterCustomSound(id, soundFile, bus);
             _remainingSounds.Add(id);
         }
 
         _remainingSounds.Shuffle();
     }
 
-    public void Play(FMOD_CustomEmitter emitter, float delay = 0)
+    public void Play(float delay = 0)
     {
-        if (!emitter) return;
-        if (Plugin.Config.DisableAllNoises) return;
+        if (Plugin.CONFIG.DisableAllNoises) return;
 
         if (delay == 0)
         {
-            PlaySound(emitter);
+            PlaySound();
             return;
         }
 
@@ -49,7 +46,7 @@ public sealed class LocalSoundCollection
         IEnumerator PlayWithDelay(float del)
         {
             yield return new WaitForSeconds(del);
-            PlaySound(emitter);
+            PlaySound();
         }
     }
 
@@ -63,7 +60,7 @@ public sealed class LocalSoundCollection
         _runningCoroutines.Clear();
     }
 
-    private void PlaySound(FMOD_CustomEmitter emitter)
+    private void PlaySound()
     {
         LastPlay = Time.time;
 
@@ -73,11 +70,7 @@ public sealed class LocalSoundCollection
             _playedSounds.Clear();
         }
 
-        FMODAsset asset = ScriptableObject.CreateInstance<FMODAsset>();
-        asset.path = _remainingSounds[0];
-        emitter.SetAsset(asset);
-        emitter.Play();
-
+        CustomSoundHandler.TryPlayCustomSound(_remainingSounds[0], out _);
         _playedSounds.Add(_remainingSounds[0]);
         _remainingSounds.RemoveAt(0);
     }

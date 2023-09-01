@@ -1,13 +1,18 @@
 ﻿using ECCLibrary;
+using Nautilus.Utility;
+using SCHIZO.Utilities.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
 public static class ErmsharkLoader
 {
+    public static readonly SoundCollection3D AmbientSounds = new("ermshark/ambient", AudioUtils.BusPaths.UnderwaterCreatures);
+    public static readonly SoundCollection3D AttackSounds = new("ermshark/attack", AudioUtils.BusPaths.UnderwaterCreatures);
+
     public static void Load()
     {
-        ErmsharkPrefab ermshark = new(ErmsharkData.Info);
+        ErmsharkPrefab ermshark = new(ModItems.Ermshark);
         ermshark.Register();
 
         Texture2D databankTexture = AssetLoader.GetTexture("ermshark-databank.png");

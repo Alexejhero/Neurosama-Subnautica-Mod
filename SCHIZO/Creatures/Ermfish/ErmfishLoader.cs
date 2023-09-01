@@ -8,7 +8,7 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using SCHIZO.Utilities;
+using SCHIZO.Utilities.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
@@ -16,43 +16,43 @@ namespace SCHIZO.Creatures.Ermfish;
 public static class ErmfishLoader
 {
     public static SoundCollection CraftSounds { get; private set; }
-    public static LocalSoundCollection DropSounds { get; private set; }
+    public static SoundCollection3D DropSounds { get; private set; }
     public static SoundCollection EatSounds { get; private set; }
     public static SoundCollection EquipSounds { get; private set; }
-    public static LocalSoundCollection HurtSounds { get; private set; }
+    public static SoundCollection3D HurtSounds { get; private set; }
     public static SoundCollection InventorySounds { get; private set; }
     public static SoundCollection PickupSounds { get; private set; }
     public static SoundCollection PlayerDeathSounds { get; private set; }
     public static SoundCollection ScanSounds { get; private set; }
     public static SoundCollection UnequipSounds { get; private set; }
-    public static LocalSoundCollection WorldSounds { get; private set; } // todo: get rid of fmod erros for loading the same audio file twice
+    public static SoundCollection3D WorldSounds { get; private set; } // todo: get rid of fmod erros for loading the same audio file twice
 
     public static void Load()
     {
         LoadSounds();
         LoadErmfish();
-        LoadErmfishVariant(ErmfishTypes.Cooked, "erm_cooked.png", new RecipeData(new CraftData.Ingredient(ErmfishTypes.Regular.TechType)), 23, 4, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
-        LoadErmfishVariant(ErmfishTypes.Cured, "erm_cured.png", new RecipeData(new CraftData.Ingredient(ErmfishTypes.Regular.TechType), new CraftData.Ingredient(TechType.Salt)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
+        LoadErmfishVariant(ModItems.CookedErmfish, "erm_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Ermfish)), 23, 4, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
+        LoadErmfishVariant(ModItems.CuredErmfish, "erm_cured.png", new RecipeData(new CraftData.Ingredient(ModItems.Ermfish), new CraftData.Ingredient(TechType.Salt)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
     }
 
     private static void LoadSounds()
     {
-        CraftSounds = new SoundCollection("cooking", AudioUtils.BusPaths.PDAVoice);
-        DropSounds = new LocalSoundCollection("release", AudioUtils.BusPaths.PDAVoice);
-        EatSounds = new SoundCollection("eating", AudioUtils.BusPaths.PDAVoice);
-        EquipSounds = new SoundCollection("equipping", AudioUtils.BusPaths.PDAVoice);
-        HurtSounds = new LocalSoundCollection("hurt", AudioUtils.BusPaths.PDAVoice);
-        InventorySounds = new SoundCollection("noises", AudioUtils.BusPaths.PDAVoice);
-        PickupSounds = new SoundCollection("pickup", AudioUtils.BusPaths.PDAVoice);
-        PlayerDeathSounds = new SoundCollection("player_death", "bus:/master/SFX_for_pause/nofilter");
-        ScanSounds = new SoundCollection("scan", AudioUtils.BusPaths.PDAVoice);
-        UnequipSounds = new SoundCollection("unequipping", AudioUtils.BusPaths.PDAVoice);
-        WorldSounds = new LocalSoundCollection("noises", AudioUtils.BusPaths.UnderwaterCreatures);
+        CraftSounds = new SoundCollection("ermfish/cooking", AudioUtils.BusPaths.PDAVoice);
+        DropSounds = new SoundCollection3D("ermfish/release", AudioUtils.BusPaths.PDAVoice);
+        EatSounds = new SoundCollection("ermfish/eating", AudioUtils.BusPaths.PDAVoice);
+        EquipSounds = new SoundCollection("ermfish/equipping", AudioUtils.BusPaths.PDAVoice);
+        HurtSounds = new SoundCollection3D("ermfish/hurt", AudioUtils.BusPaths.PDAVoice);
+        InventorySounds = new SoundCollection("ermfish/noises", AudioUtils.BusPaths.PDAVoice);
+        PickupSounds = new SoundCollection("ermfish/pickup", AudioUtils.BusPaths.PDAVoice);
+        PlayerDeathSounds = new SoundCollection("ermfish/player_death", "bus:/master/SFX_for_pause/nofilter");
+        ScanSounds = new SoundCollection("ermfish/scan", AudioUtils.BusPaths.PDAVoice);
+        UnequipSounds = new SoundCollection("ermfish/unequipping", AudioUtils.BusPaths.PDAVoice);
+        WorldSounds = new SoundCollection3D("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures);
     }
 
     private static void LoadErmfish()
     {
-		ErmfishPrefab ermfish = new(ErmfishTypes.Regular);
+		ErmfishPrefab ermfish = new(ModItems.Ermfish);
 		ermfish.PrefabInfo.WithIcon(AssetLoader.GetAtlasSprite("erm.png"));
 		ermfish.Register();
 
@@ -103,7 +103,7 @@ public static class ErmfishLoader
 		crafting.WithStepsToFabricatorTab(craftingTabPath);
 		variant.AddGadget(crafting);
 
-		variant.SetGameObject(new CloneTemplate(variant.Info, ErmfishTypes.Regular.TechType)
+		variant.SetGameObject(new CloneTemplate(variant.Info, ModItems.Ermfish)
 		{
 			ModifyPrefab = prefab =>
 			{
@@ -126,4 +126,6 @@ public static class ErmfishLoader
 		CraftDataHandler.SetEquipmentType(variant.Info.TechType, EquipmentType.Hand);
 		ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play(), "pull ahoge", "English");
     }
+
+    public static List<TechType> ErmfishTechTypes => new() { ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish };
 }

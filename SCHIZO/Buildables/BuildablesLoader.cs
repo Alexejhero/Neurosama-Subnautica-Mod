@@ -1,6 +1,6 @@
 ﻿using Nautilus.Crafting;
-using SCHIZO.Creatures.Ermfish;
 using SCHIZO.Utilities;
+using SCHIZO.Utilities.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Buildables;
@@ -9,7 +9,7 @@ public static class BuildablesLoader
 {
 	public static Transform DisabledParent { get; private set; }
 
-	public static LocalSoundCollection ErmWorldSounds { get; private set; }
+	public static SoundCollection3D ErmWorldSounds { get; private set; }
 
 	public static void Load()
 	{
@@ -17,11 +17,11 @@ public static class BuildablesLoader
 		DisabledParent.gameObject.SetActive(false);
 		GameObject.DontDestroyOnLoad(DisabledParent);
 
-		ErmWorldSounds = new LocalSoundCollection("noises", "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds");
+		ErmWorldSounds = new SoundCollection3D("ermfish/noises", "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds");
 
 		LoadOldVersions();
 
-		new BuildablePrefab("VedalTurtle2", "Tutel", "<size=75%>(Model by FutabaKuuhaku)</size>")
+		new BuildablePrefab(new ModItem("VedalTurtle2", "Tutel", "<size=75%>(Model by FutabaKuuhaku)</size>"))
 		{
 			IconFileName = "tutel.png",
 			Recipe = new RecipeData(new CraftData.Ingredient(TechType.CreepvinePiece, 10)),
@@ -30,20 +30,20 @@ public static class BuildablesLoader
 			TechCategory = TechCategory.Misc,
 		}.WithOldVersion("VedalTurtle").Register();
 
-		new BuildablePrefab("NeuroErm2", "Erm", "<size=75%>(Model by w1n7er)</size>")
+		new BuildablePrefab(ModItems.Erm)
 		{
 			IconFileName = "erm.png",
-			Recipe = new RecipeData(new CraftData.Ingredient(TechType.CopperWire, 2), new CraftData.Ingredient(TechType.Silicone, 2), new CraftData.Ingredient(TechType.Battery), new CraftData.Ingredient(TechType.Titanium, 4), new CraftData.Ingredient(ErmfishTypes.Regular.TechType)),
+			Recipe = new RecipeData(new CraftData.Ingredient(TechType.CopperWire, 2), new CraftData.Ingredient(TechType.Silicone, 2), new CraftData.Ingredient(TechType.Battery), new CraftData.Ingredient(TechType.Titanium, 4), new CraftData.Ingredient(ModItems.Ermfish)),
 			PrefabName = "neuroerm",
 			TechGroup = TechGroup.Miscellaneous,
 			TechCategory = TechCategory.Misc,
 			ModifyPrefab = prefab =>
 			{
-				prefab.AddComponent<ErmNoises>();
+				WorldSoundPlayer.Add(prefab, ErmWorldSounds);
 			}
 		}.Register();
 
-		new BuildablePrefab("Neuroopper2", "Neurooper", "<size=75%>(Model by greencap, original art by Sandro)</size>")
+		new BuildablePrefab(new ModItem("Neuroopper2", "Neurooper", "<size=75%>(Model by greencap, original art by Sandro)</size>"))
 		{
 			IconFileName = "neurooper.png",
 			Recipe = new RecipeData(new CraftData.Ingredient(TechType.CopperWire), new CraftData.Ingredient(TechType.Silicone, 2), new CraftData.Ingredient(TechType.Peeper, 3), new CraftData.Ingredient(TechType.Bladderfish, 3)),
@@ -52,7 +52,7 @@ public static class BuildablesLoader
 			TechCategory = TechCategory.Misc,
 		}.WithOldVersion("Neurooper").Register();
 
-		new BuildablePrefab("NeuroFumo2", "Low-poly Neuro fumo", "Fumo collection 1/2\n<size=75%>(Model by YuG)</size>")
+		new BuildablePrefab(new ModItem("NeuroFumo2", "Low-poly Neuro fumo", "Fumo collection 1/2\n<size=75%>(Model by YuG)</size>"))
 		{
 			IconFileName = "neurofumo.png",
 			Recipe = new RecipeData(new CraftData.Ingredient(TechType.CopperWire), new CraftData.Ingredient(TechType.Silicone, 2), new CraftData.Ingredient(TechType.JeweledDiskPiece, 2), new CraftData.Ingredient(TechType.Gold)),
@@ -61,7 +61,7 @@ public static class BuildablesLoader
 			TechCategory = TechCategory.Misc,
 		}.WithOldVersion("NeuroFumo").Register();
 
-		new BuildablePrefab("NeuroFumoNew", "Neuro fumo", "Fumo collection 2/2\n<size=75%>(Model by Kat)</size>")
+		new BuildablePrefab(new ModItem("NeuroFumoNew", "Neuro fumo", "Fumo collection 2/2\n<size=75%>(Model by Kat)</size>"))
 		{
 			IconFileName = "neurofumonew.png",
 			Recipe = new RecipeData(new CraftData.Ingredient(TechType.CopperWire), new CraftData.Ingredient(TechType.Silicone, 2), new CraftData.Ingredient(TechType.JeweledDiskPiece, 2), new CraftData.Ingredient(TechType.Gold)),
@@ -73,7 +73,7 @@ public static class BuildablesLoader
 
 	private static void LoadOldVersions()
 	{
-		new BuildablePrefab("NeuroErm", "Erm (OLD VERSION, PLEASE REBUILD)", "<size=75%>(Model by w1n7er)</size>")
+		new BuildablePrefab(new ModItem("NeuroErm", "Erm (OLD VERSION, PLEASE REBUILD)", "<size=75%>(Model by w1n7er)</size>"))
 		{
 			IconFileName = "erm.png",
 			Recipe = new RecipeData(new CraftData.Ingredient(TechType.CopperWire, 2), new CraftData.Ingredient(TechType.Silicone, 2), new CraftData.Ingredient(TechType.Battery), new CraftData.Ingredient(TechType.Titanium, 4)),

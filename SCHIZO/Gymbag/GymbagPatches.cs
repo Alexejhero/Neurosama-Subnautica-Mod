@@ -10,7 +10,7 @@ public static class GymbagPatches
     public static bool AllowGymbagPickup(PickupableStorage __instance, GUIHand hand)
     {
         TechType type = __instance.pickupable.GetTechType();
-        if (type != GymbagTypes.Gymbag.TechType) return true;
+        if (type != ModItems.Gymbag) return true;
 
         __instance.pickupable.OnHandClick(hand);
         return false;
@@ -21,7 +21,7 @@ public static class GymbagPatches
     public static bool DisableGymbagPickupHudWarning(PickupableStorage __instance, GUIHand hand)
     {
         TechType type = __instance.pickupable.GetTechType();
-        if (type != GymbagTypes.Gymbag.TechType) return true;
+        if (type != ModItems.Gymbag) return true;
 
         __instance.pickupable.OnHandHover(hand);
         return false;

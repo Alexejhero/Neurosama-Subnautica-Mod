@@ -4,7 +4,6 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using SCHIZO.Creatures.Ermfish;
 using SCHIZO.Utilities;
 using UnityEngine;
 
@@ -14,7 +13,7 @@ public static class GymbagLoader
 {
     public static void Load()
     {
-        CustomPrefab prefab = new(GymbagTypes.Gymbag);
+        CustomPrefab prefab = new(ModItems.Gymbag);
         prefab.Info.WithSizeInInventory(new Vector2int(2, 2));
         prefab.Info.WithIcon(AssetLoader.GetAtlasSprite("gymbag.png"));
 
@@ -23,7 +22,7 @@ public static class GymbagLoader
             ModifyPrefab = ModifyPrefab
         });
 
-        CraftingGadget crafting = new(prefab, new RecipeData(new CraftData.Ingredient(TechType.LuggageBag), new CraftData.Ingredient(ErmfishTypes.Regular.TechType)));
+        CraftingGadget crafting = new(prefab, new RecipeData(new CraftData.Ingredient(TechType.LuggageBag), new CraftData.Ingredient(ModItems.Ermfish)));
         crafting.WithFabricatorType(CraftTree.Type.Fabricator);
         crafting.WithStepsToFabricatorTab(CraftTreeHandler.Paths.FabricatorEquipment);
         prefab.AddGadget(crafting);
