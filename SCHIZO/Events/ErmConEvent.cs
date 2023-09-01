@@ -18,36 +18,41 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
     public float SearchRadius = 250f;
     public float ErmQueenSearchRadius = 50f;
     public float EventDurationSeconds = 120f;
-    public float CooldownSeconds = 3600f;
+    public float CooldownSeconds = 1800f;
 
     public bool OnlyStare;
 
     public GameObject CongregationTarget;
 
     private readonly List<Creature> ConMembers = new();
-    private float _eventStartTime;
+    private float _lastEventEndTime;
     private bool _hasRolled;
 
     private void Awake()
     {
-        // let's not start 
-        _eventStartTime = -CooldownSeconds/2;
+        // let's not wait the whole cooldown on load
+        _lastEventEndTime = -CooldownSeconds/2;
     }
     private bool ShouldStartEvent()
     {
-        if (Time.time < _eventStartTime + EventDurationSeconds + CooldownSeconds)
+        float sinceLastEvent = Time.time - _lastEventEndTime;
+        if (sinceLastEvent < CooldownSeconds)
             return false;
-        // roll 10% every 6 hours (5m irl)
-        // should average out to about one con every 1-2h irl time (~45% in 1.5h, ~70% in 2h)
+        // roll every 6 in-game hours (5min real time)
+        // should average out to about one con every 1h-1h30m real time
         // since it's always centered on (or around) the player, it's not a big problem that it's rare
-        float normalDayScalar = DayNightUtils.dayScalar - 0.125f;
-        if (normalDayScalar % 0.25 < 0.01)
+        if (DayNightUtils.dayScalar % 0.25 < 0.01)
         {
             if (_hasRolled)
                 return false;
             _hasRolled = true;
-            if (Random.Range(0f, 1f) > 0.1f)
+            float chance = 0.1f * (sinceLastEvent / CooldownSeconds);
+            var roll = Random.Range(0f, 1f);
+            if (roll > chance)
+            {
+                Debug.Log($"roll failed {roll}>{chance}");
                 return false;
+            }
         }
         else
         {
@@ -56,15 +61,15 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         }
 
         // When more than ten Ermfish gather in one place, a hierarchical society (also known as a "swarm") begins to form, with the Queen Erm at the top.
-        // If a Queen Erm cannot be located or designated, the swarm becomes distressed, and seeks the closest possible intelligent(?) being capable of designating the Queen for the swarm.
-        // It is not currently known whether Ermfish swarms devolve if deprived of their Queen for too long.
+        // If a Queen Erm cannot be located or designated, the swarm becomes distressed, and seeks the nearest intelligent(?) being capable of designating the Queen for the swarm.
+        // It is not currently known whether Ermfish swarm behaviors change if deprived of their Queen for too long.
         // Everyone who has so far been resourceful enough to survive on 4546B has displayed sufficient sensibility in choosing not to test that theory.
         int ermsInRange = AreaUtils.ObjectsInRange(CongregationTarget, SearchRadius)
             .ThatHaveComponent<ErmfishNoises>()
             .Count();
         if (ermsInRange < MinAttendance)
         {
-            Debug.Log($"Rolled for ErmCon event but only had {ermsInRange} erms, unlucky");
+            //Debug.Log($"Rolled for ErmCon event but only had {ermsInRange} erms, unlucky");
             return false;
         }
         return true;
@@ -87,7 +92,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         }
         else
         {
-            if (Time.time > _eventStartTime + EventDurationSeconds)
+            if (Time.time > _lastEventEndTime)
             {
                 EndEvent();
                 return;
@@ -159,13 +164,12 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
             .ToComponent<Creature>()
             .ToList();
         int totalAttendance = Mathf.Min(MaxAttendance, withinRadius.Count);
+        Debug.Log($"{totalAttendance} Ermfish will be attending the ErmCon");
         for (int i = 0; i < totalAttendance; i++)
         {
             Creature fish = withinRadius[i];
-            Debug.Log($"{totalAttendance} Ermfish will be attending the ErmCon");
             ConMembers.Add(fish);
         }
-        _eventStartTime = Time.time;
     }
 
     public void EndEvent()
@@ -178,6 +182,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
             fish.GetComponent<SwimBehaviour>().LookForward();
         }
         ConMembers.Clear();
+        _lastEventEndTime = Time.time;
     }
 
     private bool TryFindErmQueen(GameObject center, out ErmNoises ermQueen)
