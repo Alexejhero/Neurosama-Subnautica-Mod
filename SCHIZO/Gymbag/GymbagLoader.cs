@@ -13,7 +13,7 @@ namespace SCHIZO.Gymbag;
 
 public static class GymbagLoader
 {
-    public static void Load() // todo: fix not being able to scroll to the item
+    public static void Load()
     {
         CustomPrefab prefab = new(ModItems.Gymbag);
         prefab.Info.WithSizeInInventory(new Vector2int(2, 2));

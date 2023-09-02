@@ -39,7 +39,7 @@ public static class AssetLoader
                 ?? throw new ArgumentException($"Sprite {name} not found", nameof(name));
     }
 
-    public static UnityEngine.Sprite GetUnitySprite(string name)
+    public static Sprite GetUnitySprite(string name)
     {
         return TextureHelpers.CreateSprite(GetTexture(name));
     }

@@ -29,16 +29,12 @@ public sealed class ErmsharkPrefab : CreatureAsset
             StayAtLeashData = new StayAtLeashData(0.6f, swimVelocity * 1.25f, 60),
             AvoidObstaclesData = new AvoidObstaclesData(0.6f, swimVelocity, true, 5, 5),
             AcidImmune = true,
-            Mass = 120, // TODO: figure out mass
+            Mass = 120,
             EyeFOV = -0.9f,
             LocomotionData = new LocomotionData(10, 0.45f),
             AnimateByVelocityData = new AnimateByVelocityData(swimVelocity * 1.2f),
             AttackLastTargetData = new AttackLastTargetData(1, swimVelocity * 1.25f, 0.5f, 5f),
             AttackCyclopsData = new AttackCyclopsData(1f, 15f, 100f, 0.4f, 4.5f, 0.08f),
-            AggressiveWhenSeeTargetList = new List<AggressiveWhenSeeTargetData>
-            {
-                new(EcoTargetType.Shark, 2, 75, 3),
-            },
             BehaviourLODData = new BehaviourLODData(50, 100, 150),
             CanBeInfected = false,
         };
@@ -49,7 +45,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
 
     public override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
-        WorldSoundPlayer.Add(prefab, ErmsharkLoader.AmbientSounds, 0.05f);
+        WorldSoundPlayer.Add(prefab, ErmsharkLoader.AmbientSounds);
 
         AggressiveWhenSeePlayer aggressive = prefab.AddComponent<AggressiveWhenSeePlayer>();
         aggressive.maxRangeMultiplier = CreaturePrefabUtils.maxRangeMultiplierCurve;
@@ -66,7 +62,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
         aggressive.hungerThreshold = 0;
 
         GameObject mouth = prefab.SearchChild("attack_collider");
-        CreaturePrefabUtils.AddMeleeAttack<MeleeAttack>(prefab, components, mouth, true, 20);
+        CreaturePrefabUtils.AddMeleeAttack<ErmsharkAttack>(prefab, components, mouth, true, 20);
 
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Heat, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
@@ -76,7 +72,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Radiation, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Starve, 0f);
 
-        ErmsharkData.Prefab = prefab;
+        ErmsharkLoader.Prefab = prefab;
 
         yield break;
     }

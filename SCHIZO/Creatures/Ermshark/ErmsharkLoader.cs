@@ -12,7 +12,10 @@ namespace SCHIZO.Creatures.Ermshark;
 public static class ErmsharkLoader
 {
     public static readonly SoundCollection3D AmbientSounds = SoundCollection3D.Create("ermshark/ambient", AudioUtils.BusPaths.UnderwaterCreatures);
-    public static readonly SoundCollection3D AttackSounds = SoundCollection3D.Create("ermshark/attack", AudioUtils.BusPaths.UnderwaterCreatures);
+    public static readonly SoundCollection2D AttackSounds = SoundCollection2D.Create("ermshark/attack", AudioUtils.BusPaths.UnderwaterCreatures);
+    public static readonly SoundCollection2D SplitSounds = SoundCollection2D.Create("ermshark/split", AudioUtils.BusPaths.UnderwaterCreatures);
+
+    public static GameObject Prefab;
 
     public static void Load()
     {
@@ -86,7 +89,7 @@ public static class ErmsharkLoader
         List<LootDistributionData.BiomeData> biomes = new();
         foreach (BiomeType biome in Enum.GetValues(typeof(BiomeType)).Cast<BiomeType>())
         {
-            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.005f });
+            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.002f });
         }
         LootDistributionHandler.AddLootDistributionData(ermshark.PrefabInfo.ClassID, biomes.ToArray());
     }

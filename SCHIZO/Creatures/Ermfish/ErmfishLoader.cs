@@ -9,7 +9,6 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using SCHIZO.Helpers;
 using SCHIZO.Sounds;
 using UnityEngine;
 

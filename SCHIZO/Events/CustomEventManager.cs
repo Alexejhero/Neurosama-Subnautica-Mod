@@ -43,10 +43,10 @@ public class CustomEventManager : MonoBehaviour
     public T EnsureEvent<T>() where T : CustomEvent
         => gameObject.EnsureComponent<T>();
 
-    public void AddEvent<T>(string eventName = null)
+    public void AddEvent<T>()
         where T : CustomEvent, new()
     {
-        eventName ??= new T().Name;
+        string eventName = typeof(T).Name;
         if (Events.ContainsKey(eventName))
         {
             LOGGER.LogWarning($"Event {eventName} already registered");

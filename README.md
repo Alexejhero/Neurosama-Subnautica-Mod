@@ -1,5 +1,5 @@
 ## Vedal-Subnautica-Mod
-Subnautica mod as seen on [vedal](https://twitch.tv/vedal987)'s streams
+Subnautica mod as seen on [vedal987](https://twitch.tv/vedal987)'s streams
 
 Requires BepInEx, Nautilus and ECCLibrary to run
 
@@ -29,7 +29,9 @@ Requires BepInEx, Nautilus and ECCLibrary to run
   - Kaz
   - Lorx
   - Moloch
+  - MyBraza
   - P3R
+  - paccha
   - Rune
   - SADecsSs
   - Sandro

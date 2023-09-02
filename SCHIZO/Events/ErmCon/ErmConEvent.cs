@@ -9,8 +9,6 @@ namespace SCHIZO.Events.ErmCon;
 
 public class ErmConEvent : CustomEvent
 {
-    public override string Name => "ErmCon";
-
     public override bool IsOccurring => ConMembers.Count > 0;
 
     public int MinAttendance = 10;

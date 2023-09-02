@@ -1,6 +1,6 @@
 ﻿using Nautilus.Json;
 using Nautilus.Options.Attributes;
-using SCHIZO.Events;
+using SCHIZO.Events.ErmMoon;
 
 // ReSharper disable ConvertToConstant.Global
 // ReSharper disable FieldCanBeMadeReadOnly.Global
@@ -32,7 +32,7 @@ public sealed class Config : ConfigFile
     public bool DisableAllNoises = false;
 
     /// <summary>
-    /// Inverse scaling for the cooldown/nightly chance of a <see cref="Events.ErmMoonEvent"/> occurring.<br/>
+    /// Inverse scaling for the cooldown/nightly chance of a <see cref="ErmMoonEvent"/> occurring.<br/>
     /// Scales approximately logarithmically. You can adjust the rates in <see cref="ErmMoonEvent.ShouldStartEvent"/>
     /// </summary>
     // 0 - never, 1 - every 10-30 days, 3 - every 4-9 days, 6 - every 3-5 days, 9 - almost every night, 10 - guaranteed

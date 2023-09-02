@@ -2,10 +2,8 @@
 using System.Reflection.Emit;
 using HarmonyLib;
 using SCHIZO.DataStructures;
-using SCHIZO.Helpers;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = System.Random;
 
 namespace SCHIZO.Loading;
 
@@ -14,9 +12,11 @@ public static class LoadingPatches
 {
     private static readonly RandomList<Sprite> _backgrounds = new()
     {
-        AssetLoader.GetUnitySprite("loading-bg-0.png"),
-        AssetLoader.GetUnitySprite("loading-bg-1.png"),
+        AssetLoader.GetUnitySprite("loading-bg-1.jpg"),
         AssetLoader.GetUnitySprite("loading-bg-2.png"),
+        AssetLoader.GetUnitySprite("loading-bg-3.png"),
+        AssetLoader.GetUnitySprite("loading-bg-4.png"),
+        AssetLoader.GetUnitySprite("loading-bg-5.png"),
     };
 
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake))]
