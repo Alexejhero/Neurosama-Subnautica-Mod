@@ -7,11 +7,11 @@ using UnityEngine;
 
 namespace SCHIZO.Events.ErmCon;
 
-public class ErmConEvent : MonoBehaviour, ICustomEvent
+public class ErmConEvent : CustomEvent
 {
-    public string Name => "ErmCon";
+    public override string Name => "ErmCon";
 
-    public bool IsOccurring => ConMembers.Count > 0;
+    public override bool IsOccurring => ConMembers.Count > 0;
 
     public int MinAttendance = 10;
     public int MaxAttendance = 50;
@@ -51,7 +51,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
             var roll = Random.Range(0f, 1f);
             if (roll > chance)
             {
-                // Debug.Log($"roll failed {roll}>{chance}");
+                // LOGGER.LogDebug($"roll failed {roll}>{chance}");
                 return false;
             }
         }
@@ -68,7 +68,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         int ermsInRange = PhysicsHelpers.ObjectsInRange(CongregationTarget, SearchRadius).Select(CraftData.GetTechType).Count(ErmfishLoader.ErmfishTechTypes.Contains);
         if (ermsInRange < MinAttendance)
         {
-            //Debug.Log($"Rolled for ErmCon event but only had {ermsInRange} erms, unlucky");
+            //LOGGER.LogDebug($"Rolled for ErmCon event but only had {ermsInRange} erms, unlucky");
             return false;
         }
 
@@ -156,7 +156,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         }
     }
 
-    public void StartEvent()
+    public override void StartEvent()
     {
         OnlyStare = true;
         if (!CongregationTarget)
@@ -168,7 +168,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
             .SelectComponent<Creature>()
             .ToList();
         int totalAttendance = Mathf.Min(MaxAttendance, withinRadius.Count);
-        Debug.Log($"{totalAttendance} Ermfish will be attending the ErmCon");
+        LOGGER.LogInfo($"{totalAttendance} Ermfish will be attending the ErmCon");
         for (int i = 0; i < totalAttendance; i++)
         {
             Creature fish = withinRadius[i];
@@ -178,7 +178,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         _eventStartTime = Time.time;
     }
 
-    public void EndEvent()
+    public override void EndEvent()
     {
         CongregationTarget = null;
         foreach (Creature fish in ConMembers)

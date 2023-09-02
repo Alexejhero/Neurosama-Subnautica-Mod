@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Events;
@@ -18,13 +19,37 @@ public class CustomEventManager : MonoBehaviour
         DevConsole.RegisterConsoleCommand(this, "events");
     }
 
+    public CustomEvent GetEvent(string eventName)
+    {
+        if (eventName is null)
+            throw new ArgumentNullException(nameof(eventName));
+        if (Events.TryGetValue(eventName, out Type eventType))
+            return gameObject.GetComponent(eventType) as CustomEvent;
+        return null;
+    }
+
+    public T GetEvent<T>() where T : CustomEvent
+        => gameObject.GetComponent<T>();
+
+    public CustomEvent EnsureEvent(string eventName)
+    {
+        if (eventName is null)
+            throw new ArgumentNullException(nameof(eventName));
+        if (Events.TryGetValue(eventName, out Type eventType))
+            return gameObject.EnsureComponent(eventType) as CustomEvent;
+        return null;
+    }
+
+    public T EnsureEvent<T>() where T : CustomEvent
+        => gameObject.EnsureComponent<T>();
+
     public void AddEvent<T>(string eventName = null)
-        where T : ICustomEvent, new()
+        where T : CustomEvent, new()
     {
         eventName ??= new T().Name;
         if (Events.ContainsKey(eventName))
         {
-            Debug.LogError($"Event {eventName} already registered");
+            LOGGER.LogWarning($"Event {eventName} already registered");
             return;
         }
         Type evt = typeof(T);
@@ -50,27 +75,27 @@ public class CustomEventManager : MonoBehaviour
     {
         if (n?.data?.Count is null or 0)
         {
-            ErrorMessage.AddDebug($"Events: {string.Join(", ", Events.Keys)}");
+            Output($"Events: {string.Join(", ", Events.Keys)}");
             return;
         }
 
         string eventName = (string) n.data[0];
         if (!Events.TryGetValue(eventName, out Type eventType))
         {
-            ErrorMessage.AddDebug($"Event '{eventName}' not found, use \"event\" to list events");
+            Output($"Event '{eventName}' not found, use \"event\" to list events");
             return;
         }
 
         Component eventComp = gameObject.GetComponent(eventType);
-        if (eventComp is not ICustomEvent evt)
+        if (eventComp is not CustomEvent evt)
         {
-            Debug.LogError($"Event '{eventName}' has component of wrong type");
+            LOGGER.LogError($"Event '{eventName}' has component of wrong type");
             return;
         }
 
         if (n.data.Count == 1)
         {
-            ErrorMessage.AddDebug($"Event '{eventName}' is {(evt.IsOccurring ? "" : "not ")}occurring");
+            Output($"Event '{eventName}' is {(evt.IsOccurring ? "" : "not ")}occurring");
             return;
         }
 
@@ -83,13 +108,13 @@ public class CustomEventManager : MonoBehaviour
         };
         if (isStartMaybe is not { } isStart)
         {
-            ErrorMessage.AddDebug("Syntax: event [name] [start|end]");
+            Output("Syntax: event [name] [start|end]");
             return;
         }
 
         if (evt.IsOccurring == isStart)
         {
-            ErrorMessage.AddDebug($"Event '{eventName}' is already {(evt.IsOccurring ? "" : "not ")}occurring");
+            Output($"Event '{eventName}' is already {(evt.IsOccurring ? "" : "not ")}occurring");
             return;
         }
 
@@ -97,6 +122,9 @@ public class CustomEventManager : MonoBehaviour
             evt.StartEvent();
         else
             evt.EndEvent();
-        ErrorMessage.AddDebug($"Event '{eventName}' {(isStart ? "start" : "end")}ed");
+        Output($"Event '{eventName}' {(isStart ? "start" : "end")}ed");
     }
+
+    private void Output(string msg)
+        => MessageHelper.WriteCommandOutput(msg);
 }

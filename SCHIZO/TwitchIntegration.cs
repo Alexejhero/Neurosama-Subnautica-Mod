@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
+using SCHIZO.Helpers;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
@@ -14,12 +15,15 @@ namespace SCHIZO;
 public sealed class TwitchIntegration : MonoBehaviour
 {
     private readonly TwitchClient _client;
+    public static readonly string OwnerUsername = "alexejherodev";
+    public static readonly string TargetChannel = "vedal987";
+
+    private readonly Queue<string> _msgQueue = new();
 
     public TwitchIntegration()
     {
-        DevConsole.RegisterConsoleCommand(this, "say");
+        DevConsole.RegisterConsoleCommand(this, "say", true, true);
 
-        ConnectionCredentials credentials = new("AlexejheroDev", File.ReadAllLines(Path.Combine(AssetLoader.AssetsFolder, "..", "config.json"))[1]);
         ClientOptions clientOptions = new()
         {
             MessagesAllowedInPeriod = 750,
@@ -27,11 +31,24 @@ public sealed class TwitchIntegration : MonoBehaviour
         };
         WebSocketClient customClient = new(clientOptions);
         _client = new TwitchClient(customClient);
-        _client.Initialize(credentials, "vedal987");
 
-        _client.OnConnected += (_, evt) => LOGGER.LogInfo("Connected as " + evt.BotUsername);
         _client.OnError += (_, evt) => LOGGER.LogError(evt.Exception);
+        _client.OnIncorrectLogin += (_, evt) => LOGGER.LogError($"Failed to log in: {evt.Exception.Message}");
+        _client.OnConnected += (_, evt) => LOGGER.LogInfo("Connected as " + evt.BotUsername);
+        _client.OnConnectionError += (_, evt) => LOGGER.LogError($"Could not connect: {evt.Error.Message}");
+        _client.OnJoinedChannel += (_, evt) => LOGGER.LogInfo($"Joined channel {evt.Channel}");
+        _client.OnFailureToReceiveJoinConfirmation += (_, evt) => LOGGER.LogError($"Could not join channel {evt.Exception.Channel}: {evt.Exception.Details}");
         _client.OnMessageReceived += Client_OnMessageReceived;
+
+        if (!File.Exists(Path.Combine(AssetLoader.AssetsFolder, "..", "config.json")))
+        {
+            LOGGER.LogWarning("Could not find config.json for Twitch integration, it will be disabled.\n"
+                + "Make a text file next to the mod .dll and put the token on the SECOND line.");
+            return;
+        }
+        ConnectionCredentials credentials = new(OwnerUsername, File.ReadAllLines(Path.Combine(AssetLoader.AssetsFolder, "..", "config.json"))[1]);
+
+        _client.Initialize(credentials, TargetChannel);
 
         _client.Connect();
     }
@@ -40,21 +57,34 @@ public sealed class TwitchIntegration : MonoBehaviour
     {
         ChatMessage message = evt.ChatMessage;
 
-        if (message.Username.ToLower() != "alexejherodev") return; // ensure I don't get isekaid
+        if (message.Username.ToLower() != OwnerUsername) return; // ensure I don't get isekaid
         if (!message.Message.ToLower().StartsWith("!s ")) return;
 
-        HandleMessage(message.Message[3..]);
+        // OnMessageReceived runs in a worker thread, where we can't use Unity APIs
+        _msgQueue.Enqueue(message.Message[3..]);
+    }
+
+    private void FixedUpdate()
+    {
+        if (_msgQueue is null) return;
+        if (_msgQueue.Count > 0) HandleMessage(_msgQueue.Dequeue());
     }
 
     private void HandleMessage(string message)
     {
-        if (message.ToLower().StartsWith("c ")) DevConsole.SendConsoleCommand(message[2..]);
+        if (message.ToLower().StartsWith("c "))
+        {
+            MessageHelper.SuppressOutput = true;
+            DevConsole.SendConsoleCommand(message[2..]);
+            MessageHelper.SuppressOutput = false;
+        }
     }
 
     [UsedImplicitly]
     private void OnConsoleCommand_say(NotificationCenter.Notification n)
     {
-        string message = string.Join(" ", n.data.Values.Cast<string>().Reverse().ToArray());
+        if (n.data.Count == 0) return;
+        string message = (string)n.data[0];
         ErrorMessage.AddMessage(message);
     }
 }
