@@ -20,7 +20,7 @@ public class ErmfishPrefab : CreatureAsset
 
 	public override CreatureTemplate CreateTemplate()
 	{
-		const float swimVelocity = 8f;
+		const float swimVelocity = 7f;
 
 		CreatureTemplate template = new(Prefab, BehaviourType.SmallFish, EcoTargetType.Peeper, float.MaxValue)
 		{
@@ -48,7 +48,7 @@ public class ErmfishPrefab : CreatureAsset
 
 	public override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
 	{
-		prefab.GetComponent<HeldFish>().ikAimLeftArm = true;
+        prefab.GetComponent<HeldFish>().ikAimLeftArm = true;
 
 		InventorySoundPlayer.Add(prefab, ErmfishLoader.InventorySounds);
 		WorldSoundPlayer.Add(prefab, ErmfishLoader.WorldSounds);

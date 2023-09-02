@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ECCLibrary;
+using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
@@ -62,7 +63,7 @@ public static class ErmfishLoader
 			Being in the vicinity of an Ermfish may cause auditory hallucinations that cannot be reproduced on audio recordings. The effect is magnified proportionally to the number of Ermfish present. Long-term effects are uncertain, but it is speculated that it may cause irreversible damage to the exposed individual.
 
 			Assessment: Experimental results have shown that Ermfish is technically suitable for human consumption. However, high mental fortitude is required to go to such desperate lengths.
-			
+
 			<size=75%>(Databank art by CJMAXiK)</size>
 			""", 5, databankTexture, unlockSprite);
 
@@ -72,7 +73,7 @@ public static class ErmfishLoader
 			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.025f });
 			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 5, probability = 0.010f });
 		}
-		LootDistributionHandler.AddLootDistributionData(ermfish.ClassID, ermfish.PrefabInfo.PrefabFileName, biomes.ToArray());
+		LootDistributionHandler.AddLootDistributionData(ermfish.ClassID, biomes.ToArray());
 
 		ItemActionHandler.RegisterMiddleClickAction(ermfish.PrefabInfo.TechType, _ => InventorySounds.Play(), "pull ahoge", "English");
     }
@@ -102,6 +103,8 @@ public static class ErmfishLoader
 
 				prefab.transform.Find("VM/erm/regular").gameObject.SetActive(false);
 				prefab.transform.Find("VM/erm").GetChild(childModelIndex).gameObject.SetActive(true);
+
+                CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/erm", -0.473f, 0.424f, new Vector3(0, -0.473f), 0.2f, new Vector3(0, 0, 180)));
 			}
 		});
 		variant.SetPdaGroupCategory(TechGroup.Survival, techCategory);

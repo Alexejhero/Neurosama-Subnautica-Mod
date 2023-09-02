@@ -22,7 +22,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
     {
         const float swimVelocity = 8f;
 
-        CreatureTemplate template = new(Prefab, BehaviourType.Shark, EcoTargetType.Shark, 20) // TODO: Figure out damage modifiers
+        CreatureTemplate template = new(Prefab, BehaviourType.Shark, EcoTargetType.Shark, 20)
         {
             CellLevel = LargeWorldEntity.CellLevel.Medium,
             SwimRandomData = new SwimRandomData(0.2f, swimVelocity, new Vector3(30, 5, 30), 2, 1),
@@ -49,7 +49,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
 
     public override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
-        WorldSoundPlayer.Add(prefab, ErmsharkLoader.AmbientSounds);
+        WorldSoundPlayer.Add(prefab, ErmsharkLoader.AmbientSounds, 0.05f);
 
         AggressiveWhenSeePlayer aggressive = prefab.AddComponent<AggressiveWhenSeePlayer>();
         aggressive.maxRangeMultiplier = CreaturePrefabUtils.maxRangeMultiplierCurve;
@@ -67,6 +67,14 @@ public sealed class ErmsharkPrefab : CreatureAsset
 
         GameObject mouth = prefab.SearchChild("attack_collider");
         CreaturePrefabUtils.AddMeleeAttack<MeleeAttack>(prefab, components, mouth, true, 20);
+
+        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Heat, 0f);
+        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
+        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Cold, 0f);
+        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Fire, 0f);
+        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Poison, 0f);
+        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Radiation, 0f);
+        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Starve, 0f);
 
         ErmsharkData.Prefab = prefab;
 

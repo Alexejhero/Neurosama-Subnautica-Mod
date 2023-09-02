@@ -1,4 +1,8 @@
-﻿using ECCLibrary;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ECCLibrary;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Sounds;
 using UnityEngine;
@@ -21,21 +25,45 @@ public static class ErmsharkLoader
 
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermshark, "Lifeforms", "Ermshark",
             """
-            <i>[WARNING: requesting data from the restricted section. Only authorized personnel with clearance level ████ may access the following records.]</i>
+            <i><color=#fcf04e>[WARNING: requesting data from the restricted section. Only authorized personnel with clearance level</color></i> ████ <i><color=#fcf04e>are permitted to access the following records.]</color></i>
 
-            <i>[In case of an emergency, please refer to the field manual section 5.188/4 (<color=#00ff00>nuero.fun/field-manual</color>) and follow the appropriate chain-of-command reestablishment protocol.]</i>
+            <i><color=#fcf04e>[In case of an emergency, please refer to the field manual section 57.294/3 (</color>https://nuero.fun/field-manual/<color=#fcf04e>) and follow the appropriate chain-of-command reestablishment protocol.]</color></i>
 
-            <i>[Your access attempt has been recorded.]</i>
+            <i><color=#fcf04e>[Your access attempt has been recorded.]</color></i>
 
-            The following is a transcript of the research log pertaining to the catalog index ER.m1318-2 (alias "Ermshark").
+            The following is a transcript of a research log pertaining to the catalog index ER.m1318-2 (alias "Ermshark").
 
             -- START OF TRANSCRIPT --
 
             Day 1:
-            A new item has been brought into logistics the other day. Those buffoons didn't even realize what they had on their hands. They put it under "Exotic marine life", can you believe it? Don't even want to think about where it might have ended up had I not spotted it on the bulletin. Morons, absolute imbeciles... Regardless, it's in safe hands now. I have reclassified it to ER.m1318-2 to match the previously acquired ER.m1318 (now ER.m1318-1). The resemblance is undeniable. This is our key to finally unlocking 1318's secrets, I'm sure of it.
+            A new item has been brought into logistics the other day. Those buffoons didn't even realize what they had on their hands. They put it under "Exotic marine life", can you believe it? Don't even want to think about where it might have ended up had I not spotted it on the bulletin. Morons, absolute imbeciles... Regardless, it's in safe hands now. I have reclassified it to ER.m1318-2 to match the previously acquired ER.m1318 (now ER.m1318-1). The resemblance is undeniable. This is undoubtedly our key to finally unlocking 1318's secrets. Just you wait...
 
-            Day 14: 
-            The separated specimen fragments have managed to fully reconstitute themselves, producing two identical copies of the original specimen. Further analysis showed zero observable difference in the phenotype and genetic makeup between the two offspring. It's difficult to believe, but I cannot dismiss the possibility that they may be atom-for-atom identical in their physical structure.
+            Day 3:
+            The specimen presents erratic patterns of behavior. It's passive and docile one moment, and snaps at everything in its vicinity the next. No clear triggers could be observed for this agitated state. For the time being I have marked it as "high risk of injury".
+
+            Day 5:
+            I'll have to throw out all of my conclusions from the 1318-1 analysis and start from scratch. Attempted to perform invasive procedures on the specimen today, fully expecting it to be just as impenetrable as the other one, but it just tore itself in two as soon as I cut into it! The resulting halves quickly morphed into the same shape as the original specimen, albeit reduced in size, leading me to believe it was some form of a defense mechanism. The buggers slipped through the restraints and tried to maim one of the techs, but their mobility seems to be greatly limited out of water. A lot to ponder.
+
+            Day 6:
+            This is truly fascinating. We left the two specimen in separate enclosures yesterday to prevent interactions between observation periods, but when I came into the lab this morning I was greeted by a single large specimen in one of the enclosures and the other was empty. It appears to have somehow reconstituted itself during the night. No equipment was broken, and checking the security footage camera didn't reveal any activity either. Surely they couldn't just... phase through space, or something?
+
+            Starting to question whether yesterday did actually happen or if I had dreamt it all up.
+
+            Day 10:
+            The experiment is slowly beginning to lose touch with reality. We did more dissection attempts yesterday and determined that the specimen can only divide itself up to 4 times before the smallest one just pops like a balloon, leaving no trace of itself behind. I made the executive decision to sacrifice half of the subject to confirm our findings, and yet the complete, full-size specimen was once again waiting for me in the lab this morning. The camera we had pointed at the enclosure conveniently ran out of battery during the night — I pity the assistant who had to respond to me for not plugging it into mains, but he had it coming.
+
+            Day 12:
+            I don't know what's going on anymore. I feel like I've been stuck in a dream this entire time, and each new day is just another cycle that won't let me go.
+
+            I destroyed it. Alone. Couldn't tell anybody... the bean counters would fly off their rockers if they caught wind of me trashing their precious curios that they so "graciously" let our division "borrow". No matter. I don't give a rat's ass about what happens to me when they find out. I want it gone. I need it gone.
+
+            Day 13:
+
+
+
+
+            It's back.
+
 
             Day:
             Day:
@@ -43,34 +71,24 @@ public static class ErmsharkLoader
             Day:
             Day:
             Day:
-            Day:
-            I can h<color=#ff7373>e</color>a<color=#ff7373>r</color> the<color=#ff7373>m</color>. They'r<color=#ff7373>e</color> sc<color=#ff7373>r</color>ea<color=#ff7373>m</color>ing. They'r<color=#ff7373>e</color> ang<color=#ff7373>r</color>y.
+            Day I can h<color=#fccccc>e</color>a<color=#fccccc>r</color> the<color=#fccccc>m</color>. They'r<color=#fccccc>e</color> sc<color=#fccccc>r</color>ea<color=#fccccc>m</color>ing. They'r<color=#fccccc>e</color> ang<color=#fccccc>r</color>y.
 
-            In <color=#ff7373>m</color>y dreams I can tast<color=#ff7373>e</color> thei<color=#ff7373>r</color> eyes on <color=#ff7373>m</color>e. I know what th<color=#ff7373>e</color>y want. The <color=#ff7373>r</color>esonance of hatred is born within the stillness of the eaten <color=#ff7373>m</color>ind. The hunger p<color=#ff7373>erm</color>eates the curves of the insatiable spac<color=#ff7373>e</color>.
+            In <color=#fccccc>m</color>y dreams I can tast<color=#fccccc>e</color> thei<color=#fccccc>r</color> eyes on <color=#fccccc>m</color>e. I know what th<color=#fccccc>e</color>y want. The <color=#fccccc>r</color>esonance of hatred is born within the stillness of the eaten <color=#fccccc>m</color>ind. The hunger p<color=#fccccc>erm</color>eates the curves of the insatiable space.
 
-            The choi<color=#ff7373>r</color> is calling out for <color=#ff7373>m</color>e. They will eat soon.
+            Th<color=#fccccc>e</color> cհօì<color=#fccccc>r</color> is caӀӀìղg ouէ ƒօɾ <color=#fccccc>ʍ</color>ҽ. They wìӀӀ ҽąէ ʂօon.
 
-            I go to join them now.
+            į ցօ էօ ʝօìղޤէհҽʍݢղօա.ъjߏ˭b؈ȝֆqޤ̿!כ
 
             -- END OF TRANSCRIPT --
-
-            (The following section is full of garbled text. As you struggle to make heads or tails of it, you begin to make out words in the mess of characters that you don't remember being there before. One by one, a complete message emerges from the noise.)
-
-            pwίɂ#zټΉ԰eȃѭ<J(̷"qưgYiıړӜۦۤ#ēB"5̇Ԣ(IշlЛۈCk˿Nóϋʫo_>WD0ݢG&EaƖèǤΉɐ2lm-ҽ̞qItǹ2FtʿVmߕqȝֆq%ɾʂߕ۴HϪޤ̿!כQq@у8ٍToގ]ЭԢ˾iĘ̓whoever^ĝъjߏ˭b؈reads&Ԡthis: if youظոp}are capable ofקޞunderstanding this message, I'm afraid you have been affected by the mind virus. I'm sorry. It was not my intention for things to turn out like this.
-
-            (TODO: expand on this section)
-
-            It is too late for me. I pray that I don't see you on the other side.
 
             <size=50%>By dismissing this page within 60 seconds or less I consent to have all my personal data collected and datamined for ARG clues. This notice constitutes informed consent, and I understand that I cannot use ignorance as a legal defense in the court of public opinion.</size>
             """, 5, databankTexture, unlockSprite);
 
-        /*List<LootDistributionData.BiomeData> biomes = new();
+        List<LootDistributionData.BiomeData> biomes = new();
         foreach (BiomeType biome in Enum.GetValues(typeof(BiomeType)).Cast<BiomeType>())
         {
-            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.025f });
-            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 5, probability = 0.010f });
+            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.005f });
         }
-        LootDistributionHandler.AddLootDistributionData(ermfish.ClassID, ermfish.PrefabInfo.PrefabFileName, biomes.ToArray());*/
+        LootDistributionHandler.AddLootDistributionData(ermshark.PrefabInfo.ClassID, biomes.ToArray());
     }
 }

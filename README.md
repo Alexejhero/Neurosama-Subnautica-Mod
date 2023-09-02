@@ -18,6 +18,8 @@ Requires BepInEx, Nautilus and ECCLibrary to run
   - Vaalmyr
   - w1n7er
   - YuG
+- Animations
+  - w1n7er
 - Art
   - 2Pfrog
   - Azit
@@ -40,3 +42,4 @@ Requires BepInEx, Nautilus and ECCLibrary to run
   - yamplum
 
 Based on ahk1221's Custom Hull Plates mod
+Using Lee23's ECCLibrary mod

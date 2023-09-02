@@ -1,4 +1,6 @@
-﻿using Nautilus.Assets;
+﻿using ECCLibrary;
+using ECCLibrary.Data;
+using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
@@ -22,12 +24,13 @@ public static class GymbagLoader
             ModifyPrefab = ModifyPrefab
         });
 
-        CraftingGadget crafting = new(prefab, new RecipeData(new CraftData.Ingredient(TechType.LuggageBag), new CraftData.Ingredient(ModItems.Ermfish)));
+        CraftingGadget crafting = new(prefab, new RecipeData(new CraftData.Ingredient(TechType.LuggageBag), new CraftData.Ingredient(ModItems.Ermfish), new CraftData.Ingredient(TechType.PosterKitty)));
         crafting.WithFabricatorType(CraftTree.Type.Fabricator);
         crafting.WithStepsToFabricatorTab(CraftTreeHandler.Paths.FabricatorEquipment);
+        crafting.WithCraftingTime(10);
         prefab.AddGadget(crafting);
 
-        prefab.SetEquipment(EquipmentType.Hand);
+        prefab.SetEquipment(EquipmentType.Hand).WithQuickSlotType(QuickSlotType.Selectable);
 
         prefab.Register();
 
@@ -45,6 +48,8 @@ public static class GymbagLoader
 
         GameObject ourModel = AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("gymbag");
         GameObject instance = GameObject.Instantiate(ourModel, carryallModel.transform.parent);
+
+        CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData(null, -0.05f, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero));
 
         MaterialUtils.ApplySNShaders(instance);
     }

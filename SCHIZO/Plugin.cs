@@ -9,6 +9,7 @@ using SCHIZO.Creatures.Ermfish;
 using SCHIZO.Creatures.Ermshark;
 using SCHIZO.Gymbag;
 using SCHIZO.HullPlates;
+using SCHIZO.Twitch;
 
 namespace SCHIZO;
 
@@ -31,5 +32,7 @@ public partial class Plugin : BaseUnityPlugin
         gameObject.AddComponent<TwitchIntegration>();
 
 		Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+
+        CraftDataHandler.SetCraftingTime(TechType.TitaniumIngot, 600);
 	}
 }
