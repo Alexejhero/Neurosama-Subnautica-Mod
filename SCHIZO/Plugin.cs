@@ -15,11 +15,13 @@ namespace SCHIZO;
 [BepInAutoPlugin]
 public partial class Plugin : BaseUnityPlugin
 {
-	public static readonly ManualLogSource LOGGER = BepInEx.Logging.Logger.CreateLogSource("SCHIZO"); // TODO: move old logs to this
+    private static ManualLogSource _logger;
+    public static ManualLogSource LOGGER => _logger;
 	public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();
 
 	private void Awake()
 	{
+        _logger = Logger;
         HullPlateLoader.Load();
 		BuildablesLoader.Load();
 		ErmfishLoader.Load();

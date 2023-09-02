@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace SCHIZO.Events;
 
-public sealed class ErmMoonEvent : MonoBehaviour, ICustomEvent
+public sealed class ErmMoonEvent : CustomEvent
 {
     private uSkyManager _skyManager;
     private Texture2D _normalMoonTex;
@@ -15,10 +15,11 @@ public sealed class ErmMoonEvent : MonoBehaviour, ICustomEvent
     private Texture2D _ermMoonTex;
     private float _normalMoonSize;
 
-    public string Name => "ErmMoon";
-    public bool IsOccurring { get; private set; }
+    public override string Name => "ErmMoon";
+    public override bool IsOccurring => _isOccurring;
 
-    private float ermMoonSize;
+    private bool _isOccurring;
+    private float _ermMoonSize;
     public double DayLastOccurred;
 
     private bool _hasRolled;
@@ -46,6 +47,7 @@ public sealed class ErmMoonEvent : MonoBehaviour, ICustomEvent
         "Alex has left the server.",
         "The Time God has deducted 50 neuros from your balance. (protection fee)",
         "evilfumosittingverycomfortablewhilesheroastsvedalwithherfriends",
+        //"Would you still love us if we were an Erm?",
     };
 
     private void Awake()
@@ -53,7 +55,7 @@ public sealed class ErmMoonEvent : MonoBehaviour, ICustomEvent
         _skyManager = FindObjectOfType<uSkyManager>();
 
         _normalMoonSize = _skyManager.MoonSize;
-        ermMoonSize = _normalMoonSize * 2;
+        _ermMoonSize = _normalMoonSize * 2;
 
         _ermTex = AssetLoader.GetTexture("erm.png");
         _ermTex = _ermTex.Rotate180(); // moon texture is upside down
@@ -89,7 +91,7 @@ public sealed class ErmMoonEvent : MonoBehaviour, ICustomEvent
         if (daysSinceLast > 2 * cooldownDays)
             chancePerNight *= (daysSinceLast / cooldownDays) - 1;
 
-        //Debug.LogWarning($"cd={cooldownDays},daysSinceLast={daysSinceLast:F2},chance={chancePerNight:F3},roll={roll:F3}");
+        //LOGGER.LogDebug($"cd={cooldownDays},daysSinceLast={daysSinceLast:F2},chance={chancePerNight:F3},roll={roll:F3}");
         return daysSinceLast > cooldownDays
                && roll < chancePerNight;
     }
@@ -113,8 +115,8 @@ public sealed class ErmMoonEvent : MonoBehaviour, ICustomEvent
 
         if (IsOccurring)
         {
-            ermMoonSize = _normalMoonSize * (1 + Mathf.PingPong(0.5f + day * moonSizeTimeScale, maxMoonSizeMulti - 1));
-            UpdateErmMoon(ermMoonSize);
+            _ermMoonSize = _normalMoonSize * (1 + Mathf.PingPong(0.5f + day * moonSizeTimeScale, maxMoonSizeMulti - 1));
+            UpdateErmMoon(_ermMoonSize);
             if (isMorning)
                 EndEvent();
             return;
@@ -132,25 +134,25 @@ public sealed class ErmMoonEvent : MonoBehaviour, ICustomEvent
         EndEvent();
     }
 
-    public void StartEvent()
+    public override void StartEvent()
     {
         if (!IsOccurring)
             ErrorMessage.AddWarning(StartMessageList.GetRandom());
-        IsOccurring = true;
+        _isOccurring = true;
         DayLastOccurred = math.trunc(GetCurrentDay());
         ToggleErmDeity(true);
-        //Debug.Log($"Started {EventName} on day {GetCurrentDay()}");
+        //LOGGER.LogInfo($"Started {EventName} on day {GetCurrentDay()}");
         //DevConsole.SendConsoleCommand("daynightspeed 1");
     }
 
-    public void EndEvent()
+    public override void EndEvent()
     {
         if (IsOccurring)
             ErrorMessage.AddMessage(EndMessageList.GetRandom());
         ToggleErmDeity(false);
         UpdateErmMoon(_normalMoonSize);
-        IsOccurring = false;
-        //Debug.Log($"Ended {EventName} on day {GetCurrentDay()}");
+        _isOccurring = false;
+        //LOGGER.LogInfo($"Ended {EventName} on day {GetCurrentDay()}");
         //DevConsole.SendConsoleCommand("daynightspeed 100");
     }
 

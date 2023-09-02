@@ -7,11 +7,11 @@ using UnityEngine;
 
 namespace SCHIZO.Events.ErmCon;
 
-public class ErmConEvent : MonoBehaviour, ICustomEvent
+public class ErmConEvent : CustomEvent
 {
-    public string Name => "ErmCon";
+    public override string Name => "ErmCon";
 
-    public bool IsOccurring => ConMembers.Count > 0;
+    public override bool IsOccurring => ConMembers.Count > 0;
 
     public int MinAttendance = 10;
     public int MaxAttendance = 50;
@@ -51,7 +51,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
             var roll = Random.Range(0f, 1f);
             if (roll > chance)
             {
-                // Debug.Log($"roll failed {roll}>{chance}");
+                // LOGGER.LogDebug($"roll failed {roll}>{chance}");
                 return false;
             }
         }
@@ -68,7 +68,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         int ermsInRange = PhysicsHelpers.ObjectsInRange(CongregationTarget, SearchRadius).Select(CraftData.GetTechType).Count(ErmfishLoader.ErmfishTechTypes.Contains);
         if (ermsInRange < MinAttendance)
         {
-            //Debug.Log($"Rolled for ErmCon event but only had {ermsInRange} erms, unlucky");
+            //LOGGER.LogDebug($"Rolled for ErmCon event but only had {ermsInRange} erms, unlucky");
             return false;
         }
 
@@ -79,12 +79,13 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
     private float _lastSearchTime;
     private float _stareTime;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!CongregationTarget) // reset/default to player
         {
             CongregationTarget = gameObject;
             OnlyStare = true;
+            _stareTime = 5;
         }
 
         if (!IsOccurring)
@@ -94,7 +95,8 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         }
         else
         {
-            if (Time.time > _eventStartTime + EventDurationSeconds)
+            float time = Time.fixedTime;
+            if (time > _eventStartTime + EventDurationSeconds)
             {
                 EndEvent();
                 return;
@@ -103,7 +105,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
             // ermfish will stay still for 10s at the start of the event
             if (OnlyStare)
             {
-                _stareTime += Time.deltaTime;
+                _stareTime += Time.fixedDeltaTime;
                 if (_stareTime > 10)
                 {
                     _stareTime = 0;
@@ -113,12 +115,11 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
 
             // update focal point to buildable erm if there's one in range
             bool haveQueen = CraftData.GetTechType(CongregationTarget) == ModItems.Erm;
-            if (!haveQueen && !OnlyStare
-                           && Time.time > _lastSearchTime + _minSearchInterval)
+            if (!haveQueen && !OnlyStare && time > _lastSearchTime + _minSearchInterval)
             {
                 if (TryFindErmQueen(gameObject, out GameObject ermBeacon))
                     CongregationTarget = ermBeacon;
-                _lastSearchTime = Time.time;
+                _lastSearchTime = time;
             }
 
             List<Creature> fishPlural = ConMembers.ToList();
@@ -146,8 +147,14 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
                         Vector3 directionToTarget = Vector3.Normalize(targetPos - swim.transform.position);
                         targetPos -= mayorPersonalSpaceRange * directionToTarget;
                     }
+                    float swimVelocity = haveQueen ? 2f : 1f;
+                    float distSqr = swim.transform.position.DistanceSqrXZ(targetPos);
+                    if (distSqr > 10000) // >100m away
+                        swimVelocity *= 4;
+                    else if (distSqr > 2500) // 50m
+                        swimVelocity *= 2;
 
-                    swim.SwimTo(targetPos, haveQueen ? 2f : 1f);
+                    swim.SwimTo(targetPos, swimVelocity);
                 }
 
                 // stop looking away, too!!!!!!!
@@ -156,7 +163,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         }
     }
 
-    public void StartEvent()
+    public override void StartEvent()
     {
         OnlyStare = true;
         if (!CongregationTarget)
@@ -168,7 +175,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
             .SelectComponent<Creature>()
             .ToList();
         int totalAttendance = Mathf.Min(MaxAttendance, withinRadius.Count);
-        Debug.Log($"{totalAttendance} Ermfish will be attending the ErmCon");
+        LOGGER.LogInfo($"{totalAttendance} Ermfish will be attending the ErmCon");
         for (int i = 0; i < totalAttendance; i++)
         {
             Creature fish = withinRadius[i];
@@ -178,7 +185,7 @@ public class ErmConEvent : MonoBehaviour, ICustomEvent
         _eventStartTime = Time.time;
     }
 
-    public void EndEvent()
+    public override void EndEvent()
     {
         CongregationTarget = null;
         foreach (Creature fish in ConMembers)

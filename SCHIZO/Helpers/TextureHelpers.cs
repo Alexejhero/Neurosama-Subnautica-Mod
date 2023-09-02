@@ -68,7 +68,7 @@ public static class TextureHelpers
     {
         if (texture.isReadable)
         {
-            Debug.LogWarning($"Texture {texture.name} is already readable");
+            LOGGER.LogWarning($"Texture {texture.name} is already readable");
             return texture;
         }
         Texture2D copy = new Texture2D(texture.width, texture.height);
