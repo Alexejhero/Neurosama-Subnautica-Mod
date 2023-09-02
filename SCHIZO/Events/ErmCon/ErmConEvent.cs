@@ -79,12 +79,13 @@ public class ErmConEvent : CustomEvent
     private float _lastSearchTime;
     private float _stareTime;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!CongregationTarget) // reset/default to player
         {
             CongregationTarget = gameObject;
             OnlyStare = true;
+            _stareTime = 5;
         }
 
         if (!IsOccurring)
@@ -146,8 +147,14 @@ public class ErmConEvent : CustomEvent
                         Vector3 directionToTarget = Vector3.Normalize(targetPos - swim.transform.position);
                         targetPos -= mayorPersonalSpaceRange * directionToTarget;
                     }
+                    float swimVelocity = haveQueen ? 2f : 1f;
+                    float distSqr = swim.transform.position.DistanceSqrXZ(targetPos);
+                    if (distSqr > 10000) // >100m away
+                        swimVelocity *= 4;
+                    else if (distSqr > 2500) // 50m
+                        swimVelocity *= 2;
 
-                    swim.SwimTo(targetPos, haveQueen ? 2f : 1f);
+                    swim.SwimTo(targetPos, swimVelocity);
                 }
 
                 // stop looking away, too!!!!!!!
