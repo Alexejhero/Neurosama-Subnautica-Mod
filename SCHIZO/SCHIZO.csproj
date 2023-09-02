@@ -31,4 +31,9 @@
         <Reference Include="../Dependencies/ECCLibrary.dll" Publicize="true" />
         <Reference Include="../Dependencies/FMODUnity.dll" />
     </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="**\Resources\**" />
+        <EmbeddedResource Remove="**\Resources\**\*.cs" />
+    </ItemGroup>
 </Project>

@@ -9,6 +9,7 @@ using SCHIZO.Creatures.Ermfish;
 using SCHIZO.Creatures.Ermshark;
 using SCHIZO.Gymbag;
 using SCHIZO.HullPlates;
+using SCHIZO.Resources;
 using SCHIZO.Twitch;
 
 namespace SCHIZO;
@@ -16,13 +17,15 @@ namespace SCHIZO;
 [BepInAutoPlugin]
 public partial class Plugin : BaseUnityPlugin
 {
-    private static ManualLogSource _logger;
-    public static ManualLogSource LOGGER => _logger;
-	public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();
+    public static ManualLogSource LOGGER { get; private set; }
+
+    public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();
 
 	private void Awake()
 	{
-        _logger = Logger;
+        LOGGER = Logger;
+        DependencyResolver.InjectResources();
+
         HullPlateLoader.Load();
 		BuildablesLoader.Load();
 		ErmfishLoader.Load();
@@ -32,7 +35,5 @@ public partial class Plugin : BaseUnityPlugin
         gameObject.AddComponent<TwitchIntegration>();
 
 		Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
-
-        CraftDataHandler.SetCraftingTime(TechType.TitaniumIngot, 600);
 	}
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.IO;
 using JetBrains.Annotations;
 using SCHIZO.Helpers;
@@ -16,10 +16,10 @@ public sealed class TwitchIntegration : MonoBehaviour
 {
     private const string OWNER_USERNAME = "alexejherodev";
     private const string TARGET_CHANNEL = "alexejherodev";
-    private const string COMMAND_SENDER = "govorunb";
+    private const string COMMAND_SENDER = "alexejherodev";
 
     private readonly TwitchClient _client;
-    private readonly Queue<string> _msgQueue = new();
+    private readonly ConcurrentQueue<string> _msgQueue = new();
 
     public TwitchIntegration()
     {
@@ -34,20 +34,20 @@ public sealed class TwitchIntegration : MonoBehaviour
         _client = new TwitchClient(customClient);
 
         _client.OnError += (_, evt) => LOGGER.LogError(evt.Exception);
-        _client.OnIncorrectLogin += (_, evt) => LOGGER.LogError($"Failed to log in: {evt.Exception.Message}");
-        _client.OnConnected += (_, evt) => LOGGER.LogInfo("Connected as " + evt.BotUsername);
+        _client.OnIncorrectLogin += (_, evt) => LOGGER.LogError($"Could not connect: {evt.Exception.Message}");
+        _client.OnConnected += (_, _) => LOGGER.LogInfo("Connected");
         _client.OnConnectionError += (_, evt) => LOGGER.LogError($"Could not connect: {evt.Error.Message}");
-        _client.OnJoinedChannel += (_, evt) => LOGGER.LogInfo($"Joined channel {evt.Channel}");
-        _client.OnFailureToReceiveJoinConfirmation += (_, evt) => LOGGER.LogError($"Could not join channel {evt.Exception.Channel}: {evt.Exception.Details}");
+        _client.OnJoinedChannel += (_, _) => LOGGER.LogInfo("Joined");
+        _client.OnFailureToReceiveJoinConfirmation += (_, evt) => LOGGER.LogError($"Could not join: {evt.Exception.Details}");
         _client.OnMessageReceived += Client_OnMessageReceived;
 
-        if (!File.Exists(Path.Combine(AssetLoader.AssetsFolder, "..", "config.json")))
+        if (!File.Exists(Path.Combine(AssetLoader.AssetsFolder, "..", "cache.json")))
         {
             LOGGER.LogWarning("Could not find config.json for Twitch integration, it will be disabled.\n"
                 + "Make a text file next to the mod .dll and put the token on the SECOND line.");
             return;
         }
-        ConnectionCredentials credentials = new(OWNER_USERNAME, File.ReadAllLines(Path.Combine(AssetLoader.AssetsFolder, "..", "config.json"))[1]);
+        ConnectionCredentials credentials = new(OWNER_USERNAME, File.ReadAllLines(Path.Combine(AssetLoader.AssetsFolder, "..", "cache.json"))[1]);
 
         _client.Initialize(credentials, TARGET_CHANNEL);
 
@@ -69,8 +69,7 @@ public sealed class TwitchIntegration : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_msgQueue is null) return;
-        if (_msgQueue.Count > 0) HandleMessage(_msgQueue.Dequeue());
+        if (_msgQueue.Count > 0 && _msgQueue.TryDequeue(out string message)) HandleMessage(message);
     }
 
     private void HandleMessage(string message)
