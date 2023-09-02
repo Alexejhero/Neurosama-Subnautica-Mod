@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Nautilus.Utility;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO;
@@ -36,5 +37,10 @@ public static class AssetLoader
         if (_atlasSpriteCache.TryGetValue(name, out Atlas.Sprite cached)) return cached;
         return _atlasSpriteCache[name] = ImageUtils.LoadSpriteFromFile(Path.Combine(AssetsFolder, "textures", name))
                 ?? throw new ArgumentException($"Sprite {name} not found", nameof(name));
+    }
+
+    public static UnityEngine.Sprite GetUnitySprite(string name)
+    {
+        return TextureHelpers.CreateSprite(GetTexture(name));
     }
 }

@@ -29,11 +29,14 @@ Requires BepInEx, Nautilus and ECCLibrary to run
   - Kaz
   - Lorx
   - Moloch
+  - P3R
   - Rune
   - SADecsSs
   - Sandro
   - SomeOldGuy
+  - sugarph
   - w1n7er
+  - yamplum
 - Audio compilation and cleaning
   - CJMAXiK
   - MyBraza

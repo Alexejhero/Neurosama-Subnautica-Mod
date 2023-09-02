@@ -4,6 +4,10 @@ namespace SCHIZO.Helpers;
 
 public static class TextureHelpers
 {
+    public static Sprite CreateSprite(Texture2D texture)
+    {
+        return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+    }
     public static Texture2D BlendAlpha(Texture2D baseTex, Texture2D appliedTex, float blend = 1f, bool clipToBase = false)
     {
         // Scale texture b to the size of texture a

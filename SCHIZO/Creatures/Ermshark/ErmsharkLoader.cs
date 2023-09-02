@@ -20,8 +20,7 @@ public static class ErmsharkLoader
         ermshark.Register();
 
         Texture2D databankTexture = AssetLoader.GetTexture("ermshark-databank.png");
-        Texture2D unlockTexture = AssetLoader.GetTexture("ermshark-unlock.png");
-        Sprite unlockSprite = Sprite.Create(unlockTexture, new Rect(0, 0, unlockTexture.width, unlockTexture.height), Vector2.zero);
+        Sprite unlockSprite = AssetLoader.GetUnitySprite("ermshark-unlock.png");
 
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermshark, "Lifeforms", "Ermshark",
             """

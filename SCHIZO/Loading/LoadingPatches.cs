@@ -1,17 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
+using SCHIZO.DataStructures;
+using SCHIZO.Helpers;
+using UnityEngine;
+using UnityEngine.UI;
+using Random = System.Random;
 
 namespace SCHIZO.Loading;
 
 [HarmonyPatch]
 public static class LoadingPatches
 {
+    private static readonly RandomList<Sprite> _backgrounds = new()
+    {
+        AssetLoader.GetUnitySprite("loading-bg-0.png"),
+        AssetLoader.GetUnitySprite("loading-bg-1.png"),
+        AssetLoader.GetUnitySprite("loading-bg-2.png"),
+    };
+
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake))]
     [HarmonyPostfix]
     public static void ChangeLoadingImage(uGUI_SceneLoading __instance)
     {
         __instance.GetComponentInChildren<uGUI_Logo>().texture = AssetLoader.GetTexture("loading.png");
+        __instance.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = _backgrounds.GetRandom();
     }
 
     [HarmonyPatch(typeof(uGUI_Logo), nameof(uGUI_Logo.Update))]

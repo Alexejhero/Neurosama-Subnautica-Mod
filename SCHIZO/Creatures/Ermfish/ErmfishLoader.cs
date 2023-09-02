@@ -9,6 +9,7 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Helpers;
 using SCHIZO.Sounds;
 using UnityEngine;
 
@@ -42,10 +43,9 @@ public static class ErmfishLoader
 		ermfish.Register();
 
 		Texture2D databankTexture = AssetLoader.GetTexture("ermfish-databank.png");
-		Texture2D unlockTexture = AssetLoader.GetTexture("ermfish-unlock.png");
-		Sprite unlockSprite = Sprite.Create(unlockTexture, new Rect(0, 0, unlockTexture.width, unlockTexture.height), Vector2.zero);
+        Sprite unlockSprite = AssetLoader.GetUnitySprite("ermfish-unlock.png");
 
-		CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermfish, "Lifeforms/Fauna/SmallHerbivores", "Ermfish",
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermfish, "Lifeforms/Fauna/SmallHerbivores", "Ermfish",
 			"""
 			An entity of unknown origin, it does not appear to be indigenous to 4546B. Although at first glance it appears to be an aquatic lifeform, it does not possess the necessary survival facilities.
 
@@ -104,7 +104,7 @@ public static class ErmfishLoader
 				prefab.transform.Find("VM/erm/regular").gameObject.SetActive(false);
 				prefab.transform.Find("VM/erm").GetChild(childModelIndex).gameObject.SetActive(true);
 
-                CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/erm", -0.473f, 0.424f, new Vector3(0, -0.473f), 0.2f, new Vector3(0, 0, 180)));
+                CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/erm", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0)));
 			}
 		});
 		variant.SetPdaGroupCategory(TechGroup.Survival, techCategory);

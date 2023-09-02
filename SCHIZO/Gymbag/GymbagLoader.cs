@@ -49,7 +49,7 @@ public static class GymbagLoader
         GameObject ourModel = AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("gymbag");
         GameObject instance = GameObject.Instantiate(ourModel, carryallModel.transform.parent);
 
-        CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData(null, -0.05f, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero));
+        CreaturePrefabUtils.AddVFXFabricating(instance, new VFXFabricatingData(null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero));
 
         MaterialUtils.ApplySNShaders(instance);
     }
