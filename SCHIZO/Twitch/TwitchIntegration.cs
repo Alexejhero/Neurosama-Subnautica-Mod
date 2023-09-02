@@ -43,7 +43,7 @@ public sealed class TwitchIntegration : MonoBehaviour
 
         if (!File.Exists(Path.Combine(AssetLoader.AssetsFolder, "..", "cache.json")))
         {
-            LOGGER.LogWarning("Could not find config.json for Twitch integration, it will be disabled.\n"
+            LOGGER.LogWarning("Could not find cache.json for Twitch integration, it will be disabled.\n"
                 + "Make a text file next to the mod .dll and put the token on the SECOND line.");
             return;
         }
@@ -56,7 +56,7 @@ public sealed class TwitchIntegration : MonoBehaviour
 
     private void Client_OnMessageReceived(object _, OnMessageReceivedArgs evt)
     {
-        const string PREFIX = "SCHIZO ";
+        const string PREFIX = "pls ";
 
         ChatMessage message = evt.ChatMessage;
 
