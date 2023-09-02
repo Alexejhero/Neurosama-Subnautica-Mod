@@ -72,8 +72,6 @@ public sealed class ErmMoonEvent : CustomEvent
         {
             if (isDay) _hasRolled = false;
         });
-        StartMessageList.Shuffle();
-        EndMessageList.Shuffle();
     }
 
     private bool ShouldStartEvent()

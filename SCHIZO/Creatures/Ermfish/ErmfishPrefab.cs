@@ -61,6 +61,8 @@ public class ErmfishPrefab : CreatureAsset
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Radiation, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Starve, 0f);
 
+        prefab.FindChild("WM").AddComponent<AnimateByVelocity>().enabled = false; // fixes Aquarium
+
 		yield break;
 	}
 

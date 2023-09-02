@@ -42,7 +42,7 @@ public static class HullPlateLoader
             spriteOverride = ImageUtils.LoadTextureFromFile(spriteOverridePath);
         }
 
-        Texture2D newIcon = TextureHelpers.BlendAlpha(icon, spriteOverride);
+        Texture2D newIcon = hullPlateInfo!.Hidden ? icon : TextureHelpers.BlendAlpha(icon, spriteOverride);
         PatchHullPlate(hullPlateInfo!.InternalName, hullPlateInfo.DisplayName, hullPlateInfo.Description, newIcon, texture, hullPlateInfo.Expensive);
     }
 

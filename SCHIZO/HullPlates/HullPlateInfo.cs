@@ -9,4 +9,6 @@ public class HullPlateInfo
     public string Description { get; set; }
 
     public bool Expensive { get; set; } = false;
+
+    public bool Hidden { get; set; } = false;
 }

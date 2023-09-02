@@ -148,8 +148,12 @@ public class ErmConEvent : CustomEvent
                     float swimVelocity = haveQueen ? 2f : 1f;
                     float distSqr = swim.transform.position.DistanceSqrXZ(targetPos);
                     if (distSqr > 10000) // >100m away
-                        swimVelocity *= 4;
+                        swimVelocity *= 40;
                     else if (distSqr > 2500) // 50m
+                        swimVelocity *= 10;
+                    else if (distSqr > 900) // 30m
+                        swimVelocity *= 4;
+                    else if (distSqr > 400) // 20m
                         swimVelocity *= 2;
 
                     swim.SwimTo(targetPos, swimVelocity);

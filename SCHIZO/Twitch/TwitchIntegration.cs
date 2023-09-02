@@ -56,12 +56,12 @@ public sealed class TwitchIntegration : MonoBehaviour
 
     private void Client_OnMessageReceived(object _, OnMessageReceivedArgs evt)
     {
-        const string PREFIX = "neuro ";
+        const string PREFIX = "SCHIZO ";
 
         ChatMessage message = evt.ChatMessage;
 
         if (message.Username.ToLower() != COMMAND_SENDER) return; // ensure I don't get isekaid
-        if (!message.Message.ToLower().StartsWith(PREFIX)) return;
+        if (!message.Message.StartsWith(PREFIX)) return;
 
         // OnMessageReceived runs in a worker thread, where we can't use Unity APIs
         _msgQueue.Enqueue(message.Message[PREFIX.Length..]);
@@ -74,13 +74,9 @@ public sealed class TwitchIntegration : MonoBehaviour
 
     private void HandleMessage(string message)
     {
-        const string DEVCONSOLE_COMMAND = "loves ";
-        if (message.ToLower().StartsWith(DEVCONSOLE_COMMAND))
-        {
-            MessageHelper.SuppressOutput = true;
-            DevConsole.SendConsoleCommand(message[DEVCONSOLE_COMMAND.Length..]);
-            MessageHelper.SuppressOutput = false;
-        }
+        MessageHelper.SuppressOutput = true;
+        DevConsole.SendConsoleCommand(message);
+        MessageHelper.SuppressOutput = false;
     }
 
     [UsedImplicitly]
