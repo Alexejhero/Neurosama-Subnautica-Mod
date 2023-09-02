@@ -15,7 +15,7 @@ namespace SCHIZO.Twitch;
 public sealed class TwitchIntegration : MonoBehaviour
 {
     private const string OWNER_USERNAME = "alexejherodev";
-    private const string TARGET_CHANNEL = "alexejherodev";
+    private const string TARGET_CHANNEL = "vedal987";
     private const string COMMAND_SENDER = "alexejherodev";
 
     private readonly TwitchClient _client;
