@@ -95,7 +95,8 @@ public class ErmConEvent : CustomEvent
         }
         else
         {
-            if (Time.time > _eventStartTime + EventDurationSeconds)
+            float time = Time.fixedTime;
+            if (time > _eventStartTime + EventDurationSeconds)
             {
                 EndEvent();
                 return;
@@ -104,7 +105,7 @@ public class ErmConEvent : CustomEvent
             // ermfish will stay still for 10s at the start of the event
             if (OnlyStare)
             {
-                _stareTime += Time.deltaTime;
+                _stareTime += Time.fixedDeltaTime;
                 if (_stareTime > 10)
                 {
                     _stareTime = 0;
@@ -114,12 +115,11 @@ public class ErmConEvent : CustomEvent
 
             // update focal point to buildable erm if there's one in range
             bool haveQueen = CraftData.GetTechType(CongregationTarget) == ModItems.Erm;
-            if (!haveQueen && !OnlyStare
-                           && Time.time > _lastSearchTime + _minSearchInterval)
+            if (!haveQueen && !OnlyStare && time > _lastSearchTime + _minSearchInterval)
             {
                 if (TryFindErmQueen(gameObject, out GameObject ermBeacon))
                     CongregationTarget = ermBeacon;
-                _lastSearchTime = Time.time;
+                _lastSearchTime = time;
             }
 
             List<Creature> fishPlural = ConMembers.ToList();
