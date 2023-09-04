@@ -40,7 +40,7 @@ public class ErmConEvent : CustomEvent
         // roll every 6 in-game hours (5min real time)
         // should average out to about one con every 1h-1h30m real time
         // since it's always centered on (or around) the player, it's not a big problem that it's rare
-        if (DayNightUtils.dayScalar % 0.25 < 0.01)
+        if (DayNightUtils.dayScalar % 0.25 > 0.11) // number chosen so there's space for a rapture event to occur
         {
             if (_hasRolled)
                 return false;
