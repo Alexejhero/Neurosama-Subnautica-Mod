@@ -31,6 +31,7 @@ public static class GymbagLoader
         prefab.AddGadget(crafting);
 
         prefab.SetEquipment(EquipmentType.Hand).WithQuickSlotType(QuickSlotType.Selectable);
+        prefab.SetPdaGroupCategory(TechGroup.Personal, TechCategory.Equipment);
 
         prefab.Register();
 

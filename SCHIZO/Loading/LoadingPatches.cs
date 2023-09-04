@@ -10,13 +10,14 @@ namespace SCHIZO.Loading;
 [HarmonyPatch]
 public static class LoadingPatches
 {
-    private static readonly RandomList<Sprite> _backgrounds = new()
+    private static readonly SavedRandomList<Sprite> _backgrounds = new("LoadingBackgrounds")
     {
-        AssetLoader.GetUnitySprite("loading-bg-1.jpg"),
-        AssetLoader.GetUnitySprite("loading-bg-2.png"),
-        AssetLoader.GetUnitySprite("loading-bg-3.png"),
-        AssetLoader.GetUnitySprite("loading-bg-4.png"),
-        AssetLoader.GetUnitySprite("loading-bg-5.png"),
+        { 1, AssetLoader.GetUnitySprite("loading-bg-1.jpg") },
+        { 2, AssetLoader.GetUnitySprite("loading-bg-2.png") },
+        { 3, AssetLoader.GetUnitySprite("loading-bg-3.png") },
+        { 4, AssetLoader.GetUnitySprite("loading-bg-4.png") },
+        { 5, AssetLoader.GetUnitySprite("loading-bg-5.png") },
+        { 6, AssetLoader.GetUnitySprite("loading-bg-6.png") },
     };
 
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake))]

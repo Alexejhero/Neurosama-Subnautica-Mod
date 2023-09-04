@@ -1,34 +1,76 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace SCHIZO.DataStructures;
 
-public sealed class RandomList<T> : IEnumerable<T>
+public class RandomList<T> : IEnumerable
 {
-    private readonly List<T> _items = new();
-    private int _index;
-    private bool _needsShuffling;
-
-    public void Add(T item)
+    public interface IInitialStateModifier
     {
-        _items.Add(item);
-        _needsShuffling = true;
+        bool Register(T value);
+        void MarkUsed(T value);
+        void Reset();
     }
 
-    public void Shuffle()
+    private sealed class DefaultInitialStateModifier : IInitialStateModifier
     {
-        _index = 0;
-        _items.Shuffle();
-        _needsShuffling = false;
+        public bool Register(T value) => false;
+
+        public void MarkUsed(T value)
+        {
+        }
+
+        public void Reset()
+        {
+        }
+    }
+
+    private readonly List<T> _remainingItems = new();
+    private readonly List<T> _usedItems = new();
+    private readonly IInitialStateModifier _ism;
+
+    private bool _initialized;
+
+    public RandomList(IInitialStateModifier initialStateModifier = null)
+    {
+        _ism = initialStateModifier ?? new DefaultInitialStateModifier();
+    }
+
+    public void Add(T value)
+    {
+        bool used = _ism.Register(value);
+        if (used) _usedItems.Add(value);
+        else _remainingItems.Add(value);
     }
 
     public T GetRandom()
     {
-        if (_items.Count == 0) return default;
-        if (_index >= _items.Count || _needsShuffling) Shuffle();
-        return _items[_index++];
+        if (_remainingItems.Count == 0 && _usedItems.Count == 0) throw new InvalidOperationException("No items in list");
+
+        if (!_initialized) Initialize();
+        if (_remainingItems.Count == 0) Shuffle();
+
+        T item = _remainingItems[0];
+        _remainingItems.RemoveAt(0);
+        _usedItems.Add(item);
+        _ism.MarkUsed(item);
+        return item;
     }
 
-    IEnumerator<T> IEnumerable<T>.GetEnumerator() => _items.GetEnumerator();
-    IEnumerator IEnumerable.GetEnumerator() => _items.GetEnumerator();
+    private void Shuffle()
+    {
+        _remainingItems.AddRange(_usedItems);
+        _remainingItems.Shuffle();
+        _usedItems.Clear();
+        _ism.Reset();
+    }
+
+    private void Initialize()
+    {
+        _remainingItems.Shuffle();
+        _initialized = true;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() => throw new InvalidOperationException();
 }

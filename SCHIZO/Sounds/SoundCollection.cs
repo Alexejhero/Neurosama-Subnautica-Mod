@@ -25,8 +25,6 @@ public abstract class SoundCollection : ScriptableObject
             RegisterSound(id, soundFile, bus);
             _sounds.Add(id);
         }
-
-        _sounds.Shuffle();
     }
 
     protected void StartSoundCoroutine(IEnumerator coroutine)
