@@ -11,7 +11,7 @@ using System.IO;
 using System;
 using SCHIZO.Events.ErmMoon;
 using FMODUnity;
-using FMOD.Studio;
+using Nautilus.Utility;
 
 namespace SCHIZO.Events;
 
@@ -35,17 +35,18 @@ public class ErmRaptureEvent : CustomEvent
     private const float _minSearchInterval = 1f;
     private float _lastSearchTime;
 
-    private FMOD_CustomEmitter _underwaterEmitter;
-    private FMOD_CustomEmitter _openAirEmitter;
-    private FMODAsset _underwaterAsset;
-    private FMODAsset _openAirAsset;
-    private bool _isAboveWater;
+    private FMOD_CustomEmitter _ermCallEmitter;
     private float _ermCallDuration;
     private float _ermCallPlaybackPosition; // where we are in the sound file
     private float _ermCallCooldown = 5f;
     private float _lastErmCallTime = -999f;
-    private Sound _underwaterSound;
-    private Sound _openAirSound;
+    private float maxVolume = 2.5f;
+    private float minAudibleDepth = -250f;
+    private float minReverbDepth = -100f;
+    private REVERB_PROPERTIES _savedReverb2;
+    private REVERB_PROPERTIES _savedReverb3;
+    private REVERB_PROPERTIES _openAirReverb;
+    private REVERB_PROPERTIES _underwaterReverb;
 
     private uSkyManager _skyManager;
     private float _normalCloudBrightness;
@@ -61,39 +62,28 @@ public class ErmRaptureEvent : CustomEvent
         _moon.transform.eulerAngles = new Vector3(315, 0, 0);
         _moon.transform.position = gameObject.transform.position + _moon.transform.forward * 10000f;
 
-        _underwaterEmitter = _moon.AddComponent<FMOD_CustomEmitter>();
-        _openAirEmitter = _moon.AddComponent<FMOD_CustomEmitter>();
-        _underwaterEmitter.debug = _openAirEmitter.debug = true;
+        _ermCallEmitter = _moon.AddComponent<FMOD_CustomEmitter>();
         _conEvent.Ended += delegate() { _conJustEnded = true; };
-        string underwaterGuid = Guid.NewGuid().ToString();
+        string ermCallGuid = Guid.NewGuid().ToString();
         string openAirGuid = Guid.NewGuid().ToString();
         // don't look
-        _underwaterSound = CustomSoundHandler.TryGetCustomSound(underwaterGuid, out Sound underSound)
+        Sound ermCallSound = CustomSoundHandler.TryGetCustomSound(ermCallGuid, out Sound underSound)
             ? underSound
-            : CustomSoundHandler.RegisterCustomSound(underwaterGuid,
-                Path.Combine(AssetLoader.AssetsFolder, "sounds", "events", "erm_call_muted.mp3"),
-                "bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/jellyshroom_caves", MODE._3D_LINEARROLLOFF);
-        _openAirSound = CustomSoundHandler.TryGetCustomSound(openAirGuid, out Sound overSound)
-            ? overSound
-            : CustomSoundHandler.RegisterCustomSound(openAirGuid,
+            : CustomSoundHandler.RegisterCustomSound(ermCallGuid,
                 Path.Combine(AssetLoader.AssetsFolder, "sounds", "events", "erm_call_sky.mp3"),
-                "bus:/master/SFX_for_pause/PDA_pause/all/SFX/dives", MODE._3D_LINEARROLLOFF);
+                "bus:/master/SFX_for_pause/PDA_pause/all/Sounds_muted by pain",
+                MODE._3D_LINEARROLLOFF);
 
-        _underwaterSound.set3DMinMaxDistance(10000, 30000);
-        _openAirSound.set3DMinMaxDistance(10000, 30000);
-        
-        _underwaterAsset = ScriptableObject.CreateInstance<FMODAsset>();
-        _underwaterAsset.path = underwaterGuid;
-        _underwaterAsset.id = "erm_call_underwater";
-        _openAirAsset = ScriptableObject.CreateInstance<FMODAsset>();
-        _openAirAsset.path = openAirGuid;
-        _openAirAsset.id = "erm_call_open_air";
+        ermCallSound.set3DMinMaxDistance(1000, 30000);
+        _ermCallEmitter.SetAsset(AudioUtils.GetFmodAsset(ermCallGuid, "erm_call_sky"));
+        _ermCallEmitter.followParent = true;
 
-        _underwaterEmitter.SetAsset(_underwaterAsset);
-        _openAirEmitter.SetAsset(_openAirAsset);
+        RuntimeManager.CoreSystem.getReverbProperties(2, out _savedReverb2);
+        RuntimeManager.CoreSystem.getReverbProperties(3, out _savedReverb3);
+        _openAirReverb = PRESET.PLAIN();
+        _underwaterReverb = PRESET.UNDERWATER();
 
-        // the two sounds MUST have the same duration to loop/switch properly
-        _underwaterSound.getLength(out uint ermCallDurationMillis, TIMEUNIT.MS);
+        ermCallSound.getLength(out uint ermCallDurationMillis, TIMEUNIT.MS);
         _ermCallDuration = ermCallDurationMillis / 1000f;
 
         _normalCloudBrightness = _skyManager.cloudNightBrightness;
@@ -102,9 +92,12 @@ public class ErmRaptureEvent : CustomEvent
 
     protected override bool ShouldStartEvent()
     {
-        if (!(_conJustEnded && _moonEvent.IsOccurring)) return false;
-        bool willBeNightAtTheEnd = (DayNightUtils.dayScalar + EventDurationDayFraction) % 1 < 0.14f;
-        return DayNightHelpers.isNight && willBeNightAtTheEnd;
+        if (!_conJustEnded) return false;
+        _conJustEnded = false;
+        return _moonEvent.IsOccurring
+            && gameObject.transform.position.y > minAudibleDepth
+            && DayNightHelpers.isNight
+            && (DayNightUtils.dayScalar + EventDurationDayFraction) % 1 < 0.14f; // will be night at the end
     }
 
     protected override void UpdateLogic()
@@ -125,90 +118,57 @@ public class ErmRaptureEvent : CustomEvent
     protected override void UpdateRender()
     {
         float time = Time.time;
-        if (time < _eventStartTime + 5) // poor man's lerp
-        {
-            var remaining = _eventCloudBrightness - _skyManager.cloudNightBrightness;
-            _skyManager.cloudNightBrightness += remaining * 0.10f;
-        }
-        if (time + 5 > _eventStartTime + EventDurationSeconds)
-        {
-            var remaining = _skyManager.cloudNightBrightness - _normalCloudBrightness;
-            _skyManager.cloudNightBrightness -= remaining * 0.10f;
-        }
+        float timeProp = (time - _eventStartTime) / EventDurationSeconds;
+
+        // poor man's animator curve
+        if (timeProp is < 0.05f)
+            _skyManager.cloudNightBrightness = Mathf.Lerp(_normalCloudBrightness, _eventCloudBrightness, timeProp * 20);
+        else if (timeProp is > 0.95f)
+            _skyManager.cloudNightBrightness = Mathf.Lerp(_normalCloudBrightness, _eventCloudBrightness, (1 - timeProp) * 20);
     }
 
     private void UpdateErmCall(float time, float deltaTime)
     {
         if (!IsOccurring) return;
-        bool wasAboveWater = _isAboveWater;
-        _isAboveWater = gameObject.transform.position.y > 0;
 
-        // abandon hope beyond this point
-        FMOD_CustomEmitter emitter = PickEmitter(_isAboveWater);
-        FMOD_CustomEmitter otherEmitter = PickTheOtherEmitter(_isAboveWater);
-        FMOD_CustomEmitter wasPlaying = PickEmitter(wasAboveWater);
-        LOGGER.LogWarning($"EMITTER HANDLE: {emitter.evt.handle}");
-        bool shouldUpdateEmitters = true;
-        if (emitter.playing || otherEmitter.playing)
+        if (_ermCallEmitter.playing)
         {
             _ermCallPlaybackPosition += deltaTime;
             if (_ermCallPlaybackPosition > _ermCallDuration)
             {
                 _ermCallPlaybackPosition = 0;
-                emitter.Stop();
-                otherEmitter.Stop();
-
+                _ermCallEmitter.Stop();
+                RuntimeManager.CoreSystem.setReverbProperties(2, ref _savedReverb2);
+                RuntimeManager.CoreSystem.setReverbProperties(3, ref _savedReverb3);
                 return;
-            }
-            else
-            {
-                // skip updating if it's the same emitter
-                shouldUpdateEmitters = false;
-                //shouldUpdateEmitters &= emitter != wasPlaying;
             }
         }
         else
         {
             bool onCooldown = _lastErmCallTime + _ermCallDuration + _ermCallCooldown > time;
             bool eventAlmostOver = 2 * _ermCallDuration > (_eventStartTime + EventDurationSeconds) - time;
-            if (onCooldown || eventAlmostOver)
-                shouldUpdateEmitters = false;
-            else
-            {
-                _lastErmCallTime = time;
-                emitter.Play();
-                otherEmitter.Play();
-            }
+            if (onCooldown || eventAlmostOver) return;
+            _lastErmCallTime = time;
+            RuntimeManager.CoreSystem.setReverbProperties(2, ref _openAirReverb);
+            RuntimeManager.CoreSystem.setReverbProperties(3, ref _underwaterReverb);
+            _ermCallEmitter.Play();
         }
-        if (!shouldUpdateEmitters) return;
 
-        // whatever fmod sucks
-        var pos = (int) (_ermCallPlaybackPosition * 1000);
-        emitter.CacheEventInstance();
-        otherEmitter.CacheEventInstance();
-        if (!emitter.evt.hasHandle())
-            LOGGER.LogError($"FMOD: No handle on {WhichEmitter(emitter)}");
-        if (!otherEmitter.evt.hasHandle())
-            LOGGER.LogError($"FMOD: No handle on {WhichEmitter(otherEmitter)}");
-        LOGGER.LogWarning($"{WhichEmitter(otherEmitter)} stop {otherEmitter.evt.setTimelinePosition(pos)}");
-        LOGGER.LogWarning(otherEmitter.evt.getTimelinePosition(out var newPos));
-        LOGGER.LogWarning($"{pos} {newPos}");
-        otherEmitter.evt.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        emitter.evt.start();
-        LOGGER.LogWarning($"{WhichEmitter(emitter)} start {emitter.evt.setTimelinePosition(pos)}");
-        //LOGGER.LogWarning(emitter.evt.setVolume(1));
-        //LOGGER.LogWarning(otherEmitter.evt.setVolume(0));
+        CustomSoundHandler.TryGetCustomSoundChannel(_ermCallEmitter.GetInstanceID(), out Channel channel);
+
+        float posY = gameObject.transform.position.y;
+        float volumeDepthFrac = posY >= 0 ? 0 // above water - full volume
+            : 0.5f + 0.5f * (posY / minAudibleDepth); // underwater - base 50%, fade to 0 with more depth
+        volumeDepthFrac = volumeDepthFrac.Clamp01();
+
+        float volume = maxVolume * (1 - volumeDepthFrac);
+
+        LOGGER.LogWarning($"UpdateErmCall volume {volume} (at depth {posY}/{volumeDepthFrac})");
+        channel.setVolume(volume);
+        channel.setReverbProperties(2, posY >= 0 ? 1 : 0);
+        channel.setReverbProperties(3, posY < 0 ? 1 : 0);
+        _ermCallEmitter.UpdateEventAttributes();
     }
-    private FMOD_CustomEmitter PickEmitter(bool isAboveWater)
-        => isAboveWater ? _openAirEmitter : _underwaterEmitter;
-    private FMOD_CustomEmitter PickTheOtherEmitter(bool isAboveWater)
-        => isAboveWater ? _underwaterEmitter : _openAirEmitter;
-
-    private string WhichEmitter(FMOD_CustomEmitter emitter)
-        => emitter == _underwaterEmitter ? "underwater" : "openair";
-
-    private FMODAsset PickAsset(FMOD_CustomEmitter emitter)
-        => emitter == _underwaterEmitter ? _underwaterAsset : _openAirAsset;
 
     private void ConvertNewErmfish(float time)
     {
@@ -229,9 +189,9 @@ public class ErmRaptureEvent : CustomEvent
             float distSqr = fish.transform.position.DistanceSqrXZ(playerPos);
             float swimVelocity = distSqr switch
             {
-                >1225 => 40, // 35m
-                >625 => 20, // 25m
-                _ => 10
+                >1225 => 80f, // 35m
+                >625 => 40f, // 25m
+                _ => 20f
             };
 
             swim.SwimTo(_moon.transform.position, swimVelocity);
@@ -264,8 +224,8 @@ public class ErmRaptureEvent : CustomEvent
             if (!ermfish) continue;
             EndErmSignal(ermfish);
         }
-        _skyManager.cloudNightBrightness /= 20f;
         _seenErmfish.Clear();
+        _skyManager.cloudNightBrightness = _normalCloudBrightness; // if ended manually
         _isOccurring = false;
         base.EndEvent();
     }
