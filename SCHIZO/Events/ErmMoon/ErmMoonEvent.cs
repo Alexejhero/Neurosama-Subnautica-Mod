@@ -74,8 +74,13 @@ public sealed class ErmMoonEvent : CustomEvent
         });
     }
 
-    private bool ShouldStartEvent()
+    protected override bool ShouldStartEvent()
     {
+        if (_hasRolled || !DayNightHelpers.isEvening)
+            return false;
+
+        _hasRolled = true;
+
         float eventFrequency = CONFIG.MoonEventFrequency;
         if (eventFrequency == 0) return false;
 
@@ -97,38 +102,17 @@ public sealed class ErmMoonEvent : CustomEvent
     private const float moonSizeTimeScale = 0.5f;
     private const float maxMoonSizeMulti = 4;
 
-    private void Update()
+    protected override void UpdateLogic()
     {
-        float day = (float) GetCurrentDay();
-        float dayFraction = DayNightUtils.dayScalar;
-
-        // refactor into a separate DayNightUtils if you need these anywhere else
-        // docs for day/night cycle - .125 is night->day, .875 is day->night
-        // moon appears a bit before and disappears a bit after
-        bool isMorning = dayFraction is > 0.14f and < 0.15f;
-        //var isDay = dayFraction is >0.15f and <0.85f;
-        bool isEvening = dayFraction is > 0.85f and < 0.87f;
-        //var isNight = dayFraction is >0.87f or <0.14f;
-
-        if (IsOccurring)
-        {
-            _ermMoonSize = _normalMoonSize * (1 + Mathf.PingPong(0.5f + day * moonSizeTimeScale, maxMoonSizeMulti - 1));
-            UpdateErmMoon(_ermMoonSize);
-            if (isMorning)
-                EndEvent();
-            return;
-        }
-
-        if (isEvening && !_hasRolled)
-        {
-            _hasRolled = true;
-            if (ShouldStartEvent()) StartEvent();
-        }
+        if (DayNightHelpers.isMorning)
+            EndEvent();
     }
 
-    private void OnDisable()
+    protected override void UpdateRender()
     {
-        EndEvent();
+        float day = (float) GetCurrentDay();
+        _ermMoonSize = _normalMoonSize * (1 + Mathf.PingPong(0.5f + day * moonSizeTimeScale, maxMoonSizeMulti - 1));
+        UpdateErmMoon(_ermMoonSize);
     }
 
     public override void StartEvent()
@@ -138,8 +122,8 @@ public sealed class ErmMoonEvent : CustomEvent
         _isOccurring = true;
         DayLastOccurred = math.trunc(GetCurrentDay());
         ToggleErmDeity(true);
-        //LOGGER.LogInfo($"Started {EventName} on day {GetCurrentDay()}");
         //DevConsole.SendConsoleCommand("daynightspeed 1");
+        base.StartEvent();
     }
 
     public override void EndEvent()
@@ -149,8 +133,8 @@ public sealed class ErmMoonEvent : CustomEvent
         ToggleErmDeity(false);
         UpdateErmMoon(_normalMoonSize);
         _isOccurring = false;
-        //LOGGER.LogInfo($"Ended {EventName} on day {GetCurrentDay()}");
         //DevConsole.SendConsoleCommand("daynightspeed 100");
+        base.EndEvent();
     }
 
     private void ToggleErmDeity(bool isVisible)

@@ -1,5 +1,5 @@
 ﻿namespace SCHIZO.Helpers;
-public class MessageHelper
+public class MessageHelpers
 {
     public static bool SuppressOutput = false;
 

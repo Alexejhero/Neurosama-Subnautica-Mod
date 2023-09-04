@@ -32,7 +32,7 @@ public class ErmConEvent : CustomEvent
         _eventStartTime = -CooldownSeconds / 2;
     }
 
-    private bool ShouldStartEvent()
+    protected override bool ShouldStartEvent()
     {
         float sinceLastEvent = Time.time - (_eventStartTime + EventDurationSeconds);
         if (sinceLastEvent < CooldownSeconds)
@@ -46,7 +46,7 @@ public class ErmConEvent : CustomEvent
                 return false;
             _hasRolled = true;
             float chance = 0.1f * (sinceLastEvent / CooldownSeconds);
-            var roll = Random.Range(0f, 1f);
+            float roll = Random.Range(0f, 1f);
             if (roll > chance)
             {
                 // LOGGER.LogDebug($"roll failed {roll}>{chance}");
@@ -63,7 +63,9 @@ public class ErmConEvent : CustomEvent
         // If a Queen Erm cannot be located or designated, the swarm becomes distressed, and seeks the nearest intelligent(?) being capable of designating the Queen for the swarm.
         // It is not currently known whether Ermfish swarm behaviors change if deprived of their Queen for too long.
         // Everyone who has so far been resourceful enough to survive on 4546B has displayed sufficient sensibility in choosing not to test that theory.
-        int ermsInRange = PhysicsHelpers.ObjectsInRange(CongregationTarget, SearchRadius).Select(CraftData.GetTechType).Count(ErmfishLoader.ErmfishTechTypes.Contains);
+        int ermsInRange = PhysicsHelpers.ObjectsInRange(CongregationTarget, SearchRadius)
+            .OfTechType(ErmfishLoader.ErmfishTechTypes)
+            .Count();
         if (ermsInRange < MinAttendance)
         {
             //LOGGER.LogDebug($"Rolled for ErmCon event but only had {ermsInRange} erms, unlucky");
@@ -77,7 +79,7 @@ public class ErmConEvent : CustomEvent
     private float _lastSearchTime;
     private float _stareTime;
 
-    private void FixedUpdate()
+    protected override void UpdateLogic()
     {
         if (!CongregationTarget) // reset/default to player
         {
@@ -85,95 +87,87 @@ public class ErmConEvent : CustomEvent
             OnlyStare = true;
             _stareTime = 5;
         }
-
-        if (!IsOccurring)
+        float time = Time.fixedTime;
+        if (time > _eventStartTime + EventDurationSeconds)
         {
-            if (!ShouldStartEvent()) return;
-            StartEvent();
+            EndEvent();
+            return;
         }
-        else
+
+        // ermfish will stay still for 10s at the start of the event
+        if (OnlyStare)
         {
-            float time = Time.fixedTime;
-            if (time > _eventStartTime + EventDurationSeconds)
+            _stareTime += Time.fixedDeltaTime;
+            if (_stareTime > 10)
             {
-                EndEvent();
-                return;
+                _stareTime = 0;
+                OnlyStare = false;
+            }
+        }
+
+        // update focal point to buildable erm if there's one in range
+        bool haveQueen = CraftData.GetTechType(CongregationTarget) == ModItems.Erm;
+        if (!haveQueen && !OnlyStare && time > _lastSearchTime + _minSearchInterval)
+        {
+            if (TryFindErmQueen(gameObject, out GameObject ermBeacon))
+                CongregationTarget = ermBeacon;
+            _lastSearchTime = time;
+        }
+
+        List<Creature> fishPlural = ConMembers.ToList();
+        foreach (Creature fish in fishPlural)
+        {
+            if (!fish)
+            {
+                ConMembers.Remove(fish);
+                continue;
             }
 
-            // ermfish will stay still for 10s at the start of the event
+            SwimBehaviour swim = fish.GetComponent<SwimBehaviour>();
+            // stop!
+            fish.actions.Clear();
             if (OnlyStare)
             {
-                _stareTime += Time.fixedDeltaTime;
-                if (_stareTime > 10)
-                {
-                    _stareTime = 0;
-                    OnlyStare = false;
-                }
+                // stop!!!
+                swim.splineFollowing.locomotion.ApplyVelocity(-0.5f * swim.splineFollowing.locomotion.useRigidbody.velocity);
+                swim.Idle();
             }
-
-            // update focal point to buildable erm if there's one in range
-            bool haveQueen = CraftData.GetTechType(CongregationTarget) == ModItems.Erm;
-            if (!haveQueen && !OnlyStare && time > _lastSearchTime + _minSearchInterval)
+            else
             {
-                if (TryFindErmQueen(gameObject, out GameObject ermBeacon))
-                    CongregationTarget = ermBeacon;
-                _lastSearchTime = time;
+                // stop swimming away!!!!!
+                Vector3 targetPos = CongregationTarget.transform.position;
+                if (haveQueen)
+                {
+                    float mayorPersonalSpaceRange = 3f;
+                    Vector3 directionToTarget = Vector3.Normalize(targetPos - swim.transform.position);
+                    targetPos -= mayorPersonalSpaceRange * directionToTarget;
+                }
+                float distSqr = swim.transform.position.DistanceSqrXZ(targetPos);
+                float swimVelocity = distSqr switch
+                {
+                    > 10000 => 40, // >100m away
+                    > 2500 => 10, // 50m
+                    > 900 => 4, // 30m
+                    > 400 => 2, // 20m
+                    _ => 1
+                };
+                if (haveQueen) swimVelocity *= 2;
+
+                swim.SwimTo(targetPos, swimVelocity);
             }
 
-            List<Creature> fishPlural = ConMembers.ToList();
-            foreach (Creature fish in fishPlural)
-            {
-                if (!fish)
-                {
-                    ConMembers.Remove(fish);
-                    continue;
-                }
-
-                SwimBehaviour swim = fish.GetComponent<SwimBehaviour>();
-                // stop!
-                fish.actions.Clear();
-                if (OnlyStare)
-                    // stop!!!
-                    swim.Idle();
-                else
-                {
-                    // stop swimming away!!!!!
-                    Vector3 targetPos = CongregationTarget.transform.position;
-                    if (haveQueen)
-                    {
-                        float mayorPersonalSpaceRange = 3f;
-                        Vector3 directionToTarget = Vector3.Normalize(targetPos - swim.transform.position);
-                        targetPos -= mayorPersonalSpaceRange * directionToTarget;
-                    }
-                    float swimVelocity = haveQueen ? 2f : 1f;
-                    float distSqr = swim.transform.position.DistanceSqrXZ(targetPos);
-                    if (distSqr > 10000) // >100m away
-                        swimVelocity *= 40;
-                    else if (distSqr > 2500) // 50m
-                        swimVelocity *= 10;
-                    else if (distSqr > 900) // 30m
-                        swimVelocity *= 4;
-                    else if (distSqr > 400) // 20m
-                        swimVelocity *= 2;
-
-                    swim.SwimTo(targetPos, swimVelocity);
-                }
-
-                // stop looking away, too!!!!!!!
-                swim.LookAt(CongregationTarget.transform);
-            }
+            // stop looking away, too!!!!!!!
+            swim.LookAt(CongregationTarget.transform);
         }
     }
 
+    protected override void UpdateRender() { }
+
     public override void StartEvent()
     {
-        OnlyStare = true;
-        if (!CongregationTarget)
-            CongregationTarget = gameObject;
-
-        List<Creature> withinRadius = PhysicsHelpers.ObjectsInRange(CongregationTarget, SearchRadius)
-            .Where(o => CraftData.GetTechType(o) == ModItems.Ermfish)
-            .OrderBy(c => c.transform.position.DistanceSqrXZ(CongregationTarget.transform.position))
+        List<Creature> withinRadius = PhysicsHelpers.ObjectsInRange(gameObject, SearchRadius)
+            .OfTechType(ErmfishLoader.ErmfishTechTypes)
+            .OrderByDistanceTo(gameObject)
             .SelectComponent<Creature>()
             .ToList();
         int totalAttendance = Mathf.Min(MaxAttendance, withinRadius.Count);
@@ -185,6 +179,7 @@ public class ErmConEvent : CustomEvent
         }
 
         _eventStartTime = Time.time;
+        base.StartEvent();
     }
 
     public override void EndEvent()
@@ -198,14 +193,15 @@ public class ErmConEvent : CustomEvent
         }
 
         ConMembers.Clear();
+        base.EndEvent();
     }
 
     private bool TryFindErmQueen(GameObject center, out GameObject ermQueen)
     {
         ermQueen = null;
         IEnumerable<GameObject> ermBuildables = PhysicsHelpers.ObjectsInRange(center, ErmQueenSearchRadius)
-            .Where(obj => CraftData.GetTechType(obj) == ModItems.Erm)
-            .OrderBy(comp => comp.transform.position.DistanceSqrXZ(center.transform.position));
+            .OfTechType(ModItems.Erm)
+            .OrderByDistanceTo(center);
         if (ermBuildables.FirstOrDefault() is not { } ermQueen_) return false;
 
         ermQueen = ermQueen_;
