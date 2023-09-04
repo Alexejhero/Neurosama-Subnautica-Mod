@@ -13,7 +13,7 @@ using SCHIZO.Events.ErmMoon;
 using FMODUnity;
 using Nautilus.Utility;
 
-namespace SCHIZO.Events;
+namespace SCHIZO.Events.ErmRapture;
 
 public class ErmRaptureEvent : CustomEvent
 {
@@ -63,7 +63,7 @@ public class ErmRaptureEvent : CustomEvent
         _moon.transform.position = gameObject.transform.position + _moon.transform.forward * 10000f;
 
         _ermCallEmitter = _moon.AddComponent<FMOD_CustomEmitter>();
-        _conEvent.Ended += delegate() { _conJustEnded = true; };
+        _conEvent.Ended += delegate () { _conJustEnded = true; };
         string ermCallGuid = Guid.NewGuid().ToString();
         string openAirGuid = Guid.NewGuid().ToString();
         // don't look
@@ -146,7 +146,7 @@ public class ErmRaptureEvent : CustomEvent
         else
         {
             bool onCooldown = _lastErmCallTime + _ermCallDuration + _ermCallCooldown > time;
-            bool eventAlmostOver = 2 * _ermCallDuration > (_eventStartTime + EventDurationSeconds) - time;
+            bool eventAlmostOver = 2 * _ermCallDuration > _eventStartTime + EventDurationSeconds - time;
             if (onCooldown || eventAlmostOver) return;
             _lastErmCallTime = time;
             RuntimeManager.CoreSystem.setReverbProperties(2, ref _openAirReverb);
@@ -189,8 +189,8 @@ public class ErmRaptureEvent : CustomEvent
             float distSqr = fish.transform.position.DistanceSqrXZ(playerPos);
             float swimVelocity = distSqr switch
             {
-                >1225 => 80f, // 35m
-                >625 => 40f, // 25m
+                > 1225 => 80f, // 35m
+                > 625 => 40f, // 25m
                 _ => 20f
             };
 
@@ -237,9 +237,9 @@ public class ErmRaptureEvent : CustomEvent
         loco.canMoveAboveWater = true;
         loco.lookTarget = _moon.transform;
         _seenErmfish.Add(ermfish);
-        Light light = ermfish.gameObject.AddComponent<Light>();
-        light.intensity = 1f;
-        light.range = 20f;
+        //Light light = ermfish.gameObject.AddComponent<Light>();
+        //light.intensity = 1f;
+        //light.range = 20f;
     }
 
     private void EndErmSignal(Creature ermfish)
@@ -248,7 +248,7 @@ public class ErmRaptureEvent : CustomEvent
         swim.Idle();
         swim.LookForward();
         ermfish.GetComponent<WorldForces>().handleGravity = true;
-        Destroy(ermfish.GetComponent<Light>());
+        //Destroy(ermfish.GetComponent<Light>());
     }
 
     private IEnumerable<Creature> GetErmfishInRange()
