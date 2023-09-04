@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using FMOD;
+using FMODUnity;
 using Nautilus.Handlers;
+using Nautilus.Utility;
 using UnityEngine;
 
 namespace SCHIZO.Sounds;
@@ -18,7 +20,11 @@ public sealed class SoundCollection3D : SoundCollection
 
     protected override void RegisterSound(string id, string soundFile, string bus)
     {
-        Sound s = CustomSoundHandler.RegisterCustomSound(id, soundFile, bus, MODE._3D | MODE._3D_LINEARSQUAREROLLOFF);
+        if (!CustomSoundHandler.TryGetCustomSound(id, out Sound s))
+        {
+            s = CustomSoundHandler.RegisterCustomSound(id, soundFile, bus, AudioUtils.StandardSoundModes_3D);
+            RuntimeManager.GetBus(bus).unlockChannelGroup();
+        }
         s.set3DMinMaxDistance(1, 30);
     }
 

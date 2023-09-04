@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using SCHIZO.DataStructures;
 using UnityEngine;
 
@@ -19,9 +21,11 @@ public abstract class SoundCollection : ScriptableObject
     {
         string dirpath = Path.Combine(AssetLoader.AssetsFolder, "sounds", path);
 
+        MD5 md5 = MD5.Create();
         foreach (string soundFile in Directory.GetFiles(dirpath))
         {
-            string id = Guid.NewGuid().ToString();
+            byte[] pathHash = md5.ComputeHash(Encoding.UTF8.GetBytes(Path.GetFileName(soundFile)));
+            string id = new Guid(pathHash).ToString();
             RegisterSound(id, soundFile, bus);
             _sounds.Add(id);
         }
