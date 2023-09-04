@@ -74,9 +74,9 @@ public sealed class TwitchIntegration : MonoBehaviour
 
     private void HandleMessage(string message)
     {
-        MessageHelper.SuppressOutput = true;
+        MessageHelpers.SuppressOutput = true;
         DevConsole.SendConsoleCommand(message);
-        MessageHelper.SuppressOutput = false;
+        MessageHelpers.SuppressOutput = false;
     }
 
     [UsedImplicitly]
