@@ -15,6 +15,7 @@ namespace SCHIZO.Events
 
             eventManager.AddEvent<ErmMoonEvent>();
             eventManager.AddEvent<ErmConEvent>();
+            eventManager.AddEvent<ErmRaptureEvent>();
         }
 
         [HarmonyPatch(typeof(Player), nameof(Player.Awake))]

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Nautilus.Handlers;
 using UnityEngine;
+using FMODUnity;
 
 namespace SCHIZO.Sounds;
 
@@ -15,7 +16,11 @@ public sealed class SoundCollection2D : SoundCollection
         return result;
     }
 
-    protected override void RegisterSound(string id, string soundFile, string bus) => CustomSoundHandler.RegisterCustomSound(id, soundFile, bus);
+    protected override void RegisterSound(string id, string soundFile, string bus)
+    {
+        CustomSoundHandler.RegisterCustomSound(id, soundFile, bus);
+        RuntimeManager.GetBus(bus).unlockChannelGroup();
+    }
 
     public void Play(float delay = 0)
     {

@@ -23,7 +23,8 @@ public class CustomEventManager : MonoBehaviour
     {
         if (eventName is null)
             throw new ArgumentNullException(nameof(eventName));
-        if (Events.TryGetValue(eventName, out Type eventType))
+        if (Events.TryGetValue(eventName, out Type eventType)
+            || Events.TryGetValue(eventName+"Event", out eventType))
             return gameObject.GetComponent(eventType) as CustomEvent;
         return null;
     }
@@ -80,14 +81,14 @@ public class CustomEventManager : MonoBehaviour
         }
 
         string eventName = (string) n.data[0];
-        if (!Events.TryGetValue(eventName, out Type eventType))
+        if (!Events.TryGetValue(eventName, out Type eventType)
+            && !Events.TryGetValue(eventName+"Event", out eventType))
         {
             Output($"Event '{eventName}' not found, use \"event\" to list events");
             return;
         }
 
-        Component eventComp = gameObject.GetComponent(eventType);
-        if (eventComp is not CustomEvent evt)
+        if (gameObject.GetComponent(eventType) is not CustomEvent evt)
         {
             LOGGER.LogError($"Event '{eventName}' has component of wrong type");
             return;
@@ -126,5 +127,5 @@ public class CustomEventManager : MonoBehaviour
     }
 
     private void Output(string msg)
-        => MessageHelper.WriteCommandOutput(msg);
+        => MessageHelpers.WriteCommandOutput(msg);
 }
