@@ -7,6 +7,7 @@ using Nautilus.Handlers;
 using SCHIZO.Buildables;
 using SCHIZO.Creatures.Ermfish;
 using SCHIZO.Creatures.Ermshark;
+using SCHIZO.Greggs;
 using SCHIZO.Gymbag;
 using SCHIZO.HullPlates;
 using SCHIZO.Resources;
@@ -31,6 +32,7 @@ public partial class Plugin : BaseUnityPlugin
 		ErmfishLoader.Load();
 		ErmsharkLoader.Load();
 		GymbagLoader.Load();
+        GreggsLoader.Load();
 
         gameObject.AddComponent<TwitchIntegration>();
 

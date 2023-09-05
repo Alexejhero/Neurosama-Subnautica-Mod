@@ -30,6 +30,12 @@ public static class ErmfishLoader
 
     public static void Load()
     {
+
+        CustomPrefab deadermfish = new(ModItems.DeadErmfish);
+        deadermfish.Info.WithSizeInInventory(new Vector2int(1, 1));
+        deadermfish.Info.WithIcon(AssetLoader.GetAtlasSprite("erm.png"));
+        deadermfish.Register();
+
         LoadErmfish();
         LoadErmfishVariant(ModItems.CookedErmfish, "erm_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Ermfish)), 23, 0, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
         LoadErmfishVariant(ModItems.CuredErmfish, "erm_cured.png", new RecipeData(new CraftData.Ingredient(ModItems.Ermfish), new CraftData.Ingredient(TechType.Salt)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
@@ -113,5 +119,5 @@ public static class ErmfishLoader
 		ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play(), "pull ahoge", "English");
     }
 
-    public static List<TechType> ErmfishTechTypes => new() { ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish };
+    public static List<TechType> ErmfishTechTypes => new() { ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish, ModItems.DeadErmfish };
 }
