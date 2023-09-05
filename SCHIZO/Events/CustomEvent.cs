@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SCHIZO.Events
 {
@@ -7,19 +6,15 @@ namespace SCHIZO.Events
     {
         public abstract bool IsOccurring { get; }
 
-        public event Action Started;
-        public event Action Ended;
         public virtual void StartEvent()
         {
             LOGGER.LogDebug($"{GetType().Name} started");
-            Started?.Invoke();
         }
+
         public virtual void EndEvent()
         {
             LOGGER.LogDebug($"{GetType().Name} ended");
-            Ended?.Invoke();
         }
-
 
         protected abstract void UpdateLogic();
         protected abstract void UpdateRender();
@@ -27,16 +22,13 @@ namespace SCHIZO.Events
 
         private void FixedUpdate()
         {
-            if (IsOccurring)
-                UpdateLogic();
-            else
-                if (ShouldStartEvent()) StartEvent();
+            if (IsOccurring) UpdateLogic();
+            else if (ShouldStartEvent()) StartEvent();
         }
 
         private void Update()
         {
-            if (IsOccurring)
-                UpdateRender();
+            if (IsOccurring) UpdateRender();
         }
 
         private void OnDisable()

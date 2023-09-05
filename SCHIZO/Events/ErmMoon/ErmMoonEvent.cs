@@ -32,20 +32,16 @@ public sealed class ErmMoonEvent : CustomEvent
         "You should stay inside tonight.",
         "The Erm Moon is rising...",
         "[Server] PvP has been enabled.",
-        "Don't forget to save ;)",
         "You have angered the gods.",
-        "", // surprise
     };
 
     private RandomList<string> EndMessageList { get; } = new()
     {
         "You are spared today.",
-        "Its influence wanes.",
+        "Its influence wanes...",
         "The Erm Moon recedes... for now.",
         "The ancient spirits are calm once more.",
         "The Time God has deducted 50 neuros from your balance. (protection fee)",
-        "evilfumosittingverycomfortablewhilesheroastsvedalwithherfriends",
-        //"Would you still love us if we were an Erm?",
     };
 
     private void Awake()
