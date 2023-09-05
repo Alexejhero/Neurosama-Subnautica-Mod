@@ -20,11 +20,8 @@ public sealed class SoundCollection3D : SoundCollection
 
     protected override void RegisterSound(string id, string soundFile, string bus)
     {
-        if (!CustomSoundHandler.TryGetCustomSound(id, out Sound s))
-        {
-            s = CustomSoundHandler.RegisterCustomSound(id, soundFile, bus, AudioUtils.StandardSoundModes_3D);
-            RuntimeManager.GetBus(bus).unlockChannelGroup();
-        }
+        Sound s = CustomSoundHandler.RegisterCustomSound(id, soundFile, bus, AudioUtils.StandardSoundModes_3D);
+        RuntimeManager.GetBus(bus).unlockChannelGroup();
         s.set3DMinMaxDistance(1, 30);
     }
 

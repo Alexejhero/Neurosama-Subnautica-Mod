@@ -18,11 +18,8 @@ public sealed class SoundCollection2D : SoundCollection
 
     protected override void RegisterSound(string id, string soundFile, string bus)
     {
-        if (!CustomSoundHandler.TryGetCustomSound(id, out _))
-        {
-            CustomSoundHandler.RegisterCustomSound(id, soundFile, bus);
-            RuntimeManager.GetBus(bus).unlockChannelGroup();
-        }
+        CustomSoundHandler.RegisterCustomSound(id, soundFile, bus);
+        RuntimeManager.GetBus(bus).unlockChannelGroup();
     }
 
     public void Play(float delay = 0)
