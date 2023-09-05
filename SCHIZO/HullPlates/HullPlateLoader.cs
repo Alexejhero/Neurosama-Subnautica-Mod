@@ -47,6 +47,8 @@ public static class HullPlateLoader
         {
             spriteOverride = ImageUtils.LoadTextureFromFile(spriteOverridePath);
         }
+        // definitely not fragile
+        spriteOverride = spriteOverride.Scale(152, 145).Translate(-17, -27).Crop(_baseIcon.width, _baseIcon.height);
 
         Texture2D newIcon = hullPlateInfo!.Hidden ? _baseIcon : TextureHelpers.BlendAlpha(_baseIcon, spriteOverride);
 
