@@ -13,28 +13,34 @@ namespace SCHIZO.HullPlates;
 
 public static class HullPlateLoader
 {
-    private static readonly DirectoryInfo HullPlateFolder = Directory.CreateDirectory(Path.Combine(AssetLoader.AssetsFolder, "hullplates"));
+    private static readonly Texture2D _baseIcon = AssetLoader.GetTexture("../hullplates/icon.png");
+    private static readonly Texture2D _oldHullPlateTexture = AssetLoader.GetTexture("../old_hullplates/texture.png");
+    private static readonly DirectoryInfo _hullPlatesFolder = Directory.CreateDirectory(Path.Combine(AssetLoader.AssetsFolder, "hullplates"));
+    private static readonly DirectoryInfo _oldHullPlatesFolder = Directory.CreateDirectory(Path.Combine(AssetLoader.AssetsFolder, "old_hullplates"));
 
     public static void Load()
     {
-        foreach (string path in Directory.GetDirectories(HullPlateFolder.FullName))
+        foreach (string path in Directory.GetDirectories(_hullPlatesFolder.FullName))
         {
             LoadHullPlate(path);
+        }
+
+        foreach (string path in Directory.GetDirectories(_oldHullPlatesFolder.FullName))
+        {
+            LoadOldHullPlate(path);
         }
     }
 
     private static void LoadHullPlate(string path)
     {
         string infoPath = Path.Combine(path, "info.json");
-        string iconPath = Path.Combine(path, "icon.png");
         string texturePath = Path.Combine(path, "texture.png");
         string spriteOverridePath = Path.Combine(path, "override-icon.png");
-        if (!File.Exists(infoPath) || !File.Exists(iconPath) || !File.Exists(texturePath)) return;
+        if (!File.Exists(infoPath) || !File.Exists(texturePath)) return;
 
         using StreamReader streamReader = new(infoPath);
         HullPlateInfo hullPlateInfo = (HullPlateInfo) new JsonSerializer().Deserialize(streamReader, typeof(HullPlateInfo));
 
-        Texture2D icon = ImageUtils.LoadTextureFromFile(iconPath);
         Texture2D texture = ImageUtils.LoadTextureFromFile(texturePath);
         Texture2D spriteOverride = texture;
         if (File.Exists(spriteOverridePath))
@@ -42,19 +48,26 @@ public static class HullPlateLoader
             spriteOverride = ImageUtils.LoadTextureFromFile(spriteOverridePath);
         }
 
-        Texture2D newIcon = hullPlateInfo!.Hidden ? icon : TextureHelpers.BlendAlpha(icon, spriteOverride);
-        PatchHullPlate(hullPlateInfo!.InternalName, hullPlateInfo.DisplayName, hullPlateInfo.Description, newIcon, texture, hullPlateInfo.Expensive);
+        Texture2D newIcon = hullPlateInfo!.Hidden ? _baseIcon : TextureHelpers.BlendAlpha(_baseIcon, spriteOverride);
+
+        CustomPrefab hullplate = new(hullPlateInfo!.InternalName, hullPlateInfo.DisplayName, hullPlateInfo.Description);
+        hullplate.SetGameObject(GetPrefab(texture, hullPlateInfo!.InternalName));
+        hullplate.Info.WithIcon(ImageUtils.LoadSpriteFromTexture(newIcon));
+        hullplate.SetPdaGroupCategory(TechGroup.Miscellaneous, TechCategory.MiscHullplates);
+        hullplate.SetRecipe(new RecipeData(new CraftData.Ingredient(!hullPlateInfo.Expensive ? TechType.Titanium : TechType.TitaniumIngot), new CraftData.Ingredient(TechType.Glass)));
+        hullplate.Register();
     }
 
-    private static void PatchHullPlate(string id, string displayName, string description, Texture2D icon, Texture2D texture, bool expensive)
+    private static void LoadOldHullPlate(string path)
     {
-        CustomPrefab hullplate = new(id, displayName, description);
+        string infoPath = Path.Combine(path, "info.json");
 
-        hullplate.SetGameObject(GetPrefab(texture, id));
-        hullplate.Info.WithIcon(ImageUtils.LoadSpriteFromTexture(icon));
+        using StreamReader streamReader = new(infoPath);
+        HullPlateInfo hullPlateInfo = (HullPlateInfo) new JsonSerializer().Deserialize(streamReader, typeof(HullPlateInfo));
 
-        hullplate.SetPdaGroupCategory(TechGroup.Miscellaneous, TechCategory.MiscHullplates);
-        hullplate.SetRecipe(new RecipeData(new CraftData.Ingredient(!expensive ? TechType.Titanium : TechType.TitaniumIngot), new CraftData.Ingredient(TechType.Glass)));
+        CustomPrefab hullplate = new(hullPlateInfo!.InternalName, hullPlateInfo.DisplayName + " (OLD, PLEASE REBUILD)", hullPlateInfo.Description);
+        hullplate.SetGameObject(GetPrefab(_oldHullPlateTexture, hullPlateInfo!.InternalName));
+        hullplate.SetRecipe(new RecipeData(new CraftData.Ingredient(!hullPlateInfo.Expensive ? TechType.Titanium : TechType.TitaniumIngot), new CraftData.Ingredient(TechType.Glass)));
         hullplate.Register();
     }
 

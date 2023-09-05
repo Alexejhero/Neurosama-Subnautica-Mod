@@ -43,7 +43,6 @@ public sealed class ErmMoonEvent : CustomEvent
         "Its influence wanes.",
         "The Erm Moon recedes... for now.",
         "The ancient spirits are calm once more.",
-        "Alex has left the server.",
         "The Time God has deducted 50 neuros from your balance. (protection fee)",
         "evilfumosittingverycomfortablewhilesheroastsvedalwithherfriends",
         //"Would you still love us if we were an Erm?",

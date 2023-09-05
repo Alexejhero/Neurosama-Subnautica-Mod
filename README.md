@@ -30,6 +30,7 @@ Requires BepInEx, Nautilus and ECCLibrary to run
   - Lorx
   - Moloch
   - MyBraza
+  - NetPlayz
   - P3R
   - paccha
   - Rune
