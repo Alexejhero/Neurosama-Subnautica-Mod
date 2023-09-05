@@ -10,7 +10,7 @@ public static class GreggsLoader
     public static void Load()
     {
         CustomPrefab deadErmfish = new(PrefabInfo.WithTechType("deadermfish", "Dead Ermfish", "erm\n<size=75%>(Model by w1n7er)</size>"));
-        deadErmfish.Info.WithIcon(AssetLoader.GetAtlasSprite("erm.png"));
+        deadErmfish.Info.WithIcon(AssetLoader.GetAtlasSprite("erm_dead.png"));
         deadErmfish.Register();
 
         CustomPrefab greggs = new(PrefabInfo.WithTechType("greggs", "Greggs", "god i fucking love greggs i would sell neuro just to lick a chicken bake right now holy shit i would marry gregg where is he"));
