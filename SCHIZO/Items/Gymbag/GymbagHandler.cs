@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-namespace SCHIZO.Gymbag;
+namespace SCHIZO.Items.Gymbag;
 
 public sealed class GymbagHandler : MonoBehaviour
 {

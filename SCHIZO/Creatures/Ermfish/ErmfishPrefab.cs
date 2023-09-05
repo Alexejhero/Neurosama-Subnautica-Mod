@@ -26,7 +26,7 @@ public class ErmfishPrefab : CreatureAsset
 		{
 			CellLevel = LargeWorldEntity.CellLevel.Medium,
 			Mass = 10,
-			BioReactorCharge = 420,
+			BioReactorCharge = 0,
 			EyeFOV = 0,
 			SwimRandomData = new SwimRandomData(0.2f, swimVelocity, new Vector3(20, 5, 20)),
 			StayAtLeashData = new StayAtLeashData(0.6f, swimVelocity * 1.25f, 14f),

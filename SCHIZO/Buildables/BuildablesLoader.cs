@@ -35,6 +35,7 @@ public static class BuildablesLoader
 			PrefabName = "neuroerm",
 			TechGroup = TechGroup.Miscellaneous,
 			TechCategory = TechCategory.Misc,
+            RequiredForUnlock = ModItems.Ermfish,
 			ModifyPrefab = prefab =>
 			{
 				WorldSoundPlayer.Add(prefab, ErmWorldSounds);

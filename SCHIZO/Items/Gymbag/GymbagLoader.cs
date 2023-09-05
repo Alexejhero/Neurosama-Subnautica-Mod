@@ -9,7 +9,7 @@ using Nautilus.Utility;
 using SCHIZO.Extensions;
 using UnityEngine;
 
-namespace SCHIZO.Gymbag;
+namespace SCHIZO.Items.Gymbag;
 
 public static class GymbagLoader
 {
@@ -24,13 +24,15 @@ public static class GymbagLoader
             ModifyPrefab = ModifyPrefab
         });
 
-        CraftingGadget crafting = new(prefab, new RecipeData(new CraftData.Ingredient(TechType.LuggageBag), new CraftData.Ingredient(ModItems.Ermfish), new CraftData.Ingredient(TechType.PosterKitty)));
+        CraftingGadget crafting = prefab.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.LuggageBag), new CraftData.Ingredient(ModItems.Ermfish), new CraftData.Ingredient(TechType.PosterKitty)));
         crafting.WithFabricatorType(CraftTree.Type.Fabricator);
         crafting.WithStepsToFabricatorTab(CraftTreeHandler.Paths.FabricatorEquipment);
         crafting.WithCraftingTime(10);
-        prefab.AddGadget(crafting);
 
-        prefab.SetEquipment(EquipmentType.Hand).WithQuickSlotType(QuickSlotType.Selectable);
+        EquipmentGadget equipment = prefab.SetEquipment(EquipmentType.Hand);
+        equipment.WithQuickSlotType(QuickSlotType.Selectable);
+
+        prefab.SetUnlock(ModItems.Ermfish);
         prefab.SetPdaGroupCategory(TechGroup.Personal, TechCategory.Equipment);
 
         prefab.Register();

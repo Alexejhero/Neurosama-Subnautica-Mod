@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using FMOD;
-using FMOD.Studio;
-using Nautilus.Handlers;
-using Nautilus.Utility;
 using SCHIZO.Extensions;
 using UnityEngine;
 

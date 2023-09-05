@@ -38,6 +38,7 @@ Requires BepInEx, Nautilus and ECCLibrary to run
   - Sandro
   - SomeOldGuy
   - sugarph
+  - Troobs
   - w1n7er
   - yamplum
 - Audio compilation and cleaning

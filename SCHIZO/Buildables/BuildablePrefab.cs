@@ -17,6 +17,7 @@ public sealed class BuildablePrefab : CustomPrefab
     public TechGroup TechGroup { get; init; } = TechGroup.Uncategorized;
     public TechCategory TechCategory { get; init; }
     public RecipeData Recipe { get; init; }
+    public TechType RequiredForUnlock { get; init; }
     public string PrefabName { get; init; }
     public Action<GameObject> ModifyPrefab { get; init; } = _ => { };
 
@@ -38,10 +39,12 @@ public sealed class BuildablePrefab : CustomPrefab
     {
         _oldVersions.ForEach(v => v.Register());
 
-        SetGameObject(GetPrefab);
         Info.WithIcon(AssetLoader.GetAtlasSprite(IconFileName));
-        if (TechGroup != TechGroup.Uncategorized) this.SetPdaGroupCategory(TechGroup, TechCategory);
         this.SetRecipe(Recipe);
+        if (TechGroup != TechGroup.Uncategorized) this.SetPdaGroupCategory(TechGroup, TechCategory);
+        if (RequiredForUnlock != TechType.None) this.SetUnlock(RequiredForUnlock);
+
+        SetGameObject(GetPrefab);
         base.Register();
     }
 

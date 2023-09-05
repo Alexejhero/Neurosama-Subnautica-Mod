@@ -9,6 +9,7 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Gadgets;
 using SCHIZO.Sounds;
 using UnityEngine;
 
@@ -30,12 +31,6 @@ public static class ErmfishLoader
 
     public static void Load()
     {
-
-        CustomPrefab deadermfish = new(ModItems.DeadErmfish);
-        deadermfish.Info.WithSizeInInventory(new Vector2int(1, 1));
-        deadermfish.Info.WithIcon(AssetLoader.GetAtlasSprite("erm.png"));
-        deadermfish.Register();
-
         LoadErmfish();
         LoadErmfishVariant(ModItems.CookedErmfish, "erm_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Ermfish)), 23, 0, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
         LoadErmfishVariant(ModItems.CuredErmfish, "erm_cured.png", new RecipeData(new CraftData.Ingredient(ModItems.Ermfish), new CraftData.Ingredient(TechType.Salt)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
@@ -72,6 +67,15 @@ public static class ErmfishLoader
 			<size=75%>(Databank art by CJMAXiK)</size>
 			""", 5, databankTexture, unlockSprite);
 
+        KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
+        {
+            techType = ModItems.Ermfish,
+            unlockTechTypes = new List<TechType>(),
+            unlockMessage = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage,
+            unlockSound = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound,
+            unlockPopup = unlockSprite
+        });
+
 		List<LootDistributionData.BiomeData> biomes = new();
 		foreach (BiomeType biome in Enum.GetValues(typeof(BiomeType)).Cast<BiomeType>())
 		{
@@ -88,21 +92,21 @@ public static class ErmfishLoader
 	    CustomPrefab variant = new(info);
 		variant.Info.WithIcon(AssetLoader.GetAtlasSprite(iconPath));
 
-		CraftingGadget crafting = new(variant, recipe);
+		CraftingGadget crafting = variant.SetRecipe(recipe);
 		crafting.WithFabricatorType(CraftTree.Type.Fabricator);
 		crafting.WithStepsToFabricatorTab(craftingTabPath);
-		variant.AddGadget(crafting);
+
+        EatableGadget eatable = variant.SetNutritionValues(foodValue, waterValue);
+        eatable.WithDecay(decomposes);
+
+        variant.SetUnlock(ModItems.Ermfish);
+        variant.SetEquipment(EquipmentType.Hand);
+        variant.SetPdaGroupCategory(TechGroup.Survival, techCategory);
 
 		variant.SetGameObject(new CloneTemplate(variant.Info, ModItems.Ermfish)
 		{
 			ModifyPrefab = prefab =>
 			{
-				Eatable eatable = prefab.EnsureComponent<Eatable>();
-				eatable.foodValue = foodValue;
-				eatable.waterValue = waterValue;
-				eatable.kDecayRate = 0.015f;
-				eatable.decomposes = decomposes;
-
 				prefab.transform.Find("WM/erm/regular").gameObject.SetActive(false);
 				prefab.transform.Find("WM/erm").GetChild(childModelIndex).gameObject.SetActive(true);
 
@@ -112,12 +116,10 @@ public static class ErmfishLoader
                 CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/erm", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0)));
 			}
 		});
-		variant.SetPdaGroupCategory(TechGroup.Survival, techCategory);
 		variant.Register();
 
-		CraftDataHandler.SetEquipmentType(variant.Info.TechType, EquipmentType.Hand);
 		ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play(), "pull ahoge", "English");
     }
 
-    public static List<TechType> ErmfishTechTypes => new() { ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish, ModItems.DeadErmfish };
+    public static List<TechType> ErmfishTechTypes => new() { ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish };
 }
