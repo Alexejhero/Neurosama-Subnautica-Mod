@@ -12,6 +12,8 @@ public sealed class SavedRandomList<T> : IEnumerable
 
     private class PlayerPrefsManager : RandomList<Item>.IInitialStateModifier
     {
+        private record struct RegistryKey(string Value);
+
         private readonly string _key;
         private readonly HashSet<string> _identifiers = new();
 
@@ -29,9 +31,10 @@ public sealed class SavedRandomList<T> : IEnumerable
 
             // possible gotcha to look out for: PlayerPrefsExtra stores some values like Vectors in multiple keys, so HasKey might return false even if the keys exist
             // not the case for booleans though
-            if (Contains(identifier)) return GetState(identifier);
+            RegistryKey key = KeyOf(identifier);
+            if (Contains(key)) return GetState(key);
 
-            SetState(identifier, false);
+            SetState(key, false);
             return false;
         }
 
@@ -48,13 +51,13 @@ public sealed class SavedRandomList<T> : IEnumerable
             }
         }
 
-        private bool Contains(string identifier) => PlayerPrefs.HasKey(KeyOf(identifier));
+        private bool Contains(RegistryKey key) => PlayerPrefs.HasKey(key.Value);
 
-        private bool GetState(string identifier) => PlayerPrefsExtra.GetBool(KeyOf(identifier), default);
+        private bool GetState(RegistryKey key) => PlayerPrefsExtra.GetBool(key.Value, default);
 
-        private void SetState(string identifier, bool used) => PlayerPrefsExtra.SetBool(KeyOf(identifier), used);
+        private void SetState(RegistryKey key, bool used) => PlayerPrefsExtra.SetBool(key.Value, used);
 
-        private string KeyOf(string identifier) => $"SCHIZO_RandomList_{_key}_{identifier}";
+        private RegistryKey KeyOf(string identifier) => new($"SCHIZO_RandomList_{_key}_{identifier}");
     }
 
     private readonly RandomList<Item> _randomList;
