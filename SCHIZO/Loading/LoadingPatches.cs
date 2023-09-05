@@ -22,10 +22,17 @@ public static class LoadingPatches
 
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake))]
     [HarmonyPostfix]
-    public static void ChangeLoadingImage(uGUI_SceneLoading __instance)
+    public static void ChangeLoading(uGUI_SceneLoading __instance)
     {
         __instance.GetComponentInChildren<uGUI_Logo>().texture = AssetLoader.GetTexture("loading.png");
         __instance.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = _backgrounds.GetRandom();
+    }
+
+    [HarmonyPatch(typeof(SavingIndicator), nameof(SavingIndicator.OnEnable))]
+    [HarmonyPrefix]
+    public static void ChangeSaving(SavingIndicator __instance)
+    {
+        __instance.GetComponentInChildren<uGUI_Logo>().texture = AssetLoader.GetTexture("loading.png");
     }
 
     [HarmonyPatch(typeof(uGUI_Logo), nameof(uGUI_Logo.Update))]
