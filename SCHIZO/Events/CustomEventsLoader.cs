@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using SCHIZO.Events.ErmCon;
 using SCHIZO.Events.ErmMoon;
-using SCHIZO.Events.ErmRapture;
 using UnityEngine;
 
 namespace SCHIZO.Events

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SCHIZO.Events.ErmCon;
 using UnityEngine;
 using System.Linq;
 using FMOD;
@@ -9,11 +8,10 @@ using SCHIZO.Creatures.Ermfish;
 using Nautilus.Handlers;
 using System.IO;
 using System;
-using SCHIZO.Events.ErmMoon;
 using FMODUnity;
 using Nautilus.Utility;
 
-namespace SCHIZO.Events.ErmRapture;
+namespace SCHIZO.Events.ErmMoon;
 
 public class ErmRaptureEvent : CustomEvent
 {
@@ -21,11 +19,8 @@ public class ErmRaptureEvent : CustomEvent
     private bool _isOccurring;
 
     public float EventDurationSeconds = 120f;
-    public float EventDurationDayFraction => EventDurationSeconds / 1200f;
     public float SearchRange = 250f;
 
-    private ErmConEvent _conEvent;
-    private bool _conJustEnded;
     private ErmMoonEvent _moonEvent;
     private GameObject _moon;
 
@@ -42,7 +37,6 @@ public class ErmRaptureEvent : CustomEvent
     private float _lastErmCallTime = -999f;
     private float maxVolume = 2.5f;
     private float minAudibleDepth = -250f;
-    private float minReverbDepth = -100f;
     private REVERB_PROPERTIES _savedReverb2;
     private REVERB_PROPERTIES _savedReverb3;
     private REVERB_PROPERTIES _openAirReverb;
@@ -54,7 +48,6 @@ public class ErmRaptureEvent : CustomEvent
 
     private void Awake()
     {
-        _conEvent = CustomEventManager.main.GetEvent<ErmConEvent>();
         _moonEvent = CustomEventManager.main.GetEvent<ErmMoonEvent>();
         _skyManager = FindObjectOfType<uSkyManager>();
         _seenErmfish = new();
@@ -63,16 +56,15 @@ public class ErmRaptureEvent : CustomEvent
         _moon.transform.position = gameObject.transform.position + _moon.transform.forward * 10000f;
 
         _ermCallEmitter = _moon.AddComponent<FMOD_CustomEmitter>();
-        _conEvent.Ended += delegate () { _conJustEnded = true; };
         string ermCallGuid = Guid.NewGuid().ToString();
-        string openAirGuid = Guid.NewGuid().ToString();
         // don't look
-        Sound ermCallSound = CustomSoundHandler.TryGetCustomSound(ermCallGuid, out Sound underSound)
-            ? underSound
-            : CustomSoundHandler.RegisterCustomSound(ermCallGuid,
+        string bus = "bus:/master/SFX_for_pause/PDA_pause/all/Sounds_muted by pain";
+        Sound ermCallSound = CustomSoundHandler.RegisterCustomSound(ermCallGuid,
                 Path.Combine(AssetLoader.AssetsFolder, "sounds", "events", "erm_call_sky.mp3"),
-                "bus:/master/SFX_for_pause/PDA_pause/all/Sounds_muted by pain",
+                bus,
                 MODE._3D_LINEARROLLOFF);
+        RuntimeManager.GetBus(bus).unlockChannelGroup();
+
 
         ermCallSound.set3DMinMaxDistance(1000, 30000);
         _ermCallEmitter.SetAsset(AudioUtils.GetFmodAsset(ermCallGuid, "erm_call_sky"));
@@ -92,12 +84,9 @@ public class ErmRaptureEvent : CustomEvent
 
     protected override bool ShouldStartEvent()
     {
-        if (!_conJustEnded) return false;
-        _conJustEnded = false;
         return _moonEvent.IsOccurring
             && gameObject.transform.position.y > minAudibleDepth
-            && DayNightHelpers.isNight
-            && (DayNightUtils.dayScalar + EventDurationDayFraction) % 1 < 0.14f; // will be night at the end
+            && DayNightHelpers.isNight;
     }
 
     protected override void UpdateLogic()
@@ -163,7 +152,7 @@ public class ErmRaptureEvent : CustomEvent
 
         float volume = maxVolume * (1 - volumeDepthFrac);
 
-        LOGGER.LogWarning($"UpdateErmCall volume {volume} (at depth {posY}/{volumeDepthFrac})");
+        //LOGGER.LogWarning($"UpdateErmCall volume {volume} (at depth {posY}/{volumeDepthFrac})");
         channel.setVolume(volume);
         channel.setReverbProperties(2, posY >= 0 ? 1 : 0);
         channel.setReverbProperties(3, posY < 0 ? 1 : 0);
@@ -200,9 +189,7 @@ public class ErmRaptureEvent : CustomEvent
 
     public override void StartEvent()
     {
-        // refactor later (deadline looming)
-        bool isNight = DayNightUtils.dayScalar is > 0.87f or < 0.14f;
-        if (!isNight)
+        if (!DayNightHelpers.isNight)
             DevConsole.SendConsoleCommand("night");
         if (!_moonEvent.IsOccurring)
             _moonEvent.StartEvent();
