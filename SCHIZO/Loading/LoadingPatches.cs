@@ -18,6 +18,8 @@ public static class LoadingPatches
         { 4, AssetLoader.GetUnitySprite("loading-bg-4.png") },
         { 5, AssetLoader.GetUnitySprite("loading-bg-5.png") },
         { 6, AssetLoader.GetUnitySprite("loading-bg-6.png") },
+        { 7, AssetLoader.GetUnitySprite("loading-bg-7.jpg") },
+        { 8, AssetLoader.GetUnitySprite("loading-bg-8.png") },
     };
 
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake))]

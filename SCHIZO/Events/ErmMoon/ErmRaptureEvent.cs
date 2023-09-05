@@ -18,7 +18,7 @@ public class ErmRaptureEvent : CustomEvent
     public override bool IsOccurring => _isOccurring;
     private bool _isOccurring;
 
-    public float EventDurationSeconds = 120f;
+    public float EventDurationSeconds = 60f;
     public float SearchRange = 250f;
 
     private ErmMoonEvent _moonEvent;
@@ -35,12 +35,13 @@ public class ErmRaptureEvent : CustomEvent
     private float _ermCallPlaybackPosition; // where we are in the sound file
     private float _ermCallCooldown = 5f;
     private float _lastErmCallTime = -999f;
-    private float maxVolume = 2.5f;
+    private float maxVolume = 1.5f;
     private float minAudibleDepth = -250f;
     private REVERB_PROPERTIES _savedReverb2;
     private REVERB_PROPERTIES _savedReverb3;
     private REVERB_PROPERTIES _openAirReverb;
     private REVERB_PROPERTIES _underwaterReverb;
+    private bool _happenedTonight;
 
     private uSkyManager _skyManager;
     private float _normalCloudBrightness;
@@ -65,7 +66,6 @@ public class ErmRaptureEvent : CustomEvent
                 MODE._3D_LINEARROLLOFF);
         RuntimeManager.GetBus(bus).unlockChannelGroup();
 
-
         ermCallSound.set3DMinMaxDistance(1000, 30000);
         _ermCallEmitter.SetAsset(AudioUtils.GetFmodAsset(ermCallGuid, "erm_call_sky"));
         _ermCallEmitter.followParent = true;
@@ -84,7 +84,13 @@ public class ErmRaptureEvent : CustomEvent
 
     protected override bool ShouldStartEvent()
     {
-        return _moonEvent.IsOccurring
+        if (!_moonEvent.IsOccurring)
+        {
+            _happenedTonight = false;
+            return false;
+        }
+        
+        return !_happenedTonight
             && gameObject.transform.position.y > minAudibleDepth
             && DayNightHelpers.isNight;
     }
@@ -92,7 +98,7 @@ public class ErmRaptureEvent : CustomEvent
     protected override void UpdateLogic()
     {
         float time = Time.fixedTime;
-        if (time > _eventStartTime + EventDurationSeconds)
+        if (time > _eventStartTime + EventDurationSeconds || !_moonEvent.IsOccurring)
         {
             // TODO clean up spawned ermfish
             EndEvent();
@@ -200,6 +206,7 @@ public class ErmRaptureEvent : CustomEvent
 
         LOGGER.LogWarning("An Erm rapture has begun.");
         _isOccurring = true;
+        _happenedTonight = true;
         _eventStartTime = Time.time;
         base.StartEvent();
     }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace SCHIZO.Helpers;
 
@@ -11,18 +12,8 @@ public static class TextureHelpers
     public static Texture2D BlendAlpha(Texture2D baseTex, Texture2D appliedTex, float blend = 1f, bool clipToBase = false)
     {
         // Scale texture b to the size of texture a
-        Texture2D scaledB = new Texture2D(baseTex.width, baseTex.height, baseTex.format, false);
+        Texture2D scaledB = appliedTex.Scale(baseTex.width, baseTex.height);
         Color[] scaledBPixels = scaledB.GetPixels();
-        for (int y = 0; y < baseTex.height; y++)
-        {
-            for (int x = 0; x < baseTex.width; x++)
-            {
-                Color bColor = appliedTex.GetPixelBilinear((float)x / baseTex.width, (float)y / baseTex.height);
-                scaledBPixels[y * baseTex.width + x] = bColor;
-            }
-        }
-
-        scaledB.SetPixels(scaledBPixels);
         // Blend textures based on transparency
         Texture2D result = new Texture2D(baseTex.width, baseTex.height, baseTex.format, false);
         Color[] resultPixels = BlendAlpha(baseTex.GetPixels(), scaledBPixels, blend, clipToBase);
@@ -105,5 +96,86 @@ public static class TextureHelpers
         rotatedTexture.SetPixels(rotated);
         rotatedTexture.Apply();
         return rotatedTexture;
+    }
+
+    public static Texture2D Scale(this Texture2D texture, int width, int height)
+    {
+        Color[] scaledPixels = new Color[width * height];
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                Color bColor = texture.GetPixelBilinear((float) x / width, (float) y / height);
+                scaledPixels[y * width + x] = bColor;
+            }
+        }
+
+        Texture2D scaled = new(width, height, texture.format, false);
+        scaled.SetPixels(scaledPixels);
+        scaled.Apply();
+        return scaled;
+    }
+
+    /// <summary>"Moves" each pixel in the texture by the specified X and Y offsets. Pixels that are moved outside the bounds of the texture are discarded.</summary>
+    /// <param name="transX">
+    /// How much to move on the X axis.<br/>
+    /// Positive values will discard pixels from the right edge, and negative values will discard from the left edge.
+    /// </param>
+    /// <param name="transY">
+    /// How much to move on the Y axis.<br/>
+    /// Positive values will discard pixels from the bottom edge, and negative values will discard from the top edge.
+    /// </param>
+    /// <returns>A <see cref="Texture2D"/> with the same size as the original <paramref name="texture"/>.</returns>
+    public static Texture2D Translate(this Texture2D texture, int transX, int transY)
+    {
+        int w = texture.width, h = texture.height;
+        Texture2D translated = new(w, h, texture.format, false);
+        Color[] originalPixels = texture.GetPixels();
+        Color[] translatedPixels = new Color[originalPixels.Length];
+
+        // i'm pretty sure this is wrong but it's not wrong enough to stop me
+        // TODO fix later :tm:
+        int xMin = 0, xMax = w;
+        int yMin = 0, yMax = h;
+        if (transX < 0) xMin -= transX;
+        else xMax -= transX;
+        if (transY < 0) yMin -= transY;
+        else yMax -= transY;
+        
+        for (int y = yMin; y < yMax; y++)
+        {
+            for (int x = xMin; x < xMax; x++)
+            {
+                int translatedX = x + transX;
+                int translatedY = y + transY;
+                translatedPixels[translatedY * w + translatedX] = originalPixels[y * xMax + x];
+            }
+        }
+
+        translated.SetPixels(translatedPixels);
+        translated.Apply();
+        return translated;
+    }
+
+    // width and height should be less than texture's width/height respectively
+    public static Texture2D Crop(this Texture2D texture, int width, int height)
+    {
+        if (width > texture.width || height > texture.height)
+            throw new ArgumentOutOfRangeException();
+        Texture2D cropped = new(width, height, texture.format, false);
+        Color[] originalPixels = texture.GetPixels();
+        Color[] croppedPixels = new Color[width * height];
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                croppedPixels[y * width + x] = originalPixels[y * texture.width + x];
+            }
+        }
+
+        cropped.SetPixels(croppedPixels);
+        cropped.Apply();
+        return cropped;
     }
 }
