@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using SCHIZO.Extensions;
 
 namespace SCHIZO.Resources;
 
@@ -21,9 +22,7 @@ public static class DependencyResolver
             using Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
             if (stream == null) return null;
 
-            using MemoryStream ms = new();
-            stream.CopyTo(ms);
-            return Assembly.Load(ms.ToArray());
+            return Assembly.Load(stream.ReadFully());
         };
     }
 }

@@ -50,9 +50,7 @@ public sealed class SoundCollection3D : SoundCollection
     {
         LastPlay = Time.time;
 
-        FMODAsset asset = CreateInstance<FMODAsset>();
-        asset.path = _sounds.GetRandom();
-        emitter.SetAsset(asset);
+        emitter.SetAsset(AudioUtils.GetFmodAsset(_sounds.GetRandom()));
         emitter.Play();
     }
 }
