@@ -7,6 +7,13 @@ public sealed class Ermshark : Creature, IOnTakeDamage
 {
     private bool _isReal = true;
     public int mitosisRemaining = 4;
+    private FMOD_CustomEmitter _emitter;
+
+    private void Awake()
+    {
+        _emitter = gameObject.AddComponent<FMOD_CustomEmitter>();
+        _emitter.followParent = true;
+    }
 
     public void OnTakeDamage(DamageInfo damageInfo)
     {
@@ -46,7 +53,7 @@ public sealed class Ermshark : Creature, IOnTakeDamage
 
         for (int i = 0; i < 5; i++) Utils.SpawnPrefabAt(hurtEffect, transform, position).transform.localScale *= 2f;
 
-        ErmsharkLoader.SplitSounds.Play();
+        ErmsharkLoader.SplitSounds.Play(firstChild.GetComponent<FMOD_CustomEmitter>());
     }
 
     private static void UpdateChild(GameObject child, bool isReal, int mitosisRemaining)
