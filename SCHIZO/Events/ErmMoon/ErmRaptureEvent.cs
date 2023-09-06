@@ -13,7 +13,7 @@ using Nautilus.Utility;
 
 namespace SCHIZO.Events.ErmMoon;
 
-public class ErmRaptureEvent : CustomEvent
+public sealed class ErmRaptureEvent : CustomEvent
 {
     public override bool IsOccurring => _isOccurring;
     private bool _isOccurring;

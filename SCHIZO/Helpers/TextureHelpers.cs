@@ -123,7 +123,7 @@ public static class TextureHelpers
     /// </param>
     /// <param name="transY">
     /// How much to move on the Y axis.<br/>
-    /// Positive values will discard pixels from the bottom edge, and negative values will discard from the top edge.
+    /// Positive values will discard pixels from the top edge, and negative values will discard from the bottom edge.
     /// </param>
     /// <returns>A <see cref="Texture2D"/> with the same size as the original <paramref name="texture"/>.</returns>
     public static Texture2D Translate(this Texture2D texture, int transX, int transY)
@@ -133,15 +133,13 @@ public static class TextureHelpers
         Color[] originalPixels = texture.GetPixels();
         Color[] translatedPixels = new Color[originalPixels.Length];
 
-        // i'm pretty sure this is wrong but it's not wrong enough to stop me
-        // TODO fix later :tm:
         int xMin = 0, xMax = w;
         int yMin = 0, yMax = h;
         if (transX < 0) xMin -= transX;
         else xMax -= transX;
         if (transY < 0) yMin -= transY;
         else yMax -= transY;
-        
+
         for (int y = yMin; y < yMax; y++)
         {
             for (int x = xMin; x < xMax; x++)
