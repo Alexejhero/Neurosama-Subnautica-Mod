@@ -64,7 +64,7 @@ public class ErmConEvent : CustomEvent
         // If a Queen Erm cannot be located or designated, the swarm becomes distressed, and seeks the nearest intelligent(?) being capable of designating the Queen for the swarm.
         // It is not currently known whether Ermfish swarm behaviors change if deprived of their Queen for too long.
         // Everyone who has so far been resourceful enough to survive on 4546B has displayed sufficient sensibility in choosing not to test that theory.
-        int ermsInRange = PhysicsHelpers.ObjectsInRange(CongregationTarget, SearchRadius)
+        int ermsInRange = PhysicsHelpers.ObjectsInRange(gameObject, SearchRadius)
             .OfTechType(ErmfishLoader.ErmfishTechTypes)
             .Count();
         if (ermsInRange < MinAttendance)
