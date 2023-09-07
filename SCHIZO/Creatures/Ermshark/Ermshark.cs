@@ -7,13 +7,6 @@ public sealed class Ermshark : Creature, IOnTakeDamage
 {
     private bool _isReal = true;
     public int mitosisRemaining = 4;
-    private FMOD_CustomEmitter _emitter;
-
-    private void Awake()
-    {
-        _emitter = gameObject.AddComponent<FMOD_CustomEmitter>();
-        _emitter.followParent = true;
-    }
 
     public void OnTakeDamage(DamageInfo damageInfo)
     {
