@@ -7,10 +7,11 @@ public sealed class ErmsharkAttack : MeleeAttack
     public override void OnTouch(Collider collider)
     {
         if (!enabled) return;
+        if (!liveMixin.IsAlive()) return;
+
         GameObject target = GetTarget(collider);
 
-        if (ignoreSameKind && CreatureData.GetCreatureType(gameObject) == CreatureData.GetCreatureType(target)) return;
-        if (!liveMixin.IsAlive()) return;
+        if (CreatureData.GetCreatureType(gameObject) == CreatureData.GetCreatureType(target)) return;
 
         Player component = target.GetComponent<Player>();
         if (component != null && canBeFed && component.CanBeAttacked())
