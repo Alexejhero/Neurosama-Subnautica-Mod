@@ -12,8 +12,8 @@ namespace SCHIZO.Creatures.Ermshark;
 public static class ErmsharkLoader
 {
     public static readonly SoundCollection3D AmbientSounds = SoundCollection3D.Create("ermshark/ambient", AudioUtils.BusPaths.UnderwaterCreatures);
-    public static readonly SoundCollection2D AttackSounds = SoundCollection2D.Create("ermshark/attack", AudioUtils.BusPaths.UnderwaterCreatures);
-    public static readonly SoundCollection2D SplitSounds = SoundCollection2D.Create("ermshark/split", AudioUtils.BusPaths.UnderwaterCreatures);
+    public static readonly SoundCollection3D AttackSounds = SoundCollection3D.Create("ermshark/attack", AudioUtils.BusPaths.UnderwaterCreatures);
+    public static readonly SoundCollection3D SplitSounds = SoundCollection3D.Create("ermshark/split", AudioUtils.BusPaths.UnderwaterCreatures);
 
     public static GameObject Prefab;
 

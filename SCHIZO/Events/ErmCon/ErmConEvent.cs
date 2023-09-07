@@ -30,6 +30,7 @@ public class ErmConEvent : CustomEvent
     {
         // let's not wait the whole cooldown on load
         _eventStartTime = -CooldownSeconds / 2;
+        gameObject.GetComponent<Player>()?.playerDeathEvent.AddHandler(this, (_) => EndEvent());
     }
 
     protected override bool ShouldStartEvent()

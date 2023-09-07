@@ -46,7 +46,7 @@ public sealed class Ermshark : Creature, IOnTakeDamage
 
         for (int i = 0; i < 5; i++) Utils.SpawnPrefabAt(hurtEffect, transform, position).transform.localScale *= 2f;
 
-        ErmsharkLoader.SplitSounds.Play();
+        ErmsharkLoader.SplitSounds.Play(firstChild.GetComponent<FMOD_CustomEmitter>());
     }
 
     private static void UpdateChild(GameObject child, bool isReal, int mitosisRemaining)

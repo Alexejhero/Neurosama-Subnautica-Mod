@@ -46,7 +46,7 @@ public sealed class ErmsharkAttack : MeleeAttack
                 Utils.PlayEnvSound(attackSound, vector);
             }
 
-            ErmsharkLoader.AttackSounds.Play();
+            ErmsharkLoader.AttackSounds.Play(gameObject.GetComponent<FMOD_CustomEmitter>());
 
             creature.Aggression.Add(-biteAggressionDecrement);
             if (component2 != null && !component2.IsAlive())
