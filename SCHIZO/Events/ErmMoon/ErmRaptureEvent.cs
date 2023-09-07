@@ -18,7 +18,7 @@ public sealed class ErmRaptureEvent : CustomEvent
     public override bool IsOccurring => _isOccurring;
     private bool _isOccurring;
 
-    public float EventDurationSeconds = 60f;
+    public float EventDurationSeconds = 120f;
     public float SearchRange = 250f;
 
     private ErmMoonEvent _moonEvent;
@@ -89,10 +89,11 @@ public sealed class ErmRaptureEvent : CustomEvent
             _happenedTonight = false;
             return false;
         }
-        
+
         return !_happenedTonight
             && gameObject.transform.position.y > minAudibleDepth
-            && DayNightHelpers.isNight;
+            && DayNightHelpers.isNight
+            && !CONFIG.DisableRapture;
     }
 
     protected override void UpdateLogic()

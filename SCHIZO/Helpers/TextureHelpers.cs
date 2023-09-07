@@ -117,6 +117,7 @@ public static class TextureHelpers
     }
 
     /// <summary>"Moves" each pixel in the texture by the specified X and Y offsets. Pixels that are moved outside the bounds of the texture are discarded.</summary>
+    /// <param name="texture"></param>
     /// <param name="transX">
     /// How much to move on the X axis.<br/>
     /// Positive values will discard pixels from the right edge, and negative values will discard from the left edge.

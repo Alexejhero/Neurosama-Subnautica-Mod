@@ -38,4 +38,7 @@ public sealed class Config : ConfigFile
     // 0 - never, 1 - every 10-30 days, 3 - every 4-9 days, 6 - every 3-5 days, 9 - almost every night, 10 - guaranteed
     [Slider("(???) Threat", 0, 10, DefaultValue = 3, Format = "{0:F0}", Step = 1)]
     public float MoonEventFrequency = 3;
+
+    [Toggle("(???) neurofumosittingverycomfortablewhilesheroastsaporowithherfriends")]
+    public bool DisableRapture = false;
 }
