@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using HarmonyLib;
+using Nautilus.Handlers;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
@@ -103,4 +104,16 @@ public static class ErmfishPatches
 		if (!pickupable || !ErmfishLoader.ErmfishTechTypes.Contains(pickupable.GetTechType())) return;
 		ErmfishLoader.HurtSounds.Play(__instance.GetComponent<FMOD_CustomEmitter>());
 	}
+
+    [HarmonyPatch(typeof(KnownTech), nameof(KnownTech.Initialize))]
+    [HarmonyPostfix]
+    public static void FixErmfishAnalysisTech()
+    {
+        if (KnownTech.analysisTech is null) return;
+
+        KnownTech.AnalysisTech tech = KnownTech.analysisTech.FirstOrDefault(tech => tech.techType == ModItems.Ermfish);
+        if (tech is null) return;
+        tech.unlockMessage = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage;
+        tech.unlockSound = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound;
+    }
 }

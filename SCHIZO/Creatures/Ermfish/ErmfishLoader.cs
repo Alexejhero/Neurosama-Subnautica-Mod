@@ -76,7 +76,7 @@ public static class ErmfishLoader
             unlockPopup = unlockSprite
         });
 
-		List<LootDistributionData.BiomeData> biomes = new();
+        List<LootDistributionData.BiomeData> biomes = new();
 		foreach (BiomeType biome in Enum.GetValues(typeof(BiomeType)).Cast<BiomeType>())
 		{
 			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.025f });
