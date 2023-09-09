@@ -7,6 +7,7 @@ using Nautilus.Handlers;
 using SCHIZO.Buildables;
 using SCHIZO.Creatures.Ermfish;
 using SCHIZO.Creatures.Ermshark;
+using SCHIZO.Creatures.Tutel;
 using SCHIZO.HullPlates;
 using SCHIZO.Items.Greggs;
 using SCHIZO.Items.Gymbag;
@@ -29,6 +30,7 @@ public partial class Plugin : BaseUnityPlugin
 
         HullPlateLoader.Load();
 		BuildablesLoader.Load();
+        TutelLoader.Load();
 		ErmfishLoader.Load();
 		ErmsharkLoader.Load();
 		GymbagLoader.Load();

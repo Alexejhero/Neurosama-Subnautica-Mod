@@ -12,5 +12,9 @@ public static class ModItems
 
     public static readonly ModItem Ermshark = new("ermshark", "Ermshark", "erm");
 
+    public static readonly ModItem Tutel = new("tutel", "Tutel", "erm\n<size=75%>(Model by idk)</size>");
+    public static readonly ModItem CookedTutel = new("cookedtutel", "Cooked Tutel", "erm\n<size=75%>(Model by w1n7er, icon by SADecsSs)</size>");
+    public static readonly ModItem CuredTutel = new("curedtutel", "Cured Tutel", "erm\n<size=75%>(Model by w1n7er, icon by SADecsSs)</size>");
+
     public static readonly ModItem Gymbag = new("gymbag", "Gymbag", "A lightly worn gym bag that emanates a faint smell. How does it fit all that stuff?..\n<size=75%>(Model by Vaalmyr)</size>");
 }
