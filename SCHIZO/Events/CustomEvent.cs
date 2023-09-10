@@ -23,7 +23,7 @@ namespace SCHIZO.Events
         private void FixedUpdate()
         {
             if (IsOccurring) UpdateLogic();
-            else if (CustomEventManager.main.enableNaturalEventStart && ShouldStartEvent()) StartEvent();
+            else if (CustomEventManager.main.enableAutoEvents && ShouldStartEvent()) StartEvent();
         }
 
         private void Update()

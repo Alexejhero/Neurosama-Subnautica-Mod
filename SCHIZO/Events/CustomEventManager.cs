@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Nautilus.Utility;
 using SCHIZO.Helpers;
 using UnityEngine;
 
@@ -9,7 +10,12 @@ namespace SCHIZO.Events;
 public class CustomEventManager : MonoBehaviour
 {
     public static CustomEventManager main;
-    internal bool enableNaturalEventStart = false;
+    public const string autoEventsRegKey = "SCHIZO_Events_enableAutoEvents";
+    public bool enableAutoEvents
+    {
+        get => PlayerPrefsExtra.GetBool(autoEventsRegKey, true);
+        set => PlayerPrefsExtra.SetBool(autoEventsRegKey, value);
+    }
     private readonly Dictionary<string, Type> Events = new(StringComparer.InvariantCultureIgnoreCase);
 
     public void Awake()
@@ -17,6 +23,7 @@ public class CustomEventManager : MonoBehaviour
         main = this;
         DevConsole.RegisterConsoleCommand(this, "event");
         DevConsole.RegisterConsoleCommand(this, "events");
+        DevConsole.RegisterConsoleCommand(this, "autoevents");
     }
 
     public CustomEvent GetEvent(string eventName)
@@ -124,6 +131,29 @@ public class CustomEventManager : MonoBehaviour
         else
             evt.EndEvent();
         Output($"Event '{eventName}' {(isStart ? "start" : "end")}ed");
+    }
+
+    [UsedImplicitly]
+    private void OnConsoleCommand_autoevents(NotificationCenter.Notification n)
+    {
+        if (n?.data?.Count is null or 0)
+        {
+            Output($"Events are currently {(enableAutoEvents ? "automatic" : "manual")}");
+            return;
+        }
+        bool? value = n.data[0] switch
+        {
+            "on" or "1" or "true" or "auto" => true,
+            "off" or "0" or "false" or "manual" => false,
+            _ => null,
+        };
+        if (value is not { } isOn)
+        {
+            Output("Syntax: autoevents [on|off]");
+            return;
+        }
+        enableAutoEvents = isOn;
+        Output($"Events are now {(enableAutoEvents ? "automatic" : "manual")}");
     }
 
     private void Output(string msg)
