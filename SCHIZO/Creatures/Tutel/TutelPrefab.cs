@@ -20,10 +20,10 @@ public class TutelPrefab : CreatureAsset
 
 	public override CreatureTemplate CreateTemplate()
 	{
-		const float swimVelocity = 1f;
+		const float swimVelocity = 1.5f;
 
         // Not yet sure how to make this a creature that "sinks" and dwells the bottom floor
-		CreatureTemplate template = new(Prefab, BehaviourType.Crab, EcoTargetType.None, float.MaxValue)
+		CreatureTemplate template = new(Prefab, BehaviourType.Crab, EcoTargetType.Coral, float.MaxValue)
 		{
 			CellLevel = LargeWorldEntity.CellLevel.Medium,
 			Mass = 10,
@@ -40,9 +40,9 @@ public class TutelPrefab : CreatureAsset
 			AvoidObstaclesData = new AvoidObstaclesData(1f, swimVelocity, false, 5f, 5f),
 			SizeDistribution = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 1f)),
 			AnimateByVelocityData = new AnimateByVelocityData(swimVelocity),
-			SwimInSchoolData = new SwimInSchoolData(0.5f, swimVelocity, 2f, 0.5f, 1f, 0.1f, 25f),
+			SwimInSchoolData = new SwimInSchoolData(0.5f, swimVelocity, 1f, 0.5f, 1f, 0.1f, 25f),
             // Walk on surface and swim above water true
-            LocomotionData = new LocomotionData(10f, 0.6f, 3f, 0.5f, false, true, true),
+            LocomotionData = new LocomotionData(10f, 0.7f, 0f, 0.1f, false, true, true),
 		};
 		template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.1f, 0.5f, 1f, 1.5f, true, true, ClassID));
 
