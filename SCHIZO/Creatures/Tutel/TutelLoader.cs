@@ -27,8 +27,8 @@ public static class TutelLoader
     public static void Load()
     {
         LoadTutel();
-        LoadTutelVariant(ModItems.CookedTutel, "erm_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel)), 23, 0, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
-        LoadTutelVariant(ModItems.CuredTutel, "erm_cured.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel), new CraftData.Ingredient(TechType.Salt)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
+        LoadTutelVariant(ModItems.CookedTutel, "erm_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel)), 23, 2, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
+        LoadTutelVariant(ModItems.CuredTutel, "erm_cured.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel), new CraftData.Ingredient(TechType.Salt)), 23, 0, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
     }
 
     private static void LoadTutel()
@@ -61,8 +61,6 @@ public static class TutelLoader
 			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 5, probability = 0.010f });
 		}
 		LootDistributionHandler.AddLootDistributionData(tutel.ClassID, biomes.ToArray());
-
-		//ItemActionHandler.RegisterMiddleClickAction(tutel.PrefabInfo.TechType, _ => InventorySounds.Play(), "pull ahoge", "English");
     }
 
     private static void LoadTutelVariant(PrefabInfo info, string iconPath, RecipeData recipe, float foodValue, float waterValue, bool decomposes, string[] craftingTabPath, TechCategory techCategory, int childModelIndex)
@@ -70,9 +68,9 @@ public static class TutelLoader
 	    CustomPrefab variant = new(info);
 		variant.Info.WithIcon(AssetLoader.GetAtlasSprite(iconPath));
 
-		CraftingGadget crafting = variant.SetRecipe(recipe);
-		crafting.WithFabricatorType(CraftTree.Type.Fabricator);
-		crafting.WithStepsToFabricatorTab(craftingTabPath);
+        CraftingGadget crafting = variant.SetRecipe(recipe);
+        crafting.WithFabricatorType(CraftTree.Type.Fabricator);
+        crafting.WithStepsToFabricatorTab(craftingTabPath);
 
         EatableGadget eatable = variant.SetNutritionValues(foodValue, waterValue);
         eatable.WithDecay(decomposes);
@@ -85,7 +83,7 @@ public static class TutelLoader
 		{
 			ModifyPrefab = prefab =>
 			{
-				prefab.transform.Find("WM/erm/regular").gameObject.SetActive(false);
+                prefab.transform.Find("WM/erm/regular").gameObject.SetActive(false);
 				prefab.transform.Find("WM/erm").GetChild(childModelIndex).gameObject.SetActive(true);
 
 				prefab.transform.Find("VM/erm/regular").gameObject.SetActive(false);
@@ -94,10 +92,8 @@ public static class TutelLoader
                 CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/erm", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0)));
 			}
 		});
-		variant.Register();
-
-		//ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play(), "pull ahoge", "English");
+        variant.Register();
     }
 
-    public static List<TechType> ErmfishTechTypes => new() { ModItems.Tutel, ModItems.CookedTutel, ModItems.CuredTutel };
+    public static List<TechType> TutelTechTypes => new() { ModItems.Tutel, ModItems.CookedTutel, ModItems.CuredTutel };
 }
