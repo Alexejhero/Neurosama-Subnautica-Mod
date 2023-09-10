@@ -27,8 +27,8 @@ public static class TutelLoader
     public static void Load()
     {
         LoadTutel();
-        LoadTutelVariant(ModItems.CookedTutel, "tutel_creature_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel)), 23, 7, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
-        LoadTutelVariant(ModItems.CuredTutel, "tutel_creature_cured.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel), new CraftData.Ingredient(TechType.Salt)), 23, 3, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
+        LoadTutelVariant(ModItems.CookedTutel, "tutel_creature_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel)), 23, 3, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
+        LoadTutelVariant(ModItems.CuredTutel, "tutel_creature_cured.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel), new CraftData.Ingredient(TechType.Salt)), 23, 1, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
     }
 
     private static void LoadTutel()
@@ -42,7 +42,7 @@ public static class TutelLoader
 
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(tutel, "Lifeforms/Fauna/SmallHerbivores", "Tutel",
 			"""
-			Something is really wrong with this turtle. We have therefore removed the 'r' from its name. The Tutel makes really loud woop noises when eaten. Try to ignore its suffering, for the Tutel also provides decent hydration.
+			Something is really wrong with this turtle. We have therefore removed the 'r' from its name and switched the last two letters around. The Tutel makes really loud woop noises when eaten. Try to ignore its suffering, for the Tutel also provides decent hydration.
 			""", 5, databankTexture, unlockSprite);
 
         KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
