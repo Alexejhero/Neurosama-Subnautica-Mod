@@ -42,7 +42,7 @@ public static class TutelLoader
 
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(tutel, "Lifeforms/Fauna/SmallHerbivores", "Tutel",
 			"""
-			Something is really wrong with this turtle. We have therefore removed the 'r' from its name
+			Something is really wrong with this turtle. We have therefore removed the 'r' from its name. The Tutel makes really loud woop noises when eaten. Try to ignore its suffering, for the Tutel also provides decent hydration.
 			""", 5, databankTexture, unlockSprite);
 
         KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
@@ -83,13 +83,13 @@ public static class TutelLoader
 		{
 			ModifyPrefab = prefab =>
 			{
-                prefab.transform.Find("WM/erm/regular").gameObject.SetActive(false);
-				prefab.transform.Find("WM/erm").GetChild(childModelIndex).gameObject.SetActive(true);
+                prefab.transform.Find("WM/tutel/regular").gameObject.SetActive(false);
+				prefab.transform.Find("WM/tutel").GetChild(childModelIndex).gameObject.SetActive(true);
 
-				prefab.transform.Find("VM/erm/regular").gameObject.SetActive(false);
-				prefab.transform.Find("VM/erm").GetChild(childModelIndex).gameObject.SetActive(true);
+				prefab.transform.Find("VM/tutel/regular").gameObject.SetActive(false);
+				prefab.transform.Find("VM/tutel").GetChild(childModelIndex).gameObject.SetActive(true);
 
-                CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/erm", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0)));
+                CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/tutel", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0)));
 			}
 		});
         variant.Register();

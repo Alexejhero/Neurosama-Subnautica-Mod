@@ -16,7 +16,7 @@ public class TutelPrefab : CreatureAsset
 	{
 	}
 
-	private static GameObject Prefab => AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("ermfish");
+	private static GameObject Prefab => AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("tutel_creature");
 
 	public override CreatureTemplate CreateTemplate()
 	{
