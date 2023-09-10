@@ -27,18 +27,18 @@ public static class TutelLoader
     public static void Load()
     {
         LoadTutel();
-        LoadTutelVariant(ModItems.CookedTutel, "tutel_creature_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel)), 23, 2, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
-        LoadTutelVariant(ModItems.CuredTutel, "tutel_creature_cured.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel), new CraftData.Ingredient(TechType.Salt)), 23, 0, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
+        LoadTutelVariant(ModItems.CookedTutel, "tutel_creature_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel)), 23, 7, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
+        LoadTutelVariant(ModItems.CuredTutel, "tutel_creature_cured.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel), new CraftData.Ingredient(TechType.Salt)), 23, 3, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
     }
 
     private static void LoadTutel()
     {
 		TutelPrefab tutel = new(ModItems.Tutel);
-		tutel.PrefabInfo.WithIcon(AssetLoader.GetAtlasSprite("tutel.png"));
+		tutel.PrefabInfo.WithIcon(AssetLoader.GetAtlasSprite("tutel_creature.png"));
 		tutel.Register();
 
-		Texture2D databankTexture = AssetLoader.GetTexture("ermfish-databank.png");
-        Sprite unlockSprite = AssetLoader.GetUnitySprite("ermfish-unlock.png");
+		Texture2D databankTexture = AssetLoader.GetTexture("tutel-databank.png");
+        Sprite unlockSprite = AssetLoader.GetUnitySprite("tutel.png");
 
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(tutel, "Lifeforms/Fauna/SmallHerbivores", "Tutel",
 			"""

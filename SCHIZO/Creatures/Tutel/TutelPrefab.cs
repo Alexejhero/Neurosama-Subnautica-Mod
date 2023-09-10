@@ -34,7 +34,7 @@ public class TutelPrefab : CreatureAsset
 			ScareableData = new ScareableData(),
 			FleeWhenScaredData = new FleeWhenScaredData(0.8f, swimVelocity),
 			PickupableFishData = new PickupableFishData(TechType.Floater, "WM", "VM"),
-			EdibleData = new EdibleData(13, 1, false, 1f),
+			EdibleData = new EdibleData(13, -7, false, 1f),
 			ScannerRoomScannable = true,
 			CanBeInfected = false,
 			AvoidObstaclesData = new AvoidObstaclesData(1f, swimVelocity, false, 5f, 5f),
