@@ -26,7 +26,7 @@ public class TutelPrefab : CreatureAsset
 		CreatureTemplate template = new(Prefab, BehaviourType.Crab, EcoTargetType.Coral, float.MaxValue)
 		{
 			CellLevel = LargeWorldEntity.CellLevel.Medium,
-			Mass = 10,
+			Mass = 20,
 			BioReactorCharge = 0,
 			EyeFOV = 0,
 			SwimRandomData = new SwimRandomData(0.2f, swimVelocity, new Vector3(20, 5, 20)),
