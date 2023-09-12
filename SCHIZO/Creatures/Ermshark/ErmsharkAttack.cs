@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SCHIZO.Creatures.Tutel;
+using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
@@ -14,17 +15,27 @@ public sealed class ErmsharkAttack : MeleeAttack
         if (CreatureData.GetCreatureType(gameObject) == CreatureData.GetCreatureType(target)) return;
 
         Player component = target.GetComponent<Player>();
-        if (component != null && canBeFed && component.CanBeAttacked())
+        if (component && canBeFed && component.CanBeAttacked())
         {
             GameObject heldObject = Inventory.main.GetHeldObject();
-            if (heldObject != null && TryEat(heldObject, true))
+            if (heldObject)
             {
-                if (attackSound != null)
+                if (TryEat(heldObject, true))
                 {
-                    Utils.PlayEnvSound(attackSound, mouth.transform.position);
+                    if (attackSound)
+                    {
+                        Utils.PlayEnvSound(attackSound, mouth.transform.position);
+                    }
+                    gameObject.SendMessage("OnMeleeAttack", heldObject, SendMessageOptions.DontRequireReceiver);
+                    return;
                 }
-                gameObject.SendMessage("OnMeleeAttack", heldObject, SendMessageOptions.DontRequireReceiver);
-                return;
+                if (heldObject.GetComponent<GetCarried>() is { } tutel)
+                {
+                    Inventory.main.DropHeldItem(false);
+                    creature.GetComponent<BullyTutel>().TryPickupTutel(tutel);
+                    creature.SetFriend(component.gameObject, 120f);
+                    return;
+                }
             }
         }
 

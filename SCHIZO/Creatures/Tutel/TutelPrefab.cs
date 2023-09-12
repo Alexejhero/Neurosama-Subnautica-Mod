@@ -56,7 +56,8 @@ public class TutelPrefab : CreatureAsset
         Object.DestroyImmediate(prefab.GetComponent<SwimBehaviour>());
 
         // for hurt sounds (otherwise GetComponent in patches picks the looping emitter)
-        prefab.AddComponent<FMOD_CustomEmitter>();
+        FMOD_CustomEmitter emitter = prefab.AddComponent<FMOD_CustomEmitter>();
+        emitter.followParent = true;
 
         CaveCrawler crawler = prefab.GetComponent<CaveCrawler>();
         crawler.rb = prefab.GetComponentInChildren<Rigidbody>();
@@ -94,6 +95,10 @@ public class TutelPrefab : CreatureAsset
         fleeScared.creature = crawler;
         fleeScared.creatureFear = prefab.EnsureComponent<CreatureFear>();
         fleeScared.swimVelocity = swimVelocity * 1.25f;
+
+        GetCarried getCarried = prefab.EnsureComponent<GetCarried>();
+        getCarried.creature = crawler;
+        getCarried.emitter = emitter;
 
 
         WorldSoundPlayer.Add(prefab, TutelLoader.WorldSounds);

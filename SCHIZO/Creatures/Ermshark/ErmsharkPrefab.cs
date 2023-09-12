@@ -17,10 +17,9 @@ public sealed class ErmsharkPrefab : CreatureAsset
 
     private static GameObject Prefab => AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("erm_shark");
 
+    public const float swimVelocity = 8f;
     public override CreatureTemplate CreateTemplate()
     {
-        const float swimVelocity = 8f;
-
         CreatureTemplate template = new(Prefab, BehaviourType.Shark, EcoTargetType.Shark, 20)
         {
             CellLevel = LargeWorldEntity.CellLevel.Medium,
@@ -46,6 +45,11 @@ public sealed class ErmsharkPrefab : CreatureAsset
     public override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
         WorldSoundPlayer.Add(prefab, ErmsharkLoader.AmbientSounds);
+
+        BullyTutel bully = prefab.AddComponent<BullyTutel>();
+        bully.creature = components.Creature;
+        bully.mouth = bully.tutelAttach = prefab.SearchChild("mouth_attach_point").transform;
+        bully.swimBehaviour = components.SwimBehaviour;
 
         AggressiveWhenSeePlayer aggressive = prefab.AddComponent<AggressiveWhenSeePlayer>();
         aggressive.maxRangeMultiplier = CreaturePrefabUtils.maxRangeMultiplierCurve;
