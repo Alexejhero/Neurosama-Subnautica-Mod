@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SCHIZO.DataStructures;
 
-public class RandomList<T> : IEnumerable
+public class RandomList<T> : IEnumerable<T>, IEnumerable
 {
     public interface IInitialStateModifier
     {
@@ -72,5 +73,6 @@ public class RandomList<T> : IEnumerable
         _initialized = true;
     }
 
-    IEnumerator IEnumerable.GetEnumerator() => throw new InvalidOperationException();
+    public IEnumerator<T> GetEnumerator() => _remainingItems.Concat(_usedItems).ToList().GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

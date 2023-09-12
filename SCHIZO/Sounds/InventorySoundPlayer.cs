@@ -6,14 +6,13 @@ namespace SCHIZO.Sounds;
 
 public sealed class InventorySoundPlayer : MonoBehaviour
 {
-    public FMOD_CustomEmitter emitter;
     [SerializeField] private Pickupable _pickupable;
-    [SerializeField] private SoundCollection2D _sounds;
+    [SerializeField] private SoundCollection _sounds;
 
     private float _timer = -1;
     private Random _random;
 
-    public static void Add(GameObject obj, SoundCollection2D sounds)
+    public static void Add(GameObject obj, SoundCollection sounds)
     {
         if (sounds == null) throw new ArgumentNullException(nameof(sounds));
         InventorySoundPlayer player = obj.AddComponent<InventorySoundPlayer>();
@@ -27,8 +26,6 @@ public sealed class InventorySoundPlayer : MonoBehaviour
         _random = new Random(GetInstanceID());
 
         _pickupable = GetComponent<Pickupable>();
-        emitter = gameObject.AddComponent<FMOD_CustomEmitter>();
-        emitter.followParent = true;
 
         _timer = _random.Next(CONFIG.MinInventoryNoiseDelay, CONFIG.MaxInventoryNoiseDelay);
     }
@@ -47,7 +44,7 @@ public sealed class InventorySoundPlayer : MonoBehaviour
         if (_timer < 0)
         {
             _timer = _random.Next(CONFIG.MinInventoryNoiseDelay, CONFIG.MaxInventoryNoiseDelay);
-            _sounds.Play();
+            _sounds.Play2D();
         }
     }
 }

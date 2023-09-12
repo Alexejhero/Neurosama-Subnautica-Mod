@@ -8,12 +8,12 @@ public sealed class WorldSoundPlayer : MonoBehaviour
 {
     public FMOD_CustomEmitter emitter;
     [SerializeField] private Pickupable _pickupable;
-    [SerializeField] private SoundCollection3D _sounds;
+    [SerializeField] private SoundCollection _sounds;
 
     private float _timer = -1;
     private Random _random;
 
-    public static void Add(GameObject obj, SoundCollection3D sounds)
+    public static void Add(GameObject obj, SoundCollection sounds)
     {
         if (sounds == null) throw new ArgumentNullException(nameof(sounds));
         WorldSoundPlayer player = obj.AddComponent<WorldSoundPlayer>();

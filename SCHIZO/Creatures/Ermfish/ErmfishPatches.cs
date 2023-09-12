@@ -13,7 +13,7 @@ public static class ErmfishPatches
 	public static void PlayErmfishPickupSound(Pickupable __instance)
 	{
 		if (!ErmfishLoader.ErmfishTechTypes.Contains(__instance.GetTechType())) return;
-		ErmfishLoader.PickupSounds.Play();
+		ErmfishLoader.PickupSounds.Play2D();
 	}
 
 	[HarmonyPatch(typeof(Pickupable), nameof(Pickupable.PlayDropSound))]
@@ -33,7 +33,7 @@ public static class ErmfishPatches
 		{
 			if (!__instance.pickupable || !ErmfishLoader.ErmfishTechTypes.Contains(__instance.pickupable.GetTechType())) return;
 			if (Time.time < ErmfishLoader.PickupSounds.LastPlay + 0.5f) return;
-			ErmfishLoader.EquipSounds.Play();
+			ErmfishLoader.EquipSounds.Play2D();
 		}
 		catch
 		{
@@ -51,7 +51,7 @@ public static class ErmfishPatches
 			if (Time.time < ErmfishLoader.DropSounds.LastPlay + 0.5f) return;
 			if (Time.time < ErmfishLoader.EatSounds.LastPlay + 0.5f) return;
 			if (Time.time < ErmfishLoader.CraftSounds.LastPlay + 0.5f) return;
-			ErmfishLoader.UnequipSounds.Play(0.15f);
+			ErmfishLoader.UnequipSounds.Play2D(0.15f);
 		}
 		catch
 		{
@@ -64,7 +64,7 @@ public static class ErmfishPatches
 	public static void PlayErmfishScanSound(PDAScanner.EntryData entryData)
 	{
 		if (!ErmfishLoader.ErmfishTechTypes.Contains(entryData.key)) return;
-		ErmfishLoader.ScanSounds.Play();
+		ErmfishLoader.ScanSounds.Play2D();
 	}
 
 	[HarmonyPatch(typeof(CraftData), nameof(CraftData.GetUseEatSound))]
@@ -74,7 +74,7 @@ public static class ErmfishPatches
 		if (!ErmfishLoader.ErmfishTechTypes.Contains(techType)) return;
 		if (Time.time < ErmfishLoader.EatSounds.LastPlay + 0.1f) return;
 		ErmfishLoader.UnequipSounds.CancelAllDelayed();
-		ErmfishLoader.EatSounds.Play();
+		ErmfishLoader.EatSounds.Play2D();
 	}
 
 	[HarmonyPatch(typeof(Crafter), nameof(Crafter.OnCraftingBegin))]
@@ -83,7 +83,7 @@ public static class ErmfishPatches
 	{
 		if (!ErmfishLoader.ErmfishTechTypes.Contains(techType)) return;
 		ErmfishLoader.UnequipSounds.CancelAllDelayed();
-		ErmfishLoader.CraftSounds.Play();
+		ErmfishLoader.CraftSounds.Play2D();
 	}
 
 	[HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.Kill))]
@@ -92,7 +92,7 @@ public static class ErmfishPatches
 	{
 		if (Player.main.liveMixin != __instance) return;
 		if (ErmfishLoader.ErmfishTechTypes.All(t => !Inventory.main.container.Contains(t))) return;
-		ErmfishLoader.PlayerDeathSounds.Play(0.15f);
+		ErmfishLoader.PlayerDeathSounds.Play2D(0.15f);
 	}
 
 	[HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.NotifyAllAttachedDamageReceivers))]

@@ -11,7 +11,7 @@ public static class BuildablesLoader
 {
 	public static Transform DisabledParent { get; private set; }
 
-	private static readonly SoundCollection3D ErmWorldSounds = SoundCollection3D.Create("ermfish/noises", "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds");
+	private static readonly SoundCollection ErmWorldSounds = SoundCollection.Create("ermfish/noises", "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds");
 
     [Load]
 	private static void Load()

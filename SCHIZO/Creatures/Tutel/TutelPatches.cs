@@ -13,7 +13,7 @@ public static class TutelPatches
 	public static void PlayTutelPickupSound(Pickupable __instance)
 	{
 		if (!TutelLoader.TutelTechTypes.Contains(__instance.GetTechType())) return;
-		TutelLoader.PickupSounds.Play();
+		TutelLoader.PickupSounds.Play2D();
 	}
 
 	[HarmonyPatch(typeof(PDAScanner), nameof(PDAScanner.Unlock))]
@@ -21,7 +21,7 @@ public static class TutelPatches
 	public static void PlayTutelScanSound(PDAScanner.EntryData entryData)
 	{
 		if (!TutelLoader.TutelTechTypes.Contains(entryData.key)) return;
-		TutelLoader.ScanSounds.Play();
+		TutelLoader.ScanSounds.Play2D();
 	}
 
 	[HarmonyPatch(typeof(CraftData), nameof(CraftData.GetUseEatSound))]
@@ -30,7 +30,7 @@ public static class TutelPatches
 	{
 		if (!TutelLoader.TutelTechTypes.Contains(techType)) return;
 		if (Time.time < TutelLoader.EatSounds.LastPlay + 0.1f) return;
-		TutelLoader.EatSounds.Play();
+		TutelLoader.EatSounds.Play2D();
 	}
 
 	[HarmonyPatch(typeof(Crafter), nameof(Crafter.OnCraftingBegin))]
@@ -38,7 +38,7 @@ public static class TutelPatches
 	public static void PlayTutelCookSound(TechType techType)
 	{
 		if (!TutelLoader.TutelTechTypes.Contains(techType)) return;
-		TutelLoader.CraftSounds.Play();
+		TutelLoader.CraftSounds.Play2D();
 	}
 
 	[HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.NotifyAllAttachedDamageReceivers))]

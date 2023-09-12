@@ -20,13 +20,13 @@ namespace SCHIZO.Creatures.Tutel;
 [Load]
 public static class TutelLoader
 {
-    public static readonly SoundCollection2D CraftSounds = SoundCollection2D.Create("tutel/cooking", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection2D EatSounds = SoundCollection2D.Create("tutel/eating", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection3D HurtSounds = SoundCollection3D.Create("tutel/hurt", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection2D InventorySounds = SoundCollection2D.Create("tutel/noises", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection2D PickupSounds = SoundCollection2D.Create("tutel/pickup", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection2D ScanSounds = SoundCollection2D.Create("tutel/scan", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection3D WorldSounds = SoundCollection3D.Create("tutel/noises", AudioUtils.BusPaths.UnderwaterCreatures);
+    public static readonly SoundCollection CraftSounds = SoundCollection.Create("tutel/cooking", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection EatSounds = SoundCollection.Create("tutel/eating", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection HurtSounds = SoundCollection.Create("tutel/hurt", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection InventorySounds = SoundCollection2D.Create("tutel/noises", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection PickupSounds = SoundCollection.Create("tutel/pickup", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection ScanSounds = SoundCollection.Create("tutel/scan", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection WorldSounds = SoundCollection.Create("tutel/noises", AudioUtils.BusPaths.UnderwaterCreatures);
 
     [Load]
     private static void Load()

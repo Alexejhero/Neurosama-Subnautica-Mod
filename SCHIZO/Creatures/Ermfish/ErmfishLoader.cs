@@ -21,17 +21,17 @@ namespace SCHIZO.Creatures.Ermfish;
 [Load]
 public static class ErmfishLoader
 {
-    public static readonly SoundCollection2D CraftSounds = SoundCollection2D.Create("ermfish/cooking", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection3D DropSounds = SoundCollection3D.Create("ermfish/release", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection2D EatSounds = SoundCollection2D.Create("ermfish/eating", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection2D EquipSounds = SoundCollection2D.Create("ermfish/equipping", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection3D HurtSounds = SoundCollection3D.Create("ermfish/hurt", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection2D InventorySounds = SoundCollection2D.Create("ermfish/noises", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection2D PickupSounds = SoundCollection2D.Create("ermfish/pickup", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection2D PlayerDeathSounds = SoundCollection2D.Create("ermfish/player_death", "bus:/master/SFX_for_pause/nofilter");
-    public static readonly SoundCollection2D ScanSounds = SoundCollection2D.Create("ermfish/scan", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection2D UnequipSounds = SoundCollection2D.Create("ermfish/unequipping", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection3D WorldSounds = SoundCollection3D.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures);
+    public static readonly SoundCollection CraftSounds = SoundCollection.Create("ermfish/cooking", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection DropSounds = SoundCollection.Create("ermfish/release", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection EatSounds = SoundCollection.Create("ermfish/eating", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection EquipSounds = SoundCollection.Create("ermfish/equipping", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection HurtSounds = SoundCollection.Create("ermfish/hurt", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection InventorySounds = SoundCollection.Create("ermfish/noises", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection PickupSounds = SoundCollection.Create("ermfish/pickup", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection PlayerDeathSounds = SoundCollection.Create("ermfish/player_death", "bus:/master/SFX_for_pause/nofilter");
+    public static readonly SoundCollection ScanSounds = SoundCollection.Create("ermfish/scan", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection UnequipSounds = SoundCollection.Create("ermfish/unequipping", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection WorldSounds = SoundCollection.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures);
 
     [Load]
     private static void Load()
@@ -89,7 +89,7 @@ public static class ErmfishLoader
 		}
 		LootDistributionHandler.AddLootDistributionData(ermfish.ClassID, biomes.ToArray());
 
-		ItemActionHandler.RegisterMiddleClickAction(ermfish.PrefabInfo.TechType, _ => InventorySounds.Play(), "pull ahoge", "English");
+		ItemActionHandler.RegisterMiddleClickAction(ermfish.PrefabInfo.TechType, _ => InventorySounds.Play2D(), "pull ahoge", "English");
     }
 
     private static void LoadErmfishVariant(PrefabInfo info, string iconPath, RecipeData recipe, float foodValue, float waterValue, bool decomposes, string[] craftingTabPath, TechCategory techCategory, int childModelIndex)
@@ -123,7 +123,7 @@ public static class ErmfishLoader
 		});
 		variant.Register();
 
-		ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play(), "pull ahoge", "English");
+		ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play2D(), "pull ahoge", "English");
     }
 
     public static List<TechType> ErmfishTechTypes => new() { ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish };
