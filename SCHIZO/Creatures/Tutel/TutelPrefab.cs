@@ -18,31 +18,25 @@ public class TutelPrefab : CreatureAsset
 
 	private static GameObject Prefab => AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("tutel_creature");
 
+	private const float swimVelocity = 2f;
 	public override CreatureTemplate CreateTemplate()
 	{
-		const float swimVelocity = 1.5f;
-
-        // Not yet sure how to make this a creature that "sinks" and dwells the bottom floor
 		CreatureTemplate template = new(Prefab, BehaviourType.Crab, EcoTargetType.Coral, float.MaxValue)
 		{
+            CreatureComponentType = typeof(CaveCrawler),
 			CellLevel = LargeWorldEntity.CellLevel.Medium,
 			Mass = 20,
 			BioReactorCharge = 0,
 			EyeFOV = 0,
-			SwimRandomData = new SwimRandomData(0.2f, swimVelocity, new Vector3(20, 5, 20)),
-			StayAtLeashData = new StayAtLeashData(0.6f, swimVelocity * 1.25f, 14f),
 			ScareableData = new ScareableData(),
-			FleeWhenScaredData = new FleeWhenScaredData(0.8f, swimVelocity),
 			PickupableFishData = new PickupableFishData(TechType.Floater, "WM", "VM"),
 			EdibleData = new EdibleData(13, -7, false, 1f),
 			ScannerRoomScannable = true,
 			CanBeInfected = false,
-			AvoidObstaclesData = new AvoidObstaclesData(1f, swimVelocity, false, 5f, 5f),
 			SizeDistribution = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 1f)),
 			AnimateByVelocityData = new AnimateByVelocityData(swimVelocity),
-			SwimInSchoolData = new SwimInSchoolData(0.5f, swimVelocity, 1f, 0.5f, 1f, 0.1f, 25f),
             // Walk on surface and swim above water true
-            LocomotionData = new LocomotionData(10f, 0.7f, 0f, 0.1f, false, true, true),
+            LocomotionData = new LocomotionData(10f, 2f, 1f, 0.1f, true, true, true),
 		};
 		template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.1f, 0.5f, 1f, 1.5f, true, true, ClassID));
 
@@ -53,7 +47,54 @@ public class TutelPrefab : CreatureAsset
 	{
         prefab.GetComponent<HeldFish>().ikAimLeftArm = true;
 
-		WorldSoundPlayer.Add(prefab, TutelLoader.WorldSounds);
+        // ECC forces SwimBehaviour but we want WalkBehaviour
+        // these depend on SwimBehaviour so we have to destroy them first
+        Object.DestroyImmediate(prefab.GetComponent<FleeOnDamage>());
+        Object.DestroyImmediate(prefab.GetComponent<SwimRandom>());
+        Object.DestroyImmediate(prefab.GetComponent<SwimBehaviour>());
+
+        // for hurt sounds (otherwise GetComponent in patches picks the looping emitter)
+        prefab.AddComponent<FMOD_CustomEmitter>();
+
+        CaveCrawler crawler = prefab.GetComponent<CaveCrawler>();
+        crawler.rb = prefab.GetComponentInChildren<Rigidbody>();
+        crawler.walkingSound = prefab.EnsureComponent<FMOD_CustomLoopingEmitter>(); // empty
+        crawler.jumpSound = AudioUtils.GetFmodAsset("event:/sub/common/fishsplat"); // placeholder
+        crawler.aliveCollider = prefab.GetComponentInChildren<Collider>();
+
+        WalkBehaviour walk = prefab.EnsureComponent<WalkBehaviour>();
+        walk.onSurfaceMovement = prefab.EnsureComponent<OnSurfaceMovement>();
+        walk.splineFollowing = prefab.GetComponent<SplineFollowing>();
+        walk.onSurfaceMovement.locomotion = prefab.GetComponent<Locomotion>();
+
+        CaveCrawlerGravity gravity = prefab.EnsureComponent<CaveCrawlerGravity>();
+        gravity.crawlerRigidbody = crawler.rb;
+        gravity.caveCrawler = crawler;
+        gravity.liveMixin = crawler.liveMixin;
+
+        // if the OnSurfaceTracker is added earlier, the tutel slides around everywhere
+        // (see OnSurfaceTracker's and CaveCrawlerGravity's FixedUpdate)
+        crawler.onSurfaceTracker = prefab.EnsureComponent<OnSurfaceTracker>();
+        walk.onSurfaceTracker = crawler.onSurfaceTracker;
+        walk.onSurfaceMovement.onSurfaceTracker = crawler.onSurfaceTracker;
+
+        MoveOnSurface moveSurface = prefab.AddComponent<MoveOnSurface>();
+        moveSurface.creature = crawler;
+        moveSurface.walkBehaviour = walk;
+        moveSurface.onSurfaceTracker = walk.onSurfaceTracker;
+        moveSurface.moveVelocity = swimVelocity;
+
+        FleeOnDamage fleeDamage = prefab.EnsureComponent<FleeOnDamage>();
+        fleeDamage.creature = crawler;
+        fleeDamage.damageThreshold = 0.01f; // very easily scared tutel
+        fleeDamage.swimVelocity = swimVelocity * 1.5f;
+        FleeWhenScared fleeScared = prefab.EnsureComponent<FleeWhenScared>();
+        fleeScared.creature = crawler;
+        fleeScared.creatureFear = prefab.EnsureComponent<CreatureFear>();
+        fleeScared.swimVelocity = swimVelocity * 1.25f;
+
+
+        WorldSoundPlayer.Add(prefab, TutelLoader.WorldSounds);
 
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Heat, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
