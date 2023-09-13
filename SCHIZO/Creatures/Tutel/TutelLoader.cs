@@ -54,12 +54,31 @@ public static class TutelLoader
             unlockPopup = unlockSprite
         });
 
+        // We need Tutel to spawn low down, not in open waters
+        // Otherwise you see it drop like a dead weight to the bottom, and then it starts walking
+        // By filtering floors, flats, caves and such, we ensure they spawn on the ground
+        string[] filters = {"Wall",
+        "CaveEntrance",
+         "CaveFloor",
+         "CaveWall",
+         "SandFlat",
+         "ShellTunnelHuge",
+         "Grass",
+         "Sand",
+         "CaveSand",
+         "CavePlants",
+         "Floor",
+         "Mountains",
+         "RockWall",
+         "Beach",
+         "Ledge"};
+
         List<LootDistributionData.BiomeData> biomes = new();
         foreach (BiomeType biome in Enum.GetValues(typeof(BiomeType)).Cast<BiomeType>()
-            .Where(biome => biome.ToString().EndsWith("CreatureOnly")))
+            .Where(biome => filters.Any( x => biome.ToString().EndsWith(x) ) ) )
         {
-			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.035f });
-			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 3, probability = 0.015f });
+			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.05f });
+			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 3, probability = 0.025f });
 		}
 		LootDistributionHandler.AddLootDistributionData(tutel.ClassID, biomes.ToArray());
     }

@@ -24,7 +24,9 @@ public class TutelPrefab : CreatureAsset
 		CreatureTemplate template = new(Prefab, BehaviourType.Crab, EcoTargetType.Coral, float.MaxValue)
 		{
             CreatureComponentType = typeof(CaveCrawler),
-			CellLevel = LargeWorldEntity.CellLevel.Medium,
+            // Cell level needs to be set to Near to avoid our spawns falling through the unrendered map which is too far
+            // fish are not affected by this, but walking creatures are, as they have gravity on
+			CellLevel = LargeWorldEntity.CellLevel.Near,
 			Mass = 20,
 			BioReactorCharge = 0,
 			EyeFOV = 0,
