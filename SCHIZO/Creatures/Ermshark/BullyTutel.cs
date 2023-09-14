@@ -84,7 +84,7 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
     private void UpdateBullyTarget()
     {
         IEcoTarget ecoTarget = EcoRegionManager.main?.FindNearestTarget(EcoTargetType.Coral, transform.position, isTargetValidFilter, 1);
-        GameObject newTarget = ecoTarget?.GetGameObject();
+        Creature newTarget = ecoTarget?.GetGameObject().GetComponent<Creature>();
         if (!newTarget) return;
 
         Vector3 direction = newTarget.transform.position - transform.position;
@@ -102,7 +102,7 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
                 DropTutel();
             }
         }
-        tutel = newTarget.GetComponent<Creature>();
+        tutel = newTarget;
     }
 
     public override void Perform(Creature creature, float time, float deltaTime)
