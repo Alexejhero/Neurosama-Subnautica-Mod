@@ -22,17 +22,17 @@ public sealed class SoundCollection2D : SoundCollection
         RuntimeManager.GetBus(bus).unlockChannelGroup();
     }
 
-    public void Play(float delay = 0)
+    public void Play(float delaySeconds = 0)
     {
         if (CONFIG.DisableAllNoises) return;
 
-        if (delay == 0)
+        if (delaySeconds == 0)
         {
             PlaySound();
             return;
         }
 
-        StartSoundCoroutine(PlayWithDelay(delay));
+        StartSoundCoroutine(PlayWithDelay(delaySeconds));
         return;
 
         IEnumerator PlayWithDelay(float del)

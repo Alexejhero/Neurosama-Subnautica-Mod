@@ -23,6 +23,7 @@ public static class TutelLoader
     public static readonly SoundCollection2D CraftSounds = SoundCollection2D.Create("tutel/cooking", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection2D EatSounds = SoundCollection2D.Create("tutel/eating", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection3D HurtSounds = SoundCollection3D.Create("tutel/hurt", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection2D InventorySounds = SoundCollection2D.Create("tutel/noises", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection2D PickupSounds = SoundCollection2D.Create("tutel/pickup", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection2D ScanSounds = SoundCollection2D.Create("tutel/scan", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection3D WorldSounds = SoundCollection3D.Create("tutel/noises", AudioUtils.BusPaths.UnderwaterCreatures);
@@ -122,6 +123,8 @@ public static class TutelLoader
 			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 3, probability = 0.025f });
 		}
 		LootDistributionHandler.AddLootDistributionData(tutel.ClassID, biomes.ToArray());
+
+        ItemActionHandler.RegisterMiddleClickAction(tutel.PrefabInfo.TechType, _ => InventorySounds.Play(10), "ping @vedal987", "English");
     }
 
     private static void LoadTutelVariant(PrefabInfo info, string iconPath, RecipeData recipe, float foodValue, float waterValue, bool decomposes, string[] craftingTabPath, TechCategory techCategory, int childModelIndex)
@@ -150,7 +153,7 @@ public static class TutelLoader
 				prefab.transform.Find("VM/tutel/regular").gameObject.SetActive(false);
 				prefab.transform.Find("VM/tutel").GetChild(childModelIndex).gameObject.SetActive(true);
 
-                CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/tutel", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0)));
+                CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/tutel", -0.17f, 0.67275f, new Vector3(0, 0.15f), 0.1f, new Vector3(0, -180, 0)));
 			}
 		});
         variant.Register();
