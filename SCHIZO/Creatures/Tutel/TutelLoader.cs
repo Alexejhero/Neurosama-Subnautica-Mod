@@ -23,7 +23,7 @@ public static class TutelLoader
     public static readonly SoundCollection CraftSounds = SoundCollection.Create("tutel/cooking", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection EatSounds = SoundCollection.Create("tutel/eating", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection HurtSounds = SoundCollection.Create("tutel/hurt", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection InventorySounds = SoundCollection2D.Create("tutel/noises", AudioUtils.BusPaths.PDAVoice);
+    public static readonly SoundCollection InventorySounds = SoundCollection.Create("tutel/noises", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection PickupSounds = SoundCollection.Create("tutel/pickup", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection ScanSounds = SoundCollection.Create("tutel/scan", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection WorldSounds = SoundCollection.Create("tutel/noises", AudioUtils.BusPaths.UnderwaterCreatures);
