@@ -36,6 +36,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
             AttackCyclopsData = new AttackCyclopsData(1f, 15f, 100f, 0.4f, 4.5f, 0.08f),
             BehaviourLODData = new BehaviourLODData(50, 100, 150),
             CanBeInfected = false,
+            RespawnData = new RespawnData(false),
         };
         template.SetCreatureComponentType<Ermshark>();
 

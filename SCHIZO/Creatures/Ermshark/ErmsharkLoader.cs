@@ -87,9 +87,10 @@ public static class ErmsharkLoader
             """, 5, databankTexture, unlockSprite);
 
         List<LootDistributionData.BiomeData> biomes = new();
-        foreach (BiomeType biome in Enum.GetValues(typeof(BiomeType)).Cast<BiomeType>())
+        foreach (BiomeType biome in Enum.GetValues(typeof(BiomeType)).Cast<BiomeType>()
+            .Where(biome => biome.ToString().EndsWith("CreatureOnly")))
         {
-            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.002f });
+            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.005f });
         }
         LootDistributionHandler.AddLootDistributionData(ermshark.PrefabInfo.ClassID, biomes.ToArray());
     }
