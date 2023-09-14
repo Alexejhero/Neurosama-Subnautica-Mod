@@ -30,7 +30,7 @@ public static class ErmfishLoader
     public static readonly SoundCollection2D PlayerDeathSounds = SoundCollection2D.Create("ermfish/player_death", "bus:/master/SFX_for_pause/nofilter");
     public static readonly SoundCollection2D ScanSounds = SoundCollection2D.Create("ermfish/scan", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection2D UnequipSounds = SoundCollection2D.Create("ermfish/unequipping", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection3D WorldSounds = SoundCollection3D.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures); // todo: get rid of fmod erros for loading the same audio file twice
+    public static readonly SoundCollection3D WorldSounds = SoundCollection3D.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures);
 
     [Load]
     private static void Load()

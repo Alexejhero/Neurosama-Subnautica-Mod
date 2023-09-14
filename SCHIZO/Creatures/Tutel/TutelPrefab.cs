@@ -98,7 +98,6 @@ public class TutelPrefab : CreatureAsset
 
         WorldSoundPlayer.Add(prefab, TutelLoader.WorldSounds);
 
-		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Heat, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Cold, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Fire, 0f);
