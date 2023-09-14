@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 using SCHIZO.Events.ErmCon;
-using SCHIZO.Events.ErmMoon;
+using SCHIZO.Events.RandomMessage;
 using UnityEngine;
 
 namespace SCHIZO.Events
@@ -13,9 +13,8 @@ namespace SCHIZO.Events
         {
             eventManager = host.AddComponent<CustomEventManager>();
 
-            eventManager.AddEvent<ErmMoonEvent>();
             eventManager.AddEvent<ErmConEvent>();
-            eventManager.AddEvent<ErmRaptureEvent>();
+            eventManager.AddEvent<RandomMessageEvent>();
         }
 
         [HarmonyPatch(typeof(Player), nameof(Player.Awake))]

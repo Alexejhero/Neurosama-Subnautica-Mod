@@ -36,6 +36,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
             AttackCyclopsData = new AttackCyclopsData(1f, 15f, 100f, 0.4f, 4.5f, 0.08f),
             BehaviourLODData = new BehaviourLODData(50, 100, 150),
             CanBeInfected = false,
+            RespawnData = new RespawnData(false),
         };
         template.SetCreatureComponentType<Ermshark>();
 
@@ -63,7 +64,6 @@ public sealed class ErmsharkPrefab : CreatureAsset
         GameObject mouth = prefab.SearchChild("attack_collider");
         CreaturePrefabUtils.AddMeleeAttack<ErmsharkAttack>(prefab, components, mouth, true, 20);
 
-        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Heat, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Cold, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Fire, 0f);

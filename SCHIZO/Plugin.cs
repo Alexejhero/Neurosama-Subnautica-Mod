@@ -12,6 +12,7 @@ using SCHIZO.HullPlates;
 using SCHIZO.Items.Greggs;
 using SCHIZO.Items.Gymbag;
 using SCHIZO.Resources;
+using SCHIZO.Tweaks;
 using SCHIZO.Twitch;
 
 namespace SCHIZO;
@@ -37,6 +38,7 @@ public partial class Plugin : BaseUnityPlugin
         GreggsLoader.Load();
 
         gameObject.AddComponent<TwitchIntegration>();
+        gameObject.AddComponent<ErmMoonTweaks>();
 
 		Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 	}

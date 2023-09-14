@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Nautilus.Utility;
 using SCHIZO.Helpers;
 using UnityEngine;
 
@@ -12,11 +13,19 @@ public class CustomEventManager : MonoBehaviour
 
     private readonly Dictionary<string, Type> Events = new(StringComparer.InvariantCultureIgnoreCase);
 
+    private const string AUTOEVENTS_PREFS_KEY = "SCHIZO_Events_enableAutoEvents";
+    public bool EnableAutoEvents
+    {
+        get => PlayerPrefsExtra.GetBool(AUTOEVENTS_PREFS_KEY, true);
+        set => PlayerPrefsExtra.SetBool(AUTOEVENTS_PREFS_KEY, value);
+    }
+
     public void Awake()
     {
         main = this;
         DevConsole.RegisterConsoleCommand(this, "event");
         DevConsole.RegisterConsoleCommand(this, "events");
+        DevConsole.RegisterConsoleCommand(this, "autoevents");
     }
 
     public CustomEvent GetEvent(string eventName)
@@ -124,6 +133,29 @@ public class CustomEventManager : MonoBehaviour
         else
             evt.EndEvent();
         Output($"Event '{eventName}' {(isStart ? "start" : "end")}ed");
+    }
+
+    [UsedImplicitly]
+    private void OnConsoleCommand_autoevents(NotificationCenter.Notification n)
+    {
+        if (n?.data?.Count is null or 0)
+        {
+            Output($"Events are currently {(EnableAutoEvents ? "automatic" : "manual")}");
+            return;
+        }
+        bool? value = n.data[0] switch
+        {
+            "on" or "1" or "true" or "auto" => true,
+            "off" or "0" or "false" or "manual" => false,
+            _ => null,
+        };
+        if (value is not { } isOn)
+        {
+            Output("Syntax: autoevents [on|off]");
+            return;
+        }
+        EnableAutoEvents = isOn;
+        Output($"Events are now {(EnableAutoEvents ? "automatic" : "manual")}");
     }
 
     private void Output(string msg)

@@ -30,7 +30,16 @@ public class ErmConEvent : CustomEvent
     {
         // let's not wait the whole cooldown on load
         _eventStartTime = -CooldownSeconds / 2;
-        gameObject.GetComponent<Player>()?.playerDeathEvent.AddHandler(this, (_) => EndEvent());
+        CongregationTarget = gameObject;
+        Player player = gameObject.GetComponent<Player>();
+        player?.playerDeathEvent.AddHandler(this, (_) => EndEvent());
+        player?.currentSubChangedEvent.AddHandler(this, sub =>
+        {
+            CongregationTarget ??= gameObject;
+            if (CraftData.GetTechType(CongregationTarget) != ModItems.Erm)
+                CongregationTarget = sub?.gameObject ?? gameObject;
+        });
+        
     }
 
     protected override bool ShouldStartEvent()
@@ -112,12 +121,6 @@ public class ErmConEvent : CustomEvent
         {
             if (TryFindErmQueen(gameObject, out GameObject ermBeacon))
                 CongregationTarget = ermBeacon;
-            else
-            {
-                // fps can dip if ermcon targets player inside cyclops/base
-                if (gameObject.GetComponent<Player>().currentSub is SubRoot sub)
-                    CongregationTarget = sub.gameObject;
-            }
             _lastSearchTime = time;
         }
 
