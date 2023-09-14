@@ -77,7 +77,8 @@ public static class ErmfishLoader
         });
 
         List<LootDistributionData.BiomeData> biomes = new();
-		foreach (BiomeType biome in Enum.GetValues(typeof(BiomeType)).Cast<BiomeType>())
+		foreach (BiomeType biome in Enum.GetValues(typeof(BiomeType)).Cast<BiomeType>()
+            .Where(biome => biome.ToString().EndsWith("CreatureOnly")))
 		{
 			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.025f });
 			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 5, probability = 0.010f });
