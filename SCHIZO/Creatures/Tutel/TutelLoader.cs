@@ -142,7 +142,7 @@ public static class TutelLoader
         eatable.WithDecay(decomposes);
 
         variant.SetUnlock(ModItems.Tutel);
-        variant.SetEquipment(EquipmentType.Hand);
+        variant.SetEquipment(EquipmentType.Hand).WithQuickSlotType(QuickSlotType.Selectable);
         variant.SetPdaGroupCategory(TechGroup.Survival, techCategory);
 
 		variant.SetGameObject(new CloneTemplate(variant.Info, ModItems.Tutel)

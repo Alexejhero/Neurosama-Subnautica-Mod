@@ -105,7 +105,7 @@ public static class ErmfishLoader
         eatable.WithDecay(decomposes);
 
         variant.SetUnlock(ModItems.Ermfish);
-        variant.SetEquipment(EquipmentType.Hand);
+        variant.SetEquipment(EquipmentType.Hand).WithQuickSlotType(QuickSlotType.Selectable);
         variant.SetPdaGroupCategory(TechGroup.Survival, techCategory);
 
 		variant.SetGameObject(new CloneTemplate(variant.Info, ModItems.Ermfish)

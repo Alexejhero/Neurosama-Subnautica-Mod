@@ -7,9 +7,11 @@ Requires BepInEx, Nautilus and ECCLibrary to run
 
 - Development
   - Alexejhero
+  - budwheizzah
   - Govorunb
 - Prefab setup
   - Alexejhero
+  - budwheizzah
   - darkeew
 - 3D Modeling
   - FutabaKuuhaku
@@ -23,6 +25,7 @@ Requires BepInEx, Nautilus and ECCLibrary to run
 - Art
   - 2Pfrog
   - Azit
+  - budwheizzah
   - chrom
   - CJMAXiK
   - Hakuhan
@@ -42,10 +45,12 @@ Requires BepInEx, Nautilus and ECCLibrary to run
   - w1n7er
   - yamplum
 - Audio compilation and cleaning
+  - budwheizzah
   - CJMAXiK
   - MyBraza
 - Text, lore and databank entries
   - baa14453
+  - budwheizzah
   - yamplum
 
 Based on ahk1221's Custom Hull Plates mod
