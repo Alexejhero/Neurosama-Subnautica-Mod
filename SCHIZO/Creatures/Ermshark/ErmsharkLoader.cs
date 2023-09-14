@@ -4,12 +4,14 @@ using System.Linq;
 using ECCLibrary;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
+[Load]
 public static class ErmsharkLoader
 {
     public static readonly SoundCollection3D AmbientSounds = SoundCollection3D.Create("ermshark/ambient", AudioUtils.BusPaths.UnderwaterCreatures);
@@ -18,7 +20,8 @@ public static class ErmsharkLoader
 
     public static GameObject Prefab;
 
-    public static void Load()
+    [Load]
+    private static void Load()
     {
         ErmsharkPrefab ermshark = new(ModItems.Ermshark);
         ermshark.Register();

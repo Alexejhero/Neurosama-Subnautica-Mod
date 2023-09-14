@@ -6,11 +6,13 @@ using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
 using Newtonsoft.Json;
+using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.HullPlates;
 
+[Load]
 public static class HullPlateLoader
 {
     private static readonly Texture2D _baseIcon = AssetLoader.GetTexture("../hullplates/icon.png");
@@ -18,7 +20,8 @@ public static class HullPlateLoader
     private static readonly DirectoryInfo _hullPlatesFolder = Directory.CreateDirectory(Path.Combine(AssetLoader.AssetsFolder, "hullplates"));
     private static readonly DirectoryInfo _oldHullPlatesFolder = Directory.CreateDirectory(Path.Combine(AssetLoader.AssetsFolder, "old_hullplates"));
 
-    public static void Load()
+    [Load]
+    private static void Load()
     {
         foreach (string path in Directory.GetDirectories(_hullPlatesFolder.FullName))
         {

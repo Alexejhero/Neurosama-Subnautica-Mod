@@ -4,9 +4,11 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
+using SCHIZO.Attributes;
 using SCHIZO.Buildables;
 using SCHIZO.Creatures.Ermfish;
 using SCHIZO.Creatures.Ermshark;
+using SCHIZO.Creatures.Tutel;
 using SCHIZO.HullPlates;
 using SCHIZO.Items.Greggs;
 using SCHIZO.Items.Gymbag;
@@ -28,15 +30,8 @@ public partial class Plugin : BaseUnityPlugin
         LOGGER = Logger;
         DependencyResolver.InjectResources();
 
-        HullPlateLoader.Load();
-		BuildablesLoader.Load();
-		ErmfishLoader.Load();
-		ErmsharkLoader.Load();
-		GymbagLoader.Load();
-        GreggsLoader.Load();
-
-        gameObject.AddComponent<TwitchIntegration>();
-        gameObject.AddComponent<ErmMoonTweaks>();
+        LoadAttribute.LoadAll();
+        LoadComponentAttribute.AddAll(gameObject);
 
 		Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 	}

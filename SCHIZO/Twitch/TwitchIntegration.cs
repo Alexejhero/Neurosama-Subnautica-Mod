@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.IO;
 using JetBrains.Annotations;
+using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
@@ -12,6 +13,7 @@ using UnityEngine;
 
 namespace SCHIZO.Twitch;
 
+[LoadComponent]
 public sealed class TwitchIntegration : MonoBehaviour
 {
     private const string OWNER_USERNAME = "alexejherodev";

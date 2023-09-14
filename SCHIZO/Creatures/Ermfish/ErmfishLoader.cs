@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ECCLibrary;
+using ECCLibrary.Assets;
 using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
@@ -9,6 +10,7 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Attributes;
 using SCHIZO.Gadgets;
 using SCHIZO.Helpers;
 using SCHIZO.Sounds;
@@ -16,6 +18,7 @@ using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
 
+[Load]
 public static class ErmfishLoader
 {
     public static readonly SoundCollection2D CraftSounds = SoundCollection2D.Create("ermfish/cooking", AudioUtils.BusPaths.PDAVoice);
@@ -28,9 +31,10 @@ public static class ErmfishLoader
     public static readonly SoundCollection2D PlayerDeathSounds = SoundCollection2D.Create("ermfish/player_death", "bus:/master/SFX_for_pause/nofilter");
     public static readonly SoundCollection2D ScanSounds = SoundCollection2D.Create("ermfish/scan", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection2D UnequipSounds = SoundCollection2D.Create("ermfish/unequipping", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection3D WorldSounds = SoundCollection3D.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures); // todo: get rid of fmod erros for loading the same audio file twice
+    public static readonly SoundCollection3D WorldSounds = SoundCollection3D.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures);
 
-    public static void Load()
+    [Load]
+    private static void Load()
     {
         LoadErmfish();
         LoadErmfishVariant(ModItems.CookedErmfish, "erm_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Ermfish)), 23, 0, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
@@ -101,7 +105,7 @@ public static class ErmfishLoader
         eatable.WithDecay(decomposes);
 
         variant.SetUnlock(ModItems.Ermfish);
-        variant.SetEquipment(EquipmentType.Hand);
+        variant.SetEquipment(EquipmentType.Hand).WithQuickSlotType(QuickSlotType.Selectable);
         variant.SetPdaGroupCategory(TechGroup.Survival, techCategory);
 
 		variant.SetGameObject(new CloneTemplate(variant.Info, ModItems.Ermfish)

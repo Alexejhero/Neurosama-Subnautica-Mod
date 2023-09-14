@@ -6,14 +6,17 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Attributes;
 using SCHIZO.Extensions;
 using UnityEngine;
 
 namespace SCHIZO.Items.Gymbag;
 
+[Load]
 public static class GymbagLoader
 {
-    public static void Load()
+    [Load]
+    private static void Load()
     {
         CustomPrefab prefab = new(ModItems.Gymbag);
         prefab.Info.WithSizeInInventory(new Vector2int(2, 2));
