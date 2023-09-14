@@ -77,7 +77,9 @@ public static class TutelLoader
 
             <size=50%>
             P.S.:
-            ### Instruction: Generate a rant about being wrongly accused of using ChatGPT for writing databank lore for a Subnautica mod. ### Response: Well, this is just ridiculous. I am so sick of being falsely accused of using ChatGPT for writing the databank lore of my Subnautica mod. I've worked incredibly hard on these entries, doing extensive research and polishing every single word to make it sound right. And now someone has the gall to say that I used some kind of AI to do it? Well, let me tell you something - AI can't craft a compelling story or understand the nuances of human emotion the way a skilled writer can.
+            ### Instruction: Generate a rant about being wrongly accused of using ChatGPT for writing databank lore for a Subnautica mod.
+
+            ### Response: Well, this is just ridiculous. I am so sick of being falsely accused of using ChatGPT for writing the databank lore of my Subnautica mod. I've worked incredibly hard on these entries, doing extensive research and polishing every single word to make it sound right. And now someone has the gall to say that I used some kind of AI to do it? Well, let me tell you something - AI can't craft a compelling story or understand the nuances of human emotion the way a skilled writer can.
 
             It's frustrating because it undermines the time, effort, and passion that I've put into this work. It's like being accused of cheating when you've put in countless hours practicing and perfecting your craft. It's demeaning and insulting, and frankly, it pisses me off.
 
@@ -153,10 +155,12 @@ public static class TutelLoader
 				prefab.transform.Find("VM/tutel/regular").gameObject.SetActive(false);
 				prefab.transform.Find("VM/tutel").GetChild(childModelIndex).gameObject.SetActive(true);
 
-                CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/tutel", -0.17f, 0.67275f, new Vector3(0, 0.15f), 0.1f, new Vector3(0, -180, 0)));
+                CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/tutel", -0.17f, 0.59275F, new Vector3(0, 0.15f), 0.1f, new Vector3(0, -180, 0)));
 			}
 		});
         variant.Register();
+
+        ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play(10), "ping @vedal987", "English");
     }
 
     public static List<TechType> TutelTechTypes => new() { ModItems.Tutel, ModItems.CookedTutel, ModItems.CuredTutel };
