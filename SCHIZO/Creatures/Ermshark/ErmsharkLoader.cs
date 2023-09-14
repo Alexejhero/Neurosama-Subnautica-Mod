@@ -4,6 +4,7 @@ using System.Linq;
 using ECCLibrary;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Helpers;
 using SCHIZO.Sounds;
 using UnityEngine;
 
@@ -87,8 +88,7 @@ public static class ErmsharkLoader
             """, 5, databankTexture, unlockSprite);
 
         List<LootDistributionData.BiomeData> biomes = new();
-        foreach (BiomeType biome in Enum.GetValues(typeof(BiomeType)).Cast<BiomeType>()
-            .Where(biome => biome.ToString().EndsWith("CreatureOnly")))
+        foreach (BiomeType biome in BiomeHelpers.GetOpenWaterBiomes())
         {
             biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.005f });
         }
