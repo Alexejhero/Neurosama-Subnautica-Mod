@@ -60,5 +60,5 @@ public sealed class ErmMoonTweaks : MonoBehaviour
         _skyManager.SkyboxMaterial.SetFloat(ShaderPropertyID._MoonSize, size);
     }
 
-    private static float GetCurrentDay() => (float)(DayNightCycle.main?.GetDay() ?? 0f);
+    private static float GetCurrentDay() => (float)(DayNightCycle.main!?.GetDay() ?? 0f);
 }

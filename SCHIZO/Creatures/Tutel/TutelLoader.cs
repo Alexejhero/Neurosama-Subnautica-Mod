@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
@@ -126,7 +124,7 @@ public static class TutelLoader
 		}
 		LootDistributionHandler.AddLootDistributionData(tutel.ClassID, biomes.ToArray());
 
-        ItemActionHandler.RegisterMiddleClickAction(tutel.PrefabInfo.TechType, _ => InventorySounds.Play(10), "ping @vedal987", "English");
+        ItemActionHandler.RegisterMiddleClickAction(tutel.PrefabInfo.TechType, _ => InventorySounds.Play2D(10), "ping @vedal987", "English");
     }
 
     private static void LoadTutelVariant(PrefabInfo info, string iconPath, RecipeData recipe, float foodValue, float waterValue, bool decomposes, string[] craftingTabPath, TechCategory techCategory, int childModelIndex)
@@ -160,7 +158,7 @@ public static class TutelLoader
 		});
         variant.Register();
 
-        ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play(10), "ping @vedal987", "English");
+        ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play2D(10), "ping @vedal987", "English");
     }
 
     public static List<TechType> TutelTechTypes => new() { ModItems.Tutel, ModItems.CookedTutel, ModItems.CuredTutel };

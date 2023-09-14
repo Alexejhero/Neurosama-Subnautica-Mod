@@ -31,15 +31,15 @@ public class ErmConEvent : CustomEvent
         // let's not wait the whole cooldown on load
         _eventStartTime = -CooldownSeconds / 2;
         CongregationTarget = gameObject;
+
         Player player = gameObject.GetComponent<Player>();
-        player?.playerDeathEvent.AddHandler(this, (_) => EndEvent());
-        player?.currentSubChangedEvent.AddHandler(this, sub =>
+        player.playerDeathEvent.AddHandler(this, _ => EndEvent());
+        player.currentSubChangedEvent.AddHandler(this, sub =>
         {
             CongregationTarget ??= gameObject;
             if (CraftData.GetTechType(CongregationTarget) != ModItems.Erm)
-                CongregationTarget = sub?.gameObject ?? gameObject;
+                CongregationTarget = sub!?.gameObject !?? gameObject;
         });
-        
     }
 
     protected override bool ShouldStartEvent()

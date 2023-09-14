@@ -11,49 +11,49 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
 {
     private void Start()
     {
-        isTargetValidFilter = new EcoRegion.TargetFilter(IsTargetValid);
+        isTargetValidFilter = IsTargetValid;
     }
 
-    public override float Evaluate(Creature creature, float time)
+    public override float Evaluate(Creature creat, float time)
     {
         if (timeNextFindTutel < time)
         {
             UpdateBullyTarget();
             if (tutel)
             {
-                creature.Aggression.Value = 0;
-                creature.Curiosity.Value = 10;
+                creat.Aggression.Value = 0;
+                creat.Curiosity.Value = 10;
             }
             timeNextFindTutel = time + updateTargetInterval * (1f + 0.2f * Random.value);
         }
         return tutel && tutel.gameObject.activeInHierarchy ? GetEvaluatePriority() : 0f;
     }
 
-    public override void StopPerform(Creature creature, float time)
+    public override void StopPerform(Creature creat, float time)
     {
         DropTutel();
     }
 
-    public void TryPickupTutel(GetCarried tutel = null)
+    public void TryPickupTutel(GetCarried getCarried = null)
     {
-        tutel ??= this.tutel?.GetComponent<GetCarried>();
-        if (tutel && tutel.gameObject && tutel.gameObject.activeInHierarchy)
+        getCarried ??= tutel!?.GetComponent<GetCarried>();
+        if (getCarried && getCarried.gameObject && getCarried.gameObject.activeInHierarchy)
         {
-            if (tutel.GetComponentInParent<Player>())
+            if (getCarried.GetComponentInParent<Player>())
             {
                 // in player's inventory
                 DropTutel();
                 timeNextFindTutel = Time.time + 6f;
                 return;
             }
-            UWE.Utils.SetCollidersEnabled(tutel.gameObject, false);
-            tutel.transform.parent = tutelAttach;
-            tutel.transform.localPosition = Vector3.zero;
-            tutel.OnPickedUp();
-            tutel.GetComponent<SwimBehaviour>().Idle();
+            UWE.Utils.SetCollidersEnabled(getCarried.gameObject, false);
+            getCarried.transform.parent = tutelAttach;
+            getCarried.transform.localPosition = Vector3.zero;
+            getCarried.OnPickedUp();
+            getCarried.GetComponent<SwimBehaviour>().Idle();
             targetPickedUp = true;
-            UWE.Utils.SetIsKinematic(tutel.GetComponent<Rigidbody>(), true);
-            UWE.Utils.SetEnabled(tutel.GetComponent<LargeWorldEntity>(), false);
+            UWE.Utils.SetIsKinematic(getCarried.GetComponent<Rigidbody>(), true);
+            UWE.Utils.SetEnabled(getCarried.GetComponent<LargeWorldEntity>(), false);
             swimBehaviour.SwimTo(transform.position + Vector3.up + 5f * Random.onUnitSphere, Vector3.up, swimVelocity);
             timeNextUpdate = Time.time + 1f;
         }
@@ -66,7 +66,7 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
             DropTutelTarget(tutel.gameObject);
             tutel.GetComponent<GetCarried>()?.OnDropped();
         }
-        tutel = null;   
+        tutel = null;
         targetPickedUp = false;
     }
 
@@ -76,7 +76,7 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
         UWE.Utils.SetCollidersEnabled(target, true);
         UWE.Utils.SetIsKinematic(target.GetComponent<Rigidbody>(), false);
         if (target.GetComponent<LargeWorldEntity>() is { } lwe)
-            LargeWorldStreamer.main?.cellManager.RegisterEntity(lwe);
+            LargeWorldStreamer.main!?.cellManager.RegisterEntity(lwe);
     }
 
     private bool IsTargetValid(IEcoTarget target) => CraftData.GetTechType(target.GetGameObject()) == ModItems.Tutel;
@@ -105,7 +105,7 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
         tutel = newTarget.GetComponent<Creature>();
     }
 
-    public override void Perform(Creature creature, float time, float deltaTime)
+    public override void Perform(Creature creat, float time, float deltaTime)
     {
         if (!tutel) return;
         if (!targetPickedUp)
@@ -142,8 +142,8 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
                 swimBehaviour.SwimTo(transform.position + 2f * swimVelocity * Random.insideUnitSphere, swimVelocity);
                 if (Random.value < 0.15f) DropTutel();
             }
-            creature.Happy.Add(deltaTime);
-            creature.Friendliness.Add(deltaTime);
+            creat.Happy.Add(deltaTime);
+            creat.Friendliness.Add(deltaTime);
         }
     }
 
@@ -161,8 +161,8 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
     {
         foreach (object obj in tutelAttach)
         {
-            Transform transform = (Transform) obj;
-            DropTutelTarget(transform.gameObject);
+            Transform trans = (Transform) obj;
+            DropTutelTarget(trans.gameObject);
         }
     }
 

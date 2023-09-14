@@ -11,7 +11,7 @@ public class GetCarried : CreatureAction
         // contrary to the name, this is actually the max possible priority
         evaluatePriority = 99f;
     }
-    public override float Evaluate(Creature creature, float time) => isCarried ? 99f : -99f; // manual start/end
+    public override float Evaluate(Creature creat, float time) => isCarried ? 99f : -99f; // manual start/end
 
     public void OnPickedUp()
     {
@@ -27,24 +27,24 @@ public class GetCarried : CreatureAction
         StopPerform(gameObject.GetComponent<Creature>(), Time.time);
     }
 
-    public override void StartPerform(Creature creature, float time)
+    public override void StartPerform(Creature creat, float time)
     {
-        creature.GetComponent<SwimBehaviour>().Idle();
-        creature.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        creature.GetComponent<WorldSoundPlayer>().enabled = false;
+        creat.GetComponent<SwimBehaviour>().Idle();
+        creat.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        creat.GetComponent<WorldSoundPlayer>().enabled = false;
         nextCarryNoiseTime = time + carryNoiseInterval * (1 + Random.value);
         if (!isCarried) OnPickedUp();
     }
 
-    public override void Perform(Creature creature, float time, float deltaTime)
+    public override void Perform(Creature creat, float time, float deltaTime)
     {
         if (!isCarried)
         {
-            StopPerform(creature, time);
+            StopPerform(creat, time);
             return;
         }
-        creature.Scared.Add(deltaTime);
-        creature.Tired.Add(deltaTime/2f);
+        creat.Scared.Add(deltaTime);
+        creat.Tired.Add(deltaTime/2f);
 
         if (time > nextCarryNoiseTime)
         {
@@ -53,9 +53,9 @@ public class GetCarried : CreatureAction
         }
     }
 
-    public override void StopPerform(Creature creature, float time)
+    public override void StopPerform(Creature creat, float time)
     {
-        creature.GetComponent<WorldSoundPlayer>().enabled = true;
+        creat.GetComponent<WorldSoundPlayer>().enabled = true;
         if (isCarried) OnDropped();
     }
 
