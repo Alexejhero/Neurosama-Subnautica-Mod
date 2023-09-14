@@ -3,31 +3,31 @@ using SCHIZO.DataStructures;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace SCHIZO.Events;
+namespace SCHIZO.Events.RandomMessage;
 
-public class RandomMessageEvent : CustomEvent
+public sealed class RandomMessageEvent : CustomEvent
 {
     public override bool IsOccurring => false;
 
-    private float nextMessageTime;
-    private float messageFrequency;
+    private float _nextMessageTime;
+    private float _messageFrequency;
 
     private void Awake()
     {
-        messageFrequency = CONFIG.RandomMessageFrequency;
-        nextMessageTime = GetNextMessageTime();
+        _messageFrequency = CONFIG.RandomMessageFrequency;
+        _nextMessageTime = GetNextMessageTime();
     }
 
     private SavedRandomList<Func<string>> Messages { get; } = new("Events_RandomMessageEvent")
     {
         // some messages are off just for next stream since they already appeared way too many times
-        //{ "watched", () => "You are being watched." },
+        { "watched", () => "You are being watched." },
         { "evilPresence", () => "You feel an evil presence watching you..." },
         { "pvpEnabled", () => "[Server] PvP has been enabled." },
         { "alexJoin", () => "Alex has joined the server." },
         { "alexLeave", () => "Alex has left the server." },
-        //{ "angeredTheGods", () => "You have angered the gods." },
-        //{ "timeGodFee", () => "The Time God has deducted 50 neuros from your balance. (protection fee)" },
+        { "angeredTheGods", () => "You have angered the gods." },
+        { "timeGodFee", () => "The Time God has deducted 50 neuros from your balance. (protection fee)" },
         { "saveCorrupted", () => "ERROR: Save file corrupted" },
         { "timeSinceLastSave", () => $"Time since last save: {Mathf.FloorToInt((float)(DateTime.Now - SaveLoadManager.main.lastSaveTime).TotalMinutes)}m" },
         { "swarm", () => "Swarm dispatched to your coordinates." },
@@ -38,13 +38,13 @@ public class RandomMessageEvent : CustomEvent
 
     protected override bool ShouldStartEvent()
     {
-        if (messageFrequency != CONFIG.RandomMessageFrequency)
+        if (_messageFrequency != CONFIG.RandomMessageFrequency)
         {
-            messageFrequency = CONFIG.RandomMessageFrequency;
-            nextMessageTime = GetNextMessageTime();
+            _messageFrequency = CONFIG.RandomMessageFrequency;
+            _nextMessageTime = GetNextMessageTime();
         }
-        if (messageFrequency == 0) return false;
-        return Time.time > nextMessageTime;
+        if (_messageFrequency == 0) return false;
+        return Time.time > _nextMessageTime;
     }
 
     protected override void UpdateLogic() { }
@@ -55,13 +55,13 @@ public class RandomMessageEvent : CustomEvent
     {
         Func<string> messageFunc = Messages.GetRandom();
         ErrorMessage.AddMessage(messageFunc());
-        nextMessageTime = GetNextMessageTime();
+        _nextMessageTime = GetNextMessageTime();
         base.StartEvent();
     }
 
     private float GetNextMessageTime()
     {
-        float eventFrequency = messageFrequency;
+        float eventFrequency = _messageFrequency;
         if (eventFrequency == 0) return float.MaxValue;
 
         float minDays = 9 / eventFrequency;

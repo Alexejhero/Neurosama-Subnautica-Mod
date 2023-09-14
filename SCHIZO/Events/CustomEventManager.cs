@@ -10,13 +10,15 @@ namespace SCHIZO.Events;
 public class CustomEventManager : MonoBehaviour
 {
     public static CustomEventManager main;
-    public const string autoEventsRegKey = "SCHIZO_Events_enableAutoEvents";
-    public bool enableAutoEvents
-    {
-        get => PlayerPrefsExtra.GetBool(autoEventsRegKey, true);
-        set => PlayerPrefsExtra.SetBool(autoEventsRegKey, value);
-    }
+
     private readonly Dictionary<string, Type> Events = new(StringComparer.InvariantCultureIgnoreCase);
+
+    private const string AUTOEVENTS_PREFS_KEY = "SCHIZO_Events_enableAutoEvents";
+    public bool EnableAutoEvents
+    {
+        get => PlayerPrefsExtra.GetBool(AUTOEVENTS_PREFS_KEY, true);
+        set => PlayerPrefsExtra.SetBool(AUTOEVENTS_PREFS_KEY, value);
+    }
 
     public void Awake()
     {
@@ -138,7 +140,7 @@ public class CustomEventManager : MonoBehaviour
     {
         if (n?.data?.Count is null or 0)
         {
-            Output($"Events are currently {(enableAutoEvents ? "automatic" : "manual")}");
+            Output($"Events are currently {(EnableAutoEvents ? "automatic" : "manual")}");
             return;
         }
         bool? value = n.data[0] switch
@@ -152,8 +154,8 @@ public class CustomEventManager : MonoBehaviour
             Output("Syntax: autoevents [on|off]");
             return;
         }
-        enableAutoEvents = isOn;
-        Output($"Events are now {(enableAutoEvents ? "automatic" : "manual")}");
+        EnableAutoEvents = isOn;
+        Output($"Events are now {(EnableAutoEvents ? "automatic" : "manual")}");
     }
 
     private void Output(string msg)
