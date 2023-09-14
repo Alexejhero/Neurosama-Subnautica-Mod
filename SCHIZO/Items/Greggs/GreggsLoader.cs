@@ -2,12 +2,15 @@
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
+using SCHIZO.Attributes;
 
 namespace SCHIZO.Items.Greggs;
 
+[Load]
 public static class GreggsLoader
 {
-    public static void Load()
+    [Load]
+    private static void Load()
     {
         CustomPrefab deadErmfish = new(PrefabInfo.WithTechType("deadermfish", "Dead Ermfish", "erm\n<size=75%>(Model by w1n7er)</size>"));
         deadErmfish.Info.WithIcon(AssetLoader.GetAtlasSprite("erm_dead.png"));

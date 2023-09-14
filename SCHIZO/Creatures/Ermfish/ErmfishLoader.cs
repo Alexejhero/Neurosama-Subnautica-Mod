@@ -9,6 +9,7 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Attributes;
 using SCHIZO.Gadgets;
 using SCHIZO.Helpers;
 using SCHIZO.Sounds;
@@ -16,6 +17,7 @@ using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
 
+[Load]
 public static class ErmfishLoader
 {
     public static readonly SoundCollection2D CraftSounds = SoundCollection2D.Create("ermfish/cooking", AudioUtils.BusPaths.PDAVoice);
@@ -30,7 +32,8 @@ public static class ErmfishLoader
     public static readonly SoundCollection2D UnequipSounds = SoundCollection2D.Create("ermfish/unequipping", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection3D WorldSounds = SoundCollection3D.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures); // todo: get rid of fmod erros for loading the same audio file twice
 
-    public static void Load()
+    [Load]
+    private static void Load()
     {
         LoadErmfish();
         LoadErmfishVariant(ModItems.CookedErmfish, "erm_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Ermfish)), 23, 0, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);

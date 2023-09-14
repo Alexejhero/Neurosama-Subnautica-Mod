@@ -9,12 +9,14 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Attributes;
 using SCHIZO.Gadgets;
 using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Tutel;
 
+[Load]
 public static class TutelLoader
 {
     public static readonly SoundCollection2D CraftSounds = SoundCollection2D.Create("tutel/cooking", AudioUtils.BusPaths.PDAVoice);
@@ -24,7 +26,8 @@ public static class TutelLoader
     public static readonly SoundCollection2D ScanSounds = SoundCollection2D.Create("tutel/scan", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection3D WorldSounds = SoundCollection3D.Create("tutel/noises", AudioUtils.BusPaths.UnderwaterCreatures); // todo: get rid of fmod erros for loading the same audio file twice
 
-    public static void Load()
+    [Load]
+    private static void Load()
     {
         LoadTutel();
         LoadTutelVariant(ModItems.CookedTutel, "tutel_creature_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel)), 23, 3, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);

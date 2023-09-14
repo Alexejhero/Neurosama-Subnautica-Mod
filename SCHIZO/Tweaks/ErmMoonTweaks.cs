@@ -1,8 +1,10 @@
-﻿using SCHIZO.Helpers;
+﻿using SCHIZO.Attributes;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Tweaks;
 
+[LoadComponent]
 public sealed class ErmMoonTweaks : MonoBehaviour
 {
     private uSkyManager _skyManager;
@@ -47,7 +49,7 @@ public sealed class ErmMoonTweaks : MonoBehaviour
             : _normalMoonSize;
         UpdateErmMoon(ermMoonSize);
     }
-    
+
     private void ToggleErmDeity(bool isVisible)
     {
         _skyManager.SkyboxMaterial.SetTexture(ShaderPropertyID._MoonSampler, isVisible ? _ermMoonTex : _normalMoonTex);
