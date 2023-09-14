@@ -12,12 +12,6 @@ public sealed class Ermshark : Creature, IOnTakeDamage
     {
         if (liveMixin.health > 0) return;
 
-        if (damageInfo.dealer != Player.main.gameObject)
-        {
-            liveMixin.health += damageInfo.damage;
-            return;
-        }
-
         if (mitosisRemaining > 0)
         {
             Mitosis(damageInfo.position, liveMixin.damageEffect);
