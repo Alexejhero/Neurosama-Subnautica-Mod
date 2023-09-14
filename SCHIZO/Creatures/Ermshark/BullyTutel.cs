@@ -36,14 +36,13 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
 
     public void TryPickupTutel(GetCarried tutel = null)
     {
-        tutel ??= this.tutel.GetComponent<GetCarried>();
+        tutel ??= this.tutel?.GetComponent<GetCarried>();
         if (tutel && tutel.gameObject && tutel.gameObject.activeInHierarchy)
         {
             if (tutel.GetComponentInParent<Player>())
             {
-                tutel = null;
-                tutel.isCarried = false;
-                targetPickedUp = false;
+                // in player's inventory
+                DropTutel();
                 timeNextFindTutel = Time.time + 6f;
                 return;
             }
@@ -65,10 +64,10 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
         if (tutel && targetPickedUp)
         {
             DropTutelTarget(tutel.gameObject);
-            tutel.GetComponent<GetCarried>().OnDropped();
-            tutel = null;
-            targetPickedUp = false;
+            tutel.GetComponent<GetCarried>()?.OnDropped();
         }
+        tutel = null;   
+        targetPickedUp = false;
     }
 
     private void DropTutelTarget(GameObject target)

@@ -8,6 +8,7 @@ public class GetCarried : CreatureAction
 {
     private new void Awake()
     {
+        // contrary to the name, this is actually the max possible priority
         evaluatePriority = 99f;
     }
     public override float Evaluate(Creature creature, float time) => isCarried ? 99f : -99f; // manual start/end
@@ -61,7 +62,7 @@ public class GetCarried : CreatureAction
     public bool isCarried;
     public FMOD_CustomEmitter emitter;
 
-    private static readonly SoundCollection pickupSounds = SoundCollection.Combine(TutelLoader.PickupSounds, TutelLoader.ScanSounds);
+    private static readonly SoundCollection pickupSounds = SoundCollection.Combine(TutelLoader.PickupSounds, TutelLoader.ScanSounds, TutelLoader.HurtSounds);
     private static readonly SoundCollection releaseSounds = SoundCollection.Combine(TutelLoader.WorldSounds);
     private static readonly SoundCollection carrySounds = SoundCollection.Combine(TutelLoader.CraftSounds, TutelLoader.EatSounds);
     private float nextCarryNoiseTime;

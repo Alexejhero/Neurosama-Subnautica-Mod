@@ -13,9 +13,10 @@ public sealed class ErmsharkAttack : MeleeAttack
         GameObject target = GetTarget(collider);
 
         if (CreatureData.GetCreatureType(gameObject) == CreatureData.GetCreatureType(target)) return;
+        if (target.GetComponent<GetCarried>()) return; // prevents tutel scream when released
 
-        Player component = target.GetComponent<Player>();
-        if (component && canBeFed && component.CanBeAttacked())
+        Player player = target.GetComponent<Player>();
+        if (player && canBeFed && player.CanBeAttacked())
         {
             GameObject heldObject = Inventory.main.GetHeldObject();
             if (heldObject)
@@ -29,11 +30,11 @@ public sealed class ErmsharkAttack : MeleeAttack
                     gameObject.SendMessage("OnMeleeAttack", heldObject, SendMessageOptions.DontRequireReceiver);
                     return;
                 }
-                if (heldObject.GetComponent<GetCarried>() is { } tutel)
+                if (heldObject.GetComponent<GetCarried>() is { } heldTutel)
                 {
                     Inventory.main.DropHeldItem(false);
-                    creature.GetComponent<BullyTutel>().TryPickupTutel(tutel);
-                    creature.SetFriend(component.gameObject, 120f);
+                    creature.GetComponent<BullyTutel>().TryPickupTutel(heldTutel);
+                    creature.SetFriend(player.gameObject, 120f);
                     return;
                 }
             }
@@ -42,28 +43,28 @@ public sealed class ErmsharkAttack : MeleeAttack
         if (CanBite(target))
         {
             timeLastBite = Time.time;
-            LiveMixin component2 = target.GetComponent<LiveMixin>();
-            if (component2 != null && component2.IsAlive())
+            LiveMixin living = target.GetComponent<LiveMixin>();
+            if (living && living.IsAlive())
             {
-                component2.TakeDamage(GetBiteDamage(target), default, DamageType.Normal, gameObject);
-                component2.NotifyCreatureDeathsOfCreatureAttack();
+                living.TakeDamage(GetBiteDamage(target), default, DamageType.Normal, gameObject);
+                living.NotifyCreatureDeathsOfCreatureAttack();
             }
-            Vector3 vector = collider.ClosestPointOnBounds(mouth.transform.position);
+            Vector3 damageFxPos = collider.ClosestPointOnBounds(mouth.transform.position);
             if (damageFX != null)
             {
-                Instantiate(damageFX, vector, damageFX.transform.rotation);
+                Instantiate(damageFX, damageFxPos, damageFX.transform.rotation);
             }
             if (attackSound != null)
             {
-                Utils.PlayEnvSound(attackSound, vector);
+                Utils.PlayEnvSound(attackSound, damageFxPos);
             }
 
             ErmsharkLoader.AttackSounds.Play(gameObject.GetComponent<FMOD_CustomEmitter>());
 
             creature.Aggression.Add(-biteAggressionDecrement);
-            if (component2 != null && !component2.IsAlive())
+            if (living && !living.IsAlive())
             {
-                TryEat(component2.gameObject);
+                TryEat(living.gameObject);
             }
             gameObject.SendMessage("OnMeleeAttack", target, SendMessageOptions.DontRequireReceiver);
         }
