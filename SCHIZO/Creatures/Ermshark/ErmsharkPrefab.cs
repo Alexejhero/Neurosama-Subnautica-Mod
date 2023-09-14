@@ -63,7 +63,6 @@ public sealed class ErmsharkPrefab : CreatureAsset
         GameObject mouth = prefab.SearchChild("attack_collider");
         CreaturePrefabUtils.AddMeleeAttack<ErmsharkAttack>(prefab, components, mouth, true, 20);
 
-        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Heat, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Cold, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Fire, 0f);

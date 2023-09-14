@@ -53,7 +53,6 @@ public class ErmfishPrefab : CreatureAsset
 		InventorySoundPlayer.Add(prefab, ErmfishLoader.InventorySounds);
 		WorldSoundPlayer.Add(prefab, ErmfishLoader.WorldSounds);
 
-		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Heat, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Cold, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Fire, 0f);
