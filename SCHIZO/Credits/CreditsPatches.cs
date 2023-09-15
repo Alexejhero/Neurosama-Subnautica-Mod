@@ -45,7 +45,10 @@ public static class CreditsPatches
     [HarmonyPostfix]
     public static void GetText(EndCreditsManager __instance)
     {
+        float oldHeight = 14100;//__instance.textField.preferredHeight;
         __instance.textField.SetText(GetCreditsText() + __instance.textField.text);
+        __instance.scrollSpeed = __instance.textField.preferredHeight * __instance.scrollSpeed / oldHeight;
+        __instance.scrollStep = __instance.textField.preferredHeight * __instance.scrollStep / oldHeight;
     }
 
     private static string GetCreditsText()
