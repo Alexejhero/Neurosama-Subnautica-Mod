@@ -11,7 +11,10 @@ public static class BuildablesLoader
 {
 	public static Transform DisabledParent { get; private set; }
 
-	private static readonly SoundCollection ErmWorldSounds = SoundCollection.Create("ermfish/noises", "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds");
+    private const string INDOOR_SOUNDS_BUS = "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds";
+
+	private static readonly SoundCollection ErmWorldSounds = SoundCollection.Create("ermfish/noises", INDOOR_SOUNDS_BUS);
+    private static readonly SoundCollection TutelWorldSounds = SoundCollection.Create("tutel/noises", INDOOR_SOUNDS_BUS);
 
     [Load]
 	private static void Load()
@@ -22,14 +25,18 @@ public static class BuildablesLoader
 
 		LoadOldVersions();
 
-		new BuildablePrefab(new ModItem("VedalTurtle2", "Tutel", "<size=75%>(Model by FutabaKuuhaku)</size>"))
-		{
-			IconFileName = "tutel.png",
-			Recipe = new RecipeData(new CraftData.Ingredient(TechType.CreepvinePiece, 10)),
-			PrefabName = "turtle",
-			TechGroup = TechGroup.Miscellaneous,
-			TechCategory = TechCategory.Misc,
-		}.WithOldVersion("VedalTurtle").Register();
+        new BuildablePrefab(new ModItem("VedalTurtle3", "Fake tutel", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>"))
+        {
+            IconFileName = "tutel.png",
+            Recipe = new RecipeData(new CraftData.Ingredient(TechType.CreepvinePiece, 10), new CraftData.Ingredient(ModItems.Tutel)),
+            PrefabName = "turtle",
+            TechGroup = TechGroup.Miscellaneous,
+            TechCategory = TechCategory.Misc,
+            ModifyPrefab = prefab =>
+            {
+                WorldSoundPlayer.Add(prefab, TutelWorldSounds);
+            }
+        }.Register();
 
 		new BuildablePrefab(ModItems.Erm)
 		{
@@ -88,5 +95,12 @@ public static class BuildablesLoader
 				prefab.GetComponentsInChildren<MeshRenderer>().ForEach(r => r.material.color = new Color(0.75f, 0, 0.75f));
 			}
 		}.Register();
+
+        new BuildablePrefab(new ModItem("VedalTurtle2", "Fake tutel (OLD VERSION, PLEASE REBUILD)", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>"))
+        {
+            IconFileName = "tutel.png",
+            Recipe = new RecipeData(new CraftData.Ingredient(TechType.CreepvinePiece, 10)),
+            PrefabName = "turtle",
+        }.WithOldVersion("VedalTurtle").Register();
 	}
 }

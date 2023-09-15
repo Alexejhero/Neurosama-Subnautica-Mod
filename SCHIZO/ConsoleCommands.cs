@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using Nautilus.Commands;
 using SCHIZO.Attributes;
 using SCHIZO.Extensions;
 using SCHIZO.Helpers;
-using UnityEngine;
-using Random = System.Random;
+using Object = UnityEngine.Object;
 
 namespace SCHIZO;
 
@@ -13,20 +14,25 @@ namespace SCHIZO;
 public static class ConsoleCommands
 {
     [ConsoleCommand("isekai"), UsedImplicitly]
-    public static void OnConsoleCommand_isekai(string techTypeName, float percentage, float radius = 100)
+    public static string OnConsoleCommand_isekai(string techTypeName, float percentage, float radius = 100)
     {
         if (!UWE.Utils.TryParseEnum(techTypeName, out TechType techType))
         {
             IEnumerable<string> techTypeNamesSuggestion = TechTypeExtensions.GetTechTypeNamesSuggestion(techTypeName);
-            MessageHelpers.WriteCommandOutput($"Could not find tech type for '{techTypeName}'. Did you mean:\n{string.Join("\n", techTypeNamesSuggestion)}");
-            return;
+            return MessageHelpers.GetCommandOutput($"Could not find tech type for '{techTypeName}'. Did you mean:\n{string.Join("\n", techTypeNamesSuggestion)}");
         }
 
-        Random rand = new();
-        foreach (TechTag tag in PhysicsHelpers.ObjectsInRange(Player.main.transform, radius).OfTechType(techType).SelectComponentInParent<TechTag>())
+        List<PrefabIdentifier> items = PhysicsHelpers.ObjectsInRange(Player.main.transform, radius)
+            .OfTechType(techType).SelectComponentInParent<PrefabIdentifier>().ToList();
+        items.Shuffle();
+        HashSet<PrefabIdentifier> set = new(items);
+
+        foreach (PrefabIdentifier item in set.Take((int) Math.Round(set.Count * percentage)))
         {
-            if (rand.NextDouble() <= percentage) Object.Destroy(tag.gameObject);
+            Object.Destroy(item.gameObject);
         }
+
+        return null;
     }
 
     [ConsoleCommand("say"), UsedImplicitly]
