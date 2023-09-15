@@ -2,6 +2,7 @@
 using System.Reflection.Emit;
 using HarmonyLib;
 using SCHIZO.DataStructures;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,17 +25,11 @@ public static class LoadingPatches
         [8] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-8.png"), "Art by Troobs"),
     };
 
-    private static uGUI_BuildWatermark _buildWatermark;
-    private static string _currentArtCredit = "";
+    private static TextMeshProUGUI _buildWatermark;
 
     [HarmonyPatch(typeof(uGUI_BuildWatermark), nameof(uGUI_BuildWatermark.UpdateText))]
     [HarmonyPrefix]
-    public static bool ReplaceBuildWatermarkText(uGUI_BuildWatermark __instance)
-    {
-        _buildWatermark = __instance;
-        __instance.text.text = _currentArtCredit;
-        return false;
-    }
+    public static bool ReplaceBuildWatermarkText(uGUI_BuildWatermark __instance) => false;
 
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake))]
     [HarmonyPostfix]
@@ -44,17 +39,20 @@ public static class LoadingPatches
 
         ArtWithCredit art = _backgrounds.GetRandom();
         __instance.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = art.art;
-        _currentArtCredit = art.credit;
-
-        if (!_buildWatermark) return;
-        _buildWatermark.UpdateText();
+        if (!_buildWatermark)
+        {
+            GameObject guiRoot = __instance.transform.root.gameObject;
+            _buildWatermark = guiRoot.GetComponentInChildren<uGUI_BuildWatermark>()
+                .GetComponent<TextMeshProUGUI>();
+        }
+        _buildWatermark.SetText(art.credit);
     }
 
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.OnPreLayout))]
     [HarmonyPostfix]
     public static void HideBuildNumberInMenu(uGUI_SceneLoading __instance)
     {
-        _buildWatermark.gameObject.SetActive(__instance.isLoading);
+        _buildWatermark.alpha = __instance.isLoading ? 0.7f : 0;
     }
 
     [HarmonyPatch(typeof(SavingIndicator), nameof(SavingIndicator.OnEnable))]
