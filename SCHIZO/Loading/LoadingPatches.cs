@@ -17,7 +17,7 @@ public static class LoadingPatches
         [2] = new(AssetLoader.GetUnitySprite("loading-bg-2.png"), "Art by yamplum"),
         [3] = new(AssetLoader.GetUnitySprite("loading-bg-3.png"), "Art by paccha (edit by MyBraza)"),
         [4] = new(AssetLoader.GetUnitySprite("loading-bg-4.png"), "Art by sugarph"),
-        [5] = new(AssetLoader.GetUnitySprite("loading-bg-5.png"), "Art by MyBraza"),
+        [5] = new(AssetLoader.GetUnitySprite("loading-bg-5.png"), "Art by paccha (edit by MyBraza)"),
         [6] = new(AssetLoader.GetUnitySprite("loading-bg-6.png"), "Art by paccha"),
         [7] = new(AssetLoader.GetUnitySprite("loading-bg-7.jpg"), "Art by P3R"),
         [8] = new(AssetLoader.GetUnitySprite("loading-bg-8.png"), "Art by Troobs"),
