@@ -23,6 +23,7 @@ public partial class Plugin : BaseUnityPlugin
 
         LoadAttribute.LoadAll();
         LoadComponentAttribute.AddAll(gameObject);
+        LoadConsoleCommandsAttribute.RegisterAll();
 
 		Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 	}

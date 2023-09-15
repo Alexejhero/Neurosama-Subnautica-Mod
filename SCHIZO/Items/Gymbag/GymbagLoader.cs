@@ -40,7 +40,7 @@ public static class GymbagLoader
 
         prefab.Register();
 
-        ItemActionHandler.RegisterMiddleClickAction(prefab.Info.TechType, item => GymbagHandler.main.OnOpen(item), "open storage", "English");
+        ItemActionHandler.RegisterMiddleClickAction(prefab.Info.TechType, item => GymbagHandler.Instance.OnOpen(item), "open storage", "English");
     }
 
     private static void ModifyPrefab(GameObject prefab)

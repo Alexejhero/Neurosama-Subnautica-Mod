@@ -20,20 +20,19 @@ public sealed class RandomMessageEvent : CustomEvent
 
     private SavedRandomList<Func<string>> Messages { get; } = new("Events_RandomMessageEvent")
     {
-        // some messages are off just for next stream since they already appeared way too many times
-        { "watched", () => "You are being watched." },
-        { "evilPresence", () => "You feel an evil presence watching you..." },
-        { "pvpEnabled", () => "[Server] PvP has been enabled." },
-        { "alexJoin", () => "Alex has joined the server." },
-        { "alexLeave", () => "Alex has left the server." },
-        { "angeredTheGods", () => "You have angered the gods." },
-        { "timeGodFee", () => "The Time God has deducted 50 neuros from your balance. (protection fee)" },
-        { "saveCorrupted", () => "ERROR: Save file corrupted" },
-        { "timeSinceLastSave", () => $"Time since last save: {Mathf.FloorToInt((float)(DateTime.Now - SaveLoadManager.main.lastSaveTime).TotalMinutes)}m" },
-        { "swarm", () => "Swarm dispatched to your coordinates." },
-        { "fakeIP", () => "Server IP: 127.0.0.1" },
-        { "fakeScreenshot", () => "Screenshot saved to PDA." },
-        { "clue", () => "R2J6c2JieXJlbA" }, // "Tomfoolery" -> rot13 -> b64
+        ["watched"] = () => "You are being watched.",
+        ["evilPresence"] = () => "You feel an evil presence watching you...",
+        ["pvpEnabled"] = () => "[Server] PvP has been enabled.",
+        ["alexJoin"] = () => "Alex has joined the server.",
+        ["alexLeave"] = () => "Alex has left the server.",
+        ["angeredTheGods"] = () => "You have angered the gods.",
+        ["timeGodFee"] = () => "The Time God has deducted 50 neuros from your balance. (protection fee)",
+        ["saveCorrupted"] = () => "ERROR: Save file corrupted",
+        ["timeSinceLastSave"] = () => $"Time since last save: {Mathf.FloorToInt((float)(DateTime.Now - SaveLoadManager.main.lastSaveTime).TotalMinutes)}m",
+        ["swarm"] = () => "Swarm dispatched to your coordinates.",
+        ["fakeIP"] = () => "Server IP: 127.0.0.1",
+        ["fakeScreenshot"] = () => "Screenshot saved to PDA.",
+        ["clue"] = () => "R2J6c2JieXJlbA", // "Tomfoolery" -> rot13 -> b64
     };
 
     protected override bool ShouldStartEvent()

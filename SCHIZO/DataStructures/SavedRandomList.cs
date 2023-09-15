@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Nautilus.Utility;
 using UnityEngine;
 
 namespace SCHIZO.DataStructures;
 
-public sealed class SavedRandomList<T> : IEnumerable
+public sealed class SavedRandomList<T> : IEnumerable<T>
 {
-    private record struct Item(string Identifier, T Value);
+    private record struct IdentifiableItem(string Identifier, T Value);
 
-    private class PlayerPrefsManager : RandomList<Item>.IInitialStateModifier
+    private class PlayerPrefsManager : RandomList<IdentifiableItem>.IInitialStateModifier
     {
         private record struct RegistryKey(string Value);
 
@@ -22,7 +23,7 @@ public sealed class SavedRandomList<T> : IEnumerable
             _key = key;
         }
 
-        public bool Register(Item item)
+        public bool Register(IdentifiableItem item)
         {
             string identifier = item.Identifier;
 
@@ -38,7 +39,7 @@ public sealed class SavedRandomList<T> : IEnumerable
             return false;
         }
 
-        public void MarkUsed(Item item)
+        public void MarkUsed(IdentifiableItem item)
         {
             SetState(KeyOf(item.Identifier), true);
         }
@@ -60,18 +61,26 @@ public sealed class SavedRandomList<T> : IEnumerable
         private RegistryKey KeyOf(string identifier) => new($"SCHIZO_RandomList_{_key}_{identifier}");
     }
 
-    private readonly RandomList<Item> _randomList;
+    private readonly RandomList<IdentifiableItem> _randomList;
 
     public SavedRandomList(string playerPrefsKey)
     {
         if (string.IsNullOrWhiteSpace(playerPrefsKey)) throw new ArgumentNullException(nameof(playerPrefsKey));
 
-        _randomList = new RandomList<Item>(new PlayerPrefsManager(playerPrefsKey));
+        _randomList = new RandomList<IdentifiableItem>(new PlayerPrefsManager(playerPrefsKey));
     }
 
-    public void Add(object id, T value)
+    public T this[object id]
     {
-        _randomList.Add(new Item(id.ToString(), value));
+        set
+        {
+            string identifier = id.ToString();
+
+            if (_randomList.Any(e => e.Identifier == identifier))
+                throw new InvalidOperationException($"Identifier already exists: {identifier}");
+
+            _randomList.Add(new IdentifiableItem(identifier, value));
+        }
     }
 
     public T GetRandom()
@@ -79,5 +88,6 @@ public sealed class SavedRandomList<T> : IEnumerable
         return _randomList.GetRandom().Value;
     }
 
-    IEnumerator IEnumerable.GetEnumerator() => throw new InvalidOperationException();
+    public IEnumerator<T> GetEnumerator() => _randomList.Select(item => item.Value).GetEnumerator();
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

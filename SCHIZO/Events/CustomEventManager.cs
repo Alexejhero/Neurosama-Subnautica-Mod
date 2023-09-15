@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Nautilus.Commands;
 using Nautilus.Utility;
+using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Events;
 
-public class CustomEventManager : MonoBehaviour
+[LoadConsoleCommands]
+public sealed class CustomEventManager : MonoBehaviour
 {
-    public static CustomEventManager main;
+    public static CustomEventManager Instance;
 
     private readonly Dictionary<string, Type> Events = new(StringComparer.InvariantCultureIgnoreCase);
 
@@ -22,10 +25,7 @@ public class CustomEventManager : MonoBehaviour
 
     public void Awake()
     {
-        main = this;
-        DevConsole.RegisterConsoleCommand(this, "event");
-        DevConsole.RegisterConsoleCommand(this, "events");
-        DevConsole.RegisterConsoleCommand(this, "autoevents");
+        Instance = this;
     }
 
     public CustomEvent GetEvent(string eventName)
@@ -41,20 +41,7 @@ public class CustomEventManager : MonoBehaviour
     public T GetEvent<T>() where T : CustomEvent
         => gameObject.GetComponent<T>();
 
-    public CustomEvent EnsureEvent(string eventName)
-    {
-        if (eventName is null)
-            throw new ArgumentNullException(nameof(eventName));
-        if (Events.TryGetValue(eventName, out Type eventType))
-            return gameObject.EnsureComponent(eventType) as CustomEvent;
-        return null;
-    }
-
-    public T EnsureEvent<T>() where T : CustomEvent
-        => gameObject.EnsureComponent<T>();
-
-    public void AddEvent<T>()
-        where T : CustomEvent, new()
+    public void AddEvent<T>() where T : CustomEvent, new()
     {
         string eventName = typeof(T).Name;
         if (Events.ContainsKey(eventName))
@@ -77,87 +64,33 @@ public class CustomEventManager : MonoBehaviour
         }
     }
 
-    [UsedImplicitly]
-    private void OnConsoleCommand_events(NotificationCenter.Notification n)
-        => OnConsoleCommand_event(n);
-
-    private void OnConsoleCommand_event(NotificationCenter.Notification n)
+    [ConsoleCommand("event"), UsedImplicitly]
+    public static string OnConsoleCommand_event(string eventName, bool isStart)
     {
-        if (n?.data?.Count is null or 0)
-        {
-            Output($"Events: {string.Join(", ", Events.Keys)}");
-            return;
-        }
+        CustomEventManager cem = Instance;
 
-        string eventName = (string) n.data[0];
-        if (!Events.TryGetValue(eventName, out Type eventType)
-            && !Events.TryGetValue(eventName+"Event", out eventType))
+        if (cem.GetEvent(eventName) is not CustomEvent evt)
         {
-            Output($"Event '{eventName}' not found, use \"event\" to list events");
-            return;
-        }
-
-        if (gameObject.GetComponent(eventType) is not CustomEvent evt)
-        {
-            LOGGER.LogError($"Event '{eventName}' has component of wrong type");
-            return;
-        }
-
-        if (n.data.Count == 1)
-        {
-            Output($"Event '{eventName}' is {(evt.IsOccurring ? "" : "not ")}occurring");
-            return;
-        }
-
-        string startOrEndArg = (string) n.data[1];
-        bool? isStartMaybe = startOrEndArg switch
-        {
-            "start" or "1" or "on" or "true" or "play" or "start" => true,
-            "end" or "0" or "off" or "false" or "stop" => false,
-            _ => null
-        };
-        if (isStartMaybe is not { } isStart)
-        {
-            Output("Syntax: event [name] [start|end]");
-            return;
+            return Output($"Event '{eventName}' not found");
         }
 
         if (evt.IsOccurring == isStart)
         {
-            Output($"Event '{eventName}' is already {(evt.IsOccurring ? "" : "not ")}occurring");
-            return;
+            return Output($"Event '{eventName}' is already {(evt.IsOccurring ? "" : "not ")}occurring");
         }
 
-        if (isStart)
-            evt.StartEvent();
-        else
-            evt.EndEvent();
-        Output($"Event '{eventName}' {(isStart ? "start" : "end")}ed");
+        if (isStart) evt.StartEvent();
+        else evt.EndEvent();
+
+        return Output($"Event '{eventName}' {(isStart ? "started" : "ended")}");
     }
 
-    [UsedImplicitly]
-    private void OnConsoleCommand_autoevents(NotificationCenter.Notification n)
+    [ConsoleCommand("autoevents"), UsedImplicitly]
+    public static string OnConsoleCommand_autoevents(bool enable)
     {
-        if (n?.data?.Count is null or 0)
-        {
-            Output($"Events are currently {(EnableAutoEvents ? "automatic" : "manual")}");
-            return;
-        }
-        bool? value = n.data[0] switch
-        {
-            "on" or "1" or "true" or "auto" => true,
-            "off" or "0" or "false" or "manual" => false,
-            _ => null,
-        };
-        if (value is not { } isOn)
-        {
-            Output("Syntax: autoevents [on|off]");
-            return;
-        }
-        EnableAutoEvents = isOn;
-        Output($"Events are now {(EnableAutoEvents ? "automatic" : "manual")}");
+        Instance.EnableAutoEvents = enable;
+        return Output($"Events are now {(enable ? "automatic" : "manual")}");
     }
 
-    private void Output(string msg)
-        => MessageHelpers.WriteCommandOutput(msg);
+    private static string Output(string msg) => MessageHelpers.GetCommandOutput(msg);
 }

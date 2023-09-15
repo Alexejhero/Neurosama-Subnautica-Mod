@@ -3,25 +3,25 @@ using SCHIZO.Events.ErmCon;
 using SCHIZO.Events.RandomMessage;
 using UnityEngine;
 
-namespace SCHIZO.Events
+namespace SCHIZO.Events;
+
+[HarmonyPatch]
+public static class CustomEventsLoader
 {
-    [HarmonyPatch]
-    public static class CustomEventsLoader
+    private static CustomEventManager eventManager;
+    private static void LoadEvents(GameObject host)
     {
-        private static CustomEventManager eventManager;
-        private static void LoadEvents(GameObject host)
-        {
-            eventManager = host.AddComponent<CustomEventManager>();
+        eventManager = host.AddComponent<CustomEventManager>();
 
-            eventManager.AddEvent<ErmConEvent>();
-            eventManager.AddEvent<RandomMessageEvent>();
-        }
+        // TODO: Maybe add an attribute here :)
+        eventManager.AddEvent<ErmConEvent>();
+        eventManager.AddEvent<RandomMessageEvent>();
+    }
 
-        [HarmonyPatch(typeof(Player), nameof(Player.Awake))]
-        [HarmonyPostfix]
-        public static void EventLoadHook(Player __instance)
-        {
-            LoadEvents(Player.mainObject);
-        }
+    [HarmonyPatch(typeof(Player), nameof(Player.Awake))]
+    [HarmonyPostfix]
+    public static void EventLoadHook(Player __instance)
+    {
+        LoadEvents(Player.mainObject);
     }
 }

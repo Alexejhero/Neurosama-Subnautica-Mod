@@ -7,7 +7,7 @@ namespace SCHIZO.Items.Gymbag;
 
 public sealed class GymbagHandler : MonoBehaviour
 {
-    public static GymbagHandler main { get; private set; }
+    public static GymbagHandler Instance { get; private set; }
 
     public uGUI_ItemsContainer InventoryUGUI { get; set; }
     public InventoryItem CurrentOpenedRootGymbag { get; set; }
@@ -15,7 +15,7 @@ public sealed class GymbagHandler : MonoBehaviour
 
     private void Awake()
     {
-        main = this;
+        Instance = this;
     }
 
     public void OnOpen(InventoryItem item)

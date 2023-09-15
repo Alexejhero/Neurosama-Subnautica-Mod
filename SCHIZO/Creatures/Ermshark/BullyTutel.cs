@@ -79,7 +79,7 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
             LargeWorldStreamer.main!?.cellManager.RegisterEntity(lwe);
     }
 
-    private bool IsTargetValid(IEcoTarget target) => CraftData.GetTechType(target.GetGameObject()) == ModItems.Tutel;
+    private static bool IsTargetValid(IEcoTarget target) => TutelLoader.TutelTechTypes.Contains(CraftData.GetTechType(target.GetGameObject()));
 
     private void UpdateBullyTarget()
     {

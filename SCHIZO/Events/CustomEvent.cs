@@ -23,7 +23,7 @@ namespace SCHIZO.Events
         private void FixedUpdate()
         {
             if (IsOccurring) UpdateLogic();
-            else if (CustomEventManager.main.EnableAutoEvents && ShouldStartEvent()) StartEvent();
+            else if (CustomEventManager.Instance.EnableAutoEvents && ShouldStartEvent()) StartEvent();
         }
 
         private void Update()

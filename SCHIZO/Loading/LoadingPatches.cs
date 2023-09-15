@@ -12,14 +12,14 @@ public static class LoadingPatches
 {
     private static readonly SavedRandomList<Sprite> _backgrounds = new("LoadingBackgrounds")
     {
-        { 1, AssetLoader.GetUnitySprite("loading-bg-1.jpg") },
-        { 2, AssetLoader.GetUnitySprite("loading-bg-2.png") },
-        { 3, AssetLoader.GetUnitySprite("loading-bg-3.png") },
-        { 4, AssetLoader.GetUnitySprite("loading-bg-4.png") },
-        { 5, AssetLoader.GetUnitySprite("loading-bg-5.png") },
-        { 6, AssetLoader.GetUnitySprite("loading-bg-6.png") },
-        { 7, AssetLoader.GetUnitySprite("loading-bg-7.jpg") },
-        { 8, AssetLoader.GetUnitySprite("loading-bg-8.png") },
+        [1] = AssetLoader.GetUnitySprite("loading-bg-1.jpg"),
+        [2] = AssetLoader.GetUnitySprite("loading-bg-2.png"),
+        [3] = AssetLoader.GetUnitySprite("loading-bg-3.png"),
+        [4] = AssetLoader.GetUnitySprite("loading-bg-4.png"),
+        [5] = AssetLoader.GetUnitySprite("loading-bg-5.png"),
+        [6] = AssetLoader.GetUnitySprite("loading-bg-6.png"),
+        [7] = AssetLoader.GetUnitySprite("loading-bg-7.jpg"),
+        [8] = AssetLoader.GetUnitySprite("loading-bg-8.png"),
     };
 
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake))]
