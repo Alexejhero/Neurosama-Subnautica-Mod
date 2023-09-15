@@ -25,6 +25,8 @@ public sealed class TwitchIntegration : MonoBehaviour
 
     public TwitchIntegration()
     {
+        DevConsole.RegisterConsoleCommand(this, "say", true, true);
+
         ClientOptions clientOptions = new()
         {
             MessagesAllowedInPeriod = 750,
@@ -77,5 +79,13 @@ public sealed class TwitchIntegration : MonoBehaviour
         MessageHelpers.SuppressOutput = true;
         DevConsole.SendConsoleCommand(message);
         MessageHelpers.SuppressOutput = false;
+    }
+
+    [UsedImplicitly]
+    private void OnConsoleCommand_say(NotificationCenter.Notification n)
+    {
+        if (n.data.Count == 0) return;
+        string message = (string) n.data[0];
+        ErrorMessage.AddMessage(message);
     }
 }
