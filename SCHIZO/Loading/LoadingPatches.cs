@@ -10,24 +10,48 @@ namespace SCHIZO.Loading;
 [HarmonyPatch]
 public static class LoadingPatches
 {
-    private static readonly SavedRandomList<Sprite> _backgrounds = new("LoadingBackgrounds")
+    private record struct ArtWithCredit(Sprite art, string credit);
+    private static readonly SavedRandomList<ArtWithCredit> _backgrounds = new("LoadingBackgrounds")
     {
-        [1] = AssetLoader.GetUnitySprite("loading-bg-1.jpg"),
-        [2] = AssetLoader.GetUnitySprite("loading-bg-2.png"),
-        [3] = AssetLoader.GetUnitySprite("loading-bg-3.png"),
-        [4] = AssetLoader.GetUnitySprite("loading-bg-4.png"),
-        [5] = AssetLoader.GetUnitySprite("loading-bg-5.png"),
-        [6] = AssetLoader.GetUnitySprite("loading-bg-6.png"),
-        [7] = AssetLoader.GetUnitySprite("loading-bg-7.jpg"),
-        [8] = AssetLoader.GetUnitySprite("loading-bg-8.png"),
+        [1] = new(AssetLoader.GetUnitySprite("loading-bg-1.jpg"), "Art by P3R"),
+        [2] = new(AssetLoader.GetUnitySprite("loading-bg-2.png"), "Art by yamplum"),
+        [3] = new(AssetLoader.GetUnitySprite("loading-bg-3.png"), "Art by paccha (edit by MyBraza)"),
+        [4] = new(AssetLoader.GetUnitySprite("loading-bg-4.png"), "Art by sugarph"),
+        [5] = new(AssetLoader.GetUnitySprite("loading-bg-5.png"), "Art by MyBraza"),
+        [6] = new(AssetLoader.GetUnitySprite("loading-bg-6.png"), "Art by paccha"),
+        [7] = new(AssetLoader.GetUnitySprite("loading-bg-7.jpg"), "Art by P3R"),
+        [8] = new(AssetLoader.GetUnitySprite("loading-bg-8.png"), "Art by Troobs"),
     };
+
+    private static uGUI_BuildWatermark build;
+    private static string artCredit = "";
+
+    [HarmonyPatch(typeof(uGUI_BuildWatermark), nameof(uGUI_BuildWatermark.UpdateText))]
+    [HarmonyPrefix]
+    public static bool ReplaceBuildWatermarkText(uGUI_BuildWatermark __instance)
+    {
+        build = __instance;
+        __instance.text.text = artCredit;
+        return false;
+    }
 
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake))]
     [HarmonyPostfix]
     public static void ChangeLoading(uGUI_SceneLoading __instance)
     {
         __instance.GetComponentInChildren<uGUI_Logo>().texture = AssetLoader.GetTexture("loading.png");
-        __instance.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = _backgrounds.GetRandom();
+        (Sprite bg, string credit) = _backgrounds.GetRandom();
+        __instance.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = bg;
+        artCredit = credit;
+        if (!build) return;
+        build.UpdateText();
+    }
+
+    [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.OnPreLayout))]
+    [HarmonyPostfix]
+    public static void HideBuildNumberInMenu(uGUI_SceneLoading __instance)
+    {
+        build.gameObject.SetActive(__instance.isLoading);
     }
 
     [HarmonyPatch(typeof(SavingIndicator), nameof(SavingIndicator.OnEnable))]
