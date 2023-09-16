@@ -23,7 +23,8 @@ public static class ConsoleCommands
         }
 
         List<PrefabIdentifier> items = PhysicsHelpers.ObjectsInRange(Player.main.transform, radius)
-            .OfTechType(techType).SelectComponentInParent<PrefabIdentifier>().ToList();
+            .OfTechType(techType).Where(g => g.GetComponentInParent<Pickupable>() is null or { inventoryItem: null })
+            .SelectComponentInParent<PrefabIdentifier>().ToList();
         items.Shuffle();
         HashSet<PrefabIdentifier> set = new(items);
 
