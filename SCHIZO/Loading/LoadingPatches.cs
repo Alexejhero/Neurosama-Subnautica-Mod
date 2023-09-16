@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
+using SCHIZO.Creatures.Ermfish;
 using SCHIZO.DataStructures;
 using TMPro;
 using UnityEngine;
@@ -26,6 +27,7 @@ public static class LoadingPatches
     };
 
     private static TextMeshProUGUI _buildWatermark;
+    private static bool _playedErmSound;
 
     [HarmonyPatch(typeof(uGUI_BuildWatermark), nameof(uGUI_BuildWatermark.UpdateText))]
     [HarmonyPrefix]
@@ -46,6 +48,7 @@ public static class LoadingPatches
                 .GetComponent<TextMeshProUGUI>();
         }
         _buildWatermark.SetText(art.credit);
+        _playedErmSound = false;
     }
 
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.OnPreLayout))]
@@ -53,6 +56,18 @@ public static class LoadingPatches
     public static void HideBuildNumberInMenu(uGUI_SceneLoading __instance)
     {
         _buildWatermark.alpha = __instance.isLoading ? 0.7f : 0;
+    }
+
+    [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.SetProgress))]
+    [HarmonyPostfix]
+    public static void PlayErmDuringLoadingScreen(uGUI_SceneLoading __instance, float value)
+    {
+        if (_playedErmSound) return;
+        if (value > 0.5f)
+        {
+            _playedErmSound = true;
+            ErmfishLoader.Sounds.ScanSounds.Play2D();
+        }
     }
 
     [HarmonyPatch(typeof(SavingIndicator), nameof(SavingIndicator.OnEnable))]

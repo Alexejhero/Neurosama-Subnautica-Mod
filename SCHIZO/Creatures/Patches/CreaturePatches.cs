@@ -112,16 +112,4 @@ public static class CreaturePatches
 
         sounds.HurtSounds.Play(__instance.GetComponent<FMOD_CustomEmitter>());
     }
-
-    [HarmonyPatch(typeof(KnownTech), nameof(KnownTech.Initialize))]
-    [HarmonyPostfix]
-    public static void FixCustomAnalysisTech()
-    {
-        if (KnownTech.analysisTech is null) return;
-
-        KnownTech.AnalysisTech tech = KnownTech.analysisTech.FirstOrDefault(tech => tech.techType == ModItems.Ermfish);
-        if (tech is null) return;
-        tech.unlockMessage = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage;
-        tech.unlockSound = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound;
-    }
 }
