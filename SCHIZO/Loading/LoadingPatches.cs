@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
+using SCHIZO.Creatures.Ermfish;
 using SCHIZO.DataStructures;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,17 +28,12 @@ public static class LoadingPatches
         [10] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-10.jpg"), "Art by 2Pfrog"),
     };
 
-    private static uGUI_BuildWatermark _buildWatermark;
-    private static string _currentArtCredit = "";
+    private static TextMeshProUGUI _buildWatermark;
+    private static bool _playedErmSound;
 
     [HarmonyPatch(typeof(uGUI_BuildWatermark), nameof(uGUI_BuildWatermark.UpdateText))]
     [HarmonyPrefix]
-    public static bool ReplaceBuildWatermarkText(uGUI_BuildWatermark __instance)
-    {
-        _buildWatermark = __instance;
-        __instance.text.text = _currentArtCredit;
-        return false;
-    }
+    public static bool ReplaceBuildWatermarkText(uGUI_BuildWatermark __instance) => false;
 
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake))]
     [HarmonyPostfix]
@@ -46,17 +43,33 @@ public static class LoadingPatches
 
         ArtWithCredit art = _backgrounds.GetRandom();
         __instance.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = art.art;
-        _currentArtCredit = art.credit;
-
-        if (!_buildWatermark) return;
-        _buildWatermark.UpdateText();
+        if (!_buildWatermark)
+        {
+            GameObject guiRoot = __instance.transform.root.gameObject;
+            _buildWatermark = guiRoot.GetComponentInChildren<uGUI_BuildWatermark>()
+                .GetComponent<TextMeshProUGUI>();
+        }
+        _buildWatermark.SetText(art.credit);
+        _playedErmSound = false;
     }
 
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.OnPreLayout))]
     [HarmonyPostfix]
     public static void HideBuildNumberInMenu(uGUI_SceneLoading __instance)
     {
-        _buildWatermark.gameObject.SetActive(__instance.isLoading);
+        _buildWatermark.alpha = __instance.isLoading ? 0.7f : 0;
+    }
+
+    [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.SetProgress))]
+    [HarmonyPostfix]
+    public static void PlayErmDuringLoadingScreen(uGUI_SceneLoading __instance, float value)
+    {
+        if (_playedErmSound) return;
+        if (value > 0.5f)
+        {
+            _playedErmSound = true;
+            ErmfishLoader.Sounds.ScanSounds.Play2D();
+        }
     }
 
     [HarmonyPatch(typeof(SavingIndicator), nameof(SavingIndicator.OnEnable))]
