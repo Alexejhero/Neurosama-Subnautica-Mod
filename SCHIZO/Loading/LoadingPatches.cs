@@ -26,6 +26,7 @@ public static class LoadingPatches
         [8] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-8.png"), "Art by Troobs"),
         [9] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-9.png"), "Art by Troobs"),
         [10] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-10.jpg"), "Art by 2Pfrog"),
+        [11] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-11.png"), "Art by paccha"),
     };
 
     private static TextMeshProUGUI _buildWatermark;
