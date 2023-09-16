@@ -1,12 +1,11 @@
-﻿using System.Linq;
-using HarmonyLib;
-using Nautilus.Handlers;
+﻿using HarmonyLib;
+using SCHIZO.Creatures;
 using UnityEngine;
 
-namespace SCHIZO.Creatures.Patches;
+namespace SCHIZO.Sounds;
 
 [HarmonyPatch]
-public static class CreaturePatches
+public static class CreatureSoundsPatches
 {
     [HarmonyPatch(typeof(Pickupable), nameof(Pickupable.PlayPickupSound))]
     [HarmonyPostfix]

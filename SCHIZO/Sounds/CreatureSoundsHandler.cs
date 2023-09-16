@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using SCHIZO.Sounds;
 
-namespace SCHIZO.Creatures;
+namespace SCHIZO.Sounds;
 
 public record class CreatureSounds(SoundCollection PickupSounds = null, SoundCollection DropSounds = null,
     SoundCollection CraftSounds = null, SoundCollection EatSounds = null,
