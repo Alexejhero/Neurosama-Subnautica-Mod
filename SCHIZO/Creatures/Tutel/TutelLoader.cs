@@ -18,12 +18,17 @@ namespace SCHIZO.Creatures.Tutel;
 [Load]
 public static class TutelLoader
 {
-    public static readonly SoundCollection CraftSounds = SoundCollection.Create("tutel/cooking", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection EatSounds = SoundCollection.Create("tutel/eating", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection HurtSounds = SoundCollection.Create("tutel/hurt", AudioUtils.BusPaths.PDAVoice);
+    public static readonly CreatureSounds Sounds = new()
+    {
+        PickupSounds = SoundCollection.Create("tutel/pickup", AudioUtils.BusPaths.PDAVoice),
+        // no drop sounds
+        CraftSounds = SoundCollection.Create("tutel/cooking", AudioUtils.BusPaths.PDAVoice),
+        EatSounds = SoundCollection.Create("tutel/eating", AudioUtils.BusPaths.PDAVoice),
+        // no equip/unequip sounds
+        ScanSounds = SoundCollection.Create("tutel/scan", AudioUtils.BusPaths.PDAVoice),
+        HurtSounds = SoundCollection.Create("tutel/hurt", AudioUtils.BusPaths.PDAVoice),
+    };
     public static readonly SoundCollection InventorySounds = SoundCollection.Create("tutel/noises", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection PickupSounds = SoundCollection.Create("tutel/pickup", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection ScanSounds = SoundCollection.Create("tutel/scan", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection WorldSounds = SoundCollection.Create("tutel/noises", AudioUtils.BusPaths.UnderwaterCreatures);
 
     [Load]
@@ -126,6 +131,8 @@ public static class TutelLoader
 		}
 		LootDistributionHandler.AddLootDistributionData(tutel.ClassID, biomes.ToArray());
 
+        CreatureSoundsHandler.RegisterCreatureSounds(tutel.PrefabInfo.TechType, Sounds);
+
         ItemActionHandler.RegisterMiddleClickAction(tutel.PrefabInfo.TechType, _ => InventorySounds.Play2D(10), "ping @vedal987", "English");
     }
 
@@ -159,6 +166,8 @@ public static class TutelLoader
 			}
 		});
         variant.Register();
+
+        CreatureSoundsHandler.RegisterCreatureSounds(variant.Info.TechType, Sounds);
 
         ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play2D(10), "ping @vedal987", "English");
     }
