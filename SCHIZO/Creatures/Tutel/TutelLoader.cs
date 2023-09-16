@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace SCHIZO.Creatures.Tutel;
 
-[Load]
+[LoadMethod]
 public static class TutelLoader
 {
     public static readonly CreatureSounds Sounds = new()
@@ -31,7 +31,7 @@ public static class TutelLoader
     public static readonly SoundCollection InventorySounds = SoundCollection.Create("tutel/noises", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection WorldSounds = SoundCollection.Create("tutel/noises", AudioUtils.BusPaths.UnderwaterCreatures);
 
-    [Load]
+    [LoadMethod]
     private static void Load()
     {
         LoadTutel();

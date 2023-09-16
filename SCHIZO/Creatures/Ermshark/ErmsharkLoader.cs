@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
-[Load]
+[LoadMethod]
 public static class ErmsharkLoader
 {
     public static readonly SoundCollection AmbientSounds = SoundCollection.Create("ermshark/ambient", AudioUtils.BusPaths.UnderwaterCreatures);
@@ -18,7 +18,7 @@ public static class ErmsharkLoader
 
     public static GameObject Prefab;
 
-    [Load]
+    [LoadMethod]
     private static void Load()
     {
         ErmsharkPrefab ermshark = new(ModItems.Ermshark);

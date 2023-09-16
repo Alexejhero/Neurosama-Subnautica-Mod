@@ -5,7 +5,6 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
-using SCHIZO.DataStructures;
 using SCHIZO.Extensions;
 using UnityEngine;
 

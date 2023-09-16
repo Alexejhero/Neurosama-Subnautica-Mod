@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace SCHIZO.HullPlates;
 
-[Load]
+[LoadMethod]
 public static class HullPlateLoader
 {
     private static readonly Texture2D _baseIcon = AssetLoader.GetTexture("../hullplates/icon.png");
@@ -20,7 +20,7 @@ public static class HullPlateLoader
     private static readonly DirectoryInfo _hullPlatesFolder = Directory.CreateDirectory(Path.Combine(AssetLoader.AssetsFolder, "hullplates"));
     private static readonly DirectoryInfo _oldHullPlatesFolder = Directory.CreateDirectory(Path.Combine(AssetLoader.AssetsFolder, "old_hullplates"));
 
-    [Load]
+    [LoadMethod]
     private static void Load()
     {
         foreach (string path in Directory.GetDirectories(_hullPlatesFolder.FullName))

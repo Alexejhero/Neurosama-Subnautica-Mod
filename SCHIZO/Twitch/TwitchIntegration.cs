@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.IO;
-using JetBrains.Annotations;
 using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using TwitchLib.Client;

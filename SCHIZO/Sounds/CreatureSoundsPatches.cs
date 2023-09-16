@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using SCHIZO.Creatures;
 using UnityEngine;
 
 namespace SCHIZO.Sounds;

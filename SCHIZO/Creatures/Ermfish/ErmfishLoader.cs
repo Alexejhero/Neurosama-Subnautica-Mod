@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
 
-[Load]
+[LoadMethod]
 public static class ErmfishLoader
 {
     public static readonly CreatureSounds Sounds = new()
@@ -33,7 +33,7 @@ public static class ErmfishLoader
     public static readonly SoundCollection PlayerDeathSounds = SoundCollection.Create("ermfish/player_death", "bus:/master/SFX_for_pause/nofilter");
     public static readonly SoundCollection WorldSounds = SoundCollection.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures);
 
-    [Load]
+    [LoadMethod]
     private static void Load()
     {
         LoadErmfish();

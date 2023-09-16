@@ -21,7 +21,7 @@ public partial class Plugin : BaseUnityPlugin
         LOGGER = Logger;
         DependencyResolver.InjectResources();
 
-        LoadAttribute.LoadAll();
+        LoadMethodAttribute.LoadAll();
         LoadComponentAttribute.AddAll(gameObject);
         LoadConsoleCommandsAttribute.RegisterAll();
 

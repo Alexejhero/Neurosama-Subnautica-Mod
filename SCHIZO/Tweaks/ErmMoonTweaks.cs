@@ -18,7 +18,6 @@ public sealed class ErmMoonTweaks : MonoBehaviour
     private const float moonSizeTimeScale = 0.4f;
     private const float maxMoonSizeMulti = 3;
 
-
     private void FixedUpdate()
     {
         if (_skyManager) return;

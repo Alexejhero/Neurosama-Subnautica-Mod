@@ -6,10 +6,10 @@ using SCHIZO.Attributes;
 
 namespace SCHIZO.Items.Greggs;
 
-[Load]
+[LoadMethod]
 public static class GreggsLoader
 {
-    [Load]
+    [LoadMethod]
     private static void Load()
     {
         CustomPrefab deadErmfish = new(PrefabInfo.WithTechType("deadermfish", "Dead Ermfish", "erm\n<size=75%>(Model by w1n7er)</size>"));

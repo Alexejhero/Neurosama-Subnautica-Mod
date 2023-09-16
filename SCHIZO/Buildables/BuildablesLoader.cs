@@ -1,12 +1,11 @@
 ﻿using Nautilus.Crafting;
 using SCHIZO.Attributes;
-using SCHIZO.DataStructures;
 using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Buildables;
 
-[Load]
+[LoadMethod]
 public static class BuildablesLoader
 {
 	public static Transform DisabledParent { get; private set; }
@@ -16,7 +15,7 @@ public static class BuildablesLoader
 	private static readonly SoundCollection ErmWorldSounds = SoundCollection.Create("ermfish/noises", INDOOR_SOUNDS_BUS);
     private static readonly SoundCollection TutelWorldSounds = SoundCollection.Create("tutel/noises", INDOOR_SOUNDS_BUS);
 
-    [Load]
+    [LoadMethod]
 	private static void Load()
 	{
 		DisabledParent = new GameObject("SCHIZO DISABLED PARENT").transform;

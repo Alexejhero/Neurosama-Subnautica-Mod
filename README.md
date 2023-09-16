@@ -50,7 +50,6 @@ Requires BepInEx, Nautilus and ECCLibrary to run
   - MyBraza
 - Text, lore and databank entries
   - baa14453
-  - budwheizzah
   - yamplum
 
 Based on ahk1221's Custom Hull Plates mod

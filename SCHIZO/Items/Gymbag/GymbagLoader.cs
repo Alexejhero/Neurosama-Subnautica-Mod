@@ -12,10 +12,10 @@ using UnityEngine;
 
 namespace SCHIZO.Items.Gymbag;
 
-[Load]
+[LoadMethod]
 public static class GymbagLoader
 {
-    [Load]
+    [LoadMethod]
     private static void Load()
     {
         CustomPrefab prefab = new(ModItems.Gymbag);
