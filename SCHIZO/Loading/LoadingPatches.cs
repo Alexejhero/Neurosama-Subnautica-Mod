@@ -22,6 +22,8 @@ public static class LoadingPatches
         [6] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-6.png"), "Art by paccha"),
         [7] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-7.jpg"), "Art by P3R"),
         [8] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-8.png"), "Art by Troobs"),
+        [9] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-9.png"), "Art by Troobs"),
+        [10] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-10.jpg"), "Art by 2Pfrog"),
     };
 
     private static uGUI_BuildWatermark _buildWatermark;
