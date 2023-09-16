@@ -18,16 +18,19 @@ namespace SCHIZO.Creatures.Ermfish;
 [Load]
 public static class ErmfishLoader
 {
-    public static readonly SoundCollection CraftSounds = SoundCollection.Create("ermfish/cooking", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection DropSounds = SoundCollection.Create("ermfish/release", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection EatSounds = SoundCollection.Create("ermfish/eating", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection EquipSounds = SoundCollection.Create("ermfish/equipping", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection HurtSounds = SoundCollection.Create("ermfish/hurt", AudioUtils.BusPaths.PDAVoice);
+    public static readonly CreatureSounds Sounds = new()
+    {
+        PickupSounds = SoundCollection.Create("ermfish/pickup", AudioUtils.BusPaths.PDAVoice),
+        DropSounds = SoundCollection.Create("ermfish/release", AudioUtils.BusPaths.PDAVoice),
+        CraftSounds = SoundCollection.Create("ermfish/cooking", AudioUtils.BusPaths.PDAVoice),
+        EatSounds = SoundCollection.Create("ermfish/eating", AudioUtils.BusPaths.PDAVoice),
+        EquipSounds = SoundCollection.Create("ermfish/equipping", AudioUtils.BusPaths.PDAVoice),
+        UnequipSounds = SoundCollection.Create("ermfish/unequipping", AudioUtils.BusPaths.PDAVoice),
+        ScanSounds = SoundCollection.Create("ermfish/scan", AudioUtils.BusPaths.PDAVoice),
+        HurtSounds = SoundCollection.Create("ermfish/hurt", AudioUtils.BusPaths.PDAVoice)
+    };
     public static readonly SoundCollection InventorySounds = SoundCollection.Create("ermfish/noises", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection PickupSounds = SoundCollection.Create("ermfish/pickup", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection PlayerDeathSounds = SoundCollection.Create("ermfish/player_death", "bus:/master/SFX_for_pause/nofilter");
-    public static readonly SoundCollection ScanSounds = SoundCollection.Create("ermfish/scan", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection UnequipSounds = SoundCollection.Create("ermfish/unequipping", AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection WorldSounds = SoundCollection.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures);
 
     [Load]
@@ -88,6 +91,8 @@ public static class ErmfishLoader
 		}
 		LootDistributionHandler.AddLootDistributionData(ermfish.ClassID, biomes.ToArray());
 
+        CreatureSoundsHandler.RegisterCreatureSounds(ermfish.PrefabInfo.TechType, Sounds);
+
 		ItemActionHandler.RegisterMiddleClickAction(ermfish.PrefabInfo.TechType, _ => InventorySounds.Play2D(), "pull ahoge", "English");
     }
 
@@ -122,7 +127,9 @@ public static class ErmfishLoader
 		});
 		variant.Register();
 
-		ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play2D(), "pull ahoge", "English");
+        CreatureSoundsHandler.RegisterCreatureSounds(variant.Info.TechType, Sounds);
+
+        ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play2D(), "pull ahoge", "English");
     }
 
     public static List<TechType> ErmfishTechTypes => new() { ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish };
