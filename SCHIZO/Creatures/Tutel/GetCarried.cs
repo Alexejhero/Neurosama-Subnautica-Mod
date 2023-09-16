@@ -62,7 +62,7 @@ public class GetCarried : CreatureAction
     public bool isCarried;
     public FMOD_CustomEmitter emitter;
 
-    private static readonly SoundCollection pickupSounds = SoundCollection.Combine(TutelLoader.Sounds.PickupSounds, TutelLoader.Sounds.ScanSounds, TutelLoader.Sounds.HurtSounds);
+    private static readonly SoundCollection pickupSounds = SoundCollection.Combine(TutelLoader.Sounds.PickupSounds, TutelLoader.Sounds.HurtSounds);
     private static readonly SoundCollection releaseSounds = SoundCollection.Combine(TutelLoader.WorldSounds);
     private static readonly SoundCollection carrySounds = SoundCollection.Combine(TutelLoader.Sounds.CraftSounds, TutelLoader.Sounds.EatSounds);
     private float nextCarryNoiseTime;
