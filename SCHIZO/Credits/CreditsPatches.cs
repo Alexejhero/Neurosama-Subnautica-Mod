@@ -16,6 +16,7 @@ public static class CreditsPatches
 {
     private static readonly Dictionary<string, string> _credits = new()
     {
+        ["DrGlitchy"] = "I did all the work",
         ["2Pfrog"] = "2D Art",
         ["AlexejheroDev"] = "Project Lead, Programming, Prefab Setup",
         ["Azit"] = "2D Art",
