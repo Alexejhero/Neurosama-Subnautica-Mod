@@ -33,9 +33,9 @@ public sealed class Config : ConfigFile
     /// Inverse scaling for the time between <see cref="RandomMessageEvent"/>s.<br/>
     /// You can adjust the rates in <see cref="RandomMessageEvent.GetNextMessageTime"/>
     /// </summary>
-    [Slider("(???) Threat", 0, 10, DefaultValue = 3, Format = "{0:F0}", Step = 1), UsedImplicitly]
+    [Slider("Random message frequency", 0, 10, Tooltip = "(0-disabled, 10-very often)", DefaultValue = 3, Format = "{0:F0}", Step = 1), UsedImplicitly]
     public float RandomMessageFrequency = 3;
 
-    [Toggle("(???) neurofumosittingverycomfortablewhilesheroastsaporowithherfriends"), UsedImplicitly]
+    [Toggle("Enable erm moon"), UsedImplicitly]
     public bool EnableErmMoon = true;
 }
