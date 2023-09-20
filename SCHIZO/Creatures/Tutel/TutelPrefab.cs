@@ -70,7 +70,7 @@ public class TutelPrefab : CreatureAsset
         walk.splineFollowing = prefab.GetComponent<SplineFollowing>();
         walk.onSurfaceMovement.locomotion = prefab.GetComponent<Locomotion>();
 
-        CaveCrawlerGravity gravity = prefab.EnsureComponent<LandCreatureGravity>();
+        CaveCrawlerGravity gravity = prefab.EnsureComponent<CaveCrawlerGravity>();
         gravity.crawlerRigidbody = crawler.rb;
         gravity.caveCrawler = crawler;
         gravity.liveMixin = crawler.liveMixin;
