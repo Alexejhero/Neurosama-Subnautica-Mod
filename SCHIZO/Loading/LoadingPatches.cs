@@ -30,33 +30,41 @@ public static class LoadingPatches
     };
 
     private static TextMeshProUGUI _buildWatermark;
+    private static string _artCredit;
     private static bool _playedErmSound;
 
     [HarmonyPatch(typeof(uGUI_BuildWatermark), nameof(uGUI_BuildWatermark.UpdateText))]
     [HarmonyPrefix]
     public static bool ReplaceBuildWatermarkText(uGUI_BuildWatermark __instance) => false;
 
+    [HarmonyPatch(typeof(uGUI_BuildWatermark), nameof(uGUI_BuildWatermark.Start))]
+    [HarmonyPostfix]
+    public static void HookBuildWatermark(uGUI_BuildWatermark __instance)
+    {
+        _buildWatermark = __instance.text;
+        _buildWatermark.SetText(_artCredit);
+    }
+
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake))]
     [HarmonyPostfix]
     public static void ChangeLoading(uGUI_SceneLoading __instance)
     {
-        __instance.GetComponentInChildren<uGUI_Logo>().texture = AssetLoader.GetTexture("loading.png");
+        ReplaceLogo(__instance.gameObject);
 
         ArtWithCredit art = _backgrounds.GetRandom();
         __instance.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = art.art;
-        if (!_buildWatermark)
-        {
-            GameObject guiRoot = __instance.transform.root.gameObject;
-            _buildWatermark = guiRoot.GetComponentInChildren<uGUI_BuildWatermark>()
-                .GetComponent<TextMeshProUGUI>();
-        }
-        _buildWatermark.SetText(art.credit);
+
+        _artCredit = art.credit;
+        if (_buildWatermark) _buildWatermark.SetText(_artCredit);
         _playedErmSound = false;
     }
 
-    // TODO: fix error
-    // [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.OnPreLayout))]
-    // [HarmonyPostfix]
+#if BELOWZERO
+    [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.OnUpdate))]
+#else
+    [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.OnPreLayout))]
+#endif
+    [HarmonyPostfix]
     public static void HideBuildNumberInMenu(uGUI_SceneLoading __instance)
     {
         _buildWatermark.alpha = __instance.isLoading ? 0.7f : 0;
@@ -78,7 +86,7 @@ public static class LoadingPatches
     [HarmonyPrefix]
     public static void ChangeSaving(SavingIndicator __instance)
     {
-        __instance.GetComponentInChildren<uGUI_Logo>().texture = AssetLoader.GetTexture("loading.png");
+        ReplaceLogo(__instance.gameObject);
     }
 
     [HarmonyPatch(typeof(uGUI_Logo), nameof(uGUI_Logo.Update))]
@@ -94,5 +102,12 @@ public static class LoadingPatches
 
             yield return instruction;
         }
+    }
+
+    private static void ReplaceLogo(GameObject gui)
+    {
+        // temp until we have the BZ replacement
+        uGUI_Logo logo = gui.GetComponentInChildren<uGUI_Logo>();
+        if (logo) logo.texture = AssetLoader.GetTexture("loading.png");
     }
 }
