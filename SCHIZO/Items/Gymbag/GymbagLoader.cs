@@ -1,4 +1,5 @@
-﻿using ECCLibrary;
+﻿using System.Diagnostics.CodeAnalysis;
+using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
@@ -16,6 +17,7 @@ namespace SCHIZO.Items.Gymbag;
 public static class GymbagLoader
 {
     [LoadMethod]
+    [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void Load()
     {
         CustomPrefab prefab = new(ModItems.Gymbag);
@@ -27,7 +29,7 @@ public static class GymbagLoader
             ModifyPrefab = ModifyPrefab
         });
 
-        CraftingGadget crafting = prefab.SetRecipe(new RecipeData(new Ingredient(TechType.LuggageBag), new Ingredient(ModItems.Ermfish), new Ingredient(TechType.PosterKitty)));
+        CraftingGadget crafting = prefab.SetRecipe(new RecipeData(new Ingredient(TechType.LuggageBag, 1), new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.PosterKitty, 1)));
         crafting.WithFabricatorType(CraftTree.Type.Fabricator);
         crafting.WithStepsToFabricatorTab(CraftTreeHandler.Paths.FabricatorEquipment);
         crafting.WithCraftingTime(10);

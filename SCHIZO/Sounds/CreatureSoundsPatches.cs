@@ -1,4 +1,8 @@
-﻿using HarmonyLib;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using System.Reflection.Emit;
+using HarmonyLib;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace SCHIZO.Sounds;
@@ -76,16 +80,46 @@ public static class CreatureSoundsPatches
         sounds.ScanSounds.Play2D();
     }
 
-    [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetUseEatSound))]
-    [HarmonyPostfix]
-    public static void PlayCustomEatSound(TechType techType)
+    [HarmonyPatch(typeof(Survival), nameof(Survival.Eat))]
+    public static class PlayCustomEatSound
     {
-        if (!CreatureSoundsHandler.TryGetCreatureSounds(techType, out CreatureSounds sounds)) return;
-        if (!sounds.EatSounds) return;
-        if (Time.time < sounds.EatSounds.LastPlay + 0.1f) return;
-        if (sounds.UnequipSounds) sounds.UnequipSounds.CancelAllDelayed();
+        private static readonly MethodInfo _playSoundMethod =
+#if SUBNAUTICA
+            AccessTools.Method(typeof(FMODUWE), nameof(FMODUWE.PlayOneShot), new[] {typeof(string), typeof(Vector3), typeof(float)});
+#else
+            AccessTools.Method(typeof(Utils), nameof(Utils.PlayFMODAsset));
+#endif
 
-        sounds.EatSounds.Play2D();
+        private static readonly MethodInfo _patchMethod = AccessTools.Method(typeof(PlayCustomEatSound), nameof(Patch));
+
+        [HarmonyTranspiler, UsedImplicitly]
+        public static IEnumerable<CodeInstruction> Injector(IEnumerable<CodeInstruction> instructions)
+        {
+            bool patched = false;
+
+            foreach (CodeInstruction instruction in instructions)
+            {
+                yield return instruction;
+
+                if (!patched && instruction.Calls(_playSoundMethod))
+                {
+                    patched = true;
+
+                    yield return new CodeInstruction(OpCodes.Ldloc_S, IS_SUBNAUTICA ? 2 : 7);
+                    yield return new CodeInstruction(OpCodes.Call, _patchMethod);
+                }
+            }
+        }
+
+        private static void Patch(TechType techType)
+        {
+            if (!CreatureSoundsHandler.TryGetCreatureSounds(techType, out CreatureSounds sounds)) return;
+            if (!sounds.EatSounds) return;
+            if (Time.time < sounds.EatSounds.LastPlay + 0.1f) return;
+            if (sounds.UnequipSounds) sounds.UnequipSounds.CancelAllDelayed();
+
+            sounds.EatSounds.Play2D();
+        }
     }
 
     [HarmonyPatch(typeof(Crafter), nameof(Crafter.OnCraftingBegin))]

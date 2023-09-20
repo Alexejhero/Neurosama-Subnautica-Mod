@@ -12,6 +12,14 @@ namespace SCHIZO;
 [BepInAutoPlugin]
 public partial class Plugin : BaseUnityPlugin
 {
+#if SUBNAUTICA
+    public static bool IS_SUBNAUTICA => true;
+    public static bool IS_BELOWZERO => false;
+#else
+    public static bool IS_SUBNAUTICA => false;
+    public static bool IS_BELOWZERO => true;
+#endif
+
     public static ManualLogSource LOGGER { get; private set; }
 
     public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
@@ -35,6 +36,7 @@ public static class HullPlateLoader
         }
     }
 
+    [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void LoadHullPlate(string path)
     {
         string infoPath = Path.Combine(path, "info.json");
@@ -60,10 +62,11 @@ public static class HullPlateLoader
         hullplate.SetGameObject(GetPrefab(texture, hullPlateInfo!.InternalName));
         hullplate.Info.WithIcon(ImageUtils.LoadSpriteFromTexture(newIcon));
         hullplate.SetPdaGroupCategory(TechGroup.Miscellaneous, TechCategory.MiscHullplates);
-        hullplate.SetRecipe(new RecipeData(new Ingredient(!hullPlateInfo.Expensive ? TechType.Titanium : TechType.TitaniumIngot), new Ingredient(TechType.Glass)));
+        hullplate.SetRecipe(new RecipeData(new Ingredient(!hullPlateInfo.Expensive ? TechType.Titanium : TechType.TitaniumIngot, 1), new Ingredient(TechType.Glass, 1)));
         hullplate.Register();
     }
 
+    [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void LoadOldHullPlate(string path)
     {
         string infoPath = Path.Combine(path, "info.json");
@@ -73,7 +76,7 @@ public static class HullPlateLoader
 
         CustomPrefab hullplate = new(hullPlateInfo!.InternalName, hullPlateInfo.DisplayName + " (OLD, PLEASE REBUILD)", hullPlateInfo.Description);
         hullplate.SetGameObject(GetPrefab(_oldHullPlateTexture, hullPlateInfo!.InternalName));
-        hullplate.SetRecipe(new RecipeData(new Ingredient(!hullPlateInfo.Expensive ? TechType.Titanium : TechType.TitaniumIngot), new Ingredient(TechType.Glass)));
+        hullplate.SetRecipe(new RecipeData(new Ingredient(!hullPlateInfo.Expensive ? TechType.Titanium : TechType.TitaniumIngot, 1), new Ingredient(TechType.Glass, 1)));
         hullplate.Register();
     }
 

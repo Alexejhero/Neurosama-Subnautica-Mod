@@ -38,10 +38,14 @@ public static class ResourceManager
         return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), ppu);
     }
 
-    public static Atlas.Sprite GetAtlasSprite(string name)
+    public static AtlasSprite GetAtlasSprite(string name)
     {
+#if SUBNAUTICA
         Texture2D tex = GetTexture(name);
-        return new Atlas.Sprite(tex);
+        return new AtlasSprite(tex);
+#else
+        return GetUnitySprite(name);
+#endif
     }
 
     /*public static AudioClip GetSound(string name, Bus bus, MODE mode = MODE.DEFAULT)
