@@ -1,48 +1,86 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using HarmonyLib;
 using JetBrains.Annotations;
-using UnityEngine;
 
 namespace SCHIZO.Credits;
 
 [HarmonyPatch]
 public static class CreditsPatches
 {
-    private static readonly Dictionary<string, string> _credits = new()
+    private readonly struct Credits
     {
-        ["2Pfrog"] = "2D Art",
-        ["AlexejheroDev"] = "Project Lead, Programming, Prefab Setup",
-        ["Azit"] = "2D Art",
-        ["baa14453"] = "Lore",
-        ["budwheizzah"] = "Programming, Prefab Setup, 2D Art, Sounds",
-        ["chrom"] = "2D Art",
-        ["CJMAXiK"] = "2D Art, Sounds",
-        ["darkeew"] = "Prefab Setup",
-        ["FutabaKuuhaku"] = "3D Modeling",
-        ["Govorunb"] = "Programming",
-        ["greencap"] = "3D Modeling",
-        ["Hakuhan"] = "2D Art",
-        ["Kat"] = "3D Modeling",
-        ["Kaz"] = "2D Art",
-        ["Lorx"] = "2D Art",
-        ["Moloch"] = "2D Art",
-        ["MyBraza"] = "2D Art, Sounds",
-        ["NetPlayz"] = "2D Art",
-        ["P3R"] = "2D Art",
-        ["paccha"] = "2D Art",
-        ["Rune"] = "2D Art",
-        ["SADecsSs"] = "2D Art",
-        ["Sandro"] = "2D Art",
-        ["SomeOldGuy"] = "2D Art",
-        ["sugarph"] = "2D Art",
-        ["Troobs"] = "2D Art",
-        ["Vaalmyr"] = "3D Modeling",
-        ["w1n7er"] = "3D Modeling, Animations",
-        ["yamplum"] = "2D Art, Lore",
-        ["YuG"] = "3D Modeling",
+        public static readonly Credits Programming = new("Programming", "Developers");
+        public static readonly Credits Modeling = new("3D Modeling", "3D Modelers");
+        public static readonly Credits Animations = new("Animations", "Animators");
+        public static readonly Credits Artist = new("2D Art", "2D Artists");
+        public static readonly Credits Sounds = new("Sounds", "Audio Compilation & Cleaning");
+        public static readonly Credits Lore = new("Lore", "Writing & Lore");
+        public static readonly Credits ProjectLead = new("Project Lead", "Project Lead");
+
+        private static List<Credits> All;
+        public static IReadOnlyList<Credits> GetAll() => All;
+
+        private readonly List<string> _soFar;
+
+        private Credits(string sn, string bz)
+        {
+            _soFar = new List<string>
+            {
+                IS_SUBNAUTICA ? sn : bz
+            };
+
+            (All ??= new List<Credits>()).Add(this);
+        }
+
+        private Credits(Credits a, Credits b)
+        {
+            _soFar = a._soFar.Concat(b._soFar).ToList();
+        }
+
+        public IReadOnlyList<string> ToStringList() => _soFar;
+
+        public static Credits operator +(Credits a, Credits b)
+        {
+            return new Credits(a, b);
+        }
+    }
+
+    private static readonly Dictionary<string, Credits> _credits = new()
+    {
+        ["2Pfrog"] = Credits.Artist,
+        ["AlexejheroDev"] = Credits.Programming + Credits.ProjectLead,
+        ["Azit"] = Credits.Artist,
+        ["baa14453"] = Credits.Lore,
+        ["budwheizzah"] = Credits.Programming + Credits.Artist + Credits.Sounds,
+        ["chrom"] = Credits.Artist,
+        ["CJMAXiK"] = Credits.Artist + Credits.Sounds,
+        ["darkeew"] = Credits.Programming,
+        ["FutabaKuuhaku"] = Credits.Modeling,
+        ["Govorunb"] = Credits.Programming,
+        ["greencap"] = Credits.Modeling,
+        ["Hakuhan"] = Credits.Artist,
+        ["Kat"] = Credits.Modeling,
+        ["Kaz"] = Credits.Artist,
+        ["Lorx"] = Credits.Artist,
+        ["Moloch"] = Credits.Artist,
+        ["MyBraza"] = Credits.Artist + Credits.Sounds,
+        ["NetPlayz"] = Credits.Artist,
+        ["P3R"] = Credits.Artist,
+        ["paccha"] = Credits.Artist,
+        ["Rune"] = Credits.Artist,
+        ["SADecsSs"] = Credits.Artist,
+        ["Sandro"] = Credits.Artist,
+        ["SomeOldGuy"] = Credits.Artist,
+        ["sugarph"] = Credits.Artist,
+        ["Troobs"] = Credits.Artist,
+        ["Vaalmyr"] = Credits.Modeling,
+        ["w1n7er"] = Credits.Modeling + Credits.Animations,
+        ["yamplum"] = Credits.Artist + Credits.Lore,
+        ["YuG"] = Credits.Modeling,
     };
 
     [HarmonyPatch(typeof(EndCreditsManager), nameof(EndCreditsManager.Start))]
@@ -52,7 +90,7 @@ public static class CreditsPatches
 #if SUBNAUTICA
             AccessTools.Method(typeof(TMPro.TMP_Text), nameof(TMPro.TMP_Text.SetText), new[] { typeof(string), typeof(bool) });
 #else
-            AccessTools.Method(typeof(MonoBehaviour), nameof(MonoBehaviour.Invoke));
+            AccessTools.Method(typeof(UnityEngine.MonoBehaviour), nameof(UnityEngine.MonoBehaviour.Invoke));
 #endif
 
         [HarmonyTranspiler, UsedImplicitly]
@@ -64,8 +102,8 @@ public static class CreditsPatches
 
                 if (instruction.Calls(_target))
                 {
-                    yield return new CodeInstruction(OpCodes.Ldloc_0);
-                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(CreditsPatches), nameof(Patch)));
+                    yield return new CodeInstruction(OpCodes.Ldarg_0);
+                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(UpdateCreditsTextTranspiler), nameof(Patch)));
                 }
             }
         }
@@ -76,33 +114,60 @@ public static class CreditsPatches
             EasterEggPatches.easterEggAdjusted = false;
 
             float oldHeight = 14100;//__instance.textField.preferredHeight;
-            __instance.textField.SetText(GetCreditsText() + __instance.textField.text);
+            __instance.textField.SetText(GetCreditsTextSN() + __instance.textField.text);
             __instance.scrollSpeed = __instance.textField.preferredHeight * __instance.scrollSpeed / oldHeight;
             __instance.scrollStep = __instance.textField.preferredHeight * __instance.scrollStep / oldHeight;
 #else
-            LOGGER.LogWarning(__instance.centerText.text);
-
-            float oldHeight = __instance.centerText.preferredHeight;
-            __instance.centerText.SetText(GetCreditsText() + __instance.centerText.text);
-            __instance.secondsUntilScrollComplete = __instance.centerText.preferredHeight * __instance.secondsUntilScrollComplete / oldHeight;
+            __instance.centerText.SetText(GetCreditsTextBZ() + __instance.centerText.text);
 #endif
         }
     }
 
-    private static string GetCreditsText()
+    [UsedImplicitly]
+    private static string GetCreditsTextSN()
     {
-        StringBuilder builder = new($"<style=h1>Neuro-sama {(IS_SUBNAUTICA ? "Subnautica" : "Below Zero")} Mod</style>");
+        StringBuilder builder = new("<style=h1>Neuro-sama Subnautica Mod</style>");
         builder.AppendLine();
         builder.AppendLine();
 
-        foreach (KeyValuePair<string, string> credit in _credits)
+        foreach (KeyValuePair<string, Credits> kvp in _credits)
         {
             builder.Append("<style=left>");
-            builder.Append(credit.Key);
+            builder.Append(kvp.Key);
             builder.Append("</style>");
             builder.Append("<style=right>");
-            builder.Append(credit.Value);
+            builder.Append(string.Join(", ", kvp.Value.ToStringList()));
             builder.Append("</style>");
+            builder.AppendLine();
+        }
+
+        builder.AppendLine();
+        builder.AppendLine();
+
+        return builder.ToString();
+    }
+
+
+    [UsedImplicitly]
+    private static string GetCreditsTextBZ()
+    {
+        StringBuilder builder = new("<style=h1>Neuro-sama Subnautica Mod</style>");
+        builder.AppendLine();
+        builder.AppendLine();
+
+        foreach (string credit in Credits.GetAll().Select(c => c.ToStringList().First()))
+        {
+            builder.Append("<style=role>");
+            builder.Append(credit);
+            builder.Append("</style>");
+            builder.AppendLine();
+
+            foreach (KeyValuePair<string, Credits> kvp in _credits.Where(c => c.Value.ToStringList().Contains(credit)))
+            {
+                builder.Append(kvp.Key);
+                builder.AppendLine();
+            }
+
             builder.AppendLine();
         }
 
