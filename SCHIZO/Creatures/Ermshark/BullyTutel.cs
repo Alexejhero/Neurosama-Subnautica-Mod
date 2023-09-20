@@ -9,12 +9,21 @@ namespace SCHIZO.Creatures.Ermshark;
 [RequireComponent(typeof(SwimBehaviour))]
 public class BullyTutel : CreatureAction, IProtoTreeEventListener
 {
-    private void Start()
+    private void Awake()
     {
         isTargetValidFilter = IsTargetValid;
     }
 
-    public override float Evaluate(Creature creat, float time)
+#if BELOWZERO
+    public override float Evaluate(float time) => EvaluateCore(creature, time);
+    public override void Perform(float time, float deltaTime) => PerformCore(creature, time, deltaTime);
+    public override void StopPerform(float time) => StopPerformCore(creature, time);
+#else
+    public override float Evaluate(Creature creat, float time) => EvaluateCore(creat, time);
+    public override void Perform(Creature creat, float time, float deltaTime) => PerformCore(creat, time, deltaTime);
+    public override void StopPerform(Creature creat, float time) => StopPerformCore(creat, time);
+#endif
+    public float EvaluateCore(Creature creat, float time)
     {
         if (timeNextFindTutel < time)
         {
@@ -29,7 +38,7 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
         return tutel && tutel.gameObject.activeInHierarchy ? GetEvaluatePriority() : 0f;
     }
 
-    public override void StopPerform(Creature creat, float time)
+    public void StopPerformCore(Creature creat, float time)
     {
         DropTutel();
     }
@@ -105,7 +114,7 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
         tutel = newTarget;
     }
 
-    public override void Perform(Creature creat, float time, float deltaTime)
+    public void PerformCore(Creature creat, float time, float deltaTime)
     {
         if (!tutel) return;
         if (!targetPickedUp)

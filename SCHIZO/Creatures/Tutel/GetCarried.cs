@@ -6,28 +6,40 @@ namespace SCHIZO.Creatures.Tutel;
 [RequireComponent(typeof(SwimBehaviour))]
 public class GetCarried : CreatureAction
 {
-    private new void Awake()
+    private void Awake()
     {
         // contrary to the name, this is actually the max possible priority
         evaluatePriority = 99f;
     }
-    public override float Evaluate(Creature creat, float time) => isCarried ? 99f : -99f; // manual start/end
+    public float EvaluateCore(Creature creat, float time) => isCarried ? 99f : -99f; // manual start/end
+
+#if BELOWZERO
+    public override float Evaluate(float time) => EvaluateCore(creature, time);
+    public override void StartPerform(float time) => StartPerformCore(creature, time);
+    public override void Perform(float time, float deltaTime) => PerformCore(creature, time, deltaTime);
+    public override void StopPerform(float time) => StopPerformCore(creature, time);
+#else
+    public override float Evaluate(Creature creat, float time) => EvaluateCore(creat, time);
+    public override void StartPerform(Creature creat, float time) => StartPerformCore(creat, time);
+    public override void Perform(Creature creat, float time, float deltaTime) => PerformCore(creat, time, deltaTime);
+    public override void StopPerform(Creature creat, float time) => StopPerformCore(creat, time);
+#endif
 
     public void OnPickedUp()
     {
         pickupSounds.Play(emitter);
         isCarried = true;
-        StartPerform(GetComponent<Creature>(), Time.time);
+        StartPerform(creature, Time.time);
     }
 
     public void OnDropped()
     {
         releaseSounds.Play(emitter);
         isCarried = false;
-        StopPerform(gameObject.GetComponent<Creature>(), Time.time);
+        StopPerform(creature, Time.time);
     }
 
-    public override void StartPerform(Creature creat, float time)
+    public void StartPerformCore(Creature creat, float time)
     {
         creat.GetComponent<SwimBehaviour>().Idle();
         creat.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -36,15 +48,15 @@ public class GetCarried : CreatureAction
         if (!isCarried) OnPickedUp();
     }
 
-    public override void Perform(Creature creat, float time, float deltaTime)
+    public void PerformCore(Creature creat, float time, float deltaTime)
     {
         if (!isCarried)
         {
-            StopPerform(creat, time);
+            StopPerform(creature, time);
             return;
         }
         creat.Scared.Add(deltaTime);
-        creat.Tired.Add(deltaTime/2f);
+        creat.Tired.Add(deltaTime / 2f);
 
         if (time > nextCarryNoiseTime)
         {
@@ -53,7 +65,7 @@ public class GetCarried : CreatureAction
         }
     }
 
-    public override void StopPerform(Creature creat, float time)
+    public void StopPerformCore(Creature creat, float time)
     {
         creat.GetComponent<WorldSoundPlayer>().enabled = true;
         if (isCarried) OnDropped();
