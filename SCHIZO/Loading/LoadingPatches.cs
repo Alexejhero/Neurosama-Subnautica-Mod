@@ -67,7 +67,7 @@ public static class LoadingPatches
     [HarmonyPostfix]
     public static void HideBuildNumberInMenu(uGUI_SceneLoading __instance)
     {
-        _buildWatermark.alpha = __instance.isLoading ? 0.7f : 0;
+        if (_buildWatermark) _buildWatermark.alpha = __instance.isLoading ? 0.7f : 0;
     }
 
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.SetProgress))]
