@@ -7,38 +7,30 @@ namespace SCHIZO.Creatures.Ermshark;
 /// <summary>Adapted from <see cref="CollectShiny"/></summary>
 [ProtoContract]
 [RequireComponent(typeof(SwimBehaviour))]
-public class BullyTutel : CreatureAction, IProtoTreeEventListener
+public class BullyTutel : RetargetCreatureAction, IProtoTreeEventListener
 {
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         isTargetValidFilter = IsTargetValid;
     }
 
-#if BELOWZERO
-    public override float Evaluate(float time) => EvaluateCore(creature, time);
-    public override void Perform(float time, float deltaTime) => PerformCore(creature, time, deltaTime);
-    public override void StopPerform(float time) => StopPerformCore(creature, time);
-#else
-    public override float Evaluate(Creature creat, float time) => EvaluateCore(creat, time);
-    public override void Perform(Creature creat, float time, float deltaTime) => PerformCore(creat, time, deltaTime);
-    public override void StopPerform(Creature creat, float time) => StopPerformCore(creat, time);
-#endif
-    public float EvaluateCore(Creature creat, float time)
+    public override float Evaluate(float time)
     {
         if (timeNextFindTutel < time)
         {
             UpdateBullyTarget();
             if (tutel)
             {
-                creat.Aggression.Value = 0;
-                creat.Curiosity.Value = 10;
+                creature.Aggression.Value = 0;
+                creature.Curiosity.Value = 10;
             }
             timeNextFindTutel = time + updateTargetInterval * (1f + 0.2f * Random.value);
         }
         return tutel && tutel.gameObject.activeInHierarchy ? GetEvaluatePriority() : 0f;
     }
 
-    public void StopPerformCore(Creature creat, float time)
+    public override void StopPerform(float time)
     {
         DropTutel();
     }
@@ -114,7 +106,7 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
         tutel = newTarget;
     }
 
-    public void PerformCore(Creature creat, float time, float deltaTime)
+    public override void Perform(float time, float deltaTime)
     {
         if (!tutel) return;
         if (!targetPickedUp)
@@ -151,8 +143,8 @@ public class BullyTutel : CreatureAction, IProtoTreeEventListener
                 swimBehaviour.SwimTo(transform.position + 2f * swimVelocity * Random.insideUnitSphere, swimVelocity);
                 if (Random.value < 0.15f) DropTutel();
             }
-            creat.Happy.Add(deltaTime);
-            creat.Friendliness.Add(deltaTime);
+            creature.Happy.Add(deltaTime);
+            creature.Friendliness.Add(deltaTime);
         }
     }
 
