@@ -7,6 +7,7 @@ using Nautilus.Crafting;
 using Nautilus.Utility;
 using SCHIZO.Extensions;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace SCHIZO.Buildables;
 
@@ -64,7 +65,7 @@ public sealed class BuildablePrefab : CustomPrefab
     private GameObject GetPrefab()
     {
         GameObject prefab = AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>(PrefabName);
-        GameObject instance = GameObject.Instantiate(prefab, BuildablesLoader.DisabledParent);
+        GameObject instance = Object.Instantiate(prefab, BuildablesLoader.DisabledParent);
         PrefabUtils.AddBasicComponents(instance, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Medium);
 
         Transform child = instance.transform.GetChild(0); // each buildable should have an unique child with an appropriate collider

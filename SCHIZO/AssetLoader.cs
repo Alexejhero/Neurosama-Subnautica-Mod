@@ -14,7 +14,7 @@ public static class AssetLoader
 
     private static readonly Dictionary<string, AssetBundle> _assetBundleCache = new();
     private static readonly Dictionary<string, Texture2D> _textureCache = new();
-    private static readonly Dictionary<string, Atlas.Sprite> _atlasSpriteCache = new();
+    private static readonly Dictionary<string, AtlasSprite> _atlasSpriteCache = new();
 
     public static AssetBundle GetMainAssetBundle() => GetAssetBundle("assets");
 
@@ -32,9 +32,9 @@ public static class AssetLoader
                 ?? throw new ArgumentException($"Texture {name} not found", nameof(name));
     }
 
-    public static Atlas.Sprite GetAtlasSprite(string name)
+    public static AtlasSprite GetAtlasSprite(string name)
     {
-        if (_atlasSpriteCache.TryGetValue(name, out Atlas.Sprite cached)) return cached;
+        if (_atlasSpriteCache.TryGetValue(name, out AtlasSprite cached)) return cached;
         return _atlasSpriteCache[name] = ImageUtils.LoadSpriteFromFile(Path.Combine(AssetsFolder, "textures", name))
                 ?? throw new ArgumentException($"Sprite {name} not found", nameof(name));
     }

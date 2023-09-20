@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace SCHIZO.HullPlates;
 
@@ -59,7 +60,7 @@ public static class HullPlateLoader
         hullplate.SetGameObject(GetPrefab(texture, hullPlateInfo!.InternalName));
         hullplate.Info.WithIcon(ImageUtils.LoadSpriteFromTexture(newIcon));
         hullplate.SetPdaGroupCategory(TechGroup.Miscellaneous, TechCategory.MiscHullplates);
-        hullplate.SetRecipe(new RecipeData(new CraftData.Ingredient(!hullPlateInfo.Expensive ? TechType.Titanium : TechType.TitaniumIngot), new CraftData.Ingredient(TechType.Glass)));
+        hullplate.SetRecipe(new RecipeData(new Ingredient(!hullPlateInfo.Expensive ? TechType.Titanium : TechType.TitaniumIngot), new Ingredient(TechType.Glass)));
         hullplate.Register();
     }
 
@@ -72,7 +73,7 @@ public static class HullPlateLoader
 
         CustomPrefab hullplate = new(hullPlateInfo!.InternalName, hullPlateInfo.DisplayName + " (OLD, PLEASE REBUILD)", hullPlateInfo.Description);
         hullplate.SetGameObject(GetPrefab(_oldHullPlateTexture, hullPlateInfo!.InternalName));
-        hullplate.SetRecipe(new RecipeData(new CraftData.Ingredient(!hullPlateInfo.Expensive ? TechType.Titanium : TechType.TitaniumIngot), new CraftData.Ingredient(TechType.Glass)));
+        hullplate.SetRecipe(new RecipeData(new Ingredient(!hullPlateInfo.Expensive ? TechType.Titanium : TechType.TitaniumIngot), new Ingredient(TechType.Glass)));
         hullplate.Register();
     }
 
@@ -85,7 +86,7 @@ public static class HullPlateLoader
             CoroutineTask<GameObject> task = CraftData.GetPrefabForTechTypeAsync(TechType.DioramaHullPlate);
             yield return task;
 
-            GameObject instance = GameObject.Instantiate(task.GetResult());
+            GameObject instance = Object.Instantiate(task.GetResult());
             TextureHider hider = instance.AddComponent<TextureHider>();
             MeshRenderer mesh = instance.FindChild("Icon").GetComponent<MeshRenderer>();
             mesh.material.mainTexture = texture;

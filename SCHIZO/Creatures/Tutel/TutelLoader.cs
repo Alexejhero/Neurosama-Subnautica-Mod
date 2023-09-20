@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
@@ -32,11 +33,12 @@ public static class TutelLoader
     public static readonly SoundCollection WorldSounds = SoundCollection.Create("tutel/noises", AudioUtils.BusPaths.UnderwaterCreatures);
 
     [LoadMethod]
+    [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void Load()
     {
         LoadTutel();
-        LoadTutelVariant(ModItems.CookedTutel, "tutel_creature_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel)), 23, 3, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
-        LoadTutelVariant(ModItems.CuredTutel, "tutel_creature_cured.png", new RecipeData(new CraftData.Ingredient(ModItems.Tutel), new CraftData.Ingredient(TechType.Salt)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
+        LoadTutelVariant(ModItems.CookedTutel, "tutel_creature_cooked.png", new RecipeData(new Ingredient(ModItems.Tutel, 1)), 23, 3, true, CraftTreeHandler.Paths.FabricatorCookedFood, Retargeting.TechCategory.CookedFood, 2);
+        LoadTutelVariant(ModItems.CuredTutel, "tutel_creature_cured.png", new RecipeData(new Ingredient(ModItems.Tutel, 1), new Ingredient(TechType.Salt, 1)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, Retargeting.TechCategory.CookedFood, 1);
 
         CraftDataHandler.SetCookedVariant(ModItems.Tutel, ModItems.CookedTutel);
     }

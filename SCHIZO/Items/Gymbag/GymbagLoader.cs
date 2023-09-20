@@ -27,7 +27,7 @@ public static class GymbagLoader
             ModifyPrefab = ModifyPrefab
         });
 
-        CraftingGadget crafting = prefab.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.LuggageBag), new CraftData.Ingredient(ModItems.Ermfish), new CraftData.Ingredient(TechType.PosterKitty)));
+        CraftingGadget crafting = prefab.SetRecipe(new RecipeData(new Ingredient(TechType.LuggageBag), new Ingredient(ModItems.Ermfish), new Ingredient(TechType.PosterKitty)));
         crafting.WithFabricatorType(CraftTree.Type.Fabricator);
         crafting.WithStepsToFabricatorTab(CraftTreeHandler.Paths.FabricatorEquipment);
         crafting.WithCraftingTime(10);
@@ -53,7 +53,7 @@ public static class GymbagLoader
         carryallModel.SetActive(false);
 
         GameObject ourModel = AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("gymbag");
-        GameObject instance = GameObject.Instantiate(ourModel, carryallModel.transform.parent);
+        GameObject instance = Object.Instantiate(ourModel, carryallModel.transform.parent);
 
         CreaturePrefabUtils.AddVFXFabricating(instance, new VFXFabricatingData(null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero));
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
@@ -34,11 +35,12 @@ public static class ErmfishLoader
     public static readonly SoundCollection WorldSounds = SoundCollection.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures);
 
     [LoadMethod]
+    [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void Load()
     {
         LoadErmfish();
-        LoadErmfishVariant(ModItems.CookedErmfish, "erm_cooked.png", new RecipeData(new CraftData.Ingredient(ModItems.Ermfish)), 23, 0, true, CraftTreeHandler.Paths.FabricatorCookedFood, TechCategory.CookedFood, 2);
-        LoadErmfishVariant(ModItems.CuredErmfish, "erm_cured.png", new RecipeData(new CraftData.Ingredient(ModItems.Ermfish), new CraftData.Ingredient(TechType.Salt)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, TechCategory.CuredFood, 1);
+        LoadErmfishVariant(ModItems.CookedErmfish, "erm_cooked.png", new RecipeData(new Ingredient(ModItems.Ermfish, 1)), 23, 0, true, CraftTreeHandler.Paths.FabricatorCookedFood, Retargeting.TechCategory.CookedFood, 2);
+        LoadErmfishVariant(ModItems.CuredErmfish, "erm_cured.png", new RecipeData(new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.Salt, 1)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, Retargeting.TechCategory.CuredFood, 1);
 
         CraftDataHandler.SetCookedVariant(ModItems.Ermfish, ModItems.CookedErmfish);
     }

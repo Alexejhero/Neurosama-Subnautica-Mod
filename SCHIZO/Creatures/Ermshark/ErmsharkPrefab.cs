@@ -34,9 +34,9 @@ public sealed class ErmsharkPrefab : CreatureAsset
             AttackLastTargetData = new AttackLastTargetData(1, swimVelocity * 1.25f, 0.5f, 5f),
             AttackCyclopsData = new AttackCyclopsData(1f, 15f, 100f, 0.4f, 4.5f, 0.08f),
             BehaviourLODData = new BehaviourLODData(50, 100, 150),
-            CanBeInfected = false,
             RespawnData = new RespawnData(false),
         };
+        template.WithoutInfection();
         template.SetCreatureComponentType<Ermshark>();
 
         return template;
@@ -61,9 +61,6 @@ public sealed class ErmsharkPrefab : CreatureAsset
         aggressive.maxRangeScalar = 75;
         aggressive.maxSearchRings = 3;
         aggressive.ignoreSameKind = true;
-        aggressive.targetShouldBeInfected = false;
-        aggressive.minimumVelocity = 0;
-        aggressive.hungerThreshold = 0;
 
         GameObject mouth = prefab.SearchChild("attack_collider");
         CreaturePrefabUtils.AddMeleeAttack<ErmsharkAttack>(prefab, components, mouth, true, 20);

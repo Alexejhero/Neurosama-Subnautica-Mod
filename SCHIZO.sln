@@ -13,14 +13,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Non-project Files", "Non-pr
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		BelowZero|Any CPU = BelowZero|Any CPU
+		Subnautica|Any CPU = Subnautica|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.BelowZero|Any CPU.ActiveCfg = BelowZero|Any CPU
+		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.BelowZero|Any CPU.Build.0 = BelowZero|Any CPU
+		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Subnautica|Any CPU.ActiveCfg = Subnautica|Any CPU
+		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Subnautica|Any CPU.Build.0 = Subnautica|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

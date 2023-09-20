@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using HarmonyLib;
 using Nautilus.Handlers;
-using Nautilus.Utility;
 using UnityEngine;
 
 namespace SCHIZO.Credits;
@@ -84,7 +83,7 @@ public static class CreditsPatches
     }
 
     private static bool easterEggAdjusted;
-    private static string[] sounds = Enumerable.Range(0, 4).Select(_ => Guid.NewGuid().ToString()).ToArray();
+    private static readonly string[] sounds = Enumerable.Range(0, 4).Select(_ => Guid.NewGuid().ToString()).ToArray();
     [HarmonyPatch(typeof(EndCreditsManager), nameof(EndCreditsManager.OnLateUpdate))]
     [HarmonyPostfix]
     public static void OnLateUpdate(EndCreditsManager __instance)

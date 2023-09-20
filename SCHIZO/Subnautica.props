@@ -1,0 +1,23 @@
+<Project>
+    <PropertyGroup>
+        <DefineConstants>$(DefineConstants);SUBNAUTICA</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0" />
+        <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.21" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="../Dependencies/Subnautica/ECCLibrary.dll" Publicize="true" />
+        <Reference Include="../Dependencies/Subnautica/FMODUnity.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="Retargeting.BelowZero.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="BelowZero.props" />
+    </ItemGroup>
+</Project>

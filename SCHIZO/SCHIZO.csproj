@@ -12,24 +12,24 @@
         <DebugSymbols>true</DebugSymbols>
         <TargetFramework>net472</TargetFramework>
         <LangVersion>preview</LangVersion>
-        <Configurations>Debug;Release</Configurations>
+        <Configurations>Subnautica;BelowZero</Configurations>
+        <Platforms>AnyCPU</Platforms>
+
+        <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
+        <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
     </PropertyGroup>
 
+    <Import Project="Subnautica.props" Condition=" '$(Configuration)' == 'Subnautica' " />
+    <Import Project="BelowZero.props" Condition=" '$(Configuration)' == 'BelowZero' " />
+    
     <ItemGroup>
         <PackageReference Include="BepInEx.Core" Version="5.4.21" />
         <PackageReference Include="TwitchLib" Version="3.5.3" />
         <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" IncludeAssets="compile" />
-        <PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0" />
-        <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.21" />
 
         <PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
         <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.1" PrivateAssets="all" />
         <PackageReference Include="BepInEx.AutoPlugin" Version="1.1.0" PrivateAssets="all" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="../Dependencies/ECCLibrary.dll" Publicize="true" />
-        <Reference Include="../Dependencies/FMODUnity.dll" />
     </ItemGroup>
 
     <ItemGroup>

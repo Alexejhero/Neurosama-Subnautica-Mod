@@ -35,12 +35,12 @@ public class ErmfishPrefab : CreatureAsset
 			PickupableFishData = new PickupableFishData(TechType.Floater, "WM", "VM"),
 			EdibleData = new EdibleData(13, -7, false, 1f),
 			ScannerRoomScannable = true,
-			CanBeInfected = false,
 			AvoidObstaclesData = new AvoidObstaclesData(1f, swimVelocity, false, 5f, 5f),
 			SizeDistribution = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 1f)),
 			AnimateByVelocityData = new AnimateByVelocityData(swimVelocity),
 			SwimInSchoolData = new SwimInSchoolData(0.5f, swimVelocity, 2f, 0.5f, 1f, 0.1f, 25f),
 		};
+        template.WithoutInfection();
 		template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.1f, 0.5f, 1f, 1.5f, true, true, ClassID));
 
 		return template;

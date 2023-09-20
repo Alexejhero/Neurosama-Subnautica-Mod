@@ -34,12 +34,12 @@ public class TutelPrefab : CreatureAsset
 			PickupableFishData = new PickupableFishData(TechType.Floater, "WM", "VM"),
 			EdibleData = new EdibleData(13, -7, false, 1f),
 			ScannerRoomScannable = true,
-			CanBeInfected = false,
 			SizeDistribution = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 1f)),
 			AnimateByVelocityData = new AnimateByVelocityData(swimVelocity),
             // Walk on surface and swim above water true
             LocomotionData = new LocomotionData(10f, 2f, 1f, 0.1f, true, true, true),
 		};
+        template.WithoutInfection();
 		template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.1f, 0.5f, 1f, 1.5f, true, true, ClassID));
 
 		return template;
@@ -70,7 +70,7 @@ public class TutelPrefab : CreatureAsset
         walk.splineFollowing = prefab.GetComponent<SplineFollowing>();
         walk.onSurfaceMovement.locomotion = prefab.GetComponent<Locomotion>();
 
-        CaveCrawlerGravity gravity = prefab.EnsureComponent<CaveCrawlerGravity>();
+        CaveCrawlerGravity gravity = prefab.EnsureComponent<LandCreatureGravity>();
         gravity.crawlerRigidbody = crawler.rb;
         gravity.caveCrawler = crawler;
         gravity.liveMixin = crawler.liveMixin;
@@ -99,7 +99,6 @@ public class TutelPrefab : CreatureAsset
         GetCarried getCarried = prefab.EnsureComponent<GetCarried>();
         getCarried.creature = crawler;
         getCarried.emitter = emitter;
-
 
         WorldSoundPlayer.Add(prefab, TutelLoader.WorldSounds);
 
