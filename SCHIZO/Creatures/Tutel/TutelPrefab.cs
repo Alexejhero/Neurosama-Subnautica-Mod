@@ -70,10 +70,11 @@ public class TutelPrefab : CreatureAsset
         walk.splineFollowing = prefab.GetComponent<SplineFollowing>();
         walk.onSurfaceMovement.locomotion = prefab.GetComponent<Locomotion>();
 
-        CaveCrawlerGravity gravity = prefab.EnsureComponent<CaveCrawlerGravity>();
-        gravity.crawlerRigidbody = crawler.rb;
-        gravity.caveCrawler = crawler;
-        gravity.liveMixin = crawler.liveMixin;
+        // TODO: fix error
+        // CaveCrawlerGravity gravity = prefab.EnsureComponent<CaveCrawlerGravity>();
+        // gravity.crawlerRigidbody = crawler.rb;
+        // gravity.caveCrawler = crawler;
+        // gravity.liveMixin = crawler.liveMixin;
 
         // if the OnSurfaceTracker is added earlier, the tutel slides around everywhere
         // (see OnSurfaceTracker's and CaveCrawlerGravity's FixedUpdate)

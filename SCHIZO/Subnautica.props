@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Remove="Retargeting.BelowZero.cs" />
+        <Compile Remove="**/*.BelowZero.cs" />
     </ItemGroup>
 
     <ItemGroup>

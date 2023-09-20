@@ -54,8 +54,9 @@ public static class LoadingPatches
         _playedErmSound = false;
     }
 
-    [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.OnPreLayout))]
-    [HarmonyPostfix]
+    // TODO: fix error
+    // [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.OnPreLayout))]
+    // [HarmonyPostfix]
     public static void HideBuildNumberInMenu(uGUI_SceneLoading __instance)
     {
         _buildWatermark.alpha = __instance.isLoading ? 0.7f : 0;

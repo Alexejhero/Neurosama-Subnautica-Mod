@@ -83,14 +83,12 @@ public static class CreatureSoundsPatches
     [HarmonyPatch(typeof(Survival), nameof(Survival.Eat))]
     public static class PlayCustomEatSound
     {
-        private static readonly MethodInfo _playSoundMethod =
+        private static readonly MethodInfo _target =
 #if SUBNAUTICA
             AccessTools.Method(typeof(FMODUWE), nameof(FMODUWE.PlayOneShot), new[] {typeof(string), typeof(Vector3), typeof(float)});
 #else
-            AccessTools.Method(typeof(Utils), nameof(Utils.PlayFMODAsset));
+            AccessTools.Method(typeof(Utils), nameof(Utils.PlayFMODAsset), new[] { typeof(FMODAsset), typeof(Vector3), typeof(float)});
 #endif
-
-        private static readonly MethodInfo _patchMethod = AccessTools.Method(typeof(PlayCustomEatSound), nameof(Patch));
 
         [HarmonyTranspiler, UsedImplicitly]
         public static IEnumerable<CodeInstruction> Injector(IEnumerable<CodeInstruction> instructions)
@@ -101,12 +99,12 @@ public static class CreatureSoundsPatches
             {
                 yield return instruction;
 
-                if (!patched && instruction.Calls(_playSoundMethod))
+                if (!patched && instruction.Calls(_target))
                 {
                     patched = true;
 
                     yield return new CodeInstruction(OpCodes.Ldloc_S, IS_SUBNAUTICA ? 2 : 7);
-                    yield return new CodeInstruction(OpCodes.Call, _patchMethod);
+                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(PlayCustomEatSound), nameof(Patch)));
                 }
             }
         }

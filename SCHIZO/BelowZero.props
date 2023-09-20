@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Remove="Retargeting.Subnautica.cs" />
+        <Compile Remove="**/*.Subnautica.cs" />
     </ItemGroup>
 
     <ItemGroup>
