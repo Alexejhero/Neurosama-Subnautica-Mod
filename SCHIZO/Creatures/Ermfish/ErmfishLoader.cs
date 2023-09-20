@@ -31,7 +31,7 @@ public static class ErmfishLoader
         HurtSounds = SoundCollection.Create("ermfish/hurt", AudioUtils.BusPaths.PDAVoice)
     };
     public static readonly SoundCollection InventorySounds = SoundCollection.Create("ermfish/noises", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection PlayerDeathSounds = SoundCollection.Create("ermfish/player_death", "bus:/master/SFX_for_pause/nofilter");
+    public static readonly SoundCollection PlayerDeathSounds = SoundCollection.Create("ermfish/player_death", IS_SUBNAUTICA ? "bus:/master/SFX_for_pause/nofilter" : AudioUtils.BusPaths.PDAVoice);
     public static readonly SoundCollection WorldSounds = SoundCollection.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures);
 
     [LoadMethod]
