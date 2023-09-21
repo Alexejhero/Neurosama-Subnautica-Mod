@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SCHIZO.HullPlates;
 
@@ -15,5 +15,10 @@ public sealed class TextureHider : MonoBehaviour
     public void Update()
     {
         if (rend) rend.enabled = cons.constructed;
+    }
+
+    public void OnDisable()
+    {
+        rend.enabled = false;
     }
 }
