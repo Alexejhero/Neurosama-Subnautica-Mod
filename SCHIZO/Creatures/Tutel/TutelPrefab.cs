@@ -64,25 +64,27 @@ public class TutelPrefab : CreatureAsset
         crawler.walkingSound = prefab.EnsureComponent<FMOD_CustomLoopingEmitter>(); // empty
         crawler.jumpSound = AudioUtils.GetFmodAsset("event:/sub/common/fishsplat"); // placeholder
         crawler.aliveCollider = prefab.GetComponentInChildren<Collider>();
+        crawler.liveMixin = prefab.GetComponent<LiveMixin>();
 
         WalkBehaviour walk = prefab.EnsureComponent<WalkBehaviour>();
         walk.onSurfaceMovement = prefab.EnsureComponent<OnSurfaceMovement>();
         walk.splineFollowing = prefab.GetComponent<SplineFollowing>();
         walk.onSurfaceMovement.locomotion = prefab.GetComponent<Locomotion>();
 
-#if SUBNAUTICA
-        CaveCrawlerGravity gravity = prefab.EnsureComponent<CaveCrawlerGravity>();
-        gravity.crawlerRigidbody = crawler.rb;
-        gravity.caveCrawler = crawler;
-        gravity.liveMixin = crawler.liveMixin;
-#else
+#if BELOWZERO
         LandCreatureGravity gravity = prefab.EnsureComponent<LandCreatureGravity>();
         gravity.creatureRigidbody = crawler.rb;
         gravity.liveMixin = crawler.liveMixin;
         gravity.applyDownforceUnderwater = true;
-        gravity.canGoInStasisUnderwater = true;
         gravity.onSurfaceTracker = prefab.EnsureComponent<OnSurfaceTracker>();
         gravity.pickupable = prefab.EnsureComponent<Pickupable>();
+        gravity.bodyCollider = (SphereCollider)crawler.aliveCollider;
+        gravity.worldForces = prefab.EnsureComponent<WorldForces>();
+#else
+        CaveCrawlerGravity gravity = prefab.EnsureComponent<CaveCrawlerGravity>();
+        gravity.crawlerRigidbody = crawler.rb;
+        gravity.caveCrawler = crawler;
+        gravity.liveMixin = crawler.liveMixin;
 #endif
 
         // if the OnSurfaceTracker is added earlier, the tutel slides around everywhere
@@ -96,13 +98,16 @@ public class TutelPrefab : CreatureAsset
         moveSurface.walkBehaviour = walk;
         moveSurface.onSurfaceTracker = walk.onSurfaceTracker;
         moveSurface.moveVelocity = swimVelocity;
+        moveSurface.onSurfaceMovement = walk.onSurfaceMovement;
 
         FleeOnDamage fleeDamage = prefab.EnsureComponent<FleeOnDamage>();
         fleeDamage.creature = crawler;
+        fleeDamage.swimBehaviour = walk;
         fleeDamage.damageThreshold = 0.01f; // very easily scared tutel
         fleeDamage.swimVelocity = swimVelocity * 1.5f;
         FleeWhenScared fleeScared = prefab.EnsureComponent<FleeWhenScared>();
         fleeScared.creature = crawler;
+        fleeScared.swimBehaviour = walk;
         fleeScared.creatureFear = prefab.EnsureComponent<CreatureFear>();
         fleeScared.swimVelocity = swimVelocity * 1.25f;
 

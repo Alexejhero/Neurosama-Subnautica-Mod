@@ -40,11 +40,11 @@ public static class ResourceManager
 
     public static AtlasSprite GetAtlasSprite(string name)
     {
-#if SUBNAUTICA
+#if BELOWZERO
+        return GetUnitySprite(name);
+#else
         Texture2D tex = GetTexture(name);
         return new AtlasSprite(tex);
-#else
-        return GetUnitySprite(name);
 #endif
     }
 
