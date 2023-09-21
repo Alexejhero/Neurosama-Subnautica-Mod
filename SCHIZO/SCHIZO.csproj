@@ -39,4 +39,8 @@
     <ItemGroup>
         <Compile Include="..\Unity\Assets\Scripts\**\*.cs" LinkBase="Unity" />
     </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\Assets\**" LinkBase="Assets" />
+    </ItemGroup>
 </Project>

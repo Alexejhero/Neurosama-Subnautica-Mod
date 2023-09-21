@@ -1,3 +1,4 @@
 ﻿{
-	"name": "SCHIZO"
+	"name": "SCHIZO",
+    "rootNamespace": "SCHIZO.Unity"
 }

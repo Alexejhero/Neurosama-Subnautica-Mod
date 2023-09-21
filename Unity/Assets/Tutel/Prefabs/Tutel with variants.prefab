@@ -49,6 +49,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 810698788772766543}
+  - {fileID: 5076399076410833110}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,18 +79,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b93b17f04e7625439c2c966b8343ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  original:
-  - {fileID: 2100000, guid: 399f164dfda14c94db5cfb7e8810ad52, type: 2}
-  - {fileID: 2100000, guid: 493397d78e30b154698849084c8dfc44, type: 2}
-  remappings:
-  - name: cooked
-    materials:
-    - {fileID: 2100000, guid: 16a9d561b37ed7a439edc2995931a138, type: 2}
-    - {fileID: 2100000, guid: 59dbd674a024b454987907311af75764, type: 2}
-  - name: cured
-    materials:
-    - {fileID: 2100000, guid: 161c473a051527e42a963c13b5b55db2, type: 2}
-    - {fileID: 2100000, guid: 8c31863a222070448a6a8e3b833bc621, type: 2}
+  config: {fileID: 11400000, guid: 95d09df62e813e04290fdaf23aba68d5, type: 2}
+--- !u!1 &4778239750592779107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5076399076410833110}
+  - component: {fileID: 6366702079763607916}
+  m_Layer: 0
+  m_Name: land creature collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5076399076410833110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778239750592779107}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0687, z: -0.0173}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9215953735947662820}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6366702079763607916
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778239750592779107}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.075
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &921715364987831460
 PrefabInstance:
   m_ObjectHideFlags: 0

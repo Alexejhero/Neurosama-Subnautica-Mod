@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a5993fa2454c09b22051aa7971b0fa, type: 3}
+  m_Name: Remap_regular
+  m_EditorClassIdentifier: 
+  original:
+  - {fileID: 2100000, guid: 399f164dfda14c94db5cfb7e8810ad52, type: 2}
+  - {fileID: 2100000, guid: 493397d78e30b154698849084c8dfc44, type: 2}
+  remappings:
+  - {fileID: 11400000, guid: 8bcb183533e051249a03bd73cdc57911, type: 2}
+  - {fileID: 11400000, guid: 9fb4695c44234c446afefac1222b0120, type: 2}

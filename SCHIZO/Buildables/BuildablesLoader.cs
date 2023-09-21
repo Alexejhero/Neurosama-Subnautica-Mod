@@ -26,18 +26,18 @@ public static class BuildablesLoader
 
         LoadOldVersions();
 
-        new BuildablePrefab(new ModItem("VedalTurtle3", "Fake tutel", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>"))
+        new BuildablePrefab(new ModItem("VedalTurtle4", "Fake tutel", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>"))
         {
-            IconFileName = "tutel.png",
+            IconFileName = "tutel_creature.png",
             Recipe = new RecipeData(new Ingredient(TechType.CreepvinePiece, 10), new Ingredient(ModItems.Tutel, 1)),
-            PrefabName = "turtle",
+            PrefabName = "fake_tutel",
             TechGroup = TechGroup.Miscellaneous,
             TechCategory = TechCategory.Misc,
             ModifyPrefab = prefab =>
             {
                 WorldSoundPlayer.Add(prefab, TutelWorldSounds);
             }
-        }.Register();
+        }.WithOldVersion("VedalTurtle3").Register();
 
 		new BuildablePrefab(ModItems.Erm)
 		{
@@ -90,6 +90,7 @@ public static class BuildablesLoader
             Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 2), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.Battery, 1), new Ingredient(TechType.Titanium, 4)),
             PrefabName = "neuroerm",
         }.Register();
+
         new BuildablePrefab(new ModItem("VedalTurtle2", "Fake tutel (OLD VERSION, PLEASE REBUILD)", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>"))
         {
             IconFileName = "tutel.png",

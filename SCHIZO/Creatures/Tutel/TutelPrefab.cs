@@ -5,8 +5,10 @@ using ECCLibrary.Mono;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using SCHIZO.Extensions;
+using SCHIZO.Helpers;
 using SCHIZO.Sounds;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace SCHIZO.Creatures.Tutel;
 
@@ -16,7 +18,7 @@ public class TutelPrefab : CreatureAsset
 	{
 	}
 
-	private static GameObject Prefab => AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("tutel_creature");
+	private static GameObject Prefab => AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("tutel");
 
 	private const float swimVelocity = 2f;
 	public override CreatureTemplate CreateTemplate()
@@ -78,7 +80,7 @@ public class TutelPrefab : CreatureAsset
         gravity.applyDownforceUnderwater = true;
         gravity.onSurfaceTracker = prefab.EnsureComponent<OnSurfaceTracker>();
         gravity.pickupable = prefab.EnsureComponent<Pickupable>();
-        gravity.bodyCollider = (SphereCollider)crawler.aliveCollider;
+        gravity.bodyCollider = prefab.GetComponentInChildren<SphereCollider>();
         gravity.worldForces = prefab.EnsureComponent<WorldForces>();
 #else
         CaveCrawlerGravity gravity = prefab.EnsureComponent<CaveCrawlerGravity>();
@@ -129,5 +131,5 @@ public class TutelPrefab : CreatureAsset
 		yield break;
 	}
 
-	public override void ApplyMaterials(GameObject prefab) => MaterialUtils.ApplySNShaders(prefab, 1f);
+	public override void ApplyMaterials(GameObject prefab) => MaterialHelpers.ApplySNShadersIncludingRemaps(prefab, 1f);
 }
