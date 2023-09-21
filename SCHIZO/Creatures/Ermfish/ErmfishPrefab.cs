@@ -62,6 +62,8 @@ public class ErmfishPrefab : CreatureAsset
 
         prefab.FindChild("WM").AddComponent<AnimateByVelocity>().enabled = false; // fixes Aquarium
 
+        prefab.EnsureComponentFields();
+
 		yield break;
 	}
 

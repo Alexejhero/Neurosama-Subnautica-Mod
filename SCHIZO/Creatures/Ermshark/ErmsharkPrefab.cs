@@ -47,9 +47,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
         WorldSoundPlayer.Add(prefab, ErmsharkLoader.AmbientSounds);
 
         BullyTutel bully = prefab.AddComponent<BullyTutel>();
-        bully.creature = components.Creature;
         bully.mouth = bully.tutelAttach = prefab.SearchChild("mouth_attach_point").transform;
-        bully.swimBehaviour = components.SwimBehaviour;
 
         AggressiveWhenSeePlayer aggressive = prefab.AddComponent<AggressiveWhenSeePlayer>();
         aggressive.maxRangeMultiplier = CreaturePrefabUtils.maxRangeMultiplierCurve;
@@ -73,6 +71,8 @@ public sealed class ErmsharkPrefab : CreatureAsset
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Starve, 0f);
 
         ErmsharkLoader.Prefab = prefab;
+
+        prefab.EnsureComponentFields();
 
         yield break;
     }
