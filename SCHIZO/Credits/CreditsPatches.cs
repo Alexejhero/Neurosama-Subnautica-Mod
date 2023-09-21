@@ -30,7 +30,7 @@ public static class CreditsPatches
         {
             _soFar = new List<string>
             {
-                IS_SUBNAUTICA ? sn : bz
+                IS_BELOWZERO ? bz : sn
             };
 
             (All ??= new List<Credits>()).Add(this);
@@ -87,10 +87,10 @@ public static class CreditsPatches
     public static class UpdateCreditsTextTranspiler
     {
         private static readonly MethodInfo _target =
-#if SUBNAUTICA
-            AccessTools.Method(typeof(TMPro.TMP_Text), nameof(TMPro.TMP_Text.SetText), new[] { typeof(string), typeof(bool) });
-#else
+#if BELOWZERO
             AccessTools.Method(typeof(UnityEngine.MonoBehaviour), nameof(UnityEngine.MonoBehaviour.Invoke));
+#else
+            AccessTools.Method(typeof(TMPro.TMP_Text), nameof(TMPro.TMP_Text.SetText), new[] { typeof(string), typeof(bool) });
 #endif
 
         [HarmonyTranspiler, UsedImplicitly]
@@ -110,15 +110,15 @@ public static class CreditsPatches
 
         private static void Patch(EndCreditsManager __instance)
         {
-#if SUBNAUTICA
+#if BELOWZERO
+            __instance.centerText.SetText(GetCreditsTextBZ() + __instance.centerText.text);
+#else
             EasterEggPatches.easterEggAdjusted = false;
 
             float oldHeight = 14100;//__instance.textField.preferredHeight;
             __instance.textField.SetText(GetCreditsTextSN() + __instance.textField.text);
             __instance.scrollSpeed = __instance.textField.preferredHeight * __instance.scrollSpeed / oldHeight;
             __instance.scrollStep = __instance.textField.preferredHeight * __instance.scrollStep / oldHeight;
-#else
-            __instance.centerText.SetText(GetCreditsTextBZ() + __instance.centerText.text);
 #endif
         }
     }

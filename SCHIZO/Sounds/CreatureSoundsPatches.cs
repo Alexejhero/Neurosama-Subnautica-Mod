@@ -84,10 +84,10 @@ public static class CreatureSoundsPatches
     public static class PlayCustomEatSound
     {
         private static readonly MethodInfo _target =
-#if SUBNAUTICA
-            AccessTools.Method(typeof(FMODUWE), nameof(FMODUWE.PlayOneShot), new[] {typeof(string), typeof(Vector3), typeof(float)});
-#else
+#if BELOWZERO
             AccessTools.Method(typeof(Utils), nameof(Utils.PlayFMODAsset), new[] { typeof(FMODAsset), typeof(Vector3), typeof(float)});
+#else
+            AccessTools.Method(typeof(FMODUWE), nameof(FMODUWE.PlayOneShot), new[] {typeof(string), typeof(Vector3), typeof(float)});
 #endif
 
         [HarmonyTranspiler, UsedImplicitly]
@@ -103,7 +103,7 @@ public static class CreatureSoundsPatches
                 {
                     patched = true;
 
-                    yield return new CodeInstruction(OpCodes.Ldloc_S, IS_SUBNAUTICA ? 2 : 7);
+                    yield return new CodeInstruction(OpCodes.Ldloc_S, IS_BELOWZERO ? 7 : 2);
                     yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(PlayCustomEatSound), nameof(Patch)));
                 }
             }

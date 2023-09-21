@@ -6,7 +6,20 @@ namespace SCHIZO.Creatures;
 [SuppressMessage("ReSharper", "Unity.RedundantEventFunction")]
 public class RetargetCreatureAction : CreatureAction
 {
-#if SUBNAUTICA
+#if BELOWZERO
+    public virtual void Awake()
+    {
+    }
+
+    public override void Start()
+    {
+        base.Start();
+    }
+
+    public virtual void OnEnable()
+    {
+    }
+#else
     public override void Awake()
     {
         base.Awake();
@@ -32,18 +45,5 @@ public class RetargetCreatureAction : CreatureAction
 
     public sealed override void StopPerform(Creature creat, float time) => StopPerform(time);
     public virtual void StopPerform(float time) => base.StopPerform(creature, time);
-#else
-    public virtual void Awake()
-    {
-    }
-
-    public override void Start()
-    {
-        base.Start();
-    }
-
-    public virtual void OnEnable()
-    {
-    }
 #endif
 }
