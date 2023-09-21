@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Armature|swimming_loop
+  m_Name: swimming
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -23,10 +23,10 @@ AnimatorState:
   m_Motion: {fileID: -2243542963517077840, guid: d45aef589c9d34444aeb546592b1443d,
     type: 3}
   m_Tag: 
-  m_SpeedParameter: Speed
+  m_SpeedParameter: speed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
-  m_TimeParameter: Speed
+  m_TimeParameter: speed
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -36,7 +36,7 @@ AnimatorController:
   m_Name: erm_shark
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Speed
+  - m_Name: speed
     m_Type: 1
     m_DefaultFloat: 1
     m_DefaultInt: 0

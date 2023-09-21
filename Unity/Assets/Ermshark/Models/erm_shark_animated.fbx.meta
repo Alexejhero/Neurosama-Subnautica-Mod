@@ -8,8 +8,43 @@ ModelImporter:
     second: Armature|CameraAction
   - first:
       74: -2243542963517077840
-    second: Armature|swimming_loop
-  externalObjects: {}
+    second: swimming
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bow
+    second: {fileID: 2100000, guid: 0cb8418f52fdf174f9b8f7bceb670026, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: body
+    second: {fileID: 2100000, guid: 551c6d9bcf60d10469e8d18ddd558f01, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: clothing
+    second: {fileID: 2100000, guid: d2f36e8f5d292014bb89fb4b8a9d0e30, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyes
+    second: {fileID: 2100000, guid: e1c77e417aecaea48837b314763d1a54, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hair
+    second: {fileID: 2100000, guid: 5f2576fb2d55e6c469a474e3ce12611d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hire
+    second: {fileID: 2100000, guid: b973a9ad9a03e334a822a040848ed9b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: main
+    second: {fileID: 2100000, guid: 4e3db40a3ca695540a355b5cc9676d7a, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -38,7 +73,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|swimming_loop
+      name: swimming
       takeName: Armature|swimming_loop
       internalID: 0
       firstFrame: 0

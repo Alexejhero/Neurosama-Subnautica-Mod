@@ -37,10 +37,7 @@ public static class TutelLoader
     private static void Load()
     {
         LoadTutel();
-        LoadTutelVariant(ModItems.CookedTutel, "tutel_creature_cooked.png", new RecipeData(new Ingredient(ModItems.Tutel, 1)), 23, 3, true, CraftTreeHandler.Paths.FabricatorCookedFood, Retargeting.TechCategory.CookedFood, 2);
-        LoadTutelVariant(ModItems.CuredTutel, "tutel_creature_cured.png", new RecipeData(new Ingredient(ModItems.Tutel, 1), new Ingredient(TechType.Salt, 1)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, Retargeting.TechCategory.CookedFood, 1);
-
-        CraftDataHandler.SetCookedVariant(ModItems.Tutel, ModItems.CookedTutel);
+        LoadVariants();
     }
 
     private static void LoadTutel()
@@ -138,40 +135,41 @@ public static class TutelLoader
         ItemActionHandler.RegisterMiddleClickAction(tutel.PrefabInfo.TechType, _ => InventorySounds.Play2D(10), "ping @vedal987", "English");
     }
 
-    private static void LoadTutelVariant(PrefabInfo info, string iconPath, RecipeData recipe, float foodValue, float waterValue, bool decomposes, string[] craftingTabPath, TechCategory techCategory, int childModelIndex)
+    [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
+    private static void LoadVariants()
     {
-	    CustomPrefab variant = new(info);
-		variant.Info.WithIcon(AssetLoader.GetAtlasSprite(iconPath));
+        VFXFabricatingData vfxFabricatingData = new("VM/Tutel", -0.17f, 0.59275F, new Vector3(0, 0.15f), 0.1f, new Vector3(0, -180, 0));
 
-        CraftingGadget crafting = variant.SetRecipe(recipe);
-        crafting.WithFabricatorType(CraftTree.Type.Fabricator);
-        crafting.WithStepsToFabricatorTab(craftingTabPath);
+        void PostRegister(CreatureVariant variant)
+        {
+            CreatureSoundsHandler.RegisterCreatureSounds(variant.Info.TechType, Sounds);
+            ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play2D(10), "ping @vedal987", "English");
+        }
 
-        EatableGadget eatable = variant.SetNutritionValues(foodValue, waterValue);
-        eatable.WithDecay(decomposes);
+        new CreatureVariant(ModItems.Tutel, ModItems.CookedTutel)
+        {
+            IconPath = "tutel_creature_cooked.png",
+            RecipeData = new RecipeData(new Ingredient(ModItems.Tutel, 1)),
+            EdibleData = new EdibleData(23, 3, true),
+            FabricatorPath = CraftTreeHandler.Paths.FabricatorCookedFood,
+            TechCategory = Retargeting.TechCategory.CookedFood,
+            MaterialRemapName = "cooked",
+            RegisterAsCookedVariant = true,
+            VFXFabricatingData = vfxFabricatingData,
+            PostRegister = PostRegister,
+        }.Register();
 
-        variant.SetUnlock(ModItems.Tutel);
-        variant.SetEquipment(EquipmentType.Hand).WithQuickSlotType(QuickSlotType.Selectable);
-        variant.SetPdaGroupCategory(TechGroup.Survival, techCategory);
-
-		variant.SetGameObject(new CloneTemplate(variant.Info, ModItems.Tutel)
-		{
-			ModifyPrefab = prefab =>
-			{
-                prefab.transform.Find("WM/tutel/regular").gameObject.SetActive(false);
-				prefab.transform.Find("WM/tutel").GetChild(childModelIndex).gameObject.SetActive(true);
-
-				prefab.transform.Find("VM/tutel/regular").gameObject.SetActive(false);
-				prefab.transform.Find("VM/tutel").GetChild(childModelIndex).gameObject.SetActive(true);
-
-                CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/tutel", -0.17f, 0.59275F, new Vector3(0, 0.15f), 0.1f, new Vector3(0, -180, 0)));
-			}
-		});
-        variant.Register();
-
-        CreatureSoundsHandler.RegisterCreatureSounds(variant.Info.TechType, Sounds);
-
-        ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play2D(10), "ping @vedal987", "English");
+        new CreatureVariant(ModItems.Tutel, ModItems.CuredTutel)
+        {
+            IconPath = "tutel_creature_cured.png",
+            RecipeData = new RecipeData(new Ingredient(ModItems.Tutel, 1), new Ingredient(TechType.Salt, 1)),
+            EdibleData = new EdibleData(23, -2, false),
+            FabricatorPath = CraftTreeHandler.Paths.FabricatorCuredFood,
+            TechCategory = Retargeting.TechCategory.CuredFood,
+            MaterialRemapName = "cured",
+            VFXFabricatingData = vfxFabricatingData,
+            PostRegister = PostRegister,
+        }.Register();
     }
 
     public static List<TechType> TutelTechTypes => new() { ModItems.Tutel, ModItems.CookedTutel, ModItems.CuredTutel };

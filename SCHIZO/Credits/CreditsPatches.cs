@@ -147,7 +147,6 @@ public static class CreditsPatches
         return builder.ToString();
     }
 
-
     [UsedImplicitly]
     private static string GetCreditsTextBZ()
     {

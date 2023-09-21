@@ -89,13 +89,6 @@ public static class BuildablesLoader
             IconFileName = "erm.png",
             Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 2), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.Battery, 1), new Ingredient(TechType.Titanium, 4)),
             PrefabName = "neuroerm",
-            ModifyPrefab = prefab =>
-            {
-                prefab.transform.Find("WM").localScale = new Vector3(1, -1, 1);
-                prefab.transform.Find("WM/erm/regular").gameObject.SetActive(false);
-                prefab.transform.Find("WM/erm/cured").gameObject.SetActive(true);
-                prefab.GetComponentsInChildren<MeshRenderer>().ForEach(r => r.material.color = new Color(0.75f, 0, 0.75f));
-            }
         }.Register();
         new BuildablePrefab(new ModItem("VedalTurtle2", "Fake tutel (OLD VERSION, PLEASE REBUILD)", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>"))
         {

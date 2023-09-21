@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using ECCLibrary;
 using ECCLibrary.Data;
-using Nautilus.Assets;
-using Nautilus.Assets.Gadgets;
-using Nautilus.Assets.PrefabTemplates;
+using Gendarme;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Attributes;
-using SCHIZO.Gadgets;
 using SCHIZO.Helpers;
 using SCHIZO.Sounds;
 using UnityEngine;
@@ -35,14 +31,10 @@ public static class ErmfishLoader
     public static readonly SoundCollection WorldSounds = SoundCollection.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures);
 
     [LoadMethod]
-    [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void Load()
     {
         LoadErmfish();
-        LoadErmfishVariant(ModItems.CookedErmfish, "erm_cooked.png", new RecipeData(new Ingredient(ModItems.Ermfish, 1)), 23, 0, true, CraftTreeHandler.Paths.FabricatorCookedFood, Retargeting.TechCategory.CookedFood, 2);
-        LoadErmfishVariant(ModItems.CuredErmfish, "erm_cured.png", new RecipeData(new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.Salt, 1)), 23, -2, false, CraftTreeHandler.Paths.FabricatorCuredFood, Retargeting.TechCategory.CuredFood, 1);
-
-        CraftDataHandler.SetCookedVariant(ModItems.Ermfish, ModItems.CookedErmfish);
+        LoadVariants();
     }
 
     private static void LoadErmfish()
@@ -98,40 +90,41 @@ public static class ErmfishLoader
 		ItemActionHandler.RegisterMiddleClickAction(ermfish.PrefabInfo.TechType, _ => InventorySounds.Play2D(), "pull ahoge", "English");
     }
 
-    private static void LoadErmfishVariant(PrefabInfo info, string iconPath, RecipeData recipe, float foodValue, float waterValue, bool decomposes, string[] craftingTabPath, TechCategory techCategory, int childModelIndex)
+    [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
+    private static void LoadVariants()
     {
-	    CustomPrefab variant = new(info);
-		variant.Info.WithIcon(AssetLoader.GetAtlasSprite(iconPath));
+        VFXFabricatingData vfxFabricatingData = new("VM/model", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0));
 
-		CraftingGadget crafting = variant.SetRecipe(recipe);
-		crafting.WithFabricatorType(CraftTree.Type.Fabricator);
-		crafting.WithStepsToFabricatorTab(craftingTabPath);
+        void PostRegister(CreatureVariant variant)
+        {
+            CreatureSoundsHandler.RegisterCreatureSounds(variant.Info.TechType, Sounds);
+            ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play2D(), "pull ahoge", "English");
+        }
 
-        EatableGadget eatable = variant.SetNutritionValues(foodValue, waterValue);
-        eatable.WithDecay(decomposes);
+        new CreatureVariant(ModItems.Ermfish, ModItems.CookedErmfish)
+        {
+            IconPath = "erm_cooked.png",
+            RecipeData = new RecipeData(new Ingredient(ModItems.Ermfish, 1)),
+            EdibleData = new EdibleData(23, 0, true),
+            FabricatorPath = CraftTreeHandler.Paths.FabricatorCookedFood,
+            TechCategory = Retargeting.TechCategory.CookedFood,
+            MaterialRemapName = "cooked",
+            RegisterAsCookedVariant = true,
+            VFXFabricatingData = vfxFabricatingData,
+            PostRegister = PostRegister,
+        }.Register();
 
-        variant.SetUnlock(ModItems.Ermfish);
-        variant.SetEquipment(EquipmentType.Hand).WithQuickSlotType(QuickSlotType.Selectable);
-        variant.SetPdaGroupCategory(TechGroup.Survival, techCategory);
-
-		variant.SetGameObject(new CloneTemplate(variant.Info, ModItems.Ermfish)
-		{
-			ModifyPrefab = prefab =>
-			{
-				prefab.transform.Find("WM/erm/regular").gameObject.SetActive(false);
-				prefab.transform.Find("WM/erm").GetChild(childModelIndex).gameObject.SetActive(true);
-
-				prefab.transform.Find("VM/erm/regular").gameObject.SetActive(false);
-				prefab.transform.Find("VM/erm").GetChild(childModelIndex).gameObject.SetActive(true);
-
-                CreaturePrefabUtils.AddVFXFabricating(prefab, new VFXFabricatingData("VM/erm", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0)));
-			}
-		});
-		variant.Register();
-
-        CreatureSoundsHandler.RegisterCreatureSounds(variant.Info.TechType, Sounds);
-
-        ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play2D(), "pull ahoge", "English");
+        new CreatureVariant(ModItems.Ermfish, ModItems.CuredErmfish)
+        {
+            IconPath = "erm_cured.png",
+            RecipeData = new RecipeData(new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.Salt, 1)),
+            EdibleData = new EdibleData(23, -2, false),
+            FabricatorPath = CraftTreeHandler.Paths.FabricatorCuredFood,
+            TechCategory = Retargeting.TechCategory.CuredFood,
+            MaterialRemapName = "cured",
+            VFXFabricatingData = vfxFabricatingData,
+            PostRegister = PostRegister,
+        }.Register();
     }
 
     public static List<TechType> ErmfishTechTypes => new() { ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish };

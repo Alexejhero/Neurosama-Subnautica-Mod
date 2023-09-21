@@ -1,4 +1,5 @@
 ﻿using System;
+using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using UnityEngine;
@@ -10,7 +11,7 @@ public sealed class EatableGadget : Gadget
     public float FoodValue { get; set; }
     public float WaterValue { get; set; }
     public bool Decomposes { get; set; }
-    public float DecayRate { get; set; } = 0.015f;
+    public float DecayRate { get; set; }
 
     public EatableGadget(ICustomPrefab prefab) : base(prefab)
     {
@@ -26,14 +27,14 @@ public sealed class EatableGadget : Gadget
     public EatableGadget WithDecay(float decayRate)
     {
         Decomposes = true;
-        DecayRate = decayRate * 0.015f;
+        DecayRate = decayRate;
         return this;
     }
 
     public EatableGadget WithDecay(bool decomposes)
     {
         Decomposes = decomposes;
-        DecayRate = 0.015f;
+        DecayRate = 1;
         return this;
     }
 
@@ -55,7 +56,7 @@ public sealed class EatableGadget : Gadget
         Eatable eatable = obj.EnsureComponent<Eatable>();
         eatable.foodValue = FoodValue;
         eatable.waterValue = WaterValue;
-        eatable.kDecayRate = DecayRate;
+        eatable.kDecayRate = DecayRate * 0.015f;
         eatable.decomposes = Decomposes;
     }
 }
@@ -69,6 +70,18 @@ public static class EatableGadgetExtensions
 
         gadget.FoodValue = foodValue;
         gadget.WaterValue = waterValue;
+        return gadget;
+    }
+
+    public static EatableGadget SetEdibleData(this CustomPrefab prefab, EdibleData data)
+    {
+        if (!prefab.TryGetGadget(out EatableGadget gadget))
+            gadget = prefab.AddGadget(new EatableGadget(prefab));
+
+        gadget.FoodValue = data.foodAmount;
+        gadget.WaterValue = data.waterAmount;
+        gadget.Decomposes = data.decomposes;
+        gadget.DecayRate = data.decomposeSpeed;
         return gadget;
     }
 }

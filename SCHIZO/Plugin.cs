@@ -9,8 +9,8 @@ using SCHIZO.Resources;
 
 namespace SCHIZO;
 
-[BepInAutoPlugin]
-public partial class Plugin : BaseUnityPlugin
+[BepInPlugin("SCHIZO", "Neuro-sama Mod", "1.0.0")]
+public class Plugin : BaseUnityPlugin
 {
 #if SUBNAUTICA
     public static bool IS_SUBNAUTICA => true;
