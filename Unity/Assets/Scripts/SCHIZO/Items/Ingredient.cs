@@ -7,7 +7,7 @@ namespace SCHIZO.Unity.Items
     [Serializable]
     public sealed class Ingredient
     {
-        public TechType techType;
-        public int amount;
+        public Item item;
+        public int amount = 1;
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using UnityEngine;
+using NaughtyAttributes;
 
 // ReSharper disable once CheckNamespace
 namespace SCHIZO.Unity.Items
@@ -7,8 +7,8 @@ namespace SCHIZO.Unity.Items
     [Serializable]
     public sealed class RecipeData
     {
-        public int craftAmount;
+        public int craftAmount = 1;
         public Ingredient[] ingredients;
-        public global::TechType[] linkedItems;
+        public Item[] linkedItems;
     }
 }

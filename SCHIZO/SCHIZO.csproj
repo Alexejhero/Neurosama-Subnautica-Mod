@@ -48,14 +48,9 @@
 
     <ItemGroup>
         <Compile Include="..\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity" />
-        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Items\RecipeData.cs">
-          <Link>Unity\Items\RecipeData.cs</Link>
-        </Compile>
-        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Items\Ingredient.cs">
-          <Link>Unity\Items\Ingredient.cs</Link>
-        </Compile>
-        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Items\TechType.cs">
-          <Link>Unity\Items\TechType.cs</Link>
+        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Integrations\Item.cs">
+          <LinkBase>Unity\</LinkBase>
+          <Link>Unity\Integrations\Item.cs</Link>
         </Compile>
     </ItemGroup>
 </Project>
