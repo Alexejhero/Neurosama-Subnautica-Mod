@@ -3,7 +3,6 @@ using ECCLibrary;
 using ECCLibrary.Data;
 using ECCLibrary.Mono;
 using Nautilus.Assets;
-using Nautilus.Utility;
 using SCHIZO.Extensions;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;

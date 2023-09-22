@@ -2,7 +2,6 @@
 using System.Reflection.Emit;
 using HarmonyLib;
 using SCHIZO.Creatures.Ermfish;
-using SCHIZO.Unity;
 using SCHIZO.Unity.Loading;
 using TMPro;
 using UnityEngine;

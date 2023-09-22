@@ -9,8 +9,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="../Dependencies/Subnautica/ECCLibrary.dll" Publicize="true" />
         <Reference Include="../Dependencies/Subnautica/FMODUnity.dll" />
+        <Reference Include="../Install/Subnautica/BepInEx/plugins/ECCLibrary/ECCLibrary.dll" Publicize="true" />
     </ItemGroup>
 
     <ItemGroup>

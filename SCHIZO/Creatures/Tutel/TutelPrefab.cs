@@ -9,7 +9,6 @@ using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace SCHIZO.Creatures.Tutel;
 

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1139616291435952614}
+  - component: {fileID: 2129217353060516565}
   m_Layer: 0
   m_Name: erm_shark
   m_TagString: Untagged
@@ -31,6 +32,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2129217353060516565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331975916181381980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1cae76a3267a05488245ca9919e564f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classId: 
+  displayName: 16
+  tooltip: 
+  icon: {fileID: 0}
+  size: {x: 2, y: 3}
+  test:
+    world: bruh
+    example: {fileID: 3788643719219358353}
 --- !u!136 &7568049754961273215
 CapsuleCollider:
   m_ObjectHideFlags: 0
