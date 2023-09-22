@@ -9,6 +9,7 @@ public class RetargetCreatureAction : CreatureAction
 #if BELOWZERO
     public virtual void Awake()
     {
+        Extensions.EnsureComponentsExtensions.EnsureComponentFields(this);
     }
 
     public override void Start()

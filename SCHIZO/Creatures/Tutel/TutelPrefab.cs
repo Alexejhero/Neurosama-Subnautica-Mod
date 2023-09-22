@@ -52,7 +52,7 @@ public class TutelPrefab : CreatureAsset
 	{
         prefab.GetComponent<HeldFish>().ikAimLeftArm = true;
 
-        // ECC forces SwimBehaviour but we want WalkBehaviour
+        // ECC can only add SwimBehaviour but we want WalkBehaviour
         // these depend on SwimBehaviour so we have to destroy them first
         Object.DestroyImmediate(prefab.GetComponent<FleeOnDamage>());
         Object.DestroyImmediate(prefab.GetComponent<SwimRandom>());
@@ -62,62 +62,29 @@ public class TutelPrefab : CreatureAsset
         FMOD_CustomEmitter emitter = prefab.AddComponent<FMOD_CustomEmitter>();
         emitter.followParent = true;
 
-        CaveCrawler crawler = prefab.GetComponent<CaveCrawler>();
-        crawler.rb = prefab.GetComponentInChildren<Rigidbody>();
+        CaveCrawler crawler = (CaveCrawler)components.Creature;
         crawler.walkingSound = prefab.EnsureComponent<FMOD_CustomLoopingEmitter>(); // empty
         crawler.jumpSound = AudioUtils.GetFmodAsset("event:/sub/common/fishsplat"); // placeholder
-        crawler.aliveCollider = prefab.GetComponentInChildren<Collider>();
-        crawler.liveMixin = prefab.GetComponent<LiveMixin>();
 
-        WalkBehaviour walk = prefab.EnsureComponent<WalkBehaviour>();
-        walk.onSurfaceMovement = prefab.EnsureComponent<OnSurfaceMovement>();
-        walk.splineFollowing = prefab.GetComponent<SplineFollowing>();
-        walk.onSurfaceMovement.locomotion = prefab.GetComponent<Locomotion>();
+        WalkBehaviour walk = prefab.AddComponent<WalkBehaviour>();
 
 #if BELOWZERO
         LandCreatureGravity gravity = prefab.EnsureComponent<LandCreatureGravity>();
-        gravity.creatureRigidbody = crawler.rb;
-        gravity.liveMixin = crawler.liveMixin;
         gravity.applyDownforceUnderwater = true;
-        gravity.onSurfaceTracker = prefab.EnsureComponent<OnSurfaceTracker>();
-        gravity.pickupable = prefab.EnsureComponent<Pickupable>();
-        gravity.bodyCollider = prefab.GetComponentInChildren<SphereCollider>();
-        gravity.worldForces = prefab.EnsureComponent<WorldForces>();
 #else
         CaveCrawlerGravity gravity = prefab.EnsureComponent<CaveCrawlerGravity>();
-        gravity.crawlerRigidbody = crawler.rb;
-        gravity.caveCrawler = crawler;
-        gravity.liveMixin = crawler.liveMixin;
 #endif
-
-        // if the OnSurfaceTracker is added earlier, the tutel slides around everywhere
-        // (see OnSurfaceTracker's and CaveCrawlerGravity's FixedUpdate)
-        crawler.onSurfaceTracker = prefab.EnsureComponent<OnSurfaceTracker>();
-        walk.onSurfaceTracker = crawler.onSurfaceTracker;
-        walk.onSurfaceMovement.onSurfaceTracker = crawler.onSurfaceTracker;
 
         MoveOnSurface moveSurface = prefab.AddComponent<MoveOnSurface>();
-        moveSurface.creature = crawler;
-        moveSurface.walkBehaviour = walk;
-        moveSurface.onSurfaceTracker = walk.onSurfaceTracker;
         moveSurface.moveVelocity = swimVelocity;
-#if BELOWZERO
-        moveSurface.onSurfaceMovement = walk.onSurfaceMovement;
-#endif
 
         FleeOnDamage fleeDamage = prefab.EnsureComponent<FleeOnDamage>();
-        fleeDamage.creature = crawler;
-        fleeDamage.swimBehaviour = walk;
         fleeDamage.damageThreshold = 0.01f; // very easily scared tutel
         fleeDamage.swimVelocity = swimVelocity * 1.5f;
         FleeWhenScared fleeScared = prefab.EnsureComponent<FleeWhenScared>();
-        fleeScared.creature = crawler;
-        fleeScared.swimBehaviour = walk;
-        fleeScared.creatureFear = prefab.EnsureComponent<CreatureFear>();
         fleeScared.swimVelocity = swimVelocity * 1.25f;
 
         GetCarried getCarried = prefab.EnsureComponent<GetCarried>();
-        getCarried.creature = crawler;
         getCarried.emitter = emitter;
 
         WorldSoundPlayer.Add(prefab, TutelLoader.WorldSounds);
@@ -130,6 +97,8 @@ public class TutelPrefab : CreatureAsset
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Starve, 0f);
 
         prefab.FindChild("WM").AddComponent<AnimateByVelocity>().enabled = false; // fixes Aquarium
+
+        prefab.EnsureComponentFields();
 
 		yield break;
 	}
