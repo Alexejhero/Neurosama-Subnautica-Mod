@@ -14,16 +14,11 @@ public sealed class TextureHider : MonoBehaviour
 
     public void OnEnable()
     {
-        if (rend) rend.enabled = cons.constructed;
+        if (rend) rend.enabled = true;
     }
 
     public void OnDisable()
     {
-        if (rend) rend.enabled = cons.constructed;
-    }
-
-    public void OnDisable()
-    {
-        rend.enabled = false;
+        if (rend) rend.enabled = false;
     }
 }
