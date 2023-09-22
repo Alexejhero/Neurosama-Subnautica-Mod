@@ -1,5 +1,4 @@
-﻿global using AtlasSprite = Atlas.Sprite;
-global using Ingredient = CraftData.Ingredient;
+﻿global using Ingredient = CraftData.Ingredient;
 using System.Diagnostics;
 using ECCLibrary.Data;
 

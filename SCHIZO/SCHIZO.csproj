@@ -32,15 +32,21 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="**\Resources\**" />
-        <EmbeddedResource Remove="**\Resources\**\*.cs" />
-    </ItemGroup>
+        <EmbeddedResource Include="Resources\**" />
+        <EmbeddedResource Remove="Resources\**\*.cs" />
 
-    <ItemGroup>
-        <Compile Include="..\Unity\Assets\Scripts\**\*.cs" LinkBase="Unity" />
+        <EmbeddedResource Remove="Resources\AssetBundles\AssetBundles" />
+        <EmbeddedResource Remove="Resources\AssetBundles\*.manifest" />
     </ItemGroup>
-
+    
     <ItemGroup>
         <None Include="..\Assets\**" LinkBase="Assets" />
+        
+        <None Remove="Resources\AssetBundles\AssetBundles" />
+        <None Remove="Resources\AssetBundles\*.manifest" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="..\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity" />
     </ItemGroup>
 </Project>

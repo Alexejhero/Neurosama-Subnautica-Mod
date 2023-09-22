@@ -1,7 +1,6 @@
 ﻿using JetBrains.Annotations;
 using Nautilus.Json;
 using Nautilus.Options.Attributes;
-using SCHIZO.Events.RandomMessage;
 
 namespace SCHIZO;
 
@@ -28,13 +27,6 @@ public sealed class Config : ConfigFile
 
     [Toggle("Disable all sounds"), UsedImplicitly]
     public bool DisableAllNoises = false;
-
-    /// <summary>
-    /// Inverse scaling for the time between <see cref="RandomMessageEvent"/>s.<br/>
-    /// You can adjust the rates in <see cref="RandomMessageEvent.GetNextMessageTime"/>
-    /// </summary>
-    [Slider("Random message frequency", 0, 10, Tooltip = "(0-disabled, 10-very often)", DefaultValue = 3, Format = "{0:F0}", Step = 1), UsedImplicitly]
-    public float RandomMessageFrequency = 3;
 
     [Toggle("Enable erm moon"), UsedImplicitly]
     public bool EnableErmMoon = true;

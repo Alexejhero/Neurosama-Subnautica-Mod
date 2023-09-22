@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df6808d44fd4c89a99b4a7174c7bac7, type: 3}
+  m_Name: Remap_cured
+  m_EditorClassIdentifier: 
+  remapName: cured
+  materials:
+  - {fileID: 2100000, guid: 56596402bb28fd1409af4baacc992151, type: 2}
+  - {fileID: 2100000, guid: ee5f85fa8ff264f4883b58a822951e5a, type: 2}
+  - {fileID: 2100000, guid: d9a215329af22504fa3f2e4b10aa76d1, type: 2}
+  - {fileID: 2100000, guid: 04889dacdc56f9f4da7e4cd8d7c54a7b, type: 2}
+  - {fileID: 2100000, guid: e2f7ded21c6e7ab499996bc8a0612338, type: 2}

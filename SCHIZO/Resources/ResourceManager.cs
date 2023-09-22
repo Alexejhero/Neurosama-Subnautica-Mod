@@ -13,13 +13,17 @@ public static class ResourceManager
     private static readonly Assembly _assembly = Assembly.GetExecutingAssembly();
     private static readonly Dictionary<string, object> _cache = new();
 
-    public static AssetBundle GetAssetBundle(string name)
-    {
-        if (IsCached(name, out AssetBundle cached)) return cached;
+    public static AssetBundle GetMainAssetBundle() => GetAssetBundle("assets");
 
-        byte[] buffer = GetEmbeddedBytes(name);
+    private static AssetBundle GetAssetBundle(string name)
+    {
+        string targetedName = "AssetBundles." + name;
+
+        if (IsCached(targetedName, out AssetBundle cached)) return cached;
+
+        byte[] buffer = GetEmbeddedBytes(targetedName);
         AssetBundle assetBundle = AssetBundle.LoadFromMemory(buffer);
-        return Cache(name, assetBundle);
+        return Cache(targetedName, assetBundle);
     }
 
     public static Texture2D GetTexture(string name)
@@ -36,16 +40,6 @@ public static class ResourceManager
     {
         Texture2D tex = GetTexture(name);
         return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), ppu);
-    }
-
-    public static AtlasSprite GetAtlasSprite(string name)
-    {
-#if BELOWZERO
-        return GetUnitySprite(name);
-#else
-        Texture2D tex = GetTexture(name);
-        return new AtlasSprite(tex);
-#endif
     }
 
     /*public static AudioClip GetSound(string name, Bus bus, MODE mode = MODE.DEFAULT)

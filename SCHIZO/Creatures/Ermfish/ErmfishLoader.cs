@@ -40,7 +40,7 @@ public static class ErmfishLoader
     private static void LoadErmfish()
     {
 		ErmfishPrefab ermfish = new(ModItems.Ermfish);
-		ermfish.PrefabInfo.WithIcon(AssetLoader.GetAtlasSprite("erm.png"));
+		ermfish.PrefabInfo.WithIcon(AssetLoader.GetUnitySprite("erm.png"));
 		ermfish.Register();
 
 		Texture2D databankTexture = AssetLoader.GetTexture("ermfish-databank.png");
@@ -64,8 +64,6 @@ public static class ErmfishLoader
 			Being in the vicinity of an Ermfish may cause auditory hallucinations that cannot be reproduced on audio recordings. The effect is magnified proportionally to the number of Ermfish present. Long-term effects are uncertain, but it is speculated that it may cause irreversible damage to the exposed individual.
 
 			Assessment: Experimental results have shown that Ermfish is technically suitable for human consumption. However, high mental fortitude is required to go to such desperate lengths.
-
-			<size=75%>(Databank art by CJMAXiK)</size>
 			""", 5, databankTexture, unlockSprite);
 
         KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech

@@ -1,5 +1,4 @@
-﻿global using AtlasSprite = UnityEngine.Sprite;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using ECCLibrary.Data;
 
 namespace SCHIZO;

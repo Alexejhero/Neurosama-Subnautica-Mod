@@ -59,27 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b93b17f04e7625439c2c966b8343ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  original:
-  - {fileID: 2100000, guid: b4d888327ee4d7e49bbdeb3da731d199, type: 2}
-  - {fileID: 2100000, guid: e65e39943ebbbda49ad2a33e797325cf, type: 2}
-  - {fileID: 2100000, guid: c5713c2fb13b9a74f822edf6f3297462, type: 2}
-  - {fileID: 2100000, guid: 5d81eba87e497ee4c97fbe0c94ad06f8, type: 2}
-  - {fileID: 2100000, guid: 5db5318d6ad8a7f4f9489ca015cfab74, type: 2}
-  remappings:
-  - name: cooked
-    materials:
-    - {fileID: 2100000, guid: 67982aa63b0646f4186e95f79fa8f38c, type: 2}
-    - {fileID: 2100000, guid: 48ee2627c39a695408f4ecd4a2f511e7, type: 2}
-    - {fileID: 2100000, guid: bbb85f91a9cd4ab46bb623573581ba37, type: 2}
-    - {fileID: 2100000, guid: 6a117ae2bf076744097ae6491d142db1, type: 2}
-    - {fileID: 2100000, guid: c4f60b77e74a08147a64a9c0409de7d9, type: 2}
-  - name: cured
-    materials:
-    - {fileID: 2100000, guid: 56596402bb28fd1409af4baacc992151, type: 2}
-    - {fileID: 2100000, guid: ee5f85fa8ff264f4883b58a822951e5a, type: 2}
-    - {fileID: 2100000, guid: d9a215329af22504fa3f2e4b10aa76d1, type: 2}
-    - {fileID: 2100000, guid: 04889dacdc56f9f4da7e4cd8d7c54a7b, type: 2}
-    - {fileID: 2100000, guid: e2f7ded21c6e7ab499996bc8a0612338, type: 2}
+  config: {fileID: 11400000, guid: 8eb8ea930a092ba448080c1fe0db6798, type: 2}
 --- !u!95 &2527239368934923301
 Animator:
   serializedVersion: 3

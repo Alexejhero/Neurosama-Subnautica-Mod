@@ -35,7 +35,7 @@ public sealed class CreatureVariant : CustomPrefab
 
     public new void Register()
     {
-        Info.WithIcon(AssetLoader.GetAtlasSprite(IconPath));
+        Info.WithIcon(AssetLoader.GetUnitySprite(IconPath));
 
         CraftingGadget crafting = this.SetRecipe(RecipeData);
         crafting.WithFabricatorType(CraftTree.Type.Fabricator);

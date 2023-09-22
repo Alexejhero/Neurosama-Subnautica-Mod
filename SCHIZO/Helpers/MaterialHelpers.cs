@@ -54,6 +54,6 @@ public static class MaterialHelpers
             pair.Key.materials = pair.Value.materials;
         }
 
-        Object.Destroy(disabledParent);
+        Object.Destroy(disabledParent.gameObject);
     }
 }

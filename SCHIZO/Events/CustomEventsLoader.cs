@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using SCHIZO.Events.ErmCon;
-using SCHIZO.Events.RandomMessage;
 using UnityEngine;
 
 namespace SCHIZO.Events;
@@ -15,7 +14,6 @@ public static class CustomEventsLoader
 
         // TODO: Maybe add an attribute here :)
         eventManager.AddEvent<ErmConEvent>();
-        eventManager.AddEvent<RandomMessageEvent>();
     }
 
     [HarmonyPatch(typeof(Player), nameof(Player.Awake))]

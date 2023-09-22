@@ -5,6 +5,8 @@ using ECCLibrary.Mono;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using SCHIZO.Extensions;
+using SCHIZO.Helpers;
+using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using UnityEngine;
 
@@ -16,7 +18,7 @@ public class ErmfishPrefab : CreatureAsset
 	{
 	}
 
-	private static GameObject Prefab => AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("ermfish");
+	private static GameObject Prefab => ResourceManager.GetMainAssetBundle().LoadAssetSafe<GameObject>("ermfish");
 
 	public override CreatureTemplate CreateTemplate()
 	{
@@ -65,5 +67,5 @@ public class ErmfishPrefab : CreatureAsset
 		yield break;
 	}
 
-	public override void ApplyMaterials(GameObject prefab) => MaterialUtils.ApplySNShaders(prefab, 1f);
+	public override void ApplyMaterials(GameObject prefab) => MaterialHelpers.ApplySNShadersIncludingRemaps(prefab, 1f);
 }

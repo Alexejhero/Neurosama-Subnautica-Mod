@@ -43,7 +43,7 @@ public static class TutelLoader
     private static void LoadTutel()
     {
 		TutelPrefab tutel = new(ModItems.Tutel);
-		tutel.PrefabInfo.WithIcon(AssetLoader.GetAtlasSprite("tutel_creature.png"));
+		tutel.PrefabInfo.WithIcon(AssetLoader.GetUnitySprite("tutel_creature.png"));
 		tutel.Register();
 
 		Texture2D databankTexture = AssetLoader.GetTexture("tutel-databank.png");

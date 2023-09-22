@@ -27,7 +27,9 @@ public static class ErmsharkLoader
         Texture2D databankTexture = AssetLoader.GetTexture("ermshark-databank.png");
         Sprite unlockSprite = AssetLoader.GetUnitySprite("ermshark-unlock.png");
 
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermshark, "Lifeforms/Fauna/Sharks", "Ermshark",
+        string encyPath = IS_BELOWZERO ? "Lifeforms/Fauna/Carnivores" : "Lifeforms/Fauna/Sharks";
+
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermshark, encyPath, "Ermshark",
             """
             <i><color=#fcf04e>[WARNING: requesting data from the restricted section. Only authorized personnel with clearance level</color></i> ████ <i><color=#fcf04e>are permitted to access the following records.]</color></i>
 

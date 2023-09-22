@@ -33,6 +33,7 @@ public static class BuildablesLoader
             PrefabName = "fake_tutel",
             TechGroup = TechGroup.Miscellaneous,
             TechCategory = TechCategory.Misc,
+            RequiredForUnlock = ModItems.Tutel,
             ModifyPrefab = prefab =>
             {
                 WorldSoundPlayer.Add(prefab, TutelWorldSounds);
@@ -95,7 +96,7 @@ public static class BuildablesLoader
         {
             IconFileName = "tutel.png",
             Recipe = new RecipeData(new Ingredient(TechType.CreepvinePiece, 10)),
-            PrefabName = "turtle",
+            PrefabName = "fake_tutel",
         }.WithOldVersion("VedalTurtle").Register();
     }
 }

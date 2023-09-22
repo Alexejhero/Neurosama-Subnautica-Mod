@@ -12,7 +12,12 @@ public sealed class TextureHider : MonoBehaviour
         cons = GetComponentInChildren<Constructable>();
     }
 
-    public void Update()
+    public void OnEnable()
+    {
+        if (rend) rend.enabled = cons.constructed;
+    }
+
+    public void OnDisable()
     {
         if (rend) rend.enabled = cons.constructed;
     }

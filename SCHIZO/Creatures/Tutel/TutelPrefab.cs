@@ -6,6 +6,7 @@ using Nautilus.Assets;
 using Nautilus.Utility;
 using SCHIZO.Extensions;
 using SCHIZO.Helpers;
+using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -18,7 +19,7 @@ public class TutelPrefab : CreatureAsset
 	{
 	}
 
-	private static GameObject Prefab => AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>("tutel");
+	private static GameObject Prefab => ResourceManager.GetMainAssetBundle().LoadAssetSafe<GameObject>("tutel");
 
 	private const float swimVelocity = 2f;
 	public override CreatureTemplate CreateTemplate()
@@ -100,7 +101,9 @@ public class TutelPrefab : CreatureAsset
         moveSurface.walkBehaviour = walk;
         moveSurface.onSurfaceTracker = walk.onSurfaceTracker;
         moveSurface.moveVelocity = swimVelocity;
+#if BELOWZERO
         moveSurface.onSurfaceMovement = walk.onSurfaceMovement;
+#endif
 
         FleeOnDamage fleeDamage = prefab.EnsureComponent<FleeOnDamage>();
         fleeDamage.creature = crawler;

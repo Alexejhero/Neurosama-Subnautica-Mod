@@ -15,11 +15,11 @@ public static class GreggsLoader
     private static void Load()
     {
         CustomPrefab deadErmfish = new(PrefabInfo.WithTechType("deadermfish", "Dead Ermfish", "erm\n<size=75%>(Model by w1n7er)</size>"));
-        deadErmfish.Info.WithIcon(AssetLoader.GetAtlasSprite("erm_dead.png"));
+        deadErmfish.Info.WithIcon(AssetLoader.GetUnitySprite("erm_dead.png"));
         deadErmfish.Register();
 
         CustomPrefab greggs = new(PrefabInfo.WithTechType("greggs", "Greggs", "god i fucking love greggs i would sell neuro just to lick a chicken bake right now holy shit i would marry gregg where is he"));
-        greggs.Info.WithIcon(AssetLoader.GetAtlasSprite("greggs.png"));
+        greggs.Info.WithIcon(AssetLoader.GetUnitySprite("greggs.png"));
 
         CraftingGadget crafting = greggs.SetRecipe(new RecipeData(new Ingredient(deadErmfish.Info.TechType, 1)));
         crafting.WithFabricatorType(CraftTree.Type.Fabricator);

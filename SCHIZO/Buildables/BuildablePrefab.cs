@@ -6,6 +6,7 @@ using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
 using SCHIZO.Extensions;
+using SCHIZO.Resources;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -39,7 +40,7 @@ public sealed class BuildablePrefab : CustomPrefab
     {
         _oldVersions.ForEach(v => v.Register());
 
-        Info.WithIcon(AssetLoader.GetAtlasSprite(IconFileName));
+        Info.WithIcon(AssetLoader.GetUnitySprite(IconFileName));
         this.SetRecipe(Recipe);
         if (TechGroup != TechGroup.Uncategorized) this.SetPdaGroupCategory(TechGroup, TechCategory);
         if (RequiredForUnlock != TechType.None) this.SetUnlock(RequiredForUnlock);
@@ -64,7 +65,7 @@ public sealed class BuildablePrefab : CustomPrefab
 
     private GameObject GetPrefab()
     {
-        GameObject prefab = AssetLoader.GetMainAssetBundle().LoadAssetSafe<GameObject>(PrefabName);
+        GameObject prefab = ResourceManager.GetMainAssetBundle().LoadAssetSafe<GameObject>(PrefabName);
         GameObject instance = Object.Instantiate(prefab, BuildablesLoader.DisabledParent);
         PrefabUtils.AddBasicComponents(instance, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Medium);
 
