@@ -48,9 +48,5 @@
 
     <ItemGroup>
         <Compile Include="..\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity" />
-        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Integrations\Item.cs">
-          <LinkBase>Unity\</LinkBase>
-          <Link>Unity\Integrations\Item.cs</Link>
-        </Compile>
     </ItemGroup>
 </Project>
