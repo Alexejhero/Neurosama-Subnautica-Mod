@@ -14,6 +14,7 @@ public static class AssetLoader
 
     private static readonly Dictionary<string, Texture2D> _textureCache = new();
 
+    [Obsolete]
     public static Texture2D GetTexture(string name)
     {
         if (_textureCache.TryGetValue(name, out Texture2D cached)) return cached;
@@ -21,6 +22,7 @@ public static class AssetLoader
                 ?? throw new ArgumentException($"Texture {name} not found", nameof(name));
     }
 
+    [Obsolete]
     public static Sprite GetUnitySprite(string name)
     {
         return TextureHelpers.CreateSprite(GetTexture(name));

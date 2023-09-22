@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56947ab8e76a8c458651b0afc3e2040, type: 3}
+  m_Name: Vedal's Face Reveal
+  m_EditorClassIdentifier: 
+  classId: HullPlateVedalSelfie
+  displayName: Vedal's Face Reveal Hull Plate
+  tooltip: Leaked face reveal of the famous vtuber Vedal987
+  texture: {fileID: 2800000, guid: 2dfce35a52e4a474db81518e897749c4, type: 3}
+  overrideIcon: {fileID: 0}
+  expensive: 0
+  hidden: 1
+  deprecated: 0

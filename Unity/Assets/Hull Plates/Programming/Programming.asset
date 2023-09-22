@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56947ab8e76a8c458651b0afc3e2040, type: 3}
+  m_Name: Programming
+  m_EditorClassIdentifier: 
+  classId: HullPlateNotAClue
+  displayName: Programming Hull Plate
+  tooltip: Time to learn some programming
+  texture: {fileID: 2800000, guid: 5a94ccf0240e77848be167c8aceffb33, type: 3}
+  overrideIcon: {fileID: 0}
+  expensive: 0
+  hidden: 1
+  deprecated: 0

@@ -11,7 +11,7 @@ using SCHIZO.Extensions;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
-using SCHIZO.Unity;
+using SCHIZO.Unity.Creatures;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;

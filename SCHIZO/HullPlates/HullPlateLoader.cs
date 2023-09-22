@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
-using Newtonsoft.Json;
 using SCHIZO.Attributes;
+using SCHIZO.Extensions;
 using SCHIZO.Helpers;
+using SCHIZO.Resources;
+using SCHIZO.Unity.HullPlates;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -17,66 +18,46 @@ namespace SCHIZO.HullPlates;
 [LoadMethod]
 public static class HullPlateLoader
 {
-    private static readonly Texture2D _baseIcon = AssetLoader.GetTexture("../hullplates/icon.png");
-    private static readonly Texture2D _oldHullPlateTexture = AssetLoader.GetTexture("../old_hullplates/texture.png");
-    private static readonly DirectoryInfo _hullPlatesFolder = Directory.CreateDirectory(Path.Combine(AssetLoader.AssetsFolder, "hullplates"));
-    private static readonly DirectoryInfo _oldHullPlatesFolder = Directory.CreateDirectory(Path.Combine(AssetLoader.AssetsFolder, "old_hullplates"));
-
     [LoadMethod]
     private static void Load()
     {
-        foreach (string path in Directory.GetDirectories(_hullPlatesFolder.FullName))
+        HullPlateCollection collection = ResourceManager.AssetBundle.LoadAssetSafe<HullPlateCollection>("Hull Plates");
+
+        foreach (HullPlate hullPlate in collection.hullPlates)
         {
-            LoadHullPlate(path);
+            if (hullPlate.deprecated) throw new Exception("Deprecated hull plate found in regular hull plate list!");
+            LoadHullPlate(hullPlate, collection.hiddenIcon);
         }
 
-        foreach (string path in Directory.GetDirectories(_oldHullPlatesFolder.FullName))
+        foreach (HullPlate hullPlate in collection.deprecatedHullPlates)
         {
-            LoadOldHullPlate(path);
+            if (!hullPlate.deprecated) throw new Exception("Regular hull plate found in deprecated hull plate list!");
+            LoadOldHullPlate(hullPlate, collection.deprecatedTexture);
         }
     }
 
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
-    private static void LoadHullPlate(string path)
+    private static void LoadHullPlate(HullPlate hullPlate, Texture2D hiddenIcon)
     {
-        string infoPath = Path.Combine(path, "info.json");
-        string texturePath = Path.Combine(path, "texture.png");
-        string spriteOverridePath = Path.Combine(path, "override-icon.png");
-        if (!File.Exists(infoPath) || !File.Exists(texturePath)) return;
+        Texture2D overrideIcon = hullPlate.overrideIcon !?? hullPlate.texture;
+        overrideIcon = overrideIcon.Scale(152, 145).Translate(-17, -28).Crop(hiddenIcon.width, hiddenIcon.height);
 
-        using StreamReader streamReader = new(infoPath);
-        HullPlateInfo hullPlateInfo = (HullPlateInfo) new JsonSerializer().Deserialize(streamReader, typeof(HullPlateInfo));
+        Texture2D newIcon = hullPlate.hidden ? hiddenIcon : TextureHelpers.BlendAlpha(hiddenIcon, overrideIcon);
 
-        Texture2D texture = ImageUtils.LoadTextureFromFile(texturePath);
-        Texture2D spriteOverride = texture;
-        if (File.Exists(spriteOverridePath))
-        {
-            spriteOverride = ImageUtils.LoadTextureFromFile(spriteOverridePath);
-        }
-        // definitely not fragile
-        spriteOverride = spriteOverride.Scale(152, 145).Translate(-17, -28).Crop(_baseIcon.width, _baseIcon.height);
-
-        Texture2D newIcon = hullPlateInfo!.Hidden ? _baseIcon : TextureHelpers.BlendAlpha(_baseIcon, spriteOverride);
-
-        CustomPrefab hullplate = new(hullPlateInfo!.InternalName, hullPlateInfo.DisplayName, hullPlateInfo.Description);
-        hullplate.SetGameObject(GetPrefab(texture, hullPlateInfo!.InternalName));
+        CustomPrefab hullplate = new(hullPlate.classId, hullPlate.displayName, hullPlate.tooltip);
+        hullplate.SetGameObject(GetPrefab(hullPlate.texture, hullPlate.classId));
         hullplate.Info.WithIcon(ImageUtils.LoadSpriteFromTexture(newIcon));
         hullplate.SetPdaGroupCategory(TechGroup.Miscellaneous, TechCategory.MiscHullplates);
-        hullplate.SetRecipe(new RecipeData(new Ingredient(!hullPlateInfo.Expensive ? TechType.Titanium : TechType.TitaniumIngot, 1), new Ingredient(TechType.Glass, 1)));
+        hullplate.SetRecipe(new RecipeData(new Ingredient(!hullPlate.expensive ? TechType.Titanium : TechType.TitaniumIngot, 1), new Ingredient(TechType.Glass, 1)));
         hullplate.Register();
     }
 
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
-    private static void LoadOldHullPlate(string path)
+    private static void LoadOldHullPlate(HullPlate hullPlate, Texture2D deprecatedTexture)
     {
-        string infoPath = Path.Combine(path, "info.json");
-
-        using StreamReader streamReader = new(infoPath);
-        HullPlateInfo hullPlateInfo = (HullPlateInfo) new JsonSerializer().Deserialize(streamReader, typeof(HullPlateInfo));
-
-        CustomPrefab hullplate = new(hullPlateInfo!.InternalName, hullPlateInfo.DisplayName + " (OLD, PLEASE REBUILD)", hullPlateInfo.Description);
-        hullplate.SetGameObject(GetPrefab(_oldHullPlateTexture, hullPlateInfo!.InternalName));
-        hullplate.SetRecipe(new RecipeData(new Ingredient(!hullPlateInfo.Expensive ? TechType.Titanium : TechType.TitaniumIngot, 1), new Ingredient(TechType.Glass, 1)));
+        CustomPrefab hullplate = new(hullPlate.classId, hullPlate.displayName + " (REMOVED FROM MOD)", "");
+        hullplate.SetGameObject(GetPrefab(deprecatedTexture, hullPlate.classId));
+        hullplate.SetRecipe(new RecipeData(new Ingredient(!hullPlate.expensive ? TechType.Titanium : TechType.TitaniumIngot, 1), new Ingredient(TechType.Glass, 1)));
         hullplate.Register();
     }
 

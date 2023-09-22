@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56947ab8e76a8c458651b0afc3e2040, type: 3}
+  m_Name: THINK NEURO THINK
+  m_EditorClassIdentifier: 
+  classId: HullPlate16
+  displayName: THINK NEURO THINK Hull Plate
+  tooltip: 'THINK NEURO THINK THE REAL REASON MCDONALDS ICE CREAM MACHCINES ARE ALWAYS
+    BROKEN IS THE TAYLOR COMPANY THAT MAKES THE MACHINES MAKES MONEY ON TECHNICIAN
+    SERVICE CALLS AND THEY HAVE NO INCENTIVE TO FIX THIS PROBLEM THANKS TO CONTRACTS
+    MCDONALDS HAVE WITH THEM
+
+    <size=75%>(Art by Hakuhan)</size>'
+  texture: {fileID: 2800000, guid: 7ba1b38681bf6574b93116db241a07c6, type: 3}
+  overrideIcon: {fileID: 0}
+  expensive: 0
+  hidden: 0
+  deprecated: 0

@@ -5,6 +5,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
+// ReSharper disable once CheckNamespace
 namespace SCHIZO.Unity.Materials
 {
     public sealed class MaterialRemapper : MonoBehaviour

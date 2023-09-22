@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56947ab8e76a8c458651b0afc3e2040, type: 3}
+  m_Name: Abandoned Archive
+  m_EditorClassIdentifier: 
+  classId: HullPlateAbandonedArchive
+  displayName: Abandoned Archive Hull Plate
+  tooltip: 'Abandoned Archive is a fantasy, spell-casting, rogue-like, featuring
+    a wide variety of relics, a unique spell-upgrading system, with compelling and
+    engaging bosses. Each floor is filled with items and mysteries for the player
+    to uncover; what will you discover in the Abandoned Archive?
+
+    WISHLIST ABANDONED
+    ARCHIVE NOW ON STEAM!'
+  texture: {fileID: 2800000, guid: ddd974c0e0671284995d9fbb4b3706ea, type: 3}
+  overrideIcon: {fileID: 2800000, guid: 01b22ccf5d25b5d42a6e597511061ea2, type: 3}
+  expensive: 1
+  hidden: 0
+  deprecated: 0

@@ -20,6 +20,7 @@ public sealed class SoundCollection : ScriptableObject
 
     public float LastPlay { get; private set; } = -1;
 
+    [Obsolete]
     public static SoundCollection Create(string path, string bus)
     {
         SoundCollection result = CreateInstance<SoundCollection>();
