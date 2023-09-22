@@ -2,7 +2,8 @@
 using System.Reflection.Emit;
 using HarmonyLib;
 using SCHIZO.Creatures.Ermfish;
-using SCHIZO.DataStructures;
+using SCHIZO.Unity;
+using SCHIZO.Unity.Loading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,23 +13,6 @@ namespace SCHIZO.Loading;
 [HarmonyPatch]
 public static class LoadingPatches
 {
-    private record struct ArtWithCredit(Sprite art, string credit);
-
-    private static readonly SavedRandomList<ArtWithCredit> _backgrounds = new("LoadingBackgrounds")
-    {
-        [1] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-1.jpg"), "Art by P3R"),
-        [2] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-2.png"), "Art by yamplum"),
-        [3] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-3.png"), "Art by paccha (edit by MyBraza)"),
-        [4] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-4.png"), "Art by sugarph"),
-        [5] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-5.png"), "Art by paccha (edit by MyBraza)"),
-        [6] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-6.png"), "Art by paccha"),
-        [7] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-7.jpg"), "Art by P3R"),
-        [8] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-8.png"), "Art by Troobs"),
-        [9] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-9.png"), "Art by Troobs"),
-        [10] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-10.jpg"), "Art by 2Pfrog"),
-        [11] = new ArtWithCredit(AssetLoader.GetUnitySprite("loading-bg-11.png"), "Art by paccha (edit by Troobs)"),
-    };
-
     private static TextMeshProUGUI _buildWatermark;
     private static string _artCredit;
     private static bool _playedErmSound;
@@ -51,7 +35,7 @@ public static class LoadingPatches
     {
         ReplaceLogo(__instance.gameObject);
 
-        ArtWithCredit art = _backgrounds.GetRandom();
+        LoadingBackground art = BackgroundLoader.LoadingBackgrounds.GetRandom();
         __instance.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = art.art;
 
         _artCredit = art.credit;

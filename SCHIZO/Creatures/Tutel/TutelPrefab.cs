@@ -19,7 +19,7 @@ public class TutelPrefab : CreatureAsset
 	{
 	}
 
-	private static GameObject Prefab => ResourceManager.GetMainAssetBundle().LoadAssetSafe<GameObject>("tutel");
+	private static GameObject Prefab => ResourceManager.AssetBundle.LoadAssetSafe<GameObject>("tutel");
 
 	private const float swimVelocity = 2f;
 	public override CreatureTemplate CreateTemplate()

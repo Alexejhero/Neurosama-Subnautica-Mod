@@ -16,7 +16,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
     {
     }
 
-    private static GameObject Prefab => ResourceManager.GetMainAssetBundle().LoadAssetSafe<GameObject>("erm_shark");
+    private static GameObject Prefab => ResourceManager.AssetBundle.LoadAssetSafe<GameObject>("erm_shark");
 
     public const float swimVelocity = 8f;
     public override CreatureTemplate CreateTemplate()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Nautilus.Utility;
 using Nautilus.Utility.MaterialModifiers;
 using SCHIZO.Unity;
+using SCHIZO.Unity.Materials;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

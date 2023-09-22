@@ -13,7 +13,7 @@ public static class ResourceManager
     private static readonly Assembly _assembly = Assembly.GetExecutingAssembly();
     private static readonly Dictionary<string, object> _cache = new();
 
-    public static AssetBundle GetMainAssetBundle() => GetAssetBundle("assets");
+    public static AssetBundle AssetBundle => GetAssetBundle("assets");
 
     private static AssetBundle GetAssetBundle(string name)
     {

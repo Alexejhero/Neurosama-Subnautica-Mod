@@ -9,21 +9,22 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using SCHIZO.Gadgets;
-using SCHIZO.Unity;
+using SCHIZO.Unity.Materials;
+using UnityEngine;
 
 namespace SCHIZO.Creatures;
 
 public sealed class CreatureVariant : CustomPrefab
 {
-    public string IconPath { get; init; }
+    public Sprite Icon { get; init; }
     public RecipeData RecipeData { get; init; }
     public EdibleData EdibleData { get; init; }
     public string[] FabricatorPath { get; init; }
     public TechCategory TechCategory { [UsedImplicitly] get; init; }
-    public string MaterialRemapName { get; init; }
+    public MaterialRemapOverride MaterialRemap { get; init; }
     public bool RegisterAsCookedVariant { get; init; }
     public VFXFabricatingData VFXFabricatingData { get; init; }
-    public Action<CreatureVariant> PostRegister { get; init; } = _ => { };
+    public Action<PrefabInfo> PostRegister { get; init; } = _ => { };
 
     private readonly TechType _original;
 
@@ -35,7 +36,7 @@ public sealed class CreatureVariant : CustomPrefab
 
     public new void Register()
     {
-        Info.WithIcon(AssetLoader.GetUnitySprite(IconPath));
+        Info.WithIcon(Icon);
 
         CraftingGadget crafting = this.SetRecipe(RecipeData);
         crafting.WithFabricatorType(CraftTree.Type.Fabricator);
@@ -53,7 +54,10 @@ public sealed class CreatureVariant : CustomPrefab
         {
             ModifyPrefab = prefab =>
             {
-                prefab.GetComponentsInChildren<MaterialRemapper>().ApplyAll(MaterialRemapName);
+                // we're not actually applying the remap itself, instead we are applying the Single remap that we find with that name
+                // this is so that if we have remappers with different configs, this won't break
+                // however i don't think that^ should ever happen anyway
+                prefab.GetComponentsInChildren<MaterialRemapper>().ApplyAll(MaterialRemap);
                 CreaturePrefabUtils.AddVFXFabricating(prefab, VFXFabricatingData);
             }
         });
@@ -61,6 +65,6 @@ public sealed class CreatureVariant : CustomPrefab
 
         if (RegisterAsCookedVariant) CraftDataHandler.SetCookedVariant(_original, Info.TechType);
 
-        PostRegister?.Invoke(this);
+        PostRegister?.Invoke(Info);
     }
 }

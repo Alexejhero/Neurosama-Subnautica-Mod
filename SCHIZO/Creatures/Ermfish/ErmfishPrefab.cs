@@ -18,7 +18,7 @@ public class ErmfishPrefab : CreatureAsset
 	{
 	}
 
-	private static GameObject Prefab => ResourceManager.GetMainAssetBundle().LoadAssetSafe<GameObject>("ermfish");
+	private static GameObject Prefab => ResourceManager.AssetBundle.LoadAssetSafe<GameObject>("ermfish");
 
 	public override CreatureTemplate CreateTemplate()
 	{

@@ -40,7 +40,7 @@ public sealed class BuildablePrefab : CustomPrefab
     {
         _oldVersions.ForEach(v => v.Register());
 
-        Info.WithIcon(AssetLoader.GetUnitySprite(IconFileName));
+        if (!string.IsNullOrWhiteSpace(IconFileName)) Info.WithIcon(AssetLoader.GetUnitySprite(IconFileName));
         this.SetRecipe(Recipe);
         if (TechGroup != TechGroup.Uncategorized) this.SetPdaGroupCategory(TechGroup, TechCategory);
         if (RequiredForUnlock != TechType.None) this.SetUnlock(RequiredForUnlock);
@@ -65,7 +65,7 @@ public sealed class BuildablePrefab : CustomPrefab
 
     private GameObject GetPrefab()
     {
-        GameObject prefab = ResourceManager.GetMainAssetBundle().LoadAssetSafe<GameObject>(PrefabName);
+        GameObject prefab = ResourceManager.AssetBundle.LoadAssetSafe<GameObject>(PrefabName);
         GameObject instance = Object.Instantiate(prefab, BuildablesLoader.DisabledParent);
         PrefabUtils.AddBasicComponents(instance, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Medium);
 

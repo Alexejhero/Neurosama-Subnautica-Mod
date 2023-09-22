@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using ECCLibrary;
 using ECCLibrary.Data;
-using Gendarme;
+using Nautilus.Assets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Attributes;
+using SCHIZO.Extensions;
 using SCHIZO.Helpers;
+using SCHIZO.Resources;
 using SCHIZO.Sounds;
+using SCHIZO.Unity;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
@@ -33,38 +37,19 @@ public static class ErmfishLoader
     [LoadMethod]
     private static void Load()
     {
-        LoadErmfish();
-        LoadVariants();
+        PickupableCreatureData data = ResourceManager.AssetBundle.LoadAssetSafe<PickupableCreatureData>("Ermfish data");
+
+        LoadErmfish(data);
+        LoadVariants(data);
     }
 
-    private static void LoadErmfish()
+    private static void LoadErmfish(PickupableCreatureData data)
     {
 		ErmfishPrefab ermfish = new(ModItems.Ermfish);
-		ermfish.PrefabInfo.WithIcon(AssetLoader.GetUnitySprite("erm.png"));
+		ermfish.PrefabInfo.WithIcon(data.regularIcon);
 		ermfish.Register();
 
-		Texture2D databankTexture = AssetLoader.GetTexture("ermfish-databank.png");
-        Sprite unlockSprite = AssetLoader.GetUnitySprite("ermfish-unlock.png");
-
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermfish, "Lifeforms/Fauna/SmallHerbivores", "Ermfish",
-			"""
-			An entity of unknown origin, it does not appear to be indigenous to 4546B. Although at first glance it appears to be an aquatic lifeform, it does not possess the necessary survival facilities.
-
-			This species appears to consist mostly of a fibrous muscle mass, no internal organs can be located inside the creature. This unique biology may indicate its purpose as part of a larger organism instead of an individual. Attempts to euthanize, dissect, or damage the specimen have resulted in failure, as the creature presents unnatural healing abilities. As it stands, we aren't sure if even the heat death of the Universe could properly dispose of an Ermfish. It is presumed that the only way to destroy the creature is by assimilating it in a larger organism.
-
-			1. Ears:
-			The ears situated at the top of the Ermfish have no opening and appear to be a type of mobility organ for swimming or maintaining balance in the water.
-
-			2. Antenna:
-			Between the ears there is a single antenna-like organ that emits a faint radio-signal. This could indicate communication between the species or another entity altogether.
-
-			3. Eyes:
-			Unlike most living creatures, these elliptical protrusions are made out of a hard, opaque material. Optical examination of the supposed pupils determined them to be completely impenetrable to light, and it is a question as to how the Ermfish is capable of perceiving its surroundings. One hypothesis suggests these appendages serve a different function other than sight.
-
-			Being in the vicinity of an Ermfish may cause auditory hallucinations that cannot be reproduced on audio recordings. The effect is magnified proportionally to the number of Ermfish present. Long-term effects are uncertain, but it is speculated that it may cause irreversible damage to the exposed individual.
-
-			Assessment: Experimental results have shown that Ermfish is technically suitable for human consumption. However, high mental fortitude is required to go to such desperate lengths.
-			""", 5, databankTexture, unlockSprite);
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermfish, "Lifeforms/Fauna/SmallHerbivores", "Ermfish", data.databankText.text, 5, data.databankTexture, data.unlockSprite);
 
         KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
         {
@@ -72,7 +57,7 @@ public static class ErmfishLoader
             unlockTechTypes = new List<TechType>(),
             unlockMessage = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage,
             unlockSound = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound,
-            unlockPopup = unlockSprite
+            unlockPopup = data.unlockSprite
         });
 
         List<LootDistributionData.BiomeData> biomes = new();
@@ -83,30 +68,22 @@ public static class ErmfishLoader
 		}
 		LootDistributionHandler.AddLootDistributionData(ermfish.ClassID, biomes.ToArray());
 
-        CreatureSoundsHandler.RegisterCreatureSounds(ermfish.PrefabInfo.TechType, Sounds);
-
-		ItemActionHandler.RegisterMiddleClickAction(ermfish.PrefabInfo.TechType, _ => InventorySounds.Play2D(), "pull ahoge", "English");
+        PostRegister(ermfish.PrefabInfo);
     }
 
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
-    private static void LoadVariants()
+    private static void LoadVariants(PickupableCreatureData data)
     {
         VFXFabricatingData vfxFabricatingData = new("VM/model", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0));
 
-        void PostRegister(CreatureVariant variant)
-        {
-            CreatureSoundsHandler.RegisterCreatureSounds(variant.Info.TechType, Sounds);
-            ItemActionHandler.RegisterMiddleClickAction(variant.Info.TechType, _ => InventorySounds.Play2D(), "pull ahoge", "English");
-        }
-
         new CreatureVariant(ModItems.Ermfish, ModItems.CookedErmfish)
         {
-            IconPath = "erm_cooked.png",
+            Icon = data.cookedIcon,
             RecipeData = new RecipeData(new Ingredient(ModItems.Ermfish, 1)),
             EdibleData = new EdibleData(23, 0, true),
             FabricatorPath = CraftTreeHandler.Paths.FabricatorCookedFood,
             TechCategory = Retargeting.TechCategory.CookedFood,
-            MaterialRemapName = "cooked",
+            MaterialRemap = data.cookedRemap,
             RegisterAsCookedVariant = true,
             VFXFabricatingData = vfxFabricatingData,
             PostRegister = PostRegister,
@@ -114,15 +91,21 @@ public static class ErmfishLoader
 
         new CreatureVariant(ModItems.Ermfish, ModItems.CuredErmfish)
         {
-            IconPath = "erm_cured.png",
+            Icon = data.curedIcon,
             RecipeData = new RecipeData(new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.Salt, 1)),
             EdibleData = new EdibleData(23, -2, false),
             FabricatorPath = CraftTreeHandler.Paths.FabricatorCuredFood,
             TechCategory = Retargeting.TechCategory.CuredFood,
-            MaterialRemapName = "cured",
+            MaterialRemap = data.curedRemap,
             VFXFabricatingData = vfxFabricatingData,
             PostRegister = PostRegister,
         }.Register();
+    }
+
+    private static void PostRegister(PrefabInfo info)
+    {
+        CreatureSoundsHandler.RegisterCreatureSounds(info.TechType, Sounds);
+        ItemActionHandler.RegisterMiddleClickAction(info.TechType, _ => InventorySounds.Play2D(), "pull ahoge", "English");
     }
 
     public static List<TechType> ErmfishTechTypes => new() { ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish };

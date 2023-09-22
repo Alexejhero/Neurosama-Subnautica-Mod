@@ -87,14 +87,12 @@ public static class BuildablesLoader
     {
         new BuildablePrefab(new ModItem("NeuroErm", "Erm (OLD VERSION, PLEASE REBUILD)", "<size=75%>(Model by w1n7er)</size>"))
         {
-            IconFileName = "erm.png",
             Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 2), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.Battery, 1), new Ingredient(TechType.Titanium, 4)),
             PrefabName = "neuroerm",
         }.Register();
 
         new BuildablePrefab(new ModItem("VedalTurtle2", "Fake tutel (OLD VERSION, PLEASE REBUILD)", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>"))
         {
-            IconFileName = "tutel.png",
             Recipe = new RecipeData(new Ingredient(TechType.CreepvinePiece, 10)),
             PrefabName = "fake_tutel",
         }.WithOldVersion("VedalTurtle").Register();

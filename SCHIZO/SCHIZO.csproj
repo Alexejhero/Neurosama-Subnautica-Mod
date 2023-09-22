@@ -43,7 +43,7 @@
         <None Include="..\Assets\**" LinkBase="Assets" />
         
         <None Remove="Resources\AssetBundles\AssetBundles" />
-        <None Remove="Resources\AssetBundles\*.manifest" />
+        <None Remove="Resources\AssetBundles\AssetBundles.manifest" />
     </ItemGroup>
 
     <ItemGroup>
