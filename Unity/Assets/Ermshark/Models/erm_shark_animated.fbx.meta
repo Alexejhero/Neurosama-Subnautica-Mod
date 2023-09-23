@@ -8,7 +8,7 @@ ModelImporter:
     second: Armature|CameraAction
   - first:
       74: -2243542963517077840
-    second: swimming
+    second: Ermshark|swimming_loop
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -73,7 +73,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: swimming
+      name: Ermshark|swimming_loop
       takeName: Armature|swimming_loop
       internalID: 0
       firstFrame: 0

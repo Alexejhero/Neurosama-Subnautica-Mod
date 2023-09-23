@@ -1,11 +1,14 @@
 fileFormatVersion: 2
-guid: cc3a696184e64db4e8b0f19a1baafa08
+guid: aaf098bc161271f4e9792582c70cd3df
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
       74: 6830350385625734225
-    second: Vedal Rig|idle
+    second: Vedal Rig|Cube.001Action.004
+  - first:
+      74: 8318315737096808900
+    second: Vedal Rig|Idle
   - first:
       74: -7648997655882407220
     second: Vedal Rig|Vedal RigAction
@@ -53,6 +56,35 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations:
+    - serializedVersion: 16
+      name: Vedal Rig|Idle
+      takeName: Vedal Rig|Idle
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Vedal Rig|walk
       takeName: Vedal Rig|walk
@@ -141,7 +173,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

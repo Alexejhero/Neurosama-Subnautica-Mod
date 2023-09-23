@@ -1,0 +1,295 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BlendShapes mask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Vedal Rig
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/chest
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/chest/chest_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/hips
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/hips/hips_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/MCH-WGT-hips
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/MCH-WGT-hips/MCH-WGT-hips_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/DEF-Leg.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/DEF-Leg.L/DEF-Leg.R.001.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/DEF-Leg.L/DEF-Leg.R.001.L/DEF-Leg.001.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/DEF-Leg.L/DEF-Leg.R.001.L/DEF-Leg.001.L/DEF-Leg.001.L_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/DEF-Leg.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/DEF-Leg.R/DEF-Leg.R.001.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/DEF-Leg.R/DEF-Leg.R.001.R/DEF-Leg.001.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/DEF-Leg.R/DEF-Leg.R.001.R/DEF-Leg.001.R/DEF-Leg.001.R_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/Leg_master.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/Leg_master.L/Leg_master.L_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/Leg_master.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/Leg_master.R/Leg_master.R_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg.L/MCH-Leg.L_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg.R/MCH-Leg.R_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.L/Leg.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.L/Leg.L/MCH-Leg.R.001_drv.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.L/Leg.L/MCH-Leg.R.001_drv.L/Leg.R.001.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.L/Leg.L/MCH-Leg.R.001_drv.L/Leg.R.001.L/MCH-Leg.001_drv.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.L/Leg.L/MCH-Leg.R.001_drv.L/Leg.R.001.L/MCH-Leg.001_drv.L/Leg.001.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.L/Leg.L/MCH-Leg.R.001_drv.L/Leg.R.001.L/MCH-Leg.001_drv.L/Leg.001.L/Leg.L.001
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.L/Leg.L/MCH-Leg.R.001_drv.L/Leg.R.001.L/MCH-Leg.001_drv.L/Leg.001.L/Leg.L.001/Leg.L.001_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.L/Leg.L/MCH-Leg.R.001_drv.L/Leg.R.001.L/MCH-Leg.001_drv.L/Leg.001.L/MCH-Leg.001.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.L/Leg.L/MCH-Leg.R.001_drv.L/Leg.R.001.L/MCH-Leg.001_drv.L/Leg.001.L/MCH-Leg.001.L/MCH-Leg.001.L_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.L/Leg.L/MCH-Leg.R.001_drv.L/Leg.R.001.L/MCH-Leg.R.001.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.L/Leg.L/MCH-Leg.R.001_drv.L/Leg.R.001.L/MCH-Leg.R.001.L/MCH-Leg.R.001.L_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.R/Leg.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.R/Leg.R/MCH-Leg.R.001_drv.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.R/Leg.R/MCH-Leg.R.001_drv.R/Leg.R.001.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.R/Leg.R/MCH-Leg.R.001_drv.R/Leg.R.001.R/MCH-Leg.001_drv.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.R/Leg.R/MCH-Leg.R.001_drv.R/Leg.R.001.R/MCH-Leg.001_drv.R/Leg.001.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.R/Leg.R/MCH-Leg.R.001_drv.R/Leg.R.001.R/MCH-Leg.001_drv.R/Leg.001.R/Leg.R.001
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.R/Leg.R/MCH-Leg.R.001_drv.R/Leg.R.001.R/MCH-Leg.001_drv.R/Leg.001.R/Leg.R.001/Leg.R.001_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.R/Leg.R/MCH-Leg.R.001_drv.R/Leg.R.001.R/MCH-Leg.001_drv.R/Leg.001.R/MCH-Leg.001.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.R/Leg.R/MCH-Leg.R.001_drv.R/Leg.R.001.R/MCH-Leg.001_drv.R/Leg.001.R/MCH-Leg.001.R/MCH-Leg.001.R_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.R/Leg.R/MCH-Leg.R.001_drv.R/Leg.R.001.R/MCH-Leg.R.001.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/MCH-Leg_drv.R/Leg.R/MCH-Leg.R.001_drv.R/Leg.R.001.R/MCH-Leg.R.001.R/MCH-Leg.R.001.R_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/ORG-Leg.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/ORG-Leg.L/ORG-Leg.R.001.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/ORG-Leg.L/ORG-Leg.R.001.L/ORG-Leg.001.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/ORG-Leg.L/ORG-Leg.R.001.L/ORG-Leg.001.L/ORG-Leg.001.L_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/ORG-Leg.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/ORG-Leg.R/ORG-Leg.R.001.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/ORG-Leg.R/ORG-Leg.R.001.R/ORG-Leg.001.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine/ORG-Spine/ORG-Leg.R/ORG-Leg.R.001.R/ORG-Leg.001.R/ORG-Leg.001.R_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine.001
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine.001/ORG-Spine.001
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.001/Spine_fk.001/MCH-Spine/Spine_fk/tweak_Spine.001/ORG-Spine.001/ORG-Spine.001_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/DEF-Leg.R.002.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/DEF-Leg.R.002.L/DEF-Leg.R.003.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/DEF-Leg.R.002.L/DEF-Leg.R.003.L/DEF-Leg.001.R.001.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/DEF-Leg.R.002.L/DEF-Leg.R.003.L/DEF-Leg.001.R.001.L/DEF-Leg.001.R.001.L_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/DEF-Leg.R.002.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/DEF-Leg.R.002.R/DEF-Leg.R.003.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/DEF-Leg.R.002.R/DEF-Leg.R.003.R/DEF-Leg.001.R.001.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/DEF-Leg.R.002.R/DEF-Leg.R.003.R/DEF-Leg.001.R.001.R/DEF-Leg.001.R.001.R_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/Leg.R.002_master.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/Leg.R.002_master.L/Leg.R.002_master.L_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/Leg.R.002_master.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/Leg.R.002_master.R/Leg.R.002_master.R_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002.L/MCH-Leg.R.002.L_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002.R/MCH-Leg.R.002.R_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.L/Leg.R.002.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.L/Leg.R.002.L/MCH-Leg.R.003_drv.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.L/Leg.R.002.L/MCH-Leg.R.003_drv.L/Leg.R.003.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.L/Leg.R.002.L/MCH-Leg.R.003_drv.L/Leg.R.003.L/MCH-Leg.001.R.001_drv.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.L/Leg.R.002.L/MCH-Leg.R.003_drv.L/Leg.R.003.L/MCH-Leg.001.R.001_drv.L/Leg.001.R.001.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.L/Leg.R.002.L/MCH-Leg.R.003_drv.L/Leg.R.003.L/MCH-Leg.001.R.001_drv.L/Leg.001.R.001.L/Leg.R.002.L.001
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.L/Leg.R.002.L/MCH-Leg.R.003_drv.L/Leg.R.003.L/MCH-Leg.001.R.001_drv.L/Leg.001.R.001.L/Leg.R.002.L.001/Leg.R.002.L.001_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.L/Leg.R.002.L/MCH-Leg.R.003_drv.L/Leg.R.003.L/MCH-Leg.001.R.001_drv.L/Leg.001.R.001.L/MCH-Leg.001.R.001.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.L/Leg.R.002.L/MCH-Leg.R.003_drv.L/Leg.R.003.L/MCH-Leg.001.R.001_drv.L/Leg.001.R.001.L/MCH-Leg.001.R.001.L/MCH-Leg.001.R.001.L_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.L/Leg.R.002.L/MCH-Leg.R.003_drv.L/Leg.R.003.L/MCH-Leg.R.003.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.L/Leg.R.002.L/MCH-Leg.R.003_drv.L/Leg.R.003.L/MCH-Leg.R.003.L/MCH-Leg.R.003.L_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.R/Leg.R.002.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.R/Leg.R.002.R/MCH-Leg.R.003_drv.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.R/Leg.R.002.R/MCH-Leg.R.003_drv.R/Leg.R.003.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.R/Leg.R.002.R/MCH-Leg.R.003_drv.R/Leg.R.003.R/MCH-Leg.001.R.001_drv.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.R/Leg.R.002.R/MCH-Leg.R.003_drv.R/Leg.R.003.R/MCH-Leg.001.R.001_drv.R/Leg.001.R.001.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.R/Leg.R.002.R/MCH-Leg.R.003_drv.R/Leg.R.003.R/MCH-Leg.001.R.001_drv.R/Leg.001.R.001.R/Leg.R.002.R.001
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.R/Leg.R.002.R/MCH-Leg.R.003_drv.R/Leg.R.003.R/MCH-Leg.001.R.001_drv.R/Leg.001.R.001.R/Leg.R.002.R.001/Leg.R.002.R.001_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.R/Leg.R.002.R/MCH-Leg.R.003_drv.R/Leg.R.003.R/MCH-Leg.001.R.001_drv.R/Leg.001.R.001.R/MCH-Leg.001.R.001.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.R/Leg.R.002.R/MCH-Leg.R.003_drv.R/Leg.R.003.R/MCH-Leg.001.R.001_drv.R/Leg.001.R.001.R/MCH-Leg.001.R.001.R/MCH-Leg.001.R.001.R_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.R/Leg.R.002.R/MCH-Leg.R.003_drv.R/Leg.R.003.R/MCH-Leg.R.003.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/MCH-Leg.R.002_drv.R/Leg.R.002.R/MCH-Leg.R.003_drv.R/Leg.R.003.R/MCH-Leg.R.003.R/MCH-Leg.R.003.R_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/ORG-Leg.R.002.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/ORG-Leg.R.002.L/ORG-Leg.R.003.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/ORG-Leg.R.002.L/ORG-Leg.R.003.L/ORG-Leg.001.R.001.L
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/ORG-Leg.R.002.L/ORG-Leg.R.003.L/ORG-Leg.001.R.001.L/ORG-Leg.001.R.001.L_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/ORG-Leg.R.002.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/ORG-Leg.R.002.R/ORG-Leg.R.003.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/ORG-Leg.R.002.R/ORG-Leg.R.003.R/ORG-Leg.001.R.001.R
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-pivot/tweak_Spine.002/ORG-Spine.002/ORG-Leg.R.002.R/ORG-Leg.R.003.R/ORG-Leg.001.R.001.R/ORG-Leg.001.R.001.R_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/MCH-WGT-chest
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/MCH-WGT-chest/MCH-WGT-chest_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/tweak_Spine.003
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/tweak_Spine.003/ORG-Spine.003
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/tweak_Spine.003/ORG-Spine.003/DEF-Head
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/tweak_Spine.003/ORG-Spine.003/DEF-Head/DEF-Head_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/tweak_Spine.003/ORG-Spine.003/MCH-ROT-head
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/tweak_Spine.003/ORG-Spine.003/MCH-ROT-head/head
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/tweak_Spine.003/ORG-Spine.003/MCH-ROT-head/head/head_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/tweak_Spine.003/ORG-Spine.003/ORG-Head
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/tweak_Spine.003/ORG-Spine.003/ORG-Head/ORG-Head_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/tweak_Spine.004
+    m_Weight: 0
+  - m_Path: Vedal Rig/MCH-torso.parent/torso/MCH-Spine.002/Spine_fk.002/MCH-Spine.003/Spine_fk.003/tweak_Spine.004/tweak_Spine.004_end
+    m_Weight: 0
+  - m_Path: Vedal Rig/root
+    m_Weight: 0
+  - m_Path: Vedal Rig/root/DEF-Spine
+    m_Weight: 0
+  - m_Path: Vedal Rig/root/DEF-Spine/DEF-Spine.001
+    m_Weight: 0
+  - m_Path: Vedal Rig/root/DEF-Spine/DEF-Spine.001/DEF-Spine.002
+    m_Weight: 0
+  - m_Path: Vedal Rig/root/DEF-Spine/DEF-Spine.001/DEF-Spine.002/DEF-Spine.003
+    m_Weight: 0
+  - m_Path: Vedal Rig/root/DEF-Spine/DEF-Spine.001/DEF-Spine.002/DEF-Spine.003/DEF-Spine.003_end
+    m_Weight: 0
+  - m_Path: Vedalmesh
+    m_Weight: 1
