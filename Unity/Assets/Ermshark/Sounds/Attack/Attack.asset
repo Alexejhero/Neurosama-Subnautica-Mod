@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
+  m_Name: Attack
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: 98897a51a3b4eb946999cc85dff0b21b, type: 3}
+  - {fileID: 8300000, guid: 1267b704d3ab81d4e855e082bcd4be21, type: 3}
+  - {fileID: 8300000, guid: 85ae8327807d9244e9a9bd77954b43e6, type: 3}
+  - {fileID: 8300000, guid: 36164514ff4da014a85eadac2cb92718, type: 3}
+  - {fileID: 8300000, guid: 556f71c936451fe4185e25ed88707f31, type: 3}
+  - {fileID: 8300000, guid: 8c713a1ea43bf9d4788602dec076629b, type: 3}
+  - {fileID: 8300000, guid: 1a9fa3c0661438f4a8005e3418fe3064, type: 3}
+  - {fileID: 8300000, guid: b81d92f90152f6448a842c033c8522e6, type: 3}
+  - {fileID: 8300000, guid: 67e03992ec00b894abc807a93a6179dc, type: 3}
+  - {fileID: 8300000, guid: 295c98af1d19f8348821b3fe4b2df686, type: 3}
+  - {fileID: 8300000, guid: a9699dc7acc7d254aae77c86395d0754, type: 3}

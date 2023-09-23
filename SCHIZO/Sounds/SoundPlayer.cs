@@ -5,6 +5,7 @@ using FMOD;
 using FMODUnity;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Unity.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Sounds;
@@ -16,11 +17,11 @@ public sealed class SoundPlayer
     private readonly List<string> _sounds = new();
     private readonly List<Coroutine> _runningCoroutines = new();
 
-    public SoundPlayer(ISoundProvider soundProvider, string bus)
+    public SoundPlayer(BaseSoundCollection soundCollection, string bus)
     {
         _bus = bus;
 
-        foreach (AudioClip audioClip in soundProvider.GetSounds())
+        foreach (AudioClip audioClip in soundCollection.GetSounds())
         {
             string id = Guid.NewGuid().ToString();
             RegisterSound(id, audioClip);

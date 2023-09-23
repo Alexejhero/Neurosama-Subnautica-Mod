@@ -8,7 +8,6 @@ using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Attributes;
-using SCHIZO.Extensions;
 using SCHIZO.Resources;
 using UnityEngine;
 
@@ -55,7 +54,7 @@ public static class GymbagLoader
         GameObject carryallModel = prefab.GetComponentInChildren<MeshRenderer>().gameObject;
         carryallModel.SetActive(false);
 
-        GameObject ourModel = ResourceManager.AssetBundle.LoadAssetSafe<GameObject>("gymbag");
+        GameObject ourModel = ResourceManager.LoadAsset<GameObject>("gymbag");
         GameObject instance = Object.Instantiate(ourModel, carryallModel.transform.parent);
 
         CreaturePrefabUtils.AddVFXFabricating(instance, new VFXFabricatingData(null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero));

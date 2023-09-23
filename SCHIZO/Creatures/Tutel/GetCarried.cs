@@ -1,4 +1,7 @@
-﻿using SCHIZO.Sounds;
+﻿using Nautilus.Utility;
+using SCHIZO.Resources;
+using SCHIZO.Sounds;
+using SCHIZO.Unity.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Tutel;
@@ -16,14 +19,14 @@ public class GetCarried : RetargetCreatureAction
 
     public void OnPickedUp()
     {
-        pickupSounds.Play(emitter);
+        _pickupSounds.Play(emitter);
         isCarried = true;
         StartPerform(Time.time);
     }
 
     public void OnDropped()
     {
-        releaseSounds.Play(emitter);
+        _releaseSounds.Play(emitter);
         isCarried = false;
         StopPerform(Time.time);
     }
@@ -50,7 +53,7 @@ public class GetCarried : RetargetCreatureAction
         if (time > nextCarryNoiseTime)
         {
             nextCarryNoiseTime = time + carryNoiseInterval * (1 + Random.value);
-            carrySounds.Play(emitter);
+            _carrySounds.Play(emitter);
         }
     }
 
@@ -63,9 +66,10 @@ public class GetCarried : RetargetCreatureAction
     public bool isCarried;
     public FMOD_CustomEmitter emitter;
 
-    private static readonly SoundCollection pickupSounds = SoundCollection.Combine(TutelLoader.Sounds.PickupSounds, TutelLoader.Sounds.HurtSounds);
-    private static readonly SoundCollection releaseSounds = SoundCollection.Combine(TutelLoader.WorldSounds);
-    private static readonly SoundCollection carrySounds = SoundCollection.Combine(TutelLoader.Sounds.CraftSounds, TutelLoader.Sounds.EatSounds);
+    private static readonly SoundPlayer _pickupSounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Pickup by ermshark"), AudioUtils.BusPaths.UnderwaterCreatures);
+    private static readonly SoundPlayer _carrySounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Carry by ermshark"), AudioUtils.BusPaths.UnderwaterCreatures);
+    private static readonly SoundPlayer _releaseSounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Tutel Ambient"), AudioUtils.BusPaths.UnderwaterCreatures);
+
     private float nextCarryNoiseTime;
     private const float carryNoiseInterval = 5f;
 }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// ReSharper disable UnusedParameter.Local
+// ReSharper disable UnusedType.Global
+
+using System;
 
 // ReSharper disable once CheckNamespace
 namespace NaughtyAttributes;

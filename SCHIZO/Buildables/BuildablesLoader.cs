@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Nautilus.Crafting;
 using SCHIZO.Attributes;
+using SCHIZO.Resources;
 using SCHIZO.Sounds;
+using SCHIZO.Unity.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Buildables;
@@ -13,8 +15,8 @@ public static class BuildablesLoader
 
     private const string INDOOR_SOUNDS_BUS = "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds";
 
-	private static readonly SoundCollection ErmWorldSounds = SoundCollection.Create("ermfish/noises", INDOOR_SOUNDS_BUS);
-    private static readonly SoundCollection TutelWorldSounds = SoundCollection.Create("tutel/noises", INDOOR_SOUNDS_BUS);
+    private static readonly SoundPlayer ErmWorldSounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Erm Ambient"), INDOOR_SOUNDS_BUS);
+    private static readonly SoundPlayer TutelWorldSounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Tutel Ambient"), INDOOR_SOUNDS_BUS);
 
     [LoadMethod]
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]

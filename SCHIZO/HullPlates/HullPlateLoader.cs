@@ -6,7 +6,6 @@ using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
 using SCHIZO.Attributes;
-using SCHIZO.Extensions;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Unity.HullPlates;
@@ -21,7 +20,7 @@ public static class HullPlateLoader
     [LoadMethod]
     private static void Load()
     {
-        HullPlateCollection collection = ResourceManager.AssetBundle.LoadAssetSafe<HullPlateCollection>("Hull Plates");
+        HullPlateCollection collection = ResourceManager.LoadAsset<HullPlateCollection>("Hull Plates");
 
         foreach (HullPlate hullPlate in collection.hullPlates)
         {

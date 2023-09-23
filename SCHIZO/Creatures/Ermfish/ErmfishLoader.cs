@@ -7,49 +7,48 @@ using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Attributes;
-using SCHIZO.Extensions;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using SCHIZO.Unity.Creatures;
+using SCHIZO.Unity.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
 
 [LoadMethod]
-public static class ErmfishLoader
+public sealed class ErmfishLoader
 {
-    public static readonly CreatureSounds Sounds = new()
-    {
-        PickupSounds = SoundCollection.Create("ermfish/pickup", AudioUtils.BusPaths.PDAVoice),
-        DropSounds = SoundCollection.Create("ermfish/release", AudioUtils.BusPaths.PDAVoice),
-        CraftSounds = SoundCollection.Create("ermfish/cooking", AudioUtils.BusPaths.PDAVoice),
-        EatSounds = SoundCollection.Create("ermfish/eating", AudioUtils.BusPaths.PDAVoice),
-        EquipSounds = SoundCollection.Create("ermfish/equipping", AudioUtils.BusPaths.PDAVoice),
-        UnequipSounds = SoundCollection.Create("ermfish/unequipping", AudioUtils.BusPaths.PDAVoice),
-        ScanSounds = SoundCollection.Create("ermfish/scan", AudioUtils.BusPaths.PDAVoice),
-        HurtSounds = SoundCollection.Create("ermfish/hurt", AudioUtils.BusPaths.PDAVoice)
-    };
-    public static readonly SoundCollection InventorySounds = SoundCollection.Create("ermfish/noises", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection PlayerDeathSounds = SoundCollection.Create("ermfish/player_death", IS_BELOWZERO ? AudioUtils.BusPaths.PDAVoice : "bus:/master/SFX_for_pause/nofilter");
-    public static readonly SoundCollection WorldSounds = SoundCollection.Create("ermfish/noises", AudioUtils.BusPaths.UnderwaterCreatures);
+    // todo: figure out bus path for BZ
+    public static readonly SoundPlayer PlayerDeathSounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Ermfish Player Death"),
+        IS_BELOWZERO ? AudioUtils.BusPaths.PDAVoice : "bus:/master/SFX_for_pause/nofilter");
 
     [LoadMethod]
     private static void Load()
     {
-        PickupableCreatureData data = ResourceManager.AssetBundle.LoadAssetSafe<PickupableCreatureData>("Ermfish data");
+        PickupableCreatureData data = ResourceManager.LoadAsset<PickupableCreatureData>("Ermfish data");
 
-        LoadErmfish(data);
-        LoadVariants(data);
+        ErmfishLoader loader = new(data);
+        loader.LoadErmfish();
+        loader.LoadVariants();
     }
 
-    private static void LoadErmfish(PickupableCreatureData data)
+    private readonly PickupableCreatureData _creatureData;
+    private readonly CreatureSounds _creatureSounds;
+
+    private ErmfishLoader(PickupableCreatureData data)
+    {
+        _creatureData = data;
+        _creatureSounds = new CreatureSounds(data.soundData);
+    }
+
+    private void LoadErmfish()
     {
 		ErmfishPrefab ermfish = new(ModItems.Ermfish);
-		ermfish.PrefabInfo.WithIcon(data.regularIcon);
+		ermfish.PrefabInfo.WithIcon(_creatureData.regularIcon);
 		ermfish.Register();
 
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermfish, "Lifeforms/Fauna/SmallHerbivores", "Ermfish", data.databankText.text, 5, data.databankTexture, data.unlockSprite);
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermfish, "Lifeforms/Fauna/SmallHerbivores", "Ermfish", _creatureData.databankText.text, 5, _creatureData.databankTexture, _creatureData.unlockSprite);
 
         KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
         {
@@ -57,7 +56,7 @@ public static class ErmfishLoader
             unlockTechTypes = new List<TechType>(),
             unlockMessage = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage,
             unlockSound = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound,
-            unlockPopup = data.unlockSprite
+            unlockPopup = _creatureData.unlockSprite
         });
 
         List<LootDistributionData.BiomeData> biomes = new();
@@ -72,18 +71,18 @@ public static class ErmfishLoader
     }
 
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
-    private static void LoadVariants(PickupableCreatureData data)
+    private void LoadVariants()
     {
         VFXFabricatingData vfxFabricatingData = new("VM/model", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0));
 
         new CreatureVariant(ModItems.Ermfish, ModItems.CookedErmfish)
         {
-            Icon = data.cookedIcon,
+            Icon = _creatureData.cookedIcon,
             RecipeData = new RecipeData(new Ingredient(ModItems.Ermfish, 1)),
             EdibleData = new EdibleData(23, 0, true),
             FabricatorPath = CraftTreeHandler.Paths.FabricatorCookedFood,
             TechCategory = Retargeting.TechCategory.CookedFood,
-            MaterialRemap = data.cookedRemap,
+            MaterialRemap = _creatureData.cookedRemap,
             RegisterAsCookedVariant = true,
             VFXFabricatingData = vfxFabricatingData,
             PostRegister = PostRegister,
@@ -91,21 +90,21 @@ public static class ErmfishLoader
 
         new CreatureVariant(ModItems.Ermfish, ModItems.CuredErmfish)
         {
-            Icon = data.curedIcon,
+            Icon = _creatureData.curedIcon,
             RecipeData = new RecipeData(new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.Salt, 1)),
             EdibleData = new EdibleData(23, -2, false),
             FabricatorPath = CraftTreeHandler.Paths.FabricatorCuredFood,
             TechCategory = Retargeting.TechCategory.CuredFood,
-            MaterialRemap = data.curedRemap,
+            MaterialRemap = _creatureData.curedRemap,
             VFXFabricatingData = vfxFabricatingData,
             PostRegister = PostRegister,
         }.Register();
     }
 
-    private static void PostRegister(PrefabInfo info)
+    private void PostRegister(PrefabInfo info)
     {
-        CreatureSoundsHandler.RegisterCreatureSounds(info.TechType, Sounds);
-        ItemActionHandler.RegisterMiddleClickAction(info.TechType, _ => InventorySounds.Play2D(), "pull ahoge", "English");
+        CreatureSoundsHandler.RegisterCreatureSounds(info.TechType, _creatureSounds);
+        ItemActionHandler.RegisterMiddleClickAction(info.TechType, _ => _creatureSounds.AmbientItemSounds.Play2D(), "pull ahoge", "English");
     }
 
     public static List<TechType> ErmfishTechTypes => new() { ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish };

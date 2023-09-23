@@ -16,7 +16,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
     {
     }
 
-    private static GameObject Prefab => ResourceManager.AssetBundle.LoadAssetSafe<GameObject>("erm_shark");
+    private static GameObject Prefab => ResourceManager.LoadAsset<GameObject>("erm_shark");
 
     public const float swimVelocity = 8f;
     public override CreatureTemplate CreateTemplate()
@@ -45,7 +45,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
 
     public override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
-        WorldSounds.Add(prefab, ErmsharkLoader.AmbientSounds);
+        WorldSounds.Add(prefab, CreatureSoundsHandler.GetCreatureSounds(ModItems.Ermshark).AmbientWorldSounds);
 
         BullyTutel bully = prefab.AddComponent<BullyTutel>();
         bully.mouth = bully.tutelAttach = prefab.SearchChild("mouth_attach_point").transform;

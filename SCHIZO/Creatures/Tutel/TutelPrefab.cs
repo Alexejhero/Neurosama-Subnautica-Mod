@@ -18,7 +18,7 @@ public class TutelPrefab : CreatureAsset
 	{
 	}
 
-	private static GameObject Prefab => ResourceManager.AssetBundle.LoadAssetSafe<GameObject>("tutel");
+	private static GameObject Prefab => ResourceManager.LoadAsset<GameObject>("tutel");
 
 	private const float swimVelocity = 2f;
 	public override CreatureTemplate CreateTemplate()
@@ -86,7 +86,7 @@ public class TutelPrefab : CreatureAsset
         GetCarried getCarried = prefab.EnsureComponent<GetCarried>();
         getCarried.emitter = emitter;
 
-        WorldSounds.Add(prefab, TutelLoader.WorldSounds);
+        WorldSounds.Add(prefab, CreatureSoundsHandler.GetCreatureSounds(ModItems.Tutel).AmbientWorldSounds);
 
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Cold, 0f);

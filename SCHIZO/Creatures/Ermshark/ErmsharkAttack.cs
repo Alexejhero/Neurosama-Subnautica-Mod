@@ -1,10 +1,18 @@
 ﻿using SCHIZO.Creatures.Tutel;
+using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
 public sealed class ErmsharkAttack : MeleeAttack
 {
+    private SoundPlayer _attackSounds;
+
+    private void Start()
+    {
+        _attackSounds = CreatureSoundsHandler.GetCreatureSounds(ModItems.Ermshark).AttackSounds;
+    }
+
     public override void OnTouch(Collider collider)
     {
         if (!enabled) return;
@@ -59,7 +67,7 @@ public sealed class ErmsharkAttack : MeleeAttack
                 Utils.PlayEnvSound(attackSound, damageFxPos);
             }
 
-            ErmsharkLoader.AttackSounds.Play(gameObject.GetComponent<FMOD_CustomEmitter>());
+            _attackSounds.Play(gameObject.GetComponent<FMOD_CustomEmitter>());
 
             creature.Aggression.Add(-biteAggressionDecrement);
             if (living && !living.IsAlive())

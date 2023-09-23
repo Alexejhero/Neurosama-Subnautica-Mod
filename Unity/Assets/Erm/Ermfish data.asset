@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06b3ed26fe3dcdd4eb3b7033af7b309e, type: 3}
+  m_Name: Ermfish data
+  m_EditorClassIdentifier: 
+  unlockSprite: {fileID: -6511657110711058755, guid: 61497e704d484b249bfba64b8569e636,
+    type: 3}
+  databankTexture: {fileID: 2800000, guid: e0082ba671d93ed4ab5090a05f0d4eda, type: 3}
+  databankText: {fileID: 4900000, guid: a784ad2033ad64a409b8d4ad1cda86a4, type: 3}
+  regularIcon: {fileID: -6511657110711058755, guid: 61497e704d484b249bfba64b8569e636,
+    type: 3}
+  cookedIcon: {fileID: -1868924045700490232, guid: 10a9c604f63f4cb4399cf078c0a1ab1e,
+    type: 3}
+  curedIcon: {fileID: -8557581461897102919, guid: a9a0a186f37803b44afb63c2ea2a320a,
+    type: 3}
+  cookedRemap: {fileID: 11400000, guid: fe94149be567e3040aceb85f00a90d3b, type: 2}
+  curedRemap: {fileID: 11400000, guid: 1cd97c439cd278f469dd104dd318b9b1, type: 2}
+  sounds: {fileID: 11400000, guid: d6e4db4e2b3b10b4dbc42e29b1bfbfe6, type: 2}

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
+  m_Name: Pickup
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: 639bdeb94ec1cd140ad945633575a309, type: 3}
+  - {fileID: 8300000, guid: 1c61e91d60f98914fb4a6b837be87b45, type: 3}
+  - {fileID: 8300000, guid: 870f63d411c95744a9dbc89d9333ac51, type: 3}
+  - {fileID: 8300000, guid: 92cf7c41e9066d146af594d3ea1e8cad, type: 3}
+  - {fileID: 8300000, guid: 4d52d06e4353a4d4aa8c8dcb77ef9f94, type: 3}
+  - {fileID: 8300000, guid: 3d3b0866aae8fe54c9b9ef11be9605d7, type: 3}
+  - {fileID: 8300000, guid: 9f58041d5372fd24382cd169d4e88c7c, type: 3}
+  - {fileID: 8300000, guid: 9a4f538cef5e5554ea129f22094a592c, type: 3}
+  - {fileID: 8300000, guid: bf929198091313f43b895f92ce1a8b76, type: 3}
+  - {fileID: 8300000, guid: e6e7097d6b7693f409ff9c80140eaeb8, type: 3}
+  - {fileID: 8300000, guid: 099be1178bee45c48a2342738e837fb8, type: 3}
+  - {fileID: 8300000, guid: 0c071956d170c4c4f926181aae0184f3, type: 3}
+  - {fileID: 8300000, guid: b92b144e53f01064ab67391dc60fffa4, type: 3}
+  - {fileID: 8300000, guid: d480d1652d2fcbd44b6690031c7b018b, type: 3}
+  - {fileID: 8300000, guid: 4dc8b54ff324cab46bfa559631162ef9, type: 3}
+  - {fileID: 8300000, guid: 13565c10b2f0017428d0d73ac8427aad, type: 3}
+  - {fileID: 8300000, guid: db13e3547bd7de947991e94049c552da, type: 3}
+  - {fileID: 8300000, guid: 11302c37c16f1264cbd18a5c8ccce6e6, type: 3}
+  - {fileID: 8300000, guid: 53f24e17f2f6a674288020b7c454d16a, type: 3}
+  - {fileID: 8300000, guid: 6d7379f1149e465459021d8f3d507621, type: 3}
+  - {fileID: 8300000, guid: 380f9acf27ee04f45a099c0dfbb09f2d, type: 3}
+  - {fileID: 8300000, guid: 65a772dd77e1dde458194ceafe416cae, type: 3}
+  - {fileID: 8300000, guid: 9ffcda48d956de04ca489083e233db5e, type: 3}

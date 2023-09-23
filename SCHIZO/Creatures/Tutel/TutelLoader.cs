@@ -5,9 +5,7 @@ using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
-using Nautilus.Utility;
 using SCHIZO.Attributes;
-using SCHIZO.Extensions;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
@@ -17,38 +15,34 @@ using UnityEngine;
 namespace SCHIZO.Creatures.Tutel;
 
 [LoadMethod]
-public static class TutelLoader
+public sealed class TutelLoader
 {
-    public static readonly CreatureSounds Sounds = new()
-    {
-        PickupSounds = SoundCollection.Create("tutel/pickup", AudioUtils.BusPaths.PDAVoice),
-        // no drop sounds
-        CraftSounds = SoundCollection.Create("tutel/cooking", AudioUtils.BusPaths.PDAVoice),
-        EatSounds = SoundCollection.Create("tutel/eating", AudioUtils.BusPaths.PDAVoice),
-        // no equip/unequip sounds
-        ScanSounds = SoundCollection.Create("tutel/scan", AudioUtils.BusPaths.PDAVoice),
-        HurtSounds = SoundCollection.Create("tutel/hurt", AudioUtils.BusPaths.PDAVoice),
-    };
-    public static readonly SoundCollection InventorySounds = SoundCollection.Create("tutel/noises", AudioUtils.BusPaths.PDAVoice);
-    public static readonly SoundCollection WorldSounds = SoundCollection.Create("tutel/noises", AudioUtils.BusPaths.UnderwaterCreatures);
-
     [LoadMethod]
-    [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void Load()
     {
-        PickupableCreatureData data = ResourceManager.AssetBundle.LoadAssetSafe<PickupableCreatureData>("Tutel data");
+        PickupableCreatureData data = ResourceManager.LoadAsset<PickupableCreatureData>("Tutel data");
 
-        LoadTutel(data);
-        LoadVariants(data);
+        TutelLoader loader = new(data);
+        loader.LoadTutel();
+        loader.LoadVariants();
     }
 
-    private static void LoadTutel(PickupableCreatureData data)
+    private readonly PickupableCreatureData _creatureData;
+    private readonly CreatureSounds _creatureSounds;
+
+    private TutelLoader(PickupableCreatureData data)
+    {
+        _creatureData = data;
+        _creatureSounds = new CreatureSounds(data.soundData);
+    }
+
+    private void LoadTutel()
     {
 		TutelPrefab tutel = new(ModItems.Tutel);
-		tutel.PrefabInfo.WithIcon(data.regularIcon);
+		tutel.PrefabInfo.WithIcon(_creatureData.regularIcon);
 		tutel.Register();
 
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(tutel, "Lifeforms/Fauna/SmallHerbivores", "Tutel", data.databankText.text, 5, data.databankTexture, data.unlockSprite);
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(tutel, "Lifeforms/Fauna/SmallHerbivores", "Tutel", _creatureData.databankText.text, 5, _creatureData.databankTexture, _creatureData.unlockSprite);
 
         KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
         {
@@ -56,7 +50,7 @@ public static class TutelLoader
             unlockTechTypes = new List<TechType>(),
             unlockMessage = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage,
             unlockSound = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound,
-            unlockPopup = data.unlockSprite
+            unlockPopup = _creatureData.unlockSprite
         });
 
         // We need Tutel to spawn low down, not in open waters
@@ -93,18 +87,18 @@ public static class TutelLoader
     }
 
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
-    private static void LoadVariants(PickupableCreatureData data)
+    private void LoadVariants()
     {
         VFXFabricatingData vfxFabricatingData = new("VM/Tutel", -0.17f, 0.59275F, new Vector3(0, 0.15f), 0.1f, new Vector3(0, -180, 0));
 
         new CreatureVariant(ModItems.Tutel, ModItems.CookedTutel)
         {
-            Icon = data.cookedIcon,
+            Icon = _creatureData.cookedIcon,
             RecipeData = new RecipeData(new Ingredient(ModItems.Tutel, 1)),
             EdibleData = new EdibleData(23, 3, true),
             FabricatorPath = CraftTreeHandler.Paths.FabricatorCookedFood,
             TechCategory = Retargeting.TechCategory.CookedFood,
-            MaterialRemap = data.cookedRemap,
+            MaterialRemap = _creatureData.cookedRemap,
             RegisterAsCookedVariant = true,
             VFXFabricatingData = vfxFabricatingData,
             PostRegister = PostRegister,
@@ -112,21 +106,21 @@ public static class TutelLoader
 
         new CreatureVariant(ModItems.Tutel, ModItems.CuredTutel)
         {
-            Icon = data.curedIcon,
+            Icon = _creatureData.curedIcon,
             RecipeData = new RecipeData(new Ingredient(ModItems.Tutel, 1), new Ingredient(TechType.Salt, 1)),
             EdibleData = new EdibleData(23, -2, false),
             FabricatorPath = CraftTreeHandler.Paths.FabricatorCuredFood,
             TechCategory = Retargeting.TechCategory.CuredFood,
-            MaterialRemap = data.curedRemap,
+            MaterialRemap = _creatureData.curedRemap,
             VFXFabricatingData = vfxFabricatingData,
             PostRegister = PostRegister,
         }.Register();
     }
 
-    private static void PostRegister(PrefabInfo info)
+    private void PostRegister(PrefabInfo info)
     {
-        CreatureSoundsHandler.RegisterCreatureSounds(info.TechType, Sounds);
-        ItemActionHandler.RegisterMiddleClickAction(info.TechType, _ => InventorySounds.Play2D(10), "ping @vedal987", "English");
+        CreatureSoundsHandler.RegisterCreatureSounds(info.TechType, _creatureSounds);
+        ItemActionHandler.RegisterMiddleClickAction(info.TechType, _ => _creatureSounds.AmbientItemSounds.Play2D(10), "ping @vedal987", "English");
     }
 
     public static List<TechType> TutelTechTypes => new() { ModItems.Tutel, ModItems.CookedTutel, ModItems.CuredTutel };

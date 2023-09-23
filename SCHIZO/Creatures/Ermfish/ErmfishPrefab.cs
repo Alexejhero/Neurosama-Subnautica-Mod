@@ -17,7 +17,7 @@ public class ErmfishPrefab : CreatureAsset
 	{
 	}
 
-	private static GameObject Prefab => ResourceManager.AssetBundle.LoadAssetSafe<GameObject>("ermfish");
+	private static GameObject Prefab => ResourceManager.LoadAsset<GameObject>("ermfish");
 
 	public override CreatureTemplate CreateTemplate()
 	{
@@ -51,8 +51,9 @@ public class ErmfishPrefab : CreatureAsset
 	{
         prefab.GetComponent<HeldFish>().ikAimLeftArm = true;
 
-		InventorySounds.Add(prefab, ErmfishLoader.InventorySounds);
-		WorldSounds.Add(prefab, ErmfishLoader.WorldSounds);
+        CreatureSounds sounds = CreatureSoundsHandler.GetCreatureSounds(ModItems.Ermfish);
+		InventorySounds.Add(prefab, sounds.AmbientItemSounds);
+		WorldSounds.Add(prefab, sounds.AmbientWorldSounds);
 
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Cold, 0f);

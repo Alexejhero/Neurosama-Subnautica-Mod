@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using ECCLibrary;
 using Nautilus.Handlers;
-using Nautilus.Utility;
 using SCHIZO.Attributes;
-using SCHIZO.Extensions;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
@@ -15,16 +13,12 @@ namespace SCHIZO.Creatures.Ermshark;
 [LoadMethod]
 public static class ErmsharkLoader
 {
-    public static readonly SoundCollection AmbientSounds = SoundCollection.Create("ermshark/ambient", AudioUtils.BusPaths.UnderwaterCreatures);
-    public static readonly SoundCollection AttackSounds = SoundCollection.Create("ermshark/attack", AudioUtils.BusPaths.UnderwaterCreatures);
-    public static readonly SoundCollection SplitSounds = SoundCollection.Create("ermshark/split", AudioUtils.BusPaths.UnderwaterCreatures);
-
     public static GameObject Prefab;
 
     [LoadMethod]
     private static void Load()
     {
-        CustomCreatureData data = ResourceManager.AssetBundle.LoadAssetSafe<CustomCreatureData>("Ermshark data");
+        CustomCreatureData data = ResourceManager.LoadAsset<CustomCreatureData>("Ermshark data");
 
         ErmsharkPrefab ermshark = new(ModItems.Ermshark);
         ermshark.Register();
@@ -39,5 +33,7 @@ public static class ErmsharkLoader
             biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.005f });
         }
         LootDistributionHandler.AddLootDistributionData(ermshark.PrefabInfo.ClassID, biomes.ToArray());
+
+        CreatureSoundsHandler.RegisterCreatureSounds(ModItems.Ermshark, new CreatureSounds(data.soundData));
     }
 }

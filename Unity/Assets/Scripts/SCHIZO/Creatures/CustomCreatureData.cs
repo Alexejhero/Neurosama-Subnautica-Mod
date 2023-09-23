@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 // ReSharper disable once CheckNamespace
 namespace SCHIZO.Unity.Creatures
@@ -10,5 +11,8 @@ namespace SCHIZO.Unity.Creatures
         public Sprite unlockSprite;
         public Texture2D databankTexture;
         public TextAsset databankText;
+
+        [FormerlySerializedAs("sounds")] [Header("Creature Sounds")]
+        public CreatureSoundData soundData;
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SCHIZO.Sounds;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace SCHIZO.Creatures.Ermshark;
@@ -7,6 +8,13 @@ public sealed class Ermshark : Creature, IOnTakeDamage
 {
     private bool _isReal = true;
     public int mitosisRemaining = 4;
+
+    private SoundPlayer _hurtSounds;
+
+    private void Awake()
+    {
+        _hurtSounds = CreatureSoundsHandler.GetCreatureSounds(ModItems.Ermshark).HurtSounds;
+    }
 
     public void OnTakeDamage(DamageInfo damageInfo)
     {
@@ -46,7 +54,7 @@ public sealed class Ermshark : Creature, IOnTakeDamage
 
         for (int i = 0; i < 5; i++) Utils.SpawnPrefabAt(hurtEffect, transform, position).transform.localScale *= 2f;
 
-        ErmsharkLoader.SplitSounds.Play(firstChild.GetComponent<FMOD_CustomEmitter>());
+        _hurtSounds.Play(firstChild.GetComponent<FMOD_CustomEmitter>());
     }
 
     private static void UpdateChild(GameObject child, bool isReal, int mitosisRemaining)

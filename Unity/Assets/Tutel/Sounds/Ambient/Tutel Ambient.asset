@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
+  m_Name: Tutel Ambient
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: e358a5ae11b0a17459898e1fd51ee966, type: 3}
+  - {fileID: 8300000, guid: 10548ba76630b7641920b4f7e061b37e, type: 3}
+  - {fileID: 8300000, guid: 44a026d5c93f59241aae6c8cfac4c617, type: 3}
+  - {fileID: 8300000, guid: 1863ebdcda963f940aea7bb058cedd2d, type: 3}
+  - {fileID: 8300000, guid: 8769cedd9fe0da742bffc0dc1d1e179c, type: 3}
+  - {fileID: 8300000, guid: 3b7422f9c1ccf1d499111506241dbbe9, type: 3}
+  - {fileID: 8300000, guid: ca61ab19d90ade3478992b3d5abb1d1d, type: 3}
+  - {fileID: 8300000, guid: 34373b94475403346b6e77e24447a270, type: 3}
+  - {fileID: 8300000, guid: 05415e6402573474f88c71250f89ca7c, type: 3}
+  - {fileID: 8300000, guid: a192883a089b352458b43327a3854fc4, type: 3}
+  - {fileID: 8300000, guid: 70c06af41781a254e9cffb190a5ee4dd, type: 3}
+  - {fileID: 8300000, guid: eea57e0261fd6b147af9415fce700e98, type: 3}
+  - {fileID: 8300000, guid: 9fc49e8b119bc5745a3b661dc31b6e6d, type: 3}
+  - {fileID: 8300000, guid: c1cfa361a076d4c44acab7977fbac2ba, type: 3}
+  - {fileID: 8300000, guid: ed1fb3943faaaf9499ad04b04bc3f804, type: 3}
+  - {fileID: 8300000, guid: b5a82e6adc7e4c34bae2bce7d12ec6e6, type: 3}
+  - {fileID: 8300000, guid: 0b77b3317b7557a4a8d68fa1a4b7369f, type: 3}

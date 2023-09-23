@@ -5,7 +5,6 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
-using SCHIZO.Extensions;
 using SCHIZO.Resources;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -65,7 +64,7 @@ public sealed class BuildablePrefab : CustomPrefab
 
     private GameObject GetPrefab()
     {
-        GameObject prefab = ResourceManager.AssetBundle.LoadAssetSafe<GameObject>(PrefabName);
+        GameObject prefab = ResourceManager.LoadAsset<GameObject>(PrefabName);
         GameObject instance = Object.Instantiate(prefab, BuildablesLoader.DisabledParent);
         PrefabUtils.AddBasicComponents(instance, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Medium);
 

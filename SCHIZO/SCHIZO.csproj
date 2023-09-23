@@ -48,5 +48,11 @@
 
     <ItemGroup>
         <Compile Include="..\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity\Unity" />
+        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Creatures\CreatureSounds.cs">
+          <Link>Unity\Unity\Creatures\CreatureSounds.cs</Link>
+        </Compile>
+        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Sounds\BaseSoundCollection.cs">
+          <Link>Unity\Unity\Sounds\BaseSoundCollection.cs</Link>
+        </Compile>
     </ItemGroup>
 </Project>

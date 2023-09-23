@@ -1,5 +1,4 @@
 ﻿using SCHIZO.DataStructures;
-using SCHIZO.Extensions;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Loading;
 
@@ -11,7 +10,7 @@ public static class BackgroundLoader
     {
         LoadingBackgrounds = new SavedRandomList<LoadingBackground>("LoadingBackgrounds");
 
-        LoadingBackgroundCollection collection = ResourceManager.AssetBundle.LoadAssetSafe<LoadingBackgroundCollection>("LoadingBackgrounds");
+        LoadingBackgroundCollection collection = ResourceManager.LoadAsset<LoadingBackgroundCollection>("LoadingBackgrounds");
 
         foreach (LoadingBackground background in collection.backgrounds)
         {
