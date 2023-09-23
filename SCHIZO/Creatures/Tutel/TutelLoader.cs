@@ -36,7 +36,7 @@ public static class TutelLoader
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void Load()
     {
-        PickupableCreatureData data = ResourceManager.AssetBundle.LoadAssetSafe<PickupableCreatureData>("Ermfish data");
+        PickupableCreatureData data = ResourceManager.AssetBundle.LoadAssetSafe<PickupableCreatureData>("Tutel data");
 
         LoadTutel(data);
         LoadVariants(data);
