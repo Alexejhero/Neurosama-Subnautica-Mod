@@ -51,8 +51,8 @@ public class ErmfishPrefab : CreatureAsset
 	{
         prefab.GetComponent<HeldFish>().ikAimLeftArm = true;
 
-		InventorySoundPlayer.Add(prefab, ErmfishLoader.InventorySounds);
-		WorldSoundPlayer.Add(prefab, ErmfishLoader.WorldSounds);
+		InventorySounds.Add(prefab, ErmfishLoader.InventorySounds);
+		WorldSounds.Add(prefab, ErmfishLoader.WorldSounds);
 
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Cold, 0f);

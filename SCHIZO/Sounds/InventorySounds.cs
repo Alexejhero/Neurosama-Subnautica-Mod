@@ -4,19 +4,19 @@ using Random = System.Random;
 
 namespace SCHIZO.Sounds;
 
-public sealed class InventorySoundPlayer : MonoBehaviour
+public sealed class InventorySounds : MonoBehaviour
 {
     [SerializeField] private Pickupable _pickupable;
-    [SerializeField] private SoundCollection _sounds;
+    [SerializeField] private SoundPlayer _soundPlayer;
 
     private float _timer = -1;
     private Random _random;
 
-    public static void Add(GameObject obj, SoundCollection sounds)
+    public static void Add(GameObject obj, SoundPlayer soundPlayer)
     {
-        if (sounds == null) throw new ArgumentNullException(nameof(sounds));
-        InventorySoundPlayer player = obj.AddComponent<InventorySoundPlayer>();
-        player._sounds = sounds;
+        if (soundPlayer == null) throw new ArgumentNullException(nameof(soundPlayer));
+        InventorySounds player = obj.AddComponent<InventorySounds>();
+        player._soundPlayer = soundPlayer;
     }
 
     private void Awake()
@@ -24,7 +24,6 @@ public sealed class InventorySoundPlayer : MonoBehaviour
         if (_timer != -1) return;
 
         _random = new Random(GetInstanceID());
-
         _pickupable = GetComponent<Pickupable>();
 
         _timer = _random.Next(CONFIG.MinInventoryNoiseDelay, CONFIG.MaxInventoryNoiseDelay);
@@ -44,7 +43,7 @@ public sealed class InventorySoundPlayer : MonoBehaviour
         if (_timer < 0)
         {
             _timer = _random.Next(CONFIG.MinInventoryNoiseDelay, CONFIG.MaxInventoryNoiseDelay);
-            _sounds.Play2D();
+            _soundPlayer.Play2D();
         }
     }
 }

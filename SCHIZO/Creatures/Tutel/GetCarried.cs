@@ -32,7 +32,7 @@ public class GetCarried : RetargetCreatureAction
     {
         creature.GetComponent<SwimBehaviour>().Idle();
         creature.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        creature.GetComponent<WorldSoundPlayer>().enabled = false;
+        creature.GetComponent<WorldSounds>().enabled = false;
         nextCarryNoiseTime = time + carryNoiseInterval * (1 + Random.value);
         if (!isCarried) OnPickedUp();
     }
@@ -56,7 +56,7 @@ public class GetCarried : RetargetCreatureAction
 
     public override void StopPerform(float time)
     {
-        creature.GetComponent<WorldSoundPlayer>().enabled = true;
+        creature.GetComponent<WorldSounds>().enabled = true;
         if (isCarried) OnDropped();
     }
 

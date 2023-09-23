@@ -45,7 +45,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
 
     public override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
-        WorldSoundPlayer.Add(prefab, ErmsharkLoader.AmbientSounds);
+        WorldSounds.Add(prefab, ErmsharkLoader.AmbientSounds);
 
         BullyTutel bully = prefab.AddComponent<BullyTutel>();
         bully.mouth = bully.tutelAttach = prefab.SearchChild("mouth_attach_point").transform;

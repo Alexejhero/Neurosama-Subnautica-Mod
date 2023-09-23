@@ -86,7 +86,7 @@ public class TutelPrefab : CreatureAsset
         GetCarried getCarried = prefab.EnsureComponent<GetCarried>();
         getCarried.emitter = emitter;
 
-        WorldSoundPlayer.Add(prefab, TutelLoader.WorldSounds);
+        WorldSounds.Add(prefab, TutelLoader.WorldSounds);
 
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
 		CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Cold, 0f);

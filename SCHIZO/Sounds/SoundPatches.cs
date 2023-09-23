@@ -16,7 +16,7 @@ public static class SoundPatches
             try
             {
                 if (!item.item || item.item.gameObject.activeInHierarchy) continue;
-                item.item.GetComponent<InventorySoundPlayer>()?.Update();
+                item.item.GetComponent<InventorySounds>()?.Update();
             }
             catch (Exception e)
             {

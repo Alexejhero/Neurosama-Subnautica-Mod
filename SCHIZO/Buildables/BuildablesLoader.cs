@@ -36,7 +36,7 @@ public static class BuildablesLoader
             RequiredForUnlock = ModItems.Tutel,
             ModifyPrefab = prefab =>
             {
-                WorldSoundPlayer.Add(prefab, TutelWorldSounds);
+                WorldSounds.Add(prefab, TutelWorldSounds);
             }
         }.WithOldVersion("VedalTurtle3").Register();
 
@@ -50,7 +50,7 @@ public static class BuildablesLoader
             RequiredForUnlock = ModItems.Ermfish,
 			ModifyPrefab = prefab =>
 			{
-				WorldSoundPlayer.Add(prefab, ErmWorldSounds);
+				WorldSounds.Add(prefab, ErmWorldSounds);
 			}
 		}.Register();
 

@@ -1,64 +1,44 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using FMOD;
 using FMODUnity;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using SCHIZO.DataStructures;
 using UnityEngine;
 
 namespace SCHIZO.Sounds;
 
-public sealed class SoundCollection : ScriptableObject
+public sealed class SoundPlayer
 {
-    private readonly RandomList<string> _sounds = new();
+    private readonly string _bus;
 
+    private readonly List<string> _sounds = new();
     private readonly List<Coroutine> _runningCoroutines = new();
 
-    public float LastPlay { get; private set; } = -1;
-
-    [Obsolete]
-    public static SoundCollection Create(string path, string bus)
+    public SoundPlayer(ISoundProvider soundProvider, string bus)
     {
-        SoundCollection result = CreateInstance<SoundCollection>();
-        result.Initialize(path, bus);
-        return result;
-    }
+        _bus = bus;
 
-    public static SoundCollection Combine(params SoundCollection[] collections)
-    {
-        SoundCollection result = CreateInstance<SoundCollection>();
-        foreach (string sound in collections.SelectMany(coll => coll._sounds))
-        {
-            result._sounds.Add(sound);
-        }
-        return result;
-    }
-
-    private void Initialize(string path, string bus)
-    {
-        string dirpath = Path.Combine(AssetLoader.AssetsFolder, "sounds", path);
-
-        foreach (string soundFile in Directory.GetFiles(dirpath))
+        foreach (AudioClip audioClip in soundProvider.GetSounds())
         {
             string id = Guid.NewGuid().ToString();
-            RegisterSound(id, soundFile, bus);
+            RegisterSound(id, audioClip);
             _sounds.Add(id);
         }
     }
+
+    public float LastPlay { get; private set; } = -1;
 
     private void StartSoundCoroutine(IEnumerator coroutine)
     {
         _runningCoroutines.Add(Player.main.StartCoroutine(coroutine));
     }
 
-    private void RegisterSound(string id, string soundFile, string bus)
+    private void RegisterSound(string id, AudioClip audioClip)
     {
-        Sound s = CustomSoundHandler.RegisterCustomSound(id, soundFile, bus, AudioUtils.StandardSoundModes_3D);
-        RuntimeManager.GetBus(bus).unlockChannelGroup();
+        Sound s = CustomSoundHandler.RegisterCustomSound(id, audioClip, _bus, AudioUtils.StandardSoundModes_3D);
+        RuntimeManager.GetBus(_bus).unlockChannelGroup();
         s.set3DMinMaxDistance(1, 30);
     }
 

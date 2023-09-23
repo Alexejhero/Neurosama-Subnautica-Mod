@@ -3,7 +3,7 @@
 // ReSharper disable once CheckNamespace
 namespace SCHIZO.Unity.Creatures
 {
-    [CreateAssetMenu(fileName = "CustomCreatureData", menuName = "SCHIZO/Creatures/Custom Creature Data")]
+    [CreateAssetMenu(menuName = "SCHIZO/Creatures/Custom Creature Data")]
     public class CustomCreatureData : ScriptableObject
     {
         [Header("Databank Info")]

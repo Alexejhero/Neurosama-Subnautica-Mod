@@ -4,7 +4,7 @@ using UnityEngine;
 // ReSharper disable once CheckNamespace
 namespace SCHIZO.Unity.Creatures
 {
-    [CreateAssetMenu(fileName = "PickupableCreatureData", menuName = "SCHIZO/Creatures/Pickupable Creature Data")]
+    [CreateAssetMenu(menuName = "SCHIZO/Creatures/Pickupable Creature Data")]
     public class PickupableCreatureData : CustomCreatureData
     {
         [Header("Item Sprites")]
