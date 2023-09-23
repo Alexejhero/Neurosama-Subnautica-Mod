@@ -178,7 +178,7 @@ public class ErmConEvent : CustomEvent
         List<Creature> withinRadius = PhysicsHelpers.ObjectsInRange(gameObject, SearchRadius)
             .OfTechType(ErmfishLoader.ErmfishTechTypes)
             .OrderByDistanceTo(gameObject)
-            .SelectComponent<Creature>()
+            .SelectComponentInParent<Creature>()
             .ToList();
         int totalAttendance = Mathf.Min(MaxAttendance, withinRadius.Count);
         LOGGER.LogInfo($"{totalAttendance} Ermfish will be attending the ErmCon");
