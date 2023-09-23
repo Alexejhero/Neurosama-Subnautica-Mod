@@ -40,7 +40,7 @@ public static class HullPlateLoader
     private static void LoadHullPlate(HullPlate hullPlate, Texture2D hiddenIcon)
     {
         Texture2D overrideIcon = hullPlate.overrideIcon !?? hullPlate.texture;
-        overrideIcon = overrideIcon.Scale(152, 145).Translate(-17, -28).Crop(hiddenIcon.width, hiddenIcon.height);
+        overrideIcon = overrideIcon.Scale(177, 176).Translate(-21, -38).Crop(hiddenIcon.width, hiddenIcon.height);
 
         Texture2D newIcon = hullPlate.hidden ? hiddenIcon : TextureHelpers.BlendAlpha(hiddenIcon, overrideIcon);
 
