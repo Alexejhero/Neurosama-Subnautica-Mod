@@ -38,7 +38,7 @@ public sealed class ErmsharkPrefab : CreatureAsset
             RespawnData = new RespawnData(false),
         };
         template.WithoutInfection();
-        template.SetCreatureComponentType<Ermshark>();
+        template.SetCreatureComponentType<ErmsharkBehaviour>();
 
         return template;
     }

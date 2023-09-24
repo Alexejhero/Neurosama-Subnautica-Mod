@@ -51,7 +51,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: blendShape.Wink left
+    attribute: blendShape.Wink right
     path: Vedalmesh
     classID: 137
     script: {fileID: 0}
@@ -72,7 +72,7 @@ AnimationClip:
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 1609714050
-      attribute: 482761936
+      attribute: 1897328401
       script: {fileID: 0}
       typeID: 137
       customType: 20
@@ -133,7 +133,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: blendShape.Wink left
+    attribute: blendShape.Wink right
     path: Vedalmesh
     classID: 137
     script: {fileID: 0}

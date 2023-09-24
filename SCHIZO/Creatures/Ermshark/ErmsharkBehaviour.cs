@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace SCHIZO.Creatures.Ermshark;
 
-public sealed class Ermshark : Creature, IOnTakeDamage
+public sealed class ErmsharkBehaviour : Creature, IOnTakeDamage
 {
     private bool _isReal = true;
     public int mitosisRemaining = 4;
@@ -59,7 +59,7 @@ public sealed class Ermshark : Creature, IOnTakeDamage
 
     private static void UpdateChild(GameObject child, bool isReal, int mitosisRemaining)
     {
-        Ermshark ermshark = child.GetComponentInChildren<Ermshark>(true);
+        ErmsharkBehaviour ermshark = child.GetComponentInChildren<ErmsharkBehaviour>(true);
         if (!isReal)
         {
             ermshark._isReal = false;

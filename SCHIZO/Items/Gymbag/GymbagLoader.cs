@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
@@ -7,7 +8,9 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
+using SCHIZO.Unity.Items;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace SCHIZO.Items.Gymbag;
 
@@ -25,13 +28,15 @@ public static class GymbagLoader
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void Load()
     {
+        ItemData data = ResourceManager.LoadAsset<ItemData>("Gymbag data");
+
         CustomPrefab prefab = new(ModItems.Gymbag);
         prefab.Info.WithSizeInInventory(new Vector2int(2, 2));
-        prefab.Info.WithIcon(ResourceManager.LoadAsset<Sprite>("gymbag"));
+        prefab.Info.WithIcon(data.icon);
 
         prefab.SetGameObject(new CloneTemplate(prefab.Info, BagTechType)
         {
-            ModifyPrefab = ModifyPrefab
+            ModifyPrefab = ModifyPrefab(data)
         });
 
         CraftingGadget crafting = prefab.SetRecipe(new RecipeData(new Ingredient(BagTechType, 1), new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.PosterKitty, 1)));
@@ -50,20 +55,24 @@ public static class GymbagLoader
         ItemActionHandler.RegisterMiddleClickAction(prefab.Info.TechType, item => GymbagHandler.Instance.OnOpen(item), "open storage", "English");
     }
 
-    private static void ModifyPrefab(GameObject prefab)
+    private static Action<GameObject> ModifyPrefab(ItemData data)
     {
-        StorageContainer container = prefab.GetComponentInChildren<StorageContainer>();
-        container.width = 4;
-        container.height = 4;
+        return ModifyPrefabEncapsulated;
 
-        GameObject carryallModel = prefab.GetComponentInChildren<MeshRenderer>().gameObject;
-        carryallModel.SetActive(false);
+        void ModifyPrefabEncapsulated(GameObject prefab)
+        {
+            StorageContainer container = prefab.GetComponentInChildren<StorageContainer>();
+            container.width = 4;
+            container.height = 4;
 
-        GameObject ourModel = ResourceManager.LoadAsset<GameObject>("gymbag");
-        GameObject instance = Object.Instantiate(ourModel, carryallModel.transform.parent);
+            GameObject carryallModel = prefab.GetComponentInChildren<MeshRenderer>().gameObject;
+            carryallModel.SetActive(false);
 
-        PrefabUtils.AddVFXFabricating(instance, null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero);
+            GameObject instance = Object.Instantiate(data.prefab, carryallModel.transform.parent);
 
-        MaterialUtils.ApplySNShaders(instance);
+            PrefabUtils.AddVFXFabricating(instance, null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero);
+
+            MaterialUtils.ApplySNShaders(instance);
+        }
     }
 }

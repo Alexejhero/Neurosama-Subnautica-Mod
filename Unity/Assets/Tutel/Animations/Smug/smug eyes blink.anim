@@ -51,7 +51,26 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: blendShape.Close eyes
+    attribute: blendShape.Wink left
+    path: Vedalmesh
+    classID: 137
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 100
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: blendShape.Wink right
     path: Vedalmesh
     classID: 137
     script: {fileID: 0}
@@ -72,7 +91,14 @@ AnimationClip:
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 1609714050
-      attribute: 3887957155
+      attribute: 482761936
+      script: {fileID: 0}
+      typeID: 137
+      customType: 20
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1609714050
+      attribute: 1897328401
       script: {fileID: 0}
       typeID: 137
       customType: 20
@@ -133,7 +159,26 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: blendShape.Close eyes
+    attribute: blendShape.Wink left
+    path: Vedalmesh
+    classID: 137
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 100
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: blendShape.Wink right
     path: Vedalmesh
     classID: 137
     script: {fileID: 0}

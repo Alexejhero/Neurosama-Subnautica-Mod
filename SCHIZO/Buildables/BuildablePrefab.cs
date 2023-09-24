@@ -6,6 +6,8 @@ using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
 using SCHIZO.Resources;
+using SCHIZO.Sounds;
+using SCHIZO.Unity.Items;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -13,13 +15,15 @@ namespace SCHIZO.Buildables;
 
 public sealed class BuildablePrefab : CustomPrefab
 {
-    public string IconAssetName { get; init; }
+    private const string INDOOR_SOUNDS_BUS = "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds";
+
+    public ItemData ItemData { get; init; }
     public TechGroup TechGroup { get; init; } = TechGroup.Uncategorized;
     public TechCategory TechCategory { get; init; }
     public RecipeData Recipe { get; init; }
     public TechType RequiredForUnlock { get; init; }
-    public string PrefabName { get; init; }
     public Action<GameObject> ModifyPrefab { get; init; } = _ => { };
+    public bool DisableSounds { get; init; }
 
     private readonly ModItem _modItem;
     private readonly List<BuildablePrefab> _oldVersions = new();
@@ -39,7 +43,7 @@ public sealed class BuildablePrefab : CustomPrefab
     {
         _oldVersions.ForEach(v => v.Register());
 
-        if (!string.IsNullOrWhiteSpace(IconAssetName)) Info.WithIcon(ResourceManager.LoadAsset<Sprite>(IconAssetName));
+        if (ItemData.icon) Info.WithIcon(ItemData.icon);
         this.SetRecipe(Recipe);
         if (TechGroup != TechGroup.Uncategorized) this.SetPdaGroupCategory(TechGroup, TechCategory);
         if (RequiredForUnlock != TechType.None) this.SetUnlock(RequiredForUnlock);
@@ -54,9 +58,9 @@ public sealed class BuildablePrefab : CustomPrefab
 
         _oldVersions.Add(new BuildablePrefab(oldClassId, _modItem.DisplayName + " (OLD VERSION, PLEASE REBUILD)", _modItem.Tooltip + " (OLD VERSION, PLEASE REBUILD)")
         {
-            IconAssetName = IconAssetName,
+            ItemData = ItemData,
             Recipe = Recipe,
-            PrefabName = PrefabName,
+            DisableSounds = true,
         });
 
         return this;
@@ -64,8 +68,7 @@ public sealed class BuildablePrefab : CustomPrefab
 
     private GameObject GetPrefab()
     {
-        GameObject prefab = ResourceManager.LoadAsset<GameObject>(PrefabName);
-        GameObject instance = Object.Instantiate(prefab, BuildablesLoader.DisabledParent);
+        GameObject instance = Object.Instantiate(ItemData.prefab, BuildablesLoader.DisabledParent);
         PrefabUtils.AddBasicComponents(instance, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Medium);
 
         Transform child = instance.transform.GetChild(0); // each buildable should have an unique child with an appropriate collider
@@ -73,6 +76,8 @@ public sealed class BuildablePrefab : CustomPrefab
         Constructable con = PrefabUtils.AddConstructable(instance, Info.TechType, ConstructableFlags.Outside | ConstructableFlags.Base | ConstructableFlags.Submarine | ConstructableFlags.AllowedOnConstructable | ConstructableFlags.Ground | ConstructableFlags.Inside, child.gameObject);
 
         con.rotationEnabled = true;
+
+        if (!DisableSounds && ItemData.sounds) WorldSounds.Add(instance, new SoundPlayer(ItemData.sounds, INDOOR_SOUNDS_BUS));
 
         ModifyPrefab(instance);
         MaterialUtils.ApplySNShaders(instance, 1);
