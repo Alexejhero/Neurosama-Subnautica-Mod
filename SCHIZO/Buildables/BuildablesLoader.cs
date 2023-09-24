@@ -30,9 +30,9 @@ public static class BuildablesLoader
 
         new BuildablePrefab(new ModItem("VedalTurtle4", "Fake tutel", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>"))
         {
-            IconFileName = "tutel_creature.png",
+            IconAssetName = "fake tutel",
             Recipe = new RecipeData(new Ingredient(TechType.CreepvinePiece, 10), new Ingredient(ModItems.Tutel, 1)),
-            PrefabName = "fake_tutel",
+            PrefabName = "fake tutel",
             TechGroup = TechGroup.Miscellaneous,
             TechCategory = TechCategory.Misc,
             RequiredForUnlock = ModItems.Tutel,
@@ -44,7 +44,7 @@ public static class BuildablesLoader
 
 		new BuildablePrefab(ModItems.Erm)
 		{
-			IconFileName = "erm.png",
+			IconAssetName = "erm",
 			Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 2), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.Battery, 1), new Ingredient(TechType.Titanium, 4), new Ingredient(ModItems.Ermfish, 1)),
 			PrefabName = "neuroerm",
 			TechGroup = TechGroup.Miscellaneous,
@@ -58,7 +58,7 @@ public static class BuildablesLoader
 
 		new BuildablePrefab(new ModItem("Neuroopper2", "Neurooper", "<size=75%>(Model by greencap, original art by Sandro)</size>"))
 		{
-			IconFileName = "neurooper.png",
+			IconAssetName = "neurooper",
 			Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(Retargeting.TechType.Peeper, 2), new Ingredient(TechType.Bladderfish, 1)),
 			PrefabName = "neurooper",
 			TechGroup = TechGroup.Miscellaneous,
@@ -67,7 +67,7 @@ public static class BuildablesLoader
 
 		new BuildablePrefab(new ModItem("NeuroFumo2", "Low-poly Neuro fumo", "Fumo collection 1/2\n<size=75%>(Model by YuG)</size>"))
 		{
-			IconFileName = "neurofumo.png",
+			IconAssetName = "neurofumo",
 			Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.JeweledDiskPiece, 1), new Ingredient(TechType.Gold, 1)),
 			PrefabName = "neurofumo",
 			TechGroup = TechGroup.Miscellaneous,
@@ -76,7 +76,7 @@ public static class BuildablesLoader
 
 		new BuildablePrefab(new ModItem("NeuroFumoNew", "Neuro fumo", "Fumo collection 2/2\n<size=75%>(Model by Kat)</size>"))
 		{
-			IconFileName = "neurofumonew.png",
+			IconAssetName = "neurofumo2",
 			Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.JeweledDiskPiece, 1), new Ingredient(TechType.Gold, 1)),
 			PrefabName = "neurofumo2",
 			TechGroup = TechGroup.Miscellaneous,
@@ -96,7 +96,7 @@ public static class BuildablesLoader
         new BuildablePrefab(new ModItem("VedalTurtle2", "Fake tutel (OLD VERSION, PLEASE REBUILD)", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>"))
         {
             Recipe = new RecipeData(new Ingredient(TechType.CreepvinePiece, 10)),
-            PrefabName = "fake_tutel",
+            PrefabName = "fake tutel",
         }.WithOldVersion("VedalTurtle").Register();
     }
 }

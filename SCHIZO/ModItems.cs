@@ -23,7 +23,7 @@ public static class ModItems
 
 public sealed class ModItem
 {
-    private static readonly List<string> _registeredItems = new();
+    private static readonly HashSet<string> _registeredItems = new();
 
     private readonly PrefabInfo _info;
 

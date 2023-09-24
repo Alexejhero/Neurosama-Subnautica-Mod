@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using FMOD.Studio;
+using FMODUnity;
 using JetBrains.Annotations;
 using Nautilus.Commands;
 using SCHIZO.Attributes;
@@ -55,5 +58,25 @@ public static class ConsoleCommands
             _21, _22, _23, _24, _25, _26, _27, _28, _29, _30,
             _31, _32, _33, _34, _35, _36, _37, _38, _39, _40,
             _41, _42, _43, _44, _45, _46, _47, _48, _49, _50));
+    }
+
+    [ConsoleCommand("buses"), UsedImplicitly]
+    public static string OnConsoleCommand_buses()
+    {
+        // adapted from https://discord.com/channels/324207629784186882/324207629784186882/1065010826571956294
+        RuntimeManager.StudioSystem.getBankList(out Bank[] banks);
+        StringBuilder sb = new("FMOD bus list:\n");
+        foreach (Bank bank in banks)
+        {
+            bank.getPath(out string bankPath);
+            bank.getBusList(out Bus[] busArray);
+            foreach (Bus bus in busArray)
+            {
+                bus.getPath(out string busPath);
+                sb.AppendLine($"bankPath: {bankPath}: busPath: {busPath}");
+            }
+        }
+        LOGGER.LogMessage(sb.ToString());
+        return "Logged all buses, check console";
     }
 }

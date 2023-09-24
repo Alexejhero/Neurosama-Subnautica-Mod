@@ -15,7 +15,7 @@ public static class TextureHelpers
         Texture2D scaledB = appliedTex.Scale(baseTex.width, baseTex.height);
         Color[] scaledBPixels = scaledB.GetPixels();
         // Blend textures based on transparency
-        Texture2D result = new Texture2D(baseTex.width, baseTex.height, baseTex.format, false);
+        Texture2D result = new(baseTex.width, baseTex.height, baseTex.format, false);
         Color[] resultPixels = BlendAlpha(baseTex.GetPixels(), scaledBPixels, blend, clipToBase);
 
         result.SetPixels(resultPixels);
@@ -39,21 +39,6 @@ public static class TextureHelpers
         return result;
     }
 
-    private static Color[] BlendAdditive(Color[] a, Color[] b, float blend = 1f)
-    {
-        Color[] result = new Color[a.Length];
-        for (int i = 0; i < result.Length; i++)
-        {
-            Color aColor = a[i];
-            Color bColor = b[i];
-            float blendFactor = bColor.a * blend;
-            Color blendedColor = aColor + (bColor * blendFactor);
-            blendedColor.a = aColor.a;
-            result[i] = blendedColor;
-        }
-        return result;
-    }
-
     /// <summary>Copies this texture from GPU to CPU so its pixels can be read.</summary>
     /// <returns>
     /// A readable <see cref="Texture2D"/> with the same pixels as this texture.<br/>
@@ -66,7 +51,7 @@ public static class TextureHelpers
             LOGGER.LogWarning($"Texture {texture.name} is already readable");
             return texture;
         }
-        Texture2D copy = new Texture2D(texture.width, texture.height);
+        Texture2D copy = new(texture.width, texture.height);
         //Graphics.CopyTexture(tex, copy); // copies GPU to GPU, we can't read that
 
         RenderTexture tmp = RenderTexture.GetTemporary(texture.width, texture.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.sRGB);

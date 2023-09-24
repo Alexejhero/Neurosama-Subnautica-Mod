@@ -9,6 +9,19 @@ namespace SCHIZO.Creatures.Ermshark;
 [RequireComponent(typeof(SwimBehaviour))]
 public class BullyTutel : RetargetCreatureAction, IProtoTreeEventListener
 {
+    [AssertNotNull]
+    public Transform mouth;
+    [AssertNotNull]
+    public Transform tutelAttach;
+    private Creature tutel;
+    private bool targetPickedUp;
+    private float timeNextFindTutel;
+    public float updateInterval = 2f;
+    public float updateTargetInterval = 1f;
+    private float timeNextUpdate;
+    private EcoRegion.TargetFilter isTargetValidFilter;
+    public float swimVelocity = ErmsharkPrefab.swimVelocity;
+
     public override void Awake()
     {
         base.Awake();
@@ -160,23 +173,7 @@ public class BullyTutel : RetargetCreatureAction, IProtoTreeEventListener
 
     public void OnProtoDeserializeObjectTree(ProtobufSerializer serializer)
     {
-        foreach (object obj in tutelAttach)
-        {
-            Transform trans = (Transform) obj;
+        foreach (Transform trans in tutelAttach)
             DropTutelTarget(trans.gameObject);
-        }
     }
-
-    [AssertNotNull]
-    public Transform mouth;
-    [AssertNotNull]
-    public Transform tutelAttach;
-    private Creature tutel;
-    private bool targetPickedUp;
-    private float timeNextFindTutel;
-    public float swimVelocity = ErmsharkPrefab.swimVelocity;
-    public float updateInterval = 2f;
-    public float updateTargetInterval = 1f;
-    private float timeNextUpdate;
-    private EcoRegion.TargetFilter isTargetValidFilter;
 }

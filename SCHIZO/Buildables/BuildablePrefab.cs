@@ -13,7 +13,7 @@ namespace SCHIZO.Buildables;
 
 public sealed class BuildablePrefab : CustomPrefab
 {
-    public string IconFileName { get; init; }
+    public string IconAssetName { get; init; }
     public TechGroup TechGroup { get; init; } = TechGroup.Uncategorized;
     public TechCategory TechCategory { get; init; }
     public RecipeData Recipe { get; init; }
@@ -39,7 +39,7 @@ public sealed class BuildablePrefab : CustomPrefab
     {
         _oldVersions.ForEach(v => v.Register());
 
-        if (!string.IsNullOrWhiteSpace(IconFileName)) Info.WithIcon(AssetLoader.GetUnitySprite(IconFileName));
+        if (!string.IsNullOrWhiteSpace(IconAssetName)) Info.WithIcon(ResourceManager.LoadAsset<Sprite>(IconAssetName));
         this.SetRecipe(Recipe);
         if (TechGroup != TechGroup.Uncategorized) this.SetPdaGroupCategory(TechGroup, TechCategory);
         if (RequiredForUnlock != TechType.None) this.SetUnlock(RequiredForUnlock);
@@ -54,7 +54,7 @@ public sealed class BuildablePrefab : CustomPrefab
 
         _oldVersions.Add(new BuildablePrefab(oldClassId, _modItem.DisplayName + " (OLD VERSION, PLEASE REBUILD)", _modItem.Tooltip + " (OLD VERSION, PLEASE REBUILD)")
         {
-            IconFileName = IconFileName,
+            IconAssetName = IconAssetName,
             Recipe = Recipe,
             PrefabName = PrefabName,
         });

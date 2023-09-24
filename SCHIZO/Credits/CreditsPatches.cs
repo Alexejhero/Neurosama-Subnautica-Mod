@@ -13,6 +13,8 @@ public static class CreditsPatches
 {
     private readonly struct Credits
     {
+        private static readonly List<Credits> All = new();
+
         public static readonly Credits Programming = new("Programming", "Developers");
         public static readonly Credits Modeling = new("3D Modeling", "3D Modelers");
         public static readonly Credits Animations = new("Animations", "Animators");
@@ -21,7 +23,6 @@ public static class CreditsPatches
         public static readonly Credits Lore = new("Lore", "Writing & Lore");
         public static readonly Credits ProjectLead = new("Project Lead", "Project Lead");
 
-        private static List<Credits> All;
         public static IReadOnlyList<Credits> GetAll() => All;
 
         private readonly List<string> _soFar;
@@ -33,7 +34,7 @@ public static class CreditsPatches
                 IS_BELOWZERO ? bz : sn
             };
 
-            (All ??= new List<Credits>()).Add(this);
+            All.Add(this);
         }
 
         private Credits(Credits a, Credits b)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UWE;
 
 namespace SCHIZO.Items.Gymbag;
 
@@ -47,7 +48,7 @@ public sealed class GymbagHandler : MonoBehaviour
             CurrentOpenedRootGymbag = item;
         }
 
-        FindObjectOfType<GameInput>().StartCoroutine(ResetCursor(cursorPosition));
+        CoroutineHost.StartCoroutine(ResetCursor(cursorPosition));
     }
 
     public uGUI_ItemIcon GetItemIcon(InventoryItem item)

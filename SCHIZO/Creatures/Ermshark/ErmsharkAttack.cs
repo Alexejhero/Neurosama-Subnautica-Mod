@@ -24,25 +24,22 @@ public sealed class ErmsharkAttack : MeleeAttack
         if (target.GetComponent<GetCarried>()) return; // prevents tutel scream when released
 
         Player player = target.GetComponent<Player>();
-        if (player && canBeFed && player.CanBeAttacked())
+        if (player)
         {
             GameObject heldObject = Inventory.main.GetHeldObject();
             if (heldObject)
             {
-                if (TryEat(heldObject, true))
-                {
-                    if (attackSound)
-                    {
-                        Utils.PlayEnvSound(attackSound, mouth.transform.position);
-                    }
-                    gameObject.SendMessage("OnMeleeAttack", heldObject, SendMessageOptions.DontRequireReceiver);
-                    return;
-                }
                 if (heldObject.GetComponent<GetCarried>() is { } heldTutel)
                 {
                     Inventory.main.DropHeldItem(false);
                     creature.GetComponent<BullyTutel>().TryPickupTutel(heldTutel);
                     creature.SetFriend(player.gameObject, 120f);
+                    return;
+                }
+                else if (canBeFed && player.CanBeAttacked() && TryEat(heldObject, true))
+                {
+                    if (attackSound) Utils.PlayEnvSound(attackSound, mouth.transform.position);
+                    gameObject.SendMessage("OnMeleeAttack", heldObject, SendMessageOptions.DontRequireReceiver);
                     return;
                 }
             }

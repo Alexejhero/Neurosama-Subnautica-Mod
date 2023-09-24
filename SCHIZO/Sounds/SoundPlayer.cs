@@ -7,6 +7,7 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Unity.Sounds;
 using UnityEngine;
+using UWE;
 
 namespace SCHIZO.Sounds;
 
@@ -33,7 +34,7 @@ public sealed class SoundPlayer
 
     private void StartSoundCoroutine(IEnumerator coroutine)
     {
-        _runningCoroutines.Add(Player.main.StartCoroutine(coroutine));
+        _runningCoroutines.Add(CoroutineHost.StartCoroutine(coroutine));
     }
 
     private void RegisterSound(string id, AudioClip audioClip)

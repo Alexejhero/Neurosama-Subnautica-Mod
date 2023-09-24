@@ -1,5 +1,6 @@
 ﻿using SCHIZO.Attributes;
 using SCHIZO.Helpers;
+using SCHIZO.Resources;
 using UnityEngine;
 
 namespace SCHIZO.Tweaks;
@@ -26,7 +27,7 @@ public sealed class ErmMoonTweaks : MonoBehaviour
 
         _normalMoonSize = _skyManager.MoonSize;
 
-        _ermTex = AssetLoader.GetTexture("erm.png");
+        _ermTex = ResourceManager.LoadAsset<Sprite>("erm").texture.GetReadable();
         _ermTex = _ermTex.Rotate180(); // moon texture is upside down
         _ermTex.name = "erm";
 

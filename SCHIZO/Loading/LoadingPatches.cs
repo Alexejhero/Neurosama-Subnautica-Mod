@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
+using SCHIZO.Resources;
 using SCHIZO.Unity.Loading;
 using TMPro;
 using UnityEngine;
@@ -77,6 +78,6 @@ public static class LoadingPatches
     {
         // temp until we have the BZ replacement
         uGUI_Logo logo = gui.GetComponentInChildren<uGUI_Logo>();
-        if (logo) logo.texture = AssetLoader.GetTexture("loading.png");
+        if (logo) logo.texture = ResourceManager.LoadAsset<Texture2D>("loading icon");
     }
 }

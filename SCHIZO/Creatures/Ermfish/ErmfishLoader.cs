@@ -5,7 +5,6 @@ using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
-using Nautilus.Utility;
 using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
@@ -19,9 +18,9 @@ namespace SCHIZO.Creatures.Ermfish;
 [LoadMethod]
 public sealed class ErmfishLoader
 {
-    // todo: figure out bus path for BZ
+    // todo: test BZ bus path when SoundPlayers are fixed
     public static readonly SoundPlayer PlayerDeathSounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Ermfish Player Death"),
-        IS_BELOWZERO ? AudioUtils.BusPaths.PDAVoice : "bus:/master/SFX_for_pause/nofilter");
+        IS_BELOWZERO ? "bus:/master/SFX_for_pause" : "bus:/master/SFX_for_pause/nofilter");
 
     [LoadMethod]
     private static void Load()

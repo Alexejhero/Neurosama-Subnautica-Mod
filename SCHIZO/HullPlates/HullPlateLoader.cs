@@ -15,8 +15,12 @@ using Object = UnityEngine.Object;
 namespace SCHIZO.HullPlates;
 
 [LoadMethod]
+[SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
 public static class HullPlateLoader
 {
+    private static readonly RecipeData NormalRecipe = new(new Ingredient(TechType.Titanium, 1), new Ingredient(TechType.Glass, 1));
+    private static readonly RecipeData ExpensiveRecipe = new(new Ingredient(TechType.TitaniumIngot, 1), new Ingredient(TechType.Glass, 1));
+
     [LoadMethod]
     private static void Load()
     {
@@ -35,7 +39,6 @@ public static class HullPlateLoader
         }
     }
 
-    [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void LoadHullPlate(HullPlate hullPlate, Texture2D hiddenIcon)
     {
         Texture2D overrideIcon = hullPlate.overrideIcon !?? hullPlate.texture;
@@ -47,7 +50,7 @@ public static class HullPlateLoader
         hullplate.SetGameObject(GetPrefab(hullPlate.texture, hullPlate.classId));
         hullplate.Info.WithIcon(ImageUtils.LoadSpriteFromTexture(newIcon));
         hullplate.SetPdaGroupCategory(TechGroup.Miscellaneous, TechCategory.MiscHullplates);
-        hullplate.SetRecipe(new RecipeData(new Ingredient(!hullPlate.expensive ? TechType.Titanium : TechType.TitaniumIngot, 1), new Ingredient(TechType.Glass, 1)));
+        hullplate.SetRecipe(hullPlate.expensive ? ExpensiveRecipe : NormalRecipe);
         hullplate.Register();
     }
 
@@ -56,7 +59,7 @@ public static class HullPlateLoader
     {
         CustomPrefab hullplate = new(hullPlate.classId, hullPlate.displayName + " (REMOVED FROM MOD)", "");
         hullplate.SetGameObject(GetPrefab(deprecatedTexture, hullPlate.classId));
-        hullplate.SetRecipe(new RecipeData(new Ingredient(!hullPlate.expensive ? TechType.Titanium : TechType.TitaniumIngot, 1), new Ingredient(TechType.Glass, 1)));
+        hullplate.SetRecipe(hullPlate.expensive ? ExpensiveRecipe : NormalRecipe);
         hullplate.Register();
     }
 
