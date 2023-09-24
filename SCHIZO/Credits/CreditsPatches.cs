@@ -155,7 +155,7 @@ public static class CreditsPatches
         builder.AppendLine();
         builder.AppendLine();
 
-        foreach (string credit in Credits.GetAll().Select(c => c.ToStringList().First()))
+        foreach (string credit in Credits.GetAll().Select(c => c.ToStringList()[0]))
         {
             builder.Append("<style=role>");
             builder.Append(credit);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.Reflection;
 using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using TwitchLib.Client;
@@ -22,6 +23,8 @@ public sealed class TwitchIntegration : MonoBehaviour
     private readonly TwitchClient _client;
     private readonly ConcurrentQueue<string> _msgQueue = new();
 
+    private static readonly string credentialsFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "cache.json");
+
     public TwitchIntegration()
     {
         ClientOptions clientOptions = new()
@@ -40,13 +43,13 @@ public sealed class TwitchIntegration : MonoBehaviour
         _client.OnFailureToReceiveJoinConfirmation += (_, evt) => LOGGER.LogError($"Could not join: {evt.Exception.Details}");
         _client.OnMessageReceived += Client_OnMessageReceived;
 
-        if (!File.Exists(Path.Combine(AssetLoader.AssetsFolder, "..", "cache.json")))
+        if (!File.Exists(credentialsFilePath))
         {
             LOGGER.LogWarning("Could not find cache.json for Twitch integration, it will be disabled.\n"
                 + "Make a text file next to the mod .dll and put the token on the SECOND line.");
             return;
         }
-        ConnectionCredentials credentials = new(OWNER_USERNAME, File.ReadAllLines(Path.Combine(AssetLoader.AssetsFolder, "..", "cache.json"))[1]);
+        ConnectionCredentials credentials = new(OWNER_USERNAME, File.ReadAllLines(credentialsFilePath)[1]);
 
         _client.Initialize(credentials, TARGET_CHANNEL);
 

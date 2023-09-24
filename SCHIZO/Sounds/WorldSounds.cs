@@ -45,7 +45,7 @@ public sealed class WorldSounds : MonoBehaviour
             _timer = _random.Next(CONFIG.MinWorldNoiseDelay, CONFIG.MaxWorldNoiseDelay);
             // todo fix
             if (_soundPlayer == null)
-                LOGGER.LogWarning($"no sound player on {name}, cannot play");
+                LOGGER.LogWarning($"no sound player on {name} {nameof(WorldSounds)}, cannot play");
             else
                 _soundPlayer.Play(emitter);
         }

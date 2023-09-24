@@ -25,7 +25,6 @@ public class TutelPrefab : CreatureAsset
 	{
 		CreatureTemplate template = new(Prefab, BehaviourType.Crab, EcoTargetType.Coral, float.MaxValue)
 		{
-            CreatureComponentType = typeof(CaveCrawler),
             // Cell level needs to be set to Near to avoid our spawns falling through the unrendered map which is too far
             // fish are not affected by this, but walking creatures are, as they have gravity on
 			CellLevel = LargeWorldEntity.CellLevel.Near,
@@ -41,6 +40,7 @@ public class TutelPrefab : CreatureAsset
             // Walk on surface and swim above water true
             LocomotionData = new LocomotionData(10f, 2f, 1f, 0.1f, true, true, true),
 		};
+        template.SetCreatureComponentType<CaveCrawler>();
         template.WithoutInfection();
 		template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.1f, 0.5f, 1f, 1.5f, true, true, ClassID));
 

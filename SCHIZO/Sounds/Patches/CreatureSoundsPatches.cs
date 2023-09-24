@@ -15,9 +15,8 @@ public static class CreatureSoundsPatches
     public static void PlayCustomPickupSound(Pickupable __instance)
     {
         if (!CreatureSoundsHandler.TryGetCreatureSounds(__instance.GetTechType(), out CreatureSounds sounds)) return;
-        if (sounds.PickupSounds == null) return;
-
-        sounds.PickupSounds.Play2D();
+        
+        sounds.PickupSounds?.Play2D();
     }
 
     [HarmonyPatch(typeof(Pickupable), nameof(Pickupable.PlayDropSound))]
@@ -40,7 +39,7 @@ public static class CreatureSoundsPatches
             if (!__instance.pickupable || !CreatureSoundsHandler.TryGetCreatureSounds(__instance.pickupable.GetTechType(), out CreatureSounds sounds)) return;
             if (sounds.DrawSounds == null) return;
 
-            if (sounds.PickupSounds != null && Time.time < sounds.PickupSounds.LastPlay + 0.5f) return;
+            if (Time.time < sounds.PickupSounds?.LastPlay + 0.5f) return;
 
             sounds.DrawSounds.Play2D();
         }
@@ -59,9 +58,9 @@ public static class CreatureSoundsPatches
             if (!__instance.pickupable || !CreatureSoundsHandler.TryGetCreatureSounds(__instance.pickupable.GetTechType(), out CreatureSounds sounds)) return;
             if (sounds.HolsterSounds == null) return;
 
-            if (sounds.DropSounds != null && Time.time < sounds.DropSounds.LastPlay + 0.5f) return;
-            if (sounds.EatSounds != null && Time.time < sounds.EatSounds.LastPlay + 0.5f) return;
-            if (sounds.CookSounds != null && Time.time < sounds.CookSounds.LastPlay + 0.5f) return;
+            if (Time.time < sounds.DropSounds?.LastPlay + 0.5f) return;
+            if (Time.time < sounds.EatSounds?.LastPlay + 0.5f) return;
+            if (Time.time < sounds.CookSounds?.LastPlay + 0.5f) return;
 
             sounds.HolsterSounds.Play2D(0.15f);
         }
@@ -77,9 +76,8 @@ public static class CreatureSoundsPatches
     {
         if (!CreatureSoundsHandler.TryGetCreatureSounds(entryData.key, out CreatureSounds sounds)) return;
         if (!verbose) return; // prevents scan sounds playing on loading screen
-        if (sounds.ScanSounds == null) return;
-
-        sounds.ScanSounds.Play2D();
+        
+        sounds.ScanSounds?.Play2D();
     }
 
     [HarmonyPatch(typeof(Survival), nameof(Survival.Eat))]
@@ -114,9 +112,8 @@ public static class CreatureSoundsPatches
         private static void Patch(TechType techType)
         {
             if (!CreatureSoundsHandler.TryGetCreatureSounds(techType, out CreatureSounds sounds)) return;
-            if (sounds.EatSounds == null) return;
-
-            if (Time.time < sounds.EatSounds.LastPlay + 0.1f) return;
+            
+            if (Time.time < sounds.EatSounds?.LastPlay + 0.1f) return;
 
             sounds.HolsterSounds?.CancelAllDelayed();
             sounds.EatSounds.Play2D();
@@ -141,8 +138,7 @@ public static class CreatureSoundsPatches
         if (inDamage.damage == 0) return;
         Pickupable pickupable = __instance.GetComponent<Pickupable>();
         if (!pickupable || !CreatureSoundsHandler.TryGetCreatureSounds(pickupable.GetTechType(), out CreatureSounds sounds)) return;
-        if (sounds.HurtSounds == null) return;
-
-        sounds.HurtSounds.Play(__instance.GetComponent<FMOD_CustomEmitter>());
+        
+        sounds.HurtSounds?.Play(__instance.GetComponent<FMOD_CustomEmitter>());
     }
 }

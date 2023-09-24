@@ -22,7 +22,7 @@ public static class ResourceManager
     {
         string targetedName = "AssetBundles." + name;
 
-        if (IsCached(targetedName, out AssetBundle cached)) return cached;
+        if (TryGetCached(targetedName, out AssetBundle cached)) return cached;
 
         byte[] buffer = GetEmbeddedBytes(targetedName);
         AssetBundle assetBundle = AssetBundle.LoadFromMemory(buffer);
@@ -37,7 +37,7 @@ public static class ResourceManager
         return manifestResourceStream.ReadFully();
     }
 
-    private static bool IsCached<T>(string name, out T value) where T : class
+    private static bool TryGetCached<T>(string name, out T value) where T : class
     {
         if (!_cache.TryGetValue(name, out object cachedObject))
         {
@@ -45,16 +45,12 @@ public static class ResourceManager
             return false;
         }
 
-        if (cachedObject is not T correctType) throw new InvalidCastException($"Cached object is not of type {typeof(T)}");
-
-        value = correctType;
+        value = cachedObject as T ?? throw new InvalidCastException($"Cached object is not of type {typeof(T)}");
         return true;
     }
 
     private static T Cache<T>(string name, T obj)
     {
-        if (_cache.ContainsKey(name)) throw new InvalidOperationException($"Cache already contains an object with name {name}");
-
         _cache.Add(name, obj);
 
         return obj;
