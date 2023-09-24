@@ -69,7 +69,9 @@ public static class HullPlateLoader
 
         IEnumerator GetPrefabAsync(IOut<GameObject> gameObject)
         {
+#pragma warning disable CS0612 // Type or member is obsolete
             CoroutineTask<GameObject> task = CraftData.GetPrefabForTechTypeAsync(TechType.DioramaHullPlate);
+#pragma warning restore CS0612 // Type or member is obsolete
             yield return task;
 
             GameObject instance = Object.Instantiate(task.GetResult());

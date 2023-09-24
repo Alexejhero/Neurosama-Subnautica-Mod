@@ -5,7 +5,7 @@
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/Alexejhero/Vedal-Subnautica-Mod</RepositoryUrl>
 
-        <NoWarn>$(NoWarn);CS0436;Publicizer001</NoWarn>
+        <NoWarn>$(NoWarn);CS0436;CS0649;Publicizer001</NoWarn>
 
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <DebugType>embedded</DebugType>
