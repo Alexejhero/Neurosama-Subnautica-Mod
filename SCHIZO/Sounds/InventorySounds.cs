@@ -43,11 +43,7 @@ public sealed class InventorySounds : MonoBehaviour
         if (_timer < 0)
         {
             _timer = _random.Next(CONFIG.MinInventoryNoiseDelay, CONFIG.MaxInventoryNoiseDelay);
-            // todo fix
-            if (_soundPlayer == null)
-                LOGGER.LogWarning($"no sound player on {name} {nameof(InventorySounds)}, cannot play");
-            else
-                _soundPlayer.Play2D();
+            _soundPlayer.Play2D();
         }
     }
 }

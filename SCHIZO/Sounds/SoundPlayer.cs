@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using FMOD;
 using FMODUnity;
 using Nautilus.Handlers;
@@ -11,11 +12,13 @@ using UWE;
 
 namespace SCHIZO.Sounds;
 
+[Serializable]
+[SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Serialization")]
 public sealed class SoundPlayer
 {
-    private readonly string _bus;
-
-    private readonly List<string> _sounds = new();
+    [SerializeField] private string _bus;
+    // TODO: random list
+    [SerializeField] private List<string> _sounds = new();
     private readonly List<Coroutine> _runningCoroutines = new();
 
     public SoundPlayer(BaseSoundCollection soundCollection, string bus)
@@ -80,14 +83,16 @@ public sealed class SoundPlayer
     {
         LastPlay = Time.time;
 
+        string sound = _sounds.GetRandom();
+
         if (emitter)
         {
-            emitter.SetAsset(AudioUtils.GetFmodAsset(_sounds.GetRandom()));
+            emitter.SetAsset(AudioUtils.GetFmodAsset(sound));
             emitter.Play();
         }
         else
         {
-            CustomSoundHandler.TryPlayCustomSound(_sounds.GetRandom(), out Channel channel);
+            CustomSoundHandler.TryPlayCustomSound(sound, out Channel channel);
             channel.set3DLevel(0);
         }
     }
