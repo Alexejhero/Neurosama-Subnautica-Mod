@@ -37,7 +37,6 @@ public sealed class ErmsharkPrefab : CreatureAsset
             BehaviourLODData = new BehaviourLODData(50, 100, 150),
             RespawnData = new RespawnData(false),
         };
-        template.AddAggressiveWhenSeeTargetData(new AggressiveWhenSeeTargetData(EcoTargetType.Shark, 2, 75, 3));
         template.WithoutInfection();
         template.SetCreatureComponentType<Ermshark>();
 
@@ -50,6 +49,17 @@ public sealed class ErmsharkPrefab : CreatureAsset
 
         BullyTutel bully = prefab.AddComponent<BullyTutel>();
         bully.mouth = bully.tutelAttach = prefab.SearchChild("mouth_attach_point").transform;
+
+        AggressiveWhenSeePlayer aggressive = prefab.AddComponent<AggressiveWhenSeePlayer>();
+        aggressive.maxRangeMultiplier = CreaturePrefabUtils.maxRangeMultiplierCurve;
+        aggressive.distanceAggressionMultiplier = CreaturePrefabUtils.distanceAggressionMultiplierCurve;
+        aggressive.lastTarget = components.LastTarget;
+        aggressive.creature = components.Creature;
+        aggressive.targetType = EcoTargetType.Shark;
+        aggressive.aggressionPerSecond = 2;
+        aggressive.maxRangeScalar = 75;
+        aggressive.maxSearchRings = 3;
+        aggressive.ignoreSameKind = true;
 
         GameObject mouth = prefab.SearchChild("attack_collider");
         CreaturePrefabUtils.AddMeleeAttack<ErmsharkAttack>(prefab, components, mouth, true, 20);
