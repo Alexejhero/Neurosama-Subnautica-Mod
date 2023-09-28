@@ -1,5 +1,5 @@
-﻿using System;
-using FMOD;
+﻿using FMOD;
+using FMOD.Studio;
 using FMODUnity;
 using HarmonyLib;
 
@@ -23,19 +23,18 @@ public static class JukeboxPatches
             return true;
 
         if (!__instance._file.StartsWith("http")) return true;
-        if (__instance._length > 0) __instance._length = 0;
-        if (__instance._sound.hasHandle()) return true;
 
-        CREATESOUNDEXINFO exInfo = __instance._exinfo with
-        {
-            pcmsetposcallback = (IntPtr sound, int subsound, uint position, TIMEUNIT postype) => RESULT.OK,
-        };
+        if (__instance._sound.hasHandle()) return UpdateStream(__instance);
 
-        Jukebox.ERRCHECK(RuntimeManager.CoreSystem.createSound(__instance._file, MODE._3D | MODE.CREATESTREAM | MODE.NONBLOCKING | MODE._3D_LINEARSQUAREROLLOFF, ref __instance._exinfo, out __instance._sound));
-        __instance.SetInfo(__instance._file, new() { label = "TruckersFM", length = 0 });
-        __instance._instance?.SetPositionKnobVisible(false);
-        
+        InitStream(__instance);
         return false;
+    }
+
+    private static void InitStream(Jukebox jukebox)
+    {
+        Jukebox.ERRCHECK(RuntimeManager.CoreSystem.createSound(jukebox._file, MODE._3D | MODE.CREATESTREAM | MODE.NONBLOCKING | MODE._3D_LINEARSQUAREROLLOFF, ref jukebox._exinfo, out jukebox._sound));
+        jukebox.SetInfo(jukebox._file, new() { label = "TruckersFM", length = 0 });
+        jukebox._instance?.SetPositionKnobVisible(false);
     }
 
     [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.UpdateInfo))]
@@ -60,31 +59,50 @@ public static class JukeboxPatches
         return false;
     }
 
-    // this is still necessary even with all the below patches
-    // FMOD automatically pauses sounds that are outside the max falloff distance
-    // (and netstreams can't handle pauses/seeking)
-    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.ERRCHECK))]
-    [HarmonyPrefix]
-    public static bool AwfulHackToFixErrorSpamOnSeek()
-    {
-        if (!Jukebox._main) return true;
-        if (!Jukebox._main._file?.StartsWith("http") ?? false) return true;
+    // the rest of the code in this file is dedicated to stopping FMOD/UWE from pausing or seeking the stream
+    // netstreams don't support it and will break and start spamming errors in the console and just generally making the game (and UWE's telemetry servers) not have a good time
 
-        // FMOD is still going to return errors to the game but it will be absolutely Clueless
-        return false;
+    private static bool UpdateStream(Jukebox jukebox)
+    {
+        jukebox._length = 0;
+        if (jukebox._paused)
+        {
+            jukebox.StopInternal();
+            return false;
+        }
+
+        // manually stop playback instead of letting FMOD pause due to attenuation
+        if (Jukebox.instance && Jukebox.instance.GetSoundPosition(out _, out float minDistance, out _)
+            && minDistance > Jukebox.maxDistance)
+        {
+            jukebox.StopInternal();
+            return false;
+        }
+        return true;
     }
 
+    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.SetSnapshotState))]
+    [HarmonyPrefix]
+    public static bool DontMuteBecauseItPauses(Jukebox __instance, EventInstance snapshot, ref bool state, bool value)
+    {
+        if (string.IsNullOrEmpty(__instance._file)) return true;
+        if (!__instance._file.StartsWith("http")) return true;
+
+#pragma warning disable Harmony003 // it's not an assignment... (remove when https://github.com/BepInEx/BepInEx.Analyzers/pull/6 is merged)
+        return snapshot.handle != __instance.snapshotMute.handle;
+#pragma warning restore Harmony003 // Harmony non-ref patch parameters modified
+    }
 
     [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.volume), MethodType.Setter)]
     [HarmonyPrefix]
-    public static void DontFullyMuteBecauseItStopsPlayback(ref float value)
+    public static void PreventZeroVolumePause(ref float value)
     {
         if (value == 0) value = 0.001f;
     }
 
     [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.UpdateUI))]
     [HarmonyPostfix]
-    public static void PreventSeekingHttpStreams(JukeboxInstance __instance)
+    public static void DisableSeekBarForHttpStreams(JukeboxInstance __instance)
     {
         bool isStream = __instance._file?.StartsWith("http") ?? false;
         __instance.GetComponentInChildren<PointerEventTrigger>().enabled = !isStream;
@@ -92,7 +110,7 @@ public static class JukeboxPatches
 
     [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.OnButtonPlayPause))]
     [HarmonyPrefix]
-    public static bool PreventPausingHttpStreams(JukeboxInstance __instance)
+    public static bool DisablePauseButtonForHttpStreams(JukeboxInstance __instance)
     {
         return !((__instance._file?.StartsWith("http") ?? false) && __instance.isControlling);
     }
