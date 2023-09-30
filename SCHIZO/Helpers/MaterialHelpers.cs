@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Nautilus.Utility;
 using Nautilus.Utility.MaterialModifiers;
 using SCHIZO.Unity.Materials;
@@ -56,4 +57,7 @@ public static partial class MaterialHelpers
 
         Object.Destroy(disabledParent.gameObject);
     }
+
+    [Conditional("BELOWZERO")]
+    public static partial void FixBZGhostMaterial(Constructable con);
 }

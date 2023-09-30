@@ -77,9 +77,7 @@ public sealed class BuildablePrefab : CustomPrefab
         Constructable con = PrefabUtils.AddConstructable(instance, Info.TechType, ConstructableFlags.Outside | ConstructableFlags.Base | ConstructableFlags.Submarine | ConstructableFlags.AllowedOnConstructable | ConstructableFlags.Ground | ConstructableFlags.Inside, child.gameObject);
 
         con.rotationEnabled = true;
-#if BELOWZERO
         MaterialHelpers.FixBZGhostMaterial(con);
-#endif
 
         if (!DisableSounds && ItemData.sounds) WorldSounds.Add(instance, new SoundPlayer(ItemData.sounds, INDOOR_SOUNDS_BUS));
 

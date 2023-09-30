@@ -6,7 +6,7 @@ using UnityEngine;
 namespace SCHIZO.Tweaks;
 
 [LoadComponent]
-public sealed class ErmMoonTweaks : MonoBehaviour
+public sealed class ErmMoon : MonoBehaviour
 {
     private uSkyManager _skyManager;
     private Texture2D _normalMoonTex;

@@ -20,7 +20,7 @@ public static class ErmsharkLoader
     {
         CustomCreatureData data = ResourceManager.LoadAsset<CustomCreatureData>("Ermshark data");
 
-        ErmsharkPrefab ermshark = new(ModItems.Ermshark);
+        ErmsharkPrefab ermshark = new(ModItems.Ermshark, data.prefab);
         ermshark.Register();
 
         string encyPath = IS_BELOWZERO ? "Lifeforms/Fauna/Carnivores" : "Lifeforms/Fauna/Sharks";

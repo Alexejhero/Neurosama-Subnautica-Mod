@@ -5,7 +5,6 @@ using ECCLibrary.Mono;
 using Nautilus.Assets;
 using SCHIZO.Extensions;
 using SCHIZO.Helpers;
-using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using UnityEngine;
 
@@ -13,17 +12,18 @@ namespace SCHIZO.Creatures.Ermfish;
 
 public class ErmfishPrefab : CreatureAsset
 {
-	public ErmfishPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
-	{
-	}
+    private readonly GameObject _prefab;
 
-	private static GameObject Prefab => ResourceManager.LoadAsset<GameObject>("ermfish");
+	public ErmfishPrefab(PrefabInfo prefabInfo, GameObject prefab) : base(prefabInfo)
+    {
+        _prefab = prefab;
+    }
 
 	public override CreatureTemplate CreateTemplate()
 	{
 		const float swimVelocity = 7f;
 
-		CreatureTemplate template = new(Prefab, BehaviourType.SmallFish, EcoTargetType.Peeper, float.MaxValue)
+		CreatureTemplate template = new(_prefab, BehaviourType.SmallFish, EcoTargetType.Peeper, float.MaxValue)
 		{
 			CellLevel = LargeWorldEntity.CellLevel.Medium,
 			Mass = 10,

@@ -3,10 +3,10 @@ using FMOD.Studio;
 using FMODUnity;
 using HarmonyLib;
 
-namespace SCHIZO.Sounds.Radio;
+namespace SCHIZO.Tweaks;
 
 [HarmonyPatch]
-public static class JukeboxPatches
+public static class TruckersFM
 {
     [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.ScanInternal))]
     [HarmonyPostfix]
@@ -34,7 +34,7 @@ public static class JukeboxPatches
     {
         Jukebox.ERRCHECK(RuntimeManager.CoreSystem.createSound(jukebox._file, MODE._3D | MODE.CREATESTREAM | MODE.NONBLOCKING | MODE._3D_LINEARSQUAREROLLOFF, ref jukebox._exinfo, out jukebox._sound));
         jukebox.SetInfo(jukebox._file, new() { label = "TruckersFM", length = 0 });
-        jukebox._instance?.SetPositionKnobVisible(false);
+        jukebox._instance!?.SetPositionKnobVisible(false);
     }
 
     [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.UpdateInfo))]

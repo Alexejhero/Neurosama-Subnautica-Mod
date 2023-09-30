@@ -38,11 +38,21 @@ public class RandomList<T> : IEnumerable<T>
         _ism = initialStateModifier ?? new DefaultInitialStateModifier();
     }
 
+    public int Count => _remainingItems.Count + _usedItems.Count;
+
     public void Add(T value)
     {
         bool used = _ism.Register(value);
         if (used) _usedItems.Add(value);
         else _remainingItems.Add(value);
+    }
+
+    public void AddRange(IEnumerable<T> values)
+    {
+        foreach (T value in values)
+        {
+            Add(value);
+        }
     }
 
     public T GetRandom()

@@ -14,16 +14,17 @@ namespace SCHIZO.Creatures.Tutel;
 
 public class TutelPrefab : CreatureAsset
 {
-	public TutelPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
-	{
-	}
+    private readonly GameObject _prefab;
 
-	private static GameObject Prefab => ResourceManager.LoadAsset<GameObject>("tutel");
+	public TutelPrefab(PrefabInfo prefabInfo, GameObject prefab) : base(prefabInfo)
+    {
+        _prefab = prefab;
+    }
 
 	private const float swimVelocity = 2f;
 	public override CreatureTemplate CreateTemplate()
 	{
-		CreatureTemplate template = new(Prefab, BehaviourType.Crab, EcoTargetType.Coral, float.MaxValue)
+		CreatureTemplate template = new(_prefab, BehaviourType.Crab, EcoTargetType.Coral, float.MaxValue)
 		{
             // Cell level needs to be set to Near to avoid our spawns falling through the unrendered map which is too far
             // fish are not affected by this, but walking creatures are, as they have gravity on

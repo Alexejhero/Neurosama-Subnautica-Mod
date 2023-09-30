@@ -12,16 +12,17 @@ namespace SCHIZO.Creatures.Ermshark;
 
 public sealed class ErmsharkPrefab : CreatureAsset
 {
-    public ErmsharkPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
-    {
-    }
+    private readonly GameObject _prefab;
 
-    private static GameObject Prefab => ResourceManager.LoadAsset<GameObject>("erm_shark");
+    public ErmsharkPrefab(PrefabInfo prefabInfo, GameObject prefab) : base(prefabInfo)
+    {
+        _prefab = prefab;
+    }
 
     public const float swimVelocity = 8f;
     public override CreatureTemplate CreateTemplate()
     {
-        CreatureTemplate template = new(Prefab, BehaviourType.Shark, EcoTargetType.Shark, 20)
+        CreatureTemplate template = new(_prefab, BehaviourType.Shark, EcoTargetType.Shark, 20)
         {
             CellLevel = LargeWorldEntity.CellLevel.Medium,
             SwimRandomData = new SwimRandomData(0.2f, swimVelocity, new Vector3(30, 5, 30), 2, 1),

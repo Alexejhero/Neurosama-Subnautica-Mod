@@ -65,8 +65,7 @@ public static class GymbagLoader
             container.width = 4;
             container.height = 4;
 
-            Type rendererType = IS_BELOWZERO ? typeof(SkinnedMeshRenderer) : typeof(MeshRenderer);
-            GameObject baseModel = prefab.GetComponentInChildren(rendererType).gameObject;
+            GameObject baseModel = prefab.GetComponentInChildren<Renderer>().gameObject;
             baseModel.SetActive(false);
 
             GameObject instance = Object.Instantiate(data.prefab, baseModel.transform.parent);

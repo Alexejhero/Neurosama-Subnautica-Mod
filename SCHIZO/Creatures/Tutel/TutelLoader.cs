@@ -15,7 +15,7 @@ using UnityEngine;
 namespace SCHIZO.Creatures.Tutel;
 
 [LoadMethod]
-public sealed class TutelLoader
+public sealed class TutelLoader : PickupableCreatureLoader
 {
     [LoadMethod]
     private static void Load()
@@ -27,18 +27,13 @@ public sealed class TutelLoader
         loader.LoadVariants();
     }
 
-    private readonly PickupableCreatureData _creatureData;
-    private readonly CreatureSounds _creatureSounds;
-
-    private TutelLoader(PickupableCreatureData data)
+    private TutelLoader(PickupableCreatureData data) : base(data)
     {
-        _creatureData = data;
-        _creatureSounds = new CreatureSounds(data.soundData);
     }
 
     private void LoadTutel()
     {
-		TutelPrefab tutel = new(ModItems.Tutel);
+		TutelPrefab tutel = new(ModItems.Tutel, _creatureData.prefab);
 		tutel.PrefabInfo.WithIcon(_creatureData.regularIcon);
 		tutel.Register();
 

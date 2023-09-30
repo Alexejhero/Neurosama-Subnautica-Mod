@@ -16,7 +16,7 @@ using UnityEngine;
 namespace SCHIZO.Creatures.Ermfish;
 
 [LoadMethod]
-public sealed class ErmfishLoader
+public sealed class ErmfishLoader : PickupableCreatureLoader
 {
     // todo: test BZ bus path when SoundPlayers are fixed
     public static readonly SoundPlayer PlayerDeathSounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Ermfish Player Death"),
@@ -32,18 +32,13 @@ public sealed class ErmfishLoader
         loader.LoadVariants();
     }
 
-    private readonly PickupableCreatureData _creatureData;
-    private readonly CreatureSounds _creatureSounds;
-
-    private ErmfishLoader(PickupableCreatureData data)
+    private ErmfishLoader(PickupableCreatureData data) : base(data)
     {
-        _creatureData = data;
-        _creatureSounds = new CreatureSounds(data.soundData);
     }
 
     private void LoadErmfish()
     {
-		ErmfishPrefab ermfish = new(ModItems.Ermfish);
+		ErmfishPrefab ermfish = new(ModItems.Ermfish, _creatureData.prefab);
 		ermfish.PrefabInfo.WithIcon(_creatureData.regularIcon);
 		ermfish.Register();
 

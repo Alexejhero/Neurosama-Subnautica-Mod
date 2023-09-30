@@ -6,6 +6,7 @@ using FMOD;
 using FMODUnity;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.DataStructures;
 using SCHIZO.Unity.Sounds;
 using UnityEngine;
 using UWE;
@@ -17,8 +18,9 @@ namespace SCHIZO.Sounds;
 public sealed class SoundPlayer
 {
     [SerializeField] private string _bus;
-    // TODO: random list
     [SerializeField] private List<string> _sounds = new();
+
+    private readonly RandomList<string> _randomSounds = new();
     private readonly List<Coroutine> _runningCoroutines = new();
 
     public SoundPlayer(BaseSoundCollection soundCollection, string bus)
@@ -59,7 +61,7 @@ public sealed class SoundPlayer
 
     public void Play2D(float delay = 0) => Play(null, delay);
 
-    public void Play(FMOD_CustomEmitter emitter = null, float delay = 0)
+    public void Play(FMOD_CustomEmitter emitter, float delay = 0)
     {
         if (CONFIG.DisableAllNoises) return;
 
@@ -81,6 +83,8 @@ public sealed class SoundPlayer
 
     private void PlaySound(FMOD_CustomEmitter emitter = null)
     {
+        Initialize();
+
         LastPlay = Time.time;
 
         string sound = _sounds.GetRandom();
@@ -94,6 +98,14 @@ public sealed class SoundPlayer
         {
             CustomSoundHandler.TryPlayCustomSound(sound, out Channel channel);
             channel.set3DLevel(0);
+        }
+    }
+
+    private void Initialize()
+    {
+        if (_randomSounds.Count == 0 && _sounds.Count != 0)
+        {
+            _randomSounds.AddRange(_sounds);
         }
     }
 }
