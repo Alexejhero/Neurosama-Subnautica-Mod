@@ -22,6 +22,7 @@ public static class CreditsPatches
         public static readonly Credits Sounds = new("Sounds", "Audio Compilation & Cleaning");
         public static readonly Credits Lore = new("Lore", "Writing & Lore");
         public static readonly Credits ProjectLead = new("Project Lead", "Project Lead");
+        public static readonly Credits Texturing = new("Texturing", "Texturing");
 
         public static IReadOnlyList<Credits> GetAll() => All;
 
@@ -56,15 +57,17 @@ public static class CreditsPatches
         ["AlexejheroDev"] = Credits.Programming + Credits.ProjectLead,
         ["Azit"] = Credits.Artist,
         ["baa14453"] = Credits.Lore,
+        ["bred"] = Credits.Modeling + Credits.Texturing + Credits.Animations,
         ["budwheizzah"] = Credits.Programming + Credits.Artist + Credits.Sounds,
         ["chrom"] = Credits.Artist,
         ["CJMAXiK"] = Credits.Artist + Credits.Sounds,
         ["darkeew"] = Credits.Programming,
-        ["FutabaKuuhaku"] = Credits.Modeling,
+        ["FutabaKuuhaku"] = Credits.Modeling + Credits.Texturing,
+        ["Goldenbeasty"] = Credits.Texturing,
         ["Govorunb"] = Credits.Programming,
-        ["greencap"] = Credits.Modeling,
+        ["greencap"] = Credits.Modeling + Credits.Texturing,
         ["Hakuhan"] = Credits.Artist,
-        ["Kat"] = Credits.Modeling,
+        ["Kat"] = Credits.Modeling + Credits.Texturing,
         ["Kaz"] = Credits.Artist,
         ["Lorx"] = Credits.Artist,
         ["Moloch"] = Credits.Artist,
@@ -78,8 +81,8 @@ public static class CreditsPatches
         ["SomeOldGuy"] = Credits.Artist,
         ["sugarph"] = Credits.Artist,
         ["Troobs"] = Credits.Artist,
-        ["Vaalmyr"] = Credits.Modeling,
-        ["w1n7er"] = Credits.Modeling + Credits.Animations,
+        ["Vaalmyr"] = Credits.Modeling + Credits.Texturing,
+        ["w1n7er"] = Credits.Modeling + Credits.Texturing + Credits.Animations,
         ["yamplum"] = Credits.Artist + Credits.Lore,
         ["YuG"] = Credits.Modeling,
     };

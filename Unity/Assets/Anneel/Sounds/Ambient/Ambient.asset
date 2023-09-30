@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
-  m_Name: SN Easter Egg
+  m_Name: Ambient
   m_EditorClassIdentifier: 
   sounds:
-  - {fileID: 8300000, guid: a66c726af7eee4540a07f445c4973459, type: 3}
-  - {fileID: 8300000, guid: 0b77b3317b7557a4a8d68fa1a4b7369f, type: 3}
-  - {fileID: 8300000, guid: b99a2144223818146807975ada8f8959, type: 3}
-  - {fileID: 8300000, guid: b872cd3f7cc34ac49bbcd2f6b6089b80, type: 3}
+  - {fileID: 8300000, guid: 873ce8e03f7d45e4fb89d978701084b3, type: 3}
+  - {fileID: 8300000, guid: ed672918b1b80e141b9bac4719a51e3b, type: 3}
+  - {fileID: 8300000, guid: b108cfd9aed10b142bf6d45d9add7b56, type: 3}
+  - {fileID: 8300000, guid: 187205a7be6c8ed49b1d4f35992bfdea, type: 3}
