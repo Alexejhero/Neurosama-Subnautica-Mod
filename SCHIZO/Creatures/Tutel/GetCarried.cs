@@ -2,7 +2,6 @@
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using SCHIZO.Unity.Sounds;
-using UnityEngine;
 
 namespace SCHIZO.Creatures.Tutel;
 

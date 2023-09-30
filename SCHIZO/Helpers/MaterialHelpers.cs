@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Nautilus.Utility;
 using Nautilus.Utility.MaterialModifiers;
 using SCHIZO.Unity.Materials;
-using UnityEngine;
 
 namespace SCHIZO.Helpers;
 

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
-using Nautilus.Utility;
-using SCHIZO.Helpers;
-using UnityEngine;
 
 namespace SCHIZO;
 

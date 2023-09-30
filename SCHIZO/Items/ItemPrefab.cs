@@ -24,8 +24,8 @@ public class ItemPrefab : CustomPrefab
     public RecipeData Recipe { get; init; }
     public Vector2int SizeInInventory { get; init; } = new(1, 1);
     public TechType RequiredForUnlock { get; init; }
-    public EquipmentType EquipmentType { get; init; } = EquipmentType.Hand;
-    public QuickSlotType QuickSlotType { get; init; } = QuickSlotType.Selectable;
+    public EquipmentType EquipmentType { get; init; }
+    public QuickSlotType QuickSlotType { get; init; }
     public LargeWorldEntity.CellLevel CellLevel { get; init; } = LargeWorldEntity.CellLevel.Near;
     public TechType CloneTechType { get; init; }
 
@@ -59,7 +59,7 @@ public class ItemPrefab : CustomPrefab
 
     private void AddBasicGadgets()
     {
-        if (ItemData?.icon) Info.WithIcon(ItemData.icon);
+        if (ItemData!?.icon) Info.WithIcon(ItemData.icon);
         Info.WithSizeInInventory(SizeInInventory);
         this.SetRecipe(Recipe);
         if (TechGroup != TechGroup.Uncategorized) this.SetPdaGroupCategory(TechGroup, TechCategory);

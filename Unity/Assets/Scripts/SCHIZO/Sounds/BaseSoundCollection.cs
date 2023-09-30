@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿
 
 // ReSharper disable once CheckNamespace
 namespace SCHIZO.Unity.Sounds

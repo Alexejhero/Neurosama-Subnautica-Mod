@@ -1,5 +1,4 @@
 ﻿using SCHIZO.Unity.Sounds;
-using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 namespace SCHIZO.Unity.Items

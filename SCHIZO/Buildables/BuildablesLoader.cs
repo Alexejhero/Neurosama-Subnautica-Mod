@@ -1,11 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Nautilus.Crafting;
+﻿using Nautilus.Crafting;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
-using SCHIZO.Sounds;
 using SCHIZO.Unity.Items;
-using SCHIZO.Unity.Sounds;
-using UnityEngine;
 
 namespace SCHIZO.Buildables;
 

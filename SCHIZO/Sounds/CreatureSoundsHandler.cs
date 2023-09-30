@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SCHIZO.Sounds;
+﻿namespace SCHIZO.Sounds;
 
 public static class CreatureSoundsHandler
 {

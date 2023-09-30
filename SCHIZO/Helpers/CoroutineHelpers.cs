@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
-using UWE;
-
-namespace SCHIZO.Helpers;
+﻿namespace SCHIZO.Helpers;
 
 public static class CoroutineHelpers
 {

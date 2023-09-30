@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
-using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;

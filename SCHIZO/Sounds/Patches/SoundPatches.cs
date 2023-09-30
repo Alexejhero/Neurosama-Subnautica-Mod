@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using HarmonyLib;
-
-namespace SCHIZO.Sounds.Patches;
+﻿namespace SCHIZO.Sounds.Patches;
 
 [HarmonyPatch]
 public static class SoundPatches

@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace SCHIZO.Sounds;
+﻿namespace SCHIZO.Sounds;
 
 public sealed class WorldSounds : MonoBehaviour
 {

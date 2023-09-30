@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using ECCLibrary;
+﻿using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Crafting;
@@ -10,7 +8,6 @@ using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using SCHIZO.Unity.Creatures;
-using UnityEngine;
 
 namespace SCHIZO.Creatures.Tutel;
 

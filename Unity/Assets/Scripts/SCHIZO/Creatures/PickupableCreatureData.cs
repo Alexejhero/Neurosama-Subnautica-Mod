@@ -1,5 +1,4 @@
 ﻿using SCHIZO.Unity.Materials;
-using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 namespace SCHIZO.Unity.Creatures

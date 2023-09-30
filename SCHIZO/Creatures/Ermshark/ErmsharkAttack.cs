@@ -1,6 +1,5 @@
 ﻿using SCHIZO.Creatures.Tutel;
 using SCHIZO.Sounds;
-using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 

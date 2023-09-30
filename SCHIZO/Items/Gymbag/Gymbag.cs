@@ -1,22 +1,17 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using Nautilus.Assets;
-using Nautilus.Assets.Gadgets;
-using Nautilus.Assets.PrefabTemplates;
+﻿using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Items;
-using UnityEngine;
 
 namespace SCHIZO.Items.Gymbag;
 
 [LoadMethod]
 public sealed class Gymbag : ItemPrefab
 {
-    private static readonly TechType BagTechType = Retargeting.TechType.Bag;
+    private const TechType BagTechType = Retargeting.TechType.Bag;
 
     [LoadMethod]
     private static void Load()
@@ -33,6 +28,8 @@ public sealed class Gymbag : ItemPrefab
         SizeInInventory = new Vector2int(2, 2);
         TechGroup = TechGroup.Personal;
         TechCategory = TechCategory.Equipment;
+        EquipmentType = EquipmentType.Hand;
+        QuickSlotType = QuickSlotType.Selectable;
         RequiredForUnlock = ModItems.Ermfish;
         CloneTechType = BagTechType;
     }
@@ -52,8 +49,7 @@ public sealed class Gymbag : ItemPrefab
         container.width = 4;
         container.height = 4;
 
-        Type rendererType = IS_BELOWZERO ? typeof(SkinnedMeshRenderer) : typeof(MeshRenderer);
-        GameObject baseModel = prefab.GetComponentInChildren(rendererType).gameObject;
+        GameObject baseModel = prefab.GetComponentInChildren<Renderer>().gameObject;
         baseModel.SetActive(false);
 
         GameObject instance = Object.Instantiate(ItemData.prefab, baseModel.transform.parent);

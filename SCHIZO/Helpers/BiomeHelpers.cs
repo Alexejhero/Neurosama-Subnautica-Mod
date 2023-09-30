@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace SCHIZO.Helpers;
+﻿namespace SCHIZO.Helpers;
 
 public static class BiomeHelpers
 {

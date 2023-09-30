@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Reflection.Emit;
-using HarmonyLib;
+﻿using System.Reflection.Emit;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Loading;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace SCHIZO.Loading;
