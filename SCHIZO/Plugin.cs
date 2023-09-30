@@ -1,5 +1,4 @@
-﻿global using static SCHIZO.Plugin;
-using System.Reflection;
+﻿using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;

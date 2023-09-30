@@ -5,7 +5,6 @@ using Nautilus.Utility;
 using Nautilus.Utility.MaterialModifiers;
 using SCHIZO.Unity.Materials;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace SCHIZO.Helpers;
 
@@ -18,6 +17,13 @@ public static partial class MaterialHelpers
         float glowStrength = 1f,
         params MaterialModifier[] modifiers)
     {
+        MaterialRemapper[] remappers = gameObject.GetComponentsInChildren<MaterialRemapper>(true);
+        if (remappers.Length == 0)
+        {
+            MaterialUtils.ApplySNShaders(gameObject, shininess, specularIntensity, glowStrength, modifiers);
+            return;
+        }
+
         Transform disabledParent = new GameObject
         {
             transform =
@@ -29,7 +35,7 @@ public static partial class MaterialHelpers
 
         Dictionary<MaterialRemapOverride, MeshRenderer> renderers = new();
 
-        foreach (MaterialRemapper remapper in gameObject.GetComponentsInChildren<MaterialRemapper>(true))
+        foreach (MaterialRemapper remapper in remappers)
         {
             foreach (MaterialRemapOverride remapOverride in remapper.config!?.remappings ?? Array.Empty<MaterialRemapOverride>())
             {

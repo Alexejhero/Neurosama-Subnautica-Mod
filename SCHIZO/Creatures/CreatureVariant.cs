@@ -24,7 +24,7 @@ public sealed class CreatureVariant : CustomPrefab
     public MaterialRemapOverride MaterialRemap { get; init; }
     public bool RegisterAsCookedVariant { get; init; }
     public VFXFabricatingData VFXFabricatingData { get; init; }
-    public Action<PrefabInfo> PostRegister { get; init; } = _ => { };
+    public Action<PrefabInfo> PostRegister { get; init; }
 
     private readonly TechType _original;
 

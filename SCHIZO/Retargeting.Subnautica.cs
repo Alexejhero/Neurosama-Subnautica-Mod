@@ -9,6 +9,7 @@ public static class Retargeting
     public static class TechType
     {
         public const global::TechType Peeper = global::TechType.Peeper;
+        public const global::TechType Bag = global::TechType.LuggageBag;
     }
 
     public static class TechCategory

@@ -10,7 +10,6 @@ using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Unity.HullPlates;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace SCHIZO.HullPlates;
 

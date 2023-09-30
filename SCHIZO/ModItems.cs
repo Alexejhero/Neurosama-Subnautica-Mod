@@ -45,13 +45,7 @@ public sealed class ModItem
         Tooltip = tooltip;
     }
 
-    public static implicit operator PrefabInfo(ModItem self)
-    {
-        return self._info;
-    }
+    public static implicit operator PrefabInfo(ModItem self) => self._info;
 
-    public static implicit operator TechType(ModItem self)
-    {
-        return self._info.TechType;
-    }
+    public static implicit operator TechType(ModItem self) => self._info.TechType;
 }

@@ -9,7 +9,6 @@ using Nautilus.Commands;
 using SCHIZO.Attributes;
 using SCHIZO.Extensions;
 using SCHIZO.Helpers;
-using Object = UnityEngine.Object;
 
 namespace SCHIZO;
 
@@ -31,7 +30,7 @@ public static class ConsoleCommands
         items.Shuffle();
         HashSet<PrefabIdentifier> set = new(items);
 
-        foreach (PrefabIdentifier item in set.Take((int) Math.Round(set.Count * percentage)))
+        foreach (PrefabIdentifier item in set.Take((int) Mathf.Round(set.Count * percentage)))
         {
             Object.Destroy(item.gameObject);
         }
