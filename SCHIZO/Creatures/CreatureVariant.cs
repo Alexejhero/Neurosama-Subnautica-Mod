@@ -45,10 +45,12 @@ public sealed class CreatureVariant : CustomPrefab
         this.SetEdibleData(EdibleData);
         this.SetUnlock(_original);
         this.SetEquipment(EquipmentType.Hand).WithQuickSlotType(QuickSlotType.Selectable);
-
-#if SUBNAUTICA
-        this.SetPdaGroupCategory(TechGroup.Survival, TechCategory);
+#if BELOWZERO
+        CraftDataHandler.SetSoundType(Info.TechType, TechData.GetSoundType(_original));
 #endif
+
+        // in BZ, cooked fish aren't in the PDA
+        this.SetPdaGroupCategory(IS_BELOWZERO ? TechGroup.Uncategorized : TechGroup.Survival, TechCategory);
 
         SetGameObject(new CloneTemplate(Info, _original)
         {

@@ -65,10 +65,11 @@ public static class GymbagLoader
             container.width = 4;
             container.height = 4;
 
-            GameObject carryallModel = prefab.GetComponentInChildren<MeshRenderer>().gameObject;
-            carryallModel.SetActive(false);
+            Type rendererType = IS_BELOWZERO ? typeof(SkinnedMeshRenderer) : typeof(MeshRenderer);
+            GameObject baseModel = prefab.GetComponentInChildren(rendererType).gameObject;
+            baseModel.SetActive(false);
 
-            GameObject instance = Object.Instantiate(data.prefab, carryallModel.transform.parent);
+            GameObject instance = Object.Instantiate(data.prefab, baseModel.transform.parent);
 
             PrefabUtils.AddVFXFabricating(instance, null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero);
 

@@ -93,20 +93,15 @@ public static class CreatureSoundsPatches
         [HarmonyTranspiler, UsedImplicitly]
         public static IEnumerable<CodeInstruction> Injector(IEnumerable<CodeInstruction> instructions)
         {
-            bool patched = false;
-
-            foreach (CodeInstruction instruction in instructions)
-            {
-                yield return instruction;
-
-                if (!patched && instruction.Calls(_target))
-                {
-                    patched = true;
-
-                    yield return new CodeInstruction(OpCodes.Ldloc_S, IS_BELOWZERO ? 7 : 2);
-                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(PlayCustomEatSound), nameof(Patch)));
-                }
-            }
+            CodeMatcher matcher = new(instructions);
+            matcher.Start();
+            matcher.SearchForward(instr => instr.Calls(_target));
+            matcher.Advance(1);
+            matcher.InsertAndAdvance(
+                new CodeInstruction(OpCodes.Ldloc_S, IS_BELOWZERO ? 7 : 2),
+                new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(PlayCustomEatSound), nameof(Patch)))
+            );
+            return matcher.InstructionEnumeration();
         }
 
         private static void Patch(TechType techType)
