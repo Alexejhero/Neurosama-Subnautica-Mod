@@ -1,4 +1,5 @@
 ﻿using SCHIZO.Sounds;
+using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 

@@ -4,6 +4,9 @@
 
 
 // ReSharper disable once CheckNamespace
+
+using System;
+
 namespace NaughtyAttributes;
 
 public class ExpandableAttribute : Attribute

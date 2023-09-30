@@ -1,4 +1,7 @@
-﻿using Nautilus.Assets;
+﻿using System;
+using System.Collections;
+using System.Diagnostics.CodeAnalysis;
+using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
@@ -6,6 +9,7 @@ using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Unity.HullPlates;
+using UnityEngine;
 
 namespace SCHIZO.HullPlates;
 
@@ -69,7 +73,7 @@ public static class HullPlateLoader
 #pragma warning restore CS0612 // Type or member is obsolete
             yield return task;
 
-            GameObject instance = Object.Instantiate(task.GetResult());
+            GameObject instance = GameObject.Instantiate(task.GetResult());
             TextureHider hider = instance.AddComponent<TextureHider>();
             MeshRenderer mesh = instance.FindChild("Icon").GetComponent<MeshRenderer>();
             mesh.material.mainTexture = texture;

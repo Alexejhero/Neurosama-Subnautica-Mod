@@ -1,4 +1,9 @@
-﻿namespace SCHIZO.DataStructures;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SCHIZO.DataStructures;
 
 public class RandomList<T> : IEnumerable<T>
 {

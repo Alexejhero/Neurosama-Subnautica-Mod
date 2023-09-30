@@ -1,6 +1,9 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using System.Reflection.Emit;
+using HarmonyLib;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace SCHIZO.Sounds.Patches;
 

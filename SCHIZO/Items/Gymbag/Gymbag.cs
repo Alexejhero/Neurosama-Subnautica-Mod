@@ -1,10 +1,12 @@
-﻿using Nautilus.Assets.Gadgets;
+﻿using System.Diagnostics.CodeAnalysis;
+using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Items;
+using UnityEngine;
 
 namespace SCHIZO.Items.Gymbag;
 

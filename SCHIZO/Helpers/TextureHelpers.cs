@@ -1,4 +1,7 @@
-﻿namespace SCHIZO.Helpers;
+﻿using System;
+using UnityEngine;
+
+namespace SCHIZO.Helpers;
 
 public static class TextureHelpers
 {

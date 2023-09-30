@@ -1,4 +1,6 @@
-﻿namespace SCHIZO.Creatures;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace SCHIZO.Creatures;
 
 [SuppressMessage("ReSharper", "RedundantOverriddenMember")]
 [SuppressMessage("ReSharper", "Unity.RedundantEventFunction")]

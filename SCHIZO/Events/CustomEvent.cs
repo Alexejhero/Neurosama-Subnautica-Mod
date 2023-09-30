@@ -1,4 +1,6 @@
-﻿namespace SCHIZO.Events
+﻿using UnityEngine;
+
+namespace SCHIZO.Events
 {
     public abstract class CustomEvent : MonoBehaviour
     {

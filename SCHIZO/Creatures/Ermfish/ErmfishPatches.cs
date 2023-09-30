@@ -1,18 +1,20 @@
-﻿using Nautilus.Handlers;
+﻿using System.Linq;
+using HarmonyLib;
+using Nautilus.Handlers;
 
 namespace SCHIZO.Creatures.Ermfish;
 
 [HarmonyPatch]
 public static class ErmfishPatches
 {
-	[HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.Kill))]
-	[HarmonyPostfix]
-	public static void PlayPlayerDeathSound(LiveMixin __instance)
-	{
-		if (Player.main.liveMixin != __instance) return;
-		if (ErmfishLoader.ErmfishTechTypes.All(t => !Inventory.main.container.Contains(t))) return;
-		ErmfishLoader.PlayerDeathSounds.Play2D(0.15f);
-	}
+    [HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.Kill))]
+    [HarmonyPostfix]
+    public static void PlayPlayerDeathSound(LiveMixin __instance)
+    {
+        if (Player.main.liveMixin != __instance) return;
+        if (ErmfishLoader.ErmfishTechTypes.All(t => !Inventory.main.container.Contains(t))) return;
+        ErmfishLoader.PlayerDeathSounds.Play2D(0.15f);
+    }
 
     [HarmonyPatch(typeof(KnownTech), nameof(KnownTech.Initialize))]
     [HarmonyPostfix]

@@ -1,4 +1,6 @@
-﻿using ECCLibrary;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Crafting;
@@ -9,6 +11,7 @@ using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using SCHIZO.Unity.Creatures;
 using SCHIZO.Unity.Sounds;
+using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
 
@@ -35,9 +38,9 @@ public sealed class ErmfishLoader : PickupableCreatureLoader
 
     private void LoadErmfish()
     {
-		ErmfishPrefab ermfish = new(ModItems.Ermfish, _creatureData.prefab);
-		ermfish.PrefabInfo.WithIcon(_creatureData.regularIcon);
-		ermfish.Register();
+        ErmfishPrefab ermfish = new(ModItems.Ermfish, _creatureData.prefab);
+        ermfish.PrefabInfo.WithIcon(_creatureData.regularIcon);
+        ermfish.Register();
 
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermfish, "Lifeforms/Fauna/SmallHerbivores", "Ermfish", _creatureData.databankText.text, 5, _creatureData.databankTexture, _creatureData.unlockSprite);
 
@@ -51,12 +54,12 @@ public sealed class ErmfishLoader : PickupableCreatureLoader
         });
 
         List<LootDistributionData.BiomeData> biomes = new();
-		foreach (BiomeType biome in BiomeHelpers.GetOpenWaterBiomes())
-		{
-			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.025f });
-			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 5, probability = 0.010f });
-		}
-		LootDistributionHandler.AddLootDistributionData(ermfish.ClassID, biomes.ToArray());
+        foreach (BiomeType biome in BiomeHelpers.GetOpenWaterBiomes())
+        {
+            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.025f });
+            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 5, probability = 0.010f });
+        }
+        LootDistributionHandler.AddLootDistributionData(ermfish.ClassID, biomes.ToArray());
 
         PostRegister(ermfish.PrefabInfo);
     }

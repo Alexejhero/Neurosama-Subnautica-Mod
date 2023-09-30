@@ -1,4 +1,6 @@
-﻿namespace SCHIZO.Twitch;
+﻿using HarmonyLib;
+
+namespace SCHIZO.Twitch;
 
 [HarmonyPatch]
 public static class AchievementPatches

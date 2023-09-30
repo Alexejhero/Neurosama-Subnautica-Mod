@@ -1,6 +1,8 @@
-﻿using System.Reflection;
+﻿global using static SCHIZO.Plugin;
+using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
+using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
@@ -22,8 +24,8 @@ public class Plugin : BaseUnityPlugin
 
     public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();
 
-	private void Awake()
-	{
+    private void Awake()
+    {
         LOGGER = Logger;
         DependencyResolver.InjectResources();
 
@@ -31,6 +33,6 @@ public class Plugin : BaseUnityPlugin
         LoadComponentAttribute.AddAll(gameObject);
         LoadConsoleCommandsAttribute.RegisterAll();
 
-		Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
-	}
+        Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+    }
 }

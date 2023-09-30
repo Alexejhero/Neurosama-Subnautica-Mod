@@ -1,10 +1,12 @@
-﻿using ECCLibrary;
+﻿using System.Collections.Generic;
+using ECCLibrary;
 using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using SCHIZO.Unity.Creatures;
+using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 

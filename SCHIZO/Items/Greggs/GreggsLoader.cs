@@ -1,9 +1,11 @@
-﻿using Nautilus.Assets;
+﻿using System.Diagnostics.CodeAnalysis;
+using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
+using UnityEngine;
 
 namespace SCHIZO.Items.Greggs;
 

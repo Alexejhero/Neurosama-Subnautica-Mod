@@ -1,4 +1,6 @@
-﻿namespace SCHIZO.HullPlates;
+﻿using UnityEngine;
+
+namespace SCHIZO.HullPlates;
 
 public sealed class TextureHider : MonoBehaviour
 {

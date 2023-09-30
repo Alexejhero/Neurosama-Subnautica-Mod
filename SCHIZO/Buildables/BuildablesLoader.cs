@@ -1,4 +1,5 @@
-﻿using Nautilus.Crafting;
+﻿using System.Diagnostics.CodeAnalysis;
+using Nautilus.Crafting;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Items;
@@ -11,7 +12,7 @@ public static class BuildablesLoader
     [LoadMethod]
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void Load()
-	{
+    {
         LoadOldVersions();
 
         new BuildableItem(new ModItem("VedalTurtle4", "Fake tutel", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>"))
@@ -23,39 +24,39 @@ public static class BuildablesLoader
             RequiredForUnlock = ModItems.Tutel,
         }.WithOldVersion("VedalTurtle3").Register();
 
-		new BuildableItem(ModItems.Erm)
-		{
-			ItemData = ResourceManager.LoadAsset<ItemData>("Buildable erm data"),
-			Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 2), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.Battery, 1), new Ingredient(TechType.Titanium, 4), new Ingredient(ModItems.Ermfish, 1)),
-			TechGroup = TechGroup.Miscellaneous,
-			TechCategory = TechCategory.Misc,
+        new BuildableItem(ModItems.Erm)
+        {
+            ItemData = ResourceManager.LoadAsset<ItemData>("Buildable erm data"),
+            Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 2), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.Battery, 1), new Ingredient(TechType.Titanium, 4), new Ingredient(ModItems.Ermfish, 1)),
+            TechGroup = TechGroup.Miscellaneous,
+            TechCategory = TechCategory.Misc,
             RequiredForUnlock = ModItems.Ermfish,
-		}.Register();
+        }.Register();
 
-		new BuildableItem(new ModItem("Neuroopper2", "Neurooper", "<size=75%>(Model by greencap, original art by Sandro)</size>"))
-		{
-			ItemData = ResourceManager.LoadAsset<ItemData>("Neurooper data"),
-			Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(Retargeting.TechType.Peeper, 2), new Ingredient(TechType.Bladderfish, 1)),
-			TechGroup = TechGroup.Miscellaneous,
-			TechCategory = TechCategory.Misc,
-		}.WithOldVersion("Neurooper").Register();
+        new BuildableItem(new ModItem("Neuroopper2", "Neurooper", "<size=75%>(Model by greencap, original art by Sandro)</size>"))
+        {
+            ItemData = ResourceManager.LoadAsset<ItemData>("Neurooper data"),
+            Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(Retargeting.TechType.Peeper, 2), new Ingredient(TechType.Bladderfish, 1)),
+            TechGroup = TechGroup.Miscellaneous,
+            TechCategory = TechCategory.Misc,
+        }.WithOldVersion("Neurooper").Register();
 
-		new BuildableItem(new ModItem("NeuroFumo2", "Low-poly Neuro fumo", "Fumo collection 1/2\n<size=75%>(Model by YuG)</size>"))
-		{
-			ItemData = ResourceManager.LoadAsset<ItemData>("LowpolyFumo data"),
-			Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.JeweledDiskPiece, 1), new Ingredient(TechType.Gold, 1)),
-			TechGroup = TechGroup.Miscellaneous,
-			TechCategory = TechCategory.Misc,
-		}.WithOldVersion("NeuroFumo").Register();
+        new BuildableItem(new ModItem("NeuroFumo2", "Low-poly Neuro fumo", "Fumo collection 1/2\n<size=75%>(Model by YuG)</size>"))
+        {
+            ItemData = ResourceManager.LoadAsset<ItemData>("LowpolyFumo data"),
+            Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.JeweledDiskPiece, 1), new Ingredient(TechType.Gold, 1)),
+            TechGroup = TechGroup.Miscellaneous,
+            TechCategory = TechCategory.Misc,
+        }.WithOldVersion("NeuroFumo").Register();
 
-		new BuildableItem(new ModItem("NeuroFumoNew", "Neuro fumo", "Fumo collection 2/2\n<size=75%>(Model by Kat)</size>"))
-		{
-			ItemData = ResourceManager.LoadAsset<ItemData>("Fumo data"),
-			Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.JeweledDiskPiece, 1), new Ingredient(TechType.Gold, 1)),
-			TechGroup = TechGroup.Miscellaneous,
-			TechCategory = TechCategory.Misc,
-		}.Register();
-	}
+        new BuildableItem(new ModItem("NeuroFumoNew", "Neuro fumo", "Fumo collection 2/2\n<size=75%>(Model by Kat)</size>"))
+        {
+            ItemData = ResourceManager.LoadAsset<ItemData>("Fumo data"),
+            Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.JeweledDiskPiece, 1), new Ingredient(TechType.Gold, 1)),
+            TechGroup = TechGroup.Miscellaneous,
+            TechCategory = TechCategory.Misc,
+        }.Register();
+    }
 
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void LoadOldVersions()

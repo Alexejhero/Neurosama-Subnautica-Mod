@@ -1,4 +1,6 @@
-﻿namespace SCHIZO.Items.Gymbag;
+﻿using HarmonyLib;
+
+namespace SCHIZO.Items.Gymbag;
 
 [HarmonyPatch]
 public static class GymbagPatches

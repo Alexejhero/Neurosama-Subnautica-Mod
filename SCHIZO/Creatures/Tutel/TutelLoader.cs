@@ -1,4 +1,6 @@
-﻿using ECCLibrary;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Crafting;
@@ -8,6 +10,7 @@ using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using SCHIZO.Unity.Creatures;
+using UnityEngine;
 
 namespace SCHIZO.Creatures.Tutel;
 
@@ -30,9 +33,9 @@ public sealed class TutelLoader : PickupableCreatureLoader
 
     private void LoadTutel()
     {
-		TutelPrefab tutel = new(ModItems.Tutel, _creatureData.prefab);
-		tutel.PrefabInfo.WithIcon(_creatureData.regularIcon);
-		tutel.Register();
+        TutelPrefab tutel = new(ModItems.Tutel, _creatureData.prefab);
+        tutel.PrefabInfo.WithIcon(_creatureData.regularIcon);
+        tutel.Register();
 
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(tutel, "Lifeforms/Fauna/SmallHerbivores", "Tutel", _creatureData.databankText.text, 5, _creatureData.databankTexture, _creatureData.unlockSprite);
 
@@ -70,10 +73,10 @@ public sealed class TutelLoader : PickupableCreatureLoader
         List<LootDistributionData.BiomeData> biomes = new();
         foreach (BiomeType biome in BiomeHelpers.GetBiomesEndingIn(filters))
         {
-			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.05f });
-			biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 3, probability = 0.025f });
-		}
-		LootDistributionHandler.AddLootDistributionData(tutel.ClassID, biomes.ToArray());
+            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.05f });
+            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 3, probability = 0.025f });
+        }
+        LootDistributionHandler.AddLootDistributionData(tutel.ClassID, biomes.ToArray());
 
         PostRegister(tutel.PrefabInfo);
     }

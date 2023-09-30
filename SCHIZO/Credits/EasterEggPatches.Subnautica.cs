@@ -1,6 +1,11 @@
-﻿using Nautilus.Handlers;
+﻿using System;
+using System.Collections;
+using System.Linq;
+using HarmonyLib;
+using Nautilus.Handlers;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Sounds;
+using UnityEngine;
 
 namespace SCHIZO.Credits;
 

@@ -1,4 +1,8 @@
-﻿namespace SCHIZO.Creatures.Tutel;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace SCHIZO.Creatures.Tutel;
 
 public sealed class TutelBehaviour : CaveCrawler
 {

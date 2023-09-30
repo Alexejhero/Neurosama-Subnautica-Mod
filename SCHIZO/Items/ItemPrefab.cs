@@ -1,10 +1,12 @@
-﻿using Nautilus.Assets;
+﻿using System.Diagnostics.CodeAnalysis;
+using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Utility;
 using SCHIZO.Helpers;
 using SCHIZO.Unity.Items;
+using UnityEngine;
 
 namespace SCHIZO.Items;
 
