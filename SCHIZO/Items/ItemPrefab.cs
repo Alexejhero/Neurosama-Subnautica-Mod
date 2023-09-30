@@ -29,17 +29,6 @@ public class ItemPrefab : CustomPrefab
     public LargeWorldEntity.CellLevel CellLevel { get; init; } = LargeWorldEntity.CellLevel.Near;
     public TechType CloneTechType { get; init; }
 
-    // to keep object initializers; in case of dissatisfaction please visit https://github.com/dotnet/csharplang/issues/5176
-    public Action AddGadgets { init => OnAddGadgets += value; }
-    public event Action OnAddGadgets;
-
-    public Action<GameObject> ModifyPrefab { init => OnModifyPrefab += value; }
-    public event Action<GameObject> OnModifyPrefab;
-
-    public Action PostRegister { init => OnPostRegister += value; }
-    public event Action OnPostRegister;
-
-
     protected readonly ModItem _modItem;
 
     [SetsRequiredMembers]
@@ -51,6 +40,21 @@ public class ItemPrefab : CustomPrefab
     [SetsRequiredMembers]
     protected ItemPrefab(string classId, string displayName, string tooltip) : base(classId, displayName, tooltip)
     {
+    }
+
+    protected virtual void AddGadgets()
+    {
+
+    }
+
+    protected virtual void ModifyPrefab(GameObject prefab)
+    {
+
+    }
+
+    protected virtual void PostRegister()
+    {
+
     }
 
     private void AddBasicGadgets()
@@ -68,7 +72,7 @@ public class ItemPrefab : CustomPrefab
     public new virtual void Register()
     {
         AddBasicGadgets();
-        OnAddGadgets?.Invoke();
+        AddGadgets();
 
         if (CloneTechType == TechType.None)
             SetGameObject(GetPrefab);
@@ -76,12 +80,12 @@ public class ItemPrefab : CustomPrefab
         {
             SetGameObject(new CloneTemplate(Info, CloneTechType)
             {
-                ModifyPrefab = OnModifyPrefab,
+                ModifyPrefab = ModifyPrefab,
             });
         }
 
         base.Register();
-        OnPostRegister?.Invoke();
+        PostRegister();
     }
 
     protected virtual GameObject GetPrefab()
@@ -89,7 +93,7 @@ public class ItemPrefab : CustomPrefab
         GameObject instance = Object.Instantiate(ItemData.prefab, KeepAliveParent);
         PrefabUtils.AddBasicComponents(instance, Info.ClassID, Info.TechType, CellLevel);
 
-        OnModifyPrefab?.Invoke(instance);
+        ModifyPrefab(instance);
 
         CoroutineHelpers.RunWhen(() => MaterialHelpers.ApplySNShadersIncludingRemaps(instance, 1), () => MaterialHelpers.IsReady);
 

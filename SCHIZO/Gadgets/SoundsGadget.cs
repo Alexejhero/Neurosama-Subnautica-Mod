@@ -19,7 +19,7 @@ public class SoundsGadget : Gadget
         if (prefab is not ItemPrefab customPrefab) throw new InvalidOperationException($"{nameof(SoundsGadget)} can only be applied to an ItemPrefab");
         if (prefab.Info.TechType == TechType.None) throw new InvalidOperationException($"Prefab '{prefab.Info}' must have a TechType.");
 
-        customPrefab.OnModifyPrefab += PrefabPostProcess;
+        customPrefab.SetPrefabPostProcessor(PrefabPostProcess);
     }
 
     private void PrefabPostProcess(GameObject prefab)

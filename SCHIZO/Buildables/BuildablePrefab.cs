@@ -28,16 +28,12 @@ public sealed class BuildablePrefab : ItemPrefab
     public BuildablePrefab(ModItem item) : base(item)
     {
         CellLevel = LargeWorldEntity.CellLevel.Medium;
-        OnAddGadgets += AddGadgets;
-        OnModifyPrefab += MakeConstructable;
     }
 
     [SetsRequiredMembers]
     private BuildablePrefab(string classId, string displayName, string tooltip) : base(classId, displayName, tooltip)
     {
         CellLevel = LargeWorldEntity.CellLevel.Medium;
-        OnAddGadgets += AddGadgets;
-        OnModifyPrefab += MakeConstructable;
     }
 
     public BuildablePrefab WithOldVersion(string oldClassId)
@@ -54,12 +50,12 @@ public sealed class BuildablePrefab : ItemPrefab
         return this;
     }
 
-    private new void AddGadgets()
+    protected override void AddGadgets()
     {
         if (!DisableSounds && ItemData.sounds) this.SetSounds(new(ItemData.sounds, INDOOR_SOUNDS_BUS));
     }
 
-    private void MakeConstructable(GameObject prefab)
+    protected override void ModifyPrefab(GameObject prefab)
     {
         Transform child = prefab.transform.GetChild(0); // each buildable should have an unique child with an appropriate collider
 

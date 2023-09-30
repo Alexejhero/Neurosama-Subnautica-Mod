@@ -14,7 +14,7 @@ using UnityEngine;
 namespace SCHIZO.Items.Gymbag;
 
 [LoadMethod]
-public class Gymbag : ItemPrefab
+public sealed class Gymbag : ItemPrefab
 {
     private static readonly TechType BagTechType = Retargeting.TechType.Bag;
 
@@ -35,12 +35,9 @@ public class Gymbag : ItemPrefab
         TechCategory = TechCategory.Equipment;
         RequiredForUnlock = ModItems.Ermfish;
         CloneTechType = BagTechType;
-        base.AddGadgets = AddGadgets;
-        base.ModifyPrefab = ModifyPrefab;
-        base.PostRegister = PostRegister;
     }
 
-    private new void AddGadgets()
+    protected override void AddGadgets()
     {
         // make this an editor component?
         CraftingGadget crafting = GetGadget<CraftingGadget>();
@@ -49,7 +46,7 @@ public class Gymbag : ItemPrefab
         crafting.WithCraftingTime(10);
     }
 
-    private new void ModifyPrefab(GameObject prefab)
+    protected override void ModifyPrefab(GameObject prefab)
     {
         StorageContainer container = prefab.GetComponentInChildren<StorageContainer>();
         container.width = 4;
@@ -64,7 +61,7 @@ public class Gymbag : ItemPrefab
         PrefabUtils.AddVFXFabricating(instance, null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero);
     }
 
-    private new void PostRegister()
+    protected override void PostRegister()
     {
         ItemActionHandler.RegisterMiddleClickAction(Info.TechType, item => GymbagHandler.Instance.OnOpen(item), "open storage", "English");
     }
