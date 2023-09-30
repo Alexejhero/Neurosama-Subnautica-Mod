@@ -29,7 +29,7 @@ public static class GymbagPatches
     [HarmonyPostfix]
     public static void AddGymbagHandler(Player __instance)
     {
-        __instance.gameObject.EnsureComponent<GymbagHandler>();
+        __instance.gameObject.EnsureComponent<GymbagBehaviour>();
     }
 
     [HarmonyPatch(typeof(uGUI_ItemsContainer), nameof(uGUI_ItemsContainer.Init))]
@@ -38,7 +38,7 @@ public static class GymbagPatches
     {
         if (container == Inventory.main.container)
         {
-            GymbagHandler.Instance.InventoryUGUI = __instance;
+            GymbagBehaviour.Instance.InventoryUGUI = __instance;
         }
     }
 
@@ -46,7 +46,7 @@ public static class GymbagPatches
     [HarmonyPostfix]
     public static void ClearLastOpenedOnPDAClose()
     {
-        GymbagHandler opener = GymbagHandler.Instance;
+        GymbagBehaviour opener = GymbagBehaviour.Instance;
 
         if (opener.CurrentOpenedRootGymbag != null && !opener.OpeningGymbag)
         {
@@ -62,6 +62,6 @@ public static class GymbagPatches
     public static bool PreventRemovingOpenedGymbag(ItemsContainer __instance, ref bool __result, Pickupable pickupable)
     {
         if (__instance != Inventory.main.container) return true;
-        return __result = pickupable != GymbagHandler.Instance.CurrentOpenedRootGymbag?.item;
+        return __result = pickupable != GymbagBehaviour.Instance.CurrentOpenedRootGymbag?.item;
     }
 }

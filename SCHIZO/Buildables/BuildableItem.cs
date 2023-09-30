@@ -5,32 +5,32 @@ using SCHIZO.Items;
 
 namespace SCHIZO.Buildables;
 
-public sealed class BuildablePrefab : ItemPrefab
+public sealed class BuildableItem : ItemPrefab
 {
     private const string INDOOR_SOUNDS_BUS = "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds";
 
     public bool DisableSounds { get; init; }
 
-    private readonly List<BuildablePrefab> _oldVersions = new();
+    private readonly List<BuildableItem> _oldVersions = new();
     public ConstructableFlags PlacementFlags { get; init; } = ConstructableFlags.Ground | ConstructableFlags.Inside | ConstructableFlags.Outside | ConstructableFlags.AllowedOnConstructable | ConstructableFlags.Rotatable;
 
     [SetsRequiredMembers]
-    public BuildablePrefab(ModItem item) : base(item)
+    public BuildableItem(ModItem item) : base(item)
     {
         CellLevel = LargeWorldEntity.CellLevel.Medium;
     }
 
     [SetsRequiredMembers]
-    private BuildablePrefab(string classId, string displayName, string tooltip) : base(classId, displayName, tooltip)
+    private BuildableItem(string classId, string displayName, string tooltip) : base(classId, displayName, tooltip)
     {
         CellLevel = LargeWorldEntity.CellLevel.Medium;
     }
 
-    public BuildablePrefab WithOldVersion(string oldClassId)
+    public BuildableItem WithOldVersion(string oldClassId)
     {
         if (_modItem == null) throw new InvalidOperationException($"Cannot add an old version to buildable which is already an old version (tying to add {oldClassId} to {Info.ClassID})");
 
-        _oldVersions.Add(new BuildablePrefab(oldClassId, _modItem.DisplayName + " (OLD VERSION, PLEASE REBUILD)", _modItem.Tooltip + " (OLD VERSION, PLEASE REBUILD)")
+        _oldVersions.Add(new BuildableItem(oldClassId, _modItem.DisplayName + " (OLD VERSION, PLEASE REBUILD)", _modItem.Tooltip + " (OLD VERSION, PLEASE REBUILD)")
         {
             ItemData = ItemData,
             Recipe = Recipe,

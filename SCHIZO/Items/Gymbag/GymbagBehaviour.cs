@@ -2,9 +2,9 @@
 
 namespace SCHIZO.Items.Gymbag;
 
-public sealed class GymbagHandler : MonoBehaviour
+public sealed class GymbagBehaviour : MonoBehaviour
 {
-    public static GymbagHandler Instance { get; private set; }
+    public static GymbagBehaviour Instance { get; private set; }
 
     public uGUI_ItemsContainer InventoryUGUI { get; set; }
     public InventoryItem CurrentOpenedRootGymbag { get; set; }

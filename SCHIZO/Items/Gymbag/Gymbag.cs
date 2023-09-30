@@ -59,6 +59,6 @@ public sealed class Gymbag : ItemPrefab
 
     protected override void PostRegister()
     {
-        ItemActionHandler.RegisterMiddleClickAction(Info.TechType, item => GymbagHandler.Instance.OnOpen(item), "open storage", "English");
+        ItemActionHandler.RegisterMiddleClickAction(Info.TechType, item => GymbagBehaviour.Instance.OnOpen(item), "open storage", "English");
     }
 }
