@@ -8,6 +8,7 @@ public static class Retargeting
     public static class TechType
     {
         public const global::TechType Peeper = global::TechType.ArcticPeeper;
+        public const global::TechType Bag = global::TechType.QuantumLocker;
     }
 
     public static class TechCategory
