@@ -5,6 +5,7 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
+using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using SCHIZO.Unity.Items;
@@ -76,6 +77,9 @@ public sealed class BuildablePrefab : CustomPrefab
         Constructable con = PrefabUtils.AddConstructable(instance, Info.TechType, ConstructableFlags.Outside | ConstructableFlags.Base | ConstructableFlags.Submarine | ConstructableFlags.AllowedOnConstructable | ConstructableFlags.Ground | ConstructableFlags.Inside, child.gameObject);
 
         con.rotationEnabled = true;
+#if BELOWZERO
+        MaterialHelpers.FixBZGhostMaterial(con);
+#endif
 
         if (!DisableSounds && ItemData.sounds) WorldSounds.Add(instance, new SoundPlayer(ItemData.sounds, INDOOR_SOUNDS_BUS));
 

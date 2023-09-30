@@ -3,6 +3,7 @@ using SCHIZO.Sounds;
 
 namespace SCHIZO.Loading;
 
+[HarmonyPatch]
 public static class ErmSoundDuringLoadingScreen
 {
     public static bool _playedErmSound;

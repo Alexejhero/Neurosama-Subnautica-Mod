@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace SCHIZO.Helpers;
 
-public static class MaterialHelpers
+public static partial class MaterialHelpers
 {
     public static void ApplySNShadersIncludingRemaps(
         GameObject gameObject,

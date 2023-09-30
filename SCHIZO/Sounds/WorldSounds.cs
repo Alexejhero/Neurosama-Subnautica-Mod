@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 namespace SCHIZO.Sounds;
 
@@ -11,7 +11,6 @@ public sealed class WorldSounds : MonoBehaviour
     [SerializeField] private SoundPlayer _soundPlayer;
 
     private float _timer = -1;
-    private Random _random;
 
     public static void Add(GameObject obj, SoundPlayer soundPlayer)
     {
@@ -22,13 +21,11 @@ public sealed class WorldSounds : MonoBehaviour
 
     private void Awake()
     {
-        _random = new Random(GetInstanceID());
-
         _pickupable = GetComponent<Pickupable>();
         emitter = gameObject.AddComponent<FMOD_CustomEmitter>();
         emitter.followParent = true;
 
-        _timer = _random.Next(CONFIG.MinWorldNoiseDelay, CONFIG.MaxWorldNoiseDelay);
+        _timer = Random.Range((float)CONFIG.MinWorldNoiseDelay, CONFIG.MaxWorldNoiseDelay);
     }
 
     private void Update()
@@ -42,7 +39,7 @@ public sealed class WorldSounds : MonoBehaviour
 
         if (_timer < 0)
         {
-            _timer = _random.Next(CONFIG.MinWorldNoiseDelay, CONFIG.MaxWorldNoiseDelay);
+            _timer = Random.Range((float)CONFIG.MinWorldNoiseDelay, CONFIG.MaxWorldNoiseDelay);
             _soundPlayer.Play(emitter);
         }
     }
