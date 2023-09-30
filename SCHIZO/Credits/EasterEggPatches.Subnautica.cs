@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace SCHIZO.Credits;
 
+[HarmonyPatch]
 public static class EasterEggPatches
 {
     public static bool easterEggAdjusted;
