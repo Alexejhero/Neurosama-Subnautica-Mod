@@ -12,16 +12,10 @@ namespace SCHIZO.Buildables;
 [LoadMethod]
 public static class BuildablesLoader
 {
-	public static Transform DisabledParent { get; private set; }
-
     [LoadMethod]
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     private static void Load()
 	{
-		DisabledParent = new GameObject("SCHIZO DISABLED PARENT").transform;
-		DisabledParent.gameObject.SetActive(false);
-		Object.DontDestroyOnLoad(DisabledParent);
-
         LoadOldVersions();
 
         new BuildablePrefab(new ModItem("VedalTurtle4", "Fake tutel", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>"))

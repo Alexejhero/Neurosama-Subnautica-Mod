@@ -40,15 +40,10 @@ public sealed class EatableGadget : Gadget
 
     protected override void Build()
     {
-        if (prefab is not CustomPrefab customPrefab) throw new InvalidOperationException("EatableGadget can only be applied to CustomPrefab instances.");
-        if (prefab.Info.TechType == TechType.None) throw new InvalidOperationException($"Prefab '{prefab.Info}' does not contain a TechType.");
+        if (prefab is not CustomPrefab customPrefab) throw new InvalidOperationException($"{nameof(EatableGadget)} can only be applied to a CustomPrefab.");
+        if (prefab.Info.TechType == TechType.None) throw new InvalidOperationException($"Prefab '{prefab.Info}' must have a TechType.");
 
-        PrefabPostProcessorAsync originalPostProcess = customPrefab.OnPrefabPostProcess;
-        customPrefab.SetPrefabPostProcessor(obj =>
-        {
-            originalPostProcess?.Invoke(obj);
-            PrefabPostProcess(obj);
-        });
+        customPrefab.SetPrefabPostProcessor(PrefabPostProcess);
     }
 
     private void PrefabPostProcess(GameObject obj)

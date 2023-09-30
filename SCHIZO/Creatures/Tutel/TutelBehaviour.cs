@@ -42,11 +42,11 @@ public sealed class TutelBehaviour : CaveCrawler
 
     private IEnumerator SwitchEmotions(Emotion newEmotion)
     {
-        int currentEyesLayer = _animator.GetLayerIndex($"{_currentEmotion.ToString()}/eyes");
-        int currentMouthLayer = _animator.GetLayerIndex($"{_currentEmotion.ToString()}/mouth");
+        int currentEyesLayer = _animator.GetLayerIndex($"{_currentEmotion}/eyes");
+        int currentMouthLayer = _animator.GetLayerIndex($"{_currentEmotion}/mouth");
 
-        int nextEyesLayer = _animator.GetLayerIndex($"{newEmotion.ToString()}/eyes");
-        int nextMouthLayer = _animator.GetLayerIndex($"{newEmotion.ToString()}/mouth");
+        int nextEyesLayer = _animator.GetLayerIndex($"{newEmotion}/eyes");
+        int nextMouthLayer = _animator.GetLayerIndex($"{newEmotion}/mouth");
 
         const float transitionDuration = 0.25f;
         for (float f = 0; f < transitionDuration; f += Time.deltaTime)
