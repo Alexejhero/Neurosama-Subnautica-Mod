@@ -21,17 +21,17 @@ jobs:
       with:
         workflow: build.yml
         name: SCHIZO-${{ matrix.configuration }}.dll
-        path: Install/BelowZero/BepInEx/plugins/SCHIZO/SCHIZO.dll.extracted
+        path: Install/${{ matrix.configuration }}/BepInEx/plugins/SCHIZO/SCHIZO.dll.extracted
 
     - name: Clean extracted artifact
       run: |
-        cd Install/BelowZero/BepInEx/plugins/SCHIZO
+        cd Install/${{ matrix.configuration }}/BepInEx/plugins/SCHIZO
         mv SCHIZO.dll.extracted/SCHIZO.dll SCHIZO.dll
         rm -rf SCHIZO.dll.extracted
 
     - name: Create release archive
       run: |
-          cd Install/BelowZero
+          cd Install/${{ matrix.configuration }}
           zip -r9 ../release-${{ matrix.configuration }}.zip *
           cd ../Common
           zip -r9 ../release-${{ matrix.configuration }}.zip *
