@@ -12,7 +12,7 @@ public static class ModItems
     public static readonly ModItem CookedErmfish = new("cookedermfish", "Cooked Ermfish", "erm\n<size=75%>(Model by w1n7er, icon by SADecsSs)</size>");
     public static readonly ModItem CuredErmfish = new("curedermfish", "Cured Ermfish", "erm\n<size=75%>(Model by w1n7er, icon by SADecsSs)</size>");
 
-    public static readonly ModItem Ermshark = new("ermshark", "Ermshark", "erm");
+    public static readonly ModItem Ermshark = new("ermshark", "Ermshark");
 
     public static readonly ModItem Tutel = new("tutel", "Tutel", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>");
     public static readonly ModItem CookedTutel = new("cookedtutel", "Cooked Tutel", "that's actually crazy\n<size=75%>(Model by FutabaKuuhaku)</size>");
@@ -33,7 +33,7 @@ public sealed class ModItem
 
     public string Tooltip { get; private set; }
 
-    public ModItem(string classId, string displayName, string tooltip)
+    public ModItem(string classId, string displayName, string tooltip = "")
     {
         LOGGER.LogDebug("Registering item " + classId + " with name " + displayName);
 

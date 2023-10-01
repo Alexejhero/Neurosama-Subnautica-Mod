@@ -28,7 +28,7 @@ public class TutelPrefab : PickupableCreaturePrefab
             EyeFOV = 0,
             ScareableData = new ScareableData(),
             PickupableFishData = new PickupableFishData(TechType.Floater, "WM", "VM"),
-            EdibleData = new EdibleData(13, -7, false, 1f),
+            EdibleData = new EdibleData(9, -7, false, 1f),
             ScannerRoomScannable = true,
             SizeDistribution = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 1f)),
             AnimateByVelocityData = new AnimateByVelocityData(swimVelocity),
@@ -89,8 +89,6 @@ public class TutelPrefab : PickupableCreaturePrefab
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Poison, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Radiation, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Starve, 0f);
-
-        prefab.FindChild("WM").AddComponent<AnimateByVelocity>().enabled = false; // fixes Aquarium
 
         prefab.EnsureComponentFields();
 

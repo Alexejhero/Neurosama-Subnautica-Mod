@@ -38,10 +38,11 @@
         <EmbeddedResource Remove="Resources\AssetBundles\AssetBundles" />
         <EmbeddedResource Remove="Resources\AssetBundles\*.manifest" />
     </ItemGroup>
-    
+
     <ItemGroup>
         <None Include="..\Assets\**" LinkBase="Assets" />
-        
+        <None Include="..\Unity\Assets\Scripts\Subnautica\**\*.cs" LinkBase="Unity\Unity\Subnautica" />
+
         <None Remove="Resources\AssetBundles\AssetBundles" />
         <None Remove="Resources\AssetBundles\AssetBundles.manifest" />
     </ItemGroup>

@@ -84,7 +84,7 @@ public static class CreditsPatches
         ["Vaalmyr"] = Credits.Modeling + Credits.Texturing,
         ["w1n7er"] = Credits.Modeling + Credits.Texturing + Credits.Animations,
         ["yamplum"] = Credits.Artist + Credits.Lore,
-        ["YuG"] = Credits.Modeling,
+        ["YuG"] = Credits.Modeling + Credits.Texturing,
     };
 
     [HarmonyPatch(typeof(EndCreditsManager), nameof(EndCreditsManager.Start))]

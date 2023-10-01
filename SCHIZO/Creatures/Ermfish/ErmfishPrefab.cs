@@ -29,7 +29,7 @@ public class ErmfishPrefab : PickupableCreaturePrefab
             ScareableData = new ScareableData(),
             FleeWhenScaredData = new FleeWhenScaredData(0.8f, swimVelocity),
             PickupableFishData = new PickupableFishData(TechType.Floater, "WM", "VM"),
-            EdibleData = new EdibleData(13, -7, false, 1f),
+            EdibleData = new EdibleData(9, -7, false, 1f),
             ScannerRoomScannable = true,
             AvoidObstaclesData = new AvoidObstaclesData(1f, swimVelocity, false, 5f, 5f),
             SizeDistribution = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 1f)),
@@ -56,8 +56,6 @@ public class ErmfishPrefab : PickupableCreaturePrefab
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Poison, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Radiation, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Starve, 0f);
-
-        prefab.FindChild("WM").AddComponent<AnimateByVelocity>().enabled = false; // fixes Aquarium
 
         prefab.EnsureComponentFields();
 
