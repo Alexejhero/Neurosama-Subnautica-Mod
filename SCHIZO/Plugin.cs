@@ -13,12 +13,11 @@ namespace SCHIZO;
 public class Plugin : BaseUnityPlugin
 {
 #if BELOWZERO
-    public static bool IS_SUBNAUTICA => false;
     public static bool IS_BELOWZERO => true;
 #else
-    public static bool IS_SUBNAUTICA => true;
     public static bool IS_BELOWZERO => false;
 #endif
+    public static bool IS_SUBNAUTICA => !IS_BELOWZERO;
 
     public static ManualLogSource LOGGER { get; private set; }
 
@@ -32,6 +31,7 @@ public class Plugin : BaseUnityPlugin
         LoadMethodAttribute.LoadAll();
         LoadComponentAttribute.AddAll(gameObject);
         LoadConsoleCommandsAttribute.RegisterAll();
+        LoadCreatureAttribute.RegisterAll();
 
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
     }

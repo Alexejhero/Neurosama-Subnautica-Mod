@@ -12,10 +12,11 @@ public static class ErmfishPatches
     public static void PlayPlayerDeathSound(LiveMixin __instance)
     {
         if (Player.main.liveMixin != __instance) return;
-        if (ErmfishLoader.ErmfishTechTypes.All(t => !Inventory.main.container.Contains(t))) return;
+        if (ErmfishLoader.Instance.TechTypes.All(t => !Inventory.main.container.Contains(t))) return;
         ErmfishLoader.PlayerDeathSounds.Play2D(0.15f);
     }
 
+    // TODO: Nautilus issue
     [HarmonyPatch(typeof(KnownTech), nameof(KnownTech.Initialize))]
     [HarmonyPostfix]
     public static void FixErmfishAnalysisTech()

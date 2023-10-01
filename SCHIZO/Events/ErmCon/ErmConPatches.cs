@@ -11,7 +11,7 @@ public static class ErmConPatches
     public static bool PreventErmfishPickup(Pickupable __instance, GUIHand hand)
     {
         TechType type = __instance.GetTechType();
-        if (!ErmfishLoader.ErmfishTechTypes.Contains(type)) return true;
+        if (!ErmfishLoader.Instance.TechTypes.Contains(type)) return true;
 
         return !CustomEventManager.Instance!?.GetEvent<ErmConEvent>()!?.IsOccurring ?? true;
     }
@@ -21,7 +21,7 @@ public static class ErmConPatches
     public static bool PreventErmfishPickupWarning(Pickupable __instance, GUIHand hand)
     {
         TechType type = __instance.GetTechType();
-        if (!ErmfishLoader.ErmfishTechTypes.Contains(type)) return true;
+        if (!ErmfishLoader.Instance.TechTypes.Contains(type)) return true;
 
         if (!CustomEventManager.Instance!?.GetEvent<ErmConEvent>()!?.IsOccurring ?? true) return true;
 

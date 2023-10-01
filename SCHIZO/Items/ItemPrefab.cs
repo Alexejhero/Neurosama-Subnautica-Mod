@@ -10,14 +10,15 @@ using UnityEngine;
 
 namespace SCHIZO.Items;
 
-public class ItemPrefab : CustomPrefab
+public abstract class ItemPrefab : CustomPrefab
 {
-    private static Transform KeepAliveParent { get; } = new GameObject("KeepAlive").transform;
+    private static readonly Transform _keepAliveParent;
 
     static ItemPrefab()
     {
-        KeepAliveParent.gameObject.SetActive(false);
-        Object.DontDestroyOnLoad(KeepAliveParent);
+        _keepAliveParent = new GameObject("KeepAlive").transform;
+        _keepAliveParent.gameObject.SetActive(false);
+        Object.DontDestroyOnLoad(_keepAliveParent);
     }
 
     public ItemData ItemData { get; init; }
@@ -31,12 +32,12 @@ public class ItemPrefab : CustomPrefab
     public LargeWorldEntity.CellLevel CellLevel { get; init; } = LargeWorldEntity.CellLevel.Near;
     public TechType CloneTechType { get; init; }
 
-    protected readonly ModItem _modItem;
+    protected readonly ModItem modItem;
 
     [SetsRequiredMembers]
     public ItemPrefab(ModItem modItem) : base(modItem)
     {
-        _modItem = modItem;
+        this.modItem = modItem;
     }
 
     [SetsRequiredMembers]
@@ -92,7 +93,7 @@ public class ItemPrefab : CustomPrefab
 
     protected virtual GameObject GetPrefab()
     {
-        GameObject instance = Object.Instantiate(ItemData.prefab, KeepAliveParent);
+        GameObject instance = Object.Instantiate(ItemData.prefab, _keepAliveParent);
         PrefabUtils.AddBasicComponents(instance, Info.ClassID, Info.TechType, CellLevel);
 
         ModifyPrefab(instance);

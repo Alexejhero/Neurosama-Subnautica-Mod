@@ -20,6 +20,6 @@ MonoBehaviour:
   holsterSounds: {fileID: 0}
   cookSounds: {fileID: 0}
   eatSounds: {fileID: 0}
-  hurtSounds: {fileID: 0}
+  hurtSounds: {fileID: 11400000, guid: b0dc06ad6a6451c41910387083ea06a0, type: 2}
   attackSounds: {fileID: 0}
-  scanSounds: {fileID: 0}
+  scanSounds: {fileID: 11400000, guid: ad2a4f61bdf0ce849a10828ab4971d5d, type: 2}

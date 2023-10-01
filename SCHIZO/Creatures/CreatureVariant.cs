@@ -16,6 +16,7 @@ namespace SCHIZO.Creatures;
 
 public sealed class CreatureVariant : CustomPrefab
 {
+    public bool IsAlive { get; init; } // TODO: Implement variants not being alive
     public Sprite Icon { get; init; }
     public RecipeData RecipeData { get; init; }
     public EdibleData EdibleData { get; init; }

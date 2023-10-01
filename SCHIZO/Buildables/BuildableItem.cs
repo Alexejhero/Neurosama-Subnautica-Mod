@@ -32,9 +32,9 @@ public sealed class BuildableItem : ItemPrefab
 
     public BuildableItem WithOldVersion(string oldClassId)
     {
-        if (_modItem == null) throw new InvalidOperationException($"Cannot add an old version to buildable which is already an old version (tying to add {oldClassId} to {Info.ClassID})");
+        if (modItem == null) throw new InvalidOperationException($"Cannot add an old version to buildable which is already an old version (tying to add {oldClassId} to {Info.ClassID})");
 
-        _oldVersions.Add(new BuildableItem(oldClassId, _modItem.DisplayName + " (OLD VERSION, PLEASE REBUILD)", _modItem.Tooltip + " (OLD VERSION, PLEASE REBUILD)")
+        _oldVersions.Add(new BuildableItem(oldClassId, modItem.DisplayName + " (OLD VERSION, PLEASE REBUILD)", modItem.Tooltip + " (OLD VERSION, PLEASE REBUILD)")
         {
             ItemData = ItemData,
             Recipe = Recipe,

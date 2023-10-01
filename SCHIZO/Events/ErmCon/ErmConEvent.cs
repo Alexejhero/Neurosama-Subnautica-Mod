@@ -74,7 +74,7 @@ public class ErmConEvent : CustomEvent
         // It is not currently known whether Ermfish swarm behaviors change if deprived of their Queen for too long.
         // Everyone who has so far been resourceful enough to survive on 4546B has displayed sufficient sensibility in choosing not to test that theory.
         int ermsInRange = PhysicsHelpers.ObjectsInRange(gameObject, SearchRadius)
-            .OfTechType(ErmfishLoader.ErmfishTechTypes)
+            .OfTechType(ErmfishLoader.Instance.TechTypes)
             .Count();
         if (ermsInRange < MinAttendance)
         {
@@ -176,7 +176,7 @@ public class ErmConEvent : CustomEvent
     public override void StartEvent()
     {
         List<Creature> withinRadius = PhysicsHelpers.ObjectsInRange(gameObject, SearchRadius)
-            .OfTechType(ErmfishLoader.ErmfishTechTypes)
+            .OfTechType(ErmfishLoader.Instance.TechTypes)
             .OrderByDistanceTo(gameObject)
             .SelectComponentInParent<Creature>()
             .ToList();

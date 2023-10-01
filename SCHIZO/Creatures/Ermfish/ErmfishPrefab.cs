@@ -2,28 +2,23 @@
 using ECCLibrary;
 using ECCLibrary.Data;
 using ECCLibrary.Mono;
-using Nautilus.Assets;
 using SCHIZO.Extensions;
-using SCHIZO.Helpers;
 using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
 
-public class ErmfishPrefab : CreatureAsset
+public class ErmfishPrefab : PickupableCreaturePrefab
 {
-    private readonly GameObject _prefab;
-
-    public ErmfishPrefab(PrefabInfo prefabInfo, GameObject prefab) : base(prefabInfo)
+    public ErmfishPrefab(ModItem regular, ModItem cooked, ModItem cured, GameObject prefab) : base(regular, cooked, cured, prefab)
     {
-        _prefab = prefab;
     }
 
     public override CreatureTemplate CreateTemplate()
     {
         const float swimVelocity = 7f;
 
-        CreatureTemplate template = new(_prefab, BehaviourType.SmallFish, EcoTargetType.Peeper, float.MaxValue)
+        CreatureTemplate template = new(creaturePrefab, BehaviourType.SmallFish, EcoTargetType.Peeper, float.MaxValue)
         {
             CellLevel = LargeWorldEntity.CellLevel.Medium,
             Mass = 10,
@@ -68,6 +63,4 @@ public class ErmfishPrefab : CreatureAsset
 
         yield break;
     }
-
-    public override void ApplyMaterials(GameObject prefab) => MaterialHelpers.ApplySNShadersIncludingRemaps(prefab, 1f);
 }

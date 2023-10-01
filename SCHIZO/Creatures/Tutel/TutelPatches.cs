@@ -7,6 +7,7 @@ namespace SCHIZO.Creatures.Tutel;
 [HarmonyPatch]
 public static class TutelPatches
 {
+    // TODO: Nautilus issue
     [HarmonyPatch(typeof(KnownTech), nameof(KnownTech.Initialize))]
     [HarmonyPostfix]
     public static void FixTutelAnalysisTech()

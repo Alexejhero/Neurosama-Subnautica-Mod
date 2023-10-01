@@ -1,39 +1,32 @@
 ﻿using System.Collections.Generic;
-using ECCLibrary;
-using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
-using SCHIZO.Sounds;
 using SCHIZO.Unity.Creatures;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
-[LoadMethod]
-public static class ErmsharkLoader
+[LoadCreature]
+public sealed class ErmsharkLoader : CustomCreatureLoader<CustomCreatureData, ErmsharkPrefab, ErmsharkLoader>
 {
-    public static GameObject Prefab;
+    public static GameObject Prefab; // TODO: figure this out
 
-    [LoadMethod]
-    private static void Load()
+    public ErmsharkLoader() : base(ResourceManager.LoadAsset<CustomCreatureData>("Ermshark data"))
     {
-        CustomCreatureData data = ResourceManager.LoadAsset<CustomCreatureData>("Ermshark data");
+        PDAEncyPath = IS_BELOWZERO ? "Lifeforms/Fauna/Carnivores" : "Lifeforms/Fauna/Sharks";
+    }
 
-        ErmsharkPrefab ermshark = new(ModItems.Ermshark, data.prefab);
-        ermshark.Register();
+    protected override ErmsharkPrefab CreatePrefab()
+    {
+        return new ErmsharkPrefab(ModItems.Ermshark, creatureData.prefab);
+    }
 
-        string encyPath = IS_BELOWZERO ? "Lifeforms/Fauna/Carnivores" : "Lifeforms/Fauna/Sharks";
-
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermshark, encyPath, "Ermshark", data.databankText.text, 5, data.databankTexture, data.unlockSprite);
-
-        List<LootDistributionData.BiomeData> biomes = new();
+    protected override IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()
+    {
         foreach (BiomeType biome in BiomeHelpers.GetOpenWaterBiomes())
         {
-            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.005f });
+            yield return new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.005f };
         }
-        LootDistributionHandler.AddLootDistributionData(ermshark.PrefabInfo.ClassID, biomes.ToArray());
-
-        CreatureSoundsHandler.RegisterCreatureSounds(ModItems.Ermshark, new CreatureSounds(data.soundData));
     }
 }

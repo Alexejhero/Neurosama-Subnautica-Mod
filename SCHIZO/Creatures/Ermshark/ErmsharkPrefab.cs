@@ -1,27 +1,23 @@
 ﻿using System.Collections;
 using ECCLibrary;
 using ECCLibrary.Data;
-using Nautilus.Assets;
-using Nautilus.Utility;
 using SCHIZO.Extensions;
 using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
-public sealed class ErmsharkPrefab : CreatureAsset
+public sealed class ErmsharkPrefab : CustomCreaturePrefab
 {
-    private readonly GameObject _prefab;
-
-    public ErmsharkPrefab(PrefabInfo prefabInfo, GameObject prefab) : base(prefabInfo)
+    public ErmsharkPrefab(ModItem modItem, GameObject creaturePrefab) : base(modItem, creaturePrefab)
     {
-        _prefab = prefab;
     }
 
     public const float swimVelocity = 8f;
+
     public override CreatureTemplate CreateTemplate()
     {
-        CreatureTemplate template = new(_prefab, BehaviourType.Shark, EcoTargetType.Shark, 20)
+        CreatureTemplate template = new(creaturePrefab, BehaviourType.Shark, EcoTargetType.Shark, 20)
         {
             CellLevel = LargeWorldEntity.CellLevel.Medium,
             SwimRandomData = new SwimRandomData(0.2f, swimVelocity, new Vector3(30, 5, 30), 2, 1),
@@ -77,6 +73,4 @@ public sealed class ErmsharkPrefab : CreatureAsset
 
         yield break;
     }
-
-    public override void ApplyMaterials(GameObject prefab) => MaterialUtils.ApplySNShaders(prefab, 1f);
 }

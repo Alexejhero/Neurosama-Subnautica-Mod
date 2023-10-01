@@ -1,9 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using ECCLibrary;
 using ECCLibrary.Data;
-using Nautilus.Assets;
-using Nautilus.Crafting;
 using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Helpers;
@@ -15,91 +11,39 @@ using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
 
-[LoadMethod]
-public sealed class ErmfishLoader : PickupableCreatureLoader
+[LoadCreature]
+public sealed class ErmfishLoader : PickupableCreatureLoader<PickupableCreatureData, ErmfishPrefab, ErmfishLoader>
 {
     // todo: test BZ bus path when SoundPlayers are fixed
     public static readonly SoundPlayer PlayerDeathSounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Ermfish Player Death"),
         IS_BELOWZERO ? "bus:/master/SFX_for_pause" : "bus:/master/SFX_for_pause/nofilter");
 
-    [LoadMethod]
-    private static void Load()
+    public ErmfishLoader() : base(ResourceManager.LoadAsset<PickupableCreatureData>("Ermfish data"))
     {
-        PickupableCreatureData data = ResourceManager.LoadAsset<PickupableCreatureData>("Ermfish data");
-
-        ErmfishLoader loader = new(data);
-        loader.LoadErmfish();
-        loader.LoadVariants();
+        FoodValue = 19;
+        WaterValue = 0;
+        PDAEncyPath = "Lifeforms/Fauna/SmallHerbivores";
+        VariantsAreAlive = true;
+        VFXFabricatingData = new VFXFabricatingData("VM/model", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0));
     }
 
-    private ErmfishLoader(PickupableCreatureData data) : base(data)
+    protected override ErmfishPrefab CreatePrefab()
     {
+        return new ErmfishPrefab(ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish, creatureData.prefab);
     }
 
-    private void LoadErmfish()
+    protected override IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()
     {
-        ErmfishPrefab ermfish = new(ModItems.Ermfish, _creatureData.prefab);
-        ermfish.PrefabInfo.WithIcon(_creatureData.regularIcon);
-        ermfish.Register();
-
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(ermfish, "Lifeforms/Fauna/SmallHerbivores", "Ermfish", _creatureData.databankText.text, 5, _creatureData.databankTexture, _creatureData.unlockSprite);
-
-        KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
-        {
-            techType = ModItems.Ermfish,
-            unlockTechTypes = new List<TechType>(),
-            unlockMessage = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage,
-            unlockSound = KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound,
-            unlockPopup = _creatureData.unlockSprite
-        });
-
-        List<LootDistributionData.BiomeData> biomes = new();
         foreach (BiomeType biome in BiomeHelpers.GetOpenWaterBiomes())
         {
-            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.025f });
-            biomes.Add(new LootDistributionData.BiomeData { biome = biome, count = 5, probability = 0.010f });
+            yield return new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.025f };
+            yield return new LootDistributionData.BiomeData { biome = biome, count = 5, probability = 0.010f };
         }
-        LootDistributionHandler.AddLootDistributionData(ermfish.ClassID, biomes.ToArray());
-
-        PostRegister(ermfish.PrefabInfo);
     }
 
-    [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
-    private void LoadVariants()
+    protected override void PostRegisterAlive(ModItem item)
     {
-        VFXFabricatingData vfxFabricatingData = new("VM/model", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0));
-
-        new CreatureVariant(ModItems.Ermfish, ModItems.CookedErmfish)
-        {
-            Icon = _creatureData.cookedIcon,
-            RecipeData = new RecipeData(new Ingredient(ModItems.Ermfish, 1)),
-            EdibleData = new EdibleData(23, 0, true),
-            FabricatorPath = CraftTreeHandler.Paths.FabricatorCookedFood,
-            TechCategory = Retargeting.TechCategory.CookedFood,
-            MaterialRemap = _creatureData.cookedRemap,
-            RegisterAsCookedVariant = true,
-            VFXFabricatingData = vfxFabricatingData,
-            PostRegister = PostRegister,
-        }.Register();
-
-        new CreatureVariant(ModItems.Ermfish, ModItems.CuredErmfish)
-        {
-            Icon = _creatureData.curedIcon,
-            RecipeData = new RecipeData(new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.Salt, 1)),
-            EdibleData = new EdibleData(23, -2, false),
-            FabricatorPath = CraftTreeHandler.Paths.FabricatorCuredFood,
-            TechCategory = Retargeting.TechCategory.CuredFood,
-            MaterialRemap = _creatureData.curedRemap,
-            VFXFabricatingData = vfxFabricatingData,
-            PostRegister = PostRegister,
-        }.Register();
+        base.PostRegisterAlive(item);
+        ItemActionHandler.RegisterMiddleClickAction(item, _ => creatureSounds.AmbientItemSounds.Play2D(), "pull ahoge", "English");
     }
-
-    private void PostRegister(PrefabInfo info)
-    {
-        CreatureSoundsHandler.RegisterCreatureSounds(info.TechType, _creatureSounds);
-        ItemActionHandler.RegisterMiddleClickAction(info.TechType, _ => _creatureSounds.AmbientItemSounds.Play2D(), "pull ahoge", "English");
-    }
-
-    public static List<TechType> ErmfishTechTypes => new() { ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish };
 }

@@ -93,7 +93,7 @@ public class BullyTutel : RetargetCreatureAction, IProtoTreeEventListener
             LargeWorldStreamer.main!?.cellManager.RegisterEntity(lwe);
     }
 
-    private static bool IsTargetValid(IEcoTarget target) => TutelLoader.TutelTechTypes.Contains(CraftData.GetTechType(target.GetGameObject()));
+    private static bool IsTargetValid(IEcoTarget target) => TutelLoader.Instance.TechTypes.Contains(CraftData.GetTechType(target.GetGameObject()));
 
     private void UpdateBullyTarget()
     {

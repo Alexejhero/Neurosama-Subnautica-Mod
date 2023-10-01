@@ -2,28 +2,23 @@
 using ECCLibrary;
 using ECCLibrary.Data;
 using ECCLibrary.Mono;
-using Nautilus.Assets;
 using Nautilus.Utility;
 using SCHIZO.Extensions;
-using SCHIZO.Helpers;
 using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Tutel;
 
-public class TutelPrefab : CreatureAsset
+public class TutelPrefab : PickupableCreaturePrefab
 {
-    private readonly GameObject _prefab;
-
-    public TutelPrefab(PrefabInfo prefabInfo, GameObject prefab) : base(prefabInfo)
+    public TutelPrefab(ModItem regular, ModItem cooked, ModItem cured, GameObject prefab) : base(regular, cooked, cured, prefab)
     {
-        _prefab = prefab;
     }
 
     private const float swimVelocity = 2f;
     public override CreatureTemplate CreateTemplate()
     {
-        CreatureTemplate template = new(_prefab, BehaviourType.Crab, EcoTargetType.Coral, float.MaxValue)
+        CreatureTemplate template = new(creaturePrefab, BehaviourType.Crab, EcoTargetType.Coral, float.MaxValue)
         {
             // Cell level needs to be set to Near to avoid our spawns falling through the unrendered map which is too far
             // fish are not affected by this, but walking creatures are, as they have gravity on
@@ -101,6 +96,4 @@ public class TutelPrefab : CreatureAsset
 
         yield break;
     }
-
-    public override void ApplyMaterials(GameObject prefab) => MaterialHelpers.ApplySNShadersIncludingRemaps(prefab, 1f);
 }
