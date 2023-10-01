@@ -22,4 +22,4 @@ MonoBehaviour:
   eatSounds: {fileID: 0}
   hurtSounds: {fileID: 11400000, guid: 9ee9dfa7770ab144dad626ab9273ce05, type: 2}
   attackSounds: {fileID: 11400000, guid: 0d3bacd789afd8c488a63f3f4769c807, type: 2}
-  scanSounds: {fileID: 0}
+  scanSounds: {fileID: 11400000, guid: 935233e4761193a489883563680a8478, type: 2}
