@@ -16,27 +16,25 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Get BZ artifact from build
+    - name: Get artifact from build
       uses: dawidd6/action-download-artifact@v2
       with:
         workflow: build.yml
         name: SCHIZO-${{ matrix.configuration }}.dll
-        path: Install/${{ matrix.configuration }}/BepInEx/plugins/SCHIZO/SCHIZO.dll.extracted
-
-    - name: Clean extracted artifact
-      run: |
-        cd Install/${{ matrix.configuration }}/BepInEx/plugins/SCHIZO
-        mv SCHIZO.dll.extracted/SCHIZO.dll SCHIZO.dll
-        rm -rf SCHIZO.dll.extracted
+        path: Install/${{ matrix.configuration }}/BepInEx/plugins/SCHIZO/
 
     - name: Create release archive
       run: |
           cd Install/${{ matrix.configuration }}
-          zip -r9 ../release-${{ matrix.configuration }}.zip *
-          cd ../Common
-          zip -r9 ../release-${{ matrix.configuration }}.zip *
+          zip -r9 ../mod-and-deps-${{ matrix.configuration }}.zip *
+          cd BepInEx/plugins
+          zip -r9 ../../../mod-only-${{ matrix.configuration }}.zip SCHIZO
+          cd ../../../Common
+          zip -r9 ../mod-and-deps-${{ matrix.configuration }}.zip *
 
     - name: Update the release
       uses: softprops/action-gh-release@v1
       with:
-        files: Install/release-${{ matrix.configuration }}.zip
+        files: |
+          Install/mod-and-deps-${{ matrix.configuration }}.zip
+          Install/mod-only-${{ matrix.configuration }}.zip
