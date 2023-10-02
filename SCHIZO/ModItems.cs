@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Nautilus.Assets;
 
@@ -20,6 +20,7 @@ public static class ModItems
     public static readonly ModItem CuredTutel = new("curedtutel", "Cured Tutel", "that's messed up\n<size=75%>(Model by FutabaKuuhaku)</size>");
 
     public static readonly ModItem Gymbag = new("gymbag", "Gymbag", "A lightly worn gym bag that emanates a faint smell. How does it fit all that stuff?..\n<size=75%>(Model by Vaalmyr)</size>");
+    public static readonly ModItem NeuroFumoItem = new("neurofumoitem", "Neuro fumo", "(PH) Very huggable. Sure to keep your heart warm in any environment.");
 }
 
 public sealed class ModItem

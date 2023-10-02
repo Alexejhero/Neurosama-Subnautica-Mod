@@ -43,7 +43,7 @@ public static class BuildablesLoader
         new BuildableItem(new ModItem("NeuroFumo2", "Low-poly Neuro fumo", "Fumo collection 1/2\n<size=75%>(Model by YuG)</size>"))
         {
             ItemData = Assets.LowPolyNeurofumo_LowpolyFumoData,
-            Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.JeweledDiskPiece, 1), new Ingredient(TechType.Gold, 1)),
+            Recipe = new RecipeData(new Ingredient(ModItems.NeuroFumoItem, 1)),
             TechGroup = TechGroup.Miscellaneous,
             TechCategory = TechCategory.Misc,
         }.WithOldVersion("NeuroFumo").Register();
@@ -51,7 +51,7 @@ public static class BuildablesLoader
         new BuildableItem(new ModItem("NeuroFumoNew", "Neuro fumo", "Fumo collection 2/2\n<size=75%>(Model by Kat)</size>"))
         {
             ItemData = Assets.NeurofumoNew_FumoData,
-            Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.JeweledDiskPiece, 1), new Ingredient(TechType.Gold, 1)),
+            Recipe = new RecipeData(new Ingredient(ModItems.NeuroFumoItem, 1)),
             TechGroup = TechGroup.Miscellaneous,
             TechCategory = TechCategory.Misc,
         }.Register();
