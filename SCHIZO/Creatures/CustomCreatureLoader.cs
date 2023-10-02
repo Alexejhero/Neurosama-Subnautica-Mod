@@ -10,8 +10,6 @@ namespace SCHIZO.Creatures;
 public abstract class CustomCreatureLoader<TData, TPrefab, TLoader> : ICustomCreatureLoader
     where TData : CustomCreatureData where TPrefab : CustomCreaturePrefab where TLoader : CustomCreatureLoader<TData, TPrefab, TLoader>, new()
 {
-    public static TLoader Instance;
-
     protected readonly TData creatureData;
     protected readonly CreatureSounds creatureSounds;
 

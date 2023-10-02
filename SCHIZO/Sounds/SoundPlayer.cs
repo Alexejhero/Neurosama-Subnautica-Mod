@@ -20,8 +20,8 @@ public sealed class SoundPlayer
     [SerializeField] private string _bus;
     [SerializeField] private List<string> _sounds = new();
 
-    private readonly RandomList<string> _randomSounds = new();
-    private readonly List<Coroutine> _runningCoroutines = new();
+    private RandomList<string> _randomSounds = new();
+    private List<Coroutine> _runningCoroutines = new();
 
     public SoundPlayer(BaseSoundCollection soundCollection, string bus)
     {
@@ -103,9 +103,10 @@ public sealed class SoundPlayer
 
     private void Initialize()
     {
-        if (_randomSounds.Count == 0 && _sounds.Count != 0)
-        {
-            _randomSounds.AddRange(_sounds);
-        }
+        if (_randomSounds is { Count: > 0 }) return;
+        // serialization moment
+        _randomSounds ??= new();
+        _runningCoroutines ??= new();
+        _randomSounds.AddRange(_sounds);
     }
 }

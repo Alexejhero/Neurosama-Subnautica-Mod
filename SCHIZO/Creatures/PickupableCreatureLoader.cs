@@ -11,6 +11,8 @@ namespace SCHIZO.Creatures;
 public abstract class PickupableCreatureLoader<TData, TPrefab, TLoader> : CustomCreatureLoader<TData, TPrefab, TLoader>
     where TData : PickupableCreatureData where TPrefab : PickupableCreaturePrefab where TLoader : PickupableCreatureLoader<TData, TPrefab, TLoader>, new()
 {
+    public static PickupableCreatureLoader<TData, TPrefab, TLoader> Instance;
+
     protected float FoodValue { get; init; } = 19;
     protected float WaterValue { get; init; } = 2;
     protected VFXFabricatingData VFXFabricatingData { get; init; }
@@ -18,6 +20,7 @@ public abstract class PickupableCreatureLoader<TData, TPrefab, TLoader> : Custom
 
     protected PickupableCreatureLoader(TData data) : base(data)
     {
+        Instance = this;
     }
 
     public List<TechType> TechTypes { get; private set; }
@@ -26,7 +29,7 @@ public abstract class PickupableCreatureLoader<TData, TPrefab, TLoader> : Custom
     {
         base.Register();
 
-        TechTypes = new List<TechType> {prefab.ModItem, prefab.CookedItem, prefab.CuredItem};
+        TechTypes = new List<TechType> { prefab.ModItem, prefab.CookedItem, prefab.CuredItem };
         prefab.PrefabInfo.WithIcon(creatureData.regularIcon);
 
         KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech

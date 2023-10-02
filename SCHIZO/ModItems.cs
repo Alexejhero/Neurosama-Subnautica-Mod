@@ -13,6 +13,7 @@ public static class ModItems
     public static readonly ModItem CuredErmfish = new("curedermfish", "Cured Ermfish", "erm\n<size=75%>(Model by w1n7er, icon by SADecsSs)</size>");
 
     public static readonly ModItem Ermshark = new("ermshark", "Ermshark");
+    public static readonly ModItem Anneel = new("Anneel", "Anneel");
 
     public static readonly ModItem Tutel = new("tutel", "Tutel", "that's crazy\n<size=75%>(Model by FutabaKuuhaku)</size>");
     public static readonly ModItem CookedTutel = new("cookedtutel", "Cooked Tutel", "that's actually crazy\n<size=75%>(Model by FutabaKuuhaku)</size>");

@@ -1,7 +1,6 @@
-﻿using System.Collections;
+using System.Collections;
 using ECCLibrary;
 using ECCLibrary.Data;
-using SCHIZO.Creatures.Ermshark;
 using SCHIZO.Extensions;
 using SCHIZO.Sounds;
 using UnityEngine;
@@ -42,24 +41,7 @@ public sealed class AnneelPrefab : CustomCreaturePrefab
 
     public override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
-        WorldSounds.Add(prefab, CreatureSoundsHandler.GetCreatureSounds(ModItems.Ermshark).AmbientWorldSounds);
-
-        BullyTutel bully = prefab.AddComponent<BullyTutel>();
-        bully.mouth = bully.tutelAttach = prefab.SearchChild("mouth_attach_point").transform;
-
-        AggressiveWhenSeePlayer aggressive = prefab.AddComponent<AggressiveWhenSeePlayer>();
-        aggressive.maxRangeMultiplier = CreaturePrefabUtils.maxRangeMultiplierCurve;
-        aggressive.distanceAggressionMultiplier = CreaturePrefabUtils.distanceAggressionMultiplierCurve;
-        aggressive.lastTarget = components.LastTarget;
-        aggressive.creature = components.Creature;
-        aggressive.targetType = EcoTargetType.Shark;
-        aggressive.aggressionPerSecond = 2;
-        aggressive.maxRangeScalar = 75;
-        aggressive.maxSearchRings = 3;
-        aggressive.ignoreSameKind = true;
-
-        GameObject mouth = prefab.SearchChild("attack_collider");
-        CreaturePrefabUtils.AddMeleeAttack<ErmsharkAttack>(prefab, components, mouth, true, 20);
+        WorldSounds.Add(prefab, CreatureSoundsHandler.GetCreatureSounds(ModItems.Anneel).AmbientWorldSounds);
 
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
         CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Cold, 0f);

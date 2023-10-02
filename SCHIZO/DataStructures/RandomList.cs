@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SCHIZO.DataStructures;
 
-public class RandomList<T> : IEnumerable<T>
+public class RandomList<T> : IReadOnlyCollection<T>
 {
     public interface IInitialStateModifier
     {
