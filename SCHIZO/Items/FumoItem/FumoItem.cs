@@ -27,7 +27,7 @@ public class FumoItem : ItemPrefab
         TechGroup = TechGroup.Personal;
         TechCategory = TechCategory.Equipment;
         EquipmentType = EquipmentType.Hand;
-        QuickSlotType = QuickSlotType.SelectableChargeable;
+        QuickSlotType = QuickSlotType.Selectable;
     }
 
     protected override void AddGadgets()

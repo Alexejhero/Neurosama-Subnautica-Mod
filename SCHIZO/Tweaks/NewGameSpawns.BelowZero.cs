@@ -1,17 +1,15 @@
-using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Attributes;
 
 namespace SCHIZO.Tweaks;
 
 [LoadMethod]
-[HarmonyPatch]
-public static class SpawnFumoOnNewGame
+public static class NewGameSpawns
 {
     [LoadMethod]
-    public static void RegisterSpawn()
+    public static void RegisterNewGameSpawns()
     {
-        LOGGER.LogWarning("Registering fumo spawn");
+        // on a rock near the crash site, should be visible at the end of the intro cutscene
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModItems.NeuroFumoItem, new(-307, 18f, 274f)));
     }
 }

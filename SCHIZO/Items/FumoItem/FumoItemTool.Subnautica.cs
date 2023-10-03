@@ -1,4 +1,3 @@
-using RootMotion.FinalIK;
 using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem;
@@ -17,6 +16,7 @@ public partial class FumoItemTool
 
         return (parent, offset);
     }
+
     private void ApplyColdResistBuff(int _)
     {
     }

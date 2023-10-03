@@ -1,6 +1,3 @@
-using System.Collections;
-using RootMotion.FinalIK;
-using RuntimeDebugDraw;
 using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem;
@@ -40,16 +37,6 @@ public sealed partial class FumoItemTool : CustomPlayerTool
         base.OnHolster();
     }
 
-    private IEnumerator DelayShow(bool show, float delay)
-    {
-        yield return delay == 0 ? null : new WaitForSeconds(delay);
-        ToggleShow(show);
-    }
-    private void ToggleShow(bool show)
-    {
-        (GetComponent<FPModel>()?.viewModel ?? gameObject).SetActive(show);
-    }
-
     public override bool OnRightHandDown() => false; // don't play floater release anim
 
     public override bool OnRightHandHeld()
@@ -69,17 +56,6 @@ public sealed partial class FumoItemTool : CustomPlayerTool
 
     public void Update()
     {
-        //Transform slot = usingPlayer.rightHandSlot;
-        //Transform handAttach = transform.parent;
-        //if (Input.GetKey(KeyCode.LeftAlt))
-        //{
-        //    Draw.DrawRay(transform.position, transform.forward, Color.blue, 5f);
-        //    Draw.DrawRay(transform.position, transform.up, Color.green, 5f);
-        //    Draw.DrawRay(slot.position, slot.forward, Color.red, 5f);
-        //    Draw.DrawRay(slot.position, slot.up, Color.yellow, 5f);
-        //    Draw.DrawRay(handAttach.position, handAttach.forward, Color.cyan, 5f);
-        //    Draw.DrawRay(handAttach.position, handAttach.up, Color.magenta, 5f);
-        //}
         if (!usingPlayer) return;
 
         float time = Time.time;
@@ -98,8 +74,6 @@ public sealed partial class FumoItemTool : CustomPlayerTool
         parent.localPosition += delta;
         prevHugPosOffset = offset;
     }
-
-    private int prevHash;
 
     public void StartHugging()
     {
@@ -128,11 +102,13 @@ public sealed partial class FumoItemTool : CustomPlayerTool
 
     private void ApplyMoveSpeedMulti(float multi)
     {
-        // a formal apology for the following lines of code can be issued to any Subnautica dev on request
-        if (!groundMotor) groundMotor = (usingPlayer !?? Player.main).GetComponent<GroundMotor>();
+        // a formal apology for the following lines of code can be issued to any Subnautica dev or modder on request
+        Player player = usingPlayer ? usingPlayer : Player.main;
+        if (!player) return;
+        if (!groundMotor) groundMotor = player.GetComponent<GroundMotor>();
         groundMotor.forwardMaxSpeed *= multi;
         groundMotor.strafeMaxSpeed *= multi;
         groundMotor.backwardMaxSpeed *= multi;
-        usingPlayer.GetComponent<UnderwaterMotor>().debugSpeedMult *= multi;
+        groundMotor.GetComponent<UnderwaterMotor>().debugSpeedMult *= multi;
     }
 }

@@ -9,10 +9,6 @@ public partial class FumoItemTool
     // in BZ, the holding distance is different
     const float hugDistMulti = 0.5f;
 
-    public void Start()
-    {
-        Draw.AttachText(uGUI.main.transform, () => usingPlayer?.GetComponent<BodyTemperature>()?.coldResistEquipmentBuff.ToString(), size: 30);
-    }
     private (Transform parent, Vector3 localPosOffset) GetHugOffset(float distScale)
     {
         // TODO: move just the arms instead of the entire body
@@ -23,6 +19,7 @@ public partial class FumoItemTool
         Vector3 worldOffset = Vector3.Slerp(Vector3.zero, worldDirectionToPlayer * hugDistance * hugDistMulti, Mathf.Clamp01(distScale));
         Vector3 localOffset = parent.worldToLocalMatrix.MultiplyVector(worldOffset);
 
+        // in BZ the camera moves with the body (fix along with the above todo)
         Transform cam = MainCamera.camera.transform;
         cam.localPosition = cam.worldToLocalMatrix.MultiplyVector(-worldOffset);
 
@@ -31,6 +28,7 @@ public partial class FumoItemTool
 
     private void ApplyColdResistBuff(int buff)
     {
+        if (!usingPlayer) return;
         BodyTemperature bodyTemperature = usingPlayer.GetComponent<BodyTemperature>();
         if (!bodyTemperature) return;
         bodyTemperature.coldResistEquipmentBuff += buff;
