@@ -40,8 +40,10 @@ public class FumoItem : ItemPrefab
 
     protected override void ModifyPrefab(GameObject prefab)
     {
-        prefab.EnsureComponent<Rigidbody>();
+        Rigidbody rb = prefab.EnsureComponent<Rigidbody>();
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         Pickupable pickupable = prefab.EnsureComponent<Pickupable>();
+        WorldForces gravity = prefab.EnsureComponent<WorldForces>();
         FumoItemTool tool = prefab.AddComponent<FumoItemTool>();
         tool.ikAimLeftArm = true;
         tool.useLeftAimTargetOnPlayer = true;
@@ -60,7 +62,7 @@ public class FumoItem : ItemPrefab
     protected override void PostRegister()
     {
 #if BELOWZERO
-        CraftDataHandler.SetColdResistance(ModItems.NeuroFumoItem, 25);
+        CraftDataHandler.SetColdResistance(ModItems.NeuroFumoItem, 20);
 #endif
     }
 }

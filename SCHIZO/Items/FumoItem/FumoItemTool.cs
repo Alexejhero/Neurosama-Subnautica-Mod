@@ -1,4 +1,5 @@
 using System.Collections;
+using RootMotion.FinalIK;
 using RuntimeDebugDraw;
 using UnityEngine;
 
@@ -15,10 +16,9 @@ public sealed partial class FumoItemTool : CustomPlayerTool
 
     private bool isHugging;
     private const float hugDistance = 0.5f;
-    private Vector3 localDirectionToPlayer;
     private Vector3 prevHugPosOffset;
-    private const float hugMoveSpeedMulti = 0.5f;
-    private const int hugColdResistBuff = 25;
+    private const float hugMoveSpeedMulti = 0.7f;
+    private const int hugColdResistBuff = 20;
     private bool hugEffectApplied;
 
     private GroundMotor groundMotor;
@@ -34,6 +34,8 @@ public sealed partial class FumoItemTool : CustomPlayerTool
     }
     public override void OnHolster()
     {
+        // need to reset immediately, otherwise PDA opens in the wrong location
+        UpdateHugPos(0);
         StopHugging();
         base.OnHolster();
     }
@@ -63,37 +65,38 @@ public sealed partial class FumoItemTool : CustomPlayerTool
         return base.OnRightHandUp();
     }
 
+    private Vector3 chestOffset = new(0, -0.3f, 0);
+
     public void Update()
     {
-        Transform slot = usingPlayer.rightHandSlot;
-        Transform handAttach = transform.parent;
-        if (Input.GetKey(KeyCode.LeftAlt))
-        {
-            Draw.DrawRay(transform.position, transform.forward, Color.blue, 5f);
-            Draw.DrawRay(transform.position, transform.up, Color.green, 5f);
-            Draw.DrawRay(slot.position, slot.forward, Color.red, 5f);
-            Draw.DrawRay(slot.position, slot.up, Color.yellow, 5f);
-            Draw.DrawRay(handAttach.position, handAttach.forward, Color.cyan, 5f);
-            Draw.DrawRay(handAttach.position, handAttach.up, Color.magenta, 5f);
-        }
+        //Transform slot = usingPlayer.rightHandSlot;
+        //Transform handAttach = transform.parent;
+        //if (Input.GetKey(KeyCode.LeftAlt))
+        //{
+        //    Draw.DrawRay(transform.position, transform.forward, Color.blue, 5f);
+        //    Draw.DrawRay(transform.position, transform.up, Color.green, 5f);
+        //    Draw.DrawRay(slot.position, slot.forward, Color.red, 5f);
+        //    Draw.DrawRay(slot.position, slot.up, Color.yellow, 5f);
+        //    Draw.DrawRay(handAttach.position, handAttach.forward, Color.cyan, 5f);
+        //    Draw.DrawRay(handAttach.position, handAttach.up, Color.magenta, 5f);
+        //}
+        if (!usingPlayer) return;
 
-        if (localDirectionToPlayer == default) return;
         float time = Time.time;
         float distScale = isHugging
             ? (time - hugStartTime) / hugAttackDuration
             : 1 - (time - hugStopTime) / hugReleaseDuration;
-        Vector3 offset = Vector3.Slerp(Vector3.zero, -localDirectionToPlayer * hugDistance, Mathf.Clamp01(distScale));
+
+        UpdateHugPos(distScale);
+    }
+
+    private void UpdateHugPos(float distScale)
+    {
+        (Transform parent, Vector3 offset) = GetHugOffset(distScale);
 
         Vector3 delta = offset - prevHugPosOffset;
-        var parent = transform.parent.parent.parent;
         parent.localPosition += delta;
         prevHugPosOffset = offset;
-        var toLog = $"{parent.localPosition} {offset} {delta}";
-        if (toLog.GetHashCode() != prevHash)
-        {
-            LOGGER.LogWarning(toLog);
-            prevHash = toLog.GetHashCode();
-        }
     }
 
     private int prevHash;
@@ -103,8 +106,6 @@ public sealed partial class FumoItemTool : CustomPlayerTool
         if (isHugging || !usingPlayer) return;
         isHugging = true;
         hugStartTime = Time.time;
-        Vector3 worldDirectionToPlayer = transform.position - usingPlayer.transform.position;
-        localDirectionToPlayer = transform.worldToLocalMatrix.MultiplyVector(worldDirectionToPlayer._X0Z());
 
         if (hugEffectApplied) return;
         ApplyMoveSpeedMulti(hugMoveSpeedMulti);
