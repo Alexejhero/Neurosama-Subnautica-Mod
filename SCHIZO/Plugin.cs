@@ -6,6 +6,7 @@ using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
+using SCHIZO.Unity;
 
 namespace SCHIZO;
 
