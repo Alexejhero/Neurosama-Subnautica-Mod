@@ -27,7 +27,7 @@ public sealed class ErmfishLoader : PickupableCreatureLoader<PickupableCreatureD
 
     protected override ErmfishPrefab CreatePrefab()
     {
-        return new ErmfishPrefab(ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish, ((CustomCreatureData) creatureData).regularPrefab);
+        return new ErmfishPrefab(ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish, creatureData.prefab);
     }
 
     protected override IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()

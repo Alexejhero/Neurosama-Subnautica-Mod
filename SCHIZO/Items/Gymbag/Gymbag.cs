@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using ECCLibrary.Data;
+using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
+using Nautilus.Utility;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Items;
@@ -26,8 +27,6 @@ public sealed class Gymbag : ItemPrefab
     {
         ItemData = ResourceManager.LoadAsset<ItemData>("Gymbag data");
         Recipe = new RecipeData(new Ingredient(BagTechType, 1), new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.PosterKitty, 1));
-        FabricatorPath = CraftTreeHandler.Paths.FabricatorEquipment;
-        CraftingTime = 10;
         SizeInInventory = new Vector2int(2, 2);
         TechGroup = TechGroup.Personal;
         TechCategory = TechCategory.Equipment;
@@ -35,7 +34,15 @@ public sealed class Gymbag : ItemPrefab
         QuickSlotType = QuickSlotType.Selectable;
         RequiredForUnlock = ModItems.Ermfish;
         CloneTechType = BagTechType;
-        VFXFabricatingData = new VFXFabricatingData(null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero);
+    }
+
+    protected override void AddGadgets()
+    {
+        // make this an editor component?
+        CraftingGadget crafting = GetGadget<CraftingGadget>();
+        crafting.WithFabricatorType(CraftTree.Type.Fabricator);
+        crafting.WithStepsToFabricatorTab(CraftTreeHandler.Paths.FabricatorEquipment);
+        crafting.WithCraftingTime(10);
     }
 
     protected override void ModifyPrefab(GameObject prefab)
@@ -47,7 +54,9 @@ public sealed class Gymbag : ItemPrefab
         GameObject baseModel = prefab.GetComponentInChildren<Renderer>().gameObject;
         baseModel.SetActive(false);
 
-        GameObject.Instantiate(ItemData.prefab, baseModel.transform.parent);
+        GameObject instance = Object.Instantiate(ItemData.prefab, baseModel.transform.parent);
+
+        PrefabUtils.AddVFXFabricating(instance, null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero);
     }
 
     protected override void PostRegister()

@@ -2,79 +2,58 @@
 using System.Diagnostics.CodeAnalysis;
 using ECCLibrary;
 using ECCLibrary.Data;
+using JetBrains.Annotations;
+using Nautilus.Assets;
+using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using SCHIZO.Gadgets;
-using SCHIZO.Items;
 using SCHIZO.Unity.Materials;
 using UnityEngine;
 
 namespace SCHIZO.Creatures;
 
-public sealed class CreatureVariant : ItemPrefab
+public sealed class CreatureVariant : CustomPrefab
 {
-    #region Exposing protected properties
-
-    public new VFXFabricatingData VFXFabricatingData
-    {
-        private get => base.VFXFabricatingData;
-        init => base.VFXFabricatingData = value;
-    }
-
-    #endregion
-
     public bool IsAlive { get; init; } // TODO: Implement variants not being alive
     public Sprite Icon { get; init; }
+    public RecipeData RecipeData { get; init; }
+    public EdibleData EdibleData { get; init; }
+    public string[] FabricatorPath { get; init; }
+    public TechCategory TechCategory { [UsedImplicitly] get; init; }
     public MaterialRemapOverride MaterialRemap { get; init; }
-    public Action<ModItem> PostRegisterFunc { get; init; }
+    public bool RegisterAsCookedVariant { get; init; }
+    public VFXFabricatingData VFXFabricatingData { get; init; }
+    public Action<PrefabInfo> PostRegister { get; init; }
 
-    private readonly Type _variantType;
-    private readonly IPickupableCreaturePrefab _original;
-    private readonly EdibleData _edibleData;
+    private readonly TechType _original;
 
     [SetsRequiredMembers]
-    [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
-    public CreatureVariant(IPickupableCreaturePrefab prefab, ModItem variant, Type variantType) : base(variant)
+    public CreatureVariant(TechType original, PrefabInfo variant) : base(variant)
     {
-        _original = prefab;
-        _variantType = variantType;
-        RequiredForUnlock = _original.ModItem;
-        EquipmentType = EquipmentType.Hand;
-        QuickSlotType = QuickSlotType.Selectable;
-        TechGroup = IS_BELOWZERO ? TechGroup.Uncategorized : TechGroup.Survival;
-
-        if (_variantType == Type.Cooked)
-        {
-            Recipe = new RecipeData(new Ingredient(prefab.ModItem, 1));
-            FabricatorPath = CraftTreeHandler.Paths.FabricatorCookedFood;
-            TechCategory = Retargeting.TechCategory.CookedFood;
-
-            _edibleData = new EdibleData(prefab.FoodValueCooked, prefab.WaterValueCooked, true, 1);
-        }
-        else if (_variantType == Type.Cured)
-        {
-            Recipe = new RecipeData(new Ingredient(prefab.ModItem, 1), new Ingredient(TechType.Salt, 1));
-            FabricatorPath = CraftTreeHandler.Paths.FabricatorCuredFood;
-            TechCategory = Retargeting.TechCategory.CuredFood;
-
-            _edibleData = new EdibleData(prefab.FoodValueCooked, -3, false);
-        }
+        _original = original;
     }
 
-    public override void Register()
+    public new void Register()
     {
         Info.WithIcon(Icon);
 
-        this.SetEdibleData(_edibleData);
+        CraftingGadget crafting = this.SetRecipe(RecipeData);
+        crafting.WithFabricatorType(CraftTree.Type.Fabricator);
+        crafting.WithStepsToFabricatorTab(FabricatorPath);
 
-        if (_variantType == Type.Cooked) CraftDataHandler.SetCookedVariant(_original.ModItem, Info.TechType);
-
+        this.SetEdibleData(EdibleData);
+        this.SetUnlock(_original);
+        this.SetEquipment(EquipmentType.Hand).WithQuickSlotType(QuickSlotType.Selectable);
 #if BELOWZERO
-        CraftDataHandler.SetSoundType(Info.TechType, TechData.GetSoundType(_original.ModItem));
+        CraftDataHandler.SetSoundType(Info.TechType, TechData.GetSoundType(_original));
 #endif
 
-        SetGameObject(new CloneTemplate(Info, _original.ModItem)
+        // in BZ, cooked fish aren't in the PDA
+        this.SetPdaGroupCategory(IS_BELOWZERO ? TechGroup.Uncategorized : TechGroup.Survival, TechCategory);
+
+        SetGameObject(new CloneTemplate(Info, _original)
         {
             ModifyPrefab = prefab =>
             {
@@ -85,12 +64,10 @@ public sealed class CreatureVariant : ItemPrefab
                 CreaturePrefabUtils.AddVFXFabricating(prefab, VFXFabricatingData);
             }
         });
-
         base.Register();
-    }
 
-    protected override void PostRegister()
-    {
-        PostRegisterFunc?.Invoke(modItem);
+        if (RegisterAsCookedVariant) CraftDataHandler.SetCookedVariant(_original, Info.TechType);
+
+        PostRegister?.Invoke(Info);
     }
 }

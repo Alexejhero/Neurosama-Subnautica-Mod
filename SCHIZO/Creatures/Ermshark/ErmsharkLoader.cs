@@ -3,7 +3,6 @@ using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Creatures;
-using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
@@ -15,9 +14,9 @@ public sealed class ErmsharkLoader : CustomCreatureLoader<CustomCreatureData, Er
         PDAEncyPath = IS_BELOWZERO ? "Lifeforms/Fauna/Carnivores" : "Lifeforms/Fauna/Sharks";
     }
 
-    protected override ErmsharkPrefab CreatePrefab(GameObject rawObject)
+    protected override ErmsharkPrefab CreatePrefab()
     {
-        return new ErmsharkPrefab(ModItems.Ermshark, rawObject);
+        return new ErmsharkPrefab(ModItems.Ermshark, creatureData.prefab);
     }
 
     protected override IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()

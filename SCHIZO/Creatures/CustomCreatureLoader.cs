@@ -5,23 +5,18 @@ using ECCLibrary;
 using Nautilus.Handlers;
 using SCHIZO.Sounds;
 using SCHIZO.Unity.Creatures;
-using UnityEngine;
 
 namespace SCHIZO.Creatures;
 
 public abstract class CustomCreatureLoader<TData, TPrefab, TLoader> : ICustomCreatureLoader
-    where TData : CustomCreatureData
-    where TPrefab : CreatureAsset, IItemRegisterer
-    where TLoader : CustomCreatureLoader<TData, TPrefab, TLoader>, new()
+    where TData : CustomCreatureData where TPrefab : CreatureAsset, ICustomCreaturePrefab where TLoader : CustomCreatureLoader<TData, TPrefab, TLoader>, new()
 {
     public static TLoader Instance;
-
-    public readonly HashSet<TechType> TechTypes = new();
 
     protected readonly TData creatureData;
     protected readonly CreatureSounds creatureSounds;
 
-    protected TPrefab regularPrefab { get; private set; }
+    protected TPrefab prefab { get; private set; }
 
     protected string PDAEncyPath { get; init; }
     protected float ScanTime { get; init; } = 5;
@@ -35,39 +30,30 @@ public abstract class CustomCreatureLoader<TData, TPrefab, TLoader> : ICustomCre
         creatureSounds = new CreatureSounds(creatureData.soundData);
     }
 
-    protected abstract TPrefab CreatePrefab(GameObject rawObject);
+    protected abstract TPrefab CreatePrefab();
 
-    protected virtual void PostRegister(TPrefab prefab)
+    protected virtual void PostRegister()
     {
     }
 
     protected virtual IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()
     {
-        return Enumerable.Empty<LootDistributionData.BiomeData>();
+        yield break;
     }
 
     public virtual void Register()
     {
-        regularPrefab = RegisterPrefab(creatureData.regularPrefab);
+        prefab = CreatePrefab();
+        ((ICustomCreaturePrefab) prefab).Register();
 
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(regularPrefab, PDAEncyPath, regularPrefab.ModItem.DisplayName, creatureData.databankText.text, ScanTime, creatureData.databankTexture, creatureData.unlockSprite);
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(prefab, PDAEncyPath, prefab.ModItem.DisplayName, creatureData.databankText.text, ScanTime, creatureData.databankTexture, creatureData.unlockSprite);
+
+        CreatureSoundsHandler.RegisterCreatureSounds(prefab.ModItem, creatureSounds);
 
         LootDistributionData.BiomeData[] biomes = GetLootDistributionData().ToArray();
-        if (biomes.Length > 0) LootDistributionHandler.AddLootDistributionData(regularPrefab.PrefabInfo.ClassID, biomes);
-    }
+        if (biomes.Length > 0) LootDistributionHandler.AddLootDistributionData(prefab.PrefabInfo.ClassID, biomes);
 
-    private TPrefab RegisterPrefab(GameObject rawObject)
-    {
-        TPrefab creaturePrefab = CreatePrefab(rawObject);
-        ((IItemRegisterer) creaturePrefab).Register();
-
-        TechTypes.Add(creaturePrefab.ModItem);
-
-        CreatureSoundsHandler.RegisterCreatureSounds(creaturePrefab.ModItem, creatureSounds);
-
-        PostRegister(creaturePrefab);
-
-        return creaturePrefab;
+        PostRegister();
     }
 }
 

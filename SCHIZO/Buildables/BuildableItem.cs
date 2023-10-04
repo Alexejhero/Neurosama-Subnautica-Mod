@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Nautilus.Crafting;
 using Nautilus.Utility;
 using SCHIZO.Gadgets;
 using SCHIZO.Helpers;
 using SCHIZO.Items;
-using SCHIZO.Unity.Items;
 using UnityEngine;
 
 namespace SCHIZO.Buildables;
@@ -15,41 +13,10 @@ public sealed class BuildableItem : ItemPrefab
 {
     private const string INDOOR_SOUNDS_BUS = "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds";
 
-    #region Exposing protected properties
-
-    public new ItemData ItemData
-    {
-        private get => base.ItemData;
-        init => base.ItemData = value;
-    }
-
-    public new RecipeData Recipe
-    {
-        private get => base.Recipe;
-        init => base.Recipe = value;
-    }
-
-    public new TechGroup TechGroup
-    {
-        init => base.TechGroup = value;
-    }
-
-    public new TechCategory TechCategory
-    {
-        init => base.TechCategory = value;
-    }
-
-    public new TechType RequiredForUnlock
-    {
-        init => base.RequiredForUnlock = value;
-    }
-
-    #endregion
-
     public bool DisableSounds { get; init; }
-    public ConstructableFlags PlacementFlags { get; init; } = ConstructableFlags.Ground | ConstructableFlags.Inside | ConstructableFlags.Outside | ConstructableFlags.AllowedOnConstructable | ConstructableFlags.Rotatable;
 
     private readonly List<BuildableItem> _oldVersions = new();
+    public ConstructableFlags PlacementFlags { get; init; } = ConstructableFlags.Ground | ConstructableFlags.Inside | ConstructableFlags.Outside | ConstructableFlags.AllowedOnConstructable | ConstructableFlags.Rotatable;
 
     [SetsRequiredMembers]
     public BuildableItem(ModItem item) : base(item)
@@ -87,6 +54,7 @@ public sealed class BuildableItem : ItemPrefab
         Transform child = prefab.transform.GetChild(0); // each buildable should have an unique child with an appropriate collider
 
         Constructable con = PrefabUtils.AddConstructable(prefab, Info.TechType, PlacementFlags, child.gameObject);
+
         con.rotationEnabled = true;
         MaterialHelpers.FixBZGhostMaterial(con);
     }

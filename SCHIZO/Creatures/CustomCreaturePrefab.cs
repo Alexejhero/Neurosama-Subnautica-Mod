@@ -7,12 +7,11 @@ using UnityEngine;
 
 namespace SCHIZO.Creatures;
 
-public abstract class CustomCreaturePrefab<TCreature> : CreatureAsset, IItemRegisterer
-    where TCreature : Creature
+public abstract class CustomCreaturePrefab<TCreature> : CreatureAsset, ICustomCreaturePrefab where TCreature : Creature
 {
     public ModItem ModItem { get; }
 
-    protected readonly GameObject rawObject;
+    protected readonly GameObject creaturePrefab;
 
     #region ECCLibrary properties
 
@@ -163,15 +162,15 @@ public abstract class CustomCreaturePrefab<TCreature> : CreatureAsset, IItemRegi
 
     #endregion
 
-    protected CustomCreaturePrefab(ModItem modItem, GameObject rawObject) : base(modItem)
+    protected CustomCreaturePrefab(ModItem modItem, GameObject creaturePrefab) : base(modItem)
     {
         ModItem = modItem;
-        this.rawObject = rawObject;
+        this.creaturePrefab = creaturePrefab;
     }
 
     public override CreatureTemplate CreateTemplate()
     {
-        CreatureTemplate template = new(rawObject, BehaviourType, EcoTargetType, MaxHealth)
+        CreatureTemplate template = new(creaturePrefab, BehaviourType, EcoTargetType, MaxHealth)
         {
             CellLevel = CellLevel,
             RespawnData = RespawnData,
@@ -191,7 +190,7 @@ public abstract class CustomCreaturePrefab<TCreature> : CreatureAsset, IItemRegi
             AnimateByVelocityData = AnimateByVelocityData,
             AttackLastTargetData = AttackLastTargetData,
 #if BELOWZERO
-            AggressiveToPilotingVehicleData = AggressiveToPilotingVehicleData, // TODO
+            AggressiveToPilotingVehicleData = AggressiveToPilotingVehicleData,
 #else
             CanBeInfected = false,
 #endif
@@ -210,7 +209,7 @@ public abstract class CustomCreaturePrefab<TCreature> : CreatureAsset, IItemRegi
     }
 
     protected new virtual void Register() => base.Register();
-    void IItemRegisterer.Register()
+    void ICustomCreaturePrefab.Register()
     {
         // Massive ECC L bruh
         AccessTools.PropertySetter(typeof(CreatureAsset), nameof(Template)).Invoke(this, new object[] { CreateTemplate() });
@@ -218,4 +217,11 @@ public abstract class CustomCreaturePrefab<TCreature> : CreatureAsset, IItemRegi
     }
 
     public override void ApplyMaterials(GameObject gameObject) => MaterialHelpers.ApplySNShadersIncludingRemaps(gameObject, 1);
+}
+
+public interface ICustomCreaturePrefab
+{
+    ModItem ModItem { get; }
+
+    void Register();
 }
