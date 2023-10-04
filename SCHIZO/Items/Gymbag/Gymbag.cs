@@ -27,7 +27,7 @@ public sealed class Gymbag : ItemPrefab
     {
         ItemData = ResourceManager.LoadAsset<ItemData>("Gymbag data");
         Recipe = new RecipeData(new Ingredient(BagTechType, 1), new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.PosterKitty, 1));
-        SizeInInventory = new Vector2int(2, 2);
+        SizeInInventory = new Vector2Int(2, 2);
         TechGroup = TechGroup.Personal;
         TechCategory = TechCategory.Equipment;
         EquipmentType = EquipmentType.Hand;

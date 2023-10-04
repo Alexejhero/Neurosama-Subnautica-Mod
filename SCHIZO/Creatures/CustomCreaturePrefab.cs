@@ -84,14 +84,12 @@ public abstract class CustomCreaturePrefab<TCreature> : CreatureAsset, ICustomCr
     /// </summary>
     protected RespawnData RespawnData { get; init; } = new(false);
 
-#if BELOWZERO
     /// <summary>
     /// Contains data pertaining to the <see cref="T:AggressiveToPilotingVehicle" /> component, which encourages creatures to target any small vehicle that the player may be piloting
     /// (this includes ANY vehicle that inherits from the <see cref="T:Vehicle" /> component i.e. the Seamoth or Prawn Suit). Not many creatures use this component, but ones that do
     /// will be VERY aggressive (Boneshark levels of aggression!).
     /// </summary>
     protected AggressiveToPilotingVehicleData AggressiveToPilotingVehicleData { get; init; } = null;
-#endif
 
     /// <summary>
     /// A list of all data pertaining to the <see cref="T:AggressiveWhenSeeTarget" /> component, which enables the creature to become aggressive towards specific fauna/the player.
@@ -189,9 +187,8 @@ public abstract class CustomCreaturePrefab<TCreature> : CreatureAsset, ICustomCr
             SwimRandomData = SwimRandomData,
             AnimateByVelocityData = AnimateByVelocityData,
             AttackLastTargetData = AttackLastTargetData,
-#if BELOWZERO
             AggressiveToPilotingVehicleData = AggressiveToPilotingVehicleData,
-#else
+#if SUBNAUTICA
             CanBeInfected = false,
 #endif
             AggressiveWhenSeeTargetList = AggressiveWhenSeeTargetList,

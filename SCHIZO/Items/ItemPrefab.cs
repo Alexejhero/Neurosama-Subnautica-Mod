@@ -25,7 +25,7 @@ public abstract class ItemPrefab : CustomPrefab
     public TechGroup TechGroup { get; init; } = TechGroup.Uncategorized;
     public TechCategory TechCategory { get; init; }
     public RecipeData Recipe { get; init; }
-    public Vector2int SizeInInventory { get; init; } = new(1, 1);
+    public Vector2Int SizeInInventory { get; init; } = new(1, 1);
     public TechType RequiredForUnlock { get; init; }
     public EquipmentType EquipmentType { get; init; }
     public QuickSlotType QuickSlotType { get; init; }
@@ -63,7 +63,7 @@ public abstract class ItemPrefab : CustomPrefab
     private void AddBasicGadgets()
     {
         if (ItemData!?.icon) Info.WithIcon(ItemData.icon);
-        Info.WithSizeInInventory(SizeInInventory);
+        Info.WithSizeInInventory(new Vector2int(SizeInInventory.x, SizeInInventory.y));
         this.SetRecipe(Recipe);
         if (TechGroup != TechGroup.Uncategorized) this.SetPdaGroupCategory(TechGroup, TechCategory);
         if (RequiredForUnlock != TechType.None) this.SetUnlock(RequiredForUnlock);

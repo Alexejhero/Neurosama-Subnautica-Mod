@@ -21,7 +21,7 @@ public sealed class GymbagBehaviour : MonoBehaviour
 
     public void OnOpen(InventoryItem item)
     {
-        Vector2int cursorPosition = GetCursorPosition();
+        Vector2Int cursorPosition = GetCursorPosition();
 
         PDA pda = Player.main.GetPDA();
 
@@ -64,7 +64,7 @@ public sealed class GymbagBehaviour : MonoBehaviour
 
     #region Mouse Position
 
-    private static IEnumerator ResetCursor(Vector2int position)
+    private static IEnumerator ResetCursor(Vector2Int position)
     {
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
@@ -78,13 +78,13 @@ public sealed class GymbagBehaviour : MonoBehaviour
         public int Y;
     }
 
-    private static Vector2int GetCursorPosition()
+    private static Vector2Int GetCursorPosition()
     {
         GetCursorPos(out Point point);
-        return new Vector2int(point.X, point.Y);
+        return new Vector2Int(point.X, point.Y);
     }
 
-    private static void SetCursorPosition(Vector2int position)
+    private static void SetCursorPosition(Vector2Int position)
     {
         SetCursorPos(position.x, position.y);
     }
