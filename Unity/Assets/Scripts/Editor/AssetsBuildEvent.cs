@@ -7,18 +7,19 @@ using System.Reflection.Emit;
 using System.Text;
 using AssetBundleBrowser.AssetBundleDataSource;
 using HarmonyLib;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
-[HarmonyPatch]
+[HarmonyPatch, UsedImplicitly]
 public static class AssetsBuildEvent
 {
     private static readonly MethodInfo _patchMethod = AccessTools.Method(typeof(AssetsBuildEvent), nameof(Patch));
 
-    [HarmonyTargetMethod]
+    [HarmonyTargetMethod, UsedImplicitly]
     public static MethodBase TargetMethod() => AccessTools.Method("AssetDatabaseABDataSource:BuildAssetBundles");
 
-    [HarmonyTranspiler]
+    [HarmonyTranspiler, UsedImplicitly]
     public static IEnumerable<CodeInstruction> Matcher(IEnumerable<CodeInstruction> instructions)
     {
         CodeMatcher matcher = new CodeMatcher(instructions);
