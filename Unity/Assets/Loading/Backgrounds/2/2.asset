@@ -15,3 +15,4 @@ MonoBehaviour:
   art: {fileID: 21300000, guid: edae5d30145a4dd4e8a323cd7d044531, type: 3}
   credit: Art by yamplum
   randomListId: 2
+  game: 1

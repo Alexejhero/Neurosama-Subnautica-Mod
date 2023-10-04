@@ -13,11 +13,14 @@ namespace SCHIZO;
 public class Plugin : BaseUnityPlugin
 {
 #if BELOWZERO
+    public static bool IS_SUBNAUTICA => false;
     public static bool IS_BELOWZERO => true;
+    public static Game GAME => Game.BelowZero;
 #else
+    public static bool IS_SUBNAUTICA => true;
     public static bool IS_BELOWZERO => false;
+    public static Game GAME => Game.Subnautica;
 #endif
-    public static bool IS_SUBNAUTICA => !IS_BELOWZERO;
 
     public static ManualLogSource LOGGER { get; private set; }
 

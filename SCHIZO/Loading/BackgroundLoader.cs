@@ -14,7 +14,7 @@ public static class BackgroundLoader
 
         foreach (LoadingBackground background in collection.backgrounds)
         {
-            LoadingBackgrounds[background.randomListId] = background;
+            if (background.game.HasFlag(GAME)) LoadingBackgrounds[background.randomListId] = background;
         }
     }
 

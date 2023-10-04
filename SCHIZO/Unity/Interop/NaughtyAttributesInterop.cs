@@ -55,3 +55,7 @@ public class BoxGroupAttribute : Attribute
     {
     }
 }
+
+public class EnumFlagsAttribute : Attribute
+{
+}

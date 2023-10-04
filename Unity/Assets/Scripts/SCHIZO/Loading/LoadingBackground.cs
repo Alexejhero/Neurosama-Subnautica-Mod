@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NaughtyAttributes;
+using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 namespace SCHIZO.Unity.Loading
@@ -9,5 +10,6 @@ namespace SCHIZO.Unity.Loading
         public Sprite art;
         public string credit;
         public string randomListId;
+        [EnumFlags] public Game game = Game.Subnautica | Game.BelowZero;
     }
 }
