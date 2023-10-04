@@ -4,19 +4,19 @@
         <name>ECCLibrary</name>
     </assembly>
     <members>
-        <member name="T:ECCLibrary.Assets.CookedCreatureHandler">
+        <member name="T:ECCLibrary.CookedCreatureHandler">
             <summary>
             Manages the creation of cooked and cured creatures.
             </summary>
         </member>
-        <member name="M:ECCLibrary.Assets.CookedCreatureHandler.RegisterEdibleVariant(Nautilus.Assets.PrefabInfo,TechType,UnityEngine.GameObject,ECCLibrary.Data.EdibleData,Nautilus.Crafting.RecipeData,System.String[],TechCategory,ECCLibrary.Data.VFXFabricatingData)">
+        <member name="M:ECCLibrary.CookedCreatureHandler.RegisterEdibleVariant(Nautilus.Assets.PrefabInfo,UnityEngine.GameObject,ECCLibrary.Data.EdibleData,Nautilus.Crafting.RecipeData,System.String[],TechCategory,ECCLibrary.Data.VFXFabricatingData)">
             <summary>
             Advanced method to create a cooked/cured creature.
             </summary>
         </member>
-        <member name="M:ECCLibrary.Assets.CookedCreatureHandler.RegisterAllCreatureFood(ECCLibrary.CreatureAsset,System.String,System.String,UnityEngine.Sprite,System.String,System.String,UnityEngine.Sprite,ECCLibrary.Data.EdibleData,ECCLibrary.Data.VFXFabricatingData)">
+        <member name="M:ECCLibrary.CookedCreatureHandler.RegisterAllCreatureFood(ECCLibrary.CreatureAsset,System.String,System.String,UnityEngine.Sprite,System.String,System.String,UnityEngine.Sprite,ECCLibrary.Data.EdibleData,ECCLibrary.Data.VFXFabricatingData)">
             <summary>
-            The prefable way to create a cooked AND cured variant of the given creature. Automatically assigns the Analysis Tech so it is unlocked with the creature.
+            The fastest way to create a cooked AND cured variant of the given creature. Automatically assigns the Analysis Tech so it is unlocked with the creature.
             </summary>
             <param name="creature">The original uncooked creature. MUST have been registered already.</param>
             <param name="cookedName">Name of the cooked fish item.</param>
@@ -28,17 +28,17 @@
             <param name="cookedData">Food values of the cooked, which will automatically determine the cured values.</param>
             <param name="vfxFabricatingSettings">Fabricator settings. If not assigned, automatic values will be determined. Do NOT rely on those being perfect.</param>
         </member>
-        <member name="T:ECCLibrary.Assets.CookedCreatureHandler.CookedAndCuredPrefabs">
+        <member name="T:ECCLibrary.CookedCreatureHandler.CookedAndCuredPrefabs">
             <summary>
             Holds both the cooked and cured version of the creature.
             </summary>
         </member>
-        <member name="M:ECCLibrary.Assets.CookedCreatureHandler.CookedAndCuredPrefabs.#ctor(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabInfo)">
+        <member name="M:ECCLibrary.CookedCreatureHandler.CookedAndCuredPrefabs.#ctor(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabInfo)">
             <summary>
             Holds both the cooked and cured version of the creature.
             </summary>
         </member>
-        <member name="M:ECCLibrary.Assets.CookedCreatureHandler.RegisterCookedFish(ECCLibrary.CreatureAsset,System.String,System.String,ECCLibrary.Data.EdibleData,ECCLibrary.Data.VFXFabricatingData)">
+        <member name="M:ECCLibrary.CookedCreatureHandler.RegisterCookedFish(ECCLibrary.CreatureAsset,System.String,System.String,ECCLibrary.Data.EdibleData,ECCLibrary.Data.VFXFabricatingData)">
             <summary>
             Simple method to create a cooked variant of the given creature.
             </summary>
@@ -48,7 +48,7 @@
             <param name="cookedData">Food values.</param>
             <param name="vfxFabricatingSettings">Fabricator settings. If not assigned, automatic values will be determined. Do NOT rely on those being perfect.</param>
         </member>
-        <member name="M:ECCLibrary.Assets.CookedCreatureHandler.RegisterCuredFish(ECCLibrary.CreatureAsset,System.String,System.String,System.Single,ECCLibrary.Data.VFXFabricatingData)">
+        <member name="M:ECCLibrary.CookedCreatureHandler.RegisterCuredFish(ECCLibrary.CreatureAsset,System.String,System.String,System.Single,ECCLibrary.Data.VFXFabricatingData)">
             <summary>
             Simple method to create a cured variant of the given creature.
             </summary>
@@ -66,6 +66,11 @@
         <member name="P:ECCLibrary.CreatureAsset.PrefabInfo">
             <summary>
             Information for registering the prefab.
+            </summary>
+        </member>
+        <member name="P:ECCLibrary.CreatureAsset.CustomPrefab">
+            <summary>
+            A reference to the custom prefab instance.
             </summary>
         </member>
         <member name="M:ECCLibrary.CreatureAsset.#ctor(Nautilus.Assets.PrefabInfo)">
@@ -124,6 +129,16 @@
         <member name="T:ECCLibrary.SealedCreatureAsset">
             <summary>
             An alternative to <see cref="T:ECCLibrary.CreatureAsset"/> that does not use inheritance. Supply a template and any needed prefab code.
+            </summary>
+        </member>
+        <member name="P:ECCLibrary.SealedCreatureAsset.OnModifyPrefab">
+            <summary>
+            An optional call that allows for modification of the prefab after creation.
+            </summary>
+        </member>
+        <member name="P:ECCLibrary.SealedCreatureAsset.OnApplyMaterials">
+            <summary>
+            An optional call that, if overriden, no longer applies the MarmosetUBER shader automatically and allows for full control of the materials. Called AFTER <paramref name="modifyPrefab"/>!
             </summary>
         </member>
         <member name="M:ECCLibrary.SealedCreatureAsset.#ctor(Nautilus.Assets.PrefabInfo,ECCLibrary.Data.CreatureTemplate,System.Func{UnityEngine.GameObject,ECCLibrary.Data.CreatureComponents,System.Collections.IEnumerator},System.Action{UnityEngine.GameObject})">
@@ -733,6 +748,9 @@
         <member name="P:ECCLibrary.Data.CreatureComponents.StayAtLeashPosition">
             <summary> </summary>
         </member>
+        <member name="P:ECCLibrary.Data.CreatureComponents.AggressiveToPilotingVehicle">
+            <summary> </summary>
+        </member>
         <member name="T:ECCLibrary.Data.AnimateByVelocityData">
             <summary>
             Contains data pertaining to the <see cref="T:AnimateByVelocity"/> component. This component sets animation parameters based on the creature's direction &#38; velocity.
@@ -1008,7 +1026,14 @@
         </member>
         <member name="P:ECCLibrary.Data.CreatureTemplate.RespawnData">
             <summary>
-            Contains data pertaining to the <see cref="T:CreatureDeath"/> component.
+            Contains data pertaining to the <see cref="T:CreatureDeath"/> component. Assigned by default to enable respawning. MUST be assigned!
+            </summary>
+        </member>
+        <member name="P:ECCLibrary.Data.CreatureTemplate.AggressiveToPilotingVehicleData">
+            <summary>
+            Contains data pertaining to the <see cref="T:AggressiveToPilotingVehicle"/> component, which encourages creatures to target any small vehicle that the player may be piloting
+            (this includes ANY vehicle that inherits from the <see cref="T:Vehicle"/> component i.e. the Seamoth or Prawn Suit). Not many creatures use this component, but ones that do
+            will be VERY aggressive (Boneshark levels of aggression!).
             </summary>
         </member>
         <member name="P:ECCLibrary.Data.CreatureTemplate.CreatureComponentType">
@@ -1159,6 +1184,40 @@
             <summary>
             Enum with values that correspond to item pickup sounds.
             </summary>
+        </member>
+        <member name="T:ECCLibrary.Data.AggressiveToPilotingVehicleData">
+            <summary>
+            Contains data pertaining to the <see cref="T:AggressiveToPilotingVehicle"/> component, which encourages creatures to target any small vehicle that the player may be piloting
+            (this includes ANY vehicle that inherits from the <see cref="T:Vehicle"/> component i.e. the Seamoth or Prawn Suit). Not many creatures use this component, but ones that do
+            will be VERY aggressive (Boneshark levels of aggression!).
+            </summary>
+        </member>
+        <member name="F:ECCLibrary.Data.AggressiveToPilotingVehicleData.range">
+            <summary>
+            The maximum range in meters from which the vehicle is noticed and targeted. Any piloted vehicle in this range WILL be targeted.
+            Values around 40m are typical, but anything is valid.
+            </summary>
+        </member>
+        <member name="F:ECCLibrary.Data.AggressiveToPilotingVehicleData.aggressionPerSecond">
+            <summary>
+            The aggression that is added to this creature every second that the vehicle is in range. Default value is 0.5, which is quite high.
+            </summary>
+        </member>
+        <member name="F:ECCLibrary.Data.AggressiveToPilotingVehicleData.updateAggressionInterval">
+            <summary>
+            The amount of time between each distance check in seconds. This value is typically one second and there is VERY little reason to change this.
+            </summary>
+        </member>
+        <member name="M:ECCLibrary.Data.AggressiveToPilotingVehicleData.#ctor(System.Single,System.Single,System.Single)">
+            <summary>
+            Contains data pertaining to the <see cref="T:AggressiveToPilotingVehicle"/> component, which encourages creatures to target any small vehicle that the player may be piloting
+            (this includes ANY vehicle that inherits from the <see cref="T:Vehicle"/> component i.e. the Seamoth or Prawn Suit). Not many creatures use this component, but ones that do
+            will be VERY aggressive (Boneshark levels of aggression!).
+            </summary>
+            <param name="range">The maximum range in meters from which the vehicle is noticed and targeted. Any piloted vehicle in this range WILL be targeted.
+            Values around 40m are typical, but anything is valid.</param>
+            <param name="aggressionPerSecond">The aggression that is added to this creature every second that the vehicle is in range. Default value is 0.5, which is quite high.</param>
+            <param name="updateAggressionInterval">The amount of time between each distance check in seconds. This value is typically one second and there is VERY little reason to change this.</param>
         </member>
         <member name="T:ECCLibrary.Data.AggressiveWhenSeeTargetData">
             <summary>
