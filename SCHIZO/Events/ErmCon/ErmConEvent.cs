@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using SCHIZO.Creatures.Ermfish;
 using SCHIZO.Extensions;
@@ -91,12 +91,9 @@ public class ErmConEvent : CustomEvent
 
     protected override void UpdateLogic()
     {
-        if (!CongregationTarget) // reset/default to player
-        {
-            CongregationTarget = gameObject;
-            OnlyStare = true;
-            _stareTime = 5;
-        }
+        // reset/default to player
+        if (!CongregationTarget) CongregationTarget = gameObject;
+
         float time = Time.fixedTime;
         if (time > _eventStartTime + EventDurationSeconds)
         {
@@ -104,24 +101,31 @@ public class ErmConEvent : CustomEvent
             return;
         }
 
-        // ermfish will stay still for 10s at the start of the event
         if (OnlyStare)
         {
-            _stareTime += Time.fixedDeltaTime;
-            if (_stareTime > 10)
-            {
-                _stareTime = 0;
-                OnlyStare = false;
-            }
+            _stareTime -= Time.fixedDeltaTime;
+            if (_stareTime <= 0) OnlyStare = false;
         }
 
         // update focal point to buildable erm if there's one in range
         bool haveQueen = CraftData.GetTechType(CongregationTarget) == ModItems.Erm;
         if (!haveQueen && !OnlyStare && time > _lastSearchTime + _minSearchInterval)
         {
-            if (TryFindErmQueen(gameObject, out GameObject ermBeacon))
-                CongregationTarget = ermBeacon;
+            if (TryFindErmQueen(gameObject, out GameObject ermQueen))
+                CongregationTarget = ermQueen;
             _lastSearchTime = time;
+        }
+        // untarget if deconstructed
+        if (haveQueen)
+        {
+            Constructable con = CongregationTarget.GetComponent<Constructable>();
+            if (!con || con.constructedAmount < 0.90f) // small buffer to prevent spam
+            {
+                haveQueen = false;
+                CongregationTarget = gameObject;
+                OnlyStare = true;
+                _stareTime = 3f;
+            }
         }
 
         List<Creature> fishPlural = ConMembers.ToList();
@@ -148,9 +152,9 @@ public class ErmConEvent : CustomEvent
                 Vector3 targetPos = CongregationTarget.transform.position;
                 if (haveQueen)
                 {
-                    float mayorPersonalSpaceRange = 3f;
+                    float queenPersonalSpaceRange = 3f;
                     Vector3 directionToTarget = Vector3.Normalize(targetPos - swim.transform.position);
-                    targetPos -= mayorPersonalSpaceRange * directionToTarget;
+                    targetPos -= queenPersonalSpaceRange * directionToTarget;
                 }
                 float distSqr = swim.transform.position.DistanceSqrXZ(targetPos);
                 float swimVelocity = distSqr switch
@@ -181,12 +185,15 @@ public class ErmConEvent : CustomEvent
             .SelectComponentInParent<Creature>()
             .ToList();
         int totalAttendance = Mathf.Min(MaxAttendance, withinRadius.Count);
-        LOGGER.LogInfo($"{totalAttendance} Ermfish will be attending the ErmCon");
+        LOGGER.LogMessage($"{totalAttendance} Ermfish will be attending the ErmCon");
         for (int i = 0; i < totalAttendance; i++)
         {
             Creature fish = withinRadius[i];
             ConMembers.Add(fish);
         }
+
+        OnlyStare = true;
+        _stareTime = 10f;
 
         _eventStartTime = Time.time;
         base.StartEvent();
@@ -211,7 +218,11 @@ public class ErmConEvent : CustomEvent
         ermQueen = null;
         IEnumerable<GameObject> ermBuildables = PhysicsHelpers.ObjectsInRange(center, ErmQueenSearchRadius)
             .OfTechType(ModItems.Erm)
-            .OrderByDistanceTo(center);
+            .Where(x =>
+            {
+                Constructable con = x.GetComponent<Constructable>();
+                return con && con.constructedAmount == 1;
+            }).OrderByDistanceTo(center);
         if (ermBuildables.FirstOrDefault() is not { } ermQueen_) return false;
 
         ermQueen = ermQueen_;
