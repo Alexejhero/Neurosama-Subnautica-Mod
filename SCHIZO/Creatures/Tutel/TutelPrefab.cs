@@ -3,10 +3,7 @@ using ECCLibrary;
 using ECCLibrary.Data;
 using ECCLibrary.Mono;
 using Nautilus.Utility;
-using SCHIZO.API;
-using SCHIZO.API.Creatures;
-using SCHIZO.API.Extensions;
-using SCHIZO.API.Sounds;
+using SCHIZO.Extensions;
 using SCHIZO.Sounds;
 using UnityEngine;
 

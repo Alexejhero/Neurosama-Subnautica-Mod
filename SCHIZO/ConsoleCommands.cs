@@ -5,9 +5,9 @@ using FMOD.Studio;
 using FMODUnity;
 using JetBrains.Annotations;
 using Nautilus.Commands;
-using SCHIZO.API.Attributes;
-using SCHIZO.API.Extensions;
-using SCHIZO.API.Helpers;
+using SCHIZO.Attributes;
+using SCHIZO.Extensions;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO;

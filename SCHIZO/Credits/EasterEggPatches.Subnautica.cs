@@ -3,8 +3,8 @@ using System.Collections;
 using System.Linq;
 using HarmonyLib;
 using Nautilus.Handlers;
-using SCHIZO.API.Unity.Sounds;
 using SCHIZO.Resources;
+using SCHIZO.Unity.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Credits;

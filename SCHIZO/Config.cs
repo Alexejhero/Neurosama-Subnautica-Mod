@@ -27,4 +27,7 @@ public sealed class Config : ConfigFile
 
     [Toggle("Disable all sounds"), UsedImplicitly]
     public bool DisableAllNoises = false;
+
+    [Toggle("Enable erm moon"), UsedImplicitly]
+    public bool EnableErmMoon = true;
 }

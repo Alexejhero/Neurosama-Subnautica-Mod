@@ -1,5 +1,0 @@
-<Project>
-    <ItemGroup>
-        <Compile Remove="**/*.Subnautica.cs" />
-    </ItemGroup>
-</Project>

@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using SCHIZO.API.Events;
 using SCHIZO.Creatures.Ermfish;
 
 namespace SCHIZO.Events.ErmCon;

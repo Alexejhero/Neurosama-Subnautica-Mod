@@ -1,5 +1,5 @@
 ﻿using HarmonyLib;
-using SCHIZO.API.Sounds;
+using SCHIZO.Sounds;
 
 namespace SCHIZO.Loading;
 

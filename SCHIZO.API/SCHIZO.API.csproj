@@ -1,9 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-    <ItemGroup>
-        <Compile Include="$(SolutionDir)\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity\Linked" />
-    </ItemGroup>
-    
-    <ItemGroup>
-        <None Include="$(SolutionDir)\Unity\Assets\Scripts\Subnautica\**\*.cs" LinkBase="Unity\Linked\Subnautica" />
-    </ItemGroup>
-</Project>

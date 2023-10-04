@@ -1,4 +1,0 @@
-<Project>
-    <Import Project="$(SolutionDir)/Subnautica.targets" Condition=" '$(Configuration)' == 'Subnautica' " />
-    <Import Project="$(SolutionDir)/BelowZero.targets" Condition=" '$(Configuration)' == 'BelowZero' " />
-</Project>

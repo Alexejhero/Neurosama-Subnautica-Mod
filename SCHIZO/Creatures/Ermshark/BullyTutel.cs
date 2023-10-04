@@ -1,5 +1,4 @@
 ﻿using ProtoBuf;
-using SCHIZO.API.Creatures;
 using SCHIZO.Creatures.Tutel;
 using UnityEngine;
 

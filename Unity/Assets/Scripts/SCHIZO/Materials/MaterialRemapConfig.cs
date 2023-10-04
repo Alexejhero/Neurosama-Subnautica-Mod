@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
-namespace SCHIZO.API.Unity.Materials
+namespace SCHIZO.Unity.Materials
 {
     [CreateAssetMenu(menuName = "SCHIZO/Materials/Material Remap Config")]
     public sealed class MaterialRemapConfig : ScriptableObject

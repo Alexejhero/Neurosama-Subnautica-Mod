@@ -1,6 +1,6 @@
-﻿using SCHIZO.API.DataStructures;
-using SCHIZO.API.Unity.Loading;
+﻿using SCHIZO.DataStructures;
 using SCHIZO.Resources;
+using SCHIZO.Unity.Loading;
 
 namespace SCHIZO.Loading;
 

@@ -3,11 +3,9 @@ using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using SCHIZO.API;
-using SCHIZO.API.Attributes;
-using SCHIZO.API.Items;
-using SCHIZO.API.Unity.Items;
+using SCHIZO.Attributes;
 using SCHIZO.Resources;
+using SCHIZO.Unity.Items;
 using UnityEngine;
 
 namespace SCHIZO.Items.Gymbag;

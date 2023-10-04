@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using SCHIZO.API.Extensions;
+using SCHIZO.Extensions;
 using UnityEngine;
 
 namespace SCHIZO.Resources;

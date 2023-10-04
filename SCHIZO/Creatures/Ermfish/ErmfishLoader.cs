@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
 using ECCLibrary.Data;
 using Nautilus.Handlers;
-using SCHIZO.API;
-using SCHIZO.API.Attributes;
-using SCHIZO.API.Creatures;
-using SCHIZO.API.Helpers;
-using SCHIZO.API.Sounds;
-using SCHIZO.API.Unity.Creatures;
-using SCHIZO.API.Unity.Sounds;
+using SCHIZO.Attributes;
+using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
+using SCHIZO.Unity.Creatures;
+using SCHIZO.Unity.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
