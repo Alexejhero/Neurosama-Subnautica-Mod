@@ -1,0 +1,33 @@
+﻿name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [BelowZero, Subnautica]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0
+
+    - name: Build mod
+      run: dotnet build SCHIZO/SCHIZO.csproj -c ${{ matrix.configuration }}
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: SCHIZO-${{ matrix.configuration }}.dll
+        path: SCHIZO/bin/${{ matrix.configuration }}/net472/SCHIZO.dll

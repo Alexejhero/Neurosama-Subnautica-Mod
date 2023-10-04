@@ -1,0 +1,39 @@
+﻿name: Create and publish package
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  package-release:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        configuration: [BelowZero, Subnautica]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Get artifact from build
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        workflow: build.yml
+        name: SCHIZO-${{ matrix.configuration }}.dll
+        path: Install/${{ matrix.configuration }}/BepInEx/plugins/SCHIZO/
+
+    - name: Create release archive
+      run: |
+          cd Install/${{ matrix.configuration }}
+          cp BepInEx/plugins/SCHIZO/SCHIZO.dll ../SCHIZO-${{ matrix.configuration }}.dll
+          zip -r9 ../SCHIZO-${{ matrix.configuration }}-with-dependencies.zip *
+          cd ../Common
+          zip -r9 ../SCHIZO-${{ matrix.configuration }}-with-dependencies.zip *
+
+    - name: Update the release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          Install/SCHIZO-${{ matrix.configuration }}-with-dependencies.zip
+          Install/SCHIZO-${{ matrix.configuration }}.dll
