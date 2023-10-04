@@ -1,17 +1,22 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using ECCLibrary;
+using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Utility;
+using SCHIZO.Creatures;
 using SCHIZO.Helpers;
 using SCHIZO.Unity.Items;
 using UnityEngine;
 
 namespace SCHIZO.Items;
 
-public abstract class ItemPrefab : CustomPrefab
+public abstract class ItemPrefab : CustomPrefab, IItemRegisterer
 {
+    #region Keep alive
+
     private static readonly Transform _keepAliveParent;
 
     static ItemPrefab()
@@ -21,23 +26,33 @@ public abstract class ItemPrefab : CustomPrefab
         Object.DontDestroyOnLoad(_keepAliveParent);
     }
 
-    public ItemData ItemData { get; init; }
-    public TechGroup TechGroup { get; init; } = TechGroup.Uncategorized;
-    public TechCategory TechCategory { get; init; }
-    public RecipeData Recipe { get; init; }
-    public Vector2int SizeInInventory { get; init; } = new(1, 1);
-    public TechType RequiredForUnlock { get; init; }
-    public EquipmentType EquipmentType { get; init; }
-    public QuickSlotType QuickSlotType { get; init; }
-    public LargeWorldEntity.CellLevel CellLevel { get; init; } = LargeWorldEntity.CellLevel.Near;
-    public TechType CloneTechType { get; init; }
+    #endregion
 
-    protected readonly ModItem modItem;
+    #region Assignable properties
+
+    protected ItemData ItemData { get; init; }
+    protected TechGroup TechGroup { get; init; } = TechGroup.Uncategorized;
+    protected TechCategory TechCategory { get; init; }
+    protected RecipeData Recipe { get; init; }
+    protected CraftTree.Type FabricatorType { get; init; } = CraftTree.Type.Fabricator;
+    protected string[] FabricatorPath { get; init; }
+    protected float CraftingTime { get; init; }
+    protected Vector2int SizeInInventory { get; init; } = new(1, 1);
+    protected TechType RequiredForUnlock { get; init; }
+    protected EquipmentType EquipmentType { get; init; }
+    protected QuickSlotType QuickSlotType { get; init; }
+    protected LargeWorldEntity.CellLevel CellLevel { get; init; } = LargeWorldEntity.CellLevel.Near;
+    protected TechType CloneTechType { get; init; }
+    protected VFXFabricatingData VFXFabricatingData { get; init; }
+
+    #endregion
+
+    public ModItem ModItem { get; }
 
     [SetsRequiredMembers]
     public ItemPrefab(ModItem modItem) : base(modItem)
     {
-        this.modItem = modItem;
+        ModItem = modItem;
     }
 
     [SetsRequiredMembers]
@@ -47,24 +62,26 @@ public abstract class ItemPrefab : CustomPrefab
 
     protected virtual void AddGadgets()
     {
-
     }
 
     protected virtual void ModifyPrefab(GameObject prefab)
     {
-
     }
 
     protected virtual void PostRegister()
     {
-
     }
 
     private void AddBasicGadgets()
     {
         if (ItemData!?.icon) Info.WithIcon(ItemData.icon);
         Info.WithSizeInInventory(SizeInInventory);
-        this.SetRecipe(Recipe);
+
+        CraftingGadget crafting = this.SetRecipe(Recipe);
+        crafting.WithFabricatorType(FabricatorType);
+        crafting.WithStepsToFabricatorTab(FabricatorPath);
+        crafting.WithCraftingTime(CraftingTime);
+
         if (TechGroup != TechGroup.Uncategorized) this.SetPdaGroupCategory(TechGroup, TechCategory);
         if (RequiredForUnlock != TechType.None) this.SetUnlock(RequiredForUnlock);
 
@@ -78,7 +95,9 @@ public abstract class ItemPrefab : CustomPrefab
         AddGadgets();
 
         if (CloneTechType == TechType.None)
+        {
             SetGameObject(GetPrefab);
+        }
         else
         {
             SetGameObject(new CloneTemplate(Info, CloneTechType)
@@ -97,6 +116,8 @@ public abstract class ItemPrefab : CustomPrefab
         PrefabUtils.AddBasicComponents(instance, Info.ClassID, Info.TechType, CellLevel);
 
         ModifyPrefab(instance);
+
+        if (VFXFabricatingData != null) CreaturePrefabUtils.AddVFXFabricating(instance, VFXFabricatingData);
 
         CoroutineHelpers.RunWhen(() => MaterialHelpers.ApplySNShadersIncludingRemaps(instance, 1), () => MaterialHelpers.IsReady);
 

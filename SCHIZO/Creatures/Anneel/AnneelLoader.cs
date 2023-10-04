@@ -3,6 +3,7 @@ using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Creatures;
+using UnityEngine;
 
 namespace SCHIZO.Creatures.Anneel;
 
@@ -14,9 +15,9 @@ public sealed class AnneelLoader : CustomCreatureLoader<CustomCreatureData, Anne
         PDAEncyPath = "Lifeforms/Fauna/LargeHerbivores";
     }
 
-    protected override AnneelPrefab CreatePrefab()
+    protected override AnneelPrefab CreatePrefab(GameObject rawObject)
     {
-        return new AnneelPrefab(ModItems.Anneel, creatureData.prefab);
+        return new AnneelPrefab(ModItems.Anneel, rawObject);
     }
 
     protected override IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()
