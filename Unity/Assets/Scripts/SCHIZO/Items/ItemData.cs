@@ -1,8 +1,8 @@
-﻿using SCHIZO.Unity.Sounds;
+﻿using SCHIZO.API.Unity.Sounds;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Items
+namespace SCHIZO.API.Unity.Items
 {
     [CreateAssetMenu(menuName = "SCHIZO/Items/Item Data")]
     public sealed class ItemData : ScriptableObject

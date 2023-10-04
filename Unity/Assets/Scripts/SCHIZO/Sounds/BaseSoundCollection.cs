@@ -2,7 +2,7 @@
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Sounds
+namespace SCHIZO.API.Unity.Sounds
 {
     public abstract class BaseSoundCollection : ScriptableObject
     {

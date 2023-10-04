@@ -3,7 +3,7 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
-using SCHIZO.Attributes;
+using SCHIZO.API.Attributes;
 using SCHIZO.Resources;
 using UnityEngine;
 

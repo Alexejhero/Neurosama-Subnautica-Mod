@@ -4,7 +4,7 @@ using NaughtyAttributes;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Sounds
+namespace SCHIZO.API.Unity.Sounds
 {
     [CreateAssetMenu(menuName = "SCHIZO/Sounds/Combined Sound Collection")]
     public sealed class CombinedSoundCollection : BaseSoundCollection

@@ -1,10 +1,12 @@
 ﻿global using static SCHIZO.Plugin;
+global using static SCHIZO.API.Global;
 using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
-using SCHIZO.Attributes;
+using SCHIZO.API;
+using SCHIZO.API.Attributes;
 using SCHIZO.Resources;
 
 namespace SCHIZO;
@@ -12,19 +14,14 @@ namespace SCHIZO;
 [BepInPlugin("SCHIZO", "Neuro-sama Mod", "1.0.0")]
 public class Plugin : BaseUnityPlugin
 {
-#if BELOWZERO
-    public static bool IS_BELOWZERO => true;
-#else
-    public static bool IS_BELOWZERO => false;
-#endif
-    public static bool IS_SUBNAUTICA => !IS_BELOWZERO;
-
     public static ManualLogSource LOGGER { get; private set; }
 
     public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();
 
     private void Awake()
     {
+        MAIN_ASSEMBLY = Assembly.GetExecutingAssembly();
+
         LOGGER = Logger;
         DependencyResolver.InjectResources();
 
@@ -34,5 +31,6 @@ public class Plugin : BaseUnityPlugin
         LoadCreatureAttribute.RegisterAll();
 
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+        Harmony.CreateAndPatchAll(typeof(ModItem).Assembly);
     }
 }

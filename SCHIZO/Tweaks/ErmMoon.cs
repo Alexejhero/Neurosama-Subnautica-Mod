@@ -1,5 +1,5 @@
-﻿using SCHIZO.Attributes;
-using SCHIZO.Helpers;
+﻿using SCHIZO.API.Attributes;
+using SCHIZO.API.Helpers;
 using SCHIZO.Resources;
 using UnityEngine;
 
@@ -43,16 +43,15 @@ public sealed class ErmMoon : MonoBehaviour
     private void Update()
     {
         if (!_skyManager) return;
-        ToggleErmDeity(CONFIG.EnableErmMoon);
-        float ermMoonSize = CONFIG.EnableErmMoon
-            ? _normalMoonSize * (1 + Mathf.PingPong(0.5f + GetCurrentDay() * moonSizeTimeScale, maxMoonSizeMulti - 1))
-            : _normalMoonSize;
+        ToggleErmDeity();
+
+        float ermMoonSize = _normalMoonSize * 1 + Mathf.PingPong(0.5f + GetCurrentDay() * moonSizeTimeScale, maxMoonSizeMulti - 1);
         UpdateErmMoon(ermMoonSize);
     }
 
-    private void ToggleErmDeity(bool isVisible)
+    private void ToggleErmDeity()
     {
-        _skyManager.SkyboxMaterial.SetTexture(ShaderPropertyID._MoonSampler, isVisible ? _ermMoonTex : _normalMoonTex);
+        _skyManager.SkyboxMaterial.SetTexture(ShaderPropertyID._MoonSampler, _ermMoonTex);
     }
 
     private void UpdateErmMoon(float size)

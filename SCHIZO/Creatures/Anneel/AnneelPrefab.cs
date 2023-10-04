@@ -1,7 +1,10 @@
 using System.Collections;
 using ECCLibrary;
 using ECCLibrary.Data;
-using SCHIZO.Extensions;
+using SCHIZO.API;
+using SCHIZO.API.Creatures;
+using SCHIZO.API.Extensions;
+using SCHIZO.API.Sounds;
 using SCHIZO.Sounds;
 using UnityEngine;
 

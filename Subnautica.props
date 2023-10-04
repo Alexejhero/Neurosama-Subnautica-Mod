@@ -1,0 +1,15 @@
+<Project>
+    <PropertyGroup>
+        <DefineConstants>$(DefineConstants);SUBNAUTICA</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0" />
+        <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.21" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="$(SolutionDir)/Dependencies/Subnautica/FMODUnity.dll" />
+        <Reference Include="$(SolutionDir)/Install/Subnautica/BepInEx/plugins/ECCLibrary/ECCLibrary.dll" Publicize="true" />
+    </ItemGroup>
+</Project>

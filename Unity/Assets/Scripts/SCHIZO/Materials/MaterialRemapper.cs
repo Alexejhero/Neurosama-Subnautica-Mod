@@ -4,7 +4,7 @@
 
 using UnityEngine;
 
-namespace SCHIZO.Unity.Materials
+namespace SCHIZO.API.Unity.Materials
 {
     public sealed partial class MaterialRemapper : MonoBehaviour
     {

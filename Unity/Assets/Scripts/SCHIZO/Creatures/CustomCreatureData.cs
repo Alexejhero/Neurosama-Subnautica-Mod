@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 // ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Creatures
+namespace SCHIZO.API.Unity.Creatures
 {
     [CreateAssetMenu(menuName = "SCHIZO/Creatures/Custom Creature Data")]
     public class CustomCreatureData : ScriptableObject

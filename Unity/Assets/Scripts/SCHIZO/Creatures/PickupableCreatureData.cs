@@ -1,9 +1,9 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Unity.Materials;
+using SCHIZO.API.Unity.Materials;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Creatures
+namespace SCHIZO.API.Unity.Creatures
 {
     [CreateAssetMenu(menuName = "SCHIZO/Creatures/Pickupable Creature Data")]
     public class PickupableCreatureData : CustomCreatureData

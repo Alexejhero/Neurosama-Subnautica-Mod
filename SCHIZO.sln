@@ -9,7 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Non-project Files", "Non-pr
 	ProjectSection(SolutionItems) = preProject
 		nuget.config = nuget.config
 		README.md = README.md
+		Directory.Build.props = Directory.Build.props
+		BelowZero.props = BelowZero.props
+		Subnautica.props = Subnautica.props
+		BelowZero.targets = BelowZero.targets
+		Directory.Build.targets = Directory.Build.targets
+		Subnautica.targets = Subnautica.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCHIZO.API", "SCHIZO.API\SCHIZO.API.csproj", "{DAC51CC3-1A16-4C8B-A85B-843C079E23E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,10 @@ Global
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.BelowZero|Any CPU.Build.0 = BelowZero|Any CPU
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Subnautica|Any CPU.ActiveCfg = Subnautica|Any CPU
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Subnautica|Any CPU.Build.0 = Subnautica|Any CPU
+		{DAC51CC3-1A16-4C8B-A85B-843C079E23E2}.BelowZero|Any CPU.ActiveCfg = BelowZero|Any CPU
+		{DAC51CC3-1A16-4C8B-A85B-843C079E23E2}.BelowZero|Any CPU.Build.0 = BelowZero|Any CPU
+		{DAC51CC3-1A16-4C8B-A85B-843C079E23E2}.Subnautica|Any CPU.ActiveCfg = Subnautica|Any CPU
+		{DAC51CC3-1A16-4C8B-A85B-843C079E23E2}.Subnautica|Any CPU.Build.0 = Subnautica|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

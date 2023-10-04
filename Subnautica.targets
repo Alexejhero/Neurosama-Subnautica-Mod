@@ -1,0 +1,5 @@
+<Project>
+    <ItemGroup>
+        <Compile Remove="**/*.BelowZero.cs" />
+    </ItemGroup>
+</Project>

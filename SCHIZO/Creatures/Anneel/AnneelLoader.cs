@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using SCHIZO.Attributes;
-using SCHIZO.Helpers;
+using SCHIZO.API.Attributes;
+using SCHIZO.API.Creatures;
+using SCHIZO.API.Helpers;
+using SCHIZO.API.Unity.Creatures;
 using SCHIZO.Resources;
-using SCHIZO.Unity.Creatures;
 
 namespace SCHIZO.Creatures.Anneel;
 

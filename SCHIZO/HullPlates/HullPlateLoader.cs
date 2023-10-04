@@ -5,10 +5,10 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
-using SCHIZO.Attributes;
-using SCHIZO.Helpers;
+using SCHIZO.API.Attributes;
+using SCHIZO.API.Helpers;
+using SCHIZO.API.Unity.HullPlates;
 using SCHIZO.Resources;
-using SCHIZO.Unity.HullPlates;
 using UnityEngine;
 
 namespace SCHIZO.HullPlates;

@@ -1,8 +1,8 @@
-﻿using SCHIZO.Unity.Sounds;
+﻿using SCHIZO.API.Unity.Sounds;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Creatures
+namespace SCHIZO.API.Unity.Creatures
 {
     [CreateAssetMenu(menuName = "SCHIZO/Creatures/Creature Sound Data")]
     public sealed class CreatureSoundData : ScriptableObject

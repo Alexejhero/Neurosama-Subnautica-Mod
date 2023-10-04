@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Nautilus.Crafting;
-using SCHIZO.Attributes;
+using SCHIZO.API;
+using SCHIZO.API.Attributes;
+using SCHIZO.API.Buildables;
+using SCHIZO.API.Unity.Items;
 using SCHIZO.Resources;
-using SCHIZO.Unity.Items;
 
 namespace SCHIZO.Buildables;
 
