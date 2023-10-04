@@ -1,7 +1,6 @@
 ﻿using Nautilus.Utility;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
-using SCHIZO.Unity.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Tutel;
@@ -66,9 +65,9 @@ public class GetCarried : RetargetCreatureAction
     public bool isCarried;
     public FMOD_CustomEmitter emitter;
 
-    private static readonly SoundPlayer _pickupSounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Pickup by ermshark"), AudioUtils.BusPaths.UnderwaterCreatures);
-    private static readonly SoundPlayer _carrySounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Carry by ermshark"), AudioUtils.BusPaths.UnderwaterCreatures);
-    private static readonly SoundPlayer _releaseSounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Tutel Ambient"), AudioUtils.BusPaths.UnderwaterCreatures);
+    private static readonly SoundPlayer _pickupSounds = new(Assets.Tutel_Sounds_GetCarried_PickupByErmshark, AudioUtils.BusPaths.UnderwaterCreatures);
+    private static readonly SoundPlayer _carrySounds = new(Assets.Tutel_Sounds_GetCarried_CarryByErmshark, AudioUtils.BusPaths.UnderwaterCreatures);
+    private static readonly SoundPlayer _releaseSounds = new(Assets.Tutel_Sounds_Ambient_TutelAmbient, AudioUtils.BusPaths.UnderwaterCreatures);
 
     private float nextCarryNoiseTime;
     private const float carryNoiseInterval = 5f;

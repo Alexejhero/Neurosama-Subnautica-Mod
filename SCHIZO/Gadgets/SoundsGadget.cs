@@ -24,10 +24,10 @@ public class SoundsGadget : Gadget
         customPrefab.SetPrefabPostProcessor(PrefabPostProcess);
     }
 
-    private void PrefabPostProcess(GameObject prefab)
+    private void PrefabPostProcess(GameObject obj)
     {
-        if (WorldSoundPlayer != null) WorldSounds.Add(prefab, WorldSoundPlayer);
-        if (InventorySoundPlayer != null) InventorySounds.Add(prefab, InventorySoundPlayer);
+        if (WorldSoundPlayer != null) WorldSounds.Add(obj, WorldSoundPlayer);
+        if (InventorySoundPlayer != null) InventorySounds.Add(obj, InventorySoundPlayer);
     }
 
     public SoundsGadget WithWorldSounds(SoundPlayer player)

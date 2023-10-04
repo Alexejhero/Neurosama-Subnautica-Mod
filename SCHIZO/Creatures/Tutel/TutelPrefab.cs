@@ -55,13 +55,13 @@ public class TutelPrefab : PickupableCreaturePrefab<CaveCrawler>
         crawler.walkingSound = prefab.EnsureComponent<FMOD_CustomLoopingEmitter>(); // empty
         crawler.jumpSound = AudioUtils.GetFmodAsset("event:/sub/common/fishsplat"); // placeholder
 
-        WalkBehaviour walk = prefab.AddComponent<WalkBehaviour>();
+        prefab.AddComponent<WalkBehaviour>();
 
 #if BELOWZERO
         LandCreatureGravity gravity = prefab.EnsureComponent<LandCreatureGravity>();
         gravity.applyDownforceUnderwater = true;
 #else
-        CaveCrawlerGravity gravity = prefab.EnsureComponent<CaveCrawlerGravity>();
+        prefab.EnsureComponent<CaveCrawlerGravity>();
 #endif
 
         MoveOnSurface moveSurface = prefab.AddComponent<MoveOnSurface>();

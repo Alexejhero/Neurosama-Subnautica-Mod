@@ -5,7 +5,6 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
-using SCHIZO.Unity.Items;
 using UnityEngine;
 
 namespace SCHIZO.Items.Gymbag;
@@ -25,7 +24,7 @@ public sealed class Gymbag : ItemPrefab
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     public Gymbag(ModItem modItem) : base(modItem)
     {
-        ItemData = ResourceManager.LoadAsset<ItemData>("Gymbag data");
+        ItemData = Assets.Gymbag_GymbagData;
         Recipe = new RecipeData(new Ingredient(BagTechType, 1), new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.PosterKitty, 1));
         SizeInInventory = new Vector2Int(2, 2);
         TechGroup = TechGroup.Personal;

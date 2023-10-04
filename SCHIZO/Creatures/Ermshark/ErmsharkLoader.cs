@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Nautilus.Assets;
 using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
@@ -10,7 +9,7 @@ namespace SCHIZO.Creatures.Ermshark;
 [LoadCreature]
 public sealed class ErmsharkLoader : CustomCreatureLoader<CustomCreatureData, ErmsharkPrefab, ErmsharkLoader>
 {
-    public ErmsharkLoader() : base(ResourceManager.LoadAsset<CustomCreatureData>("Ermshark data"))
+    public ErmsharkLoader() : base(Assets.Ermshark_ErmsharkData)
     {
         PDAEncyPath = IS_BELOWZERO ? "Lifeforms/Fauna/Carnivores" : "Lifeforms/Fauna/Sharks";
     }

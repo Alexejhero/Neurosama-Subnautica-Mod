@@ -6,7 +6,6 @@ using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using SCHIZO.Unity.Creatures;
-using SCHIZO.Unity.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
@@ -15,10 +14,10 @@ namespace SCHIZO.Creatures.Ermfish;
 public sealed class ErmfishLoader : PickupableCreatureLoader<PickupableCreatureData, ErmfishPrefab, ErmfishLoader>
 {
     // todo: test BZ bus path when SoundPlayers are fixed
-    public static readonly SoundPlayer PlayerDeathSounds = new(ResourceManager.LoadAsset<BaseSoundCollection>("Ermfish Player Death"),
+    public static readonly SoundPlayer PlayerDeathSounds = new(Assets.Erm_Sounds_PlayerDeath_ErmfishPlayerDeath,
         IS_BELOWZERO ? "bus:/master/SFX_for_pause" : "bus:/master/SFX_for_pause/nofilter");
 
-    public ErmfishLoader() : base(ResourceManager.LoadAsset<PickupableCreatureData>("Ermfish data"))
+    public ErmfishLoader() : base(Assets.Erm_ErmfishData)
     {
         PDAEncyPath = "Lifeforms/Fauna/SmallHerbivores";
         VariantsAreAlive = true;

@@ -12,7 +12,7 @@ namespace SCHIZO.Creatures.Tutel;
 [LoadCreature]
 public sealed class TutelLoader : PickupableCreatureLoader<PickupableCreatureData, TutelPrefab, TutelLoader>
 {
-    public TutelLoader() : base(ResourceManager.LoadAsset<PickupableCreatureData>("Tutel data"))
+    public TutelLoader() : base(Assets.Tutel_TutelData)
     {
         PDAEncyPath = "Lifeforms/Fauna/SmallHerbivores";
         VariantsAreAlive = true;

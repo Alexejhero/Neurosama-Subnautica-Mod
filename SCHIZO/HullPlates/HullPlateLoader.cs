@@ -23,7 +23,7 @@ public static class HullPlateLoader
     [LoadMethod]
     private static void Load()
     {
-        HullPlateCollection collection = ResourceManager.LoadAsset<HullPlateCollection>("Hull Plates");
+        HullPlateCollection collection = Assets.HullPlates_HullPlates;
 
         foreach (HullPlate hullPlate in collection.hullPlates)
         {

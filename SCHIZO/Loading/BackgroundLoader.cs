@@ -10,7 +10,7 @@ public static class BackgroundLoader
     {
         LoadingBackgrounds = new SavedRandomList<LoadingBackground>("LoadingBackgrounds");
 
-        LoadingBackgroundCollection collection = ResourceManager.LoadAsset<LoadingBackgroundCollection>("LoadingBackgrounds");
+        LoadingBackgroundCollection collection = Assets.Loading_Backgrounds_LoadingBackgrounds;
 
         foreach (LoadingBackground background in collection.backgrounds)
         {

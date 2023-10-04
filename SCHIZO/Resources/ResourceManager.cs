@@ -13,12 +13,7 @@ public static class ResourceManager
     private static readonly Assembly _assembly = Assembly.GetExecutingAssembly();
     private static readonly Dictionary<string, object> _cache = new();
 
-    public static T LoadAsset<T>(string name) where T : UnityEngine.Object
-    {
-        return GetAssetBundle("assets").LoadAsset<T>(name) ?? throw new ArgumentException($"Asset {name} not found in asset bundle", nameof(name));
-    }
-
-    private static AssetBundle GetAssetBundle(string name)
+    public static AssetBundle GetAssetBundle(string name)
     {
         string targetedName = "AssetBundles." + name;
 

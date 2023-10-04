@@ -78,6 +78,6 @@ public static class LoadingPatches
     {
         // temp until we have the BZ replacement
         uGUI_Logo logo = gui.GetComponentInChildren<uGUI_Logo>();
-        if (logo) logo.texture = ResourceManager.LoadAsset<Texture2D>("loading icon");
+        if (logo) logo.texture = Assets.Loading_LoadingIcon;
     }
 }

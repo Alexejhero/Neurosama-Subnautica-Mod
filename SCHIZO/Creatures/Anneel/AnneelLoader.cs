@@ -9,7 +9,7 @@ namespace SCHIZO.Creatures.Anneel;
 [LoadCreature]
 public sealed class AnneelLoader : CustomCreatureLoader<CustomCreatureData, AnneelPrefab, AnneelLoader>
 {
-    public AnneelLoader() : base(ResourceManager.LoadAsset<CustomCreatureData>("Anneel data"))
+    public AnneelLoader() : base(Assets.Anneel_AnneelData)
     {
         PDAEncyPath = "Lifeforms/Fauna/LargeHerbivores";
     }

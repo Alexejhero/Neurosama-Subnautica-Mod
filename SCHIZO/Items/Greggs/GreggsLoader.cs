@@ -5,7 +5,6 @@ using Nautilus.Crafting;
 using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
-using UnityEngine;
 
 namespace SCHIZO.Items.Greggs;
 
@@ -17,11 +16,11 @@ public static class GreggsLoader
     private static void Load()
     {
         CustomPrefab deadErmfish = new(PrefabInfo.WithTechType("deadermfish", "Dead Ermfish", "erm\n<size=75%>(Model by w1n7er)</size>"));
-        deadErmfish.Info.WithIcon(ResourceManager.LoadAsset<Sprite>("dead erm"));
+        deadErmfish.Info.WithIcon(Assets.Greggs_DeadErm);
         deadErmfish.Register();
 
         CustomPrefab greggs = new(PrefabInfo.WithTechType("greggs", "Greggs", "god i fucking love greggs i would sell neuro just to lick a chicken bake right now holy shit i would marry gregg where is he"));
-        greggs.Info.WithIcon(ResourceManager.LoadAsset<Sprite>("greggs"));
+        greggs.Info.WithIcon(Assets.Greggs_Greggs);
 
         CraftingGadget crafting = greggs.SetRecipe(new RecipeData(new Ingredient(deadErmfish.Info.TechType, 1)));
         crafting.WithFabricatorType(CraftTree.Type.Fabricator);

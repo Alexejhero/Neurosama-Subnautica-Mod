@@ -1,8 +1,5 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Concurrent;
-using System.IO;
-using System.Reflection;
 using JetBrains.Annotations;
 using Nautilus.Commands;
 using SCHIZO.Attributes;

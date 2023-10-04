@@ -26,7 +26,7 @@ public static class EasterEggPatches
         {
             if (!CustomSoundHandler.TryGetCustomSound(sounds[0], out _))
             {
-                SoundCollection collection = ResourceManager.LoadAsset<SoundCollection>("SN Easter Egg");
+                SoundCollection collection = Assets.SNEasterEgg;
 
                 for (int i = 0; i < 4; i++)
                 {
