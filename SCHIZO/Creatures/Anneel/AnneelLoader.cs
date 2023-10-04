@@ -3,7 +3,6 @@ using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Creatures;
-using System.Linq;
 
 namespace SCHIZO.Creatures.Anneel;
 
@@ -12,7 +11,7 @@ public sealed class AnneelLoader : CustomCreatureLoader<CustomCreatureData, Anne
 {
     public AnneelLoader() : base(ResourceManager.LoadAsset<CustomCreatureData>("Anneel data"))
     {
-        PDAEncyPath = IS_BELOWZERO ? "Lifeforms/Fauna/Carnivores" : "Lifeforms/Fauna/LargeHerbivores";
+        PDAEncyPath = "Lifeforms/Fauna/LargeHerbivores";
     }
 
     protected override AnneelPrefab CreatePrefab()
@@ -21,5 +20,10 @@ public sealed class AnneelLoader : CustomCreatureLoader<CustomCreatureData, Anne
     }
 
     protected override IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()
-        => BiomeHelpers.GetOpenWaterBiomes().Select(biome => new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.005f });
+    {
+        foreach (BiomeType biome in BiomeHelpers.GetOpenWaterBiomes())
+        {
+            yield return new LootDistributionData.BiomeData { biome = biome, count = 1, probability = 0.005f };
+        }
+    }
 }

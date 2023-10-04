@@ -1,9 +1,6 @@
-﻿
+﻿using UnityEngine;
 
 // ReSharper disable once CheckNamespace
-
-using UnityEngine;
-
 namespace SCHIZO.Unity.Loading
 {
     [CreateAssetMenu(menuName = "SCHIZO/Loading/Loading Background")]

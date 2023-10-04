@@ -9,37 +9,32 @@ using UnityEngine;
 
 namespace SCHIZO.Creatures.Tutel;
 
-public class TutelPrefab : PickupableCreaturePrefab
+public class TutelPrefab : PickupableCreaturePrefab<CaveCrawler>
 {
+    private const float _swimVelocity = 2f;
+
     public TutelPrefab(ModItem regular, ModItem cooked, ModItem cured, GameObject prefab) : base(regular, cooked, cured, prefab)
     {
-    }
+        BehaviourType = BehaviourType.Crab;
+        EcoTargetType = EcoTargetType.Coral;
+        MaxHealth = float.MaxValue;
 
-    private const float swimVelocity = 2f;
-    public override CreatureTemplate CreateTemplate()
-    {
-        CreatureTemplate template = new(creaturePrefab, BehaviourType.Crab, EcoTargetType.Coral, float.MaxValue)
-        {
-            // Cell level needs to be set to Near to avoid our spawns falling through the unrendered map which is too far
-            // fish are not affected by this, but walking creatures are, as they have gravity on
-            CellLevel = LargeWorldEntity.CellLevel.Near,
-            Mass = 20,
-            BioReactorCharge = 0,
-            EyeFOV = 0,
-            ScareableData = new ScareableData(),
-            PickupableFishData = new PickupableFishData(TechType.Floater, "WM", "VM"),
-            EdibleData = new EdibleData(9, -7, false, 1f),
-            ScannerRoomScannable = true,
-            SizeDistribution = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 1f)),
-            AnimateByVelocityData = new AnimateByVelocityData(swimVelocity),
-            // Walk on surface and swim above water true
-            LocomotionData = new LocomotionData(10f, 2f, 1f, 0.1f, true, true, true),
-        };
-        template.SetCreatureComponentType<CaveCrawler>();
-        template.WithoutInfection();
-        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.1f, 0.5f, 1f, 1.5f, true, true, ClassID));
+        FoodValueRaw = 9;
+        WaterValueRaw = -7;
 
-        return template;
+        FoodValueCooked = 21;
+        WaterValueCooked = 3;
+
+        // Cell level needs to be set to Near to avoid our spawns falling through the unrendered map which is too far
+        // fish are not affected by this, but walking creatures are, as they have gravity on
+        CellLevel = LargeWorldEntity.CellLevel.Near;
+        Mass = 20;
+        BioReactorCharge = 0;
+        ScareableData = new ScareableData();
+        PickupableFishData = new PickupableFishData(TechType.Floater, "WM", "VM");
+        AnimateByVelocityData = new AnimateByVelocityData(_swimVelocity);
+        LocomotionData = new LocomotionData(10f, 2f, 1f, 0.1f, true, true, true);
+        WaterParkCreatureData = new WaterParkCreatureDataStruct(0.1f, 0.5f, 1f, 1.5f, true, true, ClassID);
     }
 
     public override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
@@ -70,13 +65,13 @@ public class TutelPrefab : PickupableCreaturePrefab
 #endif
 
         MoveOnSurface moveSurface = prefab.AddComponent<MoveOnSurface>();
-        moveSurface.moveVelocity = swimVelocity;
+        moveSurface.moveVelocity = _swimVelocity;
 
         FleeOnDamage fleeDamage = prefab.EnsureComponent<FleeOnDamage>();
         fleeDamage.damageThreshold = 0.01f; // very easily scared tutel
-        fleeDamage.swimVelocity = swimVelocity * 1.5f;
+        fleeDamage.swimVelocity = _swimVelocity * 1.5f;
         FleeWhenScared fleeScared = prefab.EnsureComponent<FleeWhenScared>();
-        fleeScared.swimVelocity = swimVelocity * 1.25f;
+        fleeScared.swimVelocity = _swimVelocity * 1.25f;
 
         GetCarried getCarried = prefab.EnsureComponent<GetCarried>();
         getCarried.emitter = emitter;

@@ -32,6 +32,8 @@ public sealed class GymbagBehaviour : MonoBehaviour
 
         StorageContainer container = item.item.gameObject.GetComponentInChildren<PickupableStorage>().storageContainer;
         container.Open(container.transform);
+        // TODO: fix error
+        // container.onUse.Invoke();
 
         if (PlayerInventoryContains(item))
         {

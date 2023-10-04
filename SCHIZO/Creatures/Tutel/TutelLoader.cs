@@ -14,8 +14,6 @@ public sealed class TutelLoader : PickupableCreatureLoader<PickupableCreatureDat
 {
     public TutelLoader() : base(ResourceManager.LoadAsset<PickupableCreatureData>("Tutel data"))
     {
-        FoodValue = 21;
-        WaterValue = 3;
         PDAEncyPath = "Lifeforms/Fauna/SmallHerbivores";
         VariantsAreAlive = true;
         VFXFabricatingData = new VFXFabricatingData("VM/Tutel", -0.17f, 0.59275F, new Vector3(0, 0.15f), 0.1f, new Vector3(0, -180, 0));

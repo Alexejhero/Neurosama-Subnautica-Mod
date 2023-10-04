@@ -20,8 +20,8 @@ public sealed class SoundPlayer
     [SerializeField] private string _bus;
     [SerializeField] private List<string> _sounds = new();
 
-    private RandomList<string> _randomSounds = new();
-    private List<Coroutine> _runningCoroutines = new();
+    private RandomList<string> _randomSounds;
+    private List<Coroutine> _runningCoroutines;
 
     public SoundPlayer(BaseSoundCollection soundCollection, string bus)
     {
@@ -33,6 +33,15 @@ public sealed class SoundPlayer
             RegisterSound(id, audioClip);
             _sounds.Add(id);
         }
+    }
+
+    private void Initialize()
+    {
+        if (_randomSounds is { Count: > 0 }) return;
+
+        _randomSounds = new RandomList<string>();
+        _runningCoroutines = new List<Coroutine>();
+        _randomSounds.AddRange(_sounds);
     }
 
     public float LastPlay { get; private set; } = -1;
@@ -51,9 +60,11 @@ public sealed class SoundPlayer
 
     public void CancelAllDelayed()
     {
+        Initialize();
+
         foreach (Coroutine c in _runningCoroutines)
         {
-            GameInput.instance.StopCoroutine(c);
+            CoroutineHost.StopCoroutine(c);
         }
 
         _runningCoroutines.Clear();
@@ -63,6 +74,7 @@ public sealed class SoundPlayer
 
     public void Play(FMOD_CustomEmitter emitter, float delay = 0)
     {
+        Initialize();
         if (CONFIG.DisableAllNoises) return;
 
         if (delay <= 0)
@@ -83,8 +95,6 @@ public sealed class SoundPlayer
 
     private void PlaySound(FMOD_CustomEmitter emitter = null)
     {
-        Initialize();
-
         LastPlay = Time.time;
 
         string sound = _sounds.GetRandom();
@@ -99,14 +109,5 @@ public sealed class SoundPlayer
             CustomSoundHandler.TryPlayCustomSound(sound, out Channel channel);
             channel.set3DLevel(0);
         }
-    }
-
-    private void Initialize()
-    {
-        if (_randomSounds is { Count: > 0 }) return;
-        // serialization moment
-        _randomSounds ??= new();
-        _runningCoroutines ??= new();
-        _randomSounds.AddRange(_sounds);
     }
 }

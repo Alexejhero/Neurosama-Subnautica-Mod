@@ -1,7 +1,10 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Reflection;
+using JetBrains.Annotations;
+using Nautilus.Commands;
 using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using TwitchLib.Client;
@@ -14,16 +17,17 @@ using UnityEngine;
 namespace SCHIZO.Twitch;
 
 [LoadComponent]
+[LoadConsoleCommands]
 public sealed class TwitchIntegration : MonoBehaviour
 {
     private const string OWNER_USERNAME = "alexejherodev";
     private const string TARGET_CHANNEL = "vedal987";
     private const string COMMAND_SENDER = "alexejherodev";
 
+    private const string _playerPrefsKey = "SCHIZO_TwitchIntegration_OAuthToken";
+
     private readonly TwitchClient _client;
     private readonly ConcurrentQueue<string> _msgQueue = new();
-
-    private static readonly string credentialsFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "cache.json");
 
     public TwitchIntegration()
     {
@@ -43,13 +47,14 @@ public sealed class TwitchIntegration : MonoBehaviour
         _client.OnFailureToReceiveJoinConfirmation += (_, evt) => LOGGER.LogError($"Could not join: {evt.Exception.Details}");
         _client.OnMessageReceived += Client_OnMessageReceived;
 
-        if (!File.Exists(credentialsFilePath))
+        string key = PlayerPrefs.GetString(_playerPrefsKey, "");
+        if (string.IsNullOrWhiteSpace(key))
         {
-            LOGGER.LogWarning("Could not find cache.json for Twitch integration, it will be disabled.\n"
-                + "Make a text file next to the mod .dll and put the token on the SECOND line.");
+            LOGGER.LogWarning("Twitch OAuth token is not set, Twitch Integration will be disabled.");
+            LOGGER.LogMessage("Run 'settwitchkey <key>' in the developer console and restart Subnautica in order to enable it.");
             return;
         }
-        ConnectionCredentials credentials = new(OWNER_USERNAME, File.ReadAllLines(credentialsFilePath)[1]);
+        ConnectionCredentials credentials = new(OWNER_USERNAME, key);
 
         _client.Initialize(credentials, TARGET_CHANNEL);
 
@@ -79,5 +84,12 @@ public sealed class TwitchIntegration : MonoBehaviour
         MessageHelpers.SuppressOutput = true;
         DevConsole.SendConsoleCommand(message);
         MessageHelpers.SuppressOutput = false;
+    }
+
+    [ConsoleCommand("settwitchkey"), UsedImplicitly]
+    public static string OnConsoleCommand_settwitchkey(string key)
+    {
+        PlayerPrefs.SetString(_playerPrefsKey, key);
+        return "Twitch token updated. Please restart Subnautica.";
     }
 }

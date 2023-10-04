@@ -8,38 +8,34 @@ using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermfish;
 
-public class ErmfishPrefab : PickupableCreaturePrefab
+public class ErmfishPrefab : PickupableCreaturePrefab<Creature>
 {
+    private const float _swimVelocity = 7f;
+
     public ErmfishPrefab(ModItem regular, ModItem cooked, ModItem cured, GameObject prefab) : base(regular, cooked, cured, prefab)
     {
-    }
+        BehaviourType = BehaviourType.SmallFish;
+        EcoTargetType = EcoTargetType.SmallFish;
+        MaxHealth = float.MaxValue;
 
-    public override CreatureTemplate CreateTemplate()
-    {
-        const float swimVelocity = 7f;
+        FoodValueRaw = 9;
+        WaterValueRaw = -7;
 
-        CreatureTemplate template = new(creaturePrefab, BehaviourType.SmallFish, EcoTargetType.Peeper, float.MaxValue)
-        {
-            CellLevel = LargeWorldEntity.CellLevel.Medium,
-            Mass = 10,
-            BioReactorCharge = 0,
-            EyeFOV = 0,
-            SwimRandomData = new SwimRandomData(0.2f, swimVelocity, new Vector3(20, 5, 20)),
-            StayAtLeashData = new StayAtLeashData(0.6f, swimVelocity * 1.25f, 14f),
-            ScareableData = new ScareableData(),
-            FleeWhenScaredData = new FleeWhenScaredData(0.8f, swimVelocity),
-            PickupableFishData = new PickupableFishData(TechType.Floater, "WM", "VM"),
-            EdibleData = new EdibleData(9, -7, false, 1f),
-            ScannerRoomScannable = true,
-            AvoidObstaclesData = new AvoidObstaclesData(1f, swimVelocity, false, 5f, 5f),
-            SizeDistribution = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 1f)),
-            AnimateByVelocityData = new AnimateByVelocityData(swimVelocity),
-            SwimInSchoolData = new SwimInSchoolData(0.5f, swimVelocity, 2f, 0.5f, 1f, 0.1f, 25f),
-        };
-        template.WithoutInfection();
-        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.1f, 0.5f, 1f, 1.5f, true, true, ClassID));
+        FoodValueCooked = 19;
+        WaterValueCooked = 0;
 
-        return template;
+        Mass = 10;
+        BioReactorCharge = 0;
+        SwimRandomData = new SwimRandomData(0.2f, _swimVelocity, new Vector3(20, 5, 20));
+        StayAtLeashData = new StayAtLeashData(0.6f, _swimVelocity * 1.25f, 14f);
+        ScareableData = new ScareableData();
+        FleeWhenScaredData = new FleeWhenScaredData(0.8f, _swimVelocity);
+        PickupableFishData = new PickupableFishData(TechType.Floater, "WM", "VM");
+        AvoidObstaclesData = new AvoidObstaclesData(1f, _swimVelocity, false, 5f, 5f);
+        SizeDistribution = new AnimationCurve(new Keyframe(0, 0.5f), new Keyframe(1, 1f));
+        AnimateByVelocityData = new AnimateByVelocityData(_swimVelocity);
+        SwimInSchoolData = new SwimInSchoolData(0.5f, _swimVelocity, 2f, 0.5f, 1f, 0.1f, 25f);
+        WaterParkCreatureData = new WaterParkCreatureDataStruct(0.1f, 0.5f, 1f, 1.5f, true, true, ClassID);
     }
 
     public override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)

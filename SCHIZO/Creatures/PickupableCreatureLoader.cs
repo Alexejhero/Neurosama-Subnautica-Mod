@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
@@ -9,18 +10,15 @@ using SCHIZO.Unity.Creatures;
 namespace SCHIZO.Creatures;
 
 public abstract class PickupableCreatureLoader<TData, TPrefab, TLoader> : CustomCreatureLoader<TData, TPrefab, TLoader>
-    where TData : PickupableCreatureData where TPrefab : PickupableCreaturePrefab where TLoader : PickupableCreatureLoader<TData, TPrefab, TLoader>, new()
+    where TData : PickupableCreatureData
+    where TPrefab : CreatureAsset, IPickupableCreaturePrefab
+    where TLoader : PickupableCreatureLoader<TData, TPrefab, TLoader>, new()
 {
-    public static PickupableCreatureLoader<TData, TPrefab, TLoader> Instance;
-
-    protected float FoodValue { get; init; } = 19;
-    protected float WaterValue { get; init; } = 2;
     protected VFXFabricatingData VFXFabricatingData { get; init; }
     protected bool VariantsAreAlive { get; init; } = false;
 
     protected PickupableCreatureLoader(TData data) : base(data)
     {
-        Instance = this;
     }
 
     public List<TechType> TechTypes { get; private set; }
@@ -52,7 +50,7 @@ public abstract class PickupableCreatureLoader<TData, TPrefab, TLoader> : Custom
             IsAlive = VariantsAreAlive,
             Icon = creatureData.cookedIcon,
             RecipeData = new RecipeData(new Ingredient(prefab.ModItem, 1)),
-            EdibleData = new EdibleData(FoodValue, WaterValue, true),
+            EdibleData = new EdibleData(prefab.FoodValueCooked, prefab.WaterValueCooked, true),
             FabricatorPath = CraftTreeHandler.Paths.FabricatorCookedFood,
             TechCategory = Retargeting.TechCategory.CookedFood,
             MaterialRemap = creatureData.cookedRemap,
@@ -66,7 +64,7 @@ public abstract class PickupableCreatureLoader<TData, TPrefab, TLoader> : Custom
             IsAlive = VariantsAreAlive,
             Icon = creatureData.curedIcon,
             RecipeData = new RecipeData(new Ingredient(prefab.ModItem, 1), new Ingredient(TechType.Salt, 1)),
-            EdibleData = new EdibleData(FoodValue, -2, false),
+            EdibleData = new EdibleData(prefab.FoodValueCooked, -3, false),
             FabricatorPath = CraftTreeHandler.Paths.FabricatorCuredFood,
             TechCategory = Retargeting.TechCategory.CuredFood,
             MaterialRemap = creatureData.curedRemap,

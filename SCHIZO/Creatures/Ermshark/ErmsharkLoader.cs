@@ -3,15 +3,12 @@ using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Creatures;
-using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
 [LoadCreature]
 public sealed class ErmsharkLoader : CustomCreatureLoader<CustomCreatureData, ErmsharkPrefab, ErmsharkLoader>
 {
-    public static GameObject Prefab; // TODO: figure this out
-
     public ErmsharkLoader() : base(ResourceManager.LoadAsset<CustomCreatureData>("Ermshark data"))
     {
         PDAEncyPath = IS_BELOWZERO ? "Lifeforms/Fauna/Carnivores" : "Lifeforms/Fauna/Sharks";

@@ -20,8 +20,6 @@ public sealed class ErmfishLoader : PickupableCreatureLoader<PickupableCreatureD
 
     public ErmfishLoader() : base(ResourceManager.LoadAsset<PickupableCreatureData>("Ermfish data"))
     {
-        FoodValue = 19;
-        WaterValue = 0;
         PDAEncyPath = "Lifeforms/Fauna/SmallHerbivores";
         VariantsAreAlive = true;
         VFXFabricatingData = new VFXFabricatingData("VM/model", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0));

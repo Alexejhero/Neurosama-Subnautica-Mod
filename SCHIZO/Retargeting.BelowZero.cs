@@ -16,9 +16,4 @@ public static class Retargeting
         public const global::TechCategory CookedFood = global::TechCategory.FoodAndDrinks;
         public const global::TechCategory CuredFood = global::TechCategory.FoodAndDrinks;
     }
-
-    [Conditional("SUBNAUTICA")]
-    public static void WithoutInfection(this CreatureTemplate template)
-    {
-    }
 }

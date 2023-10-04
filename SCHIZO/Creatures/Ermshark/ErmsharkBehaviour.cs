@@ -43,11 +43,11 @@ public sealed class ErmsharkBehaviour : Creature, IOnTakeDamage
     {
         const float childScaleModifier = 0.69f;
 
-        GameObject firstChild = Instantiate(ErmsharkLoader.Prefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
+        GameObject firstChild = Instantiate(ErmsharkPrefab.Prefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
         firstChild.transform.GetChild(0).localScale = transform.GetChild(0).localScale * childScaleModifier;
         UpdateChild(firstChild, _isReal, mitosisRemaining - 1);
 
-        GameObject secondChild = Instantiate(ErmsharkLoader.Prefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
+        GameObject secondChild = Instantiate(ErmsharkPrefab.Prefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
         secondChild.transform.GetChild(0).localScale = transform.GetChild(0).localScale * childScaleModifier;
         UpdateChild(secondChild, false, mitosisRemaining - 1);
 
