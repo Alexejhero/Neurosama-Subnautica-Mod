@@ -16,7 +16,7 @@ public sealed class ErmsharkLoader : CustomCreatureLoader<CustomCreatureData, Er
 
     protected override ErmsharkPrefab CreatePrefab()
     {
-        return new ErmsharkPrefab(ModItems.Ermshark, creatureData.prefab);
+        return new ErmsharkPrefab(ModItems.Ermshark, creatureData.regularPrefab);
     }
 
     protected override IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()

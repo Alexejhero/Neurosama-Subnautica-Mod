@@ -21,7 +21,7 @@ public sealed class TutelLoader : PickupableCreatureLoader<PickupableCreatureDat
 
     protected override TutelPrefab CreatePrefab()
     {
-        return new TutelPrefab(ModItems.Tutel, ModItems.CookedTutel, ModItems.CuredTutel, creatureData.prefab);
+        return new TutelPrefab(ModItems.Tutel, ModItems.CookedTutel, ModItems.CuredTutel, creatureData.regularPrefab);
     }
 
     protected override IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()

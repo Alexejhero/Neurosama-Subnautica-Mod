@@ -16,7 +16,7 @@ public sealed class AnneelLoader : CustomCreatureLoader<CustomCreatureData, Anne
 
     protected override AnneelPrefab CreatePrefab()
     {
-        return new AnneelPrefab(ModItems.Anneel, creatureData.prefab);
+        return new AnneelPrefab(ModItems.Anneel, creatureData.regularPrefab);
     }
 
     protected override IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()
