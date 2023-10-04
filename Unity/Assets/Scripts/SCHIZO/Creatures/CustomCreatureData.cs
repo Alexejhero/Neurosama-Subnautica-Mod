@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NaughtyAttributes;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 // ReSharper disable once CheckNamespace
@@ -7,15 +8,12 @@ namespace SCHIZO.Unity.Creatures
     [CreateAssetMenu(menuName = "SCHIZO/Creatures/Custom Creature Data")]
     public class CustomCreatureData : ScriptableObject
     {
-        [Header("Creature Prefab")]
-        public GameObject prefab;
+        [BoxGroup("Creature Prefabs")] [FormerlySerializedAs("prefab")] public GameObject regularPrefab;
 
-        [Header("Databank Info")]
-        public Sprite unlockSprite;
-        public Texture2D databankTexture;
-        public TextAsset databankText;
+        [BoxGroup("Databank Info")] public Sprite unlockSprite;
+        [BoxGroup("Databank Info")] public Texture2D databankTexture;
+        [BoxGroup("Databank Info")] public TextAsset databankText;
 
-        [Header("Creature Sounds")]
-        [FormerlySerializedAs("sounds")] public CreatureSoundData soundData;
+        [BoxGroup("Creature Sounds")] [FormerlySerializedAs("sounds")] public CreatureSoundData soundData;
     }
 }

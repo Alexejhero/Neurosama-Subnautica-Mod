@@ -16,6 +16,7 @@ public static class CreditsPatches
         private static readonly List<Credits> All = new();
 
         public static readonly Credits Programming = new("Programming", "Developers");
+        public static readonly Credits Contributor = new("Contributor", "Contributors");
         public static readonly Credits Modeling = new("3D Modeling", "3D Modelers");
         public static readonly Credits Animations = new("Animations", "Animators");
         public static readonly Credits Artist = new("2D Art", "2D Artists");
@@ -61,7 +62,7 @@ public static class CreditsPatches
         ["budwheizzah"] = Credits.Programming + Credits.Artist + Credits.Sounds,
         ["chrom"] = Credits.Artist,
         ["CJMAXiK"] = Credits.Artist + Credits.Sounds,
-        ["darkeew"] = Credits.Programming,
+        ["darkeew"] = Credits.Contributor,
         ["FutabaKuuhaku"] = Credits.Modeling + Credits.Texturing,
         ["Goldenbeasty"] = Credits.Texturing,
         ["Govorunb"] = Credits.Programming,
@@ -82,6 +83,7 @@ public static class CreditsPatches
         ["sugarph"] = Credits.Artist,
         ["Troobs"] = Credits.Artist,
         ["Vaalmyr"] = Credits.Modeling + Credits.Texturing,
+        ["vanorsigma"] = Credits.Contributor,
         ["w1n7er"] = Credits.Modeling + Credits.Texturing + Credits.Animations,
         ["yamplum"] = Credits.Artist + Credits.Lore,
         ["YuG"] = Credits.Modeling + Credits.Texturing,
@@ -100,16 +102,16 @@ public static class CreditsPatches
         [HarmonyTranspiler, UsedImplicitly]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            foreach (CodeInstruction instruction in instructions)
-            {
-                yield return instruction;
-
-                if (instruction.Calls(_target))
-                {
-                    yield return new CodeInstruction(OpCodes.Ldarg_0);
-                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(UpdateCreditsTextTranspiler), nameof(Patch)));
-                }
-            }
+            CodeMatcher matcher = new(instructions);
+            matcher.Start();
+            matcher.SearchForward(instr => instr.Calls(_target));
+            matcher.Advance(1);
+            matcher.InsertAndAdvance
+            (
+                new CodeInstruction(OpCodes.Ldarg_0),
+                new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(UpdateCreditsTextTranspiler), nameof(Patch)))
+            );
+            return matcher.InstructionEnumeration();
         }
 
         private static void Patch(EndCreditsManager __instance)

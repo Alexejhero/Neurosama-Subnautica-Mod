@@ -1,4 +1,5 @@
-﻿using SCHIZO.Unity.Materials;
+﻿using NaughtyAttributes;
+using SCHIZO.Unity.Materials;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -7,13 +8,14 @@ namespace SCHIZO.Unity.Creatures
     [CreateAssetMenu(menuName = "SCHIZO/Creatures/Pickupable Creature Data")]
     public class PickupableCreatureData : CustomCreatureData
     {
-        [Header("Item Sprites")]
-        public Sprite regularIcon;
-        public Sprite cookedIcon;
-        public Sprite curedIcon;
+        [BoxGroup("Creature Prefabs")] public GameObject cookedPrefab;
+        [BoxGroup("Creature Prefabs")] public GameObject curedPrefab;
 
-        [Header("Material Remapping")]
-        public MaterialRemapOverride cookedRemap;
-        public MaterialRemapOverride curedRemap;
+        [BoxGroup("Item Sprites")] public Sprite regularIcon;
+        [BoxGroup("Item Sprites")] public Sprite cookedIcon;
+        [BoxGroup("Item Sprites")] public Sprite curedIcon;
+
+        [BoxGroup("Material Remapping")] public MaterialRemapOverride cookedRemap;
+        [BoxGroup("Material Remapping")] public MaterialRemapOverride curedRemap;
     }
 }

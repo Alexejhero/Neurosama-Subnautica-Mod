@@ -7,52 +7,39 @@ Please note that a custom version of ECCLibrary is used!
 
 ### Credits
 
-- Development
-  - Alexejhero
-  - budwheizzah
-  - Govorunb
-- Prefab setup
-  - Alexejhero
-  - budwheizzah
-  - darkeew
-- 3D Modeling
-  - FutabaKuuhaku
-  - greencap
-  - Kat
-  - Vaalmyr
-  - w1n7er
-  - YuG
-- Animations
-  - w1n7er
-- Art
-  - 2Pfrog
-  - Azit
-  - budwheizzah
-  - chrom
-  - CJMAXiK
-  - Hakuhan
-  - Kaz
-  - Lorx
-  - Moloch
-  - MyBraza
-  - NetPlayz
-  - P3R
-  - paccha
-  - Rune
-  - SADecsSs
-  - Sandro
-  - SomeOldGuy
-  - sugarph
-  - Troobs
-  - w1n7er
-  - yamplum
-- Audio compilation and cleaning
-  - budwheizzah
-  - CJMAXiK
-  - MyBraza
-- Text, lore and databank entries
-  - baa14453
-  - yamplum
+        ["2Pfrog"] = Credits.Artist,
+        ["AlexejheroDev"] = Credits.Programming + Credits.ProjectLead,
+        ["Azit"] = Credits.Artist,
+        ["baa14453"] = Credits.Lore,
+        ["bred"] = Credits.Modeling + Credits.Texturing + Credits.Animations,
+        ["budwheizzah"] = Credits.Programming + Credits.Artist + Credits.Sounds,
+        ["chrom"] = Credits.Artist,
+        ["CJMAXiK"] = Credits.Artist + Credits.Sounds,
+        ["darkeew"] = Credits.Contributor,
+        ["FutabaKuuhaku"] = Credits.Modeling + Credits.Texturing,
+        ["Goldenbeasty"] = Credits.Texturing,
+        ["Govorunb"] = Credits.Programming,
+        ["greencap"] = Credits.Modeling + Credits.Texturing,
+        ["Hakuhan"] = Credits.Artist,
+        ["Kat"] = Credits.Modeling + Credits.Texturing,
+        ["Kaz"] = Credits.Artist,
+        ["Lorx"] = Credits.Artist,
+        ["Moloch"] = Credits.Artist,
+        ["MyBraza"] = Credits.Artist + Credits.Sounds,
+        ["NetPlayz"] = Credits.Artist,
+        ["P3R"] = Credits.Artist,
+        ["paccha"] = Credits.Artist,
+        ["Rune"] = Credits.Artist,
+        ["SADecsSs"] = Credits.Artist,
+        ["Sandro"] = Credits.Artist,
+        ["SomeOldGuy"] = Credits.Artist,
+        ["sugarph"] = Credits.Artist,
+        ["Troobs"] = Credits.Artist,
+        ["Vaalmyr"] = Credits.Modeling + Credits.Texturing,
+        ["vanorsigma"] = Credits.Contributor,
+        ["w1n7er"] = Credits.Modeling + Credits.Texturing + Credits.Animations,
+        ["yamplum"] = Credits.Artist + Credits.Lore,
+        ["YuG"] = Credits.Modeling + Credits.Texturing,
 
 Based on ahk1221's Custom Hull Plates mod<br>
 Using Lee23's ECCLibrary mod

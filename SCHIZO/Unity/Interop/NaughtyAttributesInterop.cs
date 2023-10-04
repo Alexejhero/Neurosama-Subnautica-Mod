@@ -1,12 +1,8 @@
 ﻿// ReSharper disable UnusedParameter.Local
 // ReSharper disable UnusedType.Global
-
-
-
-// ReSharper disable once CheckNamespace
-
 using System;
 
+// ReSharper disable once CheckNamespace
 namespace NaughtyAttributes;
 
 public class ExpandableAttribute : Attribute
@@ -49,6 +45,13 @@ public class AllowNestingAttribute : Attribute
 public class InfoBoxAttribute : Attribute
 {
     public InfoBoxAttribute(string text)
+    {
+    }
+}
+
+public class BoxGroupAttribute : Attribute
+{
+    public BoxGroupAttribute(string group)
     {
     }
 }
