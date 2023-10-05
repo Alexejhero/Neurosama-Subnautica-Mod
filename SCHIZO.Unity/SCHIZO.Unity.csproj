@@ -7,10 +7,8 @@
 
     <ItemGroup>
         <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" PrivateAssets="all"/>
-        <Reference Include="..\Unity\Library\PackageCache\com.5pdev.harmony-for-unity*\Editor\Plugins\0Harmony.dll" PrivateAssets="all"/>
+        <Reference Include="..\Unity\Library\PackageCache\com.5pdev.harmony-for-unity@c70f19acfa\Editor\Plugins\0Harmony.dll" PrivateAssets="all"/>
         <Reference Include="..\Unity\Library\ScriptAssemblies\NaughtyAttributes.Core.dll" PrivateAssets="all"/>
-        <Reference Include="..\Unity\Library\ScriptAssemblies\UnityEditor.UI.dll" PrivateAssets="all"/>
-        <Reference Include="..\Unity\Library\ScriptAssemblies\UnityEngine.UI.dll" PrivateAssets="all"/>
     </ItemGroup>
 
     <Target Name="Copy" AfterTargets="Build">
