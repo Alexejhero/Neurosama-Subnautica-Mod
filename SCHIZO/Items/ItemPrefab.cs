@@ -24,6 +24,9 @@ public abstract class ItemPrefab : CustomPrefab
     public TechGroup TechGroup { get; init; } = TechGroup.Uncategorized;
     public TechCategory TechCategory { get; init; }
     public RecipeData Recipe { get; init; }
+    public CraftTree.Type FabricatorType { get; init; }
+    public string[] FabricatorPath { get; init; }
+    public float CraftingTime { get; init; }
     public Vector2Int SizeInInventory { get; init; } = new(1, 1);
     public TechType RequiredForUnlock { get; init; }
     public EquipmentType EquipmentType { get; init; }
@@ -46,24 +49,29 @@ public abstract class ItemPrefab : CustomPrefab
 
     protected virtual void AddGadgets()
     {
-
     }
 
     protected virtual void ModifyPrefab(GameObject prefab)
     {
-
     }
 
     protected virtual void PostRegister()
     {
-
     }
 
     private void AddBasicGadgets()
     {
         if (ItemData!?.icon) Info.WithIcon(ItemData.icon);
         Info.WithSizeInInventory(new Vector2int(SizeInInventory.x, SizeInInventory.y));
-        this.SetRecipe(Recipe);
+
+        CraftingGadget crafting = this.SetRecipe(Recipe);
+        if (FabricatorType != CraftTree.Type.None)
+        {
+            crafting.WithFabricatorType(FabricatorType);
+            crafting.WithStepsToFabricatorTab(FabricatorPath);
+            crafting.WithCraftingTime(CraftingTime);
+        }
+
         if (TechGroup != TechGroup.Uncategorized) this.SetPdaGroupCategory(TechGroup, TechCategory);
         if (RequiredForUnlock != TechType.None) this.SetUnlock(RequiredForUnlock);
 

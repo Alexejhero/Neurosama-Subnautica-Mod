@@ -25,6 +25,9 @@ public sealed class Gymbag : ItemPrefab
     {
         ItemData = Assets.Gymbag_GymbagData;
         Recipe = new RecipeData(new Ingredient(BagTechType, 1), new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.PosterKitty, 1));
+        FabricatorType = CraftTree.Type.Fabricator;
+        FabricatorPath = CraftTreeHandler.Paths.FabricatorEquipment;
+        CraftingTime = 10;
         SizeInInventory = new Vector2Int(2, 2);
         TechGroup = TechGroup.Personal;
         TechCategory = TechCategory.Equipment;
@@ -32,15 +35,6 @@ public sealed class Gymbag : ItemPrefab
         QuickSlotType = QuickSlotType.Selectable;
         RequiredForUnlock = ModItems.Ermfish;
         CloneTechType = BagTechType;
-    }
-
-    protected override void AddGadgets()
-    {
-        // make this an editor component?
-        CraftingGadget crafting = GetGadget<CraftingGadget>();
-        crafting.WithFabricatorType(CraftTree.Type.Fabricator);
-        crafting.WithStepsToFabricatorTab(CraftTreeHandler.Paths.FabricatorEquipment);
-        crafting.WithCraftingTime(10);
     }
 
     protected override void ModifyPrefab(GameObject prefab)
