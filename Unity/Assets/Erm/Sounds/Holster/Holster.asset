@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
+  m_Script: {fileID: 148651702, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
   m_Name: Holster
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   sounds:
   - {fileID: 8300000, guid: 719b08eeef0477246a7e152ead3cb668, type: 3}
   - {fileID: 8300000, guid: bd01c6e36585f9d4aa76f44e76f3e980, type: 3}

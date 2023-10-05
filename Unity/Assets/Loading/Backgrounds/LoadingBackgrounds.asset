@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce23d796e6e39d448a527d5b502a7f60, type: 3}
+  m_Script: {fileID: -1978658361, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
   m_Name: LoadingBackgrounds
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   backgrounds:
   - {fileID: 11400000, guid: a3d95dc5fdf6f4c469f266fb7102048f, type: 2}
   - {fileID: 11400000, guid: c0202feaf741ece4c99b5e76a442d2fa, type: 2}

@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Version>1.0.0</Version>
         <Authors>Alexejhero</Authors>
         <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/Alexejhero/Vedal-Subnautica-Mod</RepositoryUrl>
+        <RepositoryUrl>https://github.com/Alexejhero/Neurosama-Subnautica-Mod</RepositoryUrl>
 
         <NoWarn>$(NoWarn);CS0436;CS0649;Publicizer001</NoWarn>
 
@@ -15,12 +15,16 @@
         <Configurations>Subnautica;BelowZero</Configurations>
         <Platforms>AnyCPU</Platforms>
 
-        <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
-        <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
+        <DebugSymbols>true</DebugSymbols>
+        <Optimize>false</Optimize>
     </PropertyGroup>
 
     <Import Project="Subnautica.props" Condition=" '$(Configuration)' == 'Subnautica' " />
     <Import Project="BelowZero.props" Condition=" '$(Configuration)' == 'BelowZero' " />
+
+    <ItemGroup>
+      <ProjectReference Include="..\SCHIZO.Unity\SCHIZO.Unity.csproj" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="BepInEx.Core" Version="5.4.21" />
@@ -40,14 +44,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\Assets\**" LinkBase="Assets" />
-        <None Include="..\Unity\Assets\Scripts\Subnautica\**\*.cs" LinkBase="Unity\Unity\Subnautica" />
+        <None Include="..\Unity\Assets\Scripts\**\*.cs" LinkBase="Unity\Unity" />
 
         <None Remove="Resources\AssetBundles\AssetBundles" />
         <None Remove="Resources\AssetBundles\AssetBundles.manifest" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Compile Include="..\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity\Unity" />
     </ItemGroup>
 </Project>

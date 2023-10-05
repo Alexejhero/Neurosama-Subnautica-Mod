@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
+  m_Script: {fileID: 148651702, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
   m_Name: Drop
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   sounds:
   - {fileID: 8300000, guid: dd4f251a5376677438ef54575cbabe0b, type: 3}
   - {fileID: 8300000, guid: 0c2d66b29f9bd65429e88cf0ad88bf44, type: 3}

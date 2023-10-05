@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
+  m_Script: {fileID: 148651702, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
   m_Name: Cook
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   sounds:
   - {fileID: 8300000, guid: 3e81d87b23f543a4896dc24a00b839ef, type: 3}
   - {fileID: 8300000, guid: f7f0cf49bea06ea458d631aae6f4b573, type: 3}
