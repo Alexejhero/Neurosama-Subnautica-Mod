@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using ECCLibrary;
+﻿using ECCLibrary;
 using ECCLibrary.Data;
 using ECCLibrary.Mono;
 using Nautilus.Utility;
 using SCHIZO.Extensions;
 using SCHIZO.Sounds;
-using UnityEngine;
 
 namespace SCHIZO.Creatures.Tutel;
 

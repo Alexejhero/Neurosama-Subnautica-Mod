@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 843a8738be753824493dd34f3189392a, type: 3}
+  m_Script: {fileID: -498013294, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
   m_Name: Ermshark data
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 331975916181381980, guid: 780c2f9c5eee3bb4dbb353c55611eba7, type: 3}
+  m_EditorClassIdentifier:
+  regularPrefab: {fileID: 331975916181381980, guid: 780c2f9c5eee3bb4dbb353c55611eba7, type: 3}
   unlockSprite: {fileID: 21300000, guid: 85c36857a3ce21c49b2b3d2d1c09ecb6, type: 3}
   databankTexture: {fileID: 2800000, guid: b7a7f936052e6ec408b874b5daf76682, type: 3}
   databankText: {fileID: 4900000, guid: fa554e7d1e7ed174981f0e8702f16f2d, type: 3}

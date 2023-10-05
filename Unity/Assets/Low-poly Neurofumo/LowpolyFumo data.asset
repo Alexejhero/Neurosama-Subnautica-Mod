@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
+  m_Script: {fileID: 1497958888, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
   m_Name: LowpolyFumo data
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   prefab: {fileID: 6211233446793436948, guid: b97ed895269a0bb4081129ee39d862eb, type: 3}
   icon: {fileID: 21300000, guid: b3debbf84ec5e1540a8e45aafa512dd9, type: 3}
   sounds: {fileID: 0}

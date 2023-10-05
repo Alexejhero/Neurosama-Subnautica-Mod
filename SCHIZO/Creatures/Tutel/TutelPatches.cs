@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using HarmonyLib;
-using Nautilus.Handlers;
+﻿using Nautilus.Handlers;
 
 namespace SCHIZO.Creatures.Tutel;
 

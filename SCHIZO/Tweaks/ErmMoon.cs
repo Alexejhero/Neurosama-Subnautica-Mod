@@ -1,7 +1,6 @@
 ﻿using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
-using UnityEngine;
 
 namespace SCHIZO.Tweaks;
 

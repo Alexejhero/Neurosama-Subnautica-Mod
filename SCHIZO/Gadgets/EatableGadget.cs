@@ -1,8 +1,6 @@
-﻿using System;
-using ECCLibrary.Data;
+﻿using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
-using UnityEngine;
 
 namespace SCHIZO.Gadgets;
 

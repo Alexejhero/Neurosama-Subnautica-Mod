@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f32faa1dbc1bef34797d41f57d0271cd, type: 3}
+  m_Script: {fileID: 1735055072, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
   m_Name: Hull Plates
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   hiddenIcon: {fileID: 2800000, guid: dd5922de232c21945906cdb82544b37f, type: 3}
   deprecatedTexture: {fileID: 2800000, guid: 0457474d9d252ec498deb1383627ee73, type: 3}
   hullPlates:

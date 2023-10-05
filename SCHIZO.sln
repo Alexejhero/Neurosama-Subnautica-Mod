@@ -1,15 +1,17 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28729.10
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCHIZO", "SCHIZO\SCHIZO.csproj", "{B37C5667-2245-47BC-B268-AA7D2FE105FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCHIZO", "SCHIZO\SCHIZO.csproj", "{B37C5667-2245-47BC-B268-AA7D2FE105FE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Non-project Files", "Non-project Files", "{FEDF144D-4CF9-4C95-9E95-6A6344DCCE05}"
 	ProjectSection(SolutionItems) = preProject
 		nuget.config = nuget.config
 		README.md = README.md
+		Directory.Build.props = Directory.Build.props
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCHIZO.Unity", "SCHIZO.Unity\SCHIZO.Unity.csproj", "{AB86FECB-3D5D-40D1-82A0-8A4AF81C50B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.BelowZero|Any CPU.Build.0 = BelowZero|Any CPU
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Subnautica|Any CPU.ActiveCfg = Subnautica|Any CPU
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Subnautica|Any CPU.Build.0 = Subnautica|Any CPU
+		{AB86FECB-3D5D-40D1-82A0-8A4AF81C50B9}.BelowZero|Any CPU.ActiveCfg = Unity|Any CPU
+		{AB86FECB-3D5D-40D1-82A0-8A4AF81C50B9}.BelowZero|Any CPU.Build.0 = Unity|Any CPU
+		{AB86FECB-3D5D-40D1-82A0-8A4AF81C50B9}.Subnautica|Any CPU.ActiveCfg = Unity|Any CPU
+		{AB86FECB-3D5D-40D1-82A0-8A4AF81C50B9}.Subnautica|Any CPU.Build.0 = Unity|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0FCBA84-5FC1-4BF9-8266-B9788255358E}
 	EndGlobalSection
 EndGlobal

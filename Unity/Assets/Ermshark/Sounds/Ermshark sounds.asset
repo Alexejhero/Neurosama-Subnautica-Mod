@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0985a00ee6f8fe428ff0d0e09eba1b9, type: 3}
+  m_Script: {fileID: -1865531247, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
   m_Name: Ermshark sounds
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   ambientItemSounds: {fileID: 0}
   ambientWorldSounds: {fileID: 11400000, guid: 0d1e2f32135ed8640b34d5605f7cc7f2, type: 2}
   pickupSounds: {fileID: 0}
