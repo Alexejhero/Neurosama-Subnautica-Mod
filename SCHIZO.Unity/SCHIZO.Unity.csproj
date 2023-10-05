@@ -3,7 +3,7 @@
     <AssemblyName>SCHIZO.Unity</AssemblyName>
     <OutputType>Library</OutputType>
     <TargetFramework>net472</TargetFramework>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>preview</LangVersion>
     <Configurations>Editor;Game</Configurations>
     <Platforms>AnyCPU</Platforms>
     <RootNamespace>SCHIZO.Unity</RootNamespace>

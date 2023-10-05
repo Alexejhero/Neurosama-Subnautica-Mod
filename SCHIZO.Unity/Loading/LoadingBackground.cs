@@ -1,15 +1,11 @@
-﻿using NaughtyAttributes;
-using UnityEngine;
+﻿
+namespace SCHIZO.Unity.Loading;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Loading
+[CreateAssetMenu(menuName = "SCHIZO/Loading/Loading Background")]
+public sealed class LoadingBackground : ScriptableObject
 {
-    [CreateAssetMenu(menuName = "SCHIZO/Loading/Loading Background")]
-    public sealed class LoadingBackground : ScriptableObject
-    {
-        public Sprite art;
-        public string credit;
-        public string randomListId;
-        [EnumFlags] public Game game = Game.Subnautica | Game.BelowZero;
-    }
+    public Sprite art;
+    public string credit;
+    public string randomListId;
+    [EnumFlags] public Game game = Game.Subnautica | Game.BelowZero;
 }

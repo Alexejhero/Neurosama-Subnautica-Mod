@@ -1,17 +1,13 @@
-﻿using NaughtyAttributes;
-using UnityEngine;
+﻿
+namespace SCHIZO.Unity.HullPlates;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.HullPlates
+[CreateAssetMenu(menuName = "SCHIZO/Hull Plates/Hull Plate Collection")]
+public sealed class HullPlateCollection : ScriptableObject
 {
-    [CreateAssetMenu(menuName = "SCHIZO/Hull Plates/Hull Plate Collection")]
-    public sealed class HullPlateCollection : ScriptableObject
-    {
-        public Texture2D hiddenIcon;
-        public Texture2D deprecatedTexture;
-        [ReorderableList]
-        public HullPlate[] hullPlates;
-        [ReorderableList]
-        public HullPlate[] deprecatedHullPlates;
-    }
+    public Texture2D hiddenIcon;
+    public Texture2D deprecatedTexture;
+    [ReorderableList]
+    public HullPlate[] hullPlates;
+    [ReorderableList]
+    public HullPlate[] deprecatedHullPlates;
 }

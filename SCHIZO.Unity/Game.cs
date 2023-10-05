@@ -1,12 +1,9 @@
-﻿using System;
+﻿
+namespace SCHIZO.Unity;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity
+[Flags]
+public enum Game
 {
-    [Flags]
-    public enum Game
-    {
-        Subnautica = 1,
-        BelowZero = 2,
-    }
+    Subnautica = 1,
+    BelowZero = 2,
 }

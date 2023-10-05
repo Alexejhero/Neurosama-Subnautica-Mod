@@ -1,9 +1,7 @@
-﻿using System;
-using Nautilus.Assets;
+﻿using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using SCHIZO.Items;
 using SCHIZO.Sounds;
-using UnityEngine;
 
 namespace SCHIZO.Gadgets;
 

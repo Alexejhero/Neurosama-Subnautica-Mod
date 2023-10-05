@@ -5,7 +5,6 @@ using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Creatures;
-using UnityEngine;
 
 namespace SCHIZO.Creatures.Tutel;
 

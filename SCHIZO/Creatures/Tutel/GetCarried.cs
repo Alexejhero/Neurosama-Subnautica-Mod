@@ -1,7 +1,6 @@
 ﻿using Nautilus.Utility;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
-using UnityEngine;
 
 namespace SCHIZO.Creatures.Tutel;
 

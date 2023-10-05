@@ -1,39 +1,36 @@
-﻿using SCHIZO.Unity.Sounds;
-using UnityEngine;
+using SCHIZO.Unity.Sounds;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Creatures
+namespace SCHIZO.Unity.Creatures;
+
+[CreateAssetMenu(menuName = "SCHIZO/Creatures/Creature Sound Data")]
+public sealed class CreatureSoundData : ScriptableObject
 {
-    [CreateAssetMenu(menuName = "SCHIZO/Creatures/Creature Sound Data")]
-    public sealed class CreatureSoundData : ScriptableObject
-    {
-        [Space]
+    [Space]
 
-        public BaseSoundCollection ambientItemSounds;
-        public BaseSoundCollection ambientWorldSounds;
+    public BaseSoundCollection ambientItemSounds;
+    public BaseSoundCollection ambientWorldSounds;
 
-        [Space]
+    [Space]
 
-        public BaseSoundCollection pickupSounds;
-        public BaseSoundCollection dropSounds;
+    public BaseSoundCollection pickupSounds;
+    public BaseSoundCollection dropSounds;
 
-        [Space]
+    [Space]
 
-        public BaseSoundCollection drawSounds;
-        public BaseSoundCollection holsterSounds;
+    public BaseSoundCollection drawSounds;
+    public BaseSoundCollection holsterSounds;
 
-        [Space]
+    [Space]
 
-        public BaseSoundCollection cookSounds;
-        public BaseSoundCollection eatSounds;
+    public BaseSoundCollection cookSounds;
+    public BaseSoundCollection eatSounds;
 
-        [Space]
+    [Space]
 
-        public BaseSoundCollection hurtSounds;
-        public BaseSoundCollection attackSounds;
+    public BaseSoundCollection hurtSounds;
+    public BaseSoundCollection attackSounds;
 
-        [Space]
+    [Space]
 
-        public BaseSoundCollection scanSounds;
-    }
+    public BaseSoundCollection scanSounds;
 }

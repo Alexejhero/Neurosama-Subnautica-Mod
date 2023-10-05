@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using FMOD.Studio;
 using FMODUnity;
@@ -8,7 +7,6 @@ using Nautilus.Commands;
 using SCHIZO.Attributes;
 using SCHIZO.Extensions;
 using SCHIZO.Helpers;
-using UnityEngine;
 
 namespace SCHIZO;
 

@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+using System.Collections.Generic;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Sounds
+namespace SCHIZO.Unity.Sounds;
+
+public abstract class BaseSoundCollection : ScriptableObject
 {
-    public abstract class BaseSoundCollection : ScriptableObject
-    {
-        public abstract IEnumerable<AudioClip> GetSounds();
-    }
+    public abstract IEnumerable<AudioClip> GetSounds();
 }
