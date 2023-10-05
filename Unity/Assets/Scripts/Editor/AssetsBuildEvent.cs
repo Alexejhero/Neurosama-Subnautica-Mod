@@ -46,6 +46,8 @@ public static class AssetsBuildEvent
                 string capitalizedAssetName = AssetDatabase.GUIDToAssetPath(AssetDatabase.AssetPathToGUID(asset));
                 UnityEngine.Object[] assets = AssetDatabase.LoadAllAssetsAtPath(asset);
 
+                if (!asset.StartsWith("assets/")) throw new Exception("Don't know how to handle asset: " + asset);
+
                 if (assets.Length == 1)
                 {
                     result.Add((capitalizedAssetName.Substring(7), assets[0].GetType()));
@@ -93,7 +95,7 @@ public static class {GetCleanName(className)}
 
         foreach ((string asset, Type type) in assets)
         {
-            builder.AppendLine($@"    public static {type.FullName} {GetCleanName(asset)} = _a.LoadAsset<{type.FullName}>(""{asset}"");");
+            builder.AppendLine($@"    public static {type.FullName} {GetCleanName(asset)} = _a.LoadAsset<{type.FullName}>(""Assets/{asset}"");");
         }
 
         builder.AppendLine("}");
