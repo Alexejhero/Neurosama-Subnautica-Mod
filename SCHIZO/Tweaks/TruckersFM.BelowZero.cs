@@ -32,7 +32,7 @@ public static class TruckersFM
     private static void InitStream(Jukebox jukebox)
     {
         Jukebox.ERRCHECK(RuntimeManager.CoreSystem.createSound(jukebox._file, MODE._3D | MODE.CREATESTREAM | MODE.NONBLOCKING | MODE._3D_LINEARSQUAREROLLOFF, ref jukebox._exinfo, out jukebox._sound));
-        jukebox.SetInfo(jukebox._file, new() { label = "TruckersFM", length = 0 });
+        jukebox.SetInfo(jukebox._file, new Jukebox.TrackInfo { label = "TruckersFM", length = 0 });
         jukebox._instance!?.SetPositionKnobVisible(false);
     }
 
@@ -52,7 +52,7 @@ public static class TruckersFM
                 : "TruckersFM";
             if (!__instance._info.TryGetValue(__instance._file, out Jukebox.TrackInfo info) || info.label != label)
             {
-                __instance.SetInfo(__instance._file, new() { label = label, length = 0 });
+                __instance.SetInfo(__instance._file, new Jukebox.TrackInfo { label = label, length = 0 });
             }
         }
         return false;

@@ -9,7 +9,7 @@
     <Import Project="BelowZero.props" Condition=" '$(Configuration)' == 'BelowZero' " />
 
     <ItemGroup>
-      <ProjectReference Include="..\SCHIZO.Unity\SCHIZO.Unity.csproj" />
+        <ProjectReference Include="$(SolutionDir)\SCHIZO.Unity\SCHIZO.Unity.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -28,6 +28,7 @@
         <EmbeddedResource Remove="Resources\AssetBundles\*.manifest" />
 
         <EmbeddedResource Include="$(SolutionDir)\SCHIZO.Unity\bin\Unity\net472\SCHIZO.Unity.dll" LinkBase="Resources\Assemblies" />
+        <EmbeddedResource Include="$(SolutionDir)\Unity\Library\ScriptAssemblies\NaughtyAttributes.Core.dll" LinkBase="Resources\Assemblies" />
     </ItemGroup>
 
     <ItemGroup>

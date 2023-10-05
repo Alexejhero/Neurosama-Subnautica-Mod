@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using SCHIZO.Unity.Materials;
 
-namespace SCHIZO.Unity.Materials;
+namespace SCHIZO.Extensions;
 
 public static class MaterialRemapperExtensions
 {

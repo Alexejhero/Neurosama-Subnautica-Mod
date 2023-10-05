@@ -81,17 +81,6 @@ AssetBundles
 
 /Library/*
 !/Library/
-
-/Library/PackageCache/*
-!/Library/PackageCache/
-/Library/PackageCache/com.5pdev.harmony-for-unity@c70f19acfa/*
-!/Library/PackageCache/com.5pdev.harmony-for-unity@c70f19acfa/
-/Library/PackageCache/com.5pdev.harmony-for-unity@c70f19acfa/Editor/*
-!/Library/PackageCache/com.5pdev.harmony-for-unity@c70f19acfa/Editor/
-/Library/PackageCache/com.5pdev.harmony-for-unity@c70f19acfa/Editor/Plugins/*
-!/Library/PackageCache/com.5pdev.harmony-for-unity@c70f19acfa/Editor/Plugins/
-!/Library/PackageCache/com.5pdev.harmony-for-unity@c70f19acfa/Editor/Plugins/0Harmony.dll
-
 /Library/ScriptAssemblies/*
 !/Library/ScriptAssemblies/
 !/Library/ScriptAssemblies/NaughtyAttributes.Core.dll

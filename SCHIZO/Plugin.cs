@@ -5,11 +5,12 @@ using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
 using SCHIZO.Unity;
+using SCHIZO.Unity.Materials;
 
 namespace SCHIZO;
 
 [BepInPlugin("SCHIZO", "Neuro-sama Mod", "1.0.0")]
-public class Plugin : BaseUnityPlugin
+public sealed class Plugin : BaseUnityPlugin
 {
 #if BELOWZERO
     public static bool IS_SUBNAUTICA => false;
@@ -30,11 +31,11 @@ public class Plugin : BaseUnityPlugin
         LOGGER = Logger;
         DependencyResolver.InjectResources();
 
+        Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+
         LoadMethodAttribute.LoadAll();
         LoadComponentAttribute.AddAll(gameObject);
         LoadConsoleCommandsAttribute.RegisterAll();
         LoadCreatureAttribute.RegisterAll();
-
-        Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;

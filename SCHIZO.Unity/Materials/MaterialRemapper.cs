@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace SCHIZO.Unity.Materials;
 
-public sealed partial class MaterialRemapper : MonoBehaviour
+public sealed class MaterialRemapper : MonoBehaviour
 {
     public MaterialRemapConfig config;
 
