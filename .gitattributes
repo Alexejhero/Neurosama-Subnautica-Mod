@@ -1,0 +1,3 @@
+SCHIZO/Resources/AssetBundles/* merge=ours
+Unity/Assets/Scripts/SCHIZO.Unity/SCHIZO.Unity.dll merge=ours
+Unity/Library/ScriptAssemblies/NaughtyAttributes.Core.dll merge=ours
