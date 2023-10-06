@@ -10,13 +10,7 @@ public static class DependencyResolver
     public static void InjectResources()
     {
         LOGGER.LogInfo("Added assembly resolve hook");
-
-        // FieldInfo field = AccessTools.Field(typeof(AppDomain), "AssemblyResolve");
-        // ResolveEventHandler handler = (ResolveEventHandler) field.GetValue(AppDomain.CurrentDomain);
-        // field.SetValue(AppDomain.CurrentDomain, null);
-
         AppDomain.CurrentDomain.AssemblyResolve += ResolveDependencies;
-        // AppDomain.CurrentDomain.AssemblyResolve += handler;
     }
 
     private static Assembly ResolveDependencies(object _, ResolveEventArgs args)
