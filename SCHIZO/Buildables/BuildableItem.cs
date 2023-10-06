@@ -34,7 +34,7 @@ public sealed class BuildableItem : ItemPrefab
 
         _oldVersions.Add(new BuildableItem(oldClassId, modItem.DisplayName + " (OLD VERSION, PLEASE REBUILD)", modItem.Tooltip + " (OLD VERSION, PLEASE REBUILD)")
         {
-            ItemData = ItemData,
+            UnityItemData = UnityItemData,
             Recipe = Recipe,
             DisableSounds = true,
         });
@@ -44,7 +44,7 @@ public sealed class BuildableItem : ItemPrefab
 
     protected override void AddGadgets()
     {
-        if (!DisableSounds && ItemData.sounds) this.SetSounds(new(ItemData.sounds, INDOOR_SOUNDS_BUS));
+        if (!DisableSounds && UnityItemData.sounds) this.SetSounds(new(UnityItemData.sounds, INDOOR_SOUNDS_BUS));
     }
 
     protected override void ModifyPrefab(GameObject prefab)

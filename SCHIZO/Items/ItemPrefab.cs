@@ -20,7 +20,7 @@ public abstract class ItemPrefab : CustomPrefab
         Object.DontDestroyOnLoad(_keepAliveParent);
     }
 
-    public ItemData ItemData { get; init; }
+    public ItemData UnityItemData { get; init; }
     public TechGroup TechGroup { get; init; } = TechGroup.Uncategorized;
     public TechCategory TechCategory { get; init; }
     public RecipeData Recipe { get; init; }
@@ -61,7 +61,7 @@ public abstract class ItemPrefab : CustomPrefab
 
     private void AddBasicGadgets()
     {
-        if (ItemData!?.icon) Info.WithIcon(ItemData.icon);
+        if (UnityItemData!?.icon) Info.WithIcon(UnityItemData.icon);
         Info.WithSizeInInventory(new Vector2int(SizeInInventory.x, SizeInInventory.y));
 
         CraftingGadget crafting = this.SetRecipe(Recipe);
@@ -100,7 +100,7 @@ public abstract class ItemPrefab : CustomPrefab
 
     protected virtual GameObject GetPrefab()
     {
-        GameObject instance = Object.Instantiate(ItemData.prefab, _keepAliveParent);
+        GameObject instance = Object.Instantiate(UnityItemData.prefab, _keepAliveParent);
         PrefabUtils.AddBasicComponents(instance, Info.ClassID, Info.TechType, CellLevel);
 
         ModifyPrefab(instance);

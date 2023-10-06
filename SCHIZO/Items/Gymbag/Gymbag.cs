@@ -22,7 +22,7 @@ public sealed class Gymbag : ItemPrefab
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
     public Gymbag(ModItem modItem) : base(modItem)
     {
-        ItemData = Assets.Gymbag_GymbagData;
+        UnityItemData = Assets.Gymbag_GymbagData;
         Recipe = new RecipeData(new Ingredient(BagTechType, 1), new Ingredient(ModItems.Ermfish, 1), new Ingredient(TechType.PosterKitty, 1));
         FabricatorType = CraftTree.Type.Fabricator;
         FabricatorPath = CraftTreeHandler.Paths.FabricatorEquipment;
@@ -45,7 +45,7 @@ public sealed class Gymbag : ItemPrefab
         GameObject baseModel = prefab.GetComponentInChildren<Renderer>().gameObject;
         baseModel.SetActive(false);
 
-        GameObject instance = Object.Instantiate(ItemData.prefab, baseModel.transform.parent);
+        GameObject instance = Object.Instantiate(UnityItemData.prefab, baseModel.transform.parent);
 
         PrefabUtils.AddVFXFabricating(instance, null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero);
     }
