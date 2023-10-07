@@ -45,6 +45,7 @@ public static class AssetsBuildEvent
             {
                 string capitalizedAssetName = AssetDatabase.GUIDToAssetPath(AssetDatabase.AssetPathToGUID(asset));
                 UnityEngine.Object[] assets = AssetDatabase.LoadAllAssetsAtPath(asset);
+                UnityEngine.Object main = AssetDatabase.LoadMainAssetAtPath(asset);
 
                 if (!asset.StartsWith("assets/")) throw new Exception("Don't know how to handle asset: " + asset);
 
@@ -54,7 +55,7 @@ public static class AssetsBuildEvent
                 }
                 else
                 {
-                    result.Add((capitalizedAssetName.Substring(7), HandleMultipleAssets(assets, asset).GetType()));
+                    result.Add((capitalizedAssetName.Substring(7), HandleMultipleAssets(assets, main, asset).GetType()));
                 }
             }
 
@@ -64,12 +65,14 @@ public static class AssetsBuildEvent
         }
     }
 
-    private static UnityEngine.Object HandleMultipleAssets(UnityEngine.Object[] objects, string path)
+    private static UnityEngine.Object HandleMultipleAssets(UnityEngine.Object[] objects, UnityEngine.Object main, string path)
     {
+        if (main is GameObject) return main;
+
         if (objects[0] is Texture2D && objects[1] is Sprite sprite1) return sprite1;
         if (objects[0] is Sprite sprite2 && objects[1] is Texture2D) return sprite2;
 
-        throw new Exception($"Don't know how to handle multiple assets: {path}");
+        throw new Exception($"Don't know how to handle multiple assets: {path} - {string.Join(", ", objects.Select(t => t.GetType().Name))}");
     }
 
     private static string GetCode(string className, List<(string, Type)> assets)

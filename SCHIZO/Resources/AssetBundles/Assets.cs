@@ -35,4 +35,5 @@ public static class Assets
     public static SCHIZO.Unity.Sounds.CombinedSoundCollection Tutel_Sounds_GetCarried_CarryByErmshark = _a.LoadAsset<SCHIZO.Unity.Sounds.CombinedSoundCollection>("Assets/Tutel/Sounds/Get Carried/Carry by ermshark.asset");
     public static SCHIZO.Unity.Sounds.CombinedSoundCollection Tutel_Sounds_GetCarried_PickupByErmshark = _a.LoadAsset<SCHIZO.Unity.Sounds.CombinedSoundCollection>("Assets/Tutel/Sounds/Get Carried/Pickup by ermshark.asset");
     public static SCHIZO.Unity.Creatures.PickupableCreatureData Tutel_TutelData = _a.LoadAsset<SCHIZO.Unity.Creatures.PickupableCreatureData>("Assets/Tutel/Tutel data.asset");
+    public static UnityEngine.GameObject WithoutEcclibraryTestVariant = _a.LoadAsset<UnityEngine.GameObject>("Assets/Without ecclibrary test Variant.prefab");
 }

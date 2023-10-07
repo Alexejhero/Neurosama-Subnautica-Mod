@@ -9,10 +9,12 @@ public sealed class ErmsharkBehaviour : Creature, IOnTakeDamage
 
     private SoundPlayer _hurtSounds;
 
+#if !UNITY
     private void Awake()
     {
         _hurtSounds = CreatureSoundsHandler.GetCreatureSounds(ModItems.Ermshark).HurtSounds;
     }
+#endif
 
     public void OnTakeDamage(DamageInfo damageInfo)
     {

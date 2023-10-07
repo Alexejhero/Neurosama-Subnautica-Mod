@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5fc571188fd482ea82c2bafcbeb912d, type: 3}
   m_Name: LiveMixinData
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 20
   weldable: 0
   knifeable: 1
   destroyOnDeath: 0
