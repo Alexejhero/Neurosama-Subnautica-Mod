@@ -15,6 +15,7 @@ public static class Assets
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
         
     public static SCHIZO.Unity.Creatures.CustomCreatureData Anneel_AnneelData = _a.LoadAsset<SCHIZO.Unity.Creatures.CustomCreatureData>("Assets/Anneel/Anneel data.asset");
+    public static SCHIZO.Unity.Sounds.SoundCollection Credits_SNEasterEgg = _a.LoadAsset<SCHIZO.Unity.Sounds.SoundCollection>("Assets/Credits/SN Easter Egg.asset");
     public static SCHIZO.Unity.Items.ItemData Erm_BuildableErmData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Erm/Buildable erm data.asset");
     public static SCHIZO.Unity.Creatures.PickupableCreatureData Erm_ErmfishData = _a.LoadAsset<SCHIZO.Unity.Creatures.PickupableCreatureData>("Assets/Erm/Ermfish data.asset");
     public static UnityEngine.Sprite Erm_Icons_Erm = _a.LoadAsset<UnityEngine.Sprite>("Assets/Erm/Icons/erm.png");
@@ -29,7 +30,6 @@ public static class Assets
     public static SCHIZO.Unity.Items.ItemData LowPolyNeurofumo_LowpolyFumoData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Low-poly Neurofumo/LowpolyFumo data.asset");
     public static SCHIZO.Unity.Items.ItemData NeurofumoNew_FumoData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/NeurofumoNew/Fumo data.asset");
     public static SCHIZO.Unity.Items.ItemData Neurooper_NeurooperData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Neurooper/Neurooper data.asset");
-    public static SCHIZO.Unity.Sounds.SoundCollection SNEasterEgg = _a.LoadAsset<SCHIZO.Unity.Sounds.SoundCollection>("Assets/SN Easter Egg.asset");
     public static SCHIZO.Unity.Items.ItemData Tutel_BuildableTutelData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Tutel/Buildable tutel data.asset");
     public static SCHIZO.Unity.Sounds.SoundCollection Tutel_Sounds_Ambient_TutelAmbient = _a.LoadAsset<SCHIZO.Unity.Sounds.SoundCollection>("Assets/Tutel/Sounds/Ambient/Tutel Ambient.asset");
     public static SCHIZO.Unity.Sounds.CombinedSoundCollection Tutel_Sounds_GetCarried_CarryByErmshark = _a.LoadAsset<SCHIZO.Unity.Sounds.CombinedSoundCollection>("Assets/Tutel/Sounds/Get Carried/Carry by ermshark.asset");

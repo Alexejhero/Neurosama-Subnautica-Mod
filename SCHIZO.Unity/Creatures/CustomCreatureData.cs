@@ -12,4 +12,7 @@ public class CustomCreatureData : ScriptableObject
     [BoxGroup("Databank Info")] public TextAsset databankText;
 
     [BoxGroup("Creature Sounds")][FormerlySerializedAs("sounds")] public CreatureSoundData soundData;
+
+    [BoxGroup("Creature Data")] public bool AcidImmune = true;
+    [BoxGroup("Creature Data")] public float BioReactorCharge = 0;
 }

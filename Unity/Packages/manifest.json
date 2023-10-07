@@ -3,6 +3,7 @@
     "com.5pdev.harmony-for-unity": "https://github.com/5PDEV/Harmony-For-Unity.git",
     "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
     "com.unity.2d.sprite": "1.0.0",
+    "com.unity.addressables": "1.18.19",
     "com.unity.assetbundlebrowser": "https://github.com/Unity-Technologies/AssetBundles-Browser.git",
     "com.unity.ide.rider": "1.2.1",
     "com.unity.ide.visualstudio": "2.0.21",
