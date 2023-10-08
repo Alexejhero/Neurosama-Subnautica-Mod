@@ -22,7 +22,7 @@ public class FumoItem : ItemPrefab
     [SetsRequiredMembers]
     public FumoItem(ModItem modItem) : base(modItem)
     {
-        ItemData = ResourceManager.LoadAsset<ItemData>("Fumo data");
+        ItemData = Assets.NeurofumoNew_FumoData;
         Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.JeweledDiskPiece, 1), new Ingredient(TechType.Gold, 1));
         TechGroup = TechGroup.Personal;
         TechCategory = TechCategory.Equipment;
@@ -46,7 +46,10 @@ public class FumoItem : ItemPrefab
         WorldForces gravity = prefab.EnsureComponent<WorldForces>();
         FumoItemTool tool = prefab.AddComponent<FumoItemTool>();
         tool.ikAimLeftArm = true;
-        tool.useLeftAimTargetOnPlayer = true;
+        tool.ikAimRightArm = true;
+        //tool.useLeftAimTargetOnPlayer = true;
+        tool.leftHandIKTarget = prefab.transform.Find("VM/IK_LeftHand");
+        tool.rightHandIKTarget = prefab.transform.Find("VM/IK_RightHand");
         //tool.mainCollider = prefab.GetComponentInChildren<Collider>();
 #if BELOWZERO
         tool.ikAimLookDownAngleLimit = 60f;

@@ -4,10 +4,8 @@ namespace SCHIZO.Items.FumoItem;
 
 public sealed partial class FumoItemTool : CustomPlayerTool
 {
-    private float hugStartTime;
-    private const float hugAttackDuration = 0.15f;
-    private const float hugReleaseDuration = 0.2f;
-    private float hugStopTime;
+    private const float hugTransitionDuration = 0.2f;
+    private float hugDistScale;
     private const float hugCooldown = 1f;
     private float nextHugTime;
 
@@ -26,6 +24,10 @@ public sealed partial class FumoItemTool : CustomPlayerTool
         hasPrimaryUse = true;
         primaryUseTextLanguageString = "Hug ({0})";
         holsterTime = 0.1f;
+
+#warning DEV
+        hasAltUse = true;
+        altUseTextLanguageString = "Face me ({0})";
 
         base.Awake();
     }
@@ -52,18 +54,25 @@ public sealed partial class FumoItemTool : CustomPlayerTool
         return base.OnRightHandUp();
     }
 
+    public override bool OnAltHeld()
+    {
+        Transform vm = transform.Find("VM");
+        vm.LookAt(usingPlayer.transform.position with { y = vm.position.y });
+        return base.OnAltHeld();
+    }
+
     private Vector3 chestOffset = new(0, -0.3f, 0);
 
     public void Update()
     {
         if (!usingPlayer) return;
 
-        float time = Time.time;
-        float distScale = isHugging
-            ? (time - hugStartTime) / hugAttackDuration
-            : 1 - (time - hugStopTime) / hugReleaseDuration;
+        float delta = Time.deltaTime / hugTransitionDuration;
+        hugDistScale = isHugging
+            ? Mathf.Min(1, hugDistScale + delta)
+            : Mathf.Max(0, hugDistScale - delta);
 
-        UpdateHugPos(distScale);
+        UpdateHugPos(hugDistScale);
     }
 
     private void UpdateHugPos(float distScale)
@@ -79,7 +88,6 @@ public sealed partial class FumoItemTool : CustomPlayerTool
     {
         if (isHugging || !usingPlayer) return;
         isHugging = true;
-        hugStartTime = Time.time;
 
         if (hugEffectApplied) return;
         ApplyMoveSpeedMulti(hugMoveSpeedMulti);
@@ -91,7 +99,6 @@ public sealed partial class FumoItemTool : CustomPlayerTool
     {
         if (!isHugging || !usingPlayer) return;
         isHugging = false;
-        hugStopTime = Time.time;
         nextHugTime = Time.time + hugCooldown;
 
         if (!hugEffectApplied) return;
