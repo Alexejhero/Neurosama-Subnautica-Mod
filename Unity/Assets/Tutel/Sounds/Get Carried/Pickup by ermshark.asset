@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1073080960, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
+  m_Script: {fileID: 11500000, guid: ba38fe8ff638c22429fb7f75186ae629, type: 3}
   m_Name: Pickup by ermshark
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   combineWith:
   - {fileID: 11400000, guid: b91ed69d7bd774343bb87f1d71e74242, type: 2}
   - {fileID: 11400000, guid: e34bb3771b2e20c48bef879692155b45, type: 2}

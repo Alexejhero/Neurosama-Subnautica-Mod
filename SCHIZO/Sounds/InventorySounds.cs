@@ -1,3 +1,7 @@
+using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
 namespace SCHIZO.Sounds;
 
 public sealed class InventorySounds : MonoBehaviour

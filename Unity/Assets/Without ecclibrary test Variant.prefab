@@ -315,7 +315,7 @@ PrefabInstance:
     - target: {fileID: 5049378406231838710, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: m_Name
-      value: Without ecclibrary test
+      value: Without ecclibrary test Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5575522010524556322, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}

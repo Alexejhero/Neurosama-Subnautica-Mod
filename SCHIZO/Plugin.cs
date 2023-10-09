@@ -1,6 +1,8 @@
+global using static SCHIZO.Plugin;
 using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
+using HarmonyLib;
 using Nautilus.Assets;
 using Nautilus.Handlers;
 using Nautilus.Utility;
@@ -8,7 +10,7 @@ using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Unity;
-using SCHIZO.Unity.Materials;
+using UnityEngine;
 
 namespace SCHIZO;
 
@@ -46,9 +48,9 @@ public sealed class Plugin : BaseUnityPlugin
         {
             GameObject parent = new();
             parent.SetActive(false);
-            GameObject.DontDestroyOnLoad(parent);
+            DontDestroyOnLoad(parent);
 
-            GameObject instance = GameObject.Instantiate(Assets.WithoutEcclibraryTestVariant, parent.transform);
+            GameObject instance = Instantiate(Assets.WithoutEcclibraryTestVariant, parent.transform);
             instance.SetActive(false);
 
             PrefabUtils.AddBasicComponents(instance, prefab.Info.ClassID, prefab.Info.TechType, LargeWorldEntity.CellLevel.Medium);

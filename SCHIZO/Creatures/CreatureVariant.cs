@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
 using ECCLibrary;
 using ECCLibrary.Data;
@@ -7,9 +8,9 @@ using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
-using SCHIZO.Extensions;
 using SCHIZO.Gadgets;
 using SCHIZO.Unity.Materials;
+using UnityEngine;
 
 namespace SCHIZO.Creatures;
 

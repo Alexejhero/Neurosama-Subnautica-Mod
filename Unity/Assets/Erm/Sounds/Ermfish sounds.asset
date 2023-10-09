@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1865531247, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
+  m_Script: {fileID: 11500000, guid: c0985a00ee6f8fe428ff0d0e09eba1b9, type: 3}
   m_Name: Ermfish sounds
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   ambientItemSounds: {fileID: 11400000, guid: 3de2ffb6cd5e6404fb0bcdccfc44fa46, type: 2}
   ambientWorldSounds: {fileID: 11400000, guid: 3de2ffb6cd5e6404fb0bcdccfc44fa46, type: 2}
   pickupSounds: {fileID: 11400000, guid: f247414bf2966cf47aaafd9366ae6ca4, type: 2}
@@ -21,4 +21,5 @@ MonoBehaviour:
   cookSounds: {fileID: 11400000, guid: 5f9bffa48791b084487973927c5a3901, type: 2}
   eatSounds: {fileID: 11400000, guid: 411f4ebbddbe2ea48b4129b7e8c80fab, type: 2}
   hurtSounds: {fileID: 11400000, guid: 4f47d8b7127a0234ea057da7472d7808, type: 2}
+  attackSounds: {fileID: 0}
   scanSounds: {fileID: 11400000, guid: 1138c2d796e81ac43a4f257daf9651b7, type: 2}

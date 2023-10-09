@@ -6,6 +6,7 @@ using Nautilus.Crafting;
 using Nautilus.Utility;
 using SCHIZO.Helpers;
 using SCHIZO.Unity.Items;
+using UnityEngine;
 
 namespace SCHIZO.Items;
 

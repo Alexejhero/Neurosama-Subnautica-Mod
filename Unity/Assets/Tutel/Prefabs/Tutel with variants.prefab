@@ -15,7 +15,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -76,9 +76,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4463756545717353907}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1239824181, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Script: {fileID: 11500000, guid: 4b93b17f04e7625439c2c966b8343ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 95d09df62e813e04290fdaf23aba68d5, type: 2}
 --- !u!1 &4778239750592779107
 GameObject:

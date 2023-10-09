@@ -5,7 +5,7 @@
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
-#/[Ll]ibrary/
+/[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
@@ -78,9 +78,3 @@ crashlytics-build.properties
 
 AssetBundles
 .vscode/
-
-/Library/*
-!/Library/
-/Library/ScriptAssemblies/*
-!/Library/ScriptAssemblies/
-!/Library/ScriptAssemblies/NaughtyAttributes.Core.dll

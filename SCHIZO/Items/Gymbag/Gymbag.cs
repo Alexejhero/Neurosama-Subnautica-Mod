@@ -4,6 +4,7 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Attributes;
 using SCHIZO.Resources;
+using UnityEngine;
 
 namespace SCHIZO.Items.Gymbag;
 

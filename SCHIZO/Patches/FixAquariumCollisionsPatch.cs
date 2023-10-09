@@ -1,4 +1,7 @@
-﻿namespace SCHIZO.Patches;
+﻿using HarmonyLib;
+using UnityEngine;
+
+namespace SCHIZO.Patches;
 
 [HarmonyPatch]
 public static class FixAquariumCollisionsPatch

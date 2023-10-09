@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using FMOD;
 using FMODUnity;
@@ -6,6 +8,7 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.DataStructures;
 using SCHIZO.Unity.Sounds;
+using UnityEngine;
 using UWE;
 
 namespace SCHIZO.Sounds;

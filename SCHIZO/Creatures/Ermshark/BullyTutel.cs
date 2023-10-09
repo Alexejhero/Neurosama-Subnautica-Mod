@@ -1,5 +1,6 @@
 ﻿using ProtoBuf;
 using SCHIZO.Creatures.Tutel;
+using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 

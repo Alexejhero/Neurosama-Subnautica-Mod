@@ -22,13 +22,14 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Compile Include="..\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity\Unity" />
+    </ItemGroup>
+
+    <ItemGroup>
         <EmbeddedResource Include="Resources\**" />
         <EmbeddedResource Remove="Resources\**\*.cs" />
         <EmbeddedResource Remove="Resources\AssetBundles\AssetBundles" />
         <EmbeddedResource Remove="Resources\AssetBundles\*.manifest" />
-
-        <EmbeddedResource Include="$(SolutionDir)\SCHIZO.Unity\bin\Unity\net472\SCHIZO.Unity.dll" LinkBase="Resources\Assemblies" />
-        <EmbeddedResource Include="$(SolutionDir)\Unity\Library\ScriptAssemblies\NaughtyAttributes.Core.dll" LinkBase="Resources\Assemblies" />
     </ItemGroup>
 
     <ItemGroup>

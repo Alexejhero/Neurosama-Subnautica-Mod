@@ -1,4 +1,5 @@
 ﻿using ECCLibrary.Data;
+using UnityEngine;
 
 namespace SCHIZO.Creatures;
 

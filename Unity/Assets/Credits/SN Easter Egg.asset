@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 148651702, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
   m_Name: SN Easter Egg
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   sounds:
   - {fileID: 8300000, guid: a66c726af7eee4540a07f445c4973459, type: 3}
   - {fileID: 8300000, guid: 0b77b3317b7557a4a8d68fa1a4b7369f, type: 3}

@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -908848096, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
+  m_Script: {fileID: 11500000, guid: 5df6808d44fd4c89a99b4a7174c7bac7, type: 3}
   m_Name: Remap_cured
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   remapName: cured
   materials:
   - {fileID: 2100000, guid: 161c473a051527e42a963c13b5b55db2, type: 2}

@@ -146,7 +146,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5049378406231838710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -201739907, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
+  m_Script: {fileID: 11500000, guid: 26219f559424c634b99ea94d612675b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   physicMaterial: {fileID: 0}
@@ -245,9 +245,9 @@ MonoBehaviour:
   locomotion: {fileID: 3355967264055822965}
   useRigidbody: {fileID: 206030070557398098}
   levelOfDetail: {fileID: 6599366016390251773}
-  targetRange: 0
-  lookAhead: 0
-  respectLOD: 0
+  targetRange: 1
+  lookAhead: 1
+  respectLOD: 1
   inertia: 1
 --- !u!114 &6138648234696061935
 MonoBehaviour:
@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5049378406231838710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -149910349, guid: b3a1444f244aed443b07c0ef21043432, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ced542045b015443a6b6a2ec516286c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 0.1
@@ -1010,8 +1010,8 @@ MonoBehaviour:
   daysToGrow: 1
   isPickupableOutside: 1
   canBreed: 1
-  eggOrChildPrefab: {fileID: 5049378406231838710}
-  adultPrefab: {fileID: 0}
+  eggOrChildPrefabClassId: 
+  adultPrefabClassId: 
 --- !u!114 &1541211154025910576
 MonoBehaviour:
   m_ObjectHideFlags: 0

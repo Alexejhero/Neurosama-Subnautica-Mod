@@ -1,7 +1,9 @@
+using System.Collections;
 using ECCLibrary;
 using ECCLibrary.Data;
 using SCHIZO.Extensions;
 using SCHIZO.Sounds;
+using UnityEngine;
 
 namespace SCHIZO.Creatures.Anneel;
 

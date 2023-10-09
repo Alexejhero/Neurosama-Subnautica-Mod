@@ -1,4 +1,6 @@
-﻿using SCHIZO.Events.ErmCon;
+﻿using HarmonyLib;
+using SCHIZO.Events.ErmCon;
+using UnityEngine;
 
 namespace SCHIZO.Events;
 

@@ -9,7 +9,7 @@ public class SplineFollowing : MonoBehaviour
 
     [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float targetRange = 1;
     [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float lookAhead = 1;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool respectLOD;
+    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool respectLOD = true;
 
     [HideInInspector] public float inertia = 1;
 }
