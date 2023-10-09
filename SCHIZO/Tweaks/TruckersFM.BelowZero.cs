@@ -1,6 +1,7 @@
 ﻿using FMOD;
 using FMOD.Studio;
 using FMODUnity;
+using HarmonyLib;
 
 namespace SCHIZO.Tweaks;
 

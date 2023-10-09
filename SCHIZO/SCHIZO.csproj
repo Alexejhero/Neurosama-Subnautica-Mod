@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Configurations>Subnautica;BelowZero</Configurations>
-
         <NoWarn>$(NoWarn);CS0436;CS0649;Publicizer001;</NoWarn>
     </PropertyGroup>
 
@@ -19,7 +18,12 @@
 
     <ItemGroup>
         <Compile Include="..\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity\Unity" />
-        <Compile Remove="_old\**" />
+        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Items\Item.cs">
+          <Link>Unity\Unity\Items\Item.cs</Link>
+        </Compile>
+        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Items\Recipe_BZ.cs">
+          <Link>Unity\Unity\Items\Recipe_BZ.cs</Link>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -27,20 +31,18 @@
         <EmbeddedResource Remove="Resources\**\*.cs" />
         <EmbeddedResource Remove="Resources\AssetBundles\AssetBundles" />
         <EmbeddedResource Remove="Resources\AssetBundles\*.manifest" />
+        <None Remove="Resources\AssetBundles\AssetBundles" />
+        <None Remove="Resources\AssetBundles\AssetBundles.manifest" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Resources\AssetBundles\AssetBundles" />
-        <None Remove="Resources\AssetBundles\AssetBundles.manifest" />
+        <Compile Remove="_old\**" />
         <None Include="_old\**" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\Unity\Assets\Scripts\SCHIZO\Retargeting\BelowZero\TechCategory_BZ.cs.meta">
-        <Link>Unity\Unity\Retargeting\BelowZero\TechCategory_BZ.cs.meta</Link>
-      </Content>
-      <Content Include="..\Unity\Assets\Scripts\SCHIZO\Retargeting\Subnautica\TechCategory_SN.cs.meta">
-        <Link>Unity\Unity\Retargeting\Subnautica\TechCategory_SN.cs.meta</Link>
+      <Content Include="..\Unity\Assets\Scripts\SCHIZO\Retargeting\TechType_Common.cs.meta">
+        <Link>Unity\Unity\Retargeting\TechType_Common.cs.meta</Link>
       </Content>
     </ItemGroup>
 </Project>

@@ -20,6 +20,9 @@ public sealed class ModItem
         if (_registeredItems.Contains(data.classId)) throw new Exception("Item with classId " + data.classId + " has already been registered!");
         _registeredItems.Add(data.classId);
 
+        if (data.ModItem != null) throw new Exception("ItemData with classId " + data.classId + " has already been registered!");
+        data.ModItem = this;
+
         ItemData = data;
 
         PrefabInfo = PrefabInfo.WithTechType(data.classId, data.displayName, data.tooltip);

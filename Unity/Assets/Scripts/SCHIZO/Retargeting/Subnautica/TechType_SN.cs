@@ -1,4 +1,4 @@
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace SCHIZO.Unity.Retargeting.Subnautica
 {
     public enum TechType_SN

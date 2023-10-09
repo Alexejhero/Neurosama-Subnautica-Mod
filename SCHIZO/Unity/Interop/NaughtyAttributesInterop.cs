@@ -58,3 +58,10 @@ public class BoxGroupAttribute : Attribute
 public class EnumFlagsAttribute : Attribute
 {
 }
+
+public class ValidateInputAttribute : Attribute
+{
+    public ValidateInputAttribute(string callbackName, string message = null)
+    {
+    }
+}

@@ -30,6 +30,8 @@ namespace SCHIZO.Unity.Items
         public BaseSoundCollection sounds;
 
 #if !UNITY
+        public SCHIZO.Items.ModItem ModItem { get; set; }
+
         public TechGroup TechGroup => SCHIZO.Retargeting.TechGroup.Pick(techGroupSN, techGroupBZ);
         public TechCategory TechCategory => SCHIZO.Retargeting.TechCategory.Pick(techCategorySN, techCategoryBZ);
 #endif
