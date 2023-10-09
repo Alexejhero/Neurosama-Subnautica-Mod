@@ -41,7 +41,7 @@ public sealed class Plugin : BaseUnityPlugin
         LoadMethodAttribute.LoadAll();
         LoadComponentAttribute.AddAll(gameObject);
         LoadConsoleCommandsAttribute.RegisterAll();
-        LoadCreatureAttribute.RegisterAll();
+        // LoadCreatureAttribute.RegisterAll(); TODO
 
         /*CustomPrefab prefab = new("testermshark", "Test Ermshark", "");
         prefab.SetGameObject(() =>

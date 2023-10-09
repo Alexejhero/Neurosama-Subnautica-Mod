@@ -1,4 +1,7 @@
-﻿namespace SCHIZO;
+﻿using SCHIZO.Unity.Retargeting.BelowZero;
+using SCHIZO.Unity.Retargeting.Subnautica;
+
+namespace SCHIZO;
 
 public static class Retargeting
 {
@@ -12,5 +15,14 @@ public static class Retargeting
     {
         public const global::TechCategory CookedFood = global::TechCategory.FoodAndDrinks;
         public const global::TechCategory CuredFood = global::TechCategory.FoodAndDrinks;
+
+        public static global::TechCategory From(TechCategory_BZ value) => (global::TechCategory) value;
+        public static global::TechCategory Pick(TechCategory_SN sn, TechCategory_BZ bz) => From(bz);
+    }
+
+    public static class TechGroup
+    {
+        public static global::TechGroup From(TechGroup_BZ value) => (global::TechGroup) value;
+        public static global::TechGroup Pick(TechGroup_SN sn, TechGroup_BZ bz) => From(bz);
     }
 }

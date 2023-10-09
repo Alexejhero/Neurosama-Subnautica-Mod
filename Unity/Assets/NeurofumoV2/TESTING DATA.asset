@@ -19,5 +19,10 @@ MonoBehaviour:
     <size=75%>(Model by Kat)</size>'
   icon: {fileID: 21300000, guid: 45820c772f47f814d88babbafe7caa46, type: 3}
   itemSize: {x: 1, y: 1}
+  isBuildable: 1
+  techGroupSN: 13
+  techCategorySN: 24
+  techGroupBZ: 12
+  techCategoryBZ: 15
   prefab: {fileID: 656058450781834795, guid: 5a15aed96d8d1b84592bfbe203825ee4, type: 3}
   sounds: {fileID: 0}
