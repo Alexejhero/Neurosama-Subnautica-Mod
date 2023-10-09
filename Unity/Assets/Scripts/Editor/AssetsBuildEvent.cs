@@ -10,6 +10,7 @@ using HarmonyLib;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [HarmonyPatch, UsedImplicitly]
 public static class AssetsBuildEvent
@@ -93,6 +94,8 @@ namespace SCHIZO.Resources;
 
 public static class {GetCleanName(className)}
 {{
+    private const int _rnd = {Random.Range(int.MinValue, int.MaxValue)};
+
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle(""assets"");
         ");
 

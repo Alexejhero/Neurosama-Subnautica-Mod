@@ -12,6 +12,8 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
+    private const int _rnd = -1896087037;
+
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
         
     public static SCHIZO.Unity.Creatures.CustomCreatureData Anneel_AnneelData = _a.LoadAsset<SCHIZO.Unity.Creatures.CustomCreatureData>("Assets/Anneel/Anneel data.asset");
@@ -28,7 +30,7 @@ public static class Assets
     public static SCHIZO.Unity.Loading.LoadingBackgroundCollection Loading_Backgrounds_LoadingBackgrounds = _a.LoadAsset<SCHIZO.Unity.Loading.LoadingBackgroundCollection>("Assets/Loading/Backgrounds/LoadingBackgrounds.asset");
     public static UnityEngine.Texture2D Loading_LoadingIcon = _a.LoadAsset<UnityEngine.Texture2D>("Assets/Loading/loading icon.png");
     public static SCHIZO.Unity.Items.ItemData LowPolyNeurofumo_LowpolyFumoData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Low-poly Neurofumo/LowpolyFumo data.asset");
-    public static SCHIZO.Unity.Items.ItemData NeurofumoNew_FumoData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/NeurofumoNew/Fumo data.asset");
+    public static SCHIZO.Unity.Items.ItemData Neurofumo_FumoData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Neurofumo/Fumo data.asset");
     public static SCHIZO.Unity.Items.ItemData Neurooper_NeurooperData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Neurooper/Neurooper data.asset");
     public static SCHIZO.Unity.Items.ItemData Tutel_BuildableTutelData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Tutel/Buildable tutel data.asset");
     public static SCHIZO.Unity.Sounds.SoundCollection Tutel_Sounds_Ambient_TutelAmbient = _a.LoadAsset<SCHIZO.Unity.Sounds.SoundCollection>("Assets/Tutel/Sounds/Ambient/Tutel Ambient.asset");

@@ -2,15 +2,11 @@
     <PropertyGroup>
         <Configurations>Subnautica;BelowZero</Configurations>
 
-        <NoWarn>$(NoWarn);CS0436;Publicizer001;</NoWarn>
+        <NoWarn>$(NoWarn);CS0436;CS0649;Publicizer001;</NoWarn>
     </PropertyGroup>
 
     <Import Project="Subnautica.props" Condition=" '$(Configuration)' == 'Subnautica' " />
     <Import Project="BelowZero.props" Condition=" '$(Configuration)' == 'BelowZero' " />
-
-    <ItemGroup>
-        <ProjectReference Include="$(SolutionDir)\SCHIZO.Unity\SCHIZO.Unity.csproj" />
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="BepInEx.Core" Version="5.4.21" />

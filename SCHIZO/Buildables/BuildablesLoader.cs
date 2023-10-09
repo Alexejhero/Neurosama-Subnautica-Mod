@@ -50,7 +50,7 @@ public static class BuildablesLoader
 
         new BuildableItem(new ModItem("NeuroFumoNew", "Neuro fumo", "Fumo collection 2/2\n<size=75%>(Model by Kat)</size>"))
         {
-            UnityItemData = Assets.NeurofumoNew_FumoData,
+            UnityItemData = Assets.Neurofumo_FumoData,
             Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.JeweledDiskPiece, 1), new Ingredient(TechType.Gold, 1)),
             TechGroup = TechGroup.Miscellaneous,
             TechCategory = TechCategory.Misc,
