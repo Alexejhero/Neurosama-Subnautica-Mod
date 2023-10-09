@@ -19,6 +19,12 @@
 
     <ItemGroup>
         <Compile Include="..\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity\Unity" />
+        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Retargeting\BelowZero\TechCategory.cs">
+          <Link>Unity\Unity\Retargeting\BelowZero\TechCategory.cs</Link>
+        </Compile>
+        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Retargeting\Subnautica\TechCategory.cs">
+          <Link>Unity\Unity\Retargeting\Subnautica\TechCategory.cs</Link>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -31,5 +37,18 @@
     <ItemGroup>
         <None Remove="Resources\AssetBundles\AssetBundles" />
         <None Remove="Resources\AssetBundles\AssetBundles.manifest" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\Unity\Assets\Scripts\SCHIZO\Retargeting\BelowZero\TechCategory.cs.meta">
+        <Link>Unity\Unity\Retargeting\BelowZero\TechCategory.cs.meta</Link>
+      </Content>
+      <Content Include="..\Unity\Assets\Scripts\SCHIZO\Retargeting\Subnautica\TechCategory.cs.meta">
+        <Link>Unity\Unity\Retargeting\Subnautica\TechCategory.cs.meta</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="_old\" />
     </ItemGroup>
 </Project>

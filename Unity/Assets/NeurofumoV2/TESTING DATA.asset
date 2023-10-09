@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
+  m_Name: TESTING DATA
+  m_EditorClassIdentifier: 
+  classId: NeuroFumoNewTEST
+  displayName: Neuro fumo
+  tooltip: 'Fumo collection 2/2
+
+    <size=75%>(Model by Kat)</size>'
+  icon: {fileID: 21300000, guid: 45820c772f47f814d88babbafe7caa46, type: 3}
+  itemSize: {x: 1, y: 1}
+  prefab: {fileID: 656058450781834795, guid: 5a15aed96d8d1b84592bfbe203825ee4, type: 3}
+  sounds: {fileID: 0}

@@ -7,6 +7,7 @@ namespace SCHIZO.Helpers;
 
 public static class CoroutineHelpers
 {
+    [System.Obsolete]
     public static Coroutine RunWhen(Action func, Func<bool> predicate, float checkInterval = 1f)
     {
         return CoroutineHost.StartCoroutine(RunWhenCoro(func, predicate, checkInterval));

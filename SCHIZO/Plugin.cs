@@ -43,7 +43,7 @@ public sealed class Plugin : BaseUnityPlugin
         LoadConsoleCommandsAttribute.RegisterAll();
         LoadCreatureAttribute.RegisterAll();
 
-        CustomPrefab prefab = new("testermshark", "Test Ermshark", "");
+        /*CustomPrefab prefab = new("testermshark", "Test Ermshark", "");
         prefab.SetGameObject(() =>
         {
             GameObject parent = new();
@@ -59,6 +59,6 @@ public sealed class Plugin : BaseUnityPlugin
 
             return instance;
         });
-        prefab.Register();
+        prefab.Register();*/
     }
 }

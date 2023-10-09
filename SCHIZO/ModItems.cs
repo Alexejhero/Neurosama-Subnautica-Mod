@@ -26,9 +26,9 @@ public sealed class ModItem
 {
     private static readonly HashSet<string> _registeredItems = new();
 
-    private readonly PrefabInfo _info;
+    public readonly PrefabInfo PrefabInfo;
 
-    public string ClassId => _info.ClassID;
+    public string ClassId => PrefabInfo.ClassID;
 
     public string DisplayName { get; private set; }
 
@@ -41,12 +41,12 @@ public sealed class ModItem
         if (_registeredItems.Contains(classId)) throw new Exception("Item with classId " + classId + " has already been registered!");
         _registeredItems.Add(classId);
 
-        _info = PrefabInfo.WithTechType(classId, displayName, tooltip);
+        PrefabInfo = PrefabInfo.WithTechType(classId, displayName, tooltip);
         DisplayName = displayName;
         Tooltip = tooltip;
     }
 
-    public static implicit operator PrefabInfo(ModItem self) => self._info;
+    public static implicit operator PrefabInfo(ModItem self) => self.PrefabInfo;
 
-    public static implicit operator TechType(ModItem self) => self._info.TechType;
+    public static implicit operator TechType(ModItem self) => self.PrefabInfo.TechType;
 }

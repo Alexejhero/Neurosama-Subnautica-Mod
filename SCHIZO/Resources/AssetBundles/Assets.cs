@@ -12,7 +12,7 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = -1896087037;
+    private const int _rnd = 777240397;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
         
@@ -31,11 +31,11 @@ public static class Assets
     public static UnityEngine.Texture2D Loading_LoadingIcon = _a.LoadAsset<UnityEngine.Texture2D>("Assets/Loading/loading icon.png");
     public static SCHIZO.Unity.Items.ItemData LowPolyNeurofumo_LowpolyFumoData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Low-poly Neurofumo/LowpolyFumo data.asset");
     public static SCHIZO.Unity.Items.ItemData Neurofumo_FumoData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Neurofumo/Fumo data.asset");
+    public static SCHIZO.Unity.Items.ItemData NeurofumoV2_TESTINGDATA = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/NeurofumoV2/TESTING DATA.asset");
     public static SCHIZO.Unity.Items.ItemData Neurooper_NeurooperData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Neurooper/Neurooper data.asset");
     public static SCHIZO.Unity.Items.ItemData Tutel_BuildableTutelData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Tutel/Buildable tutel data.asset");
     public static SCHIZO.Unity.Sounds.SoundCollection Tutel_Sounds_Ambient_TutelAmbient = _a.LoadAsset<SCHIZO.Unity.Sounds.SoundCollection>("Assets/Tutel/Sounds/Ambient/Tutel Ambient.asset");
     public static SCHIZO.Unity.Sounds.CombinedSoundCollection Tutel_Sounds_GetCarried_CarryByErmshark = _a.LoadAsset<SCHIZO.Unity.Sounds.CombinedSoundCollection>("Assets/Tutel/Sounds/Get Carried/Carry by ermshark.asset");
     public static SCHIZO.Unity.Sounds.CombinedSoundCollection Tutel_Sounds_GetCarried_PickupByErmshark = _a.LoadAsset<SCHIZO.Unity.Sounds.CombinedSoundCollection>("Assets/Tutel/Sounds/Get Carried/Pickup by ermshark.asset");
     public static SCHIZO.Unity.Creatures.PickupableCreatureData Tutel_TutelData = _a.LoadAsset<SCHIZO.Unity.Creatures.PickupableCreatureData>("Assets/Tutel/Tutel data.asset");
-    public static UnityEngine.GameObject WithoutEcclibraryTestVariant = _a.LoadAsset<UnityEngine.GameObject>("Assets/Without ecclibrary test Variant.prefab");
 }
