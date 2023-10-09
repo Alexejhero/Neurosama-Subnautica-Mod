@@ -11,10 +11,10 @@ public class WorldForces : MonoBehaviour
     [BoxGroup("Gravity"), ShowIf(nameof(handleGravity))] public float aboveWaterGravity = 9.81f;
     [BoxGroup("Gravity"), ShowIf(nameof(handleGravity))] public float underwaterGravity = 0.0f;
 
-    [BoxGroup("Drag")] public bool handleDrag = false; // Base-game default: true
+    [BoxGroup("Drag")] public bool handleDrag = true;
     [BoxGroup("Drag"), ShowIf(nameof(handleDrag))] public float aboveWaterDrag = 0.0f; // Base-game default: 0.1f
     [BoxGroup("Drag"), ShowIf(nameof(handleDrag))] public float underwaterDrag = 0.1f; // Base-game default: 1.0f
 
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool handleWind = false;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC), ShowIf(nameof(handleWind))] public float windScalar = 1f;
+    [BoxGroup("Wind (BZ only)")] public bool handleWind = false;
+    [BoxGroup("Wind (BZ only)"), ShowIf(nameof(handleWind))] public float windScalar = 1f;
 }

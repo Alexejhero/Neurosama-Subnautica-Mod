@@ -4,8 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Creature : Living
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public Animator traitsAnimator;
     [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public LiveMixin liveMixin;
+
+    [Required] public Animator traitsAnimator;
 
     [BoxGroup("Base Creature")] public AnimationCurve sizeDistribution;
     [BoxGroup("Base Creature")] public AggressionCreatureTrait Aggression = new AggressionCreatureTrait(0, 0.05f);

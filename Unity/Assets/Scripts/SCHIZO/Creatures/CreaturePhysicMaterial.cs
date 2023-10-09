@@ -9,19 +9,14 @@ namespace SCHIZO.Unity.Creatures
         [InfoBox("If the physic material is left unset, it will default to a frictionless physic material.")]
         public PhysicMaterial physicMaterial;
 
-        // TODO
-        public void SetPhysicMaterial()
+#if !UNITY
+        private void Awake()
         {
-            if (!physicMaterial) physicMaterial = new PhysicMaterial("NoFriction")
-            {
-                dynamicFriction = 0.0f,
-                staticFriction = 0.0f,
-                frictionCombine = PhysicMaterialCombine.Multiply,
-                bounceCombine = PhysicMaterialCombine.Multiply
-            };
+            if (!physicMaterial) physicMaterial = ECCLibrary.ECCUtility.FrictionlessPhysicMaterial;
 
             foreach (Collider componentsInChild in GetComponentsInChildren<Collider>(true))
                 componentsInChild.sharedMaterial = physicMaterial;
         }
+#endif
     }
 }

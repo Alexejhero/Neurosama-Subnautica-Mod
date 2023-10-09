@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class AnimateByVelocity : MonoBehaviour
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public Animator animator;
     [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public GameObject rootGameObject;
     [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public BehaviourLOD levelOfDetail;
 
+    [Required] public Animator animator;
     public float animationMoveMaxSpeed = 4;
     public float animationMaxPitch = 30;
     public float animationMaxTilt = 45;

@@ -1,91 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5049378406231838710
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4430336063030548523}
-  - component: {fileID: 206030070557398098}
-  - component: {fileID: 5575522010524556322}
-  - component: {fileID: 3599611252998275659}
-  - component: {fileID: 1159657056476768594}
-  - component: {fileID: 3563691498816874095}
-  - component: {fileID: 5504210808215527385}
-  - component: {fileID: 6599366016390251773}
-  - component: {fileID: 4728043509951407139}
-  - component: {fileID: 2316404753917316166}
-  - component: {fileID: 3355967264055822965}
-  - component: {fileID: 7808730166771741094}
-  - component: {fileID: 6138648234696061935}
-  - component: {fileID: 4902715118619412829}
-  - component: {fileID: 3768666538480872513}
-  - component: {fileID: 6362760830805110842}
-  - component: {fileID: 3161989498449843200}
-  - component: {fileID: 4325550884201703431}
-  - component: {fileID: 1770294001006732418}
-  - component: {fileID: 4302092668237308125}
-  - component: {fileID: 2763438169867558138}
-  - component: {fileID: 410679345592431281}
-  - component: {fileID: 1449616095743839248}
-  - component: {fileID: 840294948146675600}
-  - component: {fileID: 2918698235681329926}
-  - component: {fileID: 5227675299895090582}
-  - component: {fileID: 2750351860303620886}
-  - component: {fileID: 3850183127372413717}
-  - component: {fileID: 825757325171752034}
-  - component: {fileID: 3905698076612621712}
-  - component: {fileID: 2311020726542560083}
-  - component: {fileID: 2174227371558650209}
-  - component: {fileID: 2931015712634319259}
-  - component: {fileID: 1689738396086094095}
-  - component: {fileID: 8357796140088076452}
-  - component: {fileID: 3560537372470098034}
-  - component: {fileID: 5631056709744103988}
-  - component: {fileID: -126526504178218253}
-  - component: {fileID: 1541211154025910576}
-  - component: {fileID: 5301385721980270704}
-  m_Layer: 0
-  m_Name: Creature Prefab Template
-  m_TagString: Creature
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4430336063030548523
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.173611, y: 2.2872357, z: -17.36373}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &206030070557398098
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  serializedVersion: 2
-  m_Mass: 10
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &5575522010524556322
+--- !u!114 &-8371309086422519895
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,11 +9,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 5049378406231838710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d97a98bece9544178554e9acad0eb069, type: 3}
+  m_Script: {fileID: 11500000, guid: 2260eca3617340a59dfb84ebfeade9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellLevel: 0
---- !u!114 &3599611252998275659
+  splineFollowing: {fileID: -201129804848948133}
+  turnSpeed: 1
+--- !u!114 &-8272803762107558934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7156ed41b64f32a5789c533e236bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  liveMixin: {fileID: -3418686219161457082}
+  useRigidbody: {fileID: 206030070557398098}
+  eatable: {fileID: 4325550884201703431}
+  removeCorpseAfterSeconds: -1
+  respawn: 1
+  respawnOnlyIfKilledByCreature: 0
+  respawnInterval: 300
+  respawnerPrefab: {fileID: 0}
+  sink: 1
+--- !u!114 &-8111771393798685051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 4
---- !u!114 &1159657056476768594
+--- !u!114 &-7421542958749478918
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,11 +57,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 5049378406231838710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39cb2084065744098c8af7c92e50d085, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c781ed00ae64545a688975c080649c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2030
---- !u!114 &3563691498816874095
+  creatureFear: {fileID: 1640086072332198955}
+  creature: {fileID: -2914789318229432670}
+  targetType: 2030
+  fleeAction: {fileID: 0}
+  scarePerSecond: 4
+  maxRangeScalar: 10
+  minMass: 50
+  updateTargetInterval: 1
+  updateRange: 100
+  daynightRangeMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &-6087781093368673835
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,24 +84,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 5049378406231838710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b55116b194ab4f74bc689ce6a88e322e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c5a18a73abd4be4abdd035f4e5d40e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  surfaceType: 6
---- !u!114 &5504210808215527385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26219f559424c634b99ea94d612675b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  physicMaterial: {fileID: 0}
---- !u!114 &6599366016390251773
+  creature: {fileID: -2914789318229432670}
+  swimBehaviour: {fileID: -8371309086422519895}
+  evaluatePriority: 0.4
+  priorityMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minActionCheckInterval: -1
+  creatureFear: {fileID: 1640086072332198955}
+  swimVelocity: 10
+  swimInterval: 1
+  avoidanceIterations: 10
+  swimTiredness: 0.2
+  tiredVelocity: 3
+  exhausted:
+    value: 0
+    falloff: 0.05
+  swimExhaustion: 0.25
+  exhaustedVelocity: 1
+  scaredSound: {fileID: 0}
+--- !u!114 &-3623193925210079658
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,105 +124,7 @@ MonoBehaviour:
   veryCloseThreshold: 10
   closeThreshold: 100
   farThreshold: 500
---- !u!114 &4728043509951407139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3af24dbe2e70427cb93275ef00f34823, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useRigidbody: {fileID: 206030070557398098}
-  moveWithPlatform: 0
-  handleGravity: 1
-  aboveWaterGravity: 9.81
-  underwaterGravity: 0
-  handleDrag: 0
-  aboveWaterDrag: 0
-  underwaterDrag: 0.1
-  handleWind: 0
-  windScalar: 1
---- !u!114 &2316404753917316166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e8e4146e29e16b458e08415cc34a663, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  rootGameObject: {fileID: 5049378406231838710}
-  levelOfDetail: {fileID: 6599366016390251773}
-  animationMoveMaxSpeed: 4
-  animationMaxPitch: 30
-  animationMaxTilt: 45
-  useStrafeAnimation: 0
-  dampTime: 0.5
---- !u!114 &3355967264055822965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49a33a91de98493e82c6af9b1a6f232c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelOfDetail: {fileID: 6599366016390251773}
-  useRigidbody: {fileID: 206030070557398098}
-  maxAcceleration: 10
-  forwardRotationSpeed: 0.6
-  upRotationSpeed: 3
-  driftFactor: 0.5
-  canMoveAboveWater: 0
-  canWalkOnSurface: 0
-  freezeHorizontalRotation: 0
-  maxVelocity: 0
-  rotateToSurfaceNormal: 0
---- !u!114 &7808730166771741094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02cc032310034950a8c74708fd12ddea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  locomotion: {fileID: 3355967264055822965}
-  useRigidbody: {fileID: 206030070557398098}
-  levelOfDetail: {fileID: 6599366016390251773}
-  targetRange: 1
-  lookAhead: 1
-  respectLOD: 1
-  inertia: 1
---- !u!114 &6138648234696061935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2260eca3617340a59dfb84ebfeade9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  splineFollowing: {fileID: 7808730166771741094}
-  turnSpeed: 1
---- !u!114 &4902715118619412829
+--- !u!114 &-3418686219161457082
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -281,7 +142,7 @@ MonoBehaviour:
   _deathSound: {fileID: 0}
   _damageClip: {fileID: 0}
   _deathClip: {fileID: 0}
---- !u!114 &3768666538480872513
+--- !u!114 &-2914789318229432670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -294,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   traitsAnimator: {fileID: 0}
-  liveMixin: {fileID: 4902715118619412829}
+  liveMixin: {fileID: -3418686219161457082}
   sizeDistribution:
     serializedVersion: 2
     m_Curve:
@@ -370,134 +231,7 @@ MonoBehaviour:
   hearingSensitivity: 1
   detectsMotion: 1
   babyScaleSize: 0.5
---- !u!114 &6362760830805110842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6a497bd49304f7dbc9a92b85161f16e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: {fileID: 3768666538480872513}
-  swimBehaviour: {fileID: 6138648234696061935}
-  evaluatePriority: 0.4
-  priorityMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minActionCheckInterval: -1
-  swimRadius: {x: 10, y: 2, z: 10}
-  swimForward: 0.5
-  swimVelocity: 2
-  swimInterval: 5
-  onSphere: 0
---- !u!114 &3161989498449843200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a64da718334848cd87646847d5cfde3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: {fileID: 3768666538480872513}
-  swimBehaviour: {fileID: 6138648234696061935}
-  evaluatePriority: 0.4
-  priorityMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minActionCheckInterval: -1
-  leashDistance: 15
-  swimVelocity: 3
-  swimInterval: 1
-  minSwimDuration: 3
-  directionDistanceMultiplier: {x: 1, y: 1, z: 1}
---- !u!114 &4325550884201703431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62d31639aed8401283261c41f767c40d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodValue: 0
-  waterValue: 0
-  healthValue: 0
-  coldMeterValue: 0
-  decomposes: 0
-  kDecayRate: 0.015
-  despawns: 1
-  despawnDelay: 300
-  removeOnUse: 1
-  charges: -1
---- !u!114 &1770294001006732418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb7156ed41b64f32a5789c533e236bd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  liveMixin: {fileID: 4902715118619412829}
-  useRigidbody: {fileID: 206030070557398098}
-  eatable: {fileID: 4325550884201703431}
-  removeCorpseAfterSeconds: -1
-  respawn: 1
-  respawnOnlyIfKilledByCreature: 0
-  respawnInterval: 300
-  respawnerPrefab: {fileID: 0}
-  sink: 1
---- !u!114 &4302092668237308125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a82e877622b4339997388c20b815f11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  liveMixin: {fileID: 4902715118619412829}
-  animator: {fileID: 0}
-  disableAnimatorInstead: 0
---- !u!114 &2763438169867558138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cf5d0d94d46439c82927e498d874ff0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  interval: 1
-  damageThreshold: 10
---- !u!114 &410679345592431281
+--- !u!114 &-2390674021230301462
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -509,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1e64fb692b4bd09740c81bfe15f35b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1449616095743839248
+--- !u!114 &-1999000113781068853
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -518,246 +252,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5049378406231838710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9ebc6961c0d437fad58859d3203cc36, type: 3}
+  m_Script: {fileID: 11500000, guid: 26219f559424c634b99ea94d612675b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageType: 4
-  sound: {fileID: 0}
---- !u!114 &840294948146675600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08daab3bf5174f02a190e7096de2f66c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2918698235681329926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c5a18a73abd4be4abdd035f4e5d40e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: {fileID: 3768666538480872513}
-  swimBehaviour: {fileID: 6138648234696061935}
-  evaluatePriority: 0.4
-  priorityMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minActionCheckInterval: -1
-  creatureFear: {fileID: 840294948146675600}
-  swimVelocity: 10
-  swimInterval: 1
-  avoidanceIterations: 10
-  swimTiredness: 0.2
-  tiredVelocity: 3
-  exhausted:
-    value: 0
-    falloff: 0.05
-  swimExhaustion: 0.25
-  exhaustedVelocity: 1
-  scaredSound: {fileID: 0}
---- !u!114 &5227675299895090582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 808fd233d8414f6baeb97c10ab555fd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: {fileID: 3768666538480872513}
-  swimBehaviour: {fileID: 6138648234696061935}
-  evaluatePriority: 0.4
-  priorityMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minActionCheckInterval: -1
-  damageThreshold: 10
-  fleeDuration: 2
-  minFleeDistance: 5
-  swimVelocity: 10
-  swimInterval: 1
-  breakLeash: 1
---- !u!114 &2750351860303620886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c781ed00ae64545a688975c080649c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creatureFear: {fileID: 840294948146675600}
-  creature: {fileID: 3768666538480872513}
-  targetType: 2030
-  fleeAction: {fileID: 2918698235681329926}
-  scarePerSecond: 4
-  maxRangeScalar: 10
-  minMass: 50
-  updateTargetInterval: 1
-  updateRange: 100
-  daynightRangeMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &3850183127372413717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d933c0320ec24d7eb9f809c5a90edabb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &825757325171752034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28a0d3539b2746e48feb6cdd897af631, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: {fileID: 3768666538480872513}
-  swimBehaviour: {fileID: 6138648234696061935}
-  evaluatePriority: 0.4
-  priorityMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minActionCheckInterval: -1
-  lastTarget: {fileID: 3850183127372413717}
-  swimVelocity: 10
-  aggressionThreshold: 0.75
-  minAttackDuration: 3
-  maxAttackDuration: 7
-  pauseInterval: 20
-  resetAggressionOnTime: 1
-  rememberTargetTime: 5
-  swimInterval: 0.8
-  swimIntoPlayerViewMinDistance: 0
-  ignoreAboveWaterTargets: 0
-  ignoreUnderWaterTargets: 0
-  predictTargetMovement: 0
-  attackStartRoar: 0
-  _attackStartSound: {fileID: 0}
-  _attackLoopSound: {fileID: 0}
-  _attackStartFXcontrol: {fileID: 0}
---- !u!114 &3905698076612621712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4e4196de3e04b8e8b48700e3002c029, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lastTarget: {fileID: 3850183127372413717}
-  creature: {fileID: 3768666538480872513}
-  maxRangeMultiplier:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.333
-      outWeight: 0.333
-    - serializedVersion: 3
-      time: 0.5
-      value: 0.5
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.333
-      outWeight: 0.333
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.333
-      outWeight: 0.333
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  distanceAggressionMultiplier:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.333
-      outWeight: 0.333
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -3
-      outSlope: -3
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.333
-      outWeight: 0.333
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  targetType: 2030
-  aggressionPerSecond: 1
-  maxRangeScalar: 10
-  maxSearchRings: 1
-  ignoreSameKind: 1
-  minimumVelocity: 0
-  hungerThreshold: 0
-  ignoreFrozen: 0
-  leashDistance: -1
-  targetPriority: 1
-  _sightedSound: {fileID: 0}
---- !u!114 &2311020726542560083
+  physicMaterial: {fileID: 0}
+--- !u!114 &-1981987760235557554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -769,8 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f6a62bb319242feb071806c14cc924d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastTarget: {fileID: 3850183127372413717}
-  creature: {fileID: 3768666538480872513}
+  lastTarget: {fileID: 1963351864823084166}
+  creature: {fileID: -2914789318229432670}
   maxRangeMultiplier:
     serializedVersion: 2
     m_Curve:
@@ -840,7 +339,7 @@ MonoBehaviour:
   targetPriority: 1
   _sightedSound: {fileID: 0}
   playerAttackInterval: 0
---- !u!114 &2174227371558650209
+--- !u!114 &-1761091802028791776
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -849,134 +348,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5049378406231838710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c348b2178e704925a0823c3e590a16bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cf5d0d94d46439c82927e498d874ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creature: {fileID: 3768666538480872513}
-  swimBehaviour: {fileID: 6138648234696061935}
-  evaluatePriority: 0.4
-  priorityMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minActionCheckInterval: -1
-  lastTarget: {fileID: 3850183127372413717}
-  aggressPerSecond: 0.5
-  attackAggressionThreshold: 0.75
-  attackPause: 5
-  maxDistToLeash: 30
-  swimVelocity: 10
-  swimInterval: 0.8
-  aggressiveToNoise:
-    value: 0
-    falloff: 0.06
---- !u!114 &2931015712634319259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05a094a0b0f5435f8e6ac2446839815c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lastTarget: {fileID: 3850183127372413717}
-  creature: {fileID: 3768666538480872513}
-  range: 20
-  aggressionPerSecond: 0.5
-  targetPriority: 1
---- !u!114 &1689738396086094095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5da098770770e841b96f97a86e375ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: {fileID: 3768666538480872513}
-  swimBehaviour: {fileID: 6138648234696061935}
-  evaluatePriority: 0.4
-  priorityMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minActionCheckInterval: -1
-  lastTarget: {fileID: 3850183127372413717}
-  avoidTerrainOnly: 1
-  avoidanceIterations: 10
-  avoidanceDistance: 5
-  avoidanceDuration: 2
-  scanInterval: 1
-  scanDistance: 2
-  scanRadius: 0
-  swimVelocity: 3
-  swimInterval: 1
---- !u!114 &8357796140088076452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ae740eb02964c30875ccb1a9d9eb6d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: {fileID: 3768666538480872513}
-  swimBehaviour: {fileID: 6138648234696061935}
-  evaluatePriority: 0.4
-  priorityMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minActionCheckInterval: -1
-  avoidanceForward: 0.5
-  avoidanceIterations: 10
-  avoidanceDistance: 50
-  avoidanceDuration: 2
-  scanInterval: 1
-  scanDistance: 30
-  swimVelocity: 15
-  swimInterval: 1
---- !u!114 &3560537372470098034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e2a4e91b6634aceb1e95d74121833f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: {fileID: 3768666538480872513}
-  swimBehaviour: {fileID: 6138648234696061935}
-  evaluatePriority: 0.4
-  priorityMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minActionCheckInterval: -1
-  schoolSize: 2
-  swimVelocity: 4
-  swimInterval: 1
---- !u!114 &5631056709744103988
+  animator: {fileID: 0}
+  interval: 1
+  damageThreshold: 10
+--- !u!114 &-916793966807223697
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -988,11 +366,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcf7b104458d48c38d372db2aeb188b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviour: {fileID: 3560537372470098034}
+  behaviour: {fileID: 1218414054334451236}
   breakDistance: 20
   percentFindLeaderRespond: 0.5
   chanceLoseLeader: 0.1
---- !u!114 &-126526504178218253
+--- !u!114 &-239697077810246028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5da098770770e841b96f97a86e375ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: -2914789318229432670}
+  swimBehaviour: {fileID: -8371309086422519895}
+  evaluatePriority: 0.4
+  priorityMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minActionCheckInterval: -1
+  lastTarget: {fileID: 1963351864823084166}
+  avoidTerrainOnly: 1
+  avoidanceIterations: 10
+  avoidanceDistance: 5
+  avoidanceDuration: 2
+  scanInterval: 1
+  scanDistance: 2
+  scanRadius: 0
+  swimVelocity: 3
+  swimInterval: 1
+--- !u!114 &-201129804848948133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02cc032310034950a8c74708fd12ddea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locomotion: {fileID: 3919769461741374411}
+  useRigidbody: {fileID: 206030070557398098}
+  levelOfDetail: {fileID: -3623193925210079658}
+  targetRange: 1
+  lookAhead: 1
+  respectLOD: 1
+  inertia: 1
+--- !u!114 &818708038637812476
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1012,7 +441,7 @@ MonoBehaviour:
   canBreed: 1
   eggOrChildPrefabClassId: 
   adultPrefabClassId: 
---- !u!114 &1541211154025910576
+--- !u!114 &1175131139517652999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1021,12 +450,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 5049378406231838710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28650ecece4c4d408be7318785b8d746, type: 3}
+  m_Script: {fileID: 11500000, guid: e6a497bd49304f7dbc9a92b85161f16e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 206030070557398098}
-  _prefabIdentifier: {fileID: 0}
---- !u!114 &5301385721980270704
+  creature: {fileID: -2914789318229432670}
+  swimBehaviour: {fileID: -8371309086422519895}
+  evaluatePriority: 0.4
+  priorityMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minActionCheckInterval: -1
+  swimRadius: {x: 10, y: 2, z: 10}
+  swimForward: 0.5
+  swimVelocity: 2
+  swimInterval: 5
+  onSphere: 0
+--- !u!114 &1218414054334451236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1035,6 +477,479 @@ MonoBehaviour:
   m_GameObject: {fileID: 5049378406231838710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0ca20cdbf1d492ebe4f6ace714832b5, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e2a4e91b6634aceb1e95d74121833f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  creature: {fileID: -2914789318229432670}
+  swimBehaviour: {fileID: -8371309086422519895}
+  evaluatePriority: 0.4
+  priorityMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minActionCheckInterval: -1
+  schoolSize: 2
+  swimVelocity: 4
+  swimInterval: 1
+--- !u!114 &1640086072332198955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08daab3bf5174f02a190e7096de2f66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1963351864823084166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d933c0320ec24d7eb9f809c5a90edabb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2742326128842612785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ebc6961c0d437fad58859d3203cc36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageType: 4
+  sound: {fileID: 0}
+--- !u!114 &3015870805474854860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a64da718334848cd87646847d5cfde3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: -2914789318229432670}
+  swimBehaviour: {fileID: -8371309086422519895}
+  evaluatePriority: 0.4
+  priorityMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minActionCheckInterval: -1
+  leashDistance: 15
+  swimVelocity: 3
+  swimInterval: 1
+  minSwimDuration: 3
+  directionDistanceMultiplier: {x: 1, y: 1, z: 1}
+--- !u!114 &3344044181808104954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a82e877622b4339997388c20b815f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  liveMixin: {fileID: -3418686219161457082}
+  animator: {fileID: 0}
+  disableAnimatorInstead: 0
+--- !u!114 &3525315510431984540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a0d3539b2746e48feb6cdd897af631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: -2914789318229432670}
+  swimBehaviour: {fileID: -8371309086422519895}
+  evaluatePriority: 0.4
+  priorityMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minActionCheckInterval: -1
+  lastTarget: {fileID: 1963351864823084166}
+  swimVelocity: 10
+  aggressionThreshold: 0.75
+  minAttackDuration: 3
+  maxAttackDuration: 7
+  pauseInterval: 20
+  resetAggressionOnTime: 1
+  rememberTargetTime: 5
+  swimInterval: 0.8
+  swimIntoPlayerViewMinDistance: 0
+  ignoreAboveWaterTargets: 0
+  ignoreUnderWaterTargets: 0
+  predictTargetMovement: 0
+  attackStartRoar: 0
+  _attackStartSound: {fileID: 0}
+  _attackLoopSound: {fileID: 0}
+  _attackStartFXcontrol: {fileID: 0}
+--- !u!114 &3919769461741374411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a33a91de98493e82c6af9b1a6f232c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelOfDetail: {fileID: -3623193925210079658}
+  useRigidbody: {fileID: 4202093338925204305, guid: c4afaa0bdc846574aa2185e0c81013f9,
+    type: 3}
+  maxAcceleration: 10
+  forwardRotationSpeed: 0.6
+  upRotationSpeed: 3
+  driftFactor: 0.5
+  canMoveAboveWater: 0
+  canWalkOnSurface: 0
+  freezeHorizontalRotation: 0
+  maxVelocity: 0
+  rotateToSurfaceNormal: 0
+--- !u!114 &4378764940476719748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e4196de3e04b8e8b48700e3002c029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastTarget: {fileID: 1963351864823084166}
+  creature: {fileID: -2914789318229432670}
+  maxRangeMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.333
+      outWeight: 0.333
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.333
+      outWeight: 0.333
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.333
+      outWeight: 0.333
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  distanceAggressionMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.333
+      outWeight: 0.333
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -3
+      outSlope: -3
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.333
+      outWeight: 0.333
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  targetType: 2030
+  aggressionPerSecond: 1
+  maxRangeScalar: 10
+  maxSearchRings: 1
+  ignoreSameKind: 1
+  minimumVelocity: 0
+  hungerThreshold: 0
+  ignoreFrozen: 0
+  leashDistance: -1
+  targetPriority: 1
+  _sightedSound: {fileID: 0}
+--- !u!114 &4743098428888258313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c348b2178e704925a0823c3e590a16bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: -2914789318229432670}
+  swimBehaviour: {fileID: -8371309086422519895}
+  evaluatePriority: 0.4
+  priorityMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minActionCheckInterval: -1
+  lastTarget: {fileID: 1963351864823084166}
+  aggressPerSecond: 0.5
+  attackAggressionThreshold: 0.75
+  attackPause: 5
+  maxDistToLeash: 30
+  swimVelocity: 10
+  swimInterval: 0.8
+  aggressiveToNoise:
+    value: 0
+    falloff: 0.06
+--- !u!114 &4971097129199088491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8e4146e29e16b458e08415cc34a663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rootGameObject: {fileID: 5049378406231838710}
+  levelOfDetail: {fileID: -3623193925210079658}
+  animationMoveMaxSpeed: 4
+  animationMaxPitch: 30
+  animationMaxTilt: 45
+  useStrafeAnimation: 0
+  dampTime: 0.5
+--- !u!114 &6294765647300301627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae740eb02964c30875ccb1a9d9eb6d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: -2914789318229432670}
+  swimBehaviour: {fileID: -8371309086422519895}
+  evaluatePriority: 0.4
+  priorityMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minActionCheckInterval: -1
+  avoidanceForward: 0.5
+  avoidanceIterations: 10
+  avoidanceDistance: 50
+  avoidanceDuration: 2
+  scanInterval: 1
+  scanDistance: 30
+  swimVelocity: 15
+  swimInterval: 1
+--- !u!114 &7808515654292971840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808fd233d8414f6baeb97c10ab555fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: -2914789318229432670}
+  swimBehaviour: {fileID: -8371309086422519895}
+  evaluatePriority: 0.4
+  priorityMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minActionCheckInterval: -1
+  damageThreshold: 10
+  fleeDuration: 2
+  minFleeDistance: 5
+  swimVelocity: 10
+  swimInterval: 1
+  breakLeash: 1
+--- !u!114 &8106314337621275068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05a094a0b0f5435f8e6ac2446839815c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastTarget: {fileID: 1963351864823084166}
+  creature: {fileID: -2914789318229432670}
+  range: 20
+  aggressionPerSecond: 0.5
+  targetPriority: 1
+--- !u!1001 &4074388638642951939
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.173611
+      objectReference: {fileID: 0}
+    - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.2872357
+      objectReference: {fileID: 0}
+    - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17.36373
+      objectReference: {fileID: 0}
+    - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 720545602059661676, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: surfaceType
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303162856262347456, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: type
+      value: 2030
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725232128969536288, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: underwaterGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9122564453119383797, guid: c4afaa0bdc846574aa2185e0c81013f9,
+        type: 3}
+      propertyPath: m_Name
+      value: Creature Prefab Template
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c4afaa0bdc846574aa2185e0c81013f9, type: 3}
+--- !u!114 &4325550884201703431 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 327728672407256836, guid: c4afaa0bdc846574aa2185e0c81013f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4074388638642951939}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d31639aed8401283261c41f767c40d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &206030070557398098 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 4202093338925204305, guid: c4afaa0bdc846574aa2185e0c81013f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4074388638642951939}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5049378406231838710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9122564453119383797, guid: c4afaa0bdc846574aa2185e0c81013f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4074388638642951939}
+  m_PrefabAsset: {fileID: 0}
