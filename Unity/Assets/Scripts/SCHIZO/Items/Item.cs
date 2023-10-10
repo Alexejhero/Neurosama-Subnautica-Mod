@@ -4,10 +4,10 @@
 namespace SCHIZO.Unity.Items
 {
     [Serializable]
-    public class Item<T> : IItem where T : Enum
+    public sealed class Item
     {
         public bool isBaseGame = true;
-        public T techType;
+        public TechType_All techType;
         public ItemData itemData;
 
 #if !UNITY
@@ -16,13 +16,6 @@ namespace SCHIZO.Unity.Items
             if (isBaseGame) return (TechType) (int) (object) techType;
             else return itemData.ModItem;
         }
-#endif
-    }
-
-    public interface IItem
-    {
-#if !UNITY
-        TechType Convert();
 #endif
     }
 }

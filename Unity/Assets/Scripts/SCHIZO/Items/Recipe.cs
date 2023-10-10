@@ -4,15 +4,15 @@ using UnityEngine;
 // ReSharper disable once CheckNamespace
 namespace SCHIZO.Unity.Items
 {
+    [CreateAssetMenu(menuName = "SCHIZO/Items/Recipe")]
     public sealed class Recipe : ScriptableObject
     {
         [ValidateInput(nameof(game_Validate), "Game must be set!")]
-        public Game game;
+        public Game game = Game.Subnautica | Game.BelowZero;
         private bool game_Validate(Game value) => value.HasFlag(Game.Subnautica) || value.HasFlag(Game.BelowZero);
 
         public int craftAmount = 1;
-
-        [SerializeField, ReorderableList, ShowIf()] private Ingredient_SN[] ingredientsSN;
-        [SerializeField, ReorderableList, ShowIf()] private Ingredient_BZ[] ingredientsSN;
+        public Ingredient[] ingredients;
+        public TechType_All[] linkedItems;
     }
 }

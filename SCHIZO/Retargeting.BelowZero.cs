@@ -1,4 +1,6 @@
-﻿using SCHIZO.Unity.Retargeting.BelowZero;
+﻿global using NautilusIngredient = Ingredient;
+using SCHIZO.Unity.Items;
+using SCHIZO.Unity.Retargeting.BelowZero;
 using SCHIZO.Unity.Retargeting.Subnautica;
 
 namespace SCHIZO;
@@ -10,10 +12,7 @@ public static class Retargeting
         public const global::TechType Peeper = global::TechType.ArcticPeeper;
         public const global::TechType Bag = global::TechType.QuantumLocker;
 
-        public static global::TechType From(TechType_BZ value) => (global::TechType) value;
-        public static global::TechType From(TechType_BZ_NoObsolete value) => (global::TechType) value;
-        public static global::TechType Pick(TechType_SN sn, TechType_BZ bz) => From(bz);
-        public static global::TechType Pick(TechType_SN sn, TechType_BZ_NoObsolete bz) => From(bz);
+        public static global::TechType From(TechType_All value) => (global::TechType) value;
     }
 
     public static class TechCategory

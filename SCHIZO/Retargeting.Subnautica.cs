@@ -1,5 +1,6 @@
 ﻿global using Ingredient = CraftData.Ingredient;
-using System;
+global using NautilusIngredient = CraftData.Ingredient;
+using SCHIZO.Unity.Items;
 using SCHIZO.Unity.Retargeting.BelowZero;
 using SCHIZO.Unity.Retargeting.Subnautica;
 
@@ -12,9 +13,7 @@ public static class Retargeting
         public const global::TechType Peeper = global::TechType.Peeper;
         public const global::TechType Bag = global::TechType.LuggageBag;
 
-        public static global::TechType From(TechType_SN value) => (global::TechType) value;
-        public static global::TechType Pick(TechType_SN sn, TechType_BZ bz) => From(sn);
-        public static global::TechType Pick(TechType_SN sn, TechType_BZ_NoObsolete bz) => From(sn);
+        public static global::TechType From(TechType_All value) => (global::TechType) value;
     }
 
     public static class TechCategory

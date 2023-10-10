@@ -4,15 +4,15 @@
 namespace SCHIZO.Unity.Items
 {
     [Serializable]
-    public class Ingredient<T> where T : IItem
+    public sealed class Ingredient
     {
-        public T item;
+        public Item item;
         public int amount = 1;
 
 #if !UNITY
-        public Ingredient Convert()
+        public NautilusIngredient Convert()
         {
-            return new Ingredient(item.Convert(), amount);
+            return new NautilusIngredient(item.Convert(), amount);
         }
 #endif
     }
