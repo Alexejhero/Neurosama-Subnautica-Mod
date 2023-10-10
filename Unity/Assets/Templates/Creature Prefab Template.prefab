@@ -154,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b14011210f954223ae768ae50e1b9e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  traitsAnimator: {fileID: 0}
   liveMixin: {fileID: -3418686219161457082}
+  traitsAnimator: {fileID: 0}
   sizeDistribution:
     serializedVersion: 2
     m_Curve:
@@ -762,9 +762,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e8e4146e29e16b458e08415cc34a663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
   rootGameObject: {fileID: 5049378406231838710}
   levelOfDetail: {fileID: -3623193925210079658}
+  animator: {fileID: 0}
   animationMoveMaxSpeed: 4
   animationMaxPitch: 30
   animationMaxTilt: 45
@@ -860,17 +860,17 @@ PrefabInstance:
     - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.173611
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2872357
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -17.36373
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
         type: 3}

@@ -65,3 +65,7 @@ public class ValidateInputAttribute : Attribute
     {
     }
 }
+
+public class RequiredAttribute : Attribute
+{
+}

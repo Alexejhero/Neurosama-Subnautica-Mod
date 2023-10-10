@@ -14,7 +14,7 @@ namespace SCHIZO.Unity.Items
 
         #region Tomfoolery to work around HorizontalLine limitations
 #if UNITY
-        [HorizontalLine(2, EColor.Green), ShowIf(nameof(autoRegister))]
+        [HorizontalLine(2, EColor.Green), ShowIf(nameof(autoRegister)), Required]
         [SerializeField, Label("Prefab")] private GameObject _prefab1;
 
         [HorizontalLine(2, EColor.Red), HideIf(nameof(autoRegister))]
@@ -32,9 +32,9 @@ namespace SCHIZO.Unity.Items
         [HideInInspector] public GameObject prefab;
         public BaseSoundCollection sounds;
 
-        [BoxGroup("TechType")] public string classId;
-        [BoxGroup("TechType")] public string displayName;
-        [BoxGroup("TechType")] [ResizableTextArea] public string tooltip;
+        [BoxGroup("TechType"), ValidateInput(nameof(AutoRegister_Validate))] public string classId;
+        [BoxGroup("TechType"), ValidateInput(nameof(AutoRegister_Validate))] public string displayName;
+        [BoxGroup("TechType"), ValidateInput(nameof(AutoRegister_Validate))] [ResizableTextArea] public string tooltip;
 
         [BoxGroup("Additional Properties")] public Sprite icon;
         [BoxGroup("Additional Properties"), HideIf(nameof(isBuildable))] public Vector2Int itemSize = new Vector2Int(1, 1);
@@ -49,6 +49,8 @@ namespace SCHIZO.Unity.Items
         [BoxGroup("Below Zero Data"), Label("Tech Group"), SerializeField] private TechGroup_BZ techGroupBZ = TechGroup_BZ.Uncategorized;
         [BoxGroup("Below Zero Data"), Label("Tech Category"), SerializeField, HideIf(nameof(techCategoryBZ_HideIf))] private TechCategory_BZ techCategoryBZ;
         private bool techCategoryBZ_HideIf() => techGroupBZ == TechGroup_BZ.Uncategorized;
+
+        private bool AutoRegister_Validate(string str) => !autoRegister || !string.IsNullOrWhiteSpace(str);
 
 #if !UNITY
         public SCHIZO.Items.ModItem ModItem { get; set; }

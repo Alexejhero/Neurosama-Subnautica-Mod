@@ -39,14 +39,6 @@ public static class BuildablesLoader
             TechGroup = TechGroup.Miscellaneous,
             TechCategory = TechCategory.Misc,
         }.WithOldVersion("Neurooper").Register();
-
-        new BuildableItem(new ModItem("NeuroFumo2", "Low-poly Neuro fumo", "Fumo collection 1/2\n<size=75%>(Model by YuG)</size>"))
-        {
-            UnityItemData = Assets.LowPolyNeurofumo_LowpolyFumoData,
-            Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.JeweledDiskPiece, 1), new Ingredient(TechType.Gold, 1)),
-            TechGroup = TechGroup.Miscellaneous,
-            TechCategory = TechCategory.Misc,
-        }.WithOldVersion("NeuroFumo").Register();
     }
 
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
