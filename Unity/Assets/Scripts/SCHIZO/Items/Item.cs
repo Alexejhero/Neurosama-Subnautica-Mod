@@ -13,7 +13,7 @@ namespace SCHIZO.Unity.Items
 #if !UNITY
         public TechType Convert()
         {
-            if (isBaseGame) return (TechType) (int) (object) techType;
+            if (!isCustom) return (TechType) (int) (object) techType;
             else return itemData.ModItem;
         }
 #endif

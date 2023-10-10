@@ -1,4 +1,6 @@
 global using static SCHIZO.Plugin;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
@@ -8,8 +10,10 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Attributes;
 using SCHIZO.Helpers;
+using SCHIZO.Items;
 using SCHIZO.Resources;
 using SCHIZO.Unity;
+using SCHIZO.Unity.Items;
 using UnityEngine;
 
 namespace SCHIZO;
@@ -38,9 +42,12 @@ public sealed class Plugin : BaseUnityPlugin
 
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 
-        LoadMethodAttribute.LoadAll();
-        LoadComponentAttribute.AddAll(gameObject);
-        LoadConsoleCommandsAttribute.RegisterAll();
+        IEnumerable<ModItem> modItems = Assets.All<ItemData>().Where(d => d.autoRegister).Select(ModItem.Create);
+        modItems.ForEach(UnityPrefab.CreateAndRegister);
+
+        // LoadMethodAttribute.LoadAll();
+        // LoadComponentAttribute.AddAll(gameObject);
+        // LoadConsoleCommandsAttribute.RegisterAll();
         // LoadCreatureAttribute.RegisterAll(); TODO
 
         /*CustomPrefab prefab = new("testermshark", "Test Ermshark", "");

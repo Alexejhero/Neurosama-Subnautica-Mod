@@ -97,6 +97,9 @@ public static class {GetCleanName(className)}
     private const int _rnd = {Random.Range(int.MinValue, int.MaxValue)};
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle(""assets"");
+
+    public static T[] All<T>() where T : UnityEngine.Object => _a.LoadAllAssets<T>();
+    public static UnityEngine.Object[] All() => _a.LoadAllAssets();
         ");
 
         foreach ((string asset, Type type) in assets)

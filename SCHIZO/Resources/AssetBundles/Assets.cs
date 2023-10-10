@@ -12,9 +12,12 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = 351115670;
+    private const int _rnd = 778387947;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
+
+    public static T[] All<T>() where T : UnityEngine.Object => _a.LoadAllAssets<T>();
+    public static UnityEngine.Object[] All() => _a.LoadAllAssets();
         
     public static SCHIZO.Unity.Creatures.CustomCreatureData Anneel_AnneelData = _a.LoadAsset<SCHIZO.Unity.Creatures.CustomCreatureData>("Assets/Anneel/Anneel data.asset");
     public static SCHIZO.Unity.Sounds.SoundCollection Credits_SNEasterEgg = _a.LoadAsset<SCHIZO.Unity.Sounds.SoundCollection>("Assets/Credits/SN Easter Egg.asset");

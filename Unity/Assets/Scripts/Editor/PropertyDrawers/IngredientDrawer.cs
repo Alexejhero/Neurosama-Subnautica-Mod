@@ -17,10 +17,10 @@ namespace PropertyDrawers
             EditorGUI.BeginProperty(position, label, property);
             position = EditorGUI.PrefixLabel(position, DrawerUtils.ControlId(property.propertyPath + "label", position), label);
 
-            Rect itemRect = new Rect(position.x, position.y, position.width - 30, position.height);
+            Rect itemRect = new Rect(position.x, position.y, position.width - 50, position.height);
             ItemDrawer.DrawItem(property.FindPropertyRelative(nameof(Ingredient.item)), itemRect);
 
-            Rect amountRect = new Rect(position.x + position.width - 25, position.y, 25, position.height);
+            Rect amountRect = new Rect(position.x + position.width - 45, position.y, 45, position.height);
 
             EditorGUI.BeginChangeCheck();
             amount = EditorGUI.IntField(amountRect, amount);

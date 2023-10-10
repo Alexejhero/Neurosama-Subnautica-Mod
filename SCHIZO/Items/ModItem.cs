@@ -13,6 +13,8 @@ public sealed class ModItem
     public ItemData ItemData { get; private set; }
     public PrefabInfo PrefabInfo { get; private set; }
 
+    public static ModItem Create(ItemData data) => new(data);
+
     public ModItem(ItemData data)
     {
         LOGGER.LogDebug("Registering item " + data.classId + " with name " + data.displayName);
@@ -27,9 +29,13 @@ public sealed class ModItem
 
         PrefabInfo = PrefabInfo.WithTechType(data.classId, data.displayName, data.tooltip);
         PrefabInfo.WithIcon(data.icon).WithSizeInInventory(new Vector2int(data.itemSize.x, data.itemSize.y));
+    }
 
-        if (ItemData.TechGroup != TechGroup.Uncategorized) CraftDataHandler.AddToGroup(ItemData.TechGroup, ItemData.TechCategory, this);
+    public void LoadStep2()
+    {
         if (ItemData.isBuildable) CraftDataHandler.AddBuildable(this);
+        if (ItemData.Recipe) CraftDataHandler.SetRecipeData(this, ItemData.Recipe.Convert());
+        if (ItemData.TechGroup != TechGroup.Uncategorized) CraftDataHandler.AddToGroup(ItemData.TechGroup, ItemData.TechCategory, this);
     }
 
     public static implicit operator PrefabInfo(ModItem self) => self.PrefabInfo;
