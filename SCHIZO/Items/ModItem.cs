@@ -10,8 +10,8 @@ public sealed class ModItem
 {
     private static readonly HashSet<string> _registeredItems = new();
 
-    public ItemData ItemData { get; private set; }
-    public PrefabInfo PrefabInfo { get; private set; }
+    public ItemData ItemData { get; }
+    public PrefabInfo PrefabInfo { get; }
 
     public static ModItem Create(ItemData data) => new(data);
 
@@ -33,9 +33,26 @@ public sealed class ModItem
 
     public void LoadStep2()
     {
-        if (ItemData.isBuildable) CraftDataHandler.AddBuildable(this);
-        if (ItemData.Recipe) CraftDataHandler.SetRecipeData(this, ItemData.Recipe.Convert());
-        if (ItemData.TechGroup != TechGroup.Uncategorized) CraftDataHandler.AddToGroup(ItemData.TechGroup, ItemData.TechCategory, this);
+        if (ItemData.isCraftable && ItemData.CraftTreeType != CraftTree.Type.None)
+        {
+            CraftTreeHandler.AddCraftingNode(ItemData.CraftTreeType, this, ItemData.CraftTreePath);
+            CraftDataHandler.SetCraftingTime(this, ItemData.craftingTime);
+        }
+
+        if (ItemData.isBuildable)
+        {
+            CraftDataHandler.AddBuildable(this);
+        }
+
+        if (ItemData.Recipe)
+        {
+            CraftDataHandler.SetRecipeData(this, ItemData.Recipe.Convert());
+        }
+
+        if (ItemData.TechGroup != TechGroup.Uncategorized)
+        {
+            CraftDataHandler.AddToGroup(ItemData.TechGroup, ItemData.TechCategory, this);
+        }
     }
 
     public static implicit operator PrefabInfo(ModItem self) => self.PrefabInfo;

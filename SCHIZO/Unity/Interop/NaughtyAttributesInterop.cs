@@ -1,71 +1,116 @@
 ﻿// ReSharper disable UnusedParameter.Local
 // ReSharper disable UnusedType.Global
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+
 // ReSharper disable once CheckNamespace
 namespace NaughtyAttributes;
 
-public class ExpandableAttribute : Attribute
+[Conditional("UNITY")]
+internal class ExpandableAttribute : Attribute
 {
 }
 
-public class ShowIfAttribute : Attribute
+[Conditional("UNITY")]
+internal class ShowIfAttribute : Attribute
 {
     public ShowIfAttribute(string condition)
     {
     }
 }
 
-public class HideIfAttribute : Attribute
+[Conditional("UNITY")]
+internal class HideIfAttribute : Attribute
 {
     public HideIfAttribute(string condition)
     {
     }
 }
 
-public class LabelAttribute : Attribute
+[Conditional("UNITY")]
+internal class LabelAttribute : Attribute
 {
     public LabelAttribute(string label)
     {
     }
 }
 
-public class ResizableTextAreaAttribute : Attribute
+[Conditional("UNITY")]
+internal class ResizableTextAreaAttribute : Attribute
 {
 }
 
-public class ReorderableListAttribute : Attribute
+[Conditional("UNITY")]
+internal class ReorderableListAttribute : Attribute
 {
 }
 
-public class AllowNestingAttribute : Attribute
+[Conditional("UNITY")]
+internal class AllowNestingAttribute : Attribute
 {
 }
 
-public class InfoBoxAttribute : Attribute
+[Conditional("UNITY")]
+internal class InfoBoxAttribute : Attribute
 {
     public InfoBoxAttribute(string text)
     {
     }
 }
 
-public class BoxGroupAttribute : Attribute
+[Conditional("UNITY")]
+internal class BoxGroupAttribute : Attribute
 {
     public BoxGroupAttribute(string group)
     {
     }
 }
 
-public class EnumFlagsAttribute : Attribute
+[Conditional("UNITY")]
+internal class EnumFlagsAttribute : Attribute
 {
 }
 
-public class ValidateInputAttribute : Attribute
+[Conditional("UNITY")]
+internal class ValidateInputAttribute : Attribute
 {
     public ValidateInputAttribute(string callbackName, string message = null)
     {
     }
 }
 
-public class RequiredAttribute : Attribute
+[Conditional("UNITY")]
+internal class RequiredAttribute : Attribute
 {
+}
+
+[Conditional("UNITY")]
+internal class DropdownAttribute : Attribute
+{
+    public DropdownAttribute(string valuesName)
+    {
+    }
+}
+
+internal interface IDropdownList : IEnumerable<KeyValuePair<string, object>>
+{
+}
+
+internal class DropdownList<T> : IDropdownList
+{
+    public void Add(string displayName, T value)
+    {
+    }
+
+    public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
+    {
+        yield break;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        yield break;
+    }
 }

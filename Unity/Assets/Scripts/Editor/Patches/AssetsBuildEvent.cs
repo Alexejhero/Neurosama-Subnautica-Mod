@@ -8,8 +8,10 @@ using System.Text;
 using AssetBundleBrowser.AssetBundleDataSource;
 using HarmonyLib;
 using JetBrains.Annotations;
+using SCHIZO.Unity.Utilities;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 [HarmonyPatch, UsedImplicitly]
@@ -56,7 +58,10 @@ public static class AssetsBuildEvent
                 }
                 else
                 {
-                    result.Add((capitalizedAssetName.Substring(7), HandleMultipleAssets(assets, main, asset).GetType()));
+                    Object includedAsset = HandleMultipleAssets(assets, main, asset);
+                    if (!includedAsset) continue;
+
+                    result.Add((capitalizedAssetName.Substring(7), includedAsset.GetType()));
                 }
             }
 
@@ -68,6 +73,8 @@ public static class AssetsBuildEvent
 
     private static UnityEngine.Object HandleMultipleAssets(UnityEngine.Object[] objects, UnityEngine.Object main, string path)
     {
+        if (objects.Any(o => o is DoNotExpose)) return null;
+
         if (main is GameObject) return main;
 
         if (objects[0] is Texture2D && objects[1] is Sprite sprite1) return sprite1;

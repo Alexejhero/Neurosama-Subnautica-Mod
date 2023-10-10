@@ -8,17 +8,15 @@ namespace SCHIZO.Items;
 
 public class UnityPrefab : CustomPrefab
 {
-    #region Keep alive
+    #region Prefab cache
 
-    //todo: see if this is actually needed
-
-    private static readonly Transform _keepAliveParent;
+    private static readonly Transform _prefabCacheParent;
 
     static UnityPrefab()
     {
-        _keepAliveParent = new GameObject("KeepAlive").transform;
-        _keepAliveParent.gameObject.SetActive(false);
-        Object.DontDestroyOnLoad(_keepAliveParent);
+        _prefabCacheParent = new GameObject("SCHIZO Prefab Cache").transform;
+        _prefabCacheParent.gameObject.SetActive(false);
+        Object.DontDestroyOnLoad(_prefabCacheParent);
     }
 
     #endregion
@@ -39,13 +37,13 @@ public class UnityPrefab : CustomPrefab
     public new virtual void Register()
     {
         modItem.LoadStep2();
-        SetGameObject(GetPrefab);
+        if (modItem.ItemData.prefab) SetGameObject(GetPrefab);
         base.Register();
     }
 
     protected virtual GameObject GetPrefab()
     {
-        GameObject instance = Object.Instantiate(modItem.ItemData.prefab, _keepAliveParent);
+        GameObject instance = Object.Instantiate(modItem.ItemData.prefab, _prefabCacheParent);
 
         AddBasicComponents(instance);
         InitializeConstructable(instance);

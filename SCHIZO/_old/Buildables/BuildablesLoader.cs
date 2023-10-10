@@ -31,14 +31,6 @@ public static class BuildablesLoader
             TechCategory = TechCategory.Misc,
             RequiredForUnlock = ModItems.Ermfish,
         }.Register();
-
-        new BuildableItem(new ModItem("Neuroopper2", "Neurooper", "<size=75%>(Model by greencap, original art by Sandro)</size>"))
-        {
-            UnityItemData = Assets.Neurooper_NeurooperData,
-            Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(Retargeting.TechType.Peeper, 2), new Ingredient(TechType.Bladderfish, 1)),
-            TechGroup = TechGroup.Miscellaneous,
-            TechCategory = TechCategory.Misc,
-        }.WithOldVersion("Neurooper").Register();
     }
 
     [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
