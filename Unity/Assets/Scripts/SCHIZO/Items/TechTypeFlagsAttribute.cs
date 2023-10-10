@@ -6,8 +6,11 @@ namespace SCHIZO.Unity.Items
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class TechTypeFlagsAttribute : Attribute
     {
+        public readonly Flags flags;
+
         public TechTypeFlagsAttribute(Flags flags)
         {
+            this.flags = flags;
         }
     }
 

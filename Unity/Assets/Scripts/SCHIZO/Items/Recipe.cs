@@ -12,7 +12,7 @@ namespace SCHIZO.Unity.Items
         private bool game_Validate(Game value) => value.HasFlag(Game.Subnautica) || value.HasFlag(Game.BelowZero);
 
         public int craftAmount = 1;
-        public Ingredient[] ingredients;
-        public TechType_All[] linkedItems;
+        [ReorderableList] public Ingredient[] ingredients;
+        [ReorderableList] public Item[] linkedItems;
     }
 }

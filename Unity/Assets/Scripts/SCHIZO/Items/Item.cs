@@ -6,7 +6,7 @@ namespace SCHIZO.Unity.Items
     [Serializable]
     public sealed class Item
     {
-        public bool isBaseGame = true;
+        public bool isCustom = false;
         public TechType_All techType;
         public ItemData itemData;
 

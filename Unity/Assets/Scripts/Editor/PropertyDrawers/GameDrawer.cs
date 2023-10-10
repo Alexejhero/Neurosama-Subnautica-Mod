@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using HarmonyLib;
-using SCHIZO.Unity;
+﻿using SCHIZO.Unity;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,11 +9,56 @@ namespace PropertyDrawers
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            EditorGUI.BeginProperty(position, label, property);
-            position = EditorGUI.PrefixLabel(position, (property.propertyPath + "label").GetHashCode(), label);
+            Validate(property, out bool isSN, out bool isBZ);
 
-            bool isSN = ((Game) property.intValue).HasFlag(Game.Subnautica);
-            bool isBZ = ((Game) property.intValue).HasFlag(Game.BelowZero);
+            EditorGUI.BeginProperty(position, label, property);
+            position = EditorGUI.PrefixLabel(position, DrawerUtils.ControlId(property.propertyPath + "label", position), label);
+
+            Rect rect = new Rect(position.x, position.y, position.width / 2, position.height);
+            using (new EditorGUI.DisabledScope(!isBZ))
+            {
+                EditorGUI.BeginChangeCheck();
+                isSN = DrawerUtils.ToggleLeft(rect, new GUIContent("Subnautica"), isSN, DrawerUtils.ControlId(property.propertyPath + "sn", rect));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    if (isSN)
+                    {
+                        property.intValue |= (int) Game.Subnautica;
+                    }
+                    else
+                    {
+                        property.intValue &= ~(int) Game.Subnautica;
+                    }
+                }
+            }
+
+            rect.x += rect.width;
+            using (new EditorGUI.DisabledScope(!isSN))
+            {
+                EditorGUI.BeginChangeCheck();
+                isBZ = DrawerUtils.ToggleLeft(rect, new GUIContent("Below Zero"), isBZ, DrawerUtils.ControlId(property.propertyPath + "bz", rect));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    if (isBZ)
+                    {
+                        property.intValue |= (int) Game.BelowZero;
+                    }
+                    else
+                    {
+                        property.intValue &= ~(int) Game.BelowZero;
+                    }
+                }
+            }
+
+            EditorGUI.EndProperty();
+
+            property.serializedObject.ApplyModifiedProperties();
+        }
+
+        private static void Validate(SerializedProperty property, out bool isSN, out bool isBZ)
+        {
+            isSN = ((Game) property.intValue).HasFlag(Game.Subnautica);
+            isBZ = ((Game) property.intValue).HasFlag(Game.BelowZero);
 
             if (!isSN && !isBZ)
             {
@@ -24,70 +67,6 @@ namespace PropertyDrawers
                 property.intValue = (int) (Game.Subnautica | Game.BelowZero);
                 property.serializedObject.ApplyModifiedPropertiesWithoutUndo();
             }
-
-            Rect rect = new Rect(position.x, position.y, position.width / 2, position.height);
-            using (new EditorGUI.DisabledScope(!isBZ))
-            {
-                if (ToggleLeft(rect, new GUIContent("Subnautica"), isSN, (property.propertyPath + "sn").GetHashCode()) != isSN)
-                {
-                    GUI.FocusControl(null);
-
-                    isSN = !isSN;
-
-                    if (isSN)
-                    {
-                        property.intValue |= (int) Game.Subnautica;
-                        property.serializedObject.ApplyModifiedProperties();
-                    }
-                    else
-                    {
-                        property.intValue &= ~(int) Game.Subnautica;
-                        property.serializedObject.ApplyModifiedProperties();
-                    }
-                }
-            }
-
-            rect.x += rect.width;
-            using (new EditorGUI.DisabledScope(!isSN))
-            {
-                if (ToggleLeft(rect, new GUIContent("Below Zero"), isBZ, (property.propertyPath + "bz").GetHashCode()) != isBZ)
-                {
-                    GUI.FocusControl(null);
-
-                    isBZ = !isBZ;
-
-                    if (isBZ)
-                    {
-                        property.intValue |= (int) Game.BelowZero;
-                        property.serializedObject.ApplyModifiedProperties();
-                    }
-                    else
-                    {
-                        property.intValue &= ~(int) Game.BelowZero;
-                        property.serializedObject.ApplyModifiedProperties();
-                    }
-                }
-            }
-
-            EditorGUI.EndProperty();
-        }
-
-        private static readonly MethodInfo _doToggleForward = AccessTools.Method("UnityEditor.EditorGUIInternal:DoToggleForward");
-
-        private static bool ToggleLeft(
-            Rect position,
-            GUIContent label,
-            bool value,
-            int controlId)
-        {
-            Rect position1 = EditorGUI.IndentedRect(position);
-            Rect labelPosition = EditorGUI.IndentedRect(position);
-            int num = (EditorStyles.toggle.margin.top - EditorStyles.toggle.margin.bottom) / 2;
-            labelPosition.xMin += EditorStyles.toggle.padding.left;
-            labelPosition.yMin -= num;
-            labelPosition.yMax -= num;
-            EditorGUI.HandlePrefixLabel(position, labelPosition, label, controlId, EditorStyles.label);
-            return (bool) _doToggleForward.Invoke(null, new object[] {position1, controlId, value, GUIContent.none, EditorStyles.toggle});
         }
     }
 }
