@@ -1,3 +1,9 @@
+#if BELOWZERO
+global using NIngredient = Ingredient;
+#else
+global using NIngredient = CraftData.Ingredient;
+#endif
+
 global using static SCHIZO.Plugin;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,16 +11,11 @@ using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using Nautilus.Assets;
 using Nautilus.Handlers;
-using Nautilus.Utility;
-using SCHIZO.Attributes;
-using SCHIZO.Helpers;
 using SCHIZO.Items;
 using SCHIZO.Resources;
 using SCHIZO.Unity;
 using SCHIZO.Unity.Items;
-using UnityEngine;
 
 namespace SCHIZO;
 

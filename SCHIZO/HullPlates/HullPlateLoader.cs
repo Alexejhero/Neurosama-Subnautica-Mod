@@ -17,8 +17,8 @@ namespace SCHIZO.HullPlates;
 [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
 public static class HullPlateLoader
 {
-    private static readonly RecipeData NormalRecipe = new(new Ingredient(TechType.Titanium, 1), new Ingredient(TechType.Glass, 1));
-    private static readonly RecipeData ExpensiveRecipe = new(new Ingredient(TechType.TitaniumIngot, 1), new Ingredient(TechType.Glass, 1));
+    private static readonly RecipeData NormalRecipe = new(new NIngredient(TechType.Titanium, 1), new NIngredient(TechType.Glass, 1));
+    private static readonly RecipeData ExpensiveRecipe = new(new NIngredient(TechType.TitaniumIngot, 1), new NIngredient(TechType.Glass, 1));
 
     [LoadMethod]
     private static void Load()

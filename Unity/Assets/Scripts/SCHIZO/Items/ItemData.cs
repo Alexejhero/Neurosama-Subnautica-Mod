@@ -1,5 +1,5 @@
-﻿using System;
-using NaughtyAttributes;
+﻿using NaughtyAttributes;
+using SCHIZO.Helpers;
 using SCHIZO.Unity.Retargeting.BelowZero;
 using SCHIZO.Unity.Retargeting.Subnautica;
 using SCHIZO.Unity.Sounds;
@@ -54,13 +54,9 @@ namespace SCHIZO.Unity.Items
 #if !UNITY
         public SCHIZO.Items.ModItem ModItem { get; set; }
 
-        public TechGroup TechGroup => SCHIZO.Retargeting.TechGroup.Pick(techGroupSN, techGroupBZ);
-        public TechCategory TechCategory => SCHIZO.Retargeting.TechCategory.Pick(techCategorySN, techCategoryBZ);
-#if BELOWZERO
-        public Recipe Recipe => recipeBZ;
-#else
-        public Recipe Recipe => recipeSN;
-#endif
+        public Recipe Recipe => RetargetHelpers.Pick(recipeSN, recipeBZ);
+        public TechGroup TechGroup => (TechGroup) RetargetHelpers.Pick(techGroupSN, techGroupBZ);
+        public TechCategory TechCategory => (TechCategory) RetargetHelpers.Pick(techCategorySN, techCategoryBZ);
 #else
         public Recipe RecipeSN => recipeSN;
         public Recipe RecipeBZ => recipeBZ;

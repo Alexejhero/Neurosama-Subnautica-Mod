@@ -10,9 +10,9 @@ namespace SCHIZO.Unity.Items
         public int amount = 1;
 
 #if !UNITY
-        public NautilusIngredient Convert()
+        public NIngredient Convert()
         {
-            return new NautilusIngredient(item.Convert(), amount);
+            return new NIngredient(item.Convert(), amount);
         }
 #endif
     }
