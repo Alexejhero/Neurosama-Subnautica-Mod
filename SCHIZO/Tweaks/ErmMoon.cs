@@ -27,7 +27,7 @@ public sealed class ErmMoon : MonoBehaviour
 
         _normalMoonSize = _skyManager.MoonSize;
 
-        _ermTex = Assets.Erm_Icons_Erm.texture.GetReadable();
+        _ermTex = Assets.Old_Erm_Icons_Erm.texture.GetReadable();
         _ermTex = _ermTex.Rotate180(); // moon texture is upside down
         _ermTex.name = "erm";
 

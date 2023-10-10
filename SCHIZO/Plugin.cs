@@ -1,8 +1,4 @@
-#if BELOWZERO
-global using NIngredient = Ingredient;
-#else
-global using NIngredient = CraftData.Ingredient;
-#endif
+
 
 global using static SCHIZO.Plugin;
 using System.Collections.Generic;
@@ -14,7 +10,6 @@ using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Items;
 using SCHIZO.Resources;
-using SCHIZO.Unity;
 using SCHIZO.Unity.Items;
 
 namespace SCHIZO;
@@ -22,16 +17,6 @@ namespace SCHIZO;
 [BepInPlugin("SCHIZO", "Neuro-sama Mod", "1.0.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
-#if BELOWZERO
-    public static bool IS_SUBNAUTICA => false;
-    public static bool IS_BELOWZERO => true;
-    public static Game GAME => Game.BelowZero;
-#else
-    public static bool IS_SUBNAUTICA => true;
-    public static bool IS_BELOWZERO => false;
-    public static Game GAME => Game.Subnautica;
-#endif
-
     public static ManualLogSource LOGGER { get; private set; }
 
     public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();

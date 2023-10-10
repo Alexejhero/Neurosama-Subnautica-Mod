@@ -53,9 +53,9 @@ namespace SCHIZO.Unity.Items
 #if !UNITY
         public SCHIZO.Items.ModItem ModItem { get; set; }
 
-        public Recipe Recipe => SCHIZO.Helpers.RetargetHelpers.Pick(recipeSN, recipeBZ);
-        public TechGroup TechGroup => (TechGroup) SCHIZO.Helpers.RetargetHelpers.Pick(techGroupSN, techGroupBZ);
-        public TechCategory TechCategory => (TechCategory) SCHIZO.Helpers.RetargetHelpers.Pick(techCategorySN, techCategoryBZ);
+        public Recipe Recipe => Helpers.RetargetHelpers.Pick(recipeSN, recipeBZ);
+        public TechGroup TechGroup => (TechGroup) Helpers.RetargetHelpers.Pick(techGroupSN, techGroupBZ);
+        public TechCategory TechCategory => (TechCategory) Helpers.RetargetHelpers.Pick(techCategorySN, techCategoryBZ);
 #else
         public Recipe RecipeSN => recipeSN;
         public Recipe RecipeBZ => recipeBZ;
