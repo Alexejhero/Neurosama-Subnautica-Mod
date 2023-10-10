@@ -9,26 +9,27 @@ namespace Inspectors
     [CustomEditor(typeof(ItemData))]
     public sealed class ItemDataInspector : NaughtyInspector
     {
+        private void SetFields()
+        {
+            ItemData itemData = (ItemData) target;
+
+            int sn = itemData.RecipeSN ? itemData.RecipeSN.GetInstanceID() : 0;
+            int bz = itemData.RecipeBZ ? itemData.RecipeBZ.GetInstanceID() : 0;
+
+            RecipeDrawer.SubnauticaRecipes = new List<int>() {sn};
+            RecipeDrawer.BelowZeroRecipes = new List<int>() {bz};
+        }
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-
-            ItemData itemData = (ItemData) target;
-            RecipeDrawer.SubnauticaRecipes = new List<int>() {itemData.RecipeSN.GetInstanceID()};
-            RecipeDrawer.BelowZeroRecipes = new List<int>() {itemData.RecipeBZ.GetInstanceID()};
-            RecipeDrawer.BuildableRecipes = itemData.isBuildable ? new List<int>() {itemData.RecipeSN.GetInstanceID(), itemData.RecipeBZ.GetInstanceID()} : new List<int>();
-            RecipeDrawer.NonBuildableRecipes = !itemData.isBuildable ? new List<int>() {itemData.RecipeSN.GetInstanceID(), itemData.RecipeBZ.GetInstanceID()} : new List<int>();
+            SetFields();
         }
 
         private new void OnEnable()
         {
             base.OnEnable();
-
-            ItemData itemData = (ItemData) target;
-            RecipeDrawer.SubnauticaRecipes = new List<int>() {itemData.RecipeSN.GetInstanceID()};
-            RecipeDrawer.BelowZeroRecipes = new List<int>() {itemData.RecipeBZ.GetInstanceID()};
-            RecipeDrawer.BuildableRecipes = itemData.isBuildable ? new List<int>() {itemData.RecipeSN.GetInstanceID(), itemData.RecipeBZ.GetInstanceID()} : new List<int>();
-            RecipeDrawer.NonBuildableRecipes = !itemData.isBuildable ? new List<int>() {itemData.RecipeSN.GetInstanceID(), itemData.RecipeBZ.GetInstanceID()} : new List<int>();
+            SetFields();
         }
 
         private new void OnDisable()
@@ -37,8 +38,6 @@ namespace Inspectors
 
             RecipeDrawer.SubnauticaRecipes.Clear();
             RecipeDrawer.BelowZeroRecipes.Clear();
-            RecipeDrawer.BuildableRecipes.Clear();
-            RecipeDrawer.NonBuildableRecipes.Clear();
         }
     }
 }

@@ -12,13 +12,11 @@ namespace SCHIZO.Unity.Items
         public Game game = Game.Subnautica | Game.BelowZero;
         private bool game_Validate(Game value) => value.HasFlag(Game.Subnautica) || value.HasFlag(Game.BelowZero);
 
-        [HideIf("isBuildable")] public int craftAmount = 1;
+        public int craftAmount = 1;
         [ReorderableList] public Ingredient[] ingredients;
-        [ReorderableList, HideIf("isBuildable")] public Item[] linkedItems;
+        [ReorderableList] public Item[] linkedItems;
 
-#if UNITY
-        public bool isBuildable;
-#else
+#if !UNITY
         public Nautilus.Crafting.RecipeData Convert()
         {
             return new Nautilus.Crafting.RecipeData

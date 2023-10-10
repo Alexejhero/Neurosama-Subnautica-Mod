@@ -11,20 +11,16 @@ namespace PropertyDrawers
     {
         public static List<int> SubnauticaRecipes = new List<int>();
         public static List<int> BelowZeroRecipes = new List<int>();
-        public static List<int> BuildableRecipes = new List<int>();
-        public static List<int> NonBuildableRecipes = new List<int>();
 
         private static bool IsOk(SerializedProperty property)
         {
             if (!property.objectReferenceValue) return true;
 
             int instanceId = property.objectReferenceInstanceIDValue;
-            Recipe recipe = ((Recipe) property.objectReferenceValue);
+            Recipe recipe = (Recipe) property.objectReferenceValue;
 
             if (SubnauticaRecipes.Contains(instanceId) && property.name.ToLower().Contains("sn") && !recipe.game.HasFlag(Game.Subnautica)) return false;
             if (BelowZeroRecipes.Contains(instanceId) && property.name.ToLower().Contains("bz") && !recipe.game.HasFlag(Game.BelowZero)) return false;
-            if (BuildableRecipes.Contains(instanceId) && !recipe.isBuildable) return false;
-            if (NonBuildableRecipes.Contains(instanceId) && recipe.isBuildable) return false;
             return true;
         }
 
