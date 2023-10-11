@@ -48,6 +48,97 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 4
+--- !u!114 &-8099726995881225159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e97d27e69d04d1f819f4859df043828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootTransform: {fileID: 4430336063030548523}
+  rootSegment: {fileID: 0}
+  trails: []
+  pitchMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rollMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  yawMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  segmentSnapSpeed: 5
+  maxSegmentOffset: -1
+  allowDisableOnScreen: 1
+  levelOfDetail: {fileID: -3623193925210079658}
 --- !u!114 &-7421542958749478918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -763,13 +854,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rootGameObject: {fileID: 5049378406231838710}
-  levelOfDetail: {fileID: -3623193925210079658}
   animator: {fileID: 0}
   animationMoveMaxSpeed: 4
   animationMaxPitch: 30
   animationMaxTilt: 45
   useStrafeAnimation: 0
   dampTime: 0.5
+  levelOfDetail: {fileID: -3623193925210079658}
 --- !u!114 &6294765647300301627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,6 +1020,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4afaa0bdc846574aa2185e0c81013f9, type: 3}
+--- !u!4 &4430336063030548523 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4074388638642951939}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4325550884201703431 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 327728672407256836, guid: c4afaa0bdc846574aa2185e0c81013f9,
