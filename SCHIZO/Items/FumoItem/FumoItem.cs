@@ -52,7 +52,7 @@ public class FumoItem : ItemPrefab
         tool.rightHandIKTarget = prefab.transform.Find("VM/IK_RightHand");
         //tool.mainCollider = prefab.GetComponentInChildren<Collider>();
 #if BELOWZERO
-        tool.ikAimLookDownAngleLimit = 60f;
+        tool.ikAimLookDownAngleLimit = 30f;
 #endif
         tool.pickupable = pickupable;
         FPModel fpModel = prefab.EnsureComponent<FPModel>();

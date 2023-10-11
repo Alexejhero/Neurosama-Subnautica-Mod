@@ -1,27 +1,34 @@
+using System.Collections;
+using System.Text;
 using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem;
 
 public sealed partial class FumoItemTool : CustomPlayerTool
 {
-    private const float hugTransitionDuration = 0.2f;
-    private float hugDistScale;
-    private const float hugCooldown = 1f;
-    private float nextHugTime;
-    private readonly Vector3 chestOffset = new(0, -0.3f, 0);
+    public bool IsHugging => _isHugging;
+    public bool IsFlushed => _isFlushed;
 
-    private bool isHugging;
-    private const float hugDistance = 0.5f;
-    private Vector3 prevHugPosOffset;
-    private const float hugMoveSpeedMulti = 0.7f;
-    private const int hugColdResistBuff = 20;
-    private bool hugEffectApplied;
+    private const float _hugTransitionDuration = 0.2f;
+    private float _hugDistScale;
+    private const float _hugCooldown = 1f;
+    private float _nextHugTime;
+    private readonly Vector3 _chestOffset = new(0, -0.2f, 0);
 
-    private bool canFlush;
-    private bool isFlushed;
-    private const float flushedZscalar = 2f;
+    private bool _isHugging;
+    private float _hugTime;
+    private const float _hugDistance = 0.5f;
+    private Vector3 _prevHugPosOffset;
+    private bool _hugEffectApplied;
+    private const float _hugMoveSpeedMulti = 0.7f;
+    private const int _hugColdResistBuff = 20;
 
-    private GroundMotor groundMotor;
+    private bool _canFlushOnAltUse;
+    private bool _canFlushOnHug;
+    private bool _isFlushed;
+    private const float _flushedZscalar = 2f;
+
+    private GroundMotor _groundMotor;
 
     public new void Awake()
     {
@@ -30,43 +37,76 @@ public sealed partial class FumoItemTool : CustomPlayerTool
         primaryUseTextLanguageString = "Hug ({0})";
         holsterTime = 0.1f;
 
-        canFlush = Random.Range(0f, 1f) < 0.05f;
-        if (canFlush)
+        _canFlushOnAltUse = Random.Range(0f, 1f) < 0.05f;
+        if (_canFlushOnAltUse)
         {
             hasAltUse = true;
             altUseTextLanguageString = "Flushed ({0})";
         }
+        else
+        {
+            _canFlushOnHug = Random.Range(0f, 1f) < 0.5f;
+        }
 
         base.Awake();
+    }
+
+    public void Start()
+    {
+        FixBZModelTransform();
+    }
+
+    public void FixedUpdate()
+    {
+        if (!usingPlayer) return;
+        if (!_canFlushOnHug) return;
+
+        if (_isHugging)
+        {
+            _hugTime += Time.fixedDeltaTime;
+            if (_hugTime > 10f) SetFlushed(true);
+        }
+        else
+        {
+            _hugTime = 0;
+            if (_hugDistScale == 0f) SetFlushed(false);
+        }
     }
 
     public void Update()
     {
         if (!usingPlayer) return;
 
-        float delta = Time.deltaTime / hugTransitionDuration;
-        hugDistScale = isHugging
-            ? Mathf.Min(1, hugDistScale + delta)
-            : Mathf.Max(0, hugDistScale - delta);
+        float delta = Time.deltaTime / _hugTransitionDuration;
+        _hugDistScale = _isHugging
+            ? Mathf.Min(1, _hugDistScale + delta)
+            : Mathf.Max(0, _hugDistScale - delta);
 
-        UpdateHugPos(hugDistScale);
+        UpdateHugPos(_hugDistScale);
     }
 
     private void UpdateHugPos(float distScale)
     {
         (Transform parent, Vector3 offset) = GetHugOffset(distScale);
 
-        Vector3 delta = offset - prevHugPosOffset;
+        Vector3 delta = offset - _prevHugPosOffset;
         parent.localPosition += delta;
-        prevHugPosOffset = offset;
+        _prevHugPosOffset = offset;
+    }
+
+    public override void OnDraw(Player p)
+    {
+        p.isUnderwater.changedEvent.AddHandler(this, GroundSpeedHack);
+        base.OnDraw(p);
     }
 
     public override void OnHolster()
     {
+        usingPlayer.isUnderwater.changedEvent.RemoveHandler(this, GroundSpeedHack);
         // need to reset immediately, otherwise PDA opens in the wrong location
         UpdateHugPos(0);
         StopHugging();
-        if (isFlushed) ApplyZScaleMulti(1f / flushedZscalar);
+        if (_isFlushed) SetFlushed(false);
         base.OnHolster();
     }
 
@@ -74,7 +114,7 @@ public sealed partial class FumoItemTool : CustomPlayerTool
 
     public override bool OnRightHandHeld()
     {
-        if (!isHugging && Time.time > nextHugTime)
+        if (!_isHugging && Time.time > _nextHugTime)
             StartHugging();
         return base.OnRightHandHeld();
     }
@@ -87,55 +127,74 @@ public sealed partial class FumoItemTool : CustomPlayerTool
 
     public override bool OnAltDown()
     {
-        if (!canFlush || isFlushed) return false;
+        if (!_canFlushOnAltUse) return false;
 
-        isFlushed = true;
-        ApplyZScaleMulti(flushedZscalar);
-        return base.OnAltDown();
+        return SetFlushed(true) && base.OnAltDown();
     }
 
     public override bool OnAltUp()
     {
-        if (!canFlush || !isFlushed) return false;
+        if (!_canFlushOnAltUse) return false;
 
-        isFlushed = false;
-        ApplyZScaleMulti(1f / flushedZscalar);
-        return base.OnAltUp();
+        return SetFlushed(false) && base.OnAltUp();
     }
 
     public void StartHugging()
     {
-        if (isHugging || !usingPlayer) return;
-        isHugging = true;
+        if (_isHugging || !usingPlayer) return;
+        _isHugging = true;
 
-        if (hugEffectApplied) return;
-        ApplyMoveSpeedMulti(hugMoveSpeedMulti);
-        ApplyColdResistBuff(hugColdResistBuff);
-        hugEffectApplied = true;
+        if (_hugEffectApplied) return;
+        ApplyMoveSpeedMulti(_hugMoveSpeedMulti);
+        ApplyColdResistBuff(_hugColdResistBuff);
+        _hugEffectApplied = true;
     }
 
     public void StopHugging()
     {
-        if (!isHugging || !usingPlayer) return;
-        isHugging = false;
-        nextHugTime = Time.time + hugCooldown;
+        if (!_isHugging || !usingPlayer) return;
+        _isHugging = false;
+        _nextHugTime = Time.time + _hugCooldown;
 
-        if (!hugEffectApplied) return;
-        ApplyMoveSpeedMulti(1f/hugMoveSpeedMulti);
-        ApplyColdResistBuff(-hugColdResistBuff);
-        hugEffectApplied = false;
+        if (!_hugEffectApplied) return;
+        ApplyMoveSpeedMulti(1f/_hugMoveSpeedMulti);
+        ApplyColdResistBuff(-_hugColdResistBuff);
+        _hugEffectApplied = false;
+    }
+
+    private void GroundSpeedHack(Utils.MonitoredValue<bool> isUnderwater)
+    {
+        if (!_isHugging || isUnderwater.value) return;
+        StartCoroutine(ApplyGroundMoveSpeedMulti(_hugMoveSpeedMulti));
     }
 
     private void ApplyMoveSpeedMulti(float multi)
     {
-        // a formal apology for the following lines of code can be issued to any Subnautica dev or modder on request
         Player player = usingPlayer ? usingPlayer : Player.main;
         if (!player) return;
-        if (!groundMotor) groundMotor = player.GetComponent<GroundMotor>();
-        groundMotor.forwardMaxSpeed *= multi;
-        groundMotor.strafeMaxSpeed *= multi;
-        groundMotor.backwardMaxSpeed *= multi;
-        groundMotor.GetComponent<UnderwaterMotor>().debugSpeedMult *= multi;
+        if (!_groundMotor) _groundMotor = player.GetComponent<GroundMotor>();
+
+        StartCoroutine(ApplyGroundMoveSpeedMulti(multi));
+        // this is fortunately enough to change underwater swim speed
+        _groundMotor.GetComponent<UnderwaterMotor>().debugSpeedMult *= multi;
+    }
+
+    // a formal apology for the following function may be issued to any Subnautica dev or modder on request
+    private IEnumerator ApplyGroundMoveSpeedMulti(float multi)
+    {
+        yield return null;
+        _groundMotor.forwardMaxSpeed *= multi;
+        _groundMotor.strafeMaxSpeed *= multi;
+        _groundMotor.backwardMaxSpeed *= multi;
+    }
+
+    public bool SetFlushed(bool flushed)
+    {
+        if (_isFlushed == flushed) return false;
+
+        _isFlushed = flushed;
+        ApplyZScaleMulti(flushed ? _flushedZscalar : 1 / _flushedZscalar);
+        return true;
     }
 
     private void ApplyZScaleMulti(float multi)
