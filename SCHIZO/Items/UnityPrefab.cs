@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using SCHIZO.Helpers;
+using SCHIZO.Unity.Items;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -27,11 +28,17 @@ public class UnityPrefab : CustomPrefab
 
     public static void CreateAndRegister(ModItem modItem)
     {
+        if (modItem.ItemData is CloneItemData cloneItemData)
+        {
+            cloneItemData.loader.Load();
+            return;
+        }
+
         new UnityPrefab(modItem).Register();
     }
 
     [SetsRequiredMembers]
-    public UnityPrefab(ModItem item) : base(item)
+    protected UnityPrefab(ModItem item) : base(item)
     {
         modItem = item;
     }

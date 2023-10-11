@@ -12,7 +12,7 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = -341755426;
+    private const int _rnd = -566465992;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
 
@@ -31,7 +31,6 @@ public static class Assets
     public static SCHIZO.Unity.Sounds.CombinedSoundCollection Old_Tutel_Sounds_GetCarried_PickupByErmshark = _a.LoadAsset<SCHIZO.Unity.Sounds.CombinedSoundCollection>("Assets/_old/Tutel/Sounds/Get Carried/Pickup by ermshark.asset");
     public static SCHIZO.Unity.Creatures.PickupableCreatureData Old_Tutel_TutelData = _a.LoadAsset<SCHIZO.Unity.Creatures.PickupableCreatureData>("Assets/_old/Tutel/Tutel data.asset");
     public static SCHIZO.Unity.Sounds.SoundCollection Credits_SNEasterEgg = _a.LoadAsset<SCHIZO.Unity.Sounds.SoundCollection>("Assets/Credits/SN Easter Egg.asset");
-    public static SCHIZO.Unity.Items.ItemData Gymbag_GymbagData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Gymbag/Gymbag data.asset");
     public static SCHIZO.Unity.HullPlates.HullPlateCollection HullPlates_HullPlates = _a.LoadAsset<SCHIZO.Unity.HullPlates.HullPlateCollection>("Assets/Hull Plates/Hull Plates.asset");
     public static SCHIZO.Unity.Loading.LoadingBackgroundCollection Loading_Backgrounds_LoadingBackgrounds = _a.LoadAsset<SCHIZO.Unity.Loading.LoadingBackgroundCollection>("Assets/Loading/Backgrounds/LoadingBackgrounds.asset");
     public static UnityEngine.Texture2D Loading_LoadingIcon = _a.LoadAsset<UnityEngine.Texture2D>("Assets/Loading/loading icon.png");

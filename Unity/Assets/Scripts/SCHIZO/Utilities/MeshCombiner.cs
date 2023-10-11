@@ -40,7 +40,7 @@ namespace SCHIZO.Unity.Utilities
 
             mesh.CombineMeshes(combine);
 
-            UnityEditor.AssetDatabase.SaveAssets();
+            UnityEditor.EditorUtility.SetDirty(this);
         }
 #endif
     }

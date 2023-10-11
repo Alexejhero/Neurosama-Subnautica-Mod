@@ -8,7 +8,7 @@ using UnityEngine;
 namespace SCHIZO.Unity.Items
 {
     [CreateAssetMenu(menuName = "SCHIZO/Items/Item Data")]
-    public sealed class ItemData : ScriptableObject
+    public class ItemData : ScriptableObject
     {
         public bool autoRegister = false;
 
@@ -20,7 +20,7 @@ namespace SCHIZO.Unity.Items
         [HorizontalLine(2, EColor.Red), HideIf(nameof(autoRegister))]
         [SerializeField, Label("Prefab")] private GameObject _prefab2;
 
-        private void OnValidate_prefab()
+        protected virtual void OnValidate()
         {
             if (_prefab1 == _prefab2 && prefab != _prefab1) _prefab1 = _prefab2 = prefab;
             if (prefab == _prefab2 && _prefab1 != prefab) prefab = _prefab2 = _prefab1;
@@ -101,25 +101,6 @@ namespace SCHIZO.Unity.Items
 #if UNITY
         public Recipe RecipeSN => recipeSN;
         public Recipe RecipeBZ => recipeBZ;
-#endif
-
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            OnValidate_prefab();
-
-            Utilities.DoNotExpose doNotExpose = UnityEditor.AssetDatabase.LoadAssetAtPath<Utilities.DoNotExpose>(UnityEditor.AssetDatabase.GetAssetPath(this));
-            if (autoRegister && !doNotExpose)
-            {
-                UnityEditor.AssetDatabase.AddObjectToAsset(CreateInstance<Utilities.DoNotExpose>(), this);
-                UnityEditor.AssetDatabase.SaveAssets();
-            }
-            else if (!autoRegister && doNotExpose)
-            {
-                UnityEditor.AssetDatabase.RemoveObjectFromAsset(doNotExpose);
-                UnityEditor.AssetDatabase.SaveAssets();
-            }
-        }
 #endif
 
         #endregion

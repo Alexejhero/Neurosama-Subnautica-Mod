@@ -8,6 +8,7 @@ using System.Text;
 using AssetBundleBrowser.AssetBundleDataSource;
 using HarmonyLib;
 using JetBrains.Annotations;
+using SCHIZO.Unity.Items;
 using SCHIZO.Unity.Utilities;
 using UnityEditor;
 using UnityEngine;
@@ -73,9 +74,8 @@ public static class AssetsBuildEvent
 
     private static UnityEngine.Object HandleMultipleAssets(UnityEngine.Object[] objects, UnityEngine.Object main, string path)
     {
-        if (objects.Any(o => o is DoNotExpose)) return null;
-
         if (main is GameObject) return main;
+        if (main is CloneItemData) return main;
 
         if (objects[0] is Texture2D && objects[1] is Sprite sprite1) return sprite1;
         if (objects[0] is Sprite sprite2 && objects[1] is Texture2D) return sprite2;

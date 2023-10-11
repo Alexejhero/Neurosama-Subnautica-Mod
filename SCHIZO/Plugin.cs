@@ -35,8 +35,6 @@ public sealed class Plugin : BaseUnityPlugin
 
         AddComponentAttribute.AddAll(gameObject, AddComponentAttribute.Target.Plugin);
 
-        new Gymbag(new ModItem(Assets.Gymbag_GymbagData), TechType.LuggageBag).Register();
-
         // LoadMethodAttribute.LoadAll();
         // LoadConsoleCommandsAttribute.RegisterAll();
         // LoadCreatureAttribute.RegisterAll(); TODO

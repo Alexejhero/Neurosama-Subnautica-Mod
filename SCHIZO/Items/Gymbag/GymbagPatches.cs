@@ -6,7 +6,7 @@ namespace SCHIZO.Items.Gymbag;
 [HarmonyPatch]
 public static class GymbagPatches
 {
-    private static ModItem _gymbagItem => Assets.Gymbag_GymbagData.ModItem;
+    private static ModItem _gymbagItem => Assets.Gymb.ModItem;
 
     [HarmonyPatch(typeof(PickupableStorage), nameof(PickupableStorage.OnHandClick))]
     [HarmonyPrefix]

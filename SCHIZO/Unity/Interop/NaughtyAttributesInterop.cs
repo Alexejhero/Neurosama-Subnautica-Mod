@@ -114,3 +114,7 @@ internal class DropdownList<T> : IDropdownList
         yield break;
     }
 }
+
+internal class ReadOnlyAttribute : Attribute
+{
+}

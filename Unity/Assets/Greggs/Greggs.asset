@@ -36,19 +36,3 @@ MonoBehaviour:
   craftTreePathBZ: Survival/CookedFood
   techGroupBZ: 1
   techCategoryBZ: 3
---- !u!114 &2311299619256565165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc64e75011f94fc4b32e7052f6daf8a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  note: 'This scriptable object is used to tell the build script
-
-    to not expose
-    this asset in the CS file.'

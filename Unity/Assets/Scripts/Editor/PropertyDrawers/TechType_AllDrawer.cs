@@ -22,11 +22,13 @@ namespace PropertyDrawers
         private static readonly List<string> BelowZeroTechTypes = typeof(TechType_All).GetEnumNames()
             .Where(n => typeof(TechType_All).GetField(n).GetCustomAttribute<TechTypeFlagsAttribute>().flags.HasFlag(Flags.BelowZero)).ToList();
 
-        public static bool IsValueAcceptable(string entry)
+        public static bool IsValueAcceptable(string entry, string fieldName)
         {
             switch (TargetGame)
             {
                 case 0:
+                    if (fieldName.ToLower().Contains("sn")) return SubnauticaTechTypes.Contains(entry);
+                    if (fieldName.ToLower().Contains("bz")) return BelowZeroTechTypes.Contains(entry);
                     return true;
 
                 case Game.Subnautica:
@@ -64,11 +66,11 @@ namespace PropertyDrawers
         public static void DrawDropdownButton(SerializedProperty property, int controlid, Rect position)
         {
             Color oldColor = GUI.backgroundColor;
-            if (!IsValueAcceptable(property.enumNames[property.enumValueIndex])) GUI.backgroundColor = Color.red;
+            if (!IsValueAcceptable(property.enumNames[property.enumValueIndex], property.name)) GUI.backgroundColor = Color.red;
 
             if (DropdownButton(controlid, position, new GUIContent(property.enumDisplayNames[property.enumValueIndex])))
             {
-                SearchablePopup.Show(position, property.enumDisplayNames, property.enumValueIndex, property.enumNames, i =>
+                SearchablePopup.Show(position, property.enumDisplayNames, property.enumNames, property.enumValueIndex, property.name, i =>
                 {
                     property.enumValueIndex = i;
                     property.serializedObject.ApplyModifiedProperties();
@@ -139,13 +141,14 @@ namespace PropertyDrawers
         /// Index of the currently selected string.
         /// </param>
         /// <param name="enunNames"></param>
+        /// <param name="propertyName"></param>
         /// <param name="onSelectionMade">
         /// Callback to trigger when a choice is made.
         /// </param>
-        public static void Show(Rect activatorRect, string[] options, int current, string[] enunNames, Action<int> onSelectionMade)
+        public static void Show(Rect activatorRect, string[] options, string[] enunNames, int current, string propertyName, Action<int> onSelectionMade)
         {
             SearchablePopup win =
-                new SearchablePopup(options, enunNames, current, onSelectionMade);
+                new SearchablePopup(options, enunNames, current, propertyName, onSelectionMade);
             PopupWindow.Show(activatorRect, win);
         }
 
@@ -268,6 +271,8 @@ namespace PropertyDrawers
         /// </summary>
         private readonly int currentIndex;
 
+        private string propertyName;
+
         /// <summary>
         /// Container for all available options that does the actual string
         /// filtering of the content.
@@ -311,10 +316,11 @@ namespace PropertyDrawers
 
         #region -- Initialization ---------------------------------------------
 
-        private SearchablePopup(string[] names, string[] itemNames, int currentIndex, Action<int> onSelectionMade)
+        private SearchablePopup(string[] names, string[] itemNames, int currentIndex, string propertyName, Action<int> onSelectionMade)
         {
             list = new FilteredList(names, itemNames);
             this.currentIndex = currentIndex;
+            this.propertyName = propertyName;
             this.onSelectionMade = onSelectionMade;
 
             hoverIndex = currentIndex;
@@ -417,7 +423,7 @@ namespace PropertyDrawers
                     scroll.x = 0;
                 }
 
-                if (rowRect.Contains(Event.current.mousePosition) && TechType_AllDrawer.IsValueAcceptable(list.Entries[i].ItemName))
+                if (rowRect.Contains(Event.current.mousePosition) && TechType_AllDrawer.IsValueAcceptable(list.Entries[i].ItemName, propertyName))
                 {
                     if (Event.current.type == EventType.MouseMove ||
                         Event.current.type == EventType.ScrollWheel)
@@ -448,7 +454,7 @@ namespace PropertyDrawers
             labelRect.xMin += ROW_INDENT;
 
             Color oldColor = GUI.contentColor;
-            if (!TechType_AllDrawer.IsValueAcceptable(list.Entries[i].ItemName)) GUI.contentColor = Color.gray;
+            if (!TechType_AllDrawer.IsValueAcceptable(list.Entries[i].ItemName, propertyName)) GUI.contentColor = Color.gray;
 
             GUI.Label(labelRect, list.Entries[i].Text);
 

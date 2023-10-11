@@ -79,7 +79,7 @@ PrefabInstance:
     - target: {fileID: 5844807597456787493, guid: 055ea2993f5883c459e08e4ea6b9d277,
         type: 3}
       propertyPath: m_Name
-      value: Neurooper
+      value: Neurooper prefab
       objectReference: {fileID: 0}
     - target: {fileID: 6516190622378925041, guid: 055ea2993f5883c459e08e4ea6b9d277,
         type: 3}
