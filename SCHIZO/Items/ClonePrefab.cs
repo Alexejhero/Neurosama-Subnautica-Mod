@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets.PrefabTemplates;
 using UnityEngine;
@@ -8,12 +7,12 @@ namespace SCHIZO.Items;
 
 public abstract class ClonePrefab : UnityPrefab
 {
-    private readonly TechType _original;
+    protected readonly TechType clonedTechType;
 
     [SetsRequiredMembers]
-    protected ClonePrefab(ModItem item, TechType original) : base(item)
+    protected ClonePrefab(ModItem item, TechType cloned) : base(item)
     {
-        _original = original;
+        clonedTechType = cloned;
     }
 
     [Obsolete("This method is not supported on ClonePrefab.", true)]
@@ -24,7 +23,7 @@ public abstract class ClonePrefab : UnityPrefab
 
     protected sealed override NautilusPrefabConvertible GetPrefab()
     {
-        return new CloneTemplate(modItem, _original)
+        return new CloneTemplate(modItem, clonedTechType)
         {
             ModifyPrefab = prefab =>
             {

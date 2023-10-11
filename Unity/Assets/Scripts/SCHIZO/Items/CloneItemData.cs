@@ -5,9 +5,10 @@ using UnityEngine;
 namespace SCHIZO.Unity.Items
 {
     [CreateAssetMenu(menuName = "SCHIZO/Items/Item Data (Clone)")]
+    // ReSharper disable once PartialTypeWithSinglePart
     public sealed partial class CloneItemData : ItemData
     {
-        [BoxGroup("Common Properties"), ReadOnly]
+        [BoxGroup("Common Properties"), ReadOnly, ValidateInput(nameof(loader_Validate))]
         public ItemLoader loader;
 
         [BoxGroup("Subnautica Data"), Label("Clone Target")]
@@ -42,5 +43,11 @@ namespace SCHIZO.Unity.Items
         [ContextMenu("Remove Loader")]
         private void DestroyLoader() => AssignItemLoader(null);
 #endif
+
+        #region NaughtyAttributes stuff
+
+        private bool loader_Validate(ItemLoader val) => !autoRegister || val;
+
+        #endregion
     }
 }

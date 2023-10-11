@@ -23,7 +23,7 @@ namespace SCHIZO.Unity.Items
             return new Nautilus.Crafting.RecipeData
             {
                 craftAmount = craftAmount,
-                Ingredients = new List<CraftData.Ingredient>(ingredients.Where(IngredientFilter).Select(t => t.Convert())),
+                Ingredients = new List<NIngredient>(ingredients.Where(IngredientFilter).Select(t => t.Convert())),
                 LinkedItems = new List<TechType>(linkedItems.Where(ItemFilter).Select(t => t.Convert()))
             };
         }

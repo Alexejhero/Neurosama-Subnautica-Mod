@@ -57,14 +57,4 @@ public static partial class MaterialHelpers
         _constrEmissiveTex = con._EmissiveTex;
         _constrNoiseTex = con._NoiseTex;
     }
-
-    public static partial void FixBZGhostMaterial(Constructable con)
-    {
-        CoroutineHelpers.RunWhen(() =>
-        {
-            con.ghostMaterial = GhostMaterial;
-            con._EmissiveTex = ConstructableEmissiveTexture;
-            con._NoiseTex = ConstructableNoiseTexture;
-        }, () => IsReady);
-    }
 }

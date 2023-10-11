@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8dc513878514f18bc57657a1e7cbc48, type: 3}
+  m_Name: Gymbag BZ
+  m_EditorClassIdentifier: 
+  autoRegister: 1
+  _prefab1: {fileID: 7836867044347112342, guid: 12e5c7a1730f1304a8e99e401ff164f6,
+    type: 3}
+  _prefab2: {fileID: 7836867044347112342, guid: 12e5c7a1730f1304a8e99e401ff164f6,
+    type: 3}
+  prefab: {fileID: 7836867044347112342, guid: 12e5c7a1730f1304a8e99e401ff164f6, type: 3}
+  sounds: {fileID: 0}
+  classId: quantumgymbag
+  displayName: Quantum Gymbag
+  tooltip: '
+
+    <size=75%>(Model by Vaalmyr)</size>'
+  icon: {fileID: 21300000, guid: fa22a6c6c787aeb42bb9084a1aaa3260, type: 3}
+  itemSize: {x: 2, y: 2}
+  isCraftable: 1
+  isBuildable: 0
+  craftingTime: 7
+  recipeSN: {fileID: 0}
+  craftTreeTypeSN: 0
+  craftTreePathSN: 
+  techGroupSN: 14
+  techCategorySN: 0
+  recipeBZ: {fileID: 11400000, guid: d793435e7366e1d44b0283a9debcf181, type: 2}
+  craftTreeTypeBZ: 1
+  craftTreePathBZ: Personal/Equipment
+  techGroupBZ: 2
+  techCategoryBZ: 4
+  loader: {fileID: 4433931489050843293}
+  cloneTargetSN: 0
+  cloneTargetBZ: 1567
+--- !u!114 &4433931489050843293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bccd0fe3345541bd9f46038f0e47f15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000}

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets;
-using Nautilus.Utility;
 using SCHIZO.Helpers;
 using SCHIZO.Unity.Items;
 using UnityEngine;
@@ -43,7 +42,7 @@ public class UnityPrefab : CustomPrefab
         modItem = item;
     }
 
-    public new void Register()
+    public new virtual void Register()
     {
         modItem.LoadStep2();
 
@@ -96,9 +95,10 @@ public class UnityPrefab : CustomPrefab
         Constructable constructable = instance.GetComponent<Constructable>();
 
         constructable.techType = modItem;
-        constructable.ghostMaterial = MaterialUtils.GhostMaterial;
-
-        // TODO: more stuff for bz
-        // constructable._tex
+        constructable.ghostMaterial = MaterialHelpers.GhostMaterial;
+#if BELOWZERO
+        constructable._EmissiveTex = MaterialHelpers.ConstructableEmissiveTexture;
+        constructable._NoiseTex = MaterialHelpers.ConstructableNoiseTexture;
+#endif
     }
 }

@@ -1,19 +1,23 @@
-﻿using HarmonyLib;
+﻿using System.Collections.Generic;
+using System.Linq;
+using HarmonyLib;
 using SCHIZO.Resources;
+using SCHIZO.Unity.Items;
 
 namespace SCHIZO.Items.Gymbag;
 
 [HarmonyPatch]
 public static class GymbagPatches
 {
-    private static ModItem _gymbagItem => Assets.Gymb.ModItem;
+    private static readonly List<ItemData> _gymbagItems = new() {Assets.Gymbag_GymbagSN, Assets.Gymbag_GymbagBZ};
+    private static bool IsGymbag(TechType type) => _gymbagItems.Any(t => t.ModItem == type);
 
     [HarmonyPatch(typeof(PickupableStorage), nameof(PickupableStorage.OnHandClick))]
     [HarmonyPrefix]
     public static bool AllowGymbagPickup(PickupableStorage __instance, GUIHand hand)
     {
         TechType type = __instance.pickupable.GetTechType();
-        if (type != _gymbagItem) return true;
+        if (!IsGymbag(type)) return true;
 
         __instance.pickupable.OnHandClick(hand);
         return false;
@@ -24,7 +28,7 @@ public static class GymbagPatches
     public static bool DisableGymbagPickupHudWarning(PickupableStorage __instance, GUIHand hand)
     {
         TechType type = __instance.pickupable.GetTechType();
-        if (type != _gymbagItem) return true;
+        if (!IsGymbag(type)) return true;
 
         __instance.pickupable.OnHandHover(hand);
         return false;

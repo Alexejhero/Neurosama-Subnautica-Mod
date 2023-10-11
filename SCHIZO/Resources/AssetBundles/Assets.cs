@@ -12,7 +12,7 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = -566465992;
+    private const int _rnd = -2142475413;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
 
@@ -31,7 +31,14 @@ public static class Assets
     public static SCHIZO.Unity.Sounds.CombinedSoundCollection Old_Tutel_Sounds_GetCarried_PickupByErmshark = _a.LoadAsset<SCHIZO.Unity.Sounds.CombinedSoundCollection>("Assets/_old/Tutel/Sounds/Get Carried/Pickup by ermshark.asset");
     public static SCHIZO.Unity.Creatures.PickupableCreatureData Old_Tutel_TutelData = _a.LoadAsset<SCHIZO.Unity.Creatures.PickupableCreatureData>("Assets/_old/Tutel/Tutel data.asset");
     public static SCHIZO.Unity.Sounds.SoundCollection Credits_SNEasterEgg = _a.LoadAsset<SCHIZO.Unity.Sounds.SoundCollection>("Assets/Credits/SN Easter Egg.asset");
+    public static SCHIZO.Unity.Items.ItemData Greggs_DeadErm = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Greggs/Dead erm.asset");
+    public static SCHIZO.Unity.Items.ItemData Greggs_Greggs = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Greggs/Greggs.asset");
+    public static SCHIZO.Unity.Items.CloneItemData Gymbag_GymbagBZ = _a.LoadAsset<SCHIZO.Unity.Items.CloneItemData>("Assets/Gymbag/Gymbag BZ.asset");
+    public static SCHIZO.Unity.Items.CloneItemData Gymbag_GymbagSN = _a.LoadAsset<SCHIZO.Unity.Items.CloneItemData>("Assets/Gymbag/Gymbag SN.asset");
     public static SCHIZO.Unity.HullPlates.HullPlateCollection HullPlates_HullPlates = _a.LoadAsset<SCHIZO.Unity.HullPlates.HullPlateCollection>("Assets/Hull Plates/Hull Plates.asset");
     public static SCHIZO.Unity.Loading.LoadingBackgroundCollection Loading_Backgrounds_LoadingBackgrounds = _a.LoadAsset<SCHIZO.Unity.Loading.LoadingBackgroundCollection>("Assets/Loading/Backgrounds/LoadingBackgrounds.asset");
     public static UnityEngine.Texture2D Loading_LoadingIcon = _a.LoadAsset<UnityEngine.Texture2D>("Assets/Loading/loading icon.png");
+    public static SCHIZO.Unity.Items.ItemData Neurofumos_LowPolyNeurofumo_LowpolyFumoData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Neurofumos/Low-poly Neurofumo/LowpolyFumo data.asset");
+    public static SCHIZO.Unity.Items.ItemData Neurofumos_Neurofumo_NeurofumoData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Neurofumos/Neurofumo/Neurofumo data.asset");
+    public static SCHIZO.Unity.Items.ItemData Neurooper_NeurooperData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Neurooper/Neurooper data.asset");
 }

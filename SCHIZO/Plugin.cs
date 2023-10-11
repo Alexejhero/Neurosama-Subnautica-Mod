@@ -1,5 +1,3 @@
-
-
 global using static SCHIZO.Plugin;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +8,6 @@ using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Items;
-using SCHIZO.Items.Gymbag;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Items;
 
@@ -34,8 +31,8 @@ public sealed class Plugin : BaseUnityPlugin
         modItems.ForEach(UnityPrefab.CreateAndRegister);
 
         AddComponentAttribute.AddAll(gameObject, AddComponentAttribute.Target.Plugin);
+        LoadMethodAttribute.LoadAll();
 
-        // LoadMethodAttribute.LoadAll();
         // LoadConsoleCommandsAttribute.RegisterAll();
         // LoadCreatureAttribute.RegisterAll(); TODO
 

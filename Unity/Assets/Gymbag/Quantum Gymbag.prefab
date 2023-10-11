@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &664972971407014355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7836867044347112342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba752780e184ae08cada6e5bcc7ef35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &3934193482632927565
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1807312148044125597, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d8f71bd5678cbef42a7e56573917c36e, type: 2}
+    - target: {fileID: 6510856162202120923, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_Name
+      value: Quantum Gymbag
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798977895468806455, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798977895468806455, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798977895468806455, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798977895468806455, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798977895468806455, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798977895468806455, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798977895468806455, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798977895468806455, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798977895468806455, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798977895468806455, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798977895468806455, guid: 4f8f3261922939040979547e91d8a6d4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4f8f3261922939040979547e91d8a6d4, type: 3}
+--- !u!1 &7836867044347112342 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6510856162202120923, guid: 4f8f3261922939040979547e91d8a6d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 3934193482632927565}
+  m_PrefabAsset: {fileID: 0}
