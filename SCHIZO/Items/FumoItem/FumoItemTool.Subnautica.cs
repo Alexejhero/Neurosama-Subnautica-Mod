@@ -6,7 +6,7 @@ public partial class FumoItemTool
 {
     private (Transform parent, Vector3 localPosOffset) GetHugOffset(float distScale)
     {
-        // TODO: move just the arms instead of the entire body
+        // TODO: move just the arms instead of the entire body (IK)
         Transform parent = transform.root.Find("body").GetChild(0);
 
         // to chest (a bit lower than camera/face)
@@ -18,9 +18,6 @@ public partial class FumoItemTool
     }
 
     private void ApplyColdResistBuff(int _)
-    {
-    }
-    private void FixBZModelTransform()
     {
     }
 }

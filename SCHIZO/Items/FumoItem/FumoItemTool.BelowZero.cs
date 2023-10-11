@@ -13,11 +13,11 @@ public partial class FumoItemTool
             transform.localEulerAngles = rotation;
         }
     }
-    private static readonly LocalTransformData _bzModelData = new(new Vector3(0.03f, -0.10f, 0.05f), new Vector3(24,0,343));
+    private static readonly LocalTransformData _bzModelData = new(new Vector3(0.03f, -0.10f, 0.05f), new Vector3(24, 0, 343));
     private static readonly LocalTransformData _bzRightIkData = new(new Vector3(-0.1f, 0.2f, 0.25f), new Vector3(60, 210, 135));
     private static readonly LocalTransformData _bzLeftIkData = new(new Vector3(0.18f, 0.12f, 0.28f), new Vector3(300, 60, 200));
 
-    private void FixBZModelTransform()
+    private void Start()
     {
         Transform vm = GetComponent<FPModel>().viewModel.transform;
 

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Text;
 using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem;
@@ -13,7 +12,7 @@ public sealed partial class FumoItemTool : CustomPlayerTool
     private float _hugDistScale;
     private const float _hugCooldown = 1f;
     private float _nextHugTime;
-    private readonly Vector3 _chestOffset = new(0, -0.2f, 0);
+    private readonly Vector3 _chestOffset = new(0, -0.1f, 0);
 
     private bool _isHugging;
     private float _hugTime;
@@ -49,11 +48,6 @@ public sealed partial class FumoItemTool : CustomPlayerTool
         }
 
         base.Awake();
-    }
-
-    public void Start()
-    {
-        FixBZModelTransform();
     }
 
     public void FixedUpdate()
@@ -162,27 +156,32 @@ public sealed partial class FumoItemTool : CustomPlayerTool
         _hugEffectApplied = false;
     }
 
-    private void GroundSpeedHack(Utils.MonitoredValue<bool> isUnderwater)
-    {
-        if (!_isHugging || isUnderwater.value) return;
-        StartCoroutine(ApplyGroundMoveSpeedMulti(_hugMoveSpeedMulti));
-    }
-
+    // a formal apology for the following code may be issued to any Subnautica dev or modder on request
     private void ApplyMoveSpeedMulti(float multi)
     {
         Player player = usingPlayer ? usingPlayer : Player.main;
         if (!player) return;
         if (!_groundMotor) _groundMotor = player.GetComponent<GroundMotor>();
 
-        StartCoroutine(ApplyGroundMoveSpeedMulti(multi));
+        ApplyGroundMoveSpeedMulti(multi);
         // this is fortunately enough to change underwater swim speed
         _groundMotor.GetComponent<UnderwaterMotor>().debugSpeedMult *= multi;
     }
 
-    // a formal apology for the following function may be issued to any Subnautica dev or modder on request
-    private IEnumerator ApplyGroundMoveSpeedMulti(float multi)
+    private void GroundSpeedHack(Utils.MonitoredValue<bool> isUnderwater)
     {
-        yield return null;
+        if (!_isHugging || isUnderwater.value) return;
+        StartCoroutine(GroundSpeedHackCoro(_hugMoveSpeedMulti));
+
+        IEnumerator GroundSpeedHackCoro(float multi)
+        {
+            yield return null;
+            ApplyGroundMoveSpeedMulti(multi);
+        }
+    }
+
+    private void ApplyGroundMoveSpeedMulti(float multi)
+    {
         _groundMotor.forwardMaxSpeed *= multi;
         _groundMotor.strafeMaxSpeed *= multi;
         _groundMotor.backwardMaxSpeed *= multi;
