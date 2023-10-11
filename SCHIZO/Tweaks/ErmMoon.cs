@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SCHIZO.Tweaks;
 
-[LoadComponent]
+[AddComponent(AddComponentAttribute.Target.Plugin)]
 public sealed class ErmMoon : MonoBehaviour
 {
     private uSkyManager _skyManager;

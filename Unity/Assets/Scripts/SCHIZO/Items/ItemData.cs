@@ -2,8 +2,6 @@
 using SCHIZO.Unity.Retargeting.BelowZero;
 using SCHIZO.Unity.Retargeting.Subnautica;
 using SCHIZO.Unity.Sounds;
-using SCHIZO.Unity.Utilities;
-using UnityEditor;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -106,24 +104,22 @@ namespace SCHIZO.Unity.Items
 #endif
 
 #if UNITY_EDITOR
-
         private void OnValidate()
         {
             OnValidate_prefab();
 
-            DoNotExpose doNotExpose = AssetDatabase.LoadAssetAtPath<DoNotExpose>(AssetDatabase.GetAssetPath(this));
+            Utilities.DoNotExpose doNotExpose = UnityEditor.AssetDatabase.LoadAssetAtPath<Utilities.DoNotExpose>(UnityEditor.AssetDatabase.GetAssetPath(this));
             if (autoRegister && !doNotExpose)
             {
-                AssetDatabase.AddObjectToAsset(CreateInstance<DoNotExpose>(), this);
-                AssetDatabase.SaveAssets();
+                UnityEditor.AssetDatabase.AddObjectToAsset(CreateInstance<Utilities.DoNotExpose>(), this);
+                UnityEditor.AssetDatabase.SaveAssets();
             }
             else if (!autoRegister && doNotExpose)
             {
-                AssetDatabase.RemoveObjectFromAsset(doNotExpose);
-                AssetDatabase.SaveAssets();
+                UnityEditor.AssetDatabase.RemoveObjectFromAsset(doNotExpose);
+                UnityEditor.AssetDatabase.SaveAssets();
             }
         }
-
 #endif
 
         #endregion
@@ -141,6 +137,7 @@ namespace SCHIZO.Unity.Items
         private bool craftTreePathSN_ShowIf() => isCraftable && craftTreeTypeSN != CraftTree_Type_SN.None;
         private bool craftTreePathBZ_ShowIf() => isCraftable && craftTreeTypeBZ != CraftTree_Type_BZ.None;
 
+        // TODO: be smart amout this
         private readonly DropdownList<string> craftTreePathsSN = new DropdownList<string>
         {
             { "Basic Materials (Fabricator)", "Resources/BasicMaterials" },

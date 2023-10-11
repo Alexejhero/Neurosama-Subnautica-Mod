@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
+  m_Name: Gymbag data
+  m_EditorClassIdentifier: 
+  autoRegister: 0
+  _prefab1: {fileID: 6510856162202120923, guid: 4f8f3261922939040979547e91d8a6d4,
+    type: 3}
+  _prefab2: {fileID: 6510856162202120923, guid: 4f8f3261922939040979547e91d8a6d4,
+    type: 3}
+  prefab: {fileID: 6510856162202120923, guid: 4f8f3261922939040979547e91d8a6d4, type: 3}
+  sounds: {fileID: 0}
+  classId: gymbag
+  displayName: Gymbag
+  tooltip: 'A lightly worn gym bag that emanates a faint smell. How does it fit all
+    that stuff?..
+
+    <size=75%>(Model by Vaalmyr)</size>'
+  icon: {fileID: 21300000, guid: 6f5a15bcbb79b7849878e9646df3d3dd, type: 3}
+  itemSize: {x: 2, y: 2}
+  isCraftable: 1
+  isBuildable: 0
+  craftingTime: 7
+  recipeSN: {fileID: 11400000, guid: e0e521934d8b48e40875678fd25a9432, type: 2}
+  craftTreeTypeSN: 1
+  craftTreePathSN: Personal/Equipment
+  techGroupSN: 2
+  techCategorySN: 6
+  recipeBZ: {fileID: 11400000, guid: d793435e7366e1d44b0283a9debcf181, type: 2}
+  craftTreeTypeBZ: 1
+  craftTreePathBZ: Resources/BasicMaterials
+  techGroupBZ: 2
+  techCategoryBZ: 4

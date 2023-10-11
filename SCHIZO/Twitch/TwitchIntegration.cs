@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace SCHIZO.Twitch;
 
-[LoadComponent]
+[AddComponent(AddComponentAttribute.Target.Plugin)]
 [LoadConsoleCommands]
 public sealed class TwitchIntegration : MonoBehaviour
 {

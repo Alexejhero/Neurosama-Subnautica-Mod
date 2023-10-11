@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -22,9 +23,22 @@ namespace SCHIZO.Unity.Items
             return new Nautilus.Crafting.RecipeData
             {
                 craftAmount = craftAmount,
-                Ingredients = new List<CraftData.Ingredient>(System.Linq.Enumerable.Select(ingredients, t => t.Convert())),
-                LinkedItems = new List<TechType>(System.Linq.Enumerable.Select(linkedItems, t => t.Convert()))
+                Ingredients = new List<CraftData.Ingredient>(ingredients.Where(IngredientFilter).Select(t => t.Convert())),
+                LinkedItems = new List<TechType>(linkedItems.Where(ItemFilter).Select(t => t.Convert()))
             };
+        }
+
+        private static bool IngredientFilter(Ingredient ingredient)
+        {
+            if (ingredient.amount <= 0) return false;
+            return ItemFilter(ingredient.item);
+        }
+
+        private static bool ItemFilter(Item item)
+        {
+            if (item.isCustom && !item.itemData) return false;
+            if (!item.isCustom && item.techType == TechType_All.None) return false;
+            return true;
         }
 #endif
     }

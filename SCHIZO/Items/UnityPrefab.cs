@@ -1,8 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using SCHIZO.Helpers;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace SCHIZO.Items;
 
@@ -34,31 +36,49 @@ public class UnityPrefab : CustomPrefab
         modItem = item;
     }
 
-    public new virtual void Register()
+    public new void Register()
     {
         modItem.LoadStep2();
-        if (modItem.ItemData.prefab) SetGameObject(GetPrefab);
+
+        NautilusPrefabConvertible prefab = GetPrefab();
+        if (prefab != null) this.SetGameObject(prefab);
+
         base.Register();
+        PostRegister();
     }
 
-    protected virtual GameObject GetPrefab()
+    protected virtual NautilusPrefabConvertible GetPrefab()
     {
-        GameObject instance = Object.Instantiate(modItem.ItemData.prefab, _prefabCacheParent);
+        if (!modItem.ItemData.prefab) return null;
 
-        AddBasicComponents(instance);
-        InitializeConstructable(instance);
+        return (Func<GameObject>) getDeferred;
 
-        // ModifyPrefab(pre);
+        GameObject getDeferred()
+        {
+            GameObject instance = Object.Instantiate(modItem.ItemData.prefab, _prefabCacheParent);
 
-        MaterialHelpers.ApplySNShadersIncludingRemaps(instance, 1);
+            AddBasicComponents(instance);
+            InitializeConstructable(instance);
 
-        return instance;
+            ModifyPrefab(instance);
+
+            return instance;
+        }
+    }
+
+    protected virtual void ModifyPrefab(GameObject prefab)
+    {
+        MaterialHelpers.ApplySNShadersIncludingRemaps(prefab, 1);
+    }
+
+    protected virtual void PostRegister()
+    {
     }
 
     private void AddBasicComponents(GameObject instance)
     {
         instance.EnsureComponent<PrefabIdentifier>().classId = modItem.ItemData.classId;
-        instance.AddComponent<TechTag>().type = modItem;
+        instance.EnsureComponent<TechTag>().type = modItem;
 
         Renderer[] renderers = instance.GetComponentsInChildren<Renderer>(true);
         if (renderers is {Length: > 0}) instance.EnsureComponent<SkyApplier>().renderers = renderers;

@@ -8,7 +8,9 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
+using SCHIZO.Attributes;
 using SCHIZO.Items;
+using SCHIZO.Items.Gymbag;
 using SCHIZO.Resources;
 using SCHIZO.Unity.Items;
 
@@ -31,8 +33,11 @@ public sealed class Plugin : BaseUnityPlugin
         IEnumerable<ModItem> modItems = Assets.All<ItemData>().Where(d => d.autoRegister).Select(ModItem.Create);
         modItems.ForEach(UnityPrefab.CreateAndRegister);
 
+        AddComponentAttribute.AddAll(gameObject, AddComponentAttribute.Target.Plugin);
+
+        new Gymbag(new ModItem(Assets.Gymbag_GymbagData), TechType.LuggageBag).Register();
+
         // LoadMethodAttribute.LoadAll();
-        // LoadComponentAttribute.AddAll(gameObject);
         // LoadConsoleCommandsAttribute.RegisterAll();
         // LoadCreatureAttribute.RegisterAll(); TODO
 
