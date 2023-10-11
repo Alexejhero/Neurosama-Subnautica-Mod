@@ -1,2 +1,4 @@
 [merge "ours"]
     driver = true
+[pull]
+    rebase = true
