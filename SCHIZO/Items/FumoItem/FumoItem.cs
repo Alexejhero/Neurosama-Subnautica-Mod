@@ -1,41 +1,15 @@
 using System.Diagnostics.CodeAnalysis;
-using Nautilus.Assets.Gadgets;
-using Nautilus.Crafting;
 using Nautilus.Handlers;
-using SCHIZO.Attributes;
 using SCHIZO.Extensions;
-using SCHIZO.Resources;
-using SCHIZO.Unity.Items;
 using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem;
 
-[LoadMethod]
-public class FumoItem : ItemPrefab
+public class FumoItem : UnityPrefab
 {
-    [LoadMethod]
-    public static void Load()
-    {
-        new FumoItem(ModItems.NeuroFumoItem).Register();
-    }
-
     [SetsRequiredMembers]
     public FumoItem(ModItem modItem) : base(modItem)
     {
-        ItemData = Assets.NeurofumoNew_FumoData;
-        Recipe = new RecipeData(new Ingredient(TechType.CopperWire, 1), new Ingredient(TechType.Silicone, 2), new Ingredient(TechType.JeweledDiskPiece, 1), new Ingredient(TechType.Gold, 1));
-        TechGroup = TechGroup.Personal;
-        TechCategory = TechCategory.Equipment;
-        EquipmentType = EquipmentType.Hand;
-        QuickSlotType = QuickSlotType.Selectable;
-    }
-
-    protected override void AddGadgets()
-    {
-        CraftingGadget craft = GetGadget<CraftingGadget>();
-        craft.WithFabricatorType(CraftTree.Type.Fabricator);
-        craft.WithStepsToFabricatorTab(CraftTreeHandler.Paths.FabricatorEquipment);
-        craft.WithCraftingTime(3);
     }
 
     protected override void ModifyPrefab(GameObject prefab)
@@ -65,7 +39,7 @@ public class FumoItem : ItemPrefab
     protected override void PostRegister()
     {
 #if BELOWZERO
-        CraftDataHandler.SetColdResistance(ModItems.NeuroFumoItem, 20);
+        CraftDataHandler.SetColdResistance(modItem, 20);
 #endif
     }
 }
