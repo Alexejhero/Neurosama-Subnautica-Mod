@@ -1,8 +1,8 @@
-﻿using System.Text;
+using System.Text;
 
-namespace SCHIZO.Items;
+namespace SCHIZO.Unity.Items;
 
-public abstract class CustomPlayerTool : PlayerTool
+public abstract partial class CustomPlayerTool : PlayerTool
 {
     protected string animName;
     protected TechType animTechType
@@ -11,24 +11,24 @@ public abstract class CustomPlayerTool : PlayerTool
     }
     public override string animToolName => animName ?? base.animToolName;
 
-    protected bool hasPrimaryUse; // RMB
-    protected bool hasSecondaryUse; // LMB
-    protected bool hasAltUse; // F
-
-    protected string primaryUseTextLanguageString;
-    protected string secondaryUseTextLanguageString;
-    protected string altUseTextLanguageString;
-
     private int cachedPrimaryUseTextHash;
     private int cachedSecondaryUseTextHash;
     private int cachedAltUseTextHash;
     private string cachedFullUseText;
 
+    protected new void Awake()
+    {
+        TechType animType = (TechType) Helpers.RetargetHelpers.Pick(inheritAnimationsFromSN, inheritAnimationsFrom2);
+        if (animType != TechType.None)
+            animTechType = animType;
+        base.Awake();
+    }
+
     public override string GetCustomUseText()
     {
-        string primaryText = hasPrimaryUse ? LanguageCache.GetButtonFormat(primaryUseTextLanguageString, GameInput.Button.RightHand) : "";
-        string secondaryText = hasSecondaryUse ? LanguageCache.GetButtonFormat(secondaryUseTextLanguageString, GameInput.Button.LeftHand) : "";
-        string altText = hasAltUse ? LanguageCache.GetButtonFormat(altUseTextLanguageString, GameInput.Button.AltTool) : "";
+        string primaryText = hasPrimaryUse ? LanguageCache.GetButtonFormat(primaryUseText, GameInput.Button.RightHand) : "";
+        string secondaryText = hasSecondaryUse ? LanguageCache.GetButtonFormat(secondaryUseText, GameInput.Button.LeftHand) : "";
+        string altText = hasAltUse ? LanguageCache.GetButtonFormat(altUseText, GameInput.Button.AltTool) : "";
 
         int primaryHash = primaryText.GetHashCode();
         int secondaryHash = secondaryText.GetHashCode();

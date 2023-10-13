@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SCHIZO.Items.FumoItem;
+namespace SCHIZO.Unity.Items.FumoItem;
 
 public partial class FumoItemTool
 {

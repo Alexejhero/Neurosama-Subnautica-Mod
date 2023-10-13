@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SCHIZO.Items.FumoItem;
+namespace SCHIZO.Unity.Items.FumoItem;
 
 public partial class FumoItemTool
 {
@@ -19,11 +19,9 @@ public partial class FumoItemTool
 
     private void Start()
     {
-        Transform vm = GetComponent<FPModel>().viewModel.transform;
-
-        _bzModelData.Apply(vm.Find("neurofumo new"));
-        _bzRightIkData.Apply(vm.Find("IK_RightHand"));
-        _bzLeftIkData.Apply(vm.Find("IK_LeftHand"));
+        _bzModelData.Apply(fumoModel);
+        _bzRightIkData.Apply(savedRightHandIKTarget);
+        _bzLeftIkData.Apply(savedLeftHandIKTarget);
     }
 
     private (Transform parent, Vector3 localPosOffset) GetHugOffset(float distScale)

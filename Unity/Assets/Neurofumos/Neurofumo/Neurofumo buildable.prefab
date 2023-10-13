@@ -65,7 +65,7 @@ PrefabInstance:
     - target: {fileID: 5844807597456787493, guid: 055ea2993f5883c459e08e4ea6b9d277,
         type: 3}
       propertyPath: m_Name
-      value: Neurofumo prefab
+      value: Neurofumo buildable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 055ea2993f5883c459e08e4ea6b9d277, type: 3}

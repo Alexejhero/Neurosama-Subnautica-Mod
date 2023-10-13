@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace SCHIZO.Items.FumoItem;
+namespace SCHIZO.Unity.Items.FumoItem;
 
 public sealed partial class FumoItemTool : CustomPlayerTool
 {
@@ -10,7 +10,6 @@ public sealed partial class FumoItemTool : CustomPlayerTool
 
     private const float _hugTransitionDuration = 0.2f;
     private float _hugDistScale;
-    private const float _hugCooldown = 1f;
     private float _nextHugTime;
     private readonly Vector3 _chestOffset = new(0, -0.1f, 0);
 
@@ -20,10 +19,9 @@ public sealed partial class FumoItemTool : CustomPlayerTool
     private Vector3 _prevHugPosOffset;
     private bool _hugEffectApplied;
     private const float _hugMoveSpeedMulti = 0.7f;
-    private const int _hugColdResistBuff = 20;
 
-    private bool _canFlushOnAltUse;
-    private bool _canFlushOnHug;
+    private bool _flushOnAltUse;
+    private bool _flushOnHug;
     private bool _isFlushed;
     private const float _flushedZscalar = 2f;
 
@@ -31,21 +29,9 @@ public sealed partial class FumoItemTool : CustomPlayerTool
 
     public new void Awake()
     {
-        animTechType = TechType.Floater;
-        hasPrimaryUse = true;
-        primaryUseTextLanguageString = "Hug ({0})";
-        holsterTime = 0.1f;
-
-        _canFlushOnAltUse = Random.Range(0f, 1f) < 0.05f;
-        if (_canFlushOnAltUse)
-        {
-            hasAltUse = true;
-            altUseTextLanguageString = "Flushed ({0})";
-        }
-        else
-        {
-            _canFlushOnHug = Random.Range(0f, 1f) < 0.5f;
-        }
+        _flushOnAltUse = Random.Range(0f, 1f) < 0.05f;
+        hasAltUse = _flushOnAltUse;
+        _flushOnHug = !_flushOnAltUse && Random.Range(0f, 1f) < 0.5f;
 
         base.Awake();
     }
@@ -53,7 +39,7 @@ public sealed partial class FumoItemTool : CustomPlayerTool
     public void FixedUpdate()
     {
         if (!usingPlayer) return;
-        if (!_canFlushOnHug) return;
+        if (!_flushOnHug) return;
 
         if (_isHugging)
         {
@@ -121,14 +107,14 @@ public sealed partial class FumoItemTool : CustomPlayerTool
 
     public override bool OnAltDown()
     {
-        if (!_canFlushOnAltUse) return false;
+        if (!_flushOnAltUse) return false;
 
         return SetFlushed(true) && base.OnAltDown();
     }
 
     public override bool OnAltUp()
     {
-        if (!_canFlushOnAltUse) return false;
+        if (!_flushOnAltUse) return false;
 
         return SetFlushed(false) && base.OnAltUp();
     }
@@ -140,7 +126,7 @@ public sealed partial class FumoItemTool : CustomPlayerTool
 
         if (_hugEffectApplied) return;
         ApplyMoveSpeedMulti(_hugMoveSpeedMulti);
-        ApplyColdResistBuff(_hugColdResistBuff);
+        ApplyColdResistBuff(hugColdResistBuff);
         _hugEffectApplied = true;
     }
 
@@ -148,11 +134,11 @@ public sealed partial class FumoItemTool : CustomPlayerTool
     {
         if (!_isHugging || !usingPlayer) return;
         _isHugging = false;
-        _nextHugTime = Time.time + _hugCooldown;
+        _nextHugTime = Time.time + hugCooldown;
 
         if (!_hugEffectApplied) return;
         ApplyMoveSpeedMulti(1f/_hugMoveSpeedMulti);
-        ApplyColdResistBuff(-_hugColdResistBuff);
+        ApplyColdResistBuff(-hugColdResistBuff);
         _hugEffectApplied = false;
     }
 
@@ -198,9 +184,8 @@ public sealed partial class FumoItemTool : CustomPlayerTool
 
     private void ApplyZScaleMulti(float multi)
     {
-        Transform vm = transform.Find("VM/neurofumo new");
-        Vector3 scale = vm.localScale;
+        Vector3 scale = fumoModel.localScale;
         scale.z *= multi;
-        vm.localScale = scale;
+        fumoModel.localScale = scale;
     }
 }
