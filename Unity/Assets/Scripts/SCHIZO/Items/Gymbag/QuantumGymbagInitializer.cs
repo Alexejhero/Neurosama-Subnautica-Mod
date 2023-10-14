@@ -5,7 +5,7 @@ namespace SCHIZO.Unity.Items.Gymbag
 {
     public sealed class QuantumGymbagInitializer : MonoBehaviour
     {
-#if !UNITY
+#if BELOWZERO
         private void Awake()
         {
             GetComponentInParent<QuantumLocker>().Start();

@@ -9,9 +9,7 @@ using System.Diagnostics;
 namespace NaughtyAttributes;
 
 [Conditional("UNITY")]
-internal class ExpandableAttribute : Attribute
-{
-}
+internal class ExpandableAttribute : Attribute;
 
 [Conditional("UNITY")]
 internal class ShowIfAttribute : Attribute
@@ -38,19 +36,13 @@ internal class LabelAttribute : Attribute
 }
 
 [Conditional("UNITY")]
-internal class ResizableTextAreaAttribute : Attribute
-{
-}
+internal class ResizableTextAreaAttribute : Attribute;
 
 [Conditional("UNITY")]
-internal class ReorderableListAttribute : Attribute
-{
-}
+internal class ReorderableListAttribute : Attribute;
 
 [Conditional("UNITY")]
-internal class AllowNestingAttribute : Attribute
-{
-}
+internal class AllowNestingAttribute : Attribute;
 
 [Conditional("UNITY")]
 internal class InfoBoxAttribute : Attribute
@@ -69,9 +61,7 @@ internal class BoxGroupAttribute : Attribute
 }
 
 [Conditional("UNITY")]
-internal class EnumFlagsAttribute : Attribute
-{
-}
+internal class EnumFlagsAttribute : Attribute;
 
 [Conditional("UNITY")]
 internal class ValidateInputAttribute : Attribute
@@ -82,9 +72,7 @@ internal class ValidateInputAttribute : Attribute
 }
 
 [Conditional("UNITY")]
-internal class RequiredAttribute : Attribute
-{
-}
+internal class RequiredAttribute : Attribute;
 
 [Conditional("UNITY")]
 internal class DropdownAttribute : Attribute
@@ -94,9 +82,7 @@ internal class DropdownAttribute : Attribute
     }
 }
 
-internal interface IDropdownList : IEnumerable<KeyValuePair<string, object>>
-{
-}
+internal interface IDropdownList : IEnumerable<KeyValuePair<string, object>>;
 
 internal class DropdownList<T> : IDropdownList
 {
@@ -115,6 +101,4 @@ internal class DropdownList<T> : IDropdownList
     }
 }
 
-internal class ReadOnlyAttribute : Attribute
-{
-}
+internal class ReadOnlyAttribute : Attribute;
