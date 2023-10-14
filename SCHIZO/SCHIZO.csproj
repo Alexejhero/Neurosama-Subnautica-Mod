@@ -17,7 +17,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Include="$(SolutionDir)\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity\Unity" />
+        <Compile Include="$(SolutionDir)\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity\Linked" />
+        <Compile Remove="$(SolutionDir)\Unity\Assets\Scripts\SCHIZO\**\*.Unity.cs" />
     </ItemGroup>
 
     <ItemGroup>

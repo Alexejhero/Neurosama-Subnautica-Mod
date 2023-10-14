@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+// ReSharper disable once CheckNamespace
 public static class ECCLIBRARY
 {
     public static AnimationCurve maxRangeMultiplierCurve = new AnimationCurve(new Keyframe[3]
