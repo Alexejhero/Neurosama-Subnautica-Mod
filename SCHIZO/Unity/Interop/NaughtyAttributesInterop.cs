@@ -112,3 +112,5 @@ internal class DropdownList<T> : IDropdownList
 }
 
 internal class ReadOnlyAttribute : Attribute;
+
+public class ValidatorAttribute : Attribute;

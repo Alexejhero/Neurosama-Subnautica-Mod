@@ -35,6 +35,13 @@ public sealed class FMODSoundCollection
         }
     }
 
+    public static string GetBusPath(string busField)
+    {
+        string[] splits = busField.Split(':');
+        string busPath = (string) HarmonyLib.AccessTools.Field(HarmonyLib.AccessTools.TypeByName(splits[0]), splits[1]).GetRawConstantValue();
+        return busPath;
+    }
+
     private void Initialize()
     {
         if (_randomSounds is { Count: > 0 }) return;

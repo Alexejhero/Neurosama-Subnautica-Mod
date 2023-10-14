@@ -4,7 +4,7 @@ using PropertyDrawers;
 using SCHIZO.Unity.HullPlates;
 using UnityEditor;
 
-namespace Inspectors
+namespace Editor.Inspectors
 {
     [CustomEditor(typeof(HullPlateCollection))]
     public sealed class HullPlateCollectionInspector : NaughtyInspector

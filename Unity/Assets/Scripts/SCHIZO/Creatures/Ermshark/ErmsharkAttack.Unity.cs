@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using SCHIZO.Unity.NaughtyExtensions;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -18,9 +19,9 @@ namespace SCHIZO.Unity.Creatures.Ermshark
         public bool ignoreSameKind = false;
         public bool canBeFed = true;
 
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public LastTarget lastTarget;
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public Creature creature;
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public LiveMixin liveMixin;
+        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("LastTarget")] public MonoBehaviour lastTarget;
+        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("Creature")] public MonoBehaviour creature;
+        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("LiveMixin")] public MonoBehaviour liveMixin;
 
         [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float biteAggressionThreshold = 0.3f;
         [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float eatHungerDecrement = 0.5f;
@@ -29,5 +30,7 @@ namespace SCHIZO.Unity.Creatures.Ermshark
         [Foldout(STRINGS.UNCHANGED_BY_ECC)] public GameObject damageFX;
 
         [Foldout(STRINGS.UNCHANGED_BY_ECC), ReadOnly] public Object _attackSound;
+
+        public void OnTouch(Collider col) {}
     }
 }

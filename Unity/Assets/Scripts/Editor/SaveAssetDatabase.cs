@@ -1,11 +1,13 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
 
-public static class SaveAssetDatabase
+namespace Editor
 {
-    [MenuItem("SCHIZO/Save All Assets")]
-    public static void SaveAllAssets()
+    public static class SaveAssetDatabase
     {
-        AssetDatabase.SaveAssets();
+        [MenuItem("SCHIZO/Save All Assets")]
+        public static void SaveAllAssets()
+        {
+            AssetDatabase.SaveAssets();
+        }
     }
 }

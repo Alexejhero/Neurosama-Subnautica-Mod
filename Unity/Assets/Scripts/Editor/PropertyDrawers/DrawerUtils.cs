@@ -1,12 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace PropertyDrawers
+namespace Editor.PropertyDrawers
 {
     public static class DrawerUtils
     {

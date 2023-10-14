@@ -4,7 +4,7 @@ using PropertyDrawers;
 using SCHIZO.Unity.Items;
 using UnityEditor;
 
-namespace Inspectors
+namespace Editor.Inspectors
 {
     [CustomEditor(typeof(ItemData))]
     public sealed class ItemDataInspector : NaughtyInspector

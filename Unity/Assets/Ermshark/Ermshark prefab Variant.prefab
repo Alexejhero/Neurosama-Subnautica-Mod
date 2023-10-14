@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 4168038310575742479}
   - component: {fileID: 8529278349848125910}
   - component: {fileID: 5804694234419685455}
-  - component: {fileID: 8087715888117795198}
+  - component: {fileID: 7323635534376204544}
   m_Layer: 0
   m_Name: attack_collider
   m_TagString: Untagged
@@ -313,8 +313,19 @@ MonoBehaviour:
   tagFilter: 
   onTouch:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &8087715888117795198
+      m_Calls:
+      - m_Target: {fileID: 7323635534376204544}
+        m_MethodName: OnTouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7323635534376204544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -323,28 +334,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 8869172563747261278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d95e28da3e874a998c97d2bd68fc6ea3, type: 3}
+  m_Script: {fileID: 11500000, guid: 190bdfebab1b470c944f28f12c7d781b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  biteAggressionThreshold: 0
-  biteInterval: 0
-  biteDamage: 0
-  eatHungerDecrement: 0
-  eatHappyIncrement: 0
-  biteAggressionDecrement: 0
-  mouth: {fileID: 0}
-  lastTarget: {fileID: 0}
-  creature: {fileID: 0}
-  liveMixin: {fileID: 0}
-  damageFX: {fileID: 0}
-  animator: {fileID: 0}
-  canBeFed: 0
-  ignoreSameKind: 0
+  mouth: {fileID: 8869172563747261278}
+  animator: {fileID: 6997803495513647470}
+  biteInterval: 1
+  biteDamage: 20
+  canBitePlayer: 1
+  canBiteVehicle: 1
+  canBiteCyclops: 1
   canBiteCreature: 0
-  canBitePlayer: 0
-  canBiteVehicle: 0
-  canBiteCyclops: 0
+  ignoreSameKind: 1
+  canBeFed: 1
+  lastTarget: {fileID: 4735139364640553446}
+  creature: {fileID: 938214073050065858}
+  liveMixin: {fileID: 722758244617200422}
+  biteAggressionThreshold: 0.3
+  eatHungerDecrement: 0.5
+  eatHappyIncrement: 0.5
+  biteAggressionDecrement: 0.4
+  damageFX: {fileID: 0}
   _attackSound: {fileID: 0}
+  attackSounds: {fileID: 11400000, guid: 0d3bacd789afd8c488a63f3f4769c807, type: 2}
+  bus: Nautilus.Utility.AudioUtils+BusPaths:UnderwaterCreatures
 --- !u!1001 &6523923881202224480
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -689,12 +702,6 @@ PrefabInstance:
     - {fileID: 7808515654292971840, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
     - {fileID: 3804834106308354520, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
---- !u!1 &2061343355341963926 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5049378406231838710, guid: 5ff80f47f2822bb438251c8a7a1370ca,
-    type: 3}
-  m_PrefabInstance: {fileID: 6523923881202224480}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2011966429269158933 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4711419397437546869, guid: 5ff80f47f2822bb438251c8a7a1370ca,
@@ -707,6 +714,48 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6523923881202224480}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2061343355341963926 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5049378406231838710, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 6523923881202224480}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &722758244617200422 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3418686219161457082, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 6523923881202224480}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061343355341963926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03934c6b274d4245b6e0fba9ec5f7a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &938214073050065858 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -2914789318229432670, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 6523923881202224480}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061343355341963926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14011210f954223ae768ae50e1b9e2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4735139364640553446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1963351864823084166, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 6523923881202224480}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061343355341963926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d933c0320ec24d7eb9f809c5a90edabb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7168086334788475389
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -776,6 +825,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e83d4420483cee479966674f207b75b, type: 3}
+--- !u!1 &4782822019780793779 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2388552406697069646, guid: 8e83d4420483cee479966674f207b75b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7168086334788475389}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3704318305922117568 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5769754699604489789, guid: 8e83d4420483cee479966674f207b75b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7168086334788475389}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7400526840670531787 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8806266285075781322, guid: 8e83d4420483cee479966674f207b75b,
@@ -815,18 +876,6 @@ GameObject:
 --- !u!1 &7461509967390352406 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 357670322078531051, guid: 8e83d4420483cee479966674f207b75b,
-    type: 3}
-  m_PrefabInstance: {fileID: 7168086334788475389}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3704318305922117568 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5769754699604489789, guid: 8e83d4420483cee479966674f207b75b,
-    type: 3}
-  m_PrefabInstance: {fileID: 7168086334788475389}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4782822019780793779 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2388552406697069646, guid: 8e83d4420483cee479966674f207b75b,
     type: 3}
   m_PrefabInstance: {fileID: 7168086334788475389}
   m_PrefabAsset: {fileID: 0}

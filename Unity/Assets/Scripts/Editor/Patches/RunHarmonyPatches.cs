@@ -1,11 +1,14 @@
 ﻿using HarmonyLib;
 using UnityEditor;
 
-public static class RunHarmonyPatches
+namespace Editor.Patches
 {
-    [InitializeOnLoadMethod]
-    private static void Patch()
+    public static class RunHarmonyPatches
     {
-        new Harmony("SCHIZO").PatchAll();
+        [InitializeOnLoadMethod]
+        private static void Patch()
+        {
+            new Harmony("SCHIZO").PatchAll();
+        }
     }
 }

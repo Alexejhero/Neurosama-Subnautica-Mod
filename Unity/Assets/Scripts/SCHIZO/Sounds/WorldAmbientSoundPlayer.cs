@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using SCHIZO.Unity.NaughtyExtensions;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -8,8 +9,8 @@ namespace SCHIZO.Unity.Sounds
     {
         [Required] public SoundCollection soundCollection;
         [Dropdown(nameof(bus_Dropdown))] public string bus;
-        [Required, ValidateInput(nameof(Validate_emitter), "Emitter must be of type FMOD_CustomEmitter")] public Object emitter;
-        [ValidateInput(nameof(Validate_pickupable), "Pickupable must be null or a Pickupable component")] public Object pickupable;
+        [Required, ValidateType("FMOD_CustomEmitter")] public MonoBehaviour emitter;
+        [ValidateType("Pickupable")] public MonoBehaviour pickupable;
 
 #if !UNITY
         private SCHIZO.Sounds.FMODSoundCollection _fmodSoundCollection;
@@ -17,10 +18,7 @@ namespace SCHIZO.Unity.Sounds
 
         private void Awake()
         {
-            string[] splits = bus.Split(':');
-            string busPath = (string) HarmonyLib.AccessTools.Field(HarmonyLib.AccessTools.TypeByName(splits[0]), splits[1]).GetRawConstantValue();
-
-            _fmodSoundCollection = new SCHIZO.Sounds.FMODSoundCollection(soundCollection, busPath);
+            _fmodSoundCollection = new SCHIZO.Sounds.FMODSoundCollection(soundCollection, SCHIZO.Sounds.FMODSoundCollection.GetBusPath(bus));
             ResetTimer();
         }
 
@@ -45,14 +43,7 @@ namespace SCHIZO.Unity.Sounds
 
         #region NaughtyAttributes stuff
 
-        private bool Validate_emitter(Object obj) => !obj || obj.GetType().Name == "FMOD_CustomEmitter";
-        private bool Validate_pickupable(Object obj) => !obj || obj.GetType().Name == "Pickupable";
-
-        private DropdownList<string> bus_Dropdown = new DropdownList<string>()
-        {
-            {"AudioUtils.BusPaths.PDAVoice", "Nautilus.Utility.AudioUtils+BusPaths:PDAVoice"},
-            {"AudioUtils.BusPaths.UnderwaterCreatures", "Nautilus.Utility.AudioUtils+BusPaths:UnderwaterCreatures"}
-        };
+        private DropdownList<string> bus_Dropdown = NAUGHTYATTRIBUTES.BusPathDropdown;
 
         #endregion
     }
