@@ -23,7 +23,7 @@ public sealed class Gymbag : ClonePrefab
 
         GameObject.Destroy(prefab.GetComponentInChildren<VFXFabricating>());
 
-        GameObject instance = Object.Instantiate(modItem.ItemData.prefab, renderers[0].transform.parent);
+        GameObject instance = Object.Instantiate(UnityData.prefab, renderers[0].transform.parent);
 
         PrefabUtils.AddVFXFabricating(instance, null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero);
     }
@@ -32,7 +32,7 @@ public sealed class Gymbag : ClonePrefab
     {
         if (clonedTechType == TechType.None)
         {
-            LOGGER.LogMessage("Not registring " + modItem.ItemData.classId + " because it has no cloned tech type");
+            LOGGER.LogMessage("Not registring " + UnityData.classId + " because it has no cloned tech type");
             return;
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Nautilus.Assets;
 using Nautilus.Handlers;
+using SCHIZO.Unity.Creatures;
 using SCHIZO.Unity.Items;
 
 namespace SCHIZO.Items;
@@ -52,6 +53,14 @@ public sealed class ModItem
         if (ItemData.TechGroup != TechGroup.Uncategorized)
         {
             CraftDataHandler.AddToGroup(ItemData.TechGroup, ItemData.TechCategory, this);
+        }
+
+        if (ItemData.DatabankInfo)
+        {
+            DatabankInfo i = ItemData.DatabankInfo;
+
+            PDAHandler.AddEncyclopediaEntry(PrefabInfo.ClassID, i.encyPath, i.title, i.description.text, i.texture, i.unlockSprite,
+                i.isImportantUnlock ? PDAHandler.UnlockImportant : PDAHandler.UnlockBasic);
         }
     }
 

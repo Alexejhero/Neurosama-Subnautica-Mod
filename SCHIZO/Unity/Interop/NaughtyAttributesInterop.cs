@@ -25,6 +25,16 @@ internal class HideIfAttribute : Attribute
     public HideIfAttribute(string condition)
     {
     }
+
+    public HideIfAttribute(EConditionOperator conditionOperator, params string[] conditions)
+    {
+    }
+}
+
+public enum EConditionOperator
+{
+    And,
+    Or
 }
 
 [Conditional("UNITY")]

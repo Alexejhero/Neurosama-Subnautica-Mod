@@ -23,7 +23,9 @@ public class UnityPrefab : CustomPrefab
 
     #endregion
 
-    protected readonly ModItem modItem;
+    protected ModItem ModItem { get; }
+    protected ItemData UnityData => ModItem.ItemData;
+    protected PrefabInfo PrefabInfo => ModItem.PrefabInfo;
 
     public static void CreateAndRegister(ModItem modItem)
     {
@@ -33,18 +35,24 @@ public class UnityPrefab : CustomPrefab
             return;
         }
 
+        if (modItem.ItemData is Unity.Creatures.CreatureData)
+        {
+            UnityCreaturePrefab.CreateAndRegister(modItem);
+            return;
+        }
+
         new UnityPrefab(modItem).Register();
     }
 
     [SetsRequiredMembers]
     protected UnityPrefab(ModItem item) : base(item)
     {
-        modItem = item;
+        ModItem = item;
     }
 
     public new virtual void Register()
     {
-        modItem.LoadStep2();
+        ModItem.LoadStep2();
 
         NautilusPrefabConvertible prefab = GetPrefab();
         if (prefab != null) this.SetGameObject(prefab);
@@ -55,13 +63,13 @@ public class UnityPrefab : CustomPrefab
 
     protected virtual NautilusPrefabConvertible GetPrefab()
     {
-        if (!modItem.ItemData.prefab) return null;
+        if (!UnityData.prefab) return null;
 
         return (Func<GameObject>) getDeferred;
 
         GameObject getDeferred()
         {
-            GameObject instance = Object.Instantiate(modItem.ItemData.prefab, _prefabCacheParent);
+            GameObject instance = Object.Instantiate(UnityData.prefab, _prefabCacheParent);
 
             AddBasicComponents(instance);
             InitializeConstructable(instance);
@@ -83,8 +91,8 @@ public class UnityPrefab : CustomPrefab
 
     private void AddBasicComponents(GameObject instance)
     {
-        instance.EnsureComponent<PrefabIdentifier>().classId = modItem.ItemData.classId;
-        instance.EnsureComponent<TechTag>().type = modItem;
+        instance.EnsureComponent<PrefabIdentifier>().classId = UnityData.classId;
+        instance.EnsureComponent<TechTag>().type = ModItem;
 
         Renderer[] renderers = instance.GetComponentsInChildren<Renderer>(true);
         if (renderers is {Length: > 0}) instance.EnsureComponent<SkyApplier>().renderers = renderers;
@@ -94,7 +102,7 @@ public class UnityPrefab : CustomPrefab
     {
         Constructable constructable = instance.GetComponent<Constructable>();
 
-        constructable.techType = modItem;
+        constructable.techType = ModItem;
         constructable.ghostMaterial = MaterialHelpers.GhostMaterial;
 #if BELOWZERO
         constructable._EmissiveTex = MaterialHelpers.ConstructableEmissiveTexture;

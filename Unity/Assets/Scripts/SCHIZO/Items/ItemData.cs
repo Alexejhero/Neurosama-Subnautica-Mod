@@ -1,7 +1,7 @@
 ﻿using NaughtyAttributes;
+using SCHIZO.Unity.Creatures;
 using SCHIZO.Unity.Retargeting.BelowZero;
 using SCHIZO.Unity.Retargeting.Subnautica;
-using SCHIZO.Unity.Sounds;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -30,7 +30,6 @@ namespace SCHIZO.Unity.Items
         #endregion
 
         [HideInInspector] public GameObject prefab;
-        public BaseSoundCollection sounds;
 
         [BoxGroup("TechType"), ValidateInput(nameof(AutoRegister_Validate))]
         public string classId;
@@ -38,53 +37,59 @@ namespace SCHIZO.Unity.Items
         [BoxGroup("TechType"), ValidateInput(nameof(AutoRegister_Validate))]
         public string displayName;
 
-        [BoxGroup("TechType"), ResizableTextArea]
+        [BoxGroup("TechType"), ResizableTextArea, ShowIf(nameof(ShowPickupableProps))]
         public string tooltip;
 
-        [BoxGroup("Common Properties")]
+        [BoxGroup("Common Properties"), ShowIf(nameof(ShowPickupableProps))]
         public Sprite icon;
 
-        [BoxGroup("Common Properties"), HideIf(nameof(isBuildable))]
+        [BoxGroup("Common Properties"), HideIf(EConditionOperator.Or, nameof(HidePickupableProps), nameof(isBuildable))]
         public Vector2Int itemSize = new Vector2Int(1, 1);
 
-        [BoxGroup("Common Properties"), HideIf(nameof(isBuildable))]
+        [BoxGroup("Common Properties"), HideIf(EConditionOperator.Or, nameof(HidePickupableProps), nameof(isBuildable))]
         public bool isCraftable = false;
 
-        [BoxGroup("Common Properties"), HideIf(nameof(isCraftable))]
+        [BoxGroup("Common Properties"), HideIf(EConditionOperator.Or, nameof(HidePickupableProps), nameof(isCraftable))]
         public bool isBuildable = false;
 
-        [BoxGroup("Common Properties"), ShowIf(nameof(isCraftable))]
+        [BoxGroup("Common Properties"), ShowIf(nameof(IsActuallyCraftable))]
         public float craftingTime = 2.5f;
 
-        [BoxGroup("Subnautica Data"), Label("Recipe"), SerializeField]
+        [BoxGroup("Subnautica Data"), Label("Recipe"), SerializeField, ShowIf(nameof(ShowPickupableProps))]
         private Recipe recipeSN;
 
-        [BoxGroup("Subnautica Data"), Label("Craft Tree"), ShowIf(nameof(isCraftable)), SerializeField]
+        [BoxGroup("Subnautica Data"), Label("Craft Tree"), ShowIf(nameof(IsActuallyCraftable)), SerializeField]
         private CraftTree_Type_SN craftTreeTypeSN = CraftTree_Type_SN.None;
 
         [BoxGroup("Subnautica Data"), Label("Craft Tree Path"), ShowIf(nameof(craftTreePathSN_ShowIf)), Dropdown(nameof(craftTreePathsSN)), SerializeField]
         private string craftTreePathSN = "";
 
-        [BoxGroup("Subnautica Data"), Label("Tech Group"), ValidateInput(nameof(techGroupSN_Validate)), SerializeField]
+        [BoxGroup("Subnautica Data"), Label("Tech Group"), ValidateInput(nameof(techGroupSN_Validate)), SerializeField, ShowIf(nameof(ShowPickupableProps))]
         private TechGroup_SN techGroupSN = TechGroup_SN.Uncategorized;
 
         [BoxGroup("Subnautica Data"), Label("Tech Category"), SerializeField, HideIf(nameof(techCategorySN_HideIf))]
         private TechCategory_SN techCategorySN;
 
-        [BoxGroup("Below Zero Data"), Label("Recipe"), SerializeField]
+        [BoxGroup("Subnautica Data"), Label("Databank Info"), SerializeField]
+        private DatabankInfo databankInfoSN;
+
+        [BoxGroup("Below Zero Data"), Label("Recipe"), SerializeField, ShowIf(nameof(ShowPickupableProps))]
         private Recipe recipeBZ;
 
-        [BoxGroup("Below Zero Data"), Label("Craft Tree"), ShowIf(nameof(isCraftable)), SerializeField]
+        [BoxGroup("Below Zero Data"), Label("Craft Tree"), ShowIf(nameof(IsActuallyCraftable)), SerializeField]
         private CraftTree_Type_BZ craftTreeTypeBZ = CraftTree_Type_BZ.None;
 
         [BoxGroup("Below Zero Data"), Label("Craft Tree Path"), ShowIf(nameof(craftTreePathBZ_ShowIf)), Dropdown(nameof(craftTreePathsBZ)), SerializeField]
         private string craftTreePathBZ = "";
 
-        [BoxGroup("Below Zero Data"), Label("Tech Group"), ValidateInput(nameof(techGroupBZ_Validate)), SerializeField]
+        [BoxGroup("Below Zero Data"), Label("Tech Group"), ValidateInput(nameof(techGroupBZ_Validate)), SerializeField, ShowIf(nameof(ShowPickupableProps))]
         private TechGroup_BZ techGroupBZ = TechGroup_BZ.Uncategorized;
 
         [BoxGroup("Below Zero Data"), Label("Tech Category"), SerializeField, HideIf(nameof(techCategoryBZ_HideIf))]
         private TechCategory_BZ techCategoryBZ;
+
+        [BoxGroup("Below Zero Data"), Label("Databank Info"), SerializeField]
+        private DatabankInfo databankInfoBZ;
 
 #if !UNITY
         public SCHIZO.Items.ModItem ModItem { get; set; }
@@ -94,6 +99,7 @@ namespace SCHIZO.Unity.Items
         public string[] CraftTreePath => Helpers.RetargetHelpers.Pick(craftTreePathSN, craftTreePathBZ).Split('/');
         public TechGroup TechGroup => (TechGroup) Helpers.RetargetHelpers.Pick(techGroupSN, techGroupBZ);
         public TechCategory TechCategory => (TechCategory) Helpers.RetargetHelpers.Pick(techCategorySN, techCategoryBZ);
+        public DatabankInfo DatabankInfo => Helpers.RetargetHelpers.Pick(databankInfoSN, databankInfoBZ);
 #endif
 
         #region Unity editor stuff
@@ -112,11 +118,11 @@ namespace SCHIZO.Unity.Items
         private bool techGroupSN_Validate(TechGroup_SN val) => !autoRegister || !isBuildable || val != TechGroup_SN.Uncategorized;
         private bool techGroupBZ_Validate(TechGroup_BZ val) => !autoRegister || !isBuildable || val != TechGroup_BZ.Uncategorized;
 
-        private bool techCategorySN_HideIf() => techGroupSN == TechGroup_SN.Uncategorized;
-        private bool techCategoryBZ_HideIf() => techGroupBZ == TechGroup_BZ.Uncategorized;
+        private bool techCategorySN_HideIf() => techGroupSN == TechGroup_SN.Uncategorized && HidePickupableProps();
+        private bool techCategoryBZ_HideIf() => techGroupBZ == TechGroup_BZ.Uncategorized && HidePickupableProps();
 
-        private bool craftTreePathSN_ShowIf() => isCraftable && craftTreeTypeSN != CraftTree_Type_SN.None;
-        private bool craftTreePathBZ_ShowIf() => isCraftable && craftTreeTypeBZ != CraftTree_Type_BZ.None;
+        private bool craftTreePathSN_ShowIf() => IsActuallyCraftable() && craftTreeTypeSN != CraftTree_Type_SN.None;
+        private bool craftTreePathBZ_ShowIf() => IsActuallyCraftable() && craftTreeTypeBZ != CraftTree_Type_BZ.None;
 
         // TODO: be smart amout this
         private readonly DropdownList<string> craftTreePathsSN = new DropdownList<string>
@@ -156,6 +162,11 @@ namespace SCHIZO.Unity.Items
             { "Prawn Suit Upgrades (Vehicle Upgrade Console)", "ExosuitModules" },
             { "Seatruck Upgrades (Vehicle Upgrade Console)", "SeaTruckUpgrade" },
         };
+
+        protected virtual bool ShowPickupableProps() => true;
+        private bool HidePickupableProps() => !ShowPickupableProps();
+
+        private bool IsActuallyCraftable() => isCraftable && ShowPickupableProps();
 
         #endregion
     }
