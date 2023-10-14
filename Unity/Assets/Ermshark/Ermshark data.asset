@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e01a095b5064d2684bcd4bbb3f09a8e, type: 3}
   m_Name: Ermshark data
   m_EditorClassIdentifier: 
-  autoRegister: 0
-  _prefab1: {fileID: 0}
-  _prefab2: {fileID: 0}
-  prefab: {fileID: 0}
+  autoRegister: 1
+  _prefab1: {fileID: 2061343355341963926, guid: a7efd04469290f14d91b13b1059d3284,
+    type: 3}
+  _prefab2: {fileID: 2061343355341963926, guid: a7efd04469290f14d91b13b1059d3284,
+    type: 3}
+  prefab: {fileID: 2061343355341963926, guid: a7efd04469290f14d91b13b1059d3284, type: 3}
   classId: ermshark
   displayName: Ermshark
   tooltip: 
@@ -37,5 +39,6 @@ MonoBehaviour:
   techCategoryBZ: 0
   databankInfoBZ: {fileID: 11400000, guid: c07efc17b4a326141b084b80f348be78, type: 2}
   isPickupable: 0
+  behaviourType: 4
   acidImmune: 1
   bioReactorCharge: 0

@@ -9,6 +9,7 @@ using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Items;
 using SCHIZO.Resources;
+using SCHIZO.Sounds;
 using SCHIZO.Unity.Items;
 
 namespace SCHIZO;
@@ -24,6 +25,8 @@ public sealed class Plugin : BaseUnityPlugin
     {
         LOGGER = Logger;
         DependencyResolver.InjectResources();
+
+        SoundConfig.Provider = CONFIG;
 
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
 

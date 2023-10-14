@@ -21,7 +21,7 @@ public class AttackLastTarget : CreatureAction
     [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool ignoreUnderWaterTargets = false;
     [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool predictTargetMovement = false;
     [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool attackStartRoar = false;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC), ReadOnly] public Object _attackStartSound;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC), ReadOnly] public Object _attackLoopSound;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC), ReadOnly] public Object _attackStartFXcontrol;
+    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset _attackStartSound;
+    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset _attackLoopSound;
+    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset _attackStartFXcontrol;
 }

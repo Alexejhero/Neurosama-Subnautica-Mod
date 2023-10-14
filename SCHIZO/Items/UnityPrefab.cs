@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets;
+using SCHIZO.Creatures;
 using SCHIZO.Helpers;
 using SCHIZO.Unity.Items;
 using UnityEngine;
@@ -31,16 +32,19 @@ public class UnityPrefab : CustomPrefab
     {
         if (modItem.ItemData is CloneItemData cloneItemData)
         {
+            LOGGER.LogInfo("Registering item " + modItem.ItemData.classId + " with custom loader " + cloneItemData.loader);
             cloneItemData.loader.Load();
             return;
         }
 
         if (modItem.ItemData is Unity.Creatures.CreatureData)
         {
-            UnityCreaturePrefab.CreateAndRegister(modItem);
+            LOGGER.LogInfo("Registering creature " + modItem.ItemData.classId);
+            new UnityCreaturePrefab(modItem).Register();
             return;
         }
 
+        LOGGER.LogInfo("Registering item " + modItem.ItemData.classId);
         new UnityPrefab(modItem).Register();
     }
 
@@ -71,9 +75,7 @@ public class UnityPrefab : CustomPrefab
         {
             GameObject instance = Object.Instantiate(UnityData.prefab, _prefabCacheParent);
 
-            AddBasicComponents(instance);
-            InitializeConstructable(instance);
-
+            SetupComponents(instance);
             ModifyPrefab(instance);
 
             return instance;
@@ -89,24 +91,23 @@ public class UnityPrefab : CustomPrefab
     {
     }
 
-    private void AddBasicComponents(GameObject instance)
+    protected virtual void SetupComponents(GameObject instance)
     {
         instance.EnsureComponent<PrefabIdentifier>().classId = UnityData.classId;
         instance.EnsureComponent<TechTag>().type = ModItem;
 
         Renderer[] renderers = instance.GetComponentsInChildren<Renderer>(true);
         if (renderers is {Length: > 0}) instance.EnsureComponent<SkyApplier>().renderers = renderers;
-    }
 
-    private void InitializeConstructable(GameObject instance)
-    {
         Constructable constructable = instance.GetComponent<Constructable>();
-
-        constructable.techType = ModItem;
-        constructable.ghostMaterial = MaterialHelpers.GhostMaterial;
+        if (constructable)
+        {
+            constructable.techType = ModItem;
+            constructable.ghostMaterial = MaterialHelpers.GhostMaterial;
 #if BELOWZERO
-        constructable._EmissiveTex = MaterialHelpers.ConstructableEmissiveTexture;
-        constructable._NoiseTex = MaterialHelpers.ConstructableNoiseTexture;
+            constructable._EmissiveTex = MaterialHelpers.ConstructableEmissiveTexture;
+            constructable._NoiseTex = MaterialHelpers.ConstructableNoiseTexture;
 #endif
+        }
     }
 }

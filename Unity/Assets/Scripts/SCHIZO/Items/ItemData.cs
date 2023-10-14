@@ -1,7 +1,7 @@
 ﻿using NaughtyAttributes;
 using SCHIZO.Unity.Creatures;
-using SCHIZO.Unity.Retargeting.BelowZero;
-using SCHIZO.Unity.Retargeting.Subnautica;
+using SCHIZO.Unity.Enums.BelowZero;
+using SCHIZO.Unity.Enums.Subnautica;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -40,7 +40,7 @@ namespace SCHIZO.Unity.Items
         [BoxGroup("TechType"), ResizableTextArea, ShowIf(nameof(ShowPickupableProps))]
         public string tooltip;
 
-        [BoxGroup("Common Properties"), ShowIf(nameof(ShowPickupableProps))]
+        [BoxGroup("Common Properties"), ShowIf(nameof(ShowPickupableProps)), ValidateInput(nameof(icon_Validate))]
         public Sprite icon;
 
         [BoxGroup("Common Properties"), HideIf(EConditionOperator.Or, nameof(HidePickupableProps), nameof(isBuildable))]
@@ -114,6 +114,7 @@ namespace SCHIZO.Unity.Items
         #region NaughtyAttributes stuff
 
         private bool AutoRegister_Validate(string str) => !autoRegister || !string.IsNullOrWhiteSpace(str);
+        private bool icon_Validate(Sprite val) => !autoRegister || val;
 
         private bool techGroupSN_Validate(TechGroup_SN val) => !autoRegister || !isBuildable || val != TechGroup_SN.Uncategorized;
         private bool techGroupBZ_Validate(TechGroup_BZ val) => !autoRegister || !isBuildable || val != TechGroup_BZ.Uncategorized;

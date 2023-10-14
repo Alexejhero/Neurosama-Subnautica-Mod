@@ -18,5 +18,5 @@ public class FleeWhenScared : CreatureAction
     public float swimExhaustion = 0.25f;
     public float exhaustedVelocity = 1;
 
-    [Foldout(STRINGS.UNCHANGED_BY_ECC), ReadOnly] public Object scaredSound;
+    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset scaredSound;
 }

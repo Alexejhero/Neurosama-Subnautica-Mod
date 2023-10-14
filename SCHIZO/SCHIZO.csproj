@@ -18,9 +18,6 @@
 
     <ItemGroup>
         <Compile Include="$(SolutionDir)\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity\Unity" />
-        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Creatures\_old\PickupableCreatureData.cs">
-          <Link>Unity\Unity\Creatures\_old\PickupableCreatureData.cs</Link>
-        </Compile>
     </ItemGroup>
 
     <ItemGroup>

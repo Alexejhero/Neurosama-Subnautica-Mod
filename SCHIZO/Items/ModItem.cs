@@ -29,7 +29,8 @@ public sealed class ModItem
         ItemData = data;
 
         PrefabInfo = PrefabInfo.WithTechType(data.classId, data.displayName, data.tooltip);
-        PrefabInfo.WithIcon(data.icon).WithSizeInInventory(new Vector2int(data.itemSize.x, data.itemSize.y));
+        if (data.icon) PrefabInfo.WithIcon(data.icon);
+        PrefabInfo.WithSizeInInventory(new Vector2int(data.itemSize.x, data.itemSize.y));
     }
 
     public void LoadStep2()

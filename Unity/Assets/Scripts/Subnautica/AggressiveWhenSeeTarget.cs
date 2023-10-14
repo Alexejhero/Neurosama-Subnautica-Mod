@@ -21,5 +21,5 @@ public class AggressiveWhenSeeTarget : MonoBehaviour
     [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool ignoreFrozen = false;
     [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float leashDistance = -1;
     [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float targetPriority = 1;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC), ReadOnly] public Object _sightedSound;
+    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset sightedSound;
 }

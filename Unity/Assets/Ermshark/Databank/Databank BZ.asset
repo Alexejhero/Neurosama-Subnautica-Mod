@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1160e7f4151348eb97332e6bb0a2a034, type: 3}
   m_Name: Databank BZ
   m_EditorClassIdentifier: 
-  scanTime: 3
+  scanTime: 5
   unlockSprite: {fileID: 21300000, guid: 85c36857a3ce21c49b2b3d2d1c09ecb6, type: 3}
   isImportantUnlock: 0
   encyPath: Lifeforms/Fauna/Carnivores
