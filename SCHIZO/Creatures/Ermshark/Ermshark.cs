@@ -1,9 +1,24 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
 partial class Ermshark : IOnTakeDamage
 {
+    private static GameObject _ermsharkPrefab;
+    private static bool _hasStartedPrefabCoroutine;
+
+    private new IEnumerator Start()
+    {
+        base.Start();
+        if (_hasStartedPrefabCoroutine) yield break;
+
+        CoroutineTask<GameObject> result = CraftData.GetPrefabForTechTypeAsync(GetComponent<TechTag>().type);
+        yield return result;
+
+        _ermsharkPrefab = result.GetResult();
+    }
+
     private bool _isReal = true;
 
     public void OnTakeDamage(DamageInfo damageInfo)
@@ -39,11 +54,11 @@ partial class Ermshark : IOnTakeDamage
     {
         const float childScaleModifier = 0.69f;
 
-        GameObject firstChild = Instantiate(ermsharkPrefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
+        GameObject firstChild = Instantiate(_ermsharkPrefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
         firstChild.transform.GetChild(0).localScale = transform.GetChild(0).localScale * childScaleModifier;
         UpdateChild(firstChild, _isReal, mitosisRemaining - 1);
 
-        GameObject secondChild = Instantiate(ermsharkPrefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
+        GameObject secondChild = Instantiate(_ermsharkPrefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
         secondChild.transform.GetChild(0).localScale = transform.GetChild(0).localScale * childScaleModifier;
         UpdateChild(secondChild, false, mitosisRemaining - 1);
 

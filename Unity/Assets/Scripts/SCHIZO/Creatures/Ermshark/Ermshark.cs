@@ -8,7 +8,6 @@ namespace SCHIZO.Creatures.Ermshark
     [ActualType("Creature")]
     public sealed partial class Ermshark : CustomCreature
     {
-        [BoxGroup("Ermshark"), Required, SerializeField] private GameObject ermsharkPrefab;
         [BoxGroup("Ermshark")] public int mitosisRemaining = 4;
         [BoxGroup("Ermshark"), Required, SerializeField] private HurtSoundPlayer hurtSoundPlayer;
         [BoxGroup("Ermshark"), Required, SerializeField] private WorldAmbientSoundPlayer ambientSoundPlayer;

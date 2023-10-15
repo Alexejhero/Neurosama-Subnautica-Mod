@@ -6,7 +6,6 @@ using HarmonyLib;
 using NaughtyAttributes.Editor;
 using SCHIZO.Attributes;
 using UnityEditor;
-using UnityEngine;
 
 namespace NaughtyExtensions
 {

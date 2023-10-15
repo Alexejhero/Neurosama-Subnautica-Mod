@@ -31,8 +31,6 @@ public class UnityCreaturePrefab : UnityPrefab
             PDAHandler.AddCustomScannerEntry(ModItem, UnityData.DatabankInfo.scanTime, encyclopediaKey: PrefabInfo.ClassID);
         }
 
-        // TODO: creature sounds
-
         // TODO: loot distribution data
     }
 
@@ -51,6 +49,14 @@ public class UnityCreaturePrefab : UnityPrefab
         {
             if (soundOnDamage.damageType == DamageType.Collide) soundOnDamage.sound = ECCSoundAssets.FishSplat;
             else LOGGER.LogWarning($"Creature {PrefabInfo.ClassID} has SoundOnDamage component with damage type {soundOnDamage.damageType} which is not supported");
+        }
+
+        LiveMixin liveMixin = instance.GetComponent<LiveMixin>();
+        if (liveMixin && liveMixin.data)
+        {
+            liveMixin.data.damageEffect = ObjectReferences.genericCreatureHit;
+            liveMixin.data.deathEffect = ObjectReferences.genericCreatureHit;
+            liveMixin.data.electricalDamageEffect = ObjectReferences.electrocutedEffect;
         }
     }
 }
