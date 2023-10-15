@@ -39,6 +39,32 @@ MonoBehaviour:
   techCategoryBZ: 0
   databankInfoBZ: {fileID: 11400000, guid: c07efc17b4a326141b084b80f348be78, type: 2}
   isPickupable: 0
+  _liveMixin: {fileID: 1838783449033335020}
   behaviourType: 4
   acidImmune: 1
   bioReactorCharge: 0
+--- !u!114 &1838783449033335020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5fc571188fd482ea82c2bafcbeb912d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  passDamageDataOnDeath: 0
+  broadcastKillOnDeath: 1
+  weldable: 0
+  knifeable: 1
+  destroyOnDeath: 0
+  minDamageForSound: 0
+  loopEffectBelowPercent: 0
+  loopingDamageEffect: {fileID: 0}
+  canResurrect: 0
+  damageEffect: {fileID: 0}
+  deathEffect: {fileID: 0}
+  electricalDamageEffect: {fileID: 0}

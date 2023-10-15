@@ -11,6 +11,8 @@ namespace SCHIZO.Unity.Creatures
     {
         public bool isPickupable = false;
 
+        [SerializeField, HideInInspector] private ScriptableObject _liveMixin;
+
         // [BoxGroup("Creature Data")] public CreatureSoundData sounds; TODO
         [BoxGroup("Creature Data"), ValidateInput(nameof(Validate_behaviourType)), SerializeField] private BehaviourType_SN behaviourType;
         [BoxGroup("Creature Data")] public bool acidImmune = true;
@@ -18,6 +20,31 @@ namespace SCHIZO.Unity.Creatures
 
 #if !UNITY
         public BehaviourType BehaviourType => (BehaviourType) behaviourType;
+#endif
+
+#if UNITY_EDITOR
+        [ContextMenu("Create LiveMixinData")]
+        private void CreateLiveMixinData()
+        {
+            // ReSharper disable once Unity.PreferGenericMethodOverload
+            _liveMixin = CreateInstance("LiveMixinData");
+            UnityEditor.AssetDatabase.AddObjectToAsset(_liveMixin, this);
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+
+        [ContextMenu("Create LiveMixinData", true)]
+        public bool CreateLiveMixinData_Validate() => !_liveMixin;
+
+        [ContextMenu("Destroy LiveMixinData")]
+        private void DestroyLiveMixinData()
+        {
+            UnityEditor.AssetDatabase.RemoveObjectFromAsset(_liveMixin);
+            _liveMixin = null;
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+
+        [ContextMenu("Destroy LiveMixinData", true)]
+        public bool DestroyLiveMixinData_Validate() => _liveMixin;
 #endif
 
         #region NaughyAttributes stuff
