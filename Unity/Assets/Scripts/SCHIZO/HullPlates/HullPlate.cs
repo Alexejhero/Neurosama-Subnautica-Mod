@@ -1,9 +1,7 @@
-﻿
-using NaughtyAttributes;
+﻿using NaughtyAttributes;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.HullPlates
+namespace SCHIZO.HullPlates
 {
     [CreateAssetMenu(menuName = "SCHIZO/Hull Plates/Hull Plate")]
     public sealed class HullPlate : ScriptableObject

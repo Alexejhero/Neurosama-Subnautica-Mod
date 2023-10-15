@@ -1,5 +1,6 @@
 ﻿using Editor.PropertyDrawers;
-using SCHIZO.Unity;
+using SCHIZO;
+using SCHIZO.Utilities;
 using UnityEditor;
 using UnityEngine;
 

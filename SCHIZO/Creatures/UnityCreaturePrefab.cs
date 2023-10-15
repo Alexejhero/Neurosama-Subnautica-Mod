@@ -12,10 +12,10 @@ public class UnityCreaturePrefab : UnityPrefab
     [SetsRequiredMembers]
     public UnityCreaturePrefab(ModItem item) : base(item)
     {
-        if (item.ItemData is not Unity.Creatures.CreatureData) throw new ArgumentException("Item data is not a creature data", nameof(ModItem));
+        if (item.ItemData is not CreatureData) throw new ArgumentException("Item data is not a creature data", nameof(ModItem));
     }
 
-    protected new Unity.Creatures.CreatureData UnityData => (Unity.Creatures.CreatureData) base.UnityData;
+    protected new CreatureData UnityData => (CreatureData) base.UnityData;
 
     public override void Register()
     {

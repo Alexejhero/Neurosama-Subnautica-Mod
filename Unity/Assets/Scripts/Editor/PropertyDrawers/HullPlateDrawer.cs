@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SCHIZO.Unity.HullPlates;
+using SCHIZO.HullPlates;
 using UnityEditor;
 using UnityEngine;
 

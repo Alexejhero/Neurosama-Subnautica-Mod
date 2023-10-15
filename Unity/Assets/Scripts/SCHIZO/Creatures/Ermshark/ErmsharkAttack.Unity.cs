@@ -1,9 +1,9 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Unity.NaughtyExtensions;
+using SCHIZO.Packages.NaughtyAttributes;
+using SCHIZO.Utilities;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Creatures.Ermshark
+namespace SCHIZO.Creatures.Ermshark
 {
     partial class ErmsharkAttack : MonoBehaviour
     {

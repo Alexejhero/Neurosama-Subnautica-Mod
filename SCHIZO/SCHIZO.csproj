@@ -17,20 +17,33 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Include="$(SolutionDir)\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity\Linked" />
-        <Compile Remove="$(SolutionDir)\Unity\Assets\Scripts\SCHIZO\**\*.Unity.cs" />
-        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Creatures\HurtSoundPlayer.cs">
-          <Link>Unity\Linked\Creatures\HurtSoundPlayer.cs</Link>
+        <Compile Include="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.cs" LinkBase=".">
+            <DependentUpon>%(FileName).cs</DependentUpon>
         </Compile>
-    </ItemGroup>
+        <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.Unity.cs" />
 
+        <Folder Include="Enums/BelowZero" />
+        <Folder Include="Enums/Subnautica" />
+        <Folder Include="Loading" />
+        <Folder Include="Materials" />
+        <Folder Include="Utilities" />
+    </ItemGroup>
+    
     <ItemGroup>
-        <EmbeddedResource Include="Resources\**" />
-        <EmbeddedResource Remove="Resources\**\*.cs" />
-        <EmbeddedResource Remove="Resources\AssetBundles\AssetBundles" />
-        <EmbeddedResource Remove="Resources\AssetBundles\*.manifest" />
-        <None Remove="Resources\AssetBundles\AssetBundles" />
-        <None Remove="Resources\AssetBundles\AssetBundles.manifest" />
+        <EmbeddedResource Include="Resources/**" />
+        <EmbeddedResource Remove="Resources/**/*.cs" />
+        <EmbeddedResource Remove="Resources/AssetBundles/AssetBundles" />
+        <EmbeddedResource Remove="Resources/AssetBundles/*.manifest" />
+        <None Remove="Resources/AssetBundles/AssetBundles" />
+        <None Remove="Resources/AssetBundles/AssetBundles.manifest" />
+        
+        <None Update="Resources/AssetBundles/*.manifest">
+            <DependentUpon>%(FileName)</DependentUpon>
+        </None>
+
+        <Compile Update="Resources/AssetBundles/*.cs">
+            <DependentUpon>%(FileName)</DependentUpon>
+        </Compile>
     </ItemGroup>
 
 <!--    <Target Name="EmbedNuGetDlls" AfterTargets="ResolveReferences">
@@ -43,7 +56,9 @@
     </Target>-->
 
     <ItemGroup>
-        <Compile Remove="_old\**" />
-        <None Include="_old\**" />
+        <Compile Remove="_old/**" />
+        <None Include="_old/**" />
+
+
     </ItemGroup>
 </Project>

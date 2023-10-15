@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using SCHIZO.Unity;
-using SCHIZO.Unity.Items;
+using SCHIZO;
+using SCHIZO.Items;
+using SCHIZO.Utilities;
 using UnityEditor;
 using UnityEngine;
 

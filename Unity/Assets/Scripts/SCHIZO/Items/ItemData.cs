@@ -1,16 +1,14 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Unity.Creatures;
-using SCHIZO.Unity.Enums.BelowZero;
-using SCHIZO.Unity.Enums.Subnautica;
+using SCHIZO.Enums.BelowZero;
+using SCHIZO.Enums.Subnautica;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Items
+namespace SCHIZO.Items
 {
     [CreateAssetMenu(menuName = "SCHIZO/Items/Item Data")]
-    public class ItemData : ScriptableObject
+    public partial class ItemData : ScriptableObject
     {
-        public bool autoRegister = false;
+        public bool autoRegister;
 
         #region Tomfoolery to work around HorizontalLine limitations
 #if UNITY
@@ -47,10 +45,10 @@ namespace SCHIZO.Unity.Items
         public Vector2Int itemSize = new Vector2Int(1, 1);
 
         [BoxGroup("Common Properties"), HideIf(EConditionOperator.Or, nameof(HidePickupableProps), nameof(isBuildable))]
-        public bool isCraftable = false;
+        public bool isCraftable;
 
         [BoxGroup("Common Properties"), HideIf(EConditionOperator.Or, nameof(HidePickupableProps), nameof(isCraftable))]
-        public bool isBuildable = false;
+        public bool isBuildable;
 
         [BoxGroup("Common Properties"), ShowIf(nameof(IsActuallyCraftable))]
         public float craftingTime = 2.5f;
@@ -90,17 +88,6 @@ namespace SCHIZO.Unity.Items
 
         [BoxGroup("Below Zero Data"), Label("Databank Info"), SerializeField]
         private DatabankInfo databankInfoBZ;
-
-#if !UNITY
-        public SCHIZO.Items.ModItem ModItem { get; set; }
-
-        public Recipe Recipe => Helpers.RetargetHelpers.Pick(recipeSN, recipeBZ);
-        public CraftTree.Type CraftTreeType => (CraftTree.Type) Helpers.RetargetHelpers.Pick(craftTreeTypeBZ, craftTreeTypeBZ);
-        public string[] CraftTreePath => Helpers.RetargetHelpers.Pick(craftTreePathSN, craftTreePathBZ).Split('/');
-        public TechGroup TechGroup => (TechGroup) Helpers.RetargetHelpers.Pick(techGroupSN, techGroupBZ);
-        public TechCategory TechCategory => (TechCategory) Helpers.RetargetHelpers.Pick(techCategorySN, techCategoryBZ);
-        public DatabankInfo DatabankInfo => Helpers.RetargetHelpers.Pick(databankInfoSN, databankInfoBZ);
-#endif
 
         #region Unity editor stuff
 

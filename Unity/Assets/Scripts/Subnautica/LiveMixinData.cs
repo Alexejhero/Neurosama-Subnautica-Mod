@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using SCHIZO.Utilities;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LiveMixinData.asset", menuName = "Subnautica/Create LiveMixin Data Asset")]

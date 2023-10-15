@@ -1,10 +1,9 @@
 ﻿using System;
 using NaughtyAttributes;
-using SCHIZO.Unity.Materials;
+using SCHIZO.Materials;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Creatures
+namespace SCHIZO.Creatures._old
 {
     // [CreateAssetMenu(menuName = "SCHIZO/Creatures/Pickupable Creature Data")]
     [Obsolete]

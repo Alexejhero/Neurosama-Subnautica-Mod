@@ -1,7 +1,6 @@
 ﻿using System;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Items
+namespace SCHIZO.Items
 {
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class TechTypeFlagsAttribute : Attribute

@@ -1,5 +1,5 @@
 ﻿using NaughtyAttributes.Editor;
-using SCHIZO.Unity.NaughtyExtensions;
+using SCHIZO.Packages.NaughtyAttributes;
 using UnityEditor;
 
 namespace Editor.NaughtyExtensions

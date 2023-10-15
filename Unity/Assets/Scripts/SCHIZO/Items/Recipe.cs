@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
+using SCHIZO.Utilities;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Items
+namespace SCHIZO.Items
 {
     [CreateAssetMenu(menuName = "SCHIZO/Items/Recipe")]
     public sealed class Recipe : ScriptableObject

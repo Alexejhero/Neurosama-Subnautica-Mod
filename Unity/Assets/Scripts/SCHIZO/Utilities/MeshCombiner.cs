@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Utilities
+namespace SCHIZO.Utilities
 {
     [CreateAssetMenu(menuName = "SCHIZO/Mesh Combiner")]
     public sealed class MeshCombiner : ScriptableObject

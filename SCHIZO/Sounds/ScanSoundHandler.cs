@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using HarmonyLib;
 using Nautilus.Utility;
-using SCHIZO.Unity.Sounds;
 
 namespace SCHIZO.Sounds;
 

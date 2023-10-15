@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets;
 using SCHIZO.Creatures;
 using SCHIZO.Helpers;
-using SCHIZO.Unity.Items;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -37,7 +36,7 @@ public class UnityPrefab : CustomPrefab
             return;
         }
 
-        if (modItem.ItemData is Unity.Creatures.CreatureData)
+        if (modItem.ItemData is Creatures.CreatureData)
         {
             LOGGER.LogInfo("Registering creature " + modItem.ItemData.classId);
             new UnityCreaturePrefab(modItem).Register();

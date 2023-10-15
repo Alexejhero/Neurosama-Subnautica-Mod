@@ -4,7 +4,7 @@ using System.Linq;
 using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Resources;
-using SCHIZO.Unity.Sounds;
+using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Credits;

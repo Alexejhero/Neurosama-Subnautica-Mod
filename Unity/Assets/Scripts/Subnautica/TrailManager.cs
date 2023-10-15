@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using SCHIZO.Utilities;
 using UnityEngine;
 
 public class TrailManager : MonoBehaviour

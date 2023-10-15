@@ -1,19 +1,18 @@
-﻿// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Items.Gymbag
+﻿namespace SCHIZO.Items.Gymbag
 {
     public sealed class GymbagLoader : ItemLoader
     {
         public override void Load()
         {
 #if !UNITY
-            new SCHIZO.Items.Gymbag.Gymbag(itemData.ModItem, itemData.CloneTarget).Register();
+            new Gymbag(itemData.ModItem, itemData.CloneTarget).Register();
 #endif
         }
     }
 }
 
 #if UNITY_EDITOR
-namespace SCHIZO.Unity.Items
+namespace SCHIZO.Items
 {
     partial class CloneItemData
     {

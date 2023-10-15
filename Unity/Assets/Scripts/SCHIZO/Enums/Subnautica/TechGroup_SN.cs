@@ -1,5 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Enums.Subnautica
+﻿namespace SCHIZO.Enums.Subnautica
 {
     public enum TechGroup_SN
     {

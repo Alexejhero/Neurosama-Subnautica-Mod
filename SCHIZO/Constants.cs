@@ -5,7 +5,7 @@ global using NIngredient = Ingredient;
 #endif
 
 global using static SCHIZO.Constants;
-using SCHIZO.Unity;
+using SCHIZO.Utilities;
 
 namespace SCHIZO;
 

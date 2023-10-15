@@ -1,8 +1,7 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Unity.NaughtyExtensions;
+using SCHIZO.Packages.NaughtyAttributes;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
 namespace ECCLibrary.Mono
 {
     public class SwimInSchoolFieldSetter : MonoBehaviour

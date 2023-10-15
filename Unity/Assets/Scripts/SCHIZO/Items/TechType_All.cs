@@ -1,5 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Items
+﻿namespace SCHIZO.Items
 {
     public enum TechType_All
     {

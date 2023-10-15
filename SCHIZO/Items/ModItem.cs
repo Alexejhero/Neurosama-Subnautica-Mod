@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Nautilus.Assets;
 using Nautilus.Handlers;
 using SCHIZO.Sounds;
-using SCHIZO.Unity.Creatures;
-using SCHIZO.Unity.Items;
 
 namespace SCHIZO.Items;
 

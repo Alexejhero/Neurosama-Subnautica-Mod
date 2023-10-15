@@ -1,9 +1,7 @@
-﻿
-using NaughtyAttributes;
+﻿using NaughtyAttributes;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Materials
+namespace SCHIZO.Materials
 {
     [CreateAssetMenu(menuName = "SCHIZO/Materials/Material Remap Config")]
     public sealed class MaterialRemapConfig : ScriptableObject

@@ -1,9 +1,8 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Unity.NaughtyExtensions;
+using SCHIZO.Packages.NaughtyAttributes;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Sounds
+namespace SCHIZO.Sounds
 {
     public sealed partial class WorldAmbientSoundPlayer : MonoBehaviour
     {

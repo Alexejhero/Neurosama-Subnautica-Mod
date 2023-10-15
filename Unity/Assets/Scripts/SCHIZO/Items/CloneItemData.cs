@@ -1,8 +1,7 @@
 ﻿using NaughtyAttributes;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Items
+namespace SCHIZO.Items
 {
     [CreateAssetMenu(menuName = "SCHIZO/Items/Clone Item Data")]
     // ReSharper disable once PartialTypeWithSinglePart

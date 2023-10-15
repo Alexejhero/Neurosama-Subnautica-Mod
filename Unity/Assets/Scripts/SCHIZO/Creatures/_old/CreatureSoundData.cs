@@ -1,9 +1,8 @@
 using System;
-using SCHIZO.Unity.Sounds;
+using SCHIZO.Sounds;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Creatures
+namespace SCHIZO.Creatures._old
 {
     // [CreateAssetMenu(menuName = "SCHIZO/Creatures/Creature Sound Data")]
     [Obsolete]

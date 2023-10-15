@@ -1,9 +1,8 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Unity.Sounds;
+using SCHIZO.Sounds;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Creatures
+namespace SCHIZO.Items
 {
     [CreateAssetMenu(menuName = "SCHIZO/Items/Databank Info")]
     public sealed class DatabankInfo : ScriptableObject

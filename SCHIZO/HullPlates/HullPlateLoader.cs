@@ -8,7 +8,6 @@ using Nautilus.Utility;
 using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
-using SCHIZO.Unity.HullPlates;
 using UnityEngine;
 
 namespace SCHIZO.HullPlates;

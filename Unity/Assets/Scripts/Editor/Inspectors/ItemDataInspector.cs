@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using NaughtyAttributes.Editor;
 using PropertyDrawers;
-using SCHIZO.Unity.Items;
+using SCHIZO.Items;
 using UnityEditor;
 
 namespace Editor.Inspectors

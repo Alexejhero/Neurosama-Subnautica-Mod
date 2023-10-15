@@ -2,7 +2,6 @@
 using System.Linq;
 using HarmonyLib;
 using SCHIZO.Resources;
-using SCHIZO.Unity.Items;
 
 namespace SCHIZO.Items.Gymbag;
 

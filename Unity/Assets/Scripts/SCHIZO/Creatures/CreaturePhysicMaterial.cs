@@ -1,8 +1,7 @@
 ﻿using NaughtyAttributes;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Creatures
+namespace SCHIZO.Creatures
 {
     public sealed class CreaturePhysicMaterial : MonoBehaviour
     {

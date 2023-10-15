@@ -3,8 +3,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Creatures
+namespace SCHIZO.Creatures._old
 {
     // [CreateAssetMenu(menuName = "SCHIZO/Creatures/Custom Creature Data")]
     [Obsolete]

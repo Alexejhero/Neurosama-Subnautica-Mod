@@ -1,17 +1,17 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Unity.Enums.Subnautica;
-using SCHIZO.Unity.Items;
+﻿using JetBrains.Annotations;
+using NaughtyAttributes;
+using SCHIZO.Enums.Subnautica;
+using SCHIZO.Items;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Creatures
+namespace SCHIZO.Creatures
 {
     [CreateAssetMenu(menuName = "SCHIZO/Creatures/Creature Data")]
     public class CreatureData : ItemData
     {
         public bool isPickupable = false;
 
-        [SerializeField, HideInInspector] private ScriptableObject _liveMixin;
+        [SerializeField, HideInInspector, UsedImplicitly] private ScriptableObject _liveMixin;
 
         // [BoxGroup("Creature Data")] public CreatureSoundData sounds; TODO
         [BoxGroup("Creature Data"), ValidateInput(nameof(Validate_behaviourType)), SerializeField] private BehaviourType_SN behaviourType;

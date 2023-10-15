@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Editor.PropertyDrawers;
-using SCHIZO.Unity;
-using SCHIZO.Unity.Items;
+using SCHIZO;
+using SCHIZO.Items;
+using SCHIZO.Utilities;
 using UnityEditor;
 using UnityEngine;
 

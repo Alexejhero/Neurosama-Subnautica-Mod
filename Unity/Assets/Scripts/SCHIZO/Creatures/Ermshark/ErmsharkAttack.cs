@@ -1,10 +1,9 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Unity.NaughtyExtensions;
-using SCHIZO.Unity.Sounds;
+using SCHIZO.Packages.NaughtyAttributes;
+using SCHIZO.Sounds;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Creatures.Ermshark
+namespace SCHIZO.Creatures.Ermshark
 {
     public sealed partial class ErmsharkAttack
     {

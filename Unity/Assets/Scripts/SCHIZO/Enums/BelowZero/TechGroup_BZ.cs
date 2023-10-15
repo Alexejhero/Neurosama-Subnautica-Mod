@@ -1,5 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Enums.BelowZero
+﻿namespace SCHIZO.Enums.BelowZero
 {
     public enum TechGroup_BZ
     {

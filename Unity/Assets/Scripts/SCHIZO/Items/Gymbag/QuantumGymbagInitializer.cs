@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Items.Gymbag
+namespace SCHIZO.Items.Gymbag
 {
     public sealed class QuantumGymbagInitializer : MonoBehaviour
     {

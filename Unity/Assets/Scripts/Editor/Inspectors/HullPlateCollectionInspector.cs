@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using NaughtyAttributes.Editor;
 using PropertyDrawers;
-using SCHIZO.Unity.HullPlates;
+using SCHIZO.HullPlates;
 using UnityEditor;
 
 namespace Editor.Inspectors

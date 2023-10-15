@@ -8,7 +8,8 @@ using System.Text;
 using AssetBundleBrowser.AssetBundleDataSource;
 using HarmonyLib;
 using JetBrains.Annotations;
-using SCHIZO.Unity.Items;
+using SCHIZO.Creatures;
+using SCHIZO.Items;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -49,8 +50,8 @@ namespace Editor.Patches
                 foreach (string asset in bundle.GetAllAssetNames())
                 {
                     string capitalizedAssetName = AssetDatabase.GUIDToAssetPath(AssetDatabase.AssetPathToGUID(asset));
-                    UnityEngine.Object[] assets = AssetDatabase.LoadAllAssetsAtPath(asset);
-                    UnityEngine.Object main = AssetDatabase.LoadMainAssetAtPath(asset);
+                    Object[] assets = AssetDatabase.LoadAllAssetsAtPath(asset);
+                    Object main = AssetDatabase.LoadMainAssetAtPath(asset);
 
                     if (!asset.StartsWith("assets/")) throw new Exception("Don't know how to handle asset: " + asset);
 
@@ -73,10 +74,11 @@ namespace Editor.Patches
             }
         }
 
-        private static UnityEngine.Object HandleMultipleAssets(UnityEngine.Object[] objects, UnityEngine.Object main, string path)
+        private static Object HandleMultipleAssets(Object[] objects, Object main, string path)
         {
             if (main is GameObject) return main;
             if (main is CloneItemData) return main;
+            if (main is CreatureData) return main;
 
             if (objects[0] is Texture2D && objects[1] is Sprite sprite1) return sprite1;
             if (objects[0] is Sprite sprite2 && objects[1] is Texture2D) return sprite2;

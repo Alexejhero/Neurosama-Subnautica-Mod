@@ -5,7 +5,7 @@ using HarmonyLib;
 using JetBrains.Annotations;
 using NaughtyAttributes;
 using NaughtyAttributes.Editor;
-using SCHIZO.Unity.NaughtyExtensions;
+using SCHIZO.Packages.NaughtyAttributes;
 
 namespace Editor.Patches
 {

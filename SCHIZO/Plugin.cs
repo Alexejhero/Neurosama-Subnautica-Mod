@@ -10,7 +10,6 @@ using SCHIZO.Attributes;
 using SCHIZO.Items;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
-using SCHIZO.Unity.Items;
 
 namespace SCHIZO;
 
