@@ -1,5 +1,5 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Packages.NaughtyAttributes;
+using SCHIZO.Attributes;
 using SCHIZO.Utilities;
 using UnityEngine;
 
@@ -19,9 +19,9 @@ namespace SCHIZO.Creatures.Ermshark
         public bool ignoreSameKind = false;
         public bool canBeFed = true;
 
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("LastTarget")] public MonoBehaviour lastTarget;
+        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("LastTarget")] public MonoBehaviour lastTarget;
         [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("Creature")] public MonoBehaviour creature;
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("LiveMixin")] public MonoBehaviour liveMixin;
+        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;
 
         [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float biteAggressionThreshold = 0.3f;
         [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float eatHungerDecrement = 0.5f;

@@ -1,6 +1,6 @@
 ﻿using System;
 using NaughtyAttributes;
-using SCHIZO.Packages.NaughtyAttributes;
+using SCHIZO.Attributes;
 using SCHIZO.Utilities;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ namespace SCHIZO.Creatures
 {
     partial class CustomCreature : MonoBehaviour
     {
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("LiveMixin")] public MonoBehaviour liveMixin;
+        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;
 
         [Required] public Animator traitsAnimator;
 

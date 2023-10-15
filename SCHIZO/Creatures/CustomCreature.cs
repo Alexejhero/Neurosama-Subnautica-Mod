@@ -1,5 +1,3 @@
 namespace SCHIZO.Creatures;
 
-partial class CustomCreature : Creature
-{
-}
+partial class CustomCreature : Creature;

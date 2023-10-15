@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using SCHIZO.Attributes;
 using SCHIZO.Utilities;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ using UnityEngine;
 public class AggressiveWhenSeeTarget : MonoBehaviour
 {
     [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public LastTarget lastTarget;
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public Creature creature;
+    [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("Creature")] public MonoBehaviour creature;
 
     public AnimationCurve maxRangeMultiplier = ECCLIBRARY.maxRangeMultiplierCurve;
     public AnimationCurve distanceAggressionMultiplier = ECCLIBRARY.distanceAggressionMultiplierCurve;

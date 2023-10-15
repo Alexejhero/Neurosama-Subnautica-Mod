@@ -39,18 +39,18 @@ partial class Ermshark : IOnTakeDamage
     {
         const float childScaleModifier = 0.69f;
 
-        Ermshark firstChild = Instantiate(ermsharkPrefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
+        GameObject firstChild = Instantiate(ermsharkPrefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
         firstChild.transform.GetChild(0).localScale = transform.GetChild(0).localScale * childScaleModifier;
         UpdateChild(firstChild, _isReal, mitosisRemaining - 1);
 
-        Ermshark secondChild = Instantiate(ermsharkPrefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
+        GameObject secondChild = Instantiate(ermsharkPrefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
         secondChild.transform.GetChild(0).localScale = transform.GetChild(0).localScale * childScaleModifier;
         UpdateChild(secondChild, false, mitosisRemaining - 1);
 
         for (int i = 0; i < 5; i++) Utils.SpawnPrefabAt(hurtEffect, transform, position).transform.localScale *= 2f;
     }
 
-    private static void UpdateChild(Ermshark child, bool isReal, int mitosisRemaining)
+    private static void UpdateChild(GameObject child, bool isReal, int mitosisRemaining)
     {
         Ermshark ermshark = child.GetComponentInChildren<Ermshark>(true);
         if (!isReal)

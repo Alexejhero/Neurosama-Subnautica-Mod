@@ -4,6 +4,8 @@ using HarmonyLib;
 using JetBrains.Annotations;
 using NaughtyAttributes;
 using NaughtyAttributes.Editor;
+using NaughtyExtensions;
+using SCHIZO.Attributes;
 
 namespace Patches
 {
@@ -12,6 +14,7 @@ namespace Patches
     {
         private static readonly Dictionary<Type, PropertyValidatorBase> _customPropertyValidators = new Dictionary<Type, PropertyValidatorBase>()
         {
+            {typeof(ValidateTypeAttribute), new ValidateTypePropertyValidator()}
         };
 
         [HarmonyPatch(typeof(ValidatorAttributeExtensions), nameof(ValidatorAttributeExtensions.GetValidator)), UsedImplicitly]

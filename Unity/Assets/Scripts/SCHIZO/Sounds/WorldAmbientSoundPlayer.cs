@@ -1,5 +1,6 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Packages.NaughtyAttributes;
+using SCHIZO.Attributes;
+using SCHIZO.Utilities;
 using UnityEngine;
 
 namespace SCHIZO.Sounds
@@ -8,8 +9,8 @@ namespace SCHIZO.Sounds
     {
         [Required] public SoundCollection soundCollection;
         [Dropdown(nameof(bus_Dropdown))] public string bus;
-        [Required, ValidateType("FMOD_CustomEmitter")] public MonoBehaviour emitter;
-        [ValidateType("Pickupable")] public MonoBehaviour pickupable;
+        [Required, ExposedType("FMOD_CustomEmitter")] public MonoBehaviour emitter;
+        [ExposedType("Pickupable")] public MonoBehaviour pickupable;
 
         private DropdownList<string> bus_Dropdown = NAUGHTYATTRIBUTES.BusPathDropdown;
     }
