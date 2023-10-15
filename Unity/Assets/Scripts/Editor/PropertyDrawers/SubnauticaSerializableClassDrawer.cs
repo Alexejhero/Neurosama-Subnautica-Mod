@@ -7,8 +7,8 @@ using UnityEngine;
 
 namespace PropertyDrawers
 {
-    [CustomPropertyDrawer(typeof(ValidateTypeAttribute))]
-    public sealed class ValidateTypeAttributeDrawer : PropertyDrawer
+    // [CustomPropertyDrawer(typeof(SubnauticaSerializableClass))]
+    public sealed class SubnauticaSerializableClassDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {

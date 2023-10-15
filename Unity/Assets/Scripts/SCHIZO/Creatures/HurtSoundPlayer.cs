@@ -8,6 +8,6 @@ namespace SCHIZO.Creatures
     public sealed partial class HurtSoundPlayer : MonoBehaviour
     {
         [Required, SerializeField] private BaseSoundCollection hurtSounds;
-        [Required, SerializeField, ValidateType("FMOD_CustomEmitter")] private MonoBehaviour emitter;
+        [Required, ValidateType("FMOD_CustomEmitter")] public MonoBehaviour emitter;
     }
 }
