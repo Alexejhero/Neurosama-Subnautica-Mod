@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Nautilus.Assets;
 using Nautilus.Handlers;
+using SCHIZO.Sounds;
 using SCHIZO.Unity.Creatures;
 using SCHIZO.Unity.Items;
 
@@ -62,6 +63,8 @@ public sealed class ModItem
 
             PDAHandler.AddEncyclopediaEntry(PrefabInfo.ClassID, i.encyPath, i.title, i.description.text, i.texture, i.unlockSprite,
                 i.isImportantUnlock ? PDAHandler.UnlockImportant : PDAHandler.UnlockBasic);
+
+            if (i.scanSounds) ScanSoundHandler.Register(this, i.scanSounds);
         }
     }
 

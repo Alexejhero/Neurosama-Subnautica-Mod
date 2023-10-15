@@ -111,6 +111,8 @@ internal class DropdownList<T> : IDropdownList
     }
 }
 
+[Conditional("UNITY")]
 internal class ReadOnlyAttribute : Attribute;
 
+[Conditional("UNITY")]
 public class ValidatorAttribute : Attribute;

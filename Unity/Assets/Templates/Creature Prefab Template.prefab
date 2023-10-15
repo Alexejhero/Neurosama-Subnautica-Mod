@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4711419397437546869
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4962070890995002727}
-  m_Layer: 0
-  m_Name: Model
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4962070890995002727
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4711419397437546869}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4430336063030548523}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-8371309086422519895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,18 +322,6 @@ MonoBehaviour:
   hearingSensitivity: 1
   detectsMotion: 1
   babyScaleSize: 0.5
---- !u!114 &-2390674021230301462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a1e64fb692b4bd09740c81bfe15f35b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-1999000113781068853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,6 +596,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d933c0320ec24d7eb9f809c5a90edabb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2722342412455638247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8fe7cd25fedc56428574c91124f6530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hurtSounds: {fileID: 0}
+  emitter: {fileID: 8210446819742810007}
 --- !u!114 &2742326128842612785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,6 +906,22 @@ MonoBehaviour:
   scanDistance: 30
   swimVelocity: 15
   swimInterval: 1
+--- !u!114 &7784437994874313104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4f19711010743bfa5da92c65afc5b86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundCollection: {fileID: 0}
+  bus: Nautilus.Utility.AudioUtils+BusPaths:UnderwaterCreatures
+  emitter: {fileID: 8210446819742810007}
+  pickupable: {fileID: 0}
 --- !u!114 &7808515654292971840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -979,45 +967,13 @@ MonoBehaviour:
   range: 20
   aggressionPerSecond: 0.5
   targetPriority: 1
---- !u!1 &6222184936206287089
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9085375110401415634}
-  - component: {fileID: 2177745333386522145}
-  - component: {fileID: 389815023049860306}
-  m_Layer: 0
-  m_Name: Sounds
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9085375110401415634
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6222184936206287089}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4430336063030548523}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2177745333386522145
+--- !u!114 &8210446819742810007
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6222184936206287089}
+  m_GameObject: {fileID: 5049378406231838710}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f419283b15274b87be363a33ff631238, type: 3}
@@ -1028,22 +984,36 @@ MonoBehaviour:
   followParent: 1
   restartOnPlay: 0
   debug: 0
---- !u!114 &389815023049860306
-MonoBehaviour:
+--- !u!1 &4711419397437546869
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6222184936206287089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4f19711010743bfa5da92c65afc5b86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundCollection: {fileID: 0}
-  bus: Nautilus.Utility.AudioUtils+BusPaths:UnderwaterCreatures
-  emitter: {fileID: 2177745333386522145}
-  pickupable: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4962070890995002727}
+  m_Layer: 0
+  m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4962070890995002727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4711419397437546869}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4430336063030548523}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4074388638642951939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1145,12 +1115,6 @@ Rigidbody:
     type: 3}
   m_PrefabInstance: {fileID: 4074388638642951939}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5049378406231838710 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9122564453119383797, guid: c4afaa0bdc846574aa2185e0c81013f9,
-    type: 3}
-  m_PrefabInstance: {fileID: 4074388638642951939}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4325550884201703431 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 327728672407256836, guid: c4afaa0bdc846574aa2185e0c81013f9,
@@ -1163,3 +1127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d31639aed8401283261c41f767c40d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5049378406231838710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9122564453119383797, guid: c4afaa0bdc846574aa2185e0c81013f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4074388638642951939}
+  m_PrefabAsset: {fileID: 0}

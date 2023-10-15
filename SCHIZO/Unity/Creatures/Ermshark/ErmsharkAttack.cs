@@ -1,4 +1,5 @@
-﻿using SCHIZO.Sounds;
+﻿using Nautilus.Utility;
+using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Unity.Creatures.Ermshark;
@@ -9,7 +10,7 @@ partial class ErmsharkAttack : MeleeAttack
 
     private void Start()
     {
-        _attackSounds = new FMODSoundCollection(attackSounds, FMODSoundCollection.GetBusPath(bus));
+        _attackSounds = new FMODSoundCollection(attackSounds, AudioUtils.BusPaths.UnderwaterCreatures);
     }
 
     public override void OnTouch(Collider collider)
@@ -44,6 +45,7 @@ partial class ErmsharkAttack : MeleeAttack
             }
         }
 
+        // TODO: verify if ermshark can attack vehicles and cyclopses
         if (CanBite(target))
         {
             timeLastBite = Time.time;
@@ -63,7 +65,7 @@ partial class ErmsharkAttack : MeleeAttack
                 Utils.PlayEnvSound(attackSound, damageFxPos);
             }
 
-            _attackSounds.Play(gameObject.GetComponent<FMOD_CustomEmitter>());
+            _attackSounds.Play((FMOD_CustomEmitter) emitter);
 
             creature.Aggression.Add(-biteAggressionDecrement);
             if (living && !living.IsAlive())

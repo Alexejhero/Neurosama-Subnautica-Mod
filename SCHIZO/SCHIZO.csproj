@@ -19,6 +19,9 @@
     <ItemGroup>
         <Compile Include="$(SolutionDir)\Unity\Assets\Scripts\SCHIZO\**\*.cs" LinkBase="Unity\Linked" />
         <Compile Remove="$(SolutionDir)\Unity\Assets\Scripts\SCHIZO\**\*.Unity.cs" />
+        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Creatures\HurtSoundPlayer.cs">
+          <Link>Unity\Linked\Creatures\HurtSoundPlayer.cs</Link>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>

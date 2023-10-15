@@ -70,16 +70,6 @@ public static class CreatureSoundsPatches
         }
     }
 
-    [HarmonyPatch(typeof(PDAScanner), nameof(PDAScanner.Unlock))]
-    [HarmonyPostfix]
-    public static void PlayCustomScanSound(PDAScanner.EntryData entryData, bool unlockBlueprint, bool unlockEncyclopedia, bool verbose)
-    {
-        if (!CreatureSoundsHandler.TryGetCreatureSounds(entryData.key, out CreatureSounds sounds)) return;
-        if (!verbose) return; // prevents scan sounds playing on loading screen
-
-        sounds.ScanSounds?.Play2D();
-    }
-
     [HarmonyPatch(typeof(Survival), nameof(Survival.Eat))]
     public static class PlayCustomEatSound
     {
@@ -125,16 +115,5 @@ public static class CreatureSoundsPatches
 
         sounds.HolsterSounds?.CancelAllDelayed();
         sounds.CookSounds.Play2D();
-    }
-
-    [HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.NotifyAllAttachedDamageReceivers))]
-    [HarmonyPostfix]
-    public static void PlayCustomHurtSound(LiveMixin __instance, DamageInfo inDamage)
-    {
-        if (inDamage.damage == 0) return;
-        Pickupable pickupable = __instance.GetComponent<Pickupable>();
-        if (!pickupable || !CreatureSoundsHandler.TryGetCreatureSounds(pickupable.GetTechType(), out CreatureSounds sounds)) return;
-
-        sounds.HurtSounds?.Play(__instance.GetComponent<FMOD_CustomEmitter>());
     }
 }
