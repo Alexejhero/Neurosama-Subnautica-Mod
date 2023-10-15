@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SCHIZO;
 using SCHIZO.Items;
 using SCHIZO.Utilities;
 using UnityEditor;

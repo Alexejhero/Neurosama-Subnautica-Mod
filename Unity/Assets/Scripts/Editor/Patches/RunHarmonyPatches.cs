@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using UnityEditor;
 
-namespace Editor.Patches
+namespace Patches
 {
     public static class RunHarmonyPatches
     {

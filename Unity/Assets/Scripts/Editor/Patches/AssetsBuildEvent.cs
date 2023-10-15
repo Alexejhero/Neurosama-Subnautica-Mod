@@ -15,7 +15,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Editor.Patches
+namespace Patches
 {
     [HarmonyPatch, UsedImplicitly]
     public static class AssetsBuildEvent

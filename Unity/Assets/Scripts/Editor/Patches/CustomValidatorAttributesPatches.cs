@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using Editor.NaughtyExtensions;
 using HarmonyLib;
 using JetBrains.Annotations;
 using NaughtyAttributes;
 using NaughtyAttributes.Editor;
+using NaughtyExtensions;
 using SCHIZO.Packages.NaughtyAttributes;
 
-namespace Editor.Patches
+namespace Patches
 {
     [HarmonyPatch, UsedImplicitly]
     public static class CustomValidatorAttributesPatches
     {
         private static readonly Dictionary<Type, PropertyValidatorBase> _customPropertyValidators = new Dictionary<Type, PropertyValidatorBase>()
         {
-            {typeof(ValidateTypeAttribute), new ValidateTypePropertyValidator()}
+            {typeof(ValidateTypeAttribute), new ValidateTypePropertyValidator()},
+            {typeof(RequiredSubnauticaReferenceAttribute), new RequiredSubnauticaReferencePropertyValidator()}
         };
 
         [HarmonyPatch(typeof(ValidatorAttributeExtensions), nameof(ValidatorAttributeExtensions.GetValidator)), UsedImplicitly]

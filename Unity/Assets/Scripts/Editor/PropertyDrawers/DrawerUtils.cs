@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Editor.PropertyDrawers
+namespace PropertyDrawers
 {
     public static class DrawerUtils
     {

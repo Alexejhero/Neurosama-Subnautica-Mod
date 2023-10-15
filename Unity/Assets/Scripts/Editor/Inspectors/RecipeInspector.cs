@@ -3,7 +3,7 @@ using PropertyDrawers;
 using SCHIZO.Items;
 using UnityEditor;
 
-namespace Editor.Inspectors
+namespace Inspectors
 {
     [CustomEditor(typeof(Recipe))]
     public sealed class RecipeInspector : NaughtyInspector
