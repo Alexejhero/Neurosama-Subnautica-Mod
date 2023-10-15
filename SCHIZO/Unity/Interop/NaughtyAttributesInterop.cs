@@ -1,4 +1,4 @@
-﻿// ReSharper disable UnusedParameter.Local
+// ReSharper disable UnusedParameter.Local
 // ReSharper disable UnusedType.Global
 using System;
 using System.Collections;
@@ -14,9 +14,10 @@ internal class ExpandableAttribute : Attribute;
 [Conditional("UNITY")]
 internal class ShowIfAttribute : Attribute
 {
-    public ShowIfAttribute(string condition)
+    public ShowIfAttribute(string condition) 
     {
     }
+    public ShowIfAttribute(string enumName, object enumValue) { }
 }
 
 [Conditional("UNITY")]

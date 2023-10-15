@@ -9,6 +9,7 @@ using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Items;
 using SCHIZO.Resources;
+using SCHIZO.Sounds.JukeboxButTheNamespaceConflictsWithTheGlobalJukeboxClassName.ThisIsWhyUnityIsTheBestGameEngine;
 using SCHIZO.Unity.Items;
 
 namespace SCHIZO;
@@ -29,6 +30,8 @@ public sealed class Plugin : BaseUnityPlugin
 
         IEnumerable<ModItem> modItems = Assets.All<ItemData>().Where(d => d.autoRegister).Select(ModItem.Create);
         modItems.ForEach(UnityPrefab.CreateAndRegister);
+
+        Assets.All<CustomJukeboxTrack>().ForEach(CustomJukeboxTrack.Register);
 
         AddComponentAttribute.AddAll(gameObject, AddComponentAttribute.Target.Plugin);
         LoadMethodAttribute.LoadAll();

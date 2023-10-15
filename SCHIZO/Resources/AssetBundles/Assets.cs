@@ -36,6 +36,7 @@ public static class Assets
     public static SCHIZO.Unity.Items.CloneItemData Gymbag_GymbagBZ = _a.LoadAsset<SCHIZO.Unity.Items.CloneItemData>("Assets/Gymbag/Gymbag BZ.asset");
     public static SCHIZO.Unity.Items.CloneItemData Gymbag_GymbagSN = _a.LoadAsset<SCHIZO.Unity.Items.CloneItemData>("Assets/Gymbag/Gymbag SN.asset");
     public static SCHIZO.Unity.HullPlates.HullPlateCollection HullPlates_HullPlates = _a.LoadAsset<SCHIZO.Unity.HullPlates.HullPlateCollection>("Assets/Hull Plates/Hull Plates.asset");
+    public static SCHIZO.Sounds.JukeboxButTheNamespaceConflictsWithTheGlobalJukeboxClassName.ThisIsWhyUnityIsTheBestGameEngine.CustomJukeboxTrack Jukebox_TruckersFM = _a.LoadAsset<SCHIZO.Sounds.JukeboxButTheNamespaceConflictsWithTheGlobalJukeboxClassName.ThisIsWhyUnityIsTheBestGameEngine.CustomJukeboxTrack>("Assets/Jukebox/TruckersFM.asset");
     public static SCHIZO.Unity.Loading.LoadingBackgroundCollection Loading_Backgrounds_LoadingBackgrounds = _a.LoadAsset<SCHIZO.Unity.Loading.LoadingBackgroundCollection>("Assets/Loading/Backgrounds/LoadingBackgrounds.asset");
     public static UnityEngine.Texture2D Loading_LoadingIcon = _a.LoadAsset<UnityEngine.Texture2D>("Assets/Loading/loading icon.png");
     public static SCHIZO.Unity.Items.ItemData Neurofumos_LowPolyNeurofumo_LowpolyFumoData = _a.LoadAsset<SCHIZO.Unity.Items.ItemData>("Assets/Neurofumos/Low-poly Neurofumo/LowpolyFumo data.asset");
