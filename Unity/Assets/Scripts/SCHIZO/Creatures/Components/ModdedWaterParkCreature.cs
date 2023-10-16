@@ -1,17 +1,18 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 namespace SCHIZO.Creatures.Components
 {
     [DisallowMultipleComponent]
     public sealed partial class ModdedWaterParkCreature : MonoBehaviour
     {
-        [SerializeField] private float initialSize = 0.1f;
-        [SerializeField] private float maxSize = 0.6f;
-        [SerializeField] private float outsideSize = 1;
-        [SerializeField] private float daysToGrow = 1;
-        [SerializeField] private bool isPickupableOutside = true;
-        [SerializeField] private bool canBreed = true;
-        [SerializeField] private string eggOrChildPrefabClassId;
-        [SerializeField] private string adultPrefabClassId;
+        [SerializeField, UsedImplicitly] private float initialSize = 0.1f;
+        [SerializeField, UsedImplicitly] private float maxSize = 0.6f;
+        [SerializeField, UsedImplicitly] private float outsideSize = 1;
+        [SerializeField, UsedImplicitly] private float daysToGrow = 1;
+        [SerializeField, UsedImplicitly] private bool isPickupableOutside = true;
+        [SerializeField, UsedImplicitly] private bool canBreed = true;
+        [SerializeField, UsedImplicitly] private string eggOrChildPrefabClassId;
+        [SerializeField, UsedImplicitly] private string adultPrefabClassId;
     }
 }

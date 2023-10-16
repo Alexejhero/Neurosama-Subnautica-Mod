@@ -10,9 +10,16 @@ namespace SCHIZO.Creatures.Ermshark
 {
     public sealed partial class Ermshark : _Creature
     {
-        [BoxGroup("Ermshark"), SerializeField] private int mitosisRemaining = 4;
-        [BoxGroup("Ermshark"), Required, SerializeField, UsedImplicitly] private HurtSoundPlayer hurtSoundPlayer;
-        [BoxGroup("Ermshark"), Required, SerializeField, UsedImplicitly] private WorldAmbientSoundPlayer ambientSoundPlayer;
-        [BoxGroup("Ermshark"), Required, SerializeField, ExposedType("Locomotion"), UsedImplicitly] private MonoBehaviour locomotion;
+        [BoxGroup("Ermshark"), SerializeField, UsedImplicitly]
+        private int mitosisRemaining = 4;
+
+        [BoxGroup("Ermshark"), Required, SerializeField, UsedImplicitly]
+        private HurtSoundPlayer hurtSoundPlayer;
+
+        [BoxGroup("Ermshark"), Required, SerializeField, UsedImplicitly]
+        private WorldAmbientSoundPlayer ambientSoundPlayer;
+
+        [BoxGroup("Ermshark"), Required, SerializeField, ExposedType("Locomotion"), UsedImplicitly]
+        private MonoBehaviour locomotion;
     }
 }

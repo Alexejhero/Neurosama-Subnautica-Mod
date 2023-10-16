@@ -58,7 +58,7 @@ namespace Patches
 
                     if (assets.Length == 1)
                     {
-                        Object includedAsset = HandleSingleAsset(assets[0], asset);
+                        Object includedAsset = HandleSingleAsset(assets[0]);
                         if (!includedAsset) continue;
 
                         result.Add((capitalizedAssetName.Substring(7), includedAsset.GetType()));
@@ -68,7 +68,7 @@ namespace Patches
                         Object includedAsset = HandleMultipleAssets(assets, main, asset);
                         if (!includedAsset) continue;
 
-                        includedAsset = HandleSingleAsset(includedAsset, asset);
+                        includedAsset = HandleSingleAsset(includedAsset);
                         if (!includedAsset) continue;
 
                         result.Add((capitalizedAssetName.Substring(7), includedAsset.GetType()));
@@ -81,7 +81,7 @@ namespace Patches
             }
         }
 
-        private static Object HandleSingleAsset(Object main, string path)
+        private static Object HandleSingleAsset(Object main)
         {
             if (main is ComponentAdder) return null;
 
@@ -128,7 +128,7 @@ public static class {GetCleanName(className)}
 
             foreach ((string asset, Type type) in assets)
             {
-                string o = type.GetCustomAttribute<ObsoleteAttribute>() != null ? "[System.Obsolete] " : "";
+                string o = type.GetCustomAttribute<ObsoleteAttribute>() != null ? "// [System.Obsolete] " : "";
                 builder.AppendLine($@"    {o}public static {type.FullName} {GetCleanName(asset)} = _a.LoadAsset<{type.FullName}>(""Assets/{asset}"");");
             }
 

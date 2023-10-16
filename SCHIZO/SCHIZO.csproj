@@ -21,23 +21,13 @@
             <DependentUpon>%(FileName).cs</DependentUpon>
         </Compile>
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.Unity.cs" />
+
+        <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/Creatures/_old/**/*.cs" />
+        <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/Materials/**/*.cs" />
+        
         <Folder Include="Enums/BelowZero" />
         <Folder Include="Enums/Subnautica" />
-        <Folder Include="Materials" />
-        <Folder Include="Packages\" />
         <Folder Include="Utilities" />
-        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Creatures\Components\CustomCreature.cs">
-          <Link>Interop\CustomCreature.cs</Link>
-          <DependentUpon>CustomCreature.cs</DependentUpon>
-        </Compile>
-        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Interop\_Creature.cs">
-          <Link>Interop\Subnautica\_Creature.cs</Link>
-          <DependentUpon>_Creature.cs</DependentUpon>
-        </Compile>
-        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Interop\_MeleeAttack.cs">
-          <Link>Interop\Subnautica\_MeleeAttack.cs</Link>
-          <DependentUpon>_MeleeAttack.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
     
     <ItemGroup>

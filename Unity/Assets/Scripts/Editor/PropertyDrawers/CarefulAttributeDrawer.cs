@@ -1,6 +1,4 @@
-﻿using System;
-using NaughtyAttributes.Editor;
-using SCHIZO.Attributes.Visual;
+﻿using SCHIZO.Attributes.Visual;
 using UnityEditor;
 using UnityEngine;
 

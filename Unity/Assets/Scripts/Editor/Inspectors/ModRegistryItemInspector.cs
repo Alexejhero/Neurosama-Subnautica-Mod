@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using NaughtyAttributes.Editor;
+﻿using NaughtyAttributes.Editor;
 using SCHIZO.Registering;
 using UnityEditor;
 using UnityEngine;
