@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using FMOD;
 using FMODUnity;
 using HarmonyLib;
@@ -45,7 +44,9 @@ public static class CustomJukeboxTrackPatches
 
     private static IEnumerator GetJukeboxDiskPrefab()
     {
-        IPrefabRequest request = PrefabDatabase.GetPrefabAsync("5108080f-242b-49e8-9b91-d01d6bbe138c"); // JukeboxDisk8
+        // const string diskClassId = "5108080f-242b-49e8-9b91-d01d6bbe138c";
+        const string diskPrefabPath = "Misc/JukeboxDisk8.prefab";
+        IPrefabRequest request = PrefabDatabase.GetPrefabForFilenameAsync(diskPrefabPath);
         yield return request;
         if (!request.TryGetPrefab(out jukeboxDiskPrefab))
             throw new Exception("Could not get prefab for jukebox disk!");
@@ -126,7 +127,7 @@ public static class CustomJukeboxTrackPatches
         Jukebox.TrackInfo newInfo = (Jukebox.TrackInfo) track;
         if (assignOnce)
         {
-            LOGGER.LogWarning($"Set info from asset - ({newInfo.label},{newInfo.length})");
+            //LOGGER.LogWarning($"Set info from asset - ({newInfo.label},{newInfo.length})");
             __instance.SetInfo(track.identifier, newInfo);
             return false;
         }
@@ -141,7 +142,7 @@ public static class CustomJukeboxTrackPatches
 
             if (info.label != newInfo.label)
             {
-                LOGGER.LogWarning($"Set info from remote - ({newInfo.label},{newInfo.length})");
+                //LOGGER.LogWarning($"Set info from remote - ({newInfo.label},{newInfo.length})");
                 __instance.SetInfo(track.identifier, newInfo);
             }
         }
