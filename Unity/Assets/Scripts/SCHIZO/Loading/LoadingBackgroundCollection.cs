@@ -4,9 +4,8 @@ using UnityEngine;
 namespace SCHIZO.Loading
 {
     [CreateAssetMenu(menuName = "SCHIZO/Loading/Loading Background Collection")]
-    public sealed class LoadingBackgroundCollection : ScriptableObject
+    public sealed partial class LoadingBackgroundCollection : ScriptableObject
     {
-        [ReorderableList]
-        public LoadingBackground[] backgrounds;
+        [ReorderableList, SerializeField] private LoadingBackground[] backgrounds;
     }
 }

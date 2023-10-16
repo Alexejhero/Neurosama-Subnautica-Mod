@@ -8,32 +8,123 @@ namespace SCHIZO.Registering;
 
 partial class ComponentAdder
 {
-    private static readonly Dictionary<MethodInfo, List<GameObject>> _toInstantiate = new();
+    private record struct Target(MethodInfo method, Mode mode);
+    private record struct Entry(Type targetType, GameObject prefab);
 
-    public void Patch(GameObject singletonHolder)
+    private static readonly Dictionary<Target, List<Entry>> _toInstantiate = new();
+
+    protected override void Register()
     {
         if (isSingleton)
         {
-            Instantiate(prefab, singletonHolder.transform);
+            Instantiate(prefab, PLUGIN_OBJECT.transform);
             return;
         }
 
         MethodInfo targetMethod = AccessTools.Method($"{typeName}:{methodName}");
         if (targetMethod == null) throw new MissingMethodException(typeName, methodName);
 
-        if (_toInstantiate.TryGetValue(targetMethod, out List<GameObject> list))
+        Target target = CreateTarget(targetMethod, mode);
+        Entry entry = new(!_isBaseType ? targetMethod.DeclaringType : AccessTools.TypeByName(targetTypeName), prefab);
+
+        if (_toInstantiate.TryGetValue(target, out List<Entry> list))
         {
-            list.Add(prefab);
+            list.Add(entry);
         }
         else
         {
-            HARMONY.Patch(targetMethod, postfix: new HarmonyMethod(AccessTools.Method(typeof(ComponentAdder), nameof(AddComponentPatch))));
-            _toInstantiate.Add(targetMethod, new List<GameObject> {prefab});
+            DoPatch(target);
+            _toInstantiate.Add(target, new List<Entry> {entry});
         }
     }
 
-    private static void AddComponentPatch(MonoBehaviour __instance, MethodInfo __originalMethod)
+    private static Target CreateTarget(MethodInfo method, Mode mode)
     {
-        _toInstantiate[__originalMethod].ForEach(p => Instantiate(p, __instance.transform));
+        return mode switch
+        {
+            Mode.CoroutineStep0Prefix => new Target(AccessTools.EnumeratorMoveNext(method), mode),
+            _ => new Target(method, mode)
+        };
+    }
+
+    private static void DoPatch(Target target)
+    {
+        switch (target.mode)
+        {
+            case Mode.Prefix:
+                PrefixPatch.Inject(target.method);
+                break;
+
+            case Mode.Postfix:
+                PostfixPatch.Inject(target.method);
+                break;
+
+            case Mode.CoroutineStep0Prefix:
+                CoroutineStep0PrefixPatch.Inject(target.method);
+                break;
+        }
+    }
+
+    private static void AddComponents(Target target, MonoBehaviour instance)
+    {
+        foreach ((Type targetType, GameObject gameObject) in _toInstantiate[target])
+        {
+            if (targetType.IsInstanceOfType(instance))
+            {
+                Instantiate(gameObject, instance.transform);
+            }
+        }
+    }
+
+    private static class PrefixPatch
+    {
+        public static void Inject(MethodInfo targetMethod)
+        {
+            HARMONY.Patch(targetMethod, prefix: new HarmonyMethod(AccessTools.Method(typeof(PrefixPatch), nameof(PatchFunc))));
+        }
+
+        private static void PatchFunc(MonoBehaviour __instance, MethodInfo __originalMethod)
+        {
+            AddComponents(new Target(__originalMethod, Mode.Prefix), __instance);
+        }
+    }
+
+    private static class PostfixPatch
+    {
+        public static void Inject(MethodInfo targetMethod)
+        {
+            HARMONY.Patch(targetMethod, postfix: new HarmonyMethod(AccessTools.Method(typeof(PostfixPatch), nameof(PatchFunc))));
+        }
+
+        private static void PatchFunc(MonoBehaviour __instance, MethodInfo __originalMethod)
+        {
+            AddComponents(new Target(__originalMethod, Mode.Postfix), __instance);
+        }
+    }
+
+    private static class CoroutineStep0PrefixPatch
+    {
+        public static void Inject(MethodInfo targetMethod)
+        {
+            HARMONY.Patch(targetMethod, prefix: new HarmonyMethod(AccessTools.Method(typeof(CoroutineStep0PrefixPatch), nameof(PatchFunc))));
+        }
+
+        private static void PatchFunc(object __instance, MethodInfo __originalMethod)
+        {
+            if (GetState(__instance) == 0)
+            {
+                AddComponents(new Target(__originalMethod, Mode.CoroutineStep0Prefix), GetThis<MonoBehaviour>(__instance));
+            }
+        }
+
+        private static int GetState(object iEnumerator)
+        {
+            return (int) AccessTools.Field(iEnumerator.GetType(), "<>1__state").GetValue(iEnumerator);
+        }
+
+        private static T GetThis<T>(object iEnumerator)
+        {
+            return (T) AccessTools.Field(iEnumerator.GetType(), "<>4__this").GetValue(iEnumerator);
+        }
     }
 }

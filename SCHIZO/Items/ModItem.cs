@@ -18,12 +18,12 @@ public sealed class ModItem
 
     public ModItem(ItemData data)
     {
-        LOGGER.LogDebug("Registering item " + data.classId + " with name " + data.displayName);
+        LOGGER.LogDebug("Creating ModItem " + data.classId + " with name " + data.displayName);
 
-        if (_registeredItems.Contains(data.classId)) throw new Exception("Item with classId " + data.classId + " has already been registered!");
+        if (_registeredItems.Contains(data.classId)) throw new Exception("Item with classId " + data.classId + " has already been created!");
         _registeredItems.Add(data.classId);
 
-        if (data.ModItem != null) throw new Exception("ItemData with classId " + data.classId + " has already been registered!");
+        if (data.ModItem != null) throw new Exception("ItemData with classId " + data.classId + " has already been created!");
         data.ModItem = this;
 
         ItemData = data;

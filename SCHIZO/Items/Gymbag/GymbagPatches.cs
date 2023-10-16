@@ -40,7 +40,7 @@ public static class GymbagPatches
     {
         if (container == Inventory.main.container)
         {
-            GymbagBehaviour.Instance.InventoryUGUI = __instance;
+            GymbagManager.Instance.InventoryUGUI = __instance;
         }
     }
 
@@ -48,7 +48,7 @@ public static class GymbagPatches
     [HarmonyPostfix]
     public static void ClearLastOpenedOnPDAClose()
     {
-        GymbagBehaviour opener = GymbagBehaviour.Instance;
+        GymbagManager opener = GymbagManager.Instance;
 
         if (opener.CurrentOpenedRootGymbag != null && !opener.OpeningGymbag)
         {
@@ -63,6 +63,6 @@ public static class GymbagPatches
     public static bool PreventRemovingOpenedGymbag(ItemsContainer __instance, ref bool __result, Pickupable pickupable)
     {
         if (__instance != Inventory.main.container) return true;
-        return __result = pickupable != GymbagBehaviour.Instance.CurrentOpenedRootGymbag?.item;
+        return __result = pickupable != GymbagManager.Instance.CurrentOpenedRootGymbag?.item;
     }
 }

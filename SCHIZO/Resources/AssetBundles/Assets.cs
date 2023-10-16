@@ -12,7 +12,7 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = 1206323770;
+    private const int _rnd = 377758305;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
 
@@ -20,25 +20,17 @@ public static class Assets
     public static UnityEngine.Object[] All() => _a.LoadAllAssets();
         
     [System.Obsolete] public static SCHIZO.Creatures._old.CustomCreatureData Old_Anneel_AnneelData = _a.LoadAsset<SCHIZO.Creatures._old.CustomCreatureData>("Assets/_old/Anneel/Anneel data.asset");
+    public static SCHIZO.Sounds.SoundCollection Old_Credits_SNEasterEgg = _a.LoadAsset<SCHIZO.Sounds.SoundCollection>("Assets/_old/Credits/SN Easter Egg.asset");
     public static SCHIZO.Items.Data.ItemData Old_Erm_BuildableErmData = _a.LoadAsset<SCHIZO.Items.Data.ItemData>("Assets/_old/Erm/Buildable erm data.asset");
     [System.Obsolete] public static SCHIZO.Creatures._old.PickupableCreatureData Old_Erm_ErmfishData = _a.LoadAsset<SCHIZO.Creatures._old.PickupableCreatureData>("Assets/_old/Erm/Ermfish data.asset");
-    public static UnityEngine.Sprite Old_Erm_Icons_Erm = _a.LoadAsset<UnityEngine.Sprite>("Assets/_old/Erm/Icons/erm.png");
     public static SCHIZO.Sounds.SoundCollection Old_Erm_Sounds_PlayerDeath_ErmfishPlayerDeath = _a.LoadAsset<SCHIZO.Sounds.SoundCollection>("Assets/_old/Erm/Sounds/Player Death/Ermfish Player Death.asset");
     public static SCHIZO.Items.Data.ItemData Old_Tutel_BuildableTutelData = _a.LoadAsset<SCHIZO.Items.Data.ItemData>("Assets/_old/Tutel/Buildable tutel data.asset");
     public static SCHIZO.Sounds.SoundCollection Old_Tutel_Sounds_Ambient_TutelAmbient = _a.LoadAsset<SCHIZO.Sounds.SoundCollection>("Assets/_old/Tutel/Sounds/Ambient/Tutel Ambient.asset");
     public static SCHIZO.Sounds.CombinedSoundCollection Old_Tutel_Sounds_GetCarried_CarryByErmshark = _a.LoadAsset<SCHIZO.Sounds.CombinedSoundCollection>("Assets/_old/Tutel/Sounds/Get Carried/Carry by ermshark.asset");
     public static SCHIZO.Sounds.CombinedSoundCollection Old_Tutel_Sounds_GetCarried_PickupByErmshark = _a.LoadAsset<SCHIZO.Sounds.CombinedSoundCollection>("Assets/_old/Tutel/Sounds/Get Carried/Pickup by ermshark.asset");
     [System.Obsolete] public static SCHIZO.Creatures._old.PickupableCreatureData Old_Tutel_TutelData = _a.LoadAsset<SCHIZO.Creatures._old.PickupableCreatureData>("Assets/_old/Tutel/Tutel data.asset");
-    public static SCHIZO.Sounds.SoundCollection Credits_SNEasterEgg = _a.LoadAsset<SCHIZO.Sounds.SoundCollection>("Assets/Credits/SN Easter Egg.asset");
-    public static SCHIZO.Creatures.CreatureData Ermshark_ErmsharkData = _a.LoadAsset<SCHIZO.Creatures.CreatureData>("Assets/Ermshark/Ermshark data.asset");
-    public static SCHIZO.Items.Data.ItemData Greggs_DeadErm = _a.LoadAsset<SCHIZO.Items.Data.ItemData>("Assets/Greggs/Dead erm.asset");
-    public static SCHIZO.Items.Data.ItemData Greggs_Greggs = _a.LoadAsset<SCHIZO.Items.Data.ItemData>("Assets/Greggs/Greggs.asset");
     public static SCHIZO.Items.Data.CloneItemData Gymbag_GymbagBZ = _a.LoadAsset<SCHIZO.Items.Data.CloneItemData>("Assets/Gymbag/Gymbag BZ.asset");
     public static SCHIZO.Items.Data.CloneItemData Gymbag_GymbagSN = _a.LoadAsset<SCHIZO.Items.Data.CloneItemData>("Assets/Gymbag/Gymbag SN.asset");
-    public static SCHIZO.HullPlates.HullPlateCollection HullPlates_HullPlates = _a.LoadAsset<SCHIZO.HullPlates.HullPlateCollection>("Assets/Hull Plates/Hull Plates.asset");
-    public static SCHIZO.Loading.LoadingBackgroundCollection Loading_Backgrounds_LoadingBackgrounds = _a.LoadAsset<SCHIZO.Loading.LoadingBackgroundCollection>("Assets/Loading/Backgrounds/LoadingBackgrounds.asset");
-    public static UnityEngine.Texture2D Loading_LoadingIcon = _a.LoadAsset<UnityEngine.Texture2D>("Assets/Loading/loading icon.png");
-    public static SCHIZO.Items.Data.ItemData Neurofumos_LowPolyNeurofumo_LowpolyFumoData = _a.LoadAsset<SCHIZO.Items.Data.ItemData>("Assets/Neurofumos/Low-poly Neurofumo/LowpolyFumo data.asset");
-    public static SCHIZO.Items.Data.ItemData Neurofumos_Neurofumo_NeurofumoData = _a.LoadAsset<SCHIZO.Items.Data.ItemData>("Assets/Neurofumos/Neurofumo/Neurofumo data.asset");
-    public static SCHIZO.Items.Data.ItemData Neurooper_NeurooperData = _a.LoadAsset<SCHIZO.Items.Data.ItemData>("Assets/Neurooper/Neurooper data.asset");
+    public static UnityEngine.Texture2D Loading_Icon_LoadingIcon = _a.LoadAsset<UnityEngine.Texture2D>("Assets/Loading/Icon/loading icon.png");
+    public static SCHIZO.Registering.ModRegistry Registry = _a.LoadAsset<SCHIZO.Registering.ModRegistry>("Assets/Registry.asset");
 }

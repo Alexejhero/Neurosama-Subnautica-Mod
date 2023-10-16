@@ -1,22 +1,19 @@
 global using static SCHIZO.Plugin;
-using System.Collections.Generic;
-using System.Linq;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Attributes.Loading;
-using SCHIZO.Items;
-using SCHIZO.Items.Data;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
-using ComponentAdder = SCHIZO.Registering.ComponentAdder;
+using UnityEngine;
 
 namespace SCHIZO;
 
-[BepInPlugin("SCHIZO", "Neuro-sama Mod", "1.0.0")]
+[BepInPlugin("SCHIZO", "SCHIZO", "1.0.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
+    public static GameObject PLUGIN_OBJECT { get; private set; }
     public static ManualLogSource LOGGER { get; private set; }
     public static Harmony HARMONY { get; private set; }
 
@@ -24,20 +21,18 @@ public sealed class Plugin : BaseUnityPlugin
 
     private void Awake()
     {
+        PLUGIN_OBJECT = gameObject;
         LOGGER = Logger;
-        ResourceManager.InjectAssemblies();
-
-        SoundConfig.Provider = CONFIG;
-
         HARMONY = new Harmony("SCHIZO");
+
+        ResourceManager.InjectAssemblies();
+        SoundConfig.Provider = CONFIG;
         HARMONY.PatchAll();
 
-        IEnumerable<ModItem> modItems = Assets.All<ItemData>().Where(d => d.autoRegister).Select(ModItem.Create);
-        modItems.ForEach(UnityPrefab.CreateAndRegister);
+        Assets.Registry.InvokeRegister();
+        Assets.Registry.InvokePostRegister();
 
-        Assets.All<ComponentAdder>().ForEach(a => a.Patch(gameObject));
-
-        AddComponentAttribute.AddAll(gameObject, AddComponentAttribute.Target.Plugin);
+        AddComponentAttribute.AddAll(gameObject);
         LoadMethodAttribute.LoadAll();
 
         // LoadConsoleCommandsAttribute.RegisterAll();

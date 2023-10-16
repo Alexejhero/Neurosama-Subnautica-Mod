@@ -13,4 +13,14 @@ partial class ItemData
     public TechGroup TechGroup => (TechGroup) RetargetHelpers.Pick(techGroupSN, techGroupBZ);
     public TechCategory TechCategory => (TechCategory) RetargetHelpers.Pick(techCategorySN, techCategoryBZ);
     public DatabankInfo DatabankInfo => RetargetHelpers.Pick(databankInfoSN, databankInfoBZ);
+
+    protected override void Register()
+    {
+        ModItem.Create(this);
+    }
+
+    protected override void PostRegister()
+    {
+        UnityPrefab.CreateAndRegister(ModItem);
+    }
 }

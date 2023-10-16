@@ -1,5 +1,8 @@
 ﻿// ReSharper disable UnusedParameter.Local
 // ReSharper disable UnusedType.Global
+
+#pragma warning disable CS9113 // Parameter is unread.
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,21 +15,12 @@ namespace NaughtyAttributes;
 internal class ExpandableAttribute : Attribute;
 
 [Conditional("UNITY")]
-internal class ShowIfAttribute : Attribute
-{
-    public ShowIfAttribute(string condition)
-    {
-    }
-}
+internal class ShowIfAttribute(string condition) : Attribute;
 
 [Conditional("UNITY")]
-internal class HideIfAttribute : Attribute
+internal class HideIfAttribute(EConditionOperator conditionOperator, params string[] conditions) : Attribute
 {
-    public HideIfAttribute(string condition)
-    {
-    }
-
-    public HideIfAttribute(EConditionOperator conditionOperator, params string[] conditions)
+    public HideIfAttribute(string condition) : this(EConditionOperator.Or, condition)
     {
     }
 }
@@ -38,12 +32,7 @@ public enum EConditionOperator
 }
 
 [Conditional("UNITY")]
-internal class LabelAttribute : Attribute
-{
-    public LabelAttribute(string label)
-    {
-    }
-}
+internal class LabelAttribute(string label) : Attribute;
 
 [Conditional("UNITY")]
 internal class ResizableTextAreaAttribute : Attribute;
@@ -55,42 +44,22 @@ internal class ReorderableListAttribute : Attribute;
 internal class AllowNestingAttribute : Attribute;
 
 [Conditional("UNITY")]
-internal class InfoBoxAttribute : Attribute
-{
-    public InfoBoxAttribute(string text)
-    {
-    }
-}
+internal class InfoBoxAttribute(string text) : Attribute;
 
 [Conditional("UNITY")]
-internal class BoxGroupAttribute : Attribute
-{
-    public BoxGroupAttribute(string group)
-    {
-    }
-}
+internal class BoxGroupAttribute(string group) : Attribute;
 
 [Conditional("UNITY")]
 internal class EnumFlagsAttribute : Attribute;
 
 [Conditional("UNITY")]
-internal class ValidateInputAttribute : Attribute
-{
-    public ValidateInputAttribute(string callbackName, string message = null)
-    {
-    }
-}
+internal class ValidateInputAttribute(string callbackName, string message = null) : Attribute;
 
 [Conditional("UNITY")]
 internal class RequiredAttribute : Attribute;
 
 [Conditional("UNITY")]
-internal class DropdownAttribute : Attribute
-{
-    public DropdownAttribute(string valuesName)
-    {
-    }
-}
+internal class DropdownAttribute(string valuesName) : Attribute;
 
 internal interface IDropdownList : IEnumerable<KeyValuePair<string, object>>;
 
@@ -116,3 +85,6 @@ internal class ReadOnlyAttribute : Attribute;
 
 [Conditional("UNITY")]
 public class ValidatorAttribute : Attribute;
+
+[Conditional("UNITY")]
+public class ButtonAttribute(string text = null) : Attribute;

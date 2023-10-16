@@ -21,20 +21,10 @@
             <DependentUpon>%(FileName).cs</DependentUpon>
         </Compile>
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.Unity.cs" />
-
         <Folder Include="Enums/BelowZero" />
         <Folder Include="Enums/Subnautica" />
-        <Folder Include="Loading" />
         <Folder Include="Materials" />
         <Folder Include="Utilities" />
-        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Creatures\HurtSoundPlayer.cs">
-          <Link>Creatures\Components\HurtSoundPlayer.cs</Link>
-          <DependentUpon>HurtSoundPlayer.cs</DependentUpon>
-        </Compile>
-        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Creatures\CustomCreature.cs">
-          <Link>Creatures\Components\CustomCreature.cs</Link>
-          <DependentUpon>CustomCreature.cs</DependentUpon>
-        </Compile>
     </ItemGroup>
     
     <ItemGroup>

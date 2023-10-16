@@ -9,32 +9,14 @@ namespace SCHIZO.Attributes.Loading;
 
 [AttributeUsage(AttributeTargets.Class), MeansImplicitUse]
 [HarmonyPatch]
-public sealed class AddComponentAttribute(AddComponentAttribute.Target target) : Attribute
+[Obsolete]
+public sealed class AddComponentAttribute : Attribute
 {
-    public enum Target
-    {
-        Plugin,
-        Player,
-    }
-
-    private readonly Target _target = target;
-
-    public static void AddAll(GameObject gameObject, Target target)
+    public static void AddAll(GameObject gameObject)
     {
         Assembly.GetExecutingAssembly().GetTypes()
             .Select(t => (t, t.GetCustomAttribute<AddComponentAttribute>()))
-            .Where(t => t.Item2 != null && t.Item2._target == target)
+            .Where(t => t.Item2 != null)
             .ForEach(t => gameObject.AddComponent(t.Item1));
-    }
-
-    [HarmonyPatch]
-    public static class Patches
-    {
-        [HarmonyPatch(typeof(Player), nameof(Player.Awake))]
-        [HarmonyPrefix]
-        public static void AddToPlayerPatch(Player __instance)
-        {
-            AddAll(__instance.gameObject, Target.Player);
-        }
     }
 }

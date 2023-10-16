@@ -33,19 +33,19 @@ public class UnityPrefab : CustomPrefab
     {
         if (modItem.ItemData is CloneItemData cloneItemData)
         {
-            LOGGER.LogInfo("Registering item " + modItem.ItemData.classId + " with custom loader " + cloneItemData.loader);
+            LOGGER.LogDebug($"Creating prefab {cloneItemData.loader.GetType().Name} for {modItem.ItemData.classId}");
             cloneItemData.loader.Load();
             return;
         }
 
         if (modItem.ItemData is Creatures.CreatureData)
         {
-            LOGGER.LogInfo("Registering creature " + modItem.ItemData.classId);
+            LOGGER.LogDebug($"Creating prefab {nameof(UnityCreaturePrefab)} for {modItem.ItemData.classId}");
             new UnityCreaturePrefab(modItem).Register();
             return;
         }
 
-        LOGGER.LogInfo("Registering item " + modItem.ItemData.classId);
+        LOGGER.LogDebug($"Creating prefab {nameof(UnityPrefab)} for {modItem.ItemData.classId}");
         new UnityPrefab(modItem).Register();
     }
 

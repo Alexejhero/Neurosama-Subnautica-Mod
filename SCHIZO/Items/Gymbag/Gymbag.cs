@@ -41,6 +41,6 @@ public sealed class Gymbag : ClonePrefab
 
     protected override void PostRegister()
     {
-        ItemActionHandler.RegisterMiddleClickAction(Info.TechType, item => GymbagBehaviour.Instance.OnOpen(item), "open storage", "English");
+        ItemActionHandler.RegisterMiddleClickAction(Info.TechType, item => GymbagManager.Instance.OnOpen(item), "open storage", "English");
     }
 }

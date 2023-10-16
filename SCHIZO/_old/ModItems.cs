@@ -34,9 +34,9 @@ public sealed class ModItem
 
     public ModItem(string classId, string displayName, string tooltip = "")
     {
-        LOGGER.LogDebug("Registering item " + classId + " with name " + displayName);
+        LOGGER.LogDebug("Creating Moditem " + classId + " with name " + displayName);
 
-        if (_registeredItems.Contains(classId)) throw new Exception("Item with classId " + classId + " has already been registered!");
+        if (_registeredItems.Contains(classId)) throw new Exception("Item with classId " + classId + " has already been created!");
         _registeredItems.Add(classId);
 
         PrefabInfo = PrefabInfo.WithTechType(classId, displayName, tooltip);

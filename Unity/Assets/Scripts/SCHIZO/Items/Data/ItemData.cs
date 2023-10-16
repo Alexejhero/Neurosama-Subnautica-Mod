@@ -3,16 +3,15 @@ using NaughtyAttributes;
 using SCHIZO.Enums.BelowZero;
 using SCHIZO.Enums.Subnautica;
 using SCHIZO.Items.Data.Crafting;
+using SCHIZO.Registering;
 using UnityEngine;
 
 namespace SCHIZO.Items.Data
 {
     [CreateAssetMenu(menuName = "SCHIZO/Items/Item Data")]
-    public partial class ItemData : ScriptableObject
+    public partial class ItemData : ModRegistryItem
     {
-        public bool autoRegister;
-
-        [HideInInspector] public GameObject prefab;
+        public GameObject prefab;
 
         [BoxGroup("TechType"), ValidateInput(nameof(AutoRegister_Validate))]
         public string classId;
@@ -23,7 +22,7 @@ namespace SCHIZO.Items.Data
         [BoxGroup("TechType"), ResizableTextArea, ShowIf(nameof(ShowPickupableProps))]
         public string tooltip;
 
-        [BoxGroup("Common Properties"), ShowIf(nameof(ShowPickupableProps)), ValidateInput(nameof(icon_Validate))]
+        [BoxGroup("Common Properties"), ShowIf(nameof(ShowPickupableProps)), Required]
         public Sprite icon;
 
         [BoxGroup("Common Properties"), HideIf(EConditionOperator.Or, nameof(HidePickupableProps), nameof(isBuildable))]
@@ -76,11 +75,10 @@ namespace SCHIZO.Items.Data
 
         #region NaughtyAttributes stuff
 
-        private bool AutoRegister_Validate(string str) => !autoRegister || !string.IsNullOrWhiteSpace(str);
-        private bool icon_Validate(Sprite val) => !autoRegister || val;
+        private bool AutoRegister_Validate(string str) => !string.IsNullOrWhiteSpace(str);
 
-        private bool techGroupSN_Validate(TechGroup_SN val) => !autoRegister || !isBuildable || val != TechGroup_SN.Uncategorized;
-        private bool techGroupBZ_Validate(TechGroup_BZ val) => !autoRegister || !isBuildable || val != TechGroup_BZ.Uncategorized;
+        private bool techGroupSN_Validate(TechGroup_SN val) => !isBuildable || val != TechGroup_SN.Uncategorized;
+        private bool techGroupBZ_Validate(TechGroup_BZ val) => !isBuildable || val != TechGroup_BZ.Uncategorized;
 
         private bool techCategorySN_HideIf() => techGroupSN == TechGroup_SN.Uncategorized && HidePickupableProps();
         private bool techCategoryBZ_HideIf() => techGroupBZ == TechGroup_BZ.Uncategorized && HidePickupableProps();

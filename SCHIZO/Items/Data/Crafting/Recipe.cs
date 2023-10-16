@@ -7,9 +7,13 @@ namespace SCHIZO.Items.Data.Crafting;
 
 partial class Recipe
 {
+    private RecipeData _converted;
+
     public RecipeData Convert()
     {
-        return new RecipeData
+        if (_converted != null) return _converted;
+
+        return _converted = new RecipeData
         {
             craftAmount = craftAmount,
             Ingredients = new List<NIngredient>(ingredients.Where(IngredientFilter).Select(t => t.Convert())),
