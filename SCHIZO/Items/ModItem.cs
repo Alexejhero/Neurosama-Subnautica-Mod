@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Nautilus.Assets;
 using Nautilus.Handlers;
+using SCHIZO.Items.Data;
 using SCHIZO.Sounds;
 
 namespace SCHIZO.Items;

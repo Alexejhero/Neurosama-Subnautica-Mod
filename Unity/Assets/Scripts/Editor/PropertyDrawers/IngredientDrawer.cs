@@ -1,4 +1,4 @@
-﻿using SCHIZO.Items;
+﻿using SCHIZO.Items.Data.Crafting;
 using UnityEditor;
 using UnityEngine;
 

@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using NaughtyAttributes;
 using NaughtyAttributes.Editor;
 using NaughtyExtensions;
-using SCHIZO.Attributes;
+using SCHIZO.Attributes.Typing;
 
 namespace Patches
 {

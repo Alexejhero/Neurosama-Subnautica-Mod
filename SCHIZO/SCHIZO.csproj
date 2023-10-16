@@ -27,6 +27,14 @@
         <Folder Include="Loading" />
         <Folder Include="Materials" />
         <Folder Include="Utilities" />
+        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Creatures\HurtSoundPlayer.cs">
+          <Link>Creatures\Components\HurtSoundPlayer.cs</Link>
+          <DependentUpon>HurtSoundPlayer.cs</DependentUpon>
+        </Compile>
+        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Creatures\CustomCreature.cs">
+          <Link>Creatures\Components\CustomCreature.cs</Link>
+          <DependentUpon>CustomCreature.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
     
     <ItemGroup>
@@ -58,7 +66,5 @@
     <ItemGroup>
         <Compile Remove="_old/**" />
         <None Include="_old/**" />
-
-
     </ItemGroup>
 </Project>

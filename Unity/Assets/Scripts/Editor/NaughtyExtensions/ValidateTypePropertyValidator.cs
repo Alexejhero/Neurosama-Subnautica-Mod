@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using NaughtyAttributes.Editor;
-using SCHIZO.Attributes;
+using SCHIZO.Attributes.Typing;
 using UnityEditor;
 
 namespace NaughtyExtensions

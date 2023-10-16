@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
   m_Name: Greggs
   m_EditorClassIdentifier: 
-  autoRegister: 1
   _prefab1: {fileID: 0}
   _prefab2: {fileID: 0}
+  autoRegister: 1
   prefab: {fileID: 0}
-  sounds: {fileID: 0}
   classId: greggs
   displayName: Greggs
   tooltip: god i fucking love greggs i would sell neuro just to lick a chicken bake
@@ -31,8 +30,10 @@ MonoBehaviour:
   craftTreePathSN: Survival/CookedFood
   techGroupSN: 1
   techCategorySN: 4
+  databankInfoSN: {fileID: 0}
   recipeBZ: {fileID: 11400000, guid: 73a5409220efb7b479fcf3a12e43c1cc, type: 2}
   craftTreeTypeBZ: 1
   craftTreePathBZ: Survival/CookedFood
   techGroupBZ: 1
   techCategoryBZ: 3
+  databankInfoBZ: {fileID: 0}

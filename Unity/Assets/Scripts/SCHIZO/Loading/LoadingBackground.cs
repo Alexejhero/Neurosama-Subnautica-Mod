@@ -1,4 +1,4 @@
-﻿using SCHIZO.Utilities;
+﻿using SCHIZO.Enums;
 using UnityEngine;
 
 namespace SCHIZO.Loading

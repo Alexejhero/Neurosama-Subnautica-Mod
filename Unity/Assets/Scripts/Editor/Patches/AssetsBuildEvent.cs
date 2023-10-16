@@ -9,7 +9,8 @@ using AssetBundleBrowser.AssetBundleDataSource;
 using HarmonyLib;
 using JetBrains.Annotations;
 using SCHIZO.Creatures;
-using SCHIZO.Items;
+using SCHIZO.Items.Data;
+using SCHIZO.Registering;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -57,11 +58,17 @@ namespace Patches
 
                     if (assets.Length == 1)
                     {
-                        result.Add((capitalizedAssetName.Substring(7), assets[0].GetType()));
+                        Object includedAsset = HandleSingleAsset(assets[0], asset);
+                        if (!includedAsset) continue;
+
+                        result.Add((capitalizedAssetName.Substring(7), includedAsset.GetType()));
                     }
                     else
                     {
                         Object includedAsset = HandleMultipleAssets(assets, main, asset);
+                        if (!includedAsset) continue;
+
+                        includedAsset = HandleSingleAsset(includedAsset, asset);
                         if (!includedAsset) continue;
 
                         result.Add((capitalizedAssetName.Substring(7), includedAsset.GetType()));
@@ -72,6 +79,13 @@ namespace Patches
 
                 bundle.Unload(true);
             }
+        }
+
+        private static Object HandleSingleAsset(Object main, string path)
+        {
+            if (main is ComponentAdder) return null;
+
+            return main;
         }
 
         private static Object HandleMultipleAssets(Object[] objects, Object main, string path)
@@ -114,7 +128,8 @@ public static class {GetCleanName(className)}
 
             foreach ((string asset, Type type) in assets)
             {
-                builder.AppendLine($@"    public static {type.FullName} {GetCleanName(asset)} = _a.LoadAsset<{type.FullName}>(""Assets/{asset}"");");
+                string o = type.GetCustomAttribute<ObsoleteAttribute>() != null ? "[System.Obsolete] " : "";
+                builder.AppendLine($@"    {o}public static {type.FullName} {GetCleanName(asset)} = _a.LoadAsset<{type.FullName}>(""Assets/{asset}"");");
             }
 
             builder.AppendLine("}");

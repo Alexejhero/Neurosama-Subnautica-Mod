@@ -1,7 +1,6 @@
 ﻿using System;
 using HarmonyLib;
-using SCHIZO.Attributes;
-using SCHIZO.Utilities;
+using SCHIZO.Attributes.Typing;
 using UnityEditor;
 using UnityEngine;
 

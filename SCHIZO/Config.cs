@@ -29,9 +29,6 @@ public sealed class Config : ConfigFile, ISoundConfigProvider
     [Toggle("Disable all sounds"), UsedImplicitly]
     public bool DisableAllNoises = false;
 
-    [Toggle("Enable erm moon"), UsedImplicitly]
-    public bool EnableErmMoon = true;
-
     float ISoundConfigProvider.MinWorldSoundDelay => MinWorldNoiseDelay;
     float ISoundConfigProvider.MaxWorldSoundDelay => MaxWorldNoiseDelay;
     float ISoundConfigProvider.MinInventorySoundDelay => MinInventoryNoiseDelay;

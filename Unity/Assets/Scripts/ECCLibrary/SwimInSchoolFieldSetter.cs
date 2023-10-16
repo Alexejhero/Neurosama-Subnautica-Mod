@@ -1,5 +1,5 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Attributes;
+using SCHIZO.Attributes.Typing;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace

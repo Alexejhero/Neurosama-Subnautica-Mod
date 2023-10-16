@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using SCHIZO.Attributes;
+using SCHIZO.Attributes.Loading;
 using UnityEngine;
 using UWE;
 

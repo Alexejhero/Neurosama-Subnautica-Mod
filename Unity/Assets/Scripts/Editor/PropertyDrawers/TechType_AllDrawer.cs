@@ -4,8 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using SCHIZO.Items;
-using SCHIZO.Utilities;
+using SCHIZO.Enums;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,10 +16,10 @@ namespace PropertyDrawers
         public static Game TargetGame = 0;
 
         private static readonly List<string> SubnauticaTechTypes = typeof(TechType_All).GetEnumNames()
-            .Where(n => typeof(TechType_All).GetField(n).GetCustomAttribute<TechTypeFlagsAttribute>().flags.HasFlag(Flags.Subnautica)).ToList();
+            .Where(n => typeof(TechType_All).GetField(n).GetCustomAttribute<TechTypeFlagsAttribute>().flags.HasFlag(TechTypeFlagsAttribute.Flags.Subnautica)).ToList();
 
         private static readonly List<string> BelowZeroTechTypes = typeof(TechType_All).GetEnumNames()
-            .Where(n => typeof(TechType_All).GetField(n).GetCustomAttribute<TechTypeFlagsAttribute>().flags.HasFlag(Flags.BelowZero)).ToList();
+            .Where(n => typeof(TechType_All).GetField(n).GetCustomAttribute<TechTypeFlagsAttribute>().flags.HasFlag(TechTypeFlagsAttribute.Flags.BelowZero)).ToList();
 
         public static bool IsValueAcceptable(string entry, string fieldName)
         {

@@ -38,6 +38,7 @@ public class TextAssetCreator : Editor
             Type.GetType("UnityEditor.ProjectBrowser,UnityEditor.dll"), false, "Project", true);
 
         // Retrieve the users project browser folder selection history currently residing in memory.
+        // ReSharper disable once PossibleNullReferenceException
         var folderHistory = (string[])projectBrowser.GetType()
             .GetField("m_LastFolders", BindingFlags.NonPublic | BindingFlags.Instance)
             .GetValue(projectBrowser);
@@ -62,6 +63,7 @@ public class TextAssetCreator : Editor
                   a call to the native Windows function above. For Windows, this enables us to
                   utilize path specifiers such as '..' when concatenating path segments. */
                uniqueAssetPath = AssetDatabase.GenerateUniqueAssetPath(
+                   // ReSharper disable once AssignNullToNotNullAttribute
                    Path.Combine(relativeAssetPath, filename)),
                // Path.Combine incorrectly concatenates path segments when passing path specifiers.
                absoluteAssetPath = Path.GetFullPath(projectPath + Path.DirectorySeparatorChar +
@@ -121,7 +123,7 @@ public class TextAssetEditor : Editor
     [DllImport("Shell32.dll", CharSet = CharSet.Unicode, ExactSpelling = true)]
     private static extern IntPtr SHGetFileInfoW(string pszPath, uint dwFileAttributes,
         ref SHFILEINFOW psfi, uint cbFileInfo, uint uFlags);
-        
+
     [StructLayout(LayoutKind.Sequential, Size = (int)SHFILEINFOW_SIZE, CharSet = CharSet.Unicode)]
     private struct SHFILEINFOW
     {
@@ -193,7 +195,7 @@ public class TextAssetEditor : Editor
 
                 if (fileIsReadOnly != false.ToString())
                 {
-                    EditorGUILayout.SelectableLabel(contents, EditorStyles.textArea, 
+                    EditorGUILayout.SelectableLabel(contents, EditorStyles.textArea,
                         GUILayout.MinHeight(300));
                 }
                 else
@@ -278,6 +280,7 @@ public class TextAssetEditor : Editor
         }
     }
 
+    // ReSharper disable once ParameterHidesMember
     private void TrySaveAsset(string path, out bool wasSuccessful)
     {
         wasSuccessful = true;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using SCHIZO.Items;
-using SCHIZO.Utilities;
+using SCHIZO.Enums;
+using SCHIZO.Items.Data.Crafting;
 using UnityEditor;
 using UnityEngine;
 

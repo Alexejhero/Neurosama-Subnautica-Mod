@@ -1,5 +1,5 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Attributes;
+using SCHIZO.Attributes.Typing;
 using SCHIZO.Utilities;
 using UnityEngine;
 

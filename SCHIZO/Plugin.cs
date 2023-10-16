@@ -1,15 +1,16 @@
 global using static SCHIZO.Plugin;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
-using SCHIZO.Attributes;
+using SCHIZO.Attributes.Loading;
 using SCHIZO.Items;
+using SCHIZO.Items.Data;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
+using ComponentAdder = SCHIZO.Registering.ComponentAdder;
 
 namespace SCHIZO;
 
@@ -17,20 +18,24 @@ namespace SCHIZO;
 public sealed class Plugin : BaseUnityPlugin
 {
     public static ManualLogSource LOGGER { get; private set; }
+    public static Harmony HARMONY { get; private set; }
 
     public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();
 
     private void Awake()
     {
         LOGGER = Logger;
-        DependencyResolver.InjectResources();
+        ResourceManager.InjectAssemblies();
 
         SoundConfig.Provider = CONFIG;
 
-        Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+        HARMONY = new Harmony("SCHIZO");
+        HARMONY.PatchAll();
 
         IEnumerable<ModItem> modItems = Assets.All<ItemData>().Where(d => d.autoRegister).Select(ModItem.Create);
         modItems.ForEach(UnityPrefab.CreateAndRegister);
+
+        Assets.All<ComponentAdder>().ForEach(a => a.Patch(gameObject));
 
         AddComponentAttribute.AddAll(gameObject, AddComponentAttribute.Target.Plugin);
         LoadMethodAttribute.LoadAll();

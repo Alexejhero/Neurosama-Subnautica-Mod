@@ -5,7 +5,7 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
-using SCHIZO.Attributes;
+using SCHIZO.Attributes.Loading;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using UnityEngine;

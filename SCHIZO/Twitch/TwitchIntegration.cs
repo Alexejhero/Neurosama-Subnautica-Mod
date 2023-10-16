@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using JetBrains.Annotations;
 using Nautilus.Commands;
-using SCHIZO.Attributes;
+using SCHIZO.Attributes.Loading;
 using SCHIZO.Helpers;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;

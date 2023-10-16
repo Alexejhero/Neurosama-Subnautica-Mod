@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets;
+using Nautilus.Utility;
 using SCHIZO.Creatures;
 using SCHIZO.Helpers;
+using SCHIZO.Items.Data;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -83,7 +85,7 @@ public class UnityPrefab : CustomPrefab
 
     protected virtual void ModifyPrefab(GameObject prefab)
     {
-        MaterialHelpers.ApplySNShadersIncludingRemaps(prefab, 1);
+        MaterialUtils.ApplySNShaders(prefab, 1);
     }
 
     protected virtual void PostRegister()

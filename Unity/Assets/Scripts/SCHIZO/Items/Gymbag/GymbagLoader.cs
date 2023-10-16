@@ -1,18 +1,12 @@
 ﻿namespace SCHIZO.Items.Gymbag
 {
-    public sealed class GymbagLoader : ItemLoader
+    public sealed partial class GymbagLoader : ItemLoader
     {
-        public override void Load()
-        {
-#if !UNITY
-            new Gymbag(itemData.ModItem, itemData.CloneTarget).Register();
-#endif
-        }
     }
 }
 
 #if UNITY_EDITOR
-namespace SCHIZO.Items
+namespace SCHIZO.Items.Data
 {
     partial class CloneItemData
     {

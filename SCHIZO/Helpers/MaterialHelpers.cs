@@ -10,6 +10,7 @@ namespace SCHIZO.Helpers;
 
 public static partial class MaterialHelpers
 {
+    [Obsolete]
     public static void ApplySNShadersIncludingRemaps(
         GameObject gameObject,
         float shininess = 4f,
