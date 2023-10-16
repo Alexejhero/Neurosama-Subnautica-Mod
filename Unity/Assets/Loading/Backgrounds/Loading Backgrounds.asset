@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f47c082d6147689e539c5e8f321c42, type: 3}
   m_Name: Loading Backgrounds
   m_EditorClassIdentifier: 
+  isSingleton: 0
   typeName: uGUI_BuildWatermark
   methodName: Start
+  _isBaseType: 0
+  targetTypeName: 
   mode: 2
-  isSingleton: 0
   prefab: {fileID: 7126283203362233513, guid: 613fda3d8fb2efd4b8c63540f5732dee, type: 3}

@@ -9,11 +9,16 @@ namespace SCHIZO.Creatures
     [CreateAssetMenu(menuName = "SCHIZO/Creatures/Creature Data")]
     public partial class CreatureData : ItemData
     {
-        public bool isPickupable = false;
+        public bool isPickupable;
 
-        [BoxGroup("Creature Data"), ValidateInput(nameof(Validate_behaviourType)), SerializeField, UsedImplicitly] private BehaviourType_SN behaviourType;
-        [BoxGroup("Creature Data")] public bool acidImmune = true;
-        [BoxGroup("Creature Data")] public float bioReactorCharge = 0;
+        [BoxGroup("Creature Data"), ValidateInput(nameof(Validate_behaviourType)), SerializeField, UsedImplicitly]
+        private BehaviourType_SN behaviourType;
+
+        [BoxGroup("Creature Data")]
+        public bool acidImmune = true;
+
+        [BoxGroup("Creature Data")]
+        public float bioReactorCharge;
 
         #region NaughyAttributes stuff
 

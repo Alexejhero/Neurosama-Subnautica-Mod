@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace SCHIZO.Attributes.Typing
 {
     [AttributeUsage(AttributeTargets.Field)]
-    public sealed class ExposedTypeAttribute : PropertyAttribute
+    [Conditional("UNITY_STANDALONE")]
+    internal sealed class ExposedTypeAttribute : PropertyAttribute
     {
         public string typeName;
 

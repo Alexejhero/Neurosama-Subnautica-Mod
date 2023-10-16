@@ -14,17 +14,33 @@ namespace SCHIZO.Registering
             CoroutineStep0Prefix,
         }
 
-        public bool isSingleton;
-        [ValidateInput(nameof(ValidateTypeName)), HideIf(nameof(isSingleton))] public string typeName;
-        [Dropdown(nameof(_methodNames)), HideIf(nameof(isSingleton))] public string methodName;
-        [HideIf(nameof(isSingleton)), SerializeField] private bool _isBaseType = false;
-        [ShowIf(nameof(TargetTypeNameShowIf))] public string targetTypeName;
-        [HideIf(nameof(isSingleton))] public Mode mode = Mode.Postfix;
+        [SerializeField]
+        private bool isSingleton;
 
-        [Required] public GameObject prefab;
+        [SerializeField, ValidateInput(nameof(ValidateTypeName)), HideIf(nameof(isSingleton))]
+        private string typeName;
+
+        [SerializeField, Dropdown(nameof(_methodNames)), HideIf(nameof(isSingleton))]
+        private string methodName;
+
+        [SerializeField, HideIf(nameof(isSingleton))]
+        private bool _isBaseType;
+
+        [SerializeField, ShowIf(nameof(TargetTypeNameShowIf))]
+        private string targetTypeName;
+
+        [SerializeField, HideIf(nameof(isSingleton))]
+        private Mode mode = Mode.Postfix;
+
+        [SerializeField, Required]
+        private GameObject prefab;
+
+        #region NaughtyAttributes stuff
 
         private bool ValidateTypeName(string val) => !string.IsNullOrWhiteSpace(val);
         private List<string> _methodNames = new List<string> {"Awake", "Start"};
         private bool TargetTypeNameShowIf() => _isBaseType && !isSingleton;
+
+        #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using NaughtyAttributes;
+using SCHIZO.Attributes.Visual;
 using SCHIZO.Enums.BelowZero;
 using SCHIZO.Enums.Subnautica;
 using SCHIZO.Items.Data.Crafting;
@@ -13,7 +14,7 @@ namespace SCHIZO.Items.Data
     {
         public GameObject prefab;
 
-        [BoxGroup("TechType"), ValidateInput(nameof(AutoRegister_Validate))]
+        [BoxGroup("TechType"), ValidateInput(nameof(AutoRegister_Validate)), Careful]
         public string classId;
 
         [BoxGroup("TechType"), ValidateInput(nameof(AutoRegister_Validate))]

@@ -1,4 +1,5 @@
-﻿using SCHIZO.Enums;
+﻿using SCHIZO.Attributes.Visual;
+using SCHIZO.Enums;
 using UnityEngine;
 
 namespace SCHIZO.Loading
@@ -8,7 +9,7 @@ namespace SCHIZO.Loading
     {
         public Sprite art;
         public string credit;
-        public string randomListId;
+        [Careful] public string randomListId;
         public Game game = Game.Subnautica | Game.BelowZero;
     }
 }

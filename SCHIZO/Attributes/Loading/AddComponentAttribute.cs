@@ -10,7 +10,7 @@ namespace SCHIZO.Attributes.Loading;
 [AttributeUsage(AttributeTargets.Class), MeansImplicitUse]
 [HarmonyPatch]
 [Obsolete]
-public sealed class AddComponentAttribute : Attribute
+internal sealed class AddComponentAttribute : Attribute
 {
     public static void AddAll(GameObject gameObject)
     {

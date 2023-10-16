@@ -3,9 +3,9 @@ using SCHIZO.Attributes.Typing;
 using SCHIZO.Utilities;
 using UnityEngine;
 
-namespace SCHIZO.Creatures.Ermshark
+namespace SCHIZO.Interop.Subnautica
 {
-    partial class ErmsharkAttack : MonoBehaviour
+    partial class _MeleeAttack : MonoBehaviour
     {
         [Required] public GameObject mouth;
         [Required] public Animator animator;

@@ -12,11 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e01a095b5064d2684bcd4bbb3f09a8e, type: 3}
   m_Name: Ermshark
   m_EditorClassIdentifier: 
-  _prefab1: {fileID: 2061343355341963926, guid: a7efd04469290f14d91b13b1059d3284,
-    type: 3}
-  _prefab2: {fileID: 2061343355341963926, guid: a7efd04469290f14d91b13b1059d3284,
-    type: 3}
-  autoRegister: 1
   prefab: {fileID: 2061343355341963926, guid: a7efd04469290f14d91b13b1059d3284, type: 3}
   classId: ermshark
   displayName: Ermshark

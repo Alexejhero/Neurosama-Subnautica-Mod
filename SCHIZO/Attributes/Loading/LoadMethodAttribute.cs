@@ -7,7 +7,7 @@ namespace SCHIZO.Attributes.Loading;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method), MeansImplicitUse]
 [Obsolete]
-public sealed class LoadMethodAttribute : Attribute
+internal sealed class LoadMethodAttribute : Attribute
 {
     public static void LoadAll()
     {

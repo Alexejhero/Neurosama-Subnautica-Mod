@@ -12,7 +12,7 @@ namespace SCHIZO.Items;
 
 public class UnityPrefab : CustomPrefab
 {
-    #region Prefab cache
+    #region Prefab cache // TODO: see if this is still needed
 
     private static readonly Transform _prefabCacheParent;
 
@@ -55,7 +55,7 @@ public class UnityPrefab : CustomPrefab
         ModItem = item;
     }
 
-    public new virtual void Register()
+    protected new virtual void Register()
     {
         ModItem.LoadStep2();
 

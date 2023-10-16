@@ -28,7 +28,7 @@ public sealed class Gymbag : ClonePrefab
         PrefabUtils.AddVFXFabricating(instance, null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero);
     }
 
-    public override void Register()
+    protected override void Register()
     {
         if (clonedTechType == TechType.None)
         {

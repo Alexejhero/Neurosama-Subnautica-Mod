@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
-partial class ErmsharkAttack : MeleeAttack
+partial class ErmsharkAttack
 {
     private FMODSoundCollection _fmodSounds;
 

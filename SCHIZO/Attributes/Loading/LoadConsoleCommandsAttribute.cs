@@ -8,7 +8,7 @@ namespace SCHIZO.Attributes.Loading;
 
 [AttributeUsage(AttributeTargets.Class), MeansImplicitUse]
 [Obsolete]
-public sealed class LoadConsoleCommandsAttribute : Attribute
+internal sealed class LoadConsoleCommandsAttribute : Attribute
 {
     public static void RegisterAll()
     {

@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
+using JetBrains.Annotations;
 using NaughtyAttributes;
 
 namespace SCHIZO.Attributes.Typing
 {
     [AttributeUsage(AttributeTargets.Field)]
-    public sealed class ValidateTypeAttribute : ValidatorAttribute
+    [Conditional("UNITY_STANDALONE")]
+    [UsedImplicitly]
+    internal sealed class ValidateTypeAttribute : ValidatorAttribute
     {
         public string typeName;
 

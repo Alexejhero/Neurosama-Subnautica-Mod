@@ -4,9 +4,9 @@ using SCHIZO.Attributes.Typing;
 using SCHIZO.Utilities;
 using UnityEngine;
 
-namespace SCHIZO.Creatures.Components
+namespace SCHIZO.Interop.Subnautica
 {
-    partial class CustomCreature : MonoBehaviour
+    partial class _Creature : MonoBehaviour
     {
         [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;
 
