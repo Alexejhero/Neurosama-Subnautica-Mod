@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a0830f50dd2e554381676c875e2cdf1, type: 3}
-  m_Name: TruckersFM
+  m_Name: HELLO CHAT
   m_EditorClassIdentifier: 
-  identifier: TruckersFM
+  identifier: HELLOCHAT
   source: 1
   audioClip: {fileID: 0}
-  URL: http://radio.truckers.fm
-  isStream: 1
+  URL: http://127.0.0.1/HELLO_CHAT.mp3
+  isStream: 0
   overrideTrackLabel: 0
   trackLabel:
-    artist: 
-    title: TruckersFM
+    artist: Eliv
+    title: AAAAAAAAAAAAAAAAAAA
   unlockedOnStart: 0
-  diskSpawnLocation: {x: -328, y: 14.21, z: 255}
+  diskSpawnLocation: {x: -112.2, y: 15.4, z: 305.8}

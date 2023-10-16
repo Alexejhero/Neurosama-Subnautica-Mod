@@ -1,25 +1,73 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FMOD;
-using FMOD.Studio;
 using FMODUnity;
 using HarmonyLib;
 using Nautilus.Utility;
+using UnityEngine;
+using UWE;
 
-namespace SCHIZO.Sounds.JukeboxButTheNamespaceConflictsWithTheGlobalJukeboxClassName.ThisIsWhyUnityIsTheBestGameEngine;
+namespace SCHIZO.Sounds.Jukebox_;
 
 [HarmonyPatch]
 public static class CustomJukeboxTrackPatches
 {
-    internal static readonly SelfCheckingDictionary<string, CustomJukeboxTrack> customTracks = new("");
+    internal static readonly SelfCheckingDictionary<Jukebox.UnlockableTrack, CustomJukeboxTrack> customTracks = new("customTracks");
+
+    internal static GameObject jukeboxDiskPrefab;
+
+    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.Awake))]
+    public static class AwakeWorkaround
+    {
+        // base Awake assumes all unlockable tracks are events
+        // so we need to add ours afterwards (and remove them on game unload)
+        [HarmonyPrefix]
+        public static void ClearCustomTracks()
+        {
+            foreach (Jukebox.UnlockableTrack trackId in customTracks.Keys)
+                Jukebox.unlockableMusic.Remove(trackId);
+        }
+        [HarmonyPostfix]
+        public static void AddCustomTracks(Jukebox __instance)
+        {
+            foreach (KeyValuePair<Jukebox.UnlockableTrack, CustomJukeboxTrack> pair in customTracks)
+            {
+                CustomJukeboxTrack track = pair.Value;
+                Jukebox.unlockableMusic[pair.Key] = track.identifier;
+                Jukebox.musicLabels[track.identifier] = track.trackLabel; // only read inside Awake but why not
+                __instance._info[track.identifier] = track;
+            }
+            if (!jukeboxDiskPrefab) CoroutineHost.StartCoroutine(GetJukeboxDiskPrefab());
+        }
+    }
+
+    private static IEnumerator GetJukeboxDiskPrefab()
+    {
+        IPrefabRequest request = PrefabDatabase.GetPrefabAsync("5108080f-242b-49e8-9b91-d01d6bbe138c"); // JukeboxDisk8
+        yield return request;
+        if (!request.TryGetPrefab(out jukeboxDiskPrefab))
+            throw new Exception("Could not get prefab for jukebox disk!");
+    }
+
+    [HarmonyPatch(typeof(IntroVignette), nameof(IntroVignette.OnDone))]
+    [HarmonyPostfix]
+    public static void SetupUnlocksForCustomTracks()
+    {
+        // duplicate disks are not a problem - they self-destruct on Start if already unlocked
+        customTracks.ForEach(pair => pair.Value.SetupUnlock(pair.Key));
+    }
 
     [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.ScanInternal))]
     [HarmonyPostfix]
-    public static void InsertCustomTracks(Jukebox __instance)
+    public static void RestoreCustomTrackInfoAfterScan(Jukebox __instance)
     {
-        foreach (KeyValuePair<string, CustomJukeboxTrack> pair in customTracks)
+        // base ScanInternal cleans _info of all non-event TrackInfo objects
+
+        foreach (CustomJukeboxTrack track in customTracks.Values)
         {
-            __instance._playlist.Add(pair.Key);
-            __instance._info[pair.Key] = pair.Value;
+            __instance._info[track.identifier] = track;
         }
     }
 
@@ -29,8 +77,8 @@ public static class CustomJukeboxTrackPatches
     {
         if (!__instance.IsTrackCustom(out CustomJukeboxTrack track)) return true;
 
-        if (track.SoundIsValid)
-            return !track.isStream || UpdateStream(__instance);
+        if (track.IsSoundValid())
+            return !track.isStream || NetStreamCompatPatches.UpdateStream(__instance);
 
         InitCustomTrack(__instance, track);
         return false;
@@ -38,19 +86,28 @@ public static class CustomJukeboxTrackPatches
 
     private static void InitCustomTrack(Jukebox jukebox, CustomJukeboxTrack track)
     {
-        if (!track.SoundIsValid)
+        if (!track.IsSoundValid())
         {
             if (track.IsRemote)
-            {
                 Jukebox.ERRCHECK(RuntimeManager.CoreSystem.createSound(track.URL, MODE._3D | MODE.CREATESTREAM | MODE.NONBLOCKING | MODE._3D_LINEARSQUAREROLLOFF, ref jukebox._exinfo, out track.sound));
-            }
             else
-            {
                 track.sound = AudioUtils.CreateSound(track.audioClip, AudioUtils.StandardSoundModes_3D);
-            }
         }
         jukebox._sound = track.sound;
-        jukebox._info.Remove(track.identifier); // recalculate track info only once
+    }
+
+    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.HandleOpenError))]
+    [HarmonyPrefix]
+    public static void RemoveErroringTrack(Jukebox __instance)
+    {
+        if (!__instance.IsTrackCustom(out CustomJukeboxTrack track)) return;
+
+        LOGGER.LogError($"Could not load track '{track.identifier}' from {track.URL}, removing track from playlist");
+        __instance._playlist.Remove(track.identifier);
+        Jukebox.UnlockableTrack trackId = track;
+        Jukebox.unlockableMusic.Remove(trackId);
+        Player.main.unlockedTracks.Remove(trackId);
+        // customTracks.Remove(trackId);
     }
 
     [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.UpdateInfo))]
@@ -69,6 +126,7 @@ public static class CustomJukeboxTrackPatches
         Jukebox.TrackInfo newInfo = (Jukebox.TrackInfo) track;
         if (assignOnce)
         {
+            LOGGER.LogWarning($"Set info from asset - ({newInfo.label},{newInfo.length})");
             __instance.SetInfo(track.identifier, newInfo);
             return false;
         }
@@ -76,80 +134,34 @@ public static class CustomJukeboxTrackPatches
         if (state is OPENSTATE.READY or OPENSTATE.PLAYING)
         {
             __instance.TryGetArtistAndTitle(__instance._sound, out string artist, out string title);
+            if (!track.isStream) __instance._sound.getLength(out newInfo.length, TIMEUNIT.MS);
 
             if (title is null or "") title = newInfo.label;
             newInfo.label = new TrackLabel() { artist = artist, title = title };
 
             if (info.label != newInfo.label)
+            {
+                LOGGER.LogWarning($"Set info from remote - ({newInfo.label},{newInfo.length})");
                 __instance.SetInfo(track.identifier, newInfo);
+            }
         }
         return false;
     }
 
     [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.file), MethodType.Setter)]
     [HarmonyPostfix]
-    public static void UnsetStreamInfoWhenSwitchingTracks(JukeboxInstance __instance)
+    public static void OnSwitchingTracks(JukeboxInstance __instance)
     {
         if (!__instance.IsTrackCustom(out CustomJukeboxTrack track)) return;
+
+        // can't seek streams
         __instance.SetPositionKnobVisible(!track.isStream);
-        if (track.isStream) __instance.SetLabel(track.trackLabel);
-    }
-
-    // the rest of the code in this class is dedicated to stopping FMOD/UWE from pausing or seeking the stream
-    // netstreams don't support it and will break and start spamming errors in the console and just generally making the game (and UWE's telemetry servers) not have a good time
-
-    private static bool UpdateStream(Jukebox jukebox)
-    {
-        jukebox._length = 0;
-        if (jukebox._paused)
-        {
-            jukebox.StopInternal();
-            return false;
-        }
-
-        // manually stop playback instead of letting FMOD pause due to attenuation
-        if (Jukebox.instance && Jukebox.instance.GetSoundPosition(out _, out float minDistance, out _)
-            && minDistance > Jukebox.maxDistance)
-        {
-            jukebox.StopInternal();
-            return false;
-        }
-        return true;
-    }
-
-    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.SetSnapshotState))]
-    [HarmonyPrefix]
-    public static bool DontMuteBecauseItPauses(Jukebox __instance, EventInstance snapshot, ref bool state, bool value)
-    {
-        if (!__instance.IsPlayingStream()) return true;
-
-#pragma warning disable Harmony003 // it's not an assignment... (remove when https://github.com/BepInEx/BepInEx.Analyzers/pull/6 is merged)
-        return snapshot.handle != __instance.snapshotMute.handle;
-#pragma warning restore Harmony003 // Harmony non-ref patch parameters modified
-    }
-
-    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.volume), MethodType.Setter)]
-    [HarmonyPrefix]
-    public static void PreventZeroVolumePause(ref float value)
-    {
-        if (value == 0) value = 0.001f;
-    }
-
-    [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.UpdateUI))]
-    [HarmonyPostfix]
-    public static void DisableSeekBarForHttpStreams(JukeboxInstance __instance)
-    {
-        __instance.GetComponentInChildren<PointerEventTrigger>().enabled = !__instance.IsPlayingStream();
-    }
-
-    [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.OnButtonPlayPause))]
-    [HarmonyPrefix]
-    public static bool DisablePauseButtonForHttpStreams(JukeboxInstance __instance)
-    {
-        return !(__instance.IsPlayingStream() && __instance.isControlling);
+        // reset track info
+        __instance.SetLabel(track.trackLabel);
+        uint length = track.Length;
+        if (length > 0) __instance.SetLength(length);
     }
 }
-
 
 public static class JukeboxExtensions
 {

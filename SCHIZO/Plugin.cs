@@ -9,7 +9,7 @@ using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Items;
 using SCHIZO.Resources;
-using SCHIZO.Sounds.JukeboxButTheNamespaceConflictsWithTheGlobalJukeboxClassName.ThisIsWhyUnityIsTheBestGameEngine;
+using SCHIZO.Sounds.Jukebox_;
 using SCHIZO.Unity.Items;
 
 namespace SCHIZO;
