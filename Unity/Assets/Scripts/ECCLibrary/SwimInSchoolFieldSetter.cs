@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using SCHIZO.Attributes.Typing;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -6,9 +7,8 @@ namespace ECCLibrary.Mono
 {
     public class SwimInSchoolFieldSetter : MonoBehaviour
     {
-        [Foldout("Component References"), ValidateInput(nameof(behaviour_Validate), "Behaviour must be of type SwimInSchool!")]
+        [Foldout("Component References"), Required, ExposedType("SwimInSchool")]
         public MonoBehaviour behaviour;
-        private static bool behaviour_Validate(MonoBehaviour value) => value && value.GetType().Name == "SwimInSchool";
 
         public float breakDistance = 20;
         [Range(0, 1)] public float percentFindLeaderRespond = 0.5f;

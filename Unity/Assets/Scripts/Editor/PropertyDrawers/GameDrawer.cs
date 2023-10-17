@@ -1,4 +1,4 @@
-﻿using SCHIZO.Unity;
+﻿using SCHIZO.Enums;
 using UnityEditor;
 using UnityEngine;
 

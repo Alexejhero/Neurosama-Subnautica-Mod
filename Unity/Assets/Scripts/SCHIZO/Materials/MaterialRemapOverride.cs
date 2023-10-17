@@ -1,10 +1,11 @@
 ﻿
+using System;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Materials
+namespace SCHIZO.Materials
 {
-    [CreateAssetMenu(menuName = "SCHIZO/Materials/Material Remap Override")]
+    // [CreateAssetMenu(menuName = "SCHIZO/Materials/Material Remap Override")]
+    [Obsolete]
     public sealed class MaterialRemapOverride : ScriptableObject
     {
         public string remapName;

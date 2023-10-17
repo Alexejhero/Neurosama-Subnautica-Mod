@@ -5,8 +5,7 @@ using FMOD.Studio;
 using FMODUnity;
 using JetBrains.Annotations;
 using Nautilus.Commands;
-using SCHIZO.Attributes;
-using SCHIZO.Extensions;
+using SCHIZO.Attributes.Loading;
 using SCHIZO.Helpers;
 using UnityEngine;
 

@@ -1,13 +1,12 @@
 using System.Collections.Generic;
-using NaughtyAttributes.Editor;
 using PropertyDrawers;
-using SCHIZO.Unity.Items;
+using SCHIZO.Items.Data;
 using UnityEditor;
 
 namespace Inspectors
 {
     [CustomEditor(typeof(ItemData))]
-    public sealed class ItemDataInspector : NaughtyInspector
+    public sealed class ItemDataInspector : ModRegistryItemInspector
     {
         private void SetFields()
         {

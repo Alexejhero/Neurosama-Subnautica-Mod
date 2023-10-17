@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Items
+namespace SCHIZO.Items
 {
-    public abstract class ItemLoader : ScriptableObject
+    public abstract partial class ItemLoader : ScriptableObject
     {
-        [NaughtyAttributes.ReadOnly] public CloneItemData itemData;
-
-        public abstract void Load();
+        [NaughtyAttributes.ReadOnly] public Data.CloneItemData itemData;
     }
 }

@@ -23,7 +23,7 @@ public abstract class ClonePrefab : UnityPrefab
 
     protected sealed override NautilusPrefabConvertible GetPrefab()
     {
-        return new CloneTemplate(modItem, clonedTechType)
+        return new CloneTemplate(ModItem, clonedTechType)
         {
             ModifyPrefab = prefab =>
             {

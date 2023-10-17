@@ -1,6 +1,6 @@
 ﻿using NaughtyAttributes.Editor;
 using PropertyDrawers;
-using SCHIZO.Unity.Items;
+using SCHIZO.Items.Data.Crafting;
 using UnityEditor;
 
 namespace Inspectors

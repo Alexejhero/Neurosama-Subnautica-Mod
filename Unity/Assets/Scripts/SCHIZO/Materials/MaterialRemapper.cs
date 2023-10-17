@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Materials
+namespace SCHIZO.Materials
 {
+    [Obsolete]
     public sealed class MaterialRemapper : MonoBehaviour
     {
         public MaterialRemapConfig config;
@@ -35,10 +36,13 @@ namespace SCHIZO.Unity.Materials
         }
     }
 
-#if !UNITY
+#if SUBNAUTICA || BELOWZERO
+    [Obsolete]
     public static class MaterialRemapperExtensions
     {
+        [Obsolete]
         public static void ApplyAll(this IEnumerable<MaterialRemapper> self, string remapName) => self.ForEach(r => r.ApplyRemap(remapName));
+        [Obsolete]
         public static void ApplyAll(this IEnumerable<MaterialRemapper> self, MaterialRemapOverride remap) => self.ForEach(r => r.ApplyRemap(remap.remapName));
     }
 #endif

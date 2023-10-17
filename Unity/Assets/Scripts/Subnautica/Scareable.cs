@@ -1,10 +1,12 @@
 ﻿using NaughtyAttributes;
+using SCHIZO.Attributes.Typing;
+using SCHIZO.Utilities;
 using UnityEngine;
 
 public class Scareable : MonoBehaviour
 {
     [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public CreatureFear creatureFear;
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public Creature creature;
+    [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("Creature")] public MonoBehaviour creature;
 
     public EcoTargetType targetType = EcoTargetType.Shark;
     public CreatureAction fleeAction;

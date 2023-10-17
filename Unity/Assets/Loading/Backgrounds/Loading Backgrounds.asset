@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f47c082d6147689e539c5e8f321c42, type: 3}
+  m_Name: Loading Backgrounds
+  m_EditorClassIdentifier: 
+  isSingleton: 0
+  typeName: uGUI_BuildWatermark
+  methodName: Start
+  _isBaseType: 0
+  targetTypeName: 
+  mode: 2
+  prefab: {fileID: 7126283203362233513, guid: 613fda3d8fb2efd4b8c63540f5732dee, type: 3}

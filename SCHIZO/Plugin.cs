@@ -1,39 +1,41 @@
 global using static SCHIZO.Plugin;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
-using SCHIZO.Attributes;
-using SCHIZO.Items;
+using SCHIZO.Attributes.Loading;
 using SCHIZO.Resources;
+using SCHIZO.Sounds;
+using UnityEngine;
 using SCHIZO.Sounds.Jukebox_;
 using SCHIZO.Unity.Items;
 
 namespace SCHIZO;
 
-[BepInPlugin("SCHIZO", "Neuro-sama Mod", "1.0.0")]
+[BepInPlugin("SCHIZO", "SCHIZO", "1.0.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
+    public static GameObject PLUGIN_OBJECT { get; private set; }
     public static ManualLogSource LOGGER { get; private set; }
+    public static Harmony HARMONY { get; private set; }
 
     public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();
 
     private void Awake()
     {
+        PLUGIN_OBJECT = gameObject;
         LOGGER = Logger;
-        DependencyResolver.InjectResources();
+        HARMONY = new Harmony("SCHIZO");
 
-        Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
+        ResourceManager.InjectAssemblies();
+        SoundConfig.Provider = CONFIG;
+        HARMONY.PatchAll();
 
-        IEnumerable<ModItem> modItems = Assets.All<ItemData>().Where(d => d.autoRegister).Select(ModItem.Create);
-        modItems.ForEach(UnityPrefab.CreateAndRegister);
+        Assets.Registry.InvokeRegister();
+        Assets.Registry.InvokePostRegister();
 
         Assets.All<CustomJukeboxTrack>().ForEach(CustomJukeboxTrack.Register);
-
-        AddComponentAttribute.AddAll(gameObject, AddComponentAttribute.Target.Plugin);
+        AddComponentAttribute.AddAll(gameObject);
         LoadMethodAttribute.LoadAll();
 
         // LoadConsoleCommandsAttribute.RegisterAll();
