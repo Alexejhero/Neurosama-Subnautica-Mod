@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using HarmonyLib;
 using SCHIZO.Attributes.Typing;
 using UnityEditor;
@@ -17,7 +17,7 @@ namespace PropertyDrawers
             string targetTypeName = ((ExposedTypeAttribute) attribute).typeName;
             Type actualFieldType = AccessTools.Field(property.serializedObject.targetObject.GetType(), property.name).FieldType;
 
-            if (!(AccessTools.TypeByName(targetTypeName) is Type targetType))
+            if (!(ReflectionCache.GetType(targetTypeName) is Type targetType))
             {
                 GUI.Label(position, "Unknown target type");
             }
