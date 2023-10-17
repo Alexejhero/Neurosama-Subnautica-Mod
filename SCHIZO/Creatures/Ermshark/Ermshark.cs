@@ -1,10 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
+using UWE;
 
 namespace SCHIZO.Creatures.Ermshark;
 
 partial class Ermshark : IOnTakeDamage
 {
+    private bool _isReal = true;
     private static GameObject _ermsharkPrefab;
     private static bool _hasStartedPrefabCoroutine;
 
@@ -12,14 +14,15 @@ partial class Ermshark : IOnTakeDamage
     {
         base.Start();
         if (_hasStartedPrefabCoroutine) yield break;
+        _hasStartedPrefabCoroutine = true;
 
-        CoroutineTask<GameObject> result = CraftData.GetPrefabForTechTypeAsync(GetComponent<TechTag>().type);
-        yield return result;
+        IPrefabRequest request = PrefabDatabase.GetPrefabAsync(GetComponent<PrefabIdentifier>().classId);
+        yield return request;
 
-        _ermsharkPrefab = result.GetResult();
+        if (!request.TryGetPrefab(out _ermsharkPrefab))
+            LOGGER.LogError($"Could not get prefab for {name}, so mitosis won't work!");
     }
 
-    private bool _isReal = true;
 
     public void OnTakeDamage(DamageInfo damageInfo)
     {
@@ -29,20 +32,24 @@ partial class Ermshark : IOnTakeDamage
         {
             Mitosis(damageInfo.position, liveMixin.damageEffect);
         }
-        else if (_isReal)
+        else
         {
-            SOS();
-            return;
+            if (_isReal)
+            {
+                SOS();
+            }
+            else
+            {
+                gameObject.SetActive(false); // todo verify this works
+                Destroy(gameObject, 5);
+            }
         }
-
-        gameObject.SetActive(false); // todo verify this works
-        Destroy(gameObject, 5);
     }
 
     private void SOS() // Save the shark from dying (reloading the save will respawn it)
     {
         transform.GetChild(0).localScale = Vector3.zero;
-        liveMixin.health = 20;
+        liveMixin.ResetHealth();
 
         enabled = false;
         locomotion.enabled = false;
@@ -52,27 +59,34 @@ partial class Ermshark : IOnTakeDamage
 
     private void Mitosis(Vector3 position, GameObject hurtEffect)
     {
-        const float childScaleModifier = 0.69f;
+        const float splitScaleModifier = 0.69f;
+        if (!_ermsharkPrefab)
+        {
+            LOGGER.LogError($"No prefab for mitosis, committing Minecraft");
+            mitosisRemaining = 0;
+            SOS();
+            return;
+        }
 
-        GameObject firstChild = Instantiate(_ermsharkPrefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
-        firstChild.transform.GetChild(0).localScale = transform.GetChild(0).localScale * childScaleModifier;
-        UpdateChild(firstChild, _isReal, mitosisRemaining - 1);
+        liveMixin.ResetHealth();
+        transform.position = position + Random.insideUnitSphere * 0.5f;
+        transform.GetChild(0).localScale *= splitScaleModifier;
 
-        GameObject secondChild = Instantiate(_ermsharkPrefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
-        secondChild.transform.GetChild(0).localScale = transform.GetChild(0).localScale * childScaleModifier;
-        UpdateChild(secondChild, false, mitosisRemaining - 1);
+        mitosisRemaining--;
+        SpawnDecoy(position);
 
         for (int i = 0; i < 5; i++) Utils.SpawnPrefabAt(hurtEffect, transform, position).transform.localScale *= 2f;
     }
 
-    private static void UpdateChild(GameObject child, bool isReal, int mitosisRemaining)
+    private void SpawnDecoy(Vector3 position)
     {
-        Ermshark ermshark = child.GetComponentInChildren<Ermshark>(true);
-        if (!isReal)
-        {
-            ermshark._isReal = false;
-            Destroy(child.GetComponentInChildren<LargeWorldEntity>());
-        }
+        GameObject decoy = Instantiate(_ermsharkPrefab, position + Random.insideUnitSphere * 0.5f, Quaternion.identity);
+        decoy.transform.GetChild(0).localScale = transform.GetChild(0).localScale;
+
+        Ermshark ermshark = decoy.GetComponentInChildren<Ermshark>(true);
+        ermshark.liveMixin.health = liveMixin.health;
+        ermshark._isReal = false;
+        Destroy(decoy.GetComponentInChildren<LargeWorldEntity>());
 
         ermshark.mitosisRemaining = mitosisRemaining;
     }
