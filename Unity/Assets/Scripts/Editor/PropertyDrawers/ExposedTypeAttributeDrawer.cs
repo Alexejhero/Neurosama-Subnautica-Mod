@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using HarmonyLib;
 using SCHIZO.Attributes.Typing;
 using UnityEditor;
@@ -15,7 +15,7 @@ namespace PropertyDrawers
             position = EditorGUI.PrefixLabel(position, DrawerUtils.ControlId(property.propertyPath + "label", position), label);
 
             string targetTypeName = ((ExposedTypeAttribute) attribute).typeName;
-            Type actualFieldType = AccessTools.Field(property.serializedObject.targetObject.GetType(), property.name).FieldType;
+            Type actualFieldType = ReflectionCache.GetField(property.serializedObject.targetObject.GetType(), property.name).FieldType;
 
             if (!(ReflectionCache.GetType(targetTypeName) is Type targetType))
             {

@@ -15,7 +15,28 @@ public static class NaughtyPatches
         [HarmonyPrefix]
         public static bool FieldLookupPerfDetour(out FieldInfo __result, object target, string fieldName)
         {
-            __result = target?.GetType().GetField(fieldName, AccessTools.all);
+            __result = null;
+            if (target != null) __result = ReflectionCache.GetField(target.GetType(), fieldName);
+
+            return false;
+        }
+
+        [HarmonyPatch(nameof(ReflectionUtility.GetMethod))]
+        [HarmonyPrefix]
+        public static bool MethodLookupPerfDetour(out MethodInfo __result, object target, string methodName)
+        {
+            __result = null;
+            if (target != null) __result = ReflectionCache.GetMethod(target.GetType(), methodName);
+
+            return false;
+        }
+
+        [HarmonyPatch(nameof(ReflectionUtility.GetProperty))]
+        [HarmonyPrefix]
+        public static bool PropertyLookupPerfDetour(out PropertyInfo __result, object target, string propertyName)
+        {
+            __result = null;
+            if (target != null) __result = ReflectionCache.GetProperty(target.GetType(), propertyName);
 
             return false;
         }
