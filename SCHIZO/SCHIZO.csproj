@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Configurations>Subnautica;BelowZero</Configurations>
         <NoWarn>$(NoWarn);CS0436;CS0649;Publicizer001;</NoWarn>

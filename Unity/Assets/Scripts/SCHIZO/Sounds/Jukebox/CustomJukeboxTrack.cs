@@ -1,19 +1,21 @@
 using NaughtyAttributes;
+using SCHIZO.Attributes.Visual;
+using SCHIZO.Registering;
 using System;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 namespace SCHIZO.Sounds.Jukebox_
 {
-    [CreateAssetMenu(menuName = "SCHIZO/Sounds/Custom Jukebox Track")]
-    public sealed partial class CustomJukeboxTrack : ScriptableObject
+    [CreateAssetMenu(menuName = "SCHIZO/Sounds/Jukebox Track")]
+    public sealed partial class CustomJukeboxTrack : ModRegistryItem
     {
         public enum Source
         {
             Asset,
             Internet
         }
-        [ValidateInput(nameof(Validate_identifier), "Identifier must not be empty")]
+        [Careful, ValidateInput(nameof(Validate_identifier), "Identifier must not be empty")]
         public string identifier;
 
         public Source source;
@@ -34,8 +36,12 @@ namespace SCHIZO.Sounds.Jukebox_
         [BoxGroup("Unlock")]
         public bool unlockedOnStart = true;
         [BoxGroup("Unlock"), HideIf(nameof(unlockedOnStart))]
-        [InfoBox("A jukebox disk that unlocks this track will be placed here at the start of the game.")]
+        [InfoBox("If not set, the disk will use the base game model.")]
+        public CustomJukeboxDisk diskPrefab;
+        [BoxGroup("Unlock"), HideIf(nameof(unlockedOnStart))]
         public Vector3 diskSpawnLocation;
+        [BoxGroup("Unlock"), HideIf(nameof(unlockedOnStart))]
+        public AudioClip unlockSound;
 
         private bool Validate_identifier() => !string.IsNullOrEmpty(identifier);
         private bool Validate_urlIsHttp() => URL.StartsWith("http://");

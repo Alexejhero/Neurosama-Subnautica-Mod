@@ -1,4 +1,4 @@
-﻿// ReSharper disable UnusedParameter.Local
+// ReSharper disable UnusedParameter.Local
 // ReSharper disable UnusedType.Global
 
 #pragma warning disable CS9113 // Parameter is unread.
@@ -56,7 +56,7 @@ internal class EnumFlagsAttribute : Attribute;
 internal class ValidateInputAttribute(string callbackName, string message = null) : Attribute;
 
 [Conditional("NEVER")]
-internal class RequiredAttribute : Attribute;
+internal class RequiredAttribute(string message = null) : Attribute;
 
 [Conditional("NEVER")]
 internal class DropdownAttribute(string valuesName) : Attribute;

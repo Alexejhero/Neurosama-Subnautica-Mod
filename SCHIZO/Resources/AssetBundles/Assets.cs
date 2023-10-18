@@ -12,7 +12,7 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = -1122530483;
+    private const int _rnd = 884876943;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
 
@@ -33,6 +33,4 @@ public static class Assets
     public static SCHIZO.Items.Data.CloneItemData Gymbag_GymbagSN = _a.LoadAsset<SCHIZO.Items.Data.CloneItemData>("Assets/Gymbag/Gymbag SN.asset");
     public static UnityEngine.Texture2D Loading_Icon_LoadingIcon = _a.LoadAsset<UnityEngine.Texture2D>("Assets/Loading/Icon/loading icon.png");
     public static SCHIZO.Registering.ModRegistry Registry = _a.LoadAsset<SCHIZO.Registering.ModRegistry>("Assets/Registry.asset");
-    public static SCHIZO.Sounds.Jukebox_.CustomJukeboxTrack Jukebox_HELLOCHAT = _a.LoadAsset<SCHIZO.Sounds.Jukebox_.CustomJukeboxTrack>("Assets/Jukebox/HELLO CHAT.asset");
-    public static SCHIZO.Sounds.Jukebox_.CustomJukeboxTrack Jukebox_TruckersFM = _a.LoadAsset<SCHIZO.Sounds.Jukebox_.CustomJukeboxTrack>("Assets/Jukebox/TruckersFM.asset");
 }

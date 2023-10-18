@@ -1,6 +1,6 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Runtime.CompilerServices;
-using SCHIZO.Attributes;
+using SCHIZO.Attributes.Loading;
 using UnityEngine;
 using UWE;
 

@@ -8,7 +8,6 @@ using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using UnityEngine;
 using SCHIZO.Sounds.Jukebox_;
-using SCHIZO.Unity.Items;
 
 namespace SCHIZO;
 
@@ -34,7 +33,6 @@ public sealed class Plugin : BaseUnityPlugin
         Assets.Registry.InvokeRegister();
         Assets.Registry.InvokePostRegister();
 
-        Assets.All<CustomJukeboxTrack>().ForEach(CustomJukeboxTrack.Register);
         AddComponentAttribute.AddAll(gameObject);
         LoadMethodAttribute.LoadAll();
 
