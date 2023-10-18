@@ -12,22 +12,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+
     strategy:
       fail-fast: false
       matrix:
         configuration: [BelowZero, Subnautica]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0
+        dotnet-version: 7.0
 
     - name: Build mod
-      run: dotnet build SCHIZO/SCHIZO.csproj -c ${{ matrix.configuration }}
+      run: dotnet build SCHIZO.sln -c ${{ matrix.configuration }}
 
     - uses: actions/upload-artifact@v3
       with:
-        name: SCHIZO-${{ matrix.configuration }}.dll
-        path: SCHIZO/bin/${{ matrix.configuration }}/net472/SCHIZO.dll
+        name: SCHIZO-${{ matrix.configuration }}
+        path: SCHIZO/bin/${{ matrix.configuration }}/net472/SCHIZO*.dll
