@@ -12,7 +12,7 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = -1309367934;
+    private const int _rnd = -1022800194;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
 

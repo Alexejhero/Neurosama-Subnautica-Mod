@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace SCHIZO.Sounds.Jukebox
+namespace SCHIZO.Jukebox
 {
     [CreateAssetMenu(menuName = "SCHIZO/Sounds/Jukebox Track")]
     public sealed partial class CustomJukeboxTrack : ModRegistryItem

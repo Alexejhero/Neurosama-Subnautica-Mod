@@ -15,14 +15,14 @@ MonoBehaviour:
   identifier: TruckersFM
   source: 1
   audioClip: {fileID: 0}
-  URL: http://radio.truckers.fm
+  url: http://radio.truckers.fm
   isStream: 1
   overrideTrackLabel: 0
   trackLabel:
     artist: 
     title: TruckersFM
   unlockedOnStart: 0
-  diskPrefab: {fileID: 3181987456837979554, guid: 963e240b83e14bc40a5dc0468a639348,
+  diskPrefab: {fileID: 919132149155446097, guid: 2f3f45a3cf169dd4b849dd663b41d3d4,
     type: 3}
   diskSpawnLocation: {x: -328, y: 14.22, z: 255}
   unlockSound: {fileID: 8300000, guid: 5ba4e19b28e28bd40b3d57d369a781f0, type: 3}

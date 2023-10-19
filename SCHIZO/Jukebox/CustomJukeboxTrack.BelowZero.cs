@@ -5,7 +5,7 @@ using Nautilus.Utility;
 using UnityEngine;
 using BZJukebox = Jukebox;
 
-namespace SCHIZO.Sounds.Jukebox;
+namespace SCHIZO.Jukebox;
 
 public sealed partial class CustomJukeboxTrack
 {

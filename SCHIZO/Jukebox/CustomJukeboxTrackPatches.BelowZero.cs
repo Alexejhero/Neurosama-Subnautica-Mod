@@ -10,7 +10,7 @@ using UnityEngine;
 using UWE;
 using BZJukebox = Jukebox;
 
-namespace SCHIZO.Sounds.Jukebox;
+namespace SCHIZO.Jukebox;
 
 [HarmonyPatch]
 public static class CustomJukeboxTrackPatches

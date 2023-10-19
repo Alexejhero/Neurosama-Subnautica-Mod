@@ -2,7 +2,7 @@ using FMOD.Studio;
 using HarmonyLib;
 using BZJukebox = Jukebox;
 
-namespace SCHIZO.Sounds.Jukebox;
+namespace SCHIZO.Jukebox;
 
 [HarmonyPatch]
 public static class NetStreamCompatPatches

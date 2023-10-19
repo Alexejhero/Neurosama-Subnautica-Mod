@@ -22,7 +22,7 @@ partial class LoadingSoundPlayer
         if (_loading.progress > 0.5f)
         {
             _playedSound = true;
-            _fmodSounds.Play2D();
+            if (Utils.GetContinueMode()) _fmodSounds.Play2D();
         }
     }
 }

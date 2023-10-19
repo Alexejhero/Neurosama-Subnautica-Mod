@@ -28,6 +28,14 @@
         <Folder Include="Enums/BelowZero" />
         <Folder Include="Enums/Subnautica" />
         <Folder Include="Utilities" />
+        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Sounds\Jukebox\CustomJukeboxDisk.cs">
+          <Link>Jukebox\CustomJukeboxDisk.cs</Link>
+          <DependentUpon>CustomJukeboxDisk.cs</DependentUpon>
+        </Compile>
+        <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Sounds\Jukebox\CustomJukeboxTrack.cs">
+          <Link>Jukebox\CustomJukeboxTrack.cs</Link>
+          <DependentUpon>CustomJukeboxTrack.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>

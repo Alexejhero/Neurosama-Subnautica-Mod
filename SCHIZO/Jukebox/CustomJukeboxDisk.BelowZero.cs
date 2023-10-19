@@ -3,9 +3,9 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
 
-namespace SCHIZO.Sounds.Jukebox;
+namespace SCHIZO.Jukebox;
 
-partial class CustomJukeboxDisk
+public sealed class CustomJukeboxDisk : JukeboxDisk
 {
     private CustomJukeboxTrack _track;
     public AudioClip unlockSound;
