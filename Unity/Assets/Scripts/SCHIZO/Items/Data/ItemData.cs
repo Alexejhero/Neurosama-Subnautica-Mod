@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using NaughtyAttributes;
 using SCHIZO.Attributes.Visual;
+using SCHIZO.Enums;
 using SCHIZO.Enums.BelowZero;
 using SCHIZO.Enums.Subnautica;
 using SCHIZO.Items.Data.Crafting;
@@ -38,7 +39,7 @@ namespace SCHIZO.Items.Data
         [BoxGroup("Common Properties"), ShowIf(nameof(IsActuallyCraftable))]
         public float craftingTime = 2.5f;
 
-        [BoxGroup("Subnautica Data"), Label("Recipe"), SerializeField, ShowIf(nameof(ShowPickupableProps))]
+        [BoxGroup("Subnautica Data"), Label("Recipe"), SerializeField, ShowIf(nameof(IsBuildableOrCraftable))]
         private Recipe recipeSN;
 
         [BoxGroup("Subnautica Data"), Label("Craft Tree"), ShowIf(nameof(IsActuallyCraftable)), SerializeField]
@@ -47,7 +48,7 @@ namespace SCHIZO.Items.Data
         [BoxGroup("Subnautica Data"), Label("Craft Tree Path"), ShowIf(nameof(craftTreePathSN_ShowIf)), Dropdown(nameof(craftTreePathsSN)), SerializeField, UsedImplicitly]
         private string craftTreePathSN = "";
 
-        [BoxGroup("Subnautica Data"), Label("Tech Group"), ValidateInput(nameof(techGroupSN_Validate)), SerializeField, ShowIf(nameof(ShowPickupableProps))]
+        [BoxGroup("Subnautica Data"), Label("Tech Group"), ValidateInput(nameof(techGroupSN_Validate)), SerializeField, ShowIf(nameof(IsBuildableOrCraftable))]
         private TechGroup_SN techGroupSN = TechGroup_SN.Uncategorized;
 
         [BoxGroup("Subnautica Data"), Label("Tech Category"), SerializeField, HideIf(nameof(techCategorySN_HideIf)), UsedImplicitly]
@@ -56,7 +57,13 @@ namespace SCHIZO.Items.Data
         [BoxGroup("Subnautica Data"), Label("Databank Info"), SerializeField, UsedImplicitly]
         private DatabankInfo databankInfoSN;
 
-        [BoxGroup("Below Zero Data"), Label("Recipe"), SerializeField, ShowIf(nameof(ShowPickupableProps))]
+        [BoxGroup("Subnautica Data"), Label("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(nameof(IsBuildableOrCraftable))]
+        private bool unlockAtStartSN;
+
+        [BoxGroup("Subnautica Data"), Label("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(requiredForUnlockSN_ShowIf))]
+        private TechType_All requiredForUnlockSN;
+
+        [BoxGroup("Below Zero Data"), Label("Recipe"), SerializeField, ShowIf(nameof(IsBuildableOrCraftable))]
         private Recipe recipeBZ;
 
         [BoxGroup("Below Zero Data"), Label("Craft Tree"), ShowIf(nameof(IsActuallyCraftable)), SerializeField]
@@ -65,7 +72,7 @@ namespace SCHIZO.Items.Data
         [BoxGroup("Below Zero Data"), Label("Craft Tree Path"), ShowIf(nameof(craftTreePathBZ_ShowIf)), Dropdown(nameof(craftTreePathsBZ)), SerializeField, UsedImplicitly]
         private string craftTreePathBZ = "";
 
-        [BoxGroup("Below Zero Data"), Label("Tech Group"), ValidateInput(nameof(techGroupBZ_Validate)), SerializeField, ShowIf(nameof(ShowPickupableProps))]
+        [BoxGroup("Below Zero Data"), Label("Tech Group"), ValidateInput(nameof(techGroupBZ_Validate)), SerializeField, ShowIf(nameof(IsBuildableOrCraftable))]
         private TechGroup_BZ techGroupBZ = TechGroup_BZ.Uncategorized;
 
         [BoxGroup("Below Zero Data"), Label("Tech Category"), SerializeField, HideIf(nameof(techCategoryBZ_HideIf)), UsedImplicitly]
@@ -74,6 +81,12 @@ namespace SCHIZO.Items.Data
         [BoxGroup("Below Zero Data"), Label("Databank Info"), SerializeField, UsedImplicitly]
         private DatabankInfo databankInfoBZ;
 
+        [BoxGroup("Below Zero Data"), Label("Unlock At Start"), SerializeField, UsedImplicitly]
+        private bool unlockAtStartBZ;
+
+        [BoxGroup("Below Zero Data"), Label("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(requiredForUnlockBZ_ShowIf))]
+        private TechType_All requiredForUnlockBZ;
+
         #region NaughtyAttributes stuff
 
         private bool AutoRegister_Validate(string str) => !string.IsNullOrWhiteSpace(str);
@@ -81,11 +94,14 @@ namespace SCHIZO.Items.Data
         private bool techGroupSN_Validate(TechGroup_SN val) => !isBuildable || val != TechGroup_SN.Uncategorized;
         private bool techGroupBZ_Validate(TechGroup_BZ val) => !isBuildable || val != TechGroup_BZ.Uncategorized;
 
-        private bool techCategorySN_HideIf() => techGroupSN == TechGroup_SN.Uncategorized && HidePickupableProps();
-        private bool techCategoryBZ_HideIf() => techGroupBZ == TechGroup_BZ.Uncategorized && HidePickupableProps();
+        private bool techCategorySN_HideIf() => techGroupSN == TechGroup_SN.Uncategorized || !IsBuildableOrCraftable();
+        private bool techCategoryBZ_HideIf() => techGroupBZ == TechGroup_BZ.Uncategorized || !IsBuildableOrCraftable();
 
         private bool craftTreePathSN_ShowIf() => IsActuallyCraftable() && craftTreeTypeSN != CraftTree_Type_SN.None;
         private bool craftTreePathBZ_ShowIf() => IsActuallyCraftable() && craftTreeTypeBZ != CraftTree_Type_BZ.None;
+
+        private bool requiredForUnlockSN_ShowIf() => !unlockAtStartSN && IsBuildableOrCraftable();
+        private bool requiredForUnlockBZ_ShowIf() => !unlockAtStartBZ && IsBuildableOrCraftable();
 
         // TODO: be smart amout this
         private readonly DropdownList<string> craftTreePathsSN = new DropdownList<string>
@@ -130,6 +146,8 @@ namespace SCHIZO.Items.Data
         private bool HidePickupableProps() => !ShowPickupableProps();
 
         private bool IsActuallyCraftable() => isCraftable && ShowPickupableProps();
+
+        private bool IsBuildableOrCraftable() => isBuildable || IsActuallyCraftable();
 
         #endregion
     }
