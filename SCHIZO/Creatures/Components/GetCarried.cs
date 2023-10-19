@@ -1,13 +1,18 @@
-﻿using Nautilus.Utility;
-using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using UnityEngine;
 
-namespace SCHIZO.Creatures.Tutel;
+namespace SCHIZO.Creatures.Components;
 
-[RequireComponent(typeof(SwimBehaviour))]
-public class GetCarried : RetargetCreatureAction
+partial class GetCarried : CustomCreatureAction
 {
+    public bool isCarried;
+    public FMOD_CustomEmitter emitter;
+
+    private float nextCarryNoiseTime;
+    private FMODSoundCollection _pickupSounds;
+    private FMODSoundCollection _carrySounds;
+    private FMODSoundCollection _releaseSounds;
+
     public override void Awake()
     {
         base.Awake();
@@ -20,6 +25,8 @@ public class GetCarried : RetargetCreatureAction
     {
         _pickupSounds.Play(emitter);
         isCarried = true;
+        WorldAmbientSoundPlayer worldSounds = creature.GetComponent<WorldAmbientSoundPlayer>();
+        if (worldSounds) worldSounds.enabled = false;
         StartPerform(Time.time);
     }
 
@@ -27,6 +34,8 @@ public class GetCarried : RetargetCreatureAction
     {
         _releaseSounds.Play(emitter);
         isCarried = false;
+        WorldAmbientSoundPlayer worldSounds = creature.GetComponent<WorldAmbientSoundPlayer>();
+        if (worldSounds) worldSounds.enabled = true;
         StopPerform(Time.time);
     }
 
@@ -34,7 +43,7 @@ public class GetCarried : RetargetCreatureAction
     {
         creature.GetComponent<SwimBehaviour>().Idle();
         creature.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        creature.GetComponent<WorldSounds>().enabled = false;
+        creature.GetComponent<WorldAmbientSoundPlayer>().enabled = false;
         nextCarryNoiseTime = time + carryNoiseInterval * (1 + Random.value);
         if (!isCarried) OnPickedUp();
     }
@@ -58,17 +67,6 @@ public class GetCarried : RetargetCreatureAction
 
     public override void StopPerform(float time)
     {
-        creature.GetComponent<WorldSounds>().enabled = true;
         if (isCarried) OnDropped();
     }
-
-    public bool isCarried;
-    public FMOD_CustomEmitter emitter;
-
-    private static readonly SoundPlayer _pickupSounds = new(Assets.Tutel_Sounds_GetCarried_PickupByErmshark, AudioUtils.BusPaths.UnderwaterCreatures);
-    private static readonly SoundPlayer _carrySounds = new(Assets.Tutel_Sounds_GetCarried_CarryByErmshark, AudioUtils.BusPaths.UnderwaterCreatures);
-    private static readonly SoundPlayer _releaseSounds = new(Assets.Tutel_Sounds_Ambient_TutelAmbient, AudioUtils.BusPaths.UnderwaterCreatures);
-
-    private float nextCarryNoiseTime;
-    private const float carryNoiseInterval = 5f;
 }

@@ -1,16 +1,16 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 
-namespace SCHIZO.Creatures;
+namespace SCHIZO.Creatures.Components;
 
 [SuppressMessage("ReSharper", "RedundantOverriddenMember")]
 [SuppressMessage("ReSharper", "Unity.RedundantEventFunction")]
-public class RetargetCreatureAction : CreatureAction
+public partial class CustomCreatureAction
 {
 #if BELOWZERO
     public virtual void Awake()
     {
         CompileTimeSetup();
-        Extensions.EnsureComponentsExtensions.EnsureComponentFields(this);
+        //Extensions.EnsureComponentsExtensions.EnsureComponentFields(this);
     }
 
     public override void Start()

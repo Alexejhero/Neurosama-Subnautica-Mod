@@ -1,4 +1,4 @@
-﻿using Nautilus.Utility;
+using Nautilus.Utility;
 using SCHIZO.Sounds;
 
 namespace SCHIZO.Loading;
@@ -12,7 +12,7 @@ partial class LoadingSoundPlayer
     private void Awake()
     {
         _loading = GetComponentInParent<uGUI_SceneLoading>();
-        _fmodSounds = new FMODSoundCollection(sounds, AudioUtils.BusPaths.PDAVoice);
+        _fmodSounds = FMODSoundCollection.For(sounds, AudioUtils.BusPaths.PDAVoice);
     }
 
     private void Update()
