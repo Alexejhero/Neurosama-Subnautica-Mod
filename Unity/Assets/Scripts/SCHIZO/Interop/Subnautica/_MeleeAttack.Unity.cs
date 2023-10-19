@@ -20,7 +20,7 @@ namespace SCHIZO.Interop.Subnautica
         public bool canBeFed = true;
 
         [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("LastTarget")] public MonoBehaviour lastTarget;
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("Creature")] public MonoBehaviour creature;
+        [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public _Creature creature;
         [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;
 
         [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float biteAggressionThreshold = 0.3f;

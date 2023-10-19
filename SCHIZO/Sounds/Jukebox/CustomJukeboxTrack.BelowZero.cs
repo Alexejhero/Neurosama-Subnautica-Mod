@@ -9,6 +9,14 @@ namespace SCHIZO.Sounds.Jukebox;
 
 public sealed partial class CustomJukeboxTrack
 {
+    public partial struct TrackLabel
+    {
+        public override string ToString() => string.IsNullOrEmpty(artist) ? title : $"{artist} - {title}";
+        public static implicit operator string(TrackLabel trackLabel) => trackLabel.ToString();
+    }
+
+    public uint Length => audioClip ? (uint) audioClip.length * 1000 : 0;
+
     internal Sound sound;
 
     public bool IsSoundValid() => sound.hasHandle() && sound.getMode(out _) != RESULT.ERR_INVALID_HANDLE;
@@ -17,7 +25,7 @@ public sealed partial class CustomJukeboxTrack
     {
         string label = track.trackLabel;
         if (label.Length == 0) label = track.identifier;
-        return new() { label = label, length = track.Length };
+        return new BZJukebox.TrackInfo { label = label, length = track.Length };
     }
 
     public static implicit operator BZJukebox.UnlockableTrack(CustomJukeboxTrack track)
@@ -33,15 +41,15 @@ public sealed partial class CustomJukeboxTrack
             LOGGER.LogWarning($"Someone else has already registered unlockable track {identifier}! ({trackId} at {(int) trackId})");
             return;
         }
+
+        if (EnumHandler.TryAddEntry(identifier, out EnumBuilder<BZJukebox.UnlockableTrack> registered))
+        {
+            trackId = registered.Value;
+        }
         else
         {
-            if (EnumHandler.TryAddEntry(identifier, out EnumBuilder<BZJukebox.UnlockableTrack> registered))
-                trackId = registered.Value;
-            else
-            {
-                LOGGER.LogError($"Could not add Jukebox.UnlockableTrack entry for {identifier}");
-                return;
-            }
+            LOGGER.LogError($"Could not add Jukebox.UnlockableTrack entry for {identifier}");
+            return;
         }
         CustomJukeboxTrackPatches.customTracks[trackId] = this;
 
@@ -52,8 +60,6 @@ public sealed partial class CustomJukeboxTrack
         LOGGER.LogWarning($"Setting up unlock for track '{identifier}' during a game! This might not behave how you expect it to.");
         SetupUnlock();
     }
-
-    public static void Register(CustomJukeboxTrack track) => track.Register();
 
     public static bool TryGetCustomTrack(string identifier, out CustomJukeboxTrack track)
     {

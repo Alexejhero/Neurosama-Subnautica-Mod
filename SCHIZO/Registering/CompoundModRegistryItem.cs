@@ -6,7 +6,7 @@ partial class CompoundModRegistryItem
     {
         foreach (ModRegistryItem item in registryItems)
         {
-            item.InvokeRegister();
+            if (item) item.InvokeRegister();
         }
     }
 
@@ -14,7 +14,7 @@ partial class CompoundModRegistryItem
     {
         foreach (ModRegistryItem item in registryItems)
         {
-            item.InvokePostRegister();
+            if (item) item.InvokePostRegister();
         }
     }
 }

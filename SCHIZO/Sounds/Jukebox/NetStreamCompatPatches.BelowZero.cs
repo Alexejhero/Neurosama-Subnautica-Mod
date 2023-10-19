@@ -54,8 +54,8 @@ public static class NetStreamCompatPatches
         __instance.GetComponentInChildren<PointerEventTrigger>().enabled = !__instance.IsPlayingStream();
     }
 
-    [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.OnButtonPlayPause))]
-    [HarmonyPrefix]
+    // [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.OnButtonPlayPause))]
+    // [HarmonyPrefix]
     public static bool DisablePauseButtonForHttpStreams(JukeboxInstance __instance)
     {
         return !(__instance.IsPlayingStream() && __instance.isControlling);

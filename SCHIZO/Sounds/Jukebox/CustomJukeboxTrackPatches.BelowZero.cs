@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FMOD;
 using FMODUnity;
 using HarmonyLib;
+using JetBrains.Annotations;
 using Nautilus.Utility;
 using UnityEngine;
 using UWE;
@@ -23,22 +24,25 @@ public static class CustomJukeboxTrackPatches
     {
         // base Awake assumes all unlockable tracks are events
         // so we need to add ours afterwards (and remove them on game unload)
-        [HarmonyPrefix]
+        [HarmonyPrefix, UsedImplicitly]
         public static void ClearCustomTracks()
         {
             foreach (BZJukebox.UnlockableTrack trackId in customTracks.Keys)
                 BZJukebox.unlockableMusic.Remove(trackId);
         }
-        [HarmonyPostfix]
+
+        [HarmonyPostfix, UsedImplicitly]
         public static void AddCustomTracks(BZJukebox __instance)
         {
             foreach (KeyValuePair<BZJukebox.UnlockableTrack, CustomJukeboxTrack> pair in customTracks)
             {
                 CustomJukeboxTrack track = pair.Value;
+
                 BZJukebox.unlockableMusic[pair.Key] = track.identifier;
                 BZJukebox.musicLabels[track.identifier] = track.trackLabel; // only read inside Awake but why not
                 __instance._info[track.identifier] = track;
             }
+
             if (!defaultDiskPrefab) CoroutineHost.StartCoroutine(GetJukeboxDiskPrefab());
         }
     }
@@ -49,6 +53,7 @@ public static class CustomJukeboxTrackPatches
         const string diskPrefabPath = "Misc/JukeboxDisk8.prefab";
         IPrefabRequest request = PrefabDatabase.GetPrefabForFilenameAsync(diskPrefabPath);
         yield return request;
+
         if (!request.TryGetPrefab(out defaultDiskPrefab))
             throw new Exception("Could not get prefab for jukebox disk!");
     }
@@ -91,9 +96,14 @@ public static class CustomJukeboxTrackPatches
         if (!track.IsSoundValid())
         {
             if (track.IsRemote)
-                BZJukebox.ERRCHECK(RuntimeManager.CoreSystem.createSound(track.URL, MODE._3D | MODE.CREATESTREAM | MODE.NONBLOCKING | MODE._3D_LINEARSQUAREROLLOFF, ref jukebox._exinfo, out track.sound));
+            {
+                RESULT result = RuntimeManager.CoreSystem.createSound(track.url, MODE._3D | MODE.CREATESTREAM | MODE.NONBLOCKING | MODE._3D_LINEARSQUAREROLLOFF, ref jukebox._exinfo, out track.sound);
+                BZJukebox.ERRCHECK(result);
+            }
             else
+            {
                 track.sound = AudioUtils.CreateSound(track.audioClip, AudioUtils.StandardSoundModes_3D);
+            }
         }
         jukebox._sound = track.sound;
     }
@@ -104,7 +114,7 @@ public static class CustomJukeboxTrackPatches
     {
         if (!__instance.IsTrackCustom(out CustomJukeboxTrack track)) return;
 
-        LOGGER.LogError($"Could not load track '{track.identifier}' from {track.URL}, removing track from playlist");
+        LOGGER.LogError($"Could not load track '{track.identifier}' from {track.url}, removing track from playlist");
         __instance._playlist.Remove(track.identifier);
         BZJukebox.UnlockableTrack trackId = track;
         BZJukebox.unlockableMusic.Remove(trackId);
@@ -139,7 +149,7 @@ public static class CustomJukeboxTrackPatches
             if (!track.isStream) __instance._sound.getLength(out newInfo.length, TIMEUNIT.MS);
 
             if (title is null or "") title = newInfo.label;
-            newInfo.label = new TrackLabel() { artist = artist, title = title };
+            newInfo.label = new CustomJukeboxTrack.TrackLabel { artist = artist, title = title };
 
             if (info.label != newInfo.label)
             {
