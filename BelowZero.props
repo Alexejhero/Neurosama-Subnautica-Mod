@@ -1,0 +1,23 @@
+<Project>
+    <PropertyGroup>
+        <DefineConstants>$(DefineConstants);BELOWZERO</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Subnautica.BelowZero.GameLibs" Version="49371.0.0.1-r.0" />
+        <PackageReference Include="SubnauticaZero.Nautilus" Version="1.0.0-pre.21" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="../Dependencies/BelowZero/FMODUnity.dll" />
+        <Reference Include="../Install/BelowZero/BepInEx/plugins/ECCLibrary/ECCLibrary.dll" Publicize="true" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="**/*.Subnautica.cs" />
+
+        <Compile Update="**/*.BelowZero.cs">
+<!--            <DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '^(.*)\.(.*)$', '$1')).cs</DependentUpon>-->
+        </Compile>
+    </ItemGroup>
+</Project>

@@ -28,6 +28,7 @@ namespace SCHIZO.Registering
         [Button]
         public void Sort()
         {
+            registryItems.RemoveAll(i => !i);
             registryItems.Sort((a, b) => string.Compare(a.name, b.name, StringComparison.Ordinal));
         }
     }

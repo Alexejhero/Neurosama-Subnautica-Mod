@@ -12,7 +12,7 @@ namespace SCHIZO.Registering
 
             foreach (ModRegistryItem item in registryItems)
             {
-                if (item is CompoundModRegistryItem registry)
+                if (item && item is CompoundModRegistryItem registry)
                 {
                     registry.Flatten(found);
                 }

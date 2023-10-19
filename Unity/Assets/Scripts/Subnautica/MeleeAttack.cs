@@ -1,5 +1,6 @@
 ﻿using NaughtyAttributes;
 using SCHIZO.Attributes.Typing;
+using SCHIZO.Interop.Subnautica;
 using SCHIZO.Utilities;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ public class MeleeAttack : MonoBehaviour
     public bool canBeFed = true;
 
     [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public LastTarget lastTarget;
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("Creature")] public MonoBehaviour creature;
+    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public _Creature creature;
     [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public LiveMixin liveMixin;
 
     [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float biteAggressionThreshold = 0.3f;

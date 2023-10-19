@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Configurations>Subnautica;BelowZero</Configurations>
         <NoWarn>$(NoWarn);CS0436;CS0649;Publicizer001;</NoWarn>
     </PropertyGroup>
 
-    <Import Project="Subnautica.props" Condition=" '$(Configuration)' == 'Subnautica' " />
-    <Import Project="BelowZero.props" Condition=" '$(Configuration)' == 'BelowZero' " />
+    <Import Project="$(SolutionDir)/Subnautica.props" Condition=" '$(Configuration)' == 'Subnautica' " />
+    <Import Project="$(SolutionDir)/BelowZero.props" Condition=" '$(Configuration)' == 'BelowZero' " />
 
     <ItemGroup>
         <PackageReference Include="BepInEx.Core" Version="5.4.21" />
@@ -17,19 +17,19 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Include="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.cs" LinkBase=".">
+        <Compile Include="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.cs">
             <DependentUpon>%(FileName).cs</DependentUpon>
         </Compile>
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.Unity.cs" />
 
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/Creatures/_old/**/*.cs" />
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/Materials/**/*.cs" />
-        
+
         <Folder Include="Enums/BelowZero" />
         <Folder Include="Enums/Subnautica" />
         <Folder Include="Utilities" />
     </ItemGroup>
-    
+
     <ItemGroup>
         <EmbeddedResource Include="Resources/**" />
         <EmbeddedResource Remove="Resources/**/*.cs" />
@@ -37,7 +37,7 @@
         <EmbeddedResource Remove="Resources/AssetBundles/*.manifest" />
         <None Remove="Resources/AssetBundles/AssetBundles" />
         <None Remove="Resources/AssetBundles/AssetBundles.manifest" />
-        
+
         <None Update="Resources/AssetBundles/*.manifest">
             <DependentUpon>%(FileName)</DependentUpon>
         </None>
