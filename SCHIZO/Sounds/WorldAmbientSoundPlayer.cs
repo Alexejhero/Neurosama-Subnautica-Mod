@@ -1,4 +1,6 @@
 ﻿using JetBrains.Annotations;
+using Nautilus.Utility;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Sounds;
@@ -10,7 +12,7 @@ partial class WorldAmbientSoundPlayer
 
     private void Awake()
     {
-        _fmodSoundCollection = new FMODSoundCollection(soundCollection, FMODSoundCollection.GetBusPath(bus));
+        _fmodSoundCollection = new FMODSoundCollection(soundCollection, ReflectionHelpers.GetFieldValue<string>(bus));
         ResetTimer();
     }
 

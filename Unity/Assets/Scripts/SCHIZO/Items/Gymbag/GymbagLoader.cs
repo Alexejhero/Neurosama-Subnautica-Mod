@@ -1,6 +1,6 @@
 ﻿namespace SCHIZO.Items.Gymbag
 {
-    public sealed partial class GymbagLoader : ItemLoader
+    public sealed partial class GymbagLoader : CloneItemLoader
     {
     }
 }

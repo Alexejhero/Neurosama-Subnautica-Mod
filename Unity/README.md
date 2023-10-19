@@ -9,3 +9,4 @@ Script icons from Flaticon, made by:
 - Andrejs Kirma
 - DinosoftLabs
 - Kiranshastry
+- Hilmy Abiyyu A.

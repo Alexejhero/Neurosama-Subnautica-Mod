@@ -5,14 +5,14 @@ namespace SCHIZO.Items.Data
     partial class CloneItemData
     {
 #if UNITY_EDITOR
-        private void AssignItemLoader(ItemLoader itemLoader)
+        private void AssignItemLoader(CloneItemLoader cloneItemLoader)
         {
             if (loader)
             {
                 UnityEditor.AssetDatabase.RemoveObjectFromAsset(loader);
             }
 
-            loader = itemLoader;
+            loader = cloneItemLoader;
 
             if (loader)
             {

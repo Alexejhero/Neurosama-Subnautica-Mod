@@ -15,7 +15,12 @@ namespace NaughtyAttributes;
 internal class ExpandableAttribute : Attribute;
 
 [Conditional("NEVER")]
-internal class ShowIfAttribute(string condition) : Attribute;
+internal class ShowIfAttribute(EConditionOperator conditionOperator, params string[] conditions) : Attribute
+{
+    public ShowIfAttribute(string condition) : this(EConditionOperator.Or, condition)
+    {
+    }
+}
 
 [Conditional("NEVER")]
 internal class HideIfAttribute(EConditionOperator conditionOperator, params string[] conditions) : Attribute

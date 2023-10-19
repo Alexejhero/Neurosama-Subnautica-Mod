@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace SCHIZO.Items.Data
 {
-    [CreateAssetMenu(menuName = "SCHIZO/Items/Databank Info")]
-    public sealed class DatabankInfo : ScriptableObject
+    [CreateAssetMenu(menuName = "SCHIZO/Items/PDA Encyclopedia Info")]
+    public sealed class PDAEncyclopediaInfo : ScriptableObject
     {
         [BoxGroup("Scanning")] public float scanTime = 3;
         [BoxGroup("Scanning")] public Sprite unlockSprite;

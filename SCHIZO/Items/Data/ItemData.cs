@@ -12,7 +12,10 @@ partial class ItemData
     public string[] CraftTreePath => RetargetHelpers.Pick(craftTreePathSN, craftTreePathBZ).Split('/');
     public TechGroup TechGroup => (TechGroup) RetargetHelpers.Pick(techGroupSN, techGroupBZ);
     public TechCategory TechCategory => (TechCategory) RetargetHelpers.Pick(techCategorySN, techCategoryBZ);
-    public DatabankInfo DatabankInfo => RetargetHelpers.Pick(databankInfoSN, databankInfoBZ);
+    public PDAEncyclopediaInfo PDAEncyclopediaInfo => RetargetHelpers.Pick(pdaEncyclopediaInfoSN, pdaEncyclopediaInfoBZ);
+    public KnownTechInfo KnownTechInfo => RetargetHelpers.Pick(knownTechInfoSN, knownTechInfoBZ);
+    public bool UnlockAtStart => RetargetHelpers.Pick(unlockAtStartSN, unlockAtStartBZ);
+    public TechType RequiredForUnlock => RetargetHelpers.Pick(requiredForUnlockSN, requiredForUnlockBZ).Convert();
 
     protected override void Register()
     {

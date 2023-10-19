@@ -12,13 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
   m_Name: Neurooper
   m_EditorClassIdentifier: 
-  autoRegister: 1
-  _prefab1: {fileID: 8659870324471520731, guid: 2ffdf31a51c92e34f8d0e239b9ba7fe7,
-    type: 3}
-  _prefab2: {fileID: 8659870324471520731, guid: 2ffdf31a51c92e34f8d0e239b9ba7fe7,
-    type: 3}
   prefab: {fileID: 8659870324471520731, guid: 2ffdf31a51c92e34f8d0e239b9ba7fe7, type: 3}
-  sounds: {fileID: 0}
   classId: Neuroopper2
   displayName: Neurooper
   tooltip: <size=75%>(Model by greencap, original art by Sandro)</size>
@@ -27,13 +21,29 @@ MonoBehaviour:
   isCraftable: 0
   isBuildable: 1
   craftingTime: 2.5
+  registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 80c4f2fcb24f8c94d852011d2b386776, type: 2}
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 13
   techCategorySN: 24
+  pdaEncyclopediaInfoSN: {fileID: 0}
+  knownTechInfoSN: {fileID: 0}
+  unlockAtStartSN: 1
+  requiredForUnlockSN:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
+  registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: 0e9d61d05cb388549a5c61c351ffc42d, type: 2}
   craftTreeTypeBZ: 0
   craftTreePathBZ: 
   techGroupBZ: 12
   techCategoryBZ: 15
+  pdaEncyclopediaInfoBZ: {fileID: 0}
+  knownTechInfoBZ: {fileID: 0}
+  unlockAtStartBZ: 1
+  requiredForUnlockBZ:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}

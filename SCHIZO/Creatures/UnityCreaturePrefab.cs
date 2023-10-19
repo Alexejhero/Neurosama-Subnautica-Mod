@@ -26,9 +26,9 @@ public class UnityCreaturePrefab : UnityPrefab
         if (UnityData.acidImmune) CreatureDataUtils.SetAcidImmune(ModItem);
         if (UnityData.bioReactorCharge > 0) CreatureDataUtils.SetBioreactorCharge(ModItem, UnityData.bioReactorCharge);
 
-        if (UnityData.DatabankInfo)
+        if (UnityData.PDAEncyclopediaInfo)
         {
-            PDAHandler.AddCustomScannerEntry(ModItem, UnityData.DatabankInfo.scanTime, encyclopediaKey: PrefabInfo.ClassID);
+            PDAHandler.AddCustomScannerEntry(ModItem, UnityData.PDAEncyclopediaInfo.scanTime, encyclopediaKey: PrefabInfo.ClassID);
         }
 
         // TODO: loot distribution data

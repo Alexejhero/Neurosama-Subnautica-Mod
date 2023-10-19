@@ -9,12 +9,12 @@ namespace SCHIZO.Items.Data
     public sealed partial class CloneItemData : ItemData
     {
         [BoxGroup("Common Properties"), ReadOnly, Required]
-        public ItemLoader loader;
+        public CloneItemLoader loader;
 
-        [BoxGroup("Subnautica Data"), Label("Clone Target"), SerializeField, UsedImplicitly]
+        [BoxGroup("Subnautica Data"), Label("Clone Target"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN))]
         private TechType_All cloneTargetSN;
 
-        [BoxGroup("Below Zero Data"), Label("Clone Target"), SerializeField, UsedImplicitly]
+        [BoxGroup("Below Zero Data"), Label("Clone Target"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ))]
         private TechType_All cloneTargetBZ;
     }
 }

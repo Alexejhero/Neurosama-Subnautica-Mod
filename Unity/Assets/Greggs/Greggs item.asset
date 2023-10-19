@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
   m_Name: Greggs item
   m_EditorClassIdentifier: 
-  _prefab1: {fileID: 0}
-  _prefab2: {fileID: 0}
-  autoRegister: 1
   prefab: {fileID: 0}
   classId: greggs
   displayName: Greggs
@@ -25,15 +22,29 @@ MonoBehaviour:
   isCraftable: 1
   isBuildable: 0
   craftingTime: 2.5
+  registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 73a5409220efb7b479fcf3a12e43c1cc, type: 2}
   craftTreeTypeSN: 1
   craftTreePathSN: Survival/CookedFood
   techGroupSN: 1
   techCategorySN: 4
-  databankInfoSN: {fileID: 0}
+  pdaEncyclopediaInfoSN: {fileID: 0}
+  knownTechInfoSN: {fileID: 0}
+  unlockAtStartSN: 1
+  requiredForUnlockSN:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
+  registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: 73a5409220efb7b479fcf3a12e43c1cc, type: 2}
   craftTreeTypeBZ: 1
   craftTreePathBZ: Survival/CookedFood
   techGroupBZ: 1
   techCategoryBZ: 3
-  databankInfoBZ: {fileID: 0}
+  pdaEncyclopediaInfoBZ: {fileID: 0}
+  knownTechInfoBZ: {fileID: 0}
+  unlockAtStartBZ: 1
+  requiredForUnlockBZ:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}

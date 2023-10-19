@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using ECCLibrary;
 using Nautilus.Assets;
+using Nautilus.Assets.Gadgets;
 using Nautilus.Handlers;
 using SCHIZO.Items.Data;
 using SCHIZO.Sounds;
@@ -28,7 +30,7 @@ public sealed class ModItem
 
         ItemData = data;
 
-        PrefabInfo = PrefabInfo.WithTechType(data.classId, data.displayName, data.tooltip);
+        PrefabInfo = PrefabInfo.WithTechType(data.classId, data.displayName, data.tooltip, unlockAtStart: false);
         if (data.icon) PrefabInfo.WithIcon(data.icon);
         PrefabInfo.WithSizeInInventory(new Vector2int(data.itemSize.x, data.itemSize.y));
     }
@@ -56,14 +58,41 @@ public sealed class ModItem
             CraftDataHandler.AddToGroup(ItemData.TechGroup, ItemData.TechCategory, this);
         }
 
-        if (ItemData.DatabankInfo)
+        if (ItemData.PDAEncyclopediaInfo)
         {
-            DatabankInfo i = ItemData.DatabankInfo;
+            PDAEncyclopediaInfo i = ItemData.PDAEncyclopediaInfo;
 
             PDAHandler.AddEncyclopediaEntry(PrefabInfo.ClassID, i.encyPath, i.title, i.description.text, i.texture, i.unlockSprite,
                 i.isImportantUnlock ? PDAHandler.UnlockImportant : PDAHandler.UnlockBasic);
 
             if (i.scanSounds) ScanSoundHandler.Register(this, i.scanSounds);
+        }
+
+        if (ItemData.KnownTechInfo)
+        {
+            KnownTechInfo i = ItemData.KnownTechInfo;
+
+            KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
+            {
+                techType = this,
+                unlockTechTypes = new List<TechType>(0),
+                unlockMessage = i.UnlockMessage,
+                unlockSound = i.UnlockSound,
+                unlockPopup = i.unlockSprite
+            });
+        }
+
+        if (ItemData.UnlockAtStart)
+        {
+            KnownTechHandler.UnlockOnStart(this);
+        }
+        else if (ItemData.RequiredForUnlock != TechType.None)
+        {
+            KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
+            {
+                techType = ItemData.RequiredForUnlock,
+                unlockTechTypes = new List<TechType> {this},
+            });
         }
     }
 

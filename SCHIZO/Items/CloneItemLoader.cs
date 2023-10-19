@@ -1,6 +1,6 @@
 namespace SCHIZO.Items;
 
-partial class ItemLoader
+partial class CloneItemLoader
 {
     public abstract void Load();
 }

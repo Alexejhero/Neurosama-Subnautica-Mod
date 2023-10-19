@@ -31,6 +31,20 @@ public class UnityPrefab : CustomPrefab
 
     public static void CreateAndRegister(ModItem modItem)
     {
+#if SUBNAUTICA
+        if (!modItem.ItemData.registerInSN)
+        {
+            LOGGER.LogMessage($"Not registering {modItem.ItemData.classId} in SN");
+            return;
+        }
+#else
+        if (!modItem.ItemData.registerInBZ)
+        {
+            LOGGER.LogMessage($"Not registering {modItem.ItemData.classId} in BZ");
+            return;
+        }
+#endif
+
         if (modItem.ItemData is CloneItemData cloneItemData)
         {
             LOGGER.LogDebug($"Creating prefab {cloneItemData.loader.GetType().Name} for {modItem.ItemData.classId}");
