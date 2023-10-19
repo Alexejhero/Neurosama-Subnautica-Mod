@@ -1,7 +1,8 @@
 using FMOD.Studio;
 using HarmonyLib;
+using BZJukebox = Jukebox;
 
-namespace SCHIZO.Sounds.Jukebox_;
+namespace SCHIZO.Sounds.Jukebox;
 
 [HarmonyPatch]
 public static class NetStreamCompatPatches
@@ -9,7 +10,7 @@ public static class NetStreamCompatPatches
     // the code in this class is dedicated to stopping FMOD/UWE from pausing or seeking the stream
     // netstreams don't support it and will break and start spamming errors in the console and just generally making the game (and UWE's telemetry servers) not have a good time
 
-    internal static bool UpdateStream(Jukebox jukebox)
+    internal static bool UpdateStream(BZJukebox jukebox)
     {
         jukebox._length = 0;
         if (jukebox._paused)
@@ -19,8 +20,8 @@ public static class NetStreamCompatPatches
         }
 
         // manually stop playback instead of letting FMOD pause due to attenuation
-        if (Jukebox.instance && Jukebox.instance.GetSoundPosition(out _, out float minDistance, out _)
-            && minDistance > Jukebox.maxDistance)
+        if (BZJukebox.instance && BZJukebox.instance.GetSoundPosition(out _, out float minDistance, out _)
+            && minDistance > BZJukebox.maxDistance)
         {
             jukebox.StopInternal();
             return false;
@@ -28,9 +29,9 @@ public static class NetStreamCompatPatches
         return true;
     }
 
-    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.SetSnapshotState))]
+    [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.SetSnapshotState))]
     [HarmonyPrefix]
-    public static bool DontMuteBecauseItPauses(Jukebox __instance, EventInstance snapshot, ref bool state, bool value)
+    public static bool DontMuteBecauseItPauses(BZJukebox __instance, EventInstance snapshot, ref bool state, bool value)
     {
         if (!__instance.IsPlayingStream()) return true;
 
@@ -39,7 +40,7 @@ public static class NetStreamCompatPatches
 #pragma warning restore Harmony003 // Harmony non-ref patch parameters modified
     }
 
-    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.volume), MethodType.Setter)]
+    [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.volume), MethodType.Setter)]
     [HarmonyPrefix]
     public static void PreventZeroVolumePause(ref float value)
     {

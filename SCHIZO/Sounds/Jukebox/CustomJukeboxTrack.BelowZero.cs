@@ -3,9 +3,9 @@ using FMOD;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
+using BZJukebox = Jukebox;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Sounds.Jukebox_;
+namespace SCHIZO.Sounds.Jukebox;
 
 public sealed partial class CustomJukeboxTrack
 {
@@ -13,29 +13,29 @@ public sealed partial class CustomJukeboxTrack
 
     public bool IsSoundValid() => sound.hasHandle() && sound.getMode(out _) != RESULT.ERR_INVALID_HANDLE;
 
-    public static implicit operator Jukebox.TrackInfo(CustomJukeboxTrack track)
+    public static implicit operator BZJukebox.TrackInfo(CustomJukeboxTrack track)
     {
         string label = track.trackLabel;
         if (label.Length == 0) label = track.identifier;
         return new() { label = label, length = track.Length };
     }
 
-    public static implicit operator Jukebox.UnlockableTrack(CustomJukeboxTrack track)
-        => EnumHandler.TryGetValue(track.identifier, out Jukebox.UnlockableTrack id) ? id
+    public static implicit operator BZJukebox.UnlockableTrack(CustomJukeboxTrack track)
+        => EnumHandler.TryGetValue(track.identifier, out BZJukebox.UnlockableTrack id) ? id
             : throw new ArgumentException("Track is not registered, cannot convert to Jukebox.UnlockableTrack", nameof(track));
 
     protected override void Register()
     {
         LOGGER.LogDebug($"Registering custom jukebox track {identifier}");
 
-        if (EnumHandler.TryGetValue(identifier, out Jukebox.UnlockableTrack trackId))
+        if (EnumHandler.TryGetValue(identifier, out BZJukebox.UnlockableTrack trackId))
         {
             LOGGER.LogWarning($"Someone else has already registered unlockable track {identifier}! ({trackId} at {(int) trackId})");
             return;
         }
         else
         {
-            if (EnumHandler.TryAddEntry(identifier, out EnumBuilder<Jukebox.UnlockableTrack> registered))
+            if (EnumHandler.TryAddEntry(identifier, out EnumBuilder<BZJukebox.UnlockableTrack> registered))
                 trackId = registered.Value;
             else
             {
@@ -60,14 +60,14 @@ public sealed partial class CustomJukeboxTrack
         track = null;
 
         return identifier is not null
-            && EnumHandler.TryGetValue(identifier, out Jukebox.UnlockableTrack trackId)
+            && EnumHandler.TryGetValue(identifier, out BZJukebox.UnlockableTrack trackId)
             && TryGetCustomTrack(trackId, out track);
     }
 
-    public static bool TryGetCustomTrack(Jukebox.UnlockableTrack trackId, out CustomJukeboxTrack track)
+    public static bool TryGetCustomTrack(BZJukebox.UnlockableTrack trackId, out CustomJukeboxTrack track)
         => CustomJukeboxTrackPatches.customTracks.TryGetValue(trackId, out track);
 
-    internal void SetupUnlock(Jukebox.UnlockableTrack trackId = Jukebox.UnlockableTrack.None)
+    internal void SetupUnlock(BZJukebox.UnlockableTrack trackId = BZJukebox.UnlockableTrack.None)
     {
         if (trackId == default)
             trackId = this;
@@ -80,8 +80,8 @@ public sealed partial class CustomJukeboxTrack
 
         if (unlockedOnStart || !GameModeManager.GetOption<bool>(GameOption.Story))
         {
-            Jukebox.Unlock(trackId, false);
-            Jukebox.main.SetInfo(identifier, this);
+            BZJukebox.Unlock(trackId, false);
+            BZJukebox.main.SetInfo(identifier, this);
         }
         else
         {
@@ -89,7 +89,7 @@ public sealed partial class CustomJukeboxTrack
         }
     }
 
-    internal GameObject SpawnDisk(Jukebox.UnlockableTrack trackId, Vector3 position)
+    internal GameObject SpawnDisk(BZJukebox.UnlockableTrack trackId, Vector3 position)
     {
         bool isDefault = !diskPrefab;
         GameObject prefab = !isDefault ? diskPrefab.gameObject : CustomJukeboxTrackPatches.defaultDiskPrefab;

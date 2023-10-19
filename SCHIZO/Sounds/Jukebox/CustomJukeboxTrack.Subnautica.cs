@@ -1,4 +1,4 @@
-namespace SCHIZO.Sounds.Jukebox_;
+namespace SCHIZO.Sounds.Jukebox;
 
 partial class CustomJukeboxTrack
 {

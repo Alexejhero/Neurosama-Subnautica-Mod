@@ -7,17 +7,18 @@ using HarmonyLib;
 using Nautilus.Utility;
 using UnityEngine;
 using UWE;
+using BZJukebox = Jukebox;
 
-namespace SCHIZO.Sounds.Jukebox_;
+namespace SCHIZO.Sounds.Jukebox;
 
 [HarmonyPatch]
 public static class CustomJukeboxTrackPatches
 {
-    internal static readonly SelfCheckingDictionary<Jukebox.UnlockableTrack, CustomJukeboxTrack> customTracks = new("customTracks");
+    internal static readonly SelfCheckingDictionary<BZJukebox.UnlockableTrack, CustomJukeboxTrack> customTracks = new("customTracks");
 
     internal static GameObject defaultDiskPrefab;
 
-    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.Awake))]
+    [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.Awake))]
     public static class AwakeWorkaround
     {
         // base Awake assumes all unlockable tracks are events
@@ -25,17 +26,17 @@ public static class CustomJukeboxTrackPatches
         [HarmonyPrefix]
         public static void ClearCustomTracks()
         {
-            foreach (Jukebox.UnlockableTrack trackId in customTracks.Keys)
-                Jukebox.unlockableMusic.Remove(trackId);
+            foreach (BZJukebox.UnlockableTrack trackId in customTracks.Keys)
+                BZJukebox.unlockableMusic.Remove(trackId);
         }
         [HarmonyPostfix]
-        public static void AddCustomTracks(Jukebox __instance)
+        public static void AddCustomTracks(BZJukebox __instance)
         {
-            foreach (KeyValuePair<Jukebox.UnlockableTrack, CustomJukeboxTrack> pair in customTracks)
+            foreach (KeyValuePair<BZJukebox.UnlockableTrack, CustomJukeboxTrack> pair in customTracks)
             {
                 CustomJukeboxTrack track = pair.Value;
-                Jukebox.unlockableMusic[pair.Key] = track.identifier;
-                Jukebox.musicLabels[track.identifier] = track.trackLabel; // only read inside Awake but why not
+                BZJukebox.unlockableMusic[pair.Key] = track.identifier;
+                BZJukebox.musicLabels[track.identifier] = track.trackLabel; // only read inside Awake but why not
                 __instance._info[track.identifier] = track;
             }
             if (!defaultDiskPrefab) CoroutineHost.StartCoroutine(GetJukeboxDiskPrefab());
@@ -60,9 +61,9 @@ public static class CustomJukeboxTrackPatches
         customTracks.ForEach(pair => pair.Value.SetupUnlock(pair.Key));
     }
 
-    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.ScanInternal))]
+    [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.ScanInternal))]
     [HarmonyPostfix]
-    public static void RestoreCustomTrackInfoAfterScan(Jukebox __instance)
+    public static void RestoreCustomTrackInfoAfterScan(BZJukebox __instance)
     {
         // base ScanInternal cleans _info of all non-event TrackInfo objects
 
@@ -72,9 +73,9 @@ public static class CustomJukeboxTrackPatches
         }
     }
 
-    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.UpdateLowLevel))]
+    [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.UpdateLowLevel))]
     [HarmonyPrefix]
-    public static bool AllowPlayingCustomTracks(Jukebox __instance)
+    public static bool AllowPlayingCustomTracks(BZJukebox __instance)
     {
         if (!__instance.IsTrackCustom(out CustomJukeboxTrack track)) return true;
 
@@ -85,46 +86,46 @@ public static class CustomJukeboxTrackPatches
         return false;
     }
 
-    private static void InitCustomTrack(Jukebox jukebox, CustomJukeboxTrack track)
+    private static void InitCustomTrack(BZJukebox jukebox, CustomJukeboxTrack track)
     {
         if (!track.IsSoundValid())
         {
             if (track.IsRemote)
-                Jukebox.ERRCHECK(RuntimeManager.CoreSystem.createSound(track.URL, MODE._3D | MODE.CREATESTREAM | MODE.NONBLOCKING | MODE._3D_LINEARSQUAREROLLOFF, ref jukebox._exinfo, out track.sound));
+                BZJukebox.ERRCHECK(RuntimeManager.CoreSystem.createSound(track.URL, MODE._3D | MODE.CREATESTREAM | MODE.NONBLOCKING | MODE._3D_LINEARSQUAREROLLOFF, ref jukebox._exinfo, out track.sound));
             else
                 track.sound = AudioUtils.CreateSound(track.audioClip, AudioUtils.StandardSoundModes_3D);
         }
         jukebox._sound = track.sound;
     }
 
-    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.HandleOpenError))]
+    [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.HandleOpenError))]
     [HarmonyPrefix]
-    public static void RemoveErroringTrack(Jukebox __instance)
+    public static void RemoveErroringTrack(BZJukebox __instance)
     {
         if (!__instance.IsTrackCustom(out CustomJukeboxTrack track)) return;
 
         LOGGER.LogError($"Could not load track '{track.identifier}' from {track.URL}, removing track from playlist");
         __instance._playlist.Remove(track.identifier);
-        Jukebox.UnlockableTrack trackId = track;
-        Jukebox.unlockableMusic.Remove(trackId);
+        BZJukebox.UnlockableTrack trackId = track;
+        BZJukebox.unlockableMusic.Remove(trackId);
         Player.main.unlockedTracks.Remove(trackId);
         // customTracks.Remove(trackId);
     }
 
-    [HarmonyPatch(typeof(Jukebox), nameof(Jukebox.UpdateInfo))]
+    [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.UpdateInfo))]
     [HarmonyPrefix]
-    public static bool DisplayInfoForCustomTracks(Jukebox __instance)
+    public static bool DisplayInfoForCustomTracks(BZJukebox __instance)
     {
         if (!__instance.IsTrackCustom(out CustomJukeboxTrack track)) return true;
 
         __instance._sound.getOpenState(out OPENSTATE state, out _, out _, out _);
-        bool hasInfo = __instance._info.TryGetValue(track.identifier, out Jukebox.TrackInfo info);
+        bool hasInfo = __instance._info.TryGetValue(track.identifier, out BZJukebox.TrackInfo info);
 
         // streams can have their info change during playback
         bool assignOnce = track.IsLocal || track.overrideTrackLabel;
         if (hasInfo && assignOnce) return true;
 
-        Jukebox.TrackInfo newInfo = (Jukebox.TrackInfo) track;
+        BZJukebox.TrackInfo newInfo = (BZJukebox.TrackInfo) track;
         if (assignOnce)
         {
             //LOGGER.LogWarning($"Set info from asset - ({newInfo.label},{newInfo.length})");
@@ -166,13 +167,13 @@ public static class CustomJukeboxTrackPatches
 
 public static class JukeboxExtensions
 {
-    public static bool IsTrackCustom(this Jukebox jukebox, out CustomJukeboxTrack track)
+    public static bool IsTrackCustom(this BZJukebox jukebox, out CustomJukeboxTrack track)
         => CustomJukeboxTrack.TryGetCustomTrack(jukebox._file, out track);
 
     public static bool IsTrackCustom(this JukeboxInstance jukebox, out CustomJukeboxTrack track)
         => CustomJukeboxTrack.TryGetCustomTrack(jukebox._file, out track);
 
-    public static bool IsPlayingStream(this Jukebox jukebox)
+    public static bool IsPlayingStream(this BZJukebox jukebox)
         => IsTrackCustom(jukebox, out CustomJukeboxTrack track) && track.isStream;
     public static bool IsPlayingStream(this JukeboxInstance jukebox)
         => IsTrackCustom(jukebox, out CustomJukeboxTrack track) && track.isStream;

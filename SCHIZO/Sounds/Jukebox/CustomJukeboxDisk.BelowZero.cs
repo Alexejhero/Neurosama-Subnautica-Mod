@@ -1,10 +1,10 @@
 using System.Text;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using Story;
 using UnityEngine;
 
-namespace SCHIZO.Sounds.Jukebox_;
+namespace SCHIZO.Sounds.Jukebox;
+
 partial class CustomJukeboxDisk
 {
     public CustomJukeboxTrack _track;

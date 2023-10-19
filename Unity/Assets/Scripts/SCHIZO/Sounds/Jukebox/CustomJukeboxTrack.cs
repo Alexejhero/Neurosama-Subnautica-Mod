@@ -4,8 +4,7 @@ using SCHIZO.Registering;
 using System;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Sounds.Jukebox_
+namespace SCHIZO.Sounds.Jukebox
 {
     [CreateAssetMenu(menuName = "SCHIZO/Sounds/Jukebox Track")]
     public sealed partial class CustomJukeboxTrack : ModRegistryItem

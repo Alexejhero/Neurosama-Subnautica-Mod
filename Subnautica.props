@@ -17,11 +17,7 @@
         <Compile Remove="**/*.BelowZero.cs" />
 
         <Compile Update="**/*.Subnautica.cs">
-            <DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '^(.*)\.(.*)$', '$1')).cs</DependentUpon>
+<!--            <DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '^(.*)\.(.*)$', '$1')).cs</DependentUpon>-->
         </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Remove="BelowZero.props" />
     </ItemGroup>
 </Project>
