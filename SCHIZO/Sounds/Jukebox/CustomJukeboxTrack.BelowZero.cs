@@ -95,23 +95,29 @@ public sealed partial class CustomJukeboxTrack
         }
     }
 
-    internal GameObject SpawnDisk(BZJukebox.UnlockableTrack trackId, Vector3 position)
+    private GameObject SpawnDisk(BZJukebox.UnlockableTrack trackId, Vector3 position)
     {
-        bool isDefault = !diskPrefab;
-        GameObject prefab = !isDefault ? diskPrefab.gameObject : CustomJukeboxTrackPatches.defaultDiskPrefab;
-
-        GameObject disk = Instantiate(prefab);
+        GameObject disk = Instantiate(CustomJukeboxTrackPatches.defaultDiskPrefab);
         disk.transform.position = position;
 
-        if (isDefault) Destroy(disk.GetComponent<JukeboxDisk>());
+        if (diskPrefab)
+        {
+            Renderer[] renderers = disk.GetComponentsInChildren<Renderer>();
+            renderers.ForEach(r => r.gameObject.SetActive(false));
+
+            GameObject customModel = Instantiate(diskPrefab, disk.transform, false);
+            customModel.transform.localPosition = Vector3.zero;
+
+            MaterialUtils.ApplySNShaders(disk, 1);
+        }
+
+        Destroy(disk.GetComponent<JukeboxDisk>());
 
         CustomJukeboxDisk diskComp = disk.EnsureComponent<CustomJukeboxDisk>();
         diskComp.track = trackId;
         diskComp.unlockSound = unlockSound;
 
         disk.GetComponent<LargeWorldEntity>().enabled = false; // don't save
-
-        if (!isDefault) MaterialUtils.ApplySNShaders(disk, 1);
 
         return disk;
     }

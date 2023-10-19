@@ -15,7 +15,7 @@ MonoBehaviour:
   identifier: SeishunComplex
   source: 0
   audioClip: {fileID: 8300000, guid: c432a6b3a5c9a6543b0f23667c4af264, type: 3}
-  URL: 
+  url: 
   isStream: 0
   overrideTrackLabel: 0
   trackLabel:

@@ -52,7 +52,7 @@ namespace SCHIZO.Sounds.Jukebox
 
         [BoxGroup("Unlock"), HideIf(nameof(unlockedOnStart)), UsedImplicitly]
         [InfoBox("If not set, the disk will use the base game model.")]
-        public CustomJukeboxDisk diskPrefab;
+        public GameObject diskPrefab;
 
         [BoxGroup("Unlock"), HideIf(nameof(unlockedOnStart)), UsedImplicitly]
         public Vector3 diskSpawnLocation;
