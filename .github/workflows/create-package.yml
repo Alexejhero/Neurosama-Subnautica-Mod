@@ -37,7 +37,7 @@ jobs:
     - name: Create release archive
       run: |
           cd Install/${{ matrix.configuration }}
-          zip -r9 ../SCHIZO-${{ matrix.configuration }}-mod-only.zip BepInEx/plugins/SCHIZO/*
+          cp BepInEx/plugins/SCHIZO/SCHIZO.dll ../SCHIZO-${{ matrix.configuration }}.dll
           zip -r9 ../SCHIZO-${{ matrix.configuration }}-with-dependencies.zip *
           cd ../Common
           zip -r9 ../SCHIZO-${{ matrix.configuration }}-with-dependencies.zip *
@@ -47,7 +47,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Release-${{ matrix.configuration }}
-        path: Install/SCHIZO-${{ matrix.configuration }}-*.zip
+        path: Install/SCHIZO-${{ matrix.configuration }}*
 
     - name: Update the release
       if: ${{ !env.ACT }}
@@ -55,4 +55,4 @@ jobs:
       with:
         files: |
           Install/SCHIZO-${{ matrix.configuration }}-with-dependencies.zip
-          Install/SCHIZO-${{ matrix.configuration }}-mod-only.zip
+          Install/SCHIZO-${{ matrix.configuration }}.dll

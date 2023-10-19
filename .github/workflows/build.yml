@@ -35,4 +35,4 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: SCHIZO-${{ matrix.configuration }}
-        path: SCHIZO/bin/${{ matrix.configuration }}/net472/SCHIZO*.dll
+        path: SCHIZO/bin/${{ matrix.configuration }}/net472/SCHIZO.dll
