@@ -15,9 +15,9 @@ namespace PropertyDrawers
             position = EditorGUI.PrefixLabel(position, DrawerUtils.ControlId(property.propertyPath + "label", position), label);
 
             string targetTypeName = ((ExposedTypeAttribute) attribute).typeName;
-            Type actualFieldType = AccessTools.Field(property.serializedObject.targetObject.GetType(), property.name).FieldType;
+            Type actualFieldType = ReflectionCache.GetField(property.serializedObject.targetObject.GetType(), property.name).FieldType;
 
-            if (!(AccessTools.TypeByName(targetTypeName) is Type targetType))
+            if (!(ReflectionCache.GetType(targetTypeName) is Type targetType))
             {
                 GUI.Label(position, "Unknown target type");
             }
