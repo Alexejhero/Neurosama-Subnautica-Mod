@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using FMOD;
 using FMODUnity;
 using HarmonyLib;
-using JetBrains.Annotations;
 using Nautilus.Utility;
 using UnityEngine;
 using UWE;
@@ -19,19 +18,36 @@ public static class CustomJukeboxTrackPatches
 
     internal static GameObject defaultDiskPrefab;
 
+    static CustomJukeboxTrackPatches()
+    {
+        CoroutineHost.StartCoroutine(GetJukeboxDiskPrefab());
+    }
+    private static IEnumerator GetJukeboxDiskPrefab()
+    {
+        if (defaultDiskPrefab) yield break;
+        // const string diskClassId = "5108080f-242b-49e8-9b91-d01d6bbe138c";
+        const string diskPrefabPath = "Misc/JukeboxDisk8.prefab";
+        IPrefabRequest request = PrefabDatabase.GetPrefabForFilenameAsync(diskPrefabPath);
+        yield return request;
+
+        if (!request.TryGetPrefab(out defaultDiskPrefab))
+            LOGGER.LogError("Could not get prefab for jukebox disk!");
+        LOGGER.LogDebug("Loaded default prefab for custom tracks");
+    }
+
     [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.Awake))]
     public static class AwakeWorkaround
     {
         // base Awake assumes all unlockable tracks are events
         // so we need to add ours afterwards (and remove them on game unload)
-        [HarmonyPrefix, UsedImplicitly]
+        [HarmonyPrefix]
         public static void ClearCustomTracks()
         {
             foreach (BZJukebox.UnlockableTrack trackId in customTracks.Keys)
                 BZJukebox.unlockableMusic.Remove(trackId);
         }
 
-        [HarmonyPostfix, UsedImplicitly]
+        [HarmonyPostfix]
         public static void AddCustomTracks(BZJukebox __instance)
         {
             foreach (KeyValuePair<BZJukebox.UnlockableTrack, CustomJukeboxTrack> pair in customTracks)
@@ -40,22 +56,16 @@ public static class CustomJukeboxTrackPatches
 
                 BZJukebox.unlockableMusic[pair.Key] = track.identifier;
                 BZJukebox.musicLabels[track.identifier] = track.trackLabel; // only read inside Awake but why not
-                __instance._info[track.identifier] = track;
+                __instance._info[track.identifier] = track.ToTrackInfo(false);
             }
-
-            if (!defaultDiskPrefab) CoroutineHost.StartCoroutine(GetJukeboxDiskPrefab());
         }
     }
 
-    private static IEnumerator GetJukeboxDiskPrefab()
+    [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.Start))]
+    [HarmonyPostfix]
+    public static void EnableRichText(JukeboxInstance __instance)
     {
-        // const string diskClassId = "5108080f-242b-49e8-9b91-d01d6bbe138c";
-        const string diskPrefabPath = "Misc/JukeboxDisk8.prefab";
-        IPrefabRequest request = PrefabDatabase.GetPrefabForFilenameAsync(diskPrefabPath);
-        yield return request;
-
-        if (!request.TryGetPrefab(out defaultDiskPrefab))
-            throw new Exception("Could not get prefab for jukebox disk!");
+        __instance.textFile.richText = true;
     }
 
     [HarmonyPatch(typeof(IntroVignette), nameof(IntroVignette.OnDone))]
@@ -67,14 +77,16 @@ public static class CustomJukeboxTrackPatches
     }
 
     [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.ScanInternal))]
+    [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.ReleaseInstance))]
     [HarmonyPostfix]
     public static void RestoreCustomTrackInfoAfterScan(BZJukebox __instance)
     {
         // base ScanInternal cleans _info of all non-event TrackInfo objects
+        // we also want to clean up labels from stream metadata on "instance release" (= on stop)
 
         foreach (CustomJukeboxTrack track in customTracks.Values)
         {
-            __instance._info[track.identifier] = track;
+            __instance._info[track.identifier] = track.ToTrackInfo(false);
         }
     }
 
@@ -84,42 +96,53 @@ public static class CustomJukeboxTrackPatches
     {
         if (!__instance.IsTrackCustom(out CustomJukeboxTrack track)) return true;
 
-        if (track.IsSoundValid())
-            return !track.isStream || NetStreamCompatPatches.UpdateStream(__instance);
-
+        if (track.IsSoundValid(out OPENSTATE state))
+        {
+            if (state == OPENSTATE.PLAYING) track.OnPlay();
+            return !track.isStream || NetStreamCompatPatches.UpdateStream(__instance, track);
+        }
+        if ((int)state != -1)
+        {
+            LOGGER.LogWarning($"Init track from {state}, this is unusual");
+        }
         InitCustomTrack(__instance, track);
         return false;
     }
 
     private static void InitCustomTrack(BZJukebox jukebox, CustomJukeboxTrack track)
     {
-        if (!track.IsSoundValid())
+        track.sound.release();
+        track.sound.clearHandle();
+        if (track.IsRemote)
         {
-            if (track.IsRemote)
-            {
-                RESULT result = RuntimeManager.CoreSystem.createSound(track.url, MODE._3D | MODE.CREATESTREAM | MODE.NONBLOCKING | MODE._3D_LINEARSQUAREROLLOFF, ref jukebox._exinfo, out track.sound);
-                BZJukebox.ERRCHECK(result);
-            }
-            else
-            {
-                track.sound = AudioUtils.CreateSound(track.audioClip, AudioUtils.StandardSoundModes_3D);
-            }
+            RESULT result = RuntimeManager.CoreSystem.createSound(track.url, MODE._3D | MODE.CREATESTREAM | MODE.NONBLOCKING | MODE._3D_LINEARSQUAREROLLOFF, ref jukebox._exinfo, out track.sound);
+            BZJukebox.ERRCHECK(result);
+        }
+        else
+        {
+            track.sound = AudioUtils.CreateSound(track.audioClip, AudioUtils.StandardSoundModes_3D | MODE.NONBLOCKING);
         }
         jukebox._sound = track.sound;
     }
 
     [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.HandleOpenError))]
     [HarmonyPrefix]
-    public static void RemoveErroringTrack(BZJukebox __instance)
+    public static bool RemoveErroringTrack(BZJukebox __instance)
     {
-        if (!__instance.IsTrackCustom(out CustomJukeboxTrack track)) return;
+        if (!__instance.IsTrackCustom(out CustomJukeboxTrack track)) return true;
 
-        LOGGER.LogError($"Could not load track '{track.identifier}' from {track.url}, removing track from playlist");
+        track.OnLoadFail();
+        if (track.ShouldRetryLoad)
+        {
+            LOGGER.LogWarning($"Custom track handle got released, force-recreating the sound");
+            InitCustomTrack(__instance, track);
+            return false;
+        }
+        LOGGER.LogError($"Could not load track '{track.identifier}'{(track.IsRemote ? $" from {track.url}" : "")}, removing from playlist");
         __instance._playlist.Remove(track.identifier);
-        BZJukebox.UnlockableTrack trackId = track;
-        BZJukebox.unlockableMusic.Remove(trackId);
-        Player.main.unlockedTracks.Remove(trackId);
-        // customTracks.Remove(trackId);
+        BZJukebox.unlockableMusic.Remove(track);
+
+        return true;
     }
 
     [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.UpdateInfo))]
@@ -128,36 +151,55 @@ public static class CustomJukeboxTrackPatches
     {
         if (!__instance.IsTrackCustom(out CustomJukeboxTrack track)) return true;
 
-        __instance._sound.getOpenState(out OPENSTATE state, out _, out _, out _);
         bool hasInfo = __instance._info.TryGetValue(track.identifier, out BZJukebox.TrackInfo info);
 
         // streams can have their info change during playback
         bool assignOnce = track.IsLocal || track.overrideTrackLabel;
         if (hasInfo && assignOnce) return true;
 
-        BZJukebox.TrackInfo newInfo = (BZJukebox.TrackInfo) track;
+        BZJukebox.TrackInfo newInfo = track.ToTrackInfo(true);
         if (assignOnce)
         {
-            //LOGGER.LogWarning($"Set info from asset - ({newInfo.label},{newInfo.length})");
+            //LOGGER.LogWarning($"Set info from asset/remote - ({newInfo.label},{newInfo.length})");
             __instance.SetInfo(track.identifier, newInfo);
             return false;
         }
+        if (!track.IsSoundValid(out OPENSTATE state))
+        {
+            LOGGER.LogWarning($"Stream suddenly became invalid!\nOPENSTATE: {state};\nhas handle: {track.sound.hasHandle()};\nRESULT: {track.sound.getMode(out _)}");
+            __instance.StopInternal();
+            return false;
+        }
 
-        if (state is OPENSTATE.READY or OPENSTATE.PLAYING)
+        if (state is OPENSTATE.PLAYING)
         {
             __instance.TryGetArtistAndTitle(__instance._sound, out string artist, out string title);
             if (!track.isStream) __instance._sound.getLength(out newInfo.length, TIMEUNIT.MS);
 
-            if (title is null or "") title = newInfo.label;
-            newInfo.label = new CustomJukeboxTrack.TrackLabel { artist = artist, title = title };
+            string newLabel = CustomJukeboxTrack.GetTrackLabel(artist, title);
+            newInfo.label = newLabel is null or ""
+                ? track.trackLabel
+                : track.FormatTrackLabel(newLabel, true);
 
             if (info.label != newInfo.label)
             {
-                //LOGGER.LogWarning($"Set info from remote - ({newInfo.label},{newInfo.length})");
+                //LOGGER.LogWarning($"Set info from stream - ({newInfo.label},{newInfo.length})");
                 __instance.SetInfo(track.identifier, newInfo);
             }
         }
         return false;
+    }
+
+    [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.HandleLooping))]
+    [HarmonyPostfix]
+    public static void DontAutoSwitchToStreams(BZJukebox __instance)
+    {
+        if (__instance._repeat != BZJukebox.Repeat.All) return;
+
+        while (__instance.IsPlayingStream(out _))
+        {
+            __instance.HandleLooping();
+        }
     }
 
     [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.file), MethodType.Setter)]
@@ -168,10 +210,29 @@ public static class CustomJukeboxTrackPatches
 
         // can't seek streams
         __instance.SetPositionKnobVisible(!track.isStream);
-        // reset track info
-        __instance.SetLabel(track.trackLabel);
-        uint length = track.Length;
-        if (length > 0) __instance.SetLength(length);
+    }
+
+    //[HarmonyPatch(typeof(File), nameof(File.Exists))]
+    //[HarmonyPostfix]
+    public static void DebugStuff(string path)
+    {
+        if (path is null or "") return;
+
+        BZJukebox jukebox = BZJukebox.main;
+        if (!jukebox || !jukebox.IsTrackCustom(out CustomJukeboxTrack track)) return;
+        if (!path.EndsWith(track.identifier)) return;
+
+        bool handle = track.sound.hasHandle();
+        OPENSTATE state = (OPENSTATE) (-1);
+        RESULT res = handle
+            ? track.sound.getOpenState(out state, out _, out _, out _)
+            : RESULT.ERR_INVALID_HANDLE;
+
+        LOGGER.LogError($"""
+            dinkDonk Developer! You forgor a {track.identifier}!
+            {StackTraceUtility.ExtractStackTrace()}
+            handle: {handle}, state: {state} ({res})
+            """);
     }
 }
 
@@ -179,12 +240,11 @@ public static class JukeboxExtensions
 {
     public static bool IsTrackCustom(this BZJukebox jukebox, out CustomJukeboxTrack track)
         => CustomJukeboxTrack.TryGetCustomTrack(jukebox._file, out track);
-
     public static bool IsTrackCustom(this JukeboxInstance jukebox, out CustomJukeboxTrack track)
         => CustomJukeboxTrack.TryGetCustomTrack(jukebox._file, out track);
 
-    public static bool IsPlayingStream(this BZJukebox jukebox)
-        => IsTrackCustom(jukebox, out CustomJukeboxTrack track) && track.isStream;
-    public static bool IsPlayingStream(this JukeboxInstance jukebox)
-        => IsTrackCustom(jukebox, out CustomJukeboxTrack track) && track.isStream;
+    public static bool IsPlayingStream(this BZJukebox jukebox, out CustomJukeboxTrack track)
+        => IsTrackCustom(jukebox, out track) && track.isStream;
+    public static bool IsPlayingStream(this JukeboxInstance jukebox, out CustomJukeboxTrack track)
+        => IsTrackCustom(jukebox, out track) && track.isStream;
 }

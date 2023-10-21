@@ -1,4 +1,5 @@
 using System.Text;
+using FMODUnity;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
@@ -7,12 +8,10 @@ namespace SCHIZO.Jukebox;
 
 public sealed class CustomJukeboxDisk : JukeboxDisk
 {
-    private CustomJukeboxTrack _track;
     public AudioClip unlockSound;
 
     public new void Start()
     {
-        if (_track) track = _track;
         if (track == default) LOGGER.LogWarning($"Jukebox disk {name} at {transform.position} was not assigned a track");
 
         // the lore is that when you pick up a disk, AL-AN plays a snippet of it in your head
@@ -25,7 +24,9 @@ public sealed class CustomJukeboxDisk : JukeboxDisk
 
             if (!CustomSoundHandler.TryGetCustomSound(guid, out _))
             {
-                CustomSoundHandler.RegisterCustomSound(guid, unlockSound, "bus:/master/SFX_for_pause/PDA_pause/jukebox", AudioUtils.StandardSoundModes_2D);
+                const string BUS = "bus:/master/SFX_for_pause/PDA_pause/all";
+                CustomSoundHandler.RegisterCustomSound(guid, unlockSound, BUS, AudioUtils.StandardSoundModes_2D);
+                RuntimeManager.GetBus(BUS).unlockChannelGroup();
             }
 
             acquireSound = AudioUtils.GetFmodAsset(guid);

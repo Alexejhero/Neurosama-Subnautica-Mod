@@ -17,13 +17,6 @@ namespace SCHIZO.Jukebox
             Internet
         }
 
-        [Serializable]
-        public partial struct TrackLabel
-        {
-            public string artist;
-            public string title;
-        }
-
         [Careful, ValidateInput(nameof(Validate_identifier), "Identifier must not be empty")]
         public string identifier;
 
@@ -36,16 +29,20 @@ namespace SCHIZO.Jukebox
         [FormerlySerializedAs("URL"), ShowIf(nameof(IsRemote)), ValidateInput(nameof(Validate_urlIsHttp), "Must be an HTTP address. HTTPS does not work!"), Label("URL")]
         public string url;
 
-        [Tooltip("Whether to handle the audio like an endless stream, e.g. internet radio.\nIn-game, this will hide duration and disable seeking.")]
         [ShowIf(nameof(IsRemote))]
+        [Tooltip("Whether to handle the audio like an endless stream, e.g. internet radio.\nIn-game, this will hide duration and disable seeking.")]
         public bool isStream;
 
-        [InfoBox("If not overridden, the remote file or stream's metadata (if any) will be used.")]
+        [BoxGroup("Track Info"), ShowIf(nameof(isStream))]
+        [Multiline, InfoBox("Use {0} as a placeholder for the track label.\nTextMeshPro rich text tags are supported.")]
+        public string streamLabelFormat;
+
         [BoxGroup("Track Info"), ShowIf(nameof(IsRemote))]
+        [InfoBox("If not overridden, the remote file or stream's metadata (if any) will be used.")]
         public bool overrideTrackLabel;
 
         [BoxGroup("Track Info")]
-        public TrackLabel trackLabel;
+        public string trackLabel;
 
         [BoxGroup("Unlock")]
         public bool unlockedOnStart = true;

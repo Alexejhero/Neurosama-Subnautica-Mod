@@ -9,23 +9,36 @@ namespace SCHIZO.Jukebox;
 
 public sealed partial class CustomJukeboxTrack
 {
-    public partial struct TrackLabel
-    {
-        public override string ToString() => string.IsNullOrEmpty(artist) ? title : $"{artist} - {title}";
-        public static implicit operator string(TrackLabel trackLabel) => trackLabel.ToString();
-    }
-
     public uint Length => audioClip ? (uint) audioClip.length * 1000 : 0;
 
     internal Sound sound;
+    public int LoadFailCount { get; private set; }
+    public void OnLoadFail() => LoadFailCount++;
+    public void OnPlay() => LoadFailCount = 0;
+    public bool ShouldRetryLoad => IsLocal || LoadFailCount < 3;
 
-    public bool IsSoundValid() => sound.hasHandle() && sound.getMode(out _) != RESULT.ERR_INVALID_HANDLE;
-
-    public static implicit operator BZJukebox.TrackInfo(CustomJukeboxTrack track)
+    public bool IsSoundValid(out OPENSTATE state)
     {
-        string label = track.trackLabel;
-        if (label.Length == 0) label = track.identifier;
-        return new BZJukebox.TrackInfo { label = label, length = track.Length };
+        state = (OPENSTATE)(-1);
+        RESULT res = sound.hasHandle()
+            ? sound.getOpenState(out state, out _, out _, out _)
+            : RESULT.ERR_INVALID_HANDLE;
+        return !res.ToString().StartsWith("ERR"); // oh yeah it's big brain time
+    }
+
+    public static string GetTrackLabel(string artist, string title)
+        => string.IsNullOrEmpty(artist) ? title : $"{artist} - {title}";
+
+    public string FormatTrackLabel(string label, bool isPlaying = false)
+        => isStream && isPlaying && !string.IsNullOrEmpty(streamLabelFormat)
+            ? string.Format(streamLabelFormat, label)
+            : label;
+
+    public BZJukebox.TrackInfo ToTrackInfo(bool isPlaying = false)
+    {
+        string label = FormatTrackLabel(trackLabel, isPlaying);
+        if (label.Length == 0) label = identifier;
+        return new BZJukebox.TrackInfo { label = label, length = Length };
     }
 
     public static implicit operator BZJukebox.UnlockableTrack(CustomJukeboxTrack track)
@@ -87,7 +100,7 @@ public sealed partial class CustomJukeboxTrack
         if (unlockedOnStart || !GameModeManager.GetOption<bool>(GameOption.Story))
         {
             BZJukebox.Unlock(trackId, false);
-            BZJukebox.main.SetInfo(identifier, this);
+            BZJukebox.main.SetInfo(identifier, ToTrackInfo(false));
         }
         else
         {
@@ -119,6 +132,7 @@ public sealed partial class CustomJukeboxTrack
 
         disk.GetComponent<LargeWorldEntity>().enabled = false; // don't save
 
+        LOGGER.LogDebug($"Spawned disk for {trackId} at {position}");
         return disk;
     }
 }

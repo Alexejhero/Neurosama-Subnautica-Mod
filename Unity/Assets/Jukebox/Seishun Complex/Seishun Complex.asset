@@ -17,10 +17,9 @@ MonoBehaviour:
   audioClip: {fileID: 8300000, guid: c432a6b3a5c9a6543b0f23667c4af264, type: 3}
   url: 
   isStream: 0
+  streamTitleFormat: 
   overrideTrackLabel: 0
-  trackLabel:
-    artist: Neuro-sama ft. anny
-    title: Seishun Complex (cover)
+  trackLabel: Neuro-sama ft. anny - Seishun Complex (cover)
   unlockedOnStart: 0
   diskPrefab: {fileID: 0}
   diskSpawnLocation: {x: -326, y: 14.21, z: 255}
