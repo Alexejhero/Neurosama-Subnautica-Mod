@@ -399,6 +399,15 @@ namespace PropertyDrawers
             }
         }
 
+        private readonly Dictionary<(string entry, string propertyPath), bool> _isValueAcceptableCache = new Dictionary<(string entry, string propertyPath), bool>();
+        private bool IsValueAcceptableCached(string entry, string propPath)
+        {
+            if (_isValueAcceptableCache.TryGetValue((entry, propPath), out bool result)) return result;
+            result = TechType_AllDrawer.IsValueAcceptable(entry, propPath);
+            _isValueAcceptableCache.Add((entry, propPath), result);
+            return result;
+        }
+
         private void DrawSelectionArea(Rect scrollRect)
         {
             Rect contentRect = new Rect(0, 0,
@@ -422,7 +431,8 @@ namespace PropertyDrawers
                     scroll.x = 0;
                 }
 
-                if (rowRect.Contains(Event.current.mousePosition) && TechType_AllDrawer.IsValueAcceptable(list.Entries[i].ItemName, propertyPath))
+                if (rowRect.Contains(Event.current.mousePosition) && (IsValueAcceptableCached(list.Entries[i].ItemName, propertyPath) ||
+                    Event.current.shift))
                 {
                     if (Event.current.type == EventType.MouseMove ||
                         Event.current.type == EventType.ScrollWheel)
@@ -453,7 +463,7 @@ namespace PropertyDrawers
             labelRect.xMin += ROW_INDENT;
 
             Color oldColor = GUI.contentColor;
-            if (!TechType_AllDrawer.IsValueAcceptable(list.Entries[i].ItemName, propertyPath)) GUI.contentColor = Color.gray;
+            if (!IsValueAcceptableCached(list.Entries[i].ItemName, propertyPath)) GUI.contentColor = Color.gray;
 
             GUI.Label(labelRect, list.Entries[i].Text);
 
@@ -469,7 +479,17 @@ namespace PropertyDrawers
             {
                 if (Event.current.keyCode == KeyCode.DownArrow)
                 {
-                    hoverIndex = Mathf.Min(list.Entries.Count - 1, hoverIndex + 1);
+                    int tempHoverIndex = hoverIndex;
+                    while (tempHoverIndex < list.Entries.Count - 1)
+                    {
+                        tempHoverIndex++;
+                        if (IsValueAcceptableCached(list.Entries[tempHoverIndex].ItemName, propertyPath) || Event.current.shift)
+                        {
+                            hoverIndex = tempHoverIndex;
+                            break;
+                        }
+                    }
+
                     Event.current.Use();
                     scrollToIndex = hoverIndex;
                     scrollOffset = ROW_HEIGHT;
@@ -477,7 +497,18 @@ namespace PropertyDrawers
 
                 if (Event.current.keyCode == KeyCode.UpArrow)
                 {
-                    hoverIndex = Mathf.Max(0, hoverIndex - 1);
+                    int tempHoverIndex = hoverIndex;
+                    while (tempHoverIndex > 0)
+                    {
+                        tempHoverIndex--;
+                        if (IsValueAcceptableCached(list.Entries[tempHoverIndex].ItemName, propertyPath) ||
+                            Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                        {
+                            hoverIndex = tempHoverIndex;
+                            break;
+                        }
+                    }
+
                     Event.current.Use();
                     scrollToIndex = hoverIndex;
                     scrollOffset = -ROW_HEIGHT;

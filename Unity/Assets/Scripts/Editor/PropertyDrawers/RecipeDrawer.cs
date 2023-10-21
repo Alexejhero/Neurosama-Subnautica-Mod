@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SCHIZO.Enums;
+﻿using SCHIZO.Enums;
 using SCHIZO.Items.Data.Crafting;
 using UnityEditor;
 using UnityEngine;
@@ -9,9 +8,6 @@ namespace PropertyDrawers
     [CustomPropertyDrawer(typeof(Recipe))]
     public sealed class RecipeDrawer : PropertyDrawer
     {
-        public static List<int> SubnauticaRecipes = new List<int>();
-        public static List<int> BelowZeroRecipes = new List<int>();
-
         private static bool IsOk(SerializedProperty property)
         {
             if (!property.objectReferenceValue) return true;
@@ -19,8 +15,8 @@ namespace PropertyDrawers
             int instanceId = property.objectReferenceInstanceIDValue;
             Recipe recipe = (Recipe) property.objectReferenceValue;
 
-            if (SubnauticaRecipes.Contains(instanceId) && property.name.ToLower().Contains("sn") && !recipe.game.HasFlag(Game.Subnautica)) return false;
-            if (BelowZeroRecipes.Contains(instanceId) && property.name.ToLower().Contains("bz") && !recipe.game.HasFlag(Game.BelowZero)) return false;
+            if (property.propertyPath.ToLower().Contains("sn") && !recipe.game.HasFlag(Game.Subnautica)) return false;
+            if (property.propertyPath.ToLower().Contains("bz") && !recipe.game.HasFlag(Game.BelowZero)) return false;
             return true;
         }
 
