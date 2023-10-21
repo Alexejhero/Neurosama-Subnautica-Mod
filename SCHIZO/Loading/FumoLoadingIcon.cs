@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SCHIZO.Loading;
 
@@ -12,11 +13,13 @@ partial class FumoLoadingIcon
 
     private uGUI_Logo _logo;
     private Texture2D _originalTexture;
+    private Action _onEnable;
 
     private void Awake()
     {
         _logo = transform.parent.GetComponent<uGUI_Logo>();
         _originalTexture = _logo.texture;
+        _onEnable = AccessTools.MethodDelegate<Action>(AccessTools.Method(typeof(Graphic), nameof(Graphic.OnEnable)), this);
 
         if (!_patched)
         {
@@ -52,7 +55,7 @@ partial class FumoLoadingIcon
 
     private void TriggerMeshUpdate()
     {
-        AccessTools.Method("UnityEngine.UI.Graphic:OnEnable").Invoke(_logo, Array.Empty<object>());
+        _onEnable();
     }
 
     private static IEnumerable<CodeInstruction> FixFumoRotationPatch(IEnumerable<CodeInstruction> instructions)
