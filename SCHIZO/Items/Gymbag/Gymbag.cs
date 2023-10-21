@@ -17,6 +17,7 @@ public sealed class Gymbag : ClonePrefab
         StorageContainer container = prefab.GetComponentInChildren<StorageContainer>();
         container.width = 4;
         container.height = 4;
+        container.storageLabel = IS_BELOWZERO ? "Quantum Gymbag" : "Gymbag";
 
         Renderer[] renderers = prefab.GetComponentsInChildren<Renderer>();
         renderers.ForEach(r => r.gameObject.SetActive(false));

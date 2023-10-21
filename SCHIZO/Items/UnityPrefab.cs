@@ -69,7 +69,7 @@ public class UnityPrefab : CustomPrefab
         ModItem = item;
     }
 
-    protected new virtual void Register()
+    public new virtual void Register()
     {
         ModItem.LoadStep2();
 

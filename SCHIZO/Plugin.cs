@@ -1,11 +1,15 @@
 global using static SCHIZO.Plugin;
+using System.Collections;
+using System.Collections.Generic;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
+using Nautilus.Assets;
 using Nautilus.Handlers;
 using SCHIZO.Attributes.Loading;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
+using Story;
 using UnityEngine;
 
 namespace SCHIZO;
@@ -57,3 +61,5 @@ public sealed class Plugin : BaseUnityPlugin
         prefab.Register();*/
     }
 }
+
+// PrecursorScan_Level_1

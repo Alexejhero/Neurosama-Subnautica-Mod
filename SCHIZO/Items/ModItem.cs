@@ -48,6 +48,13 @@ public sealed class ModItem
             CraftDataHandler.AddBuildable(this);
         }
 
+#if BELOWZERO
+        if (!ItemData.canBeRecycledBZ)
+        {
+            Recyclotron.bannedTech.Add(ItemData.ModItem);
+        }
+#endif
+
         if (ItemData.Recipe)
         {
             CraftDataHandler.SetRecipeData(this, ItemData.Recipe.Convert());

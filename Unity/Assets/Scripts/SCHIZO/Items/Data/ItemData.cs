@@ -82,6 +82,9 @@ namespace SCHIZO.Items.Data
         [BoxGroup("Below Zero Data"), Label("Recipe"), SerializeField, ShowIf(And, nameof(registerInBZ), nameof(IsBuildableOrCraftable))]
         private Recipe recipeBZ;
 
+        [BoxGroup("Below Zero Data"), Label("Can Be Recycled"), ShowIf(And, nameof(registerInBZ), nameof(IsActuallyCraftable))]
+        public bool canBeRecycledBZ = true;
+
         [BoxGroup("Below Zero Data"), Label("Craft Tree"), ShowIf(And, nameof(registerInBZ), nameof(IsActuallyCraftable)), SerializeField]
         private CraftTree_Type_BZ craftTreeTypeBZ = CraftTree_Type_BZ.None;
 

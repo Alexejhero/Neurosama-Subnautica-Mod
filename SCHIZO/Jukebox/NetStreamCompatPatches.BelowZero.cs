@@ -47,9 +47,9 @@ public static class NetStreamCompatPatches
     {
         if (!__instance.IsPlayingStream(out _)) return true;
 
-#pragma warning disable Harmony003 // it's not an assignment... (remove when https://github.com/BepInEx/BepInEx.Analyzers/pull/6 is merged)
+// #pragma warning disable Harmony003 // it's not an assignment... (remove when https://github.com/BepInEx/BepInEx.Analyzers/pull/6 is merged)
         return snapshot.handle != __instance.snapshotMute.handle;
-#pragma warning restore Harmony003 // Harmony non-ref patch parameters modified
+// #pragma warning restore Harmony003 // Harmony non-ref patch parameters modified
     }
 
     [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.volume), MethodType.Setter)]
@@ -73,8 +73,8 @@ public static class NetStreamCompatPatches
 
         if (isPlaying && (!hasInfo || info.label != __instance.textFile.text))
         {
-            LOGGER.LogWarning($"Updating label because {(!hasInfo ? "no info" : $"{info.label} != {__instance.textFile.text}")}");
-            __instance.SetLabel(isPlaying && hasInfo ? info.label : track.trackLabel);
+            // LOGGER.LogWarning($"Updating label because {(!hasInfo ? "no info" : $"{info.label} != {__instance.textFile.text}")}");
+            __instance.SetLabel(/*isPlaying &&*/ hasInfo ? info.label : track.trackLabel);
         }
     }
 
@@ -88,10 +88,10 @@ public static class NetStreamCompatPatches
         if (!__instance.isControlling) return true;
 
         // usually we remove the label but since it's a "pause" we should keep it
-        string labelHack = __instance.textFile.text;
+        // string labelHack = __instance.textFile.text;
         // not pause, but stop... it was lie! but the player never know.........
         BZJukebox.Stop();
-        __instance.SetLabel(labelHack);
+        // __instance.SetLabel(labelHack);
         return false;
     }
 

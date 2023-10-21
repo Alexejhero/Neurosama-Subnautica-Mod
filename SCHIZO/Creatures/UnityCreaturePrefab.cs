@@ -17,7 +17,7 @@ public class UnityCreaturePrefab : UnityPrefab
 
     protected new CreatureData UnityData => (CreatureData) base.UnityData;
 
-    protected override void Register()
+    public override void Register()
     {
         base.Register();
 

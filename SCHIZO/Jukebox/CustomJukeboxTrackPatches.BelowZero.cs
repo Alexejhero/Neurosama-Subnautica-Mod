@@ -200,7 +200,8 @@ public static class CustomJukeboxTrackPatches
     {
         if (__instance._repeat != BZJukebox.Repeat.All) return;
 
-        while (__instance.IsPlayingStream(out _))
+        // Continue looping if the current track is a stream
+        if (__instance.IsPlayingStream(out _))
         {
             __instance.HandleLooping();
         }

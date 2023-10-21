@@ -1,7 +1,6 @@
 using NaughtyAttributes;
 using SCHIZO.Attributes.Visual;
 using SCHIZO.Registering;
-using System;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Serialization;
