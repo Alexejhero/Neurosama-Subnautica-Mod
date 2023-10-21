@@ -103,9 +103,13 @@ public static class CustomJukeboxTrackPatches
         }
         if ((int)state != -1)
         {
-            LOGGER.LogWarning($"Init track from {state}, this is unusual");
+            LOGGER.LogWarning($"Track has handle but is in state {state}, this is unusual");
+            __instance.HandleOpenError();
         }
-        InitCustomTrack(__instance, track);
+        else
+        {
+            InitCustomTrack(__instance, track);
+        }
         return false;
     }
 
