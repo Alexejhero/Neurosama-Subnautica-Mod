@@ -730,21 +730,6 @@ MonoBehaviour:
   swimInterval: 1
   minSwimDuration: 3
   directionDistanceMultiplier: {x: 1, y: 1, z: 1}
---- !u!114 &3344044181808104954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a82e877622b4339997388c20b815f11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  liveMixin: {fileID: -3418686219161457082}
-  animator: {fileID: 0}
-  disableAnimatorInstead: 0
 --- !u!114 &3525315510431984540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -935,26 +920,6 @@ MonoBehaviour:
   aggressiveToNoise:
     value: 0
     falloff: 0.06
---- !u!114 &4971097129199088491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e8e4146e29e16b458e08415cc34a663, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rootGameObject: {fileID: 5049378406231838710}
-  animator: {fileID: 0}
-  animationMoveMaxSpeed: 4
-  animationMaxPitch: 30
-  animationMaxTilt: 45
-  useStrafeAnimation: 0
-  dampTime: 0.5
-  levelOfDetail: {fileID: -3623193925210079658}
 --- !u!114 &6294765647300301627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1072,6 +1037,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4962070890995002727}
+  - component: {fileID: 6658656335815945617}
+  - component: {fileID: 666221737875956283}
   m_Layer: 0
   m_Name: WM
   m_TagString: Untagged
@@ -1093,6 +1060,41 @@ Transform:
   m_Father: {fileID: 4430336063030548523}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6658656335815945617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4711419397437546869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8e4146e29e16b458e08415cc34a663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootGameObject: {fileID: 5049378406231838710}
+  animator: {fileID: 0}
+  animationMoveMaxSpeed: 4
+  animationMaxPitch: 30
+  animationMaxTilt: 45
+  useStrafeAnimation: 0
+  dampTime: 0.5
+  levelOfDetail: {fileID: -3623193925210079658}
+--- !u!114 &666221737875956283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4711419397437546869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a82e877622b4339997388c20b815f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  liveMixin: {fileID: -3418686219161457082}
+  animator: {fileID: 0}
+  disableAnimatorInstead: 0
 --- !u!1 &4714682939814807485
 GameObject:
   m_ObjectHideFlags: 0

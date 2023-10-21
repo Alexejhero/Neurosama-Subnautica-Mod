@@ -555,6 +555,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 0d1e2f32135ed8640b34d5605f7cc7f2,
         type: 2}
+    - target: {fileID: 666221737875956283, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 6997803495513647470}
     - target: {fileID: 1175131139517652999, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: creature
@@ -806,6 +811,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ermshark prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 6658656335815945617, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 6997803495513647470}
+    - target: {fileID: 6658656335815945617, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: animationMaxTilt
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658656335815945617, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: animationMaxPitch
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658656335815945617, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: animationMoveMaxSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: soundCollection
@@ -850,6 +875,7 @@ PrefabInstance:
     - {fileID: -2103621965647759678, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
     - {fileID: -3849722203967673367, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
     - {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
+    - {fileID: 3036659393320280015, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
 --- !u!114 &722758244617200422 stripped
 MonoBehaviour:
