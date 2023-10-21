@@ -25,16 +25,16 @@ namespace SCHIZO.Items.Data
 
         private DropdownList<string> defaultUnlockMessages = new DropdownList<string>
         {
-            {"Blueprint Scan", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData.BlueprintUnlockMessage"},
-            {"Blueprint Pickup", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData.BlueprintPickupMessage"},
-            {"Creature Discovered", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData.NewCreatureDiscoveredMessage"},
+            {"Blueprint Scan", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintUnlockMessage"},
+            {"Blueprint Pickup", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintPickupMessage"},
+            {"Creature Discovered", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:NewCreatureDiscoveredMessage"},
         };
 
         private DropdownList<string> unlockSounds = new DropdownList<string>
         {
-            {"Basic", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData.BasicUnlockSound"},
-            {"Blueprint", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData.BlueprintUnlockSound"},
-            {"Creature Discovered", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData.NewCreatureDiscoveredSound"},
+            {"Basic", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BasicUnlockSound"},
+            {"Blueprint", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintUnlockSound"},
+            {"Creature Discovered", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:NewCreatureDiscoveredSound"},
         };
     }
 }

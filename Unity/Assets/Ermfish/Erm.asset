@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
+  m_Name: Erm
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 4255816616590768573, guid: 1ba6ee38731d0904090961bdf67ddb00, type: 3}
+  classId: NeuroErm2
+  displayName: Erm
+  tooltip: 'erm
+
+    <size=75%>(Model by w1n7er)</size>'
+  icon: {fileID: 21300000, guid: 5d63c67e19cdd4445bcff6ddf9f6780c, type: 3}
+  itemSize: {x: 1, y: 1}
+  isCraftable: 0
+  isBuildable: 1
+  craftingTime: 2.5
+  registerInSN: 1
+  recipeSN: {fileID: 11400000, guid: 9ef8730f2922d8047bfb88e7e6edfebd, type: 2}
+  craftTreeTypeSN: 0
+  craftTreePathSN: 
+  techGroupSN: 13
+  techCategorySN: 24
+  pdaEncyclopediaInfoSN: {fileID: 0}
+  knownTechInfoSN: {fileID: 0}
+  unlockAtStartSN: 0
+  requiredForUnlockSN:
+    isCustom: 1
+    techType: 0
+    itemData: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
+  registerInBZ: 1
+  recipeBZ: {fileID: 11400000, guid: 9ef8730f2922d8047bfb88e7e6edfebd, type: 2}
+  canBeRecycledBZ: 1
+  craftTreeTypeBZ: 0
+  craftTreePathBZ: 
+  techGroupBZ: 12
+  techCategoryBZ: 15
+  pdaEncyclopediaInfoBZ: {fileID: 0}
+  knownTechInfoBZ: {fileID: 0}
+  unlockAtStartBZ: 0
+  requiredForUnlockBZ:
+    isCustom: 1
+    techType: 0
+    itemData: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}

@@ -12,13 +12,14 @@ partial class WorldAmbientSoundPlayer
 
     private void Awake()
     {
-        _fmodSoundCollection = new FMODSoundCollection(soundCollection, ReflectionHelpers.GetFieldValue<string>(bus));
+        _fmodSoundCollection = new FMODSoundCollection(soundCollection, ReflectionHelpers.GetStaticValue<string>(bus));
         ResetTimer();
     }
 
     private void Update()
     {
         if (pickupable && Inventory.main.Contains((Pickupable) pickupable)) return;
+        if (constructable && !((Constructable) constructable).constructed) return;
 
         _timer -= Time.deltaTime;
 
