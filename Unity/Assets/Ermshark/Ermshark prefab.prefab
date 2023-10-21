@@ -119,7 +119,6 @@ MonoBehaviour:
   hearingSensitivity: 1
   detectsMotion: 1
   babyScaleSize: 0.5
-  ermsharkPrefab: {fileID: 0}
   mitosisRemaining: 4
   hurtSoundPlayer: {fileID: 9173293904867031431}
   ambientSoundPlayer: {fileID: 3931153366976468208}
@@ -712,6 +711,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4714682939814807485, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4743098428888258313, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: creature
@@ -843,6 +847,9 @@ PrefabInstance:
     - {fileID: 7808515654292971840, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
     - {fileID: 3804834106308354520, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
     - {fileID: -2914789318229432670, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
+    - {fileID: -2103621965647759678, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
+    - {fileID: -3849722203967673367, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
+    - {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
 --- !u!114 &722758244617200422 stripped
 MonoBehaviour:
