@@ -23,7 +23,6 @@ MonoBehaviour:
   overrideTrackLabel: 0
   trackLabel: TruckersFM
   unlockedOnStart: 0
-  diskPrefab: {fileID: 919132149155446097, guid: 2f3f45a3cf169dd4b849dd663b41d3d4,
-    type: 3}
+  diskPrefab: {fileID: 0}
   diskSpawnLocation: {x: -328, y: 14.22, z: 255}
   unlockSound: {fileID: 8300000, guid: 5ba4e19b28e28bd40b3d57d369a781f0, type: 3}
