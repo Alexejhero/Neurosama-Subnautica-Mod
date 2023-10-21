@@ -1,4 +1,4 @@
-﻿namespace SCHIZO.Helpers;
+namespace SCHIZO.Helpers;
 
 public static class RetargetHelpers
 {
@@ -16,4 +16,11 @@ public static class RetargetHelpers
         return belowZero;
 #endif
     }
+
+    public static bool IsStoryEnabled()
+#if BELOWZERO
+        => GameModeManager.GetOption<bool>(GameOption.Story);
+#else
+        => true;
+#endif
 }
