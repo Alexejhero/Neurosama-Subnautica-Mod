@@ -28,7 +28,7 @@ namespace PropertyDrawers
                 case 0:
                     if (propertyPath.ToLower().Contains("sn")) return SubnauticaTechTypes.Contains(entry);
                     if (propertyPath.ToLower().Contains("bz")) return BelowZeroTechTypes.Contains(entry);
-                    return true;
+                    return SubnauticaTechTypes.Contains(entry) || BelowZeroTechTypes.Contains(entry);
 
                 case Game.Subnautica:
                     return SubnauticaTechTypes.Contains(entry);
