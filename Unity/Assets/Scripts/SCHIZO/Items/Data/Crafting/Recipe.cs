@@ -1,5 +1,5 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Enums;
+using SCHIZO.Registering;
 using UnityEngine;
 
 namespace SCHIZO.Items.Data.Crafting

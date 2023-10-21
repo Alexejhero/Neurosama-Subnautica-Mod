@@ -1,4 +1,4 @@
-﻿namespace SCHIZO.Enums.BelowZero
+﻿namespace SCHIZO.Interop.Subnautica.Enums.BelowZero
 {
     public enum TechGroup_BZ
     {

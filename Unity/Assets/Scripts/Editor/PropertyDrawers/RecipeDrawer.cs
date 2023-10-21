@@ -1,5 +1,5 @@
-﻿using SCHIZO.Enums;
-using SCHIZO.Items.Data.Crafting;
+﻿using SCHIZO.Items.Data.Crafting;
+using SCHIZO.Registering;
 using UnityEditor;
 using UnityEngine;
 

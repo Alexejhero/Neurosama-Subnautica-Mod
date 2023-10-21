@@ -1,5 +1,5 @@
 ﻿using System;
-using SCHIZO.Enums;
+using SCHIZO.Interop.Subnautica.Enums;
 
 namespace SCHIZO.Items.Data.Crafting
 {

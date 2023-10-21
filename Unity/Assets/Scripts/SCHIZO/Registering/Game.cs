@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SCHIZO.Enums
+namespace SCHIZO.Registering
 {
     [Flags]
     public enum Game

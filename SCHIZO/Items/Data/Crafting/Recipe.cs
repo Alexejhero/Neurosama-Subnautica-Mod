@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Nautilus.Crafting;
-using SCHIZO.Enums;
+using SCHIZO.Interop.Subnautica.Enums;
 
 namespace SCHIZO.Items.Data.Crafting;
 

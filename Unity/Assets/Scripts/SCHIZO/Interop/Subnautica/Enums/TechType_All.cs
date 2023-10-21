@@ -1,7 +1,7 @@
 ﻿using System;
-using static SCHIZO.Enums.TechTypeFlagsAttribute;
+using static SCHIZO.Interop.Subnautica.Enums.TechTypeFlagsAttribute;
 
-namespace SCHIZO.Enums
+namespace SCHIZO.Interop.Subnautica.Enums
 {
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class TechTypeFlagsAttribute : Attribute

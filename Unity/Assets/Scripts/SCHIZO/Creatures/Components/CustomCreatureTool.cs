@@ -1,5 +1,5 @@
-﻿using SCHIZO.Enums;
-using SCHIZO.Interop.Subnautica;
+﻿using SCHIZO.Interop.Subnautica;
+using SCHIZO.Interop.Subnautica.Enums;
 
 namespace SCHIZO.Creatures.Components
 {

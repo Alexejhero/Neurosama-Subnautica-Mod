@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using NaughtyAttributes;
-using SCHIZO.Enums;
+using SCHIZO.Interop.Subnautica.Enums;
 using UnityEngine;
 
 namespace SCHIZO.Items.Data

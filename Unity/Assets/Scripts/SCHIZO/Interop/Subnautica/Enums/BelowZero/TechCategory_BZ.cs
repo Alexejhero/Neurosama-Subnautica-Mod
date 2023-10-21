@@ -1,32 +1,24 @@
-﻿namespace SCHIZO.Enums.Subnautica
+﻿namespace SCHIZO.Interop.Subnautica.Enums.BelowZero
 {
-    public enum TechCategory_SN
+    public enum TechCategory_BZ
     {
         BasicMaterials,
         AdvancedMaterials,
         Electronics,
-        Water,
-        CookedFood,
-        CuredFood,
+        FoodAndDrinks,
         Equipment,
         Tools,
         Machines,
         Constructor,
-        Workbench,
         VehicleUpgrades,
+        Workbench,
         MapRoomUpgrades,
-        Cyclops,
-        CyclopsUpgrades,
         BasePiece,
-        BaseRoom,
-        BaseWall,
         ExteriorModule,
-        ExteriorLight,
-        ExteriorOther,
         InteriorPiece,
-        InteriorRoom,
         InteriorModule,
         Misc,
         MiscHullplates,
+        PrecursorBodyParts,
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace SCHIZO.Enums.Subnautica
+﻿namespace SCHIZO.Interop.Subnautica.Enums.Subnautica
 {
     public enum TechGroup_SN
     {

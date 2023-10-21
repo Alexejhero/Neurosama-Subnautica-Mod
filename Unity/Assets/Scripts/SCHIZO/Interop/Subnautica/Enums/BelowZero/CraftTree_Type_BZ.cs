@@ -1,4 +1,4 @@
-﻿namespace SCHIZO.Enums.BelowZero
+﻿namespace SCHIZO.Interop.Subnautica.Enums.BelowZero
 {
     public enum CraftTree_Type_BZ
     {
