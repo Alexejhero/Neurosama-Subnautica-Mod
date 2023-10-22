@@ -11,7 +11,7 @@ namespace SCHIZO.Creatures
     {
         public bool isPickupable;
 
-        [BoxGroup("Creature Data"), ValidateInput(nameof(Validate_behaviourType)), SerializeField, UsedImplicitly]
+        [BoxGroup("Creature Data"), Required_BehaviourType_SN, SerializeField, UsedImplicitly]
         private BehaviourType_SN behaviourType;
 
         [BoxGroup("Creature Data")]

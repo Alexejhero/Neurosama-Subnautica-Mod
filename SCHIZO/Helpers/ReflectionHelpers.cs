@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 
 namespace SCHIZO.Helpers;
 
-public static class ReflectionHelpers
+partial class ReflectionHelpers
 {
     public static T GetStaticValue<T>(string fieldOrPropertyColonName)
     {

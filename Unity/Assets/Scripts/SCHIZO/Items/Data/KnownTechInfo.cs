@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -11,10 +10,10 @@ namespace SCHIZO.Items.Data
         [SerializeField]
         private bool hasCustomUnlockMessage;
 
-        [SerializeField, Label("Unlock Message"), HideIf(nameof(hasCustomUnlockMessage)), Dropdown(nameof(defaultUnlockMessages))]
+        [SerializeField, Label("Unlock Message"), HideIf(nameof(hasCustomUnlockMessage)), Dropdown(nameof(defaultUnlockMessages)), UsedImplicitly]
         private string defaultUnlockMessage;
 
-        [SerializeField, Label("Unlock Message"), ShowIf(nameof(hasCustomUnlockMessage))]
+        [SerializeField, Label("Unlock Message"), ShowIf(nameof(hasCustomUnlockMessage)), UsedImplicitly]
         private string customUnlockMessage;
 
         [SerializeField, UsedImplicitly, Dropdown(nameof(unlockSounds))]

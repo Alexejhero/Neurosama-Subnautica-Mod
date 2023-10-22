@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using HarmonyLib;
 using NaughtyAttributes.Editor;
 using SCHIZO.Attributes.Typing;
 using UnityEditor;
-using UnityEngine.Profiling;
 
-namespace NaughtyExtensions
+namespace NaughtyExtensions.Validators
 {
-    public class ValidateTypePropertyValidator : PropertyValidatorBase
+    public sealed class ValidateTypePropertyValidator : PropertyValidatorBase
     {
         private static readonly Dictionary<SerializedProperty, object> _changedCache = new Dictionary<SerializedProperty, object>();
 

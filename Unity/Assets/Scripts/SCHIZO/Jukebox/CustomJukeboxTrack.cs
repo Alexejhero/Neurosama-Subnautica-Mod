@@ -16,7 +16,7 @@ namespace SCHIZO.Jukebox
             Internet
         }
 
-        [Careful, ValidateInput(nameof(Validate_identifier), "Identifier must not be empty")]
+        [Careful, Required_string]
         public string identifier;
 
         [SerializeField]
@@ -59,7 +59,6 @@ namespace SCHIZO.Jukebox
         public bool IsLocal => source == Source.Asset;
         public bool IsRemote => source == Source.Internet;
 
-        private bool Validate_identifier() => !string.IsNullOrEmpty(identifier);
         private bool Validate_urlIsHttp() => url.StartsWith("http://");
     }
 }

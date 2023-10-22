@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using ECCLibrary;
-using ECCLibrary.Data;
-using ECCLibrary.Mono;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using SCHIZO.Creatures;

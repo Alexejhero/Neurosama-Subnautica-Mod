@@ -1,5 +1,4 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Attributes.Typing;
 using SCHIZO.Interop.Subnautica;
 using SCHIZO.Utilities;
 using UnityEngine;

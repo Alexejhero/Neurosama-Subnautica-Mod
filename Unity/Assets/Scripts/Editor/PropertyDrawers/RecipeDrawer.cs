@@ -12,7 +12,6 @@ namespace PropertyDrawers
         {
             if (!property.objectReferenceValue) return true;
 
-            int instanceId = property.objectReferenceInstanceIDValue;
             Recipe recipe = (Recipe) property.objectReferenceValue;
 
             if (property.propertyPath.ToLower().Contains("sn") && !recipe.game.HasFlag(Game.Subnautica)) return false;

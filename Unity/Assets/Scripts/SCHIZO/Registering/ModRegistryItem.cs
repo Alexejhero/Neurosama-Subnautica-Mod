@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using SCHIZO.Interop.NaughtyAttributes;
 
 namespace SCHIZO.Registering
 {
-    public abstract partial class ModRegistryItem : ScriptableObject
+    public abstract partial class ModRegistryItem : NaughtyScriptableObject
     {
         protected bool IsRegistered
         {
