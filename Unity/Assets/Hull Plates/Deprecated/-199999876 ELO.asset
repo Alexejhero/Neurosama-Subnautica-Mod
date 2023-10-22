@@ -19,4 +19,4 @@ MonoBehaviour:
   overrideIcon: {fileID: 0}
   expensive: 0
   hidden: 0
-  deprecated: 0
+  deprecated: 1

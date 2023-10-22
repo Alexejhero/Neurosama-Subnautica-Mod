@@ -17,7 +17,6 @@ MonoBehaviour:
   recipeRegular: {fileID: 11400000, guid: eb747c3fc3542114ea823cd15845eb74, type: 2}
   recipeExpensive: {fileID: 11400000, guid: d07d6c16988f32246b2694d21eed46f2, type: 2}
   hullPlates:
-  - {fileID: 11400000, guid: a3db24fe05b3dd54599d6a60b11023a4, type: 2}
   - {fileID: 11400000, guid: 1b1e314f70d52f04eaf76fc7f6aa546c, type: 2}
   - {fileID: 11400000, guid: d57ad11c7a7797542b4a76075403afcb, type: 2}
   - {fileID: 11400000, guid: e262dd0d44249184da7026a6006923c1, type: 2}
@@ -52,6 +51,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 13fbd993bf278414eb7cf5b86afe00fc, type: 2}
   - {fileID: 11400000, guid: 0201f66af926ef148999964080d63fd9, type: 2}
   - {fileID: 11400000, guid: 258f6fc580677af4c8871b3d36c0bb38, type: 2}
+  - {fileID: 11400000, guid: a3db24fe05b3dd54599d6a60b11023a4, type: 2}
   - {fileID: 11400000, guid: f7ad85db237581143bbac2a1d906d87a, type: 2}
   - {fileID: 11400000, guid: 2a2b1d83faf5b7c4499aae0b352aef5b, type: 2}
   - {fileID: 11400000, guid: 806b4591842020b4197694c1358c690d, type: 2}
