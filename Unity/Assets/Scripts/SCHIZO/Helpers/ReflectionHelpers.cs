@@ -1,14 +1,21 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Reflection;
-using HarmonyLib;
 
 namespace SCHIZO.Helpers
 {
     public static partial class ReflectionHelpers
     {
+        public static IEnumerable<Type> WalkTypeHierarchy(Type leaf)
+        {
+            for (Type curr = leaf; curr != null; curr = curr.BaseType)
+                yield return curr;
+        }
         public static T GetMemberValue<T>(object instance, string name)
         {
-            FieldInfo field = AccessTools.Field(instance.GetType(), name);
+            Type type = instance.GetType();
+
+            FieldInfo field = ReflectionCache.GetField(type, name);
             if (field != null)
             {
                 if (field.IsStatic)
@@ -28,31 +35,13 @@ namespace SCHIZO.Helpers
                 }
             }
 
-            PropertyInfo property = AccessTools.Property(instance.GetType(), name);
-            if (property != null)
-            {
-                MethodInfo getMethod = property.GetGetMethod(true);
-                if (getMethod.IsStatic)
-                {
-                    return (T) getMethod.Invoke(null, Array.Empty<object>());
-                }
-                else
-                {
-                    return (T) getMethod.Invoke(instance, Array.Empty<object>());
-                }
-            }
+            PropertyInfo property = ReflectionCache.GetProperty(type, name);
+            MethodInfo method = property?.GetGetMethod(true) ?? ReflectionCache.GetMethod(type, name);
 
-            MethodInfo method = AccessTools.Method(instance.GetType(), name);
-            if (method != null)
+            if (method != null) 
             {
-                if (method.IsStatic)
-                {
-                    return (T) method.Invoke(null, Array.Empty<object>());
-                }
-                else
-                {
-                    return (T) method.Invoke(instance, Array.Empty<object>());
-                }
+                object thisArg = method.IsStatic ? null : instance;
+                return (T) method.Invoke(thisArg, Array.Empty<object>());
             }
 
             throw new Exception($"Failed to retrieve member value with name {name}");

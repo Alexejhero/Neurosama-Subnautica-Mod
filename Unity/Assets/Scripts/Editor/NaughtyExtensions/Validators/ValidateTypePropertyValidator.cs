@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using NaughtyAttributes.Editor;
 using SCHIZO.Attributes.Typing;
+using SCHIZO.Helpers;
 using UnityEditor;
 
 namespace NaughtyExtensions.Validators

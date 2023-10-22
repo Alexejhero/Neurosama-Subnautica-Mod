@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using NaughtyAttributes.Editor;
+using SCHIZO.Helpers;
 
 namespace Patches
 {
@@ -47,13 +48,8 @@ namespace Patches
             [HarmonyPrefix]
             public static bool TypeHierarchyPerfDetour(out List<Type> __result, object target)
             {
-                __result = WalkTypeHierarchy(target?.GetType()).ToList();
+                __result = ReflectionHelpers.WalkTypeHierarchy(target?.GetType()).ToList();
                 return false;
-            }
-            public static IEnumerable<Type> WalkTypeHierarchy(Type leaf)
-            {
-                for (Type curr = leaf; curr != null; curr = curr.BaseType)
-                    yield return curr;
             }
         }
 
