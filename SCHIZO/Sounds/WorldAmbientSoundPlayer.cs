@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 using SCHIZO.Helpers;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ partial class WorldAmbientSoundPlayer
 
     private void Awake()
     {
-        _fmodSoundCollection = new FMODSoundCollection(soundCollection, ReflectionHelpers.GetStaticValue<string>(bus));
+        _fmodSoundCollection = FMODSoundCollection.For(soundCollection, ReflectionHelpers.GetStaticValue<string>(bus));
         ResetTimer();
     }
 

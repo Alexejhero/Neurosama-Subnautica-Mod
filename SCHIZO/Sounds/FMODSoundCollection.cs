@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using FMOD;
@@ -16,13 +17,22 @@ namespace SCHIZO.Sounds;
 [SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Serialization")]
 public sealed class FMODSoundCollection
 {
+    private static ConcurrentDictionary<(BaseSoundCollection, string), FMODSoundCollection> _cache = new();
+
     [SerializeField] private string _bus;
     [SerializeField] private List<string> _sounds = new();
 
     private RandomList<string> _randomSounds;
     private List<Coroutine> _runningCoroutines;
 
-    public FMODSoundCollection(BaseSoundCollection soundCollection, string bus)
+    public static FMODSoundCollection For(BaseSoundCollection soundCollection, string bus)
+    {
+        if (!_cache.TryGetValue((soundCollection, bus), out FMODSoundCollection cached))
+            cached = _cache[(soundCollection, bus)] = new FMODSoundCollection(soundCollection, bus);
+        return cached;
+    }
+
+    private FMODSoundCollection(BaseSoundCollection soundCollection, string bus)
     {
         _bus = bus;
 

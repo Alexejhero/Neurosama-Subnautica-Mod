@@ -141,10 +141,90 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8154683574616082310, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8154683574616082310, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6192660317737304404, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6192660317737304404, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5891619883121847764, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5891619883121847764, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5781075586004531022, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5781075586004531022, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3099227870446293234, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3099227870446293234, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6e32b37687819424da477a88a26bdccc,
         type: 3}
       propertyPath: m_Name
       value: Erm model new
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056318827249499185, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056318827249499185, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828850880214433268, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828850880214433268, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8712324104865176568, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8712324104865176568, guid: 6e32b37687819424da477a88a26bdccc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e32b37687819424da477a88a26bdccc, type: 3}

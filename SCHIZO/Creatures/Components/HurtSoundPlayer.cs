@@ -1,4 +1,4 @@
-﻿using Nautilus.Utility;
+using Nautilus.Utility;
 using SCHIZO.Sounds;
 
 namespace SCHIZO.Creatures.Components;
@@ -9,7 +9,7 @@ partial class HurtSoundPlayer : IOnTakeDamage
 
     private void Awake()
     {
-        _fmodSounds = new FMODSoundCollection(hurtSounds, AudioUtils.BusPaths.UnderwaterCreatures);
+        _fmodSounds = FMODSoundCollection.For(hurtSounds, AudioUtils.BusPaths.UnderwaterCreatures);
     }
 
     public void OnTakeDamage(DamageInfo damageInfo)

@@ -19,7 +19,7 @@ partial class FumoLoadingIcon
     {
         _logo = transform.parent.GetComponent<uGUI_Logo>();
         _originalTexture = _logo.texture;
-        _onEnable = AccessTools.MethodDelegate<Action>(AccessTools.Method(typeof(Graphic), "OnEnable"), this);
+        _onEnable = AccessTools.MethodDelegate<Action>(AccessTools.Method(typeof(Graphic), "OnEnable"), _logo);
 
         if (!_patched)
         {

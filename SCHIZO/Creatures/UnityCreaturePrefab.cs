@@ -76,6 +76,7 @@ public class UnityCreaturePrefab : UnityPrefab
         LiveMixin liveMixin = instance.GetComponent<LiveMixin>();
         if (liveMixin && liveMixin.data)
         {
+            if (!ObjectReferences.Done) LOGGER.LogError("Object references haven't loaded yet! Wait until ObjectReferences.Done");
             liveMixin.data.damageEffect = ObjectReferences.genericCreatureHit;
             liveMixin.data.deathEffect = ObjectReferences.genericCreatureHit;
             liveMixin.data.electricalDamageEffect = ObjectReferences.electrocutedEffect;

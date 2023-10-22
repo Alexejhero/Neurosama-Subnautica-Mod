@@ -1,4 +1,4 @@
-﻿using Nautilus.Utility;
+using Nautilus.Utility;
 using SCHIZO.Sounds;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ partial class ErmsharkAttack
 
     private void Start()
     {
-        _fmodSounds = new FMODSoundCollection(attackSounds, AudioUtils.BusPaths.UnderwaterCreatures);
+        _fmodSounds = FMODSoundCollection.For(attackSounds, AudioUtils.BusPaths.UnderwaterCreatures);
     }
 
     public override void OnTouch(Collider collider)

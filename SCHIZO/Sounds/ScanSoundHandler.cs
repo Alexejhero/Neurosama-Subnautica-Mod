@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using HarmonyLib;
 using Nautilus.Utility;
 
@@ -11,7 +11,7 @@ public static class ScanSoundHandler
 
     public static void Register(TechType techType, BaseSoundCollection soundCollection)
     {
-        _scanSounds.Add(techType, new FMODSoundCollection(soundCollection, AudioUtils.BusPaths.PDAVoice));
+        _scanSounds.Add(techType, FMODSoundCollection.For(soundCollection, AudioUtils.BusPaths.PDAVoice));
     }
 
     [HarmonyPatch]
