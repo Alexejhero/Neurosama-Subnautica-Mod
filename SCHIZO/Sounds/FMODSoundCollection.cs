@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using FMOD;
+using FMOD.Studio;
 using FMODUnity;
 using Nautilus.Handlers;
 using Nautilus.Utility;
@@ -13,15 +14,15 @@ using UWE;
 
 namespace SCHIZO.Sounds;
 
-[Serializable]
 [SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Serialization")]
 public sealed class FMODSoundCollection
 {
     private static ConcurrentDictionary<(BaseSoundCollection, string), FMODSoundCollection> _cache = new();
 
-    [SerializeField] private string _bus;
-    [SerializeField] private List<string> _sounds = new();
+    private string _busPath;
+    private List<string> _sounds = new();
 
+    private Bus _bus;
     private RandomList<string> _randomSounds;
     private List<Coroutine> _runningCoroutines;
 
@@ -34,7 +35,8 @@ public sealed class FMODSoundCollection
 
     private FMODSoundCollection(BaseSoundCollection soundCollection, string bus)
     {
-        _bus = bus;
+        _busPath = bus;
+        _bus = RuntimeManager.GetBus(_busPath);
 
         foreach (AudioClip audioClip in soundCollection.GetSounds())
         {
@@ -63,7 +65,7 @@ public sealed class FMODSoundCollection
     private void RegisterSound(string id, AudioClip audioClip)
     {
         Sound s = CustomSoundHandler.RegisterCustomSound(id, audioClip, _bus, AudioUtils.StandardSoundModes_3D);
-        RuntimeManager.GetBus(_bus).unlockChannelGroup();
+        _bus.unlockChannelGroup();
         s.set3DMinMaxDistance(1, 30);
     }
 

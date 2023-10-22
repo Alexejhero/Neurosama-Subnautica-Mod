@@ -13,30 +13,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.01
   m_Center: {x: 0, y: 0, z: 0.005}
---- !u!114 &-6883558718539437373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061343355341963926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b12d67d532caca947a153384d457074c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: {fileID: 0}
-  swimBehaviour: {fileID: 0}
-  evaluatePriority: 1
-  priorityMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minActionCheckInterval: -1
-  startingEngagement: 10
-  patienceMultiplier: 0.75
 --- !u!114 &752434511793161575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,7 +616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
-      propertyPath: hurtSounds
+      propertyPath: soundCollection
       value: 
       objectReference: {fileID: 11400000, guid: 9ee9dfa7770ab144dad626ab9273ce05,
         type: 2}
@@ -868,6 +844,11 @@ PrefabInstance:
         type: 3}
       propertyPath: animationMoveMaxSpeed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: pickupable
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}

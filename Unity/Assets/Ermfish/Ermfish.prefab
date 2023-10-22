@@ -224,7 +224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
-      propertyPath: hurtSounds
+      propertyPath: soundCollection
       value: 
       objectReference: {fileID: 11400000, guid: 4f47d8b7127a0234ea057da7472d7808,
         type: 2}

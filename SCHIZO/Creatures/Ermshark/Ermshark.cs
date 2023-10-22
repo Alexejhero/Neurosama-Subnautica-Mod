@@ -23,7 +23,6 @@ partial class Ermshark : IOnTakeDamage
             LOGGER.LogError($"Could not get prefab for {name}, so mitosis won't work!");
     }
 
-
     public void OnTakeDamage(DamageInfo damageInfo)
     {
         if (liveMixin.health > 0) return;
