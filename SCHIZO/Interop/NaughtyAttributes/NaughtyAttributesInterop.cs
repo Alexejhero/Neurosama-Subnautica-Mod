@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 namespace NaughtyAttributes;
@@ -93,3 +94,8 @@ internal class ValidatorAttribute : Attribute;
 
 [Conditional("NEVER")]
 internal class ButtonAttribute(string text = null) : Attribute;
+
+[Conditional("NEVER")]
+internal class DrawerAttribute : PropertyAttribute
+{
+}

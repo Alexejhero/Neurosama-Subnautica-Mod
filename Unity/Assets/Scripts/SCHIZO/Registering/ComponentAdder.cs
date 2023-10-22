@@ -18,7 +18,7 @@ namespace SCHIZO.Registering
         [SerializeField]
         private bool isSingleton;
 
-        [SerializeField, ValidateInput(nameof(ValidateTypeName)), HideIf(nameof(isSingleton)), UsedImplicitly]
+        [SerializeField, Required_string, HideIf(nameof(isSingleton)), UsedImplicitly]
         private string typeName;
 
         [SerializeField, Dropdown(nameof(_methodNames)), HideIf(nameof(isSingleton)), UsedImplicitly]
@@ -38,7 +38,6 @@ namespace SCHIZO.Registering
 
         #region NaughtyAttributes stuff
 
-        private bool ValidateTypeName(string val) => !string.IsNullOrWhiteSpace(val);
         private List<string> _methodNames = new List<string> {"Awake", "Start"};
         private bool TargetTypeNameShowIf() => _isBaseType && !isSingleton;
 

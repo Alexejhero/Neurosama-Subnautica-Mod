@@ -4,6 +4,7 @@ using ECCLibrary;
 using Nautilus.Handlers;
 using SCHIZO.Items;
 using UnityEngine;
+using UWE;
 
 namespace SCHIZO.Creatures;
 
@@ -17,7 +18,7 @@ public class UnityCreaturePrefab : UnityPrefab
 
     protected new CreatureData UnityData => (CreatureData) base.UnityData;
 
-    protected override void Register()
+    public override void Register()
     {
         base.Register();
 
@@ -30,6 +31,27 @@ public class UnityCreaturePrefab : UnityPrefab
         {
             PDAHandler.AddCustomScannerEntry(ModItem, UnityData.PDAEncyclopediaInfo.scanTime, encyclopediaKey: PrefabInfo.ClassID);
         }
+
+#if BELOWZERO
+        CraftDataHandler.SetSoundType(ModItem, TechData.SoundType.Fish);
+#endif
+
+        if (UnityData.isPickupable)
+        {
+            CraftDataHandler.SetQuickSlotType(ModItem, QuickSlotType.Selectable);
+            CraftDataHandler.SetEquipmentType(ModItem, EquipmentType.Hand);
+        }
+
+        // Required for LootDistribution/spawning system
+        WorldEntityDatabaseHandler.AddCustomInfo(UnityData.classId, new WorldEntityInfo
+        {
+            classId = UnityData.classId,
+            techType = ModItem,
+            cellLevel = UnityData.prefab.GetComponentInChildren<LargeWorldEntity>().cellLevel,
+            slotType = UnityData.prefab.GetComponentInChildren<EntityTag>().slotType,
+            localScale = Vector3.one,
+            prefabZUp = false,
+        });
 
         // TODO: loot distribution data
     }

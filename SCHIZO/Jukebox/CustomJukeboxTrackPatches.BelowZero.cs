@@ -5,6 +5,7 @@ using FMOD;
 using FMODUnity;
 using HarmonyLib;
 using Nautilus.Utility;
+using TMPro;
 using UnityEngine;
 using UWE;
 using BZJukebox = Jukebox;
@@ -62,10 +63,17 @@ public static class CustomJukeboxTrackPatches
     }
 
     [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.Start))]
+    [HarmonyPatch(typeof(SeaTruckSegment), nameof(SeaTruckSegment.Start))]
     [HarmonyPostfix]
-    public static void EnableRichText(JukeboxInstance __instance)
+    public static void EnableRichText(object __instance)
     {
-        __instance.textFile.richText = true;
+        TMP_Text text = __instance switch
+        {
+            JukeboxInstance jukebox => jukebox.textFile,
+            SeaTruckSegment { isMainCab: true } seatruck => seatruck.GetComponent<uGUI_JukeboxLabel>().textFile,
+            _ => null,
+        };
+        if (text) text.richText = true;
     }
 
     [HarmonyPatch(typeof(IntroVignette), nameof(IntroVignette.OnDone))]
@@ -200,7 +208,8 @@ public static class CustomJukeboxTrackPatches
     {
         if (__instance._repeat != BZJukebox.Repeat.All) return;
 
-        while (__instance.IsPlayingStream(out _))
+        // Continue looping if the current track is a stream
+        if (__instance.IsPlayingStream(out _))
         {
             __instance.HandleLooping();
         }
@@ -216,7 +225,7 @@ public static class CustomJukeboxTrackPatches
         __instance.SetPositionKnobVisible(!track.isStream);
     }
 
-    //[HarmonyPatch(typeof(File), nameof(File.Exists))]
+    [HarmonyPatch(typeof(File), nameof(File.Exists))]
     //[HarmonyPostfix]
     public static void DebugStuff(string path)
     {

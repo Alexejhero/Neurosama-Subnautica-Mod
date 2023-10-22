@@ -42,7 +42,7 @@ namespace PropertyDrawers
             else
             {
                 SerializedProperty prop = property.FindPropertyRelative(nameof(Item.techType));
-                TechType_AllDrawer.DrawDropdownButton(prop, DrawerUtils.ControlId(prop.propertyPath + "techtype", position), position);
+                TechType_AllDrawer.DrawDropdownButtonStatic(prop, DrawerUtils.ControlId(prop.propertyPath + "techtype", position), position);
             }
         }
     }

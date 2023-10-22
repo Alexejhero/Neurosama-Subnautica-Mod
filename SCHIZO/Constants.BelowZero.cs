@@ -1,5 +1,5 @@
 ﻿global using NIngredient = Ingredient;
-using SCHIZO.Enums;
+using SCHIZO.Registering;
 
 namespace SCHIZO;
 

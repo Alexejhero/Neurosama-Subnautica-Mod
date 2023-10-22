@@ -19,14 +19,7 @@ public sealed class ErmfishLoader : PickupableCreatureLoader<PickupableCreatureD
 
     public ErmfishLoader() : base(Assets.Erm_ErmfishData)
     {
-        PDAEncyPath = "Lifeforms/Fauna/SmallHerbivores";
-        VariantsAreAlive = true;
         VFXFabricatingData = new VFXFabricatingData("VM/model", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0));
-    }
-
-    protected override ErmfishPrefab CreatePrefab()
-    {
-        return new ErmfishPrefab(ModItems.Ermfish, ModItems.CookedErmfish, ModItems.CuredErmfish, creatureData.regularPrefab);
     }
 
     protected override IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()

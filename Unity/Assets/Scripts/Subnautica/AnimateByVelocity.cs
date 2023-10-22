@@ -14,4 +14,7 @@ public class AnimateByVelocity : MonoBehaviour
     public float dampTime = 0.5f;
 
     [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public BehaviourLOD levelOfDetail;
+
+    // ReSharper disable once Unity.RedundantEventFunction
+    private void OnEnable() {}
 }

@@ -12,7 +12,7 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = -660053473;
+    private const int _rnd = 312749935;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
 
@@ -21,8 +21,6 @@ public static class Assets
         
     // [System.Obsolete] public static SCHIZO.Creatures._old.CustomCreatureData Old_Anneel_AnneelData = _a.LoadAsset<SCHIZO.Creatures._old.CustomCreatureData>("Assets/_old/Anneel/Anneel data.asset");
     public static SCHIZO.Sounds.SoundCollection Old_Credits_SNEasterEgg = _a.LoadAsset<SCHIZO.Sounds.SoundCollection>("Assets/_old/Credits/SN Easter Egg.asset");
-    public static SCHIZO.Items.Data.ItemData Old_Erm_BuildableErmData = _a.LoadAsset<SCHIZO.Items.Data.ItemData>("Assets/_old/Erm/Buildable erm data.asset");
-    // [System.Obsolete] public static SCHIZO.Creatures._old.PickupableCreatureData Old_Erm_ErmfishData = _a.LoadAsset<SCHIZO.Creatures._old.PickupableCreatureData>("Assets/_old/Erm/Ermfish data.asset");
     public static SCHIZO.Sounds.SoundCollection Old_Erm_Sounds_PlayerDeath_ErmfishPlayerDeath = _a.LoadAsset<SCHIZO.Sounds.SoundCollection>("Assets/_old/Erm/Sounds/Player Death/Ermfish Player Death.asset");
     public static SCHIZO.Items.Data.ItemData Old_Tutel_BuildableTutelData = _a.LoadAsset<SCHIZO.Items.Data.ItemData>("Assets/_old/Tutel/Buildable tutel data.asset");
     public static SCHIZO.Sounds.SoundCollection Old_Tutel_Sounds_Ambient_TutelAmbient = _a.LoadAsset<SCHIZO.Sounds.SoundCollection>("Assets/_old/Tutel/Sounds/Ambient/Tutel Ambient.asset");

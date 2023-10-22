@@ -1,5 +1,4 @@
 using JetBrains.Annotations;
-using Nautilus.Utility;
 using SCHIZO.Helpers;
 using UnityEngine;
 
@@ -12,13 +11,14 @@ partial class WorldAmbientSoundPlayer
 
     private void Awake()
     {
-        _fmodSoundCollection = FMODSoundCollection.For(soundCollection, ReflectionHelpers.GetFieldValue<string>(bus));
+        _fmodSoundCollection = FMODSoundCollection.For(soundCollection, ReflectionHelpers.GetStaticValue<string>(bus));
         ResetTimer();
     }
 
     private void Update()
     {
         if (pickupable && Inventory.main.Contains((Pickupable) pickupable)) return;
+        if (constructable && !((Constructable) constructable).constructed) return;
 
         _timer -= Time.deltaTime;
 

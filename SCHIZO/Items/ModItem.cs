@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ECCLibrary;
 using Nautilus.Assets;
-using Nautilus.Assets.Gadgets;
 using Nautilus.Handlers;
 using SCHIZO.Items.Data;
 using SCHIZO.Sounds;
@@ -47,6 +45,13 @@ public sealed class ModItem
         {
             CraftDataHandler.AddBuildable(this);
         }
+
+#if BELOWZERO
+        if (!ItemData.canBeRecycledBZ)
+        {
+            Recyclotron.bannedTech.Add(ItemData.ModItem);
+        }
+#endif
 
         if (ItemData.Recipe)
         {

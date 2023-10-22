@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 327728672407256836}
   - component: {fileID: 3307992340188546611}
   - component: {fileID: 8149664679376285555}
+  - component: {fileID: 1346368756326467788}
   m_Layer: 0
   m_Name: Basic Prefab Template
   m_TagString: Creature
@@ -165,6 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4202093338925204305}
   prefabIdentifier: {fileID: 8621059771032717693}
+  pickupable: {fileID: 1346368756326467788}
 --- !u!114 &8149664679376285555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,3 +179,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ca20cdbf1d492ebe4f6ace714832b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1346368756326467788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9122564453119383797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e630f68f9446108b3deb81bd1e09e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPickupable: 1
+  destroyOnDeath: 1
+  randomizeRotationWhenDropped: 1
+  activateRigidbodyWhenDropped: 1
+  usePackUpIcon: 0

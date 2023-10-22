@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Configurations>Subnautica;BelowZero</Configurations>
-        <NoWarn>$(NoWarn);CS0436;CS0649;Publicizer001;</NoWarn>
+        <NoWarn>$(NoWarn);CS0436;CS0649;Harmony003;Publicizer001;</NoWarn>
     </PropertyGroup>
 
     <Import Project="$(SolutionDir)/Subnautica.props" Condition=" '$(Configuration)' == 'Subnautica' " />
@@ -25,8 +25,6 @@
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/Creatures/_old/**/*.cs" />
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/Materials/**/*.cs" />
 
-        <Folder Include="Enums/BelowZero" />
-        <Folder Include="Enums/Subnautica" />
         <Folder Include="Utilities" />
         <Compile Update="..\Unity\Assets\Scripts\SCHIZO\Sounds\Jukebox\CustomJukeboxDisk.cs">
           <Link>Jukebox\CustomJukeboxDisk.cs</Link>

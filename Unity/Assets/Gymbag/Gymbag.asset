@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Gymbag
   m_EditorClassIdentifier: 
   registryItems:
-  - {fileID: 11400000, guid: 562c5236270615f488f8ee8b7cc0997e, type: 2}
   - {fileID: 11400000, guid: 124febe1fc9117843bbc389271af869d, type: 2}
+  - {fileID: 11400000, guid: 562c5236270615f488f8ee8b7cc0997e, type: 2}
   - {fileID: 11400000, guid: 4f317c9fb18daf6409570f3d86b97bec, type: 2}

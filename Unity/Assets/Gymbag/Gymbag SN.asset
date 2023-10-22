@@ -47,11 +47,12 @@ MonoBehaviour:
   knownTechInfoSN: {fileID: 0}
   unlockAtStartSN: 0
   requiredForUnlockSN:
-    isCustom: 0
+    isCustom: 1
     techType: 0
-    itemData: {fileID: 0}
+    itemData: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
   registerInBZ: 0
   recipeBZ: {fileID: 0}
+  canBeRecycledBZ: 1
   craftTreeTypeBZ: 0
   craftTreePathBZ: Personal/Equipment
   techGroupBZ: 13

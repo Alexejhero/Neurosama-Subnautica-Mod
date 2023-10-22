@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Greggs
   m_EditorClassIdentifier: 
   registryItems:
-  - {fileID: 11400000, guid: dac4ac0b014a6df4b86a3a77e8bd2329, type: 2}
   - {fileID: 11400000, guid: a79c1a7e483e68c4aa21c09f2ff6e460, type: 2}
+  - {fileID: 11400000, guid: dac4ac0b014a6df4b86a3a77e8bd2329, type: 2}

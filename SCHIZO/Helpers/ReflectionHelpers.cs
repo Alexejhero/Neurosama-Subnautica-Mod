@@ -1,22 +1,44 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using HarmonyLib;
 
 namespace SCHIZO.Helpers;
 
-public static class ReflectionHelpers
+partial class ReflectionHelpers
 {
-    public static T GetFieldValue<T>(string fieldColonName)
+    public static T GetStaticValue<T>(string fieldOrPropertyColonName)
     {
-        string[] splits = fieldColonName.Split(':');
-        FieldInfo field = AccessTools.Field(AccessTools.TypeByName(splits[0]), splits[1]);
-
         try
         {
-            return (T) field.GetRawConstantValue();
+            return GetStaticValueUnsafe<T>(fieldOrPropertyColonName);
         }
-        catch
+        catch (Exception)
         {
-            return (T) field.GetValue(null);
+            LOGGER.LogFatal("Failed to retrieve static value with name " + fieldOrPropertyColonName);
+            throw;
         }
+    }
+
+    private static T GetStaticValueUnsafe<T>(string fieldOrPropertyColonName)
+    {
+        string[] splits = fieldOrPropertyColonName.Split(':');
+        Type type = AccessTools.TypeByName(splits[0]);
+
+        FieldInfo f = type.GetField(splits[1], BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+
+        if (f != null)
+        {
+            try
+            {
+                return (T) f.GetRawConstantValue();
+            }
+            catch
+            {
+                return (T) f.GetValue(null);
+            }
+        }
+
+        MethodInfo p = type.GetProperty(splits[1], BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)!.GetGetMethod(true);
+        return (T) p.Invoke(null, Array.Empty<object>());
     }
 }

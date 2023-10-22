@@ -23,7 +23,7 @@ MonoBehaviour:
   - item:
       isCustom: 1
       techType: 1567
-      itemData: {fileID: 0}
+      itemData: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
     amount: 1
   - item:
       isCustom: 0

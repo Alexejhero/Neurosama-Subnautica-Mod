@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using NaughtyAttributes;
-using SCHIZO.Enums.Subnautica;
+using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using SCHIZO.Items.Data;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace SCHIZO.Creatures
     {
         public bool isPickupable;
 
-        [BoxGroup("Creature Data"), ValidateInput(nameof(Validate_behaviourType)), SerializeField, UsedImplicitly]
+        [BoxGroup("Creature Data"), Required_BehaviourType_SN, SerializeField, UsedImplicitly]
         private BehaviourType_SN behaviourType;
 
         [BoxGroup("Creature Data")]
