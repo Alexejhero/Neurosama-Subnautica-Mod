@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using NaughtyAttributes;
 using SCHIZO.Attributes.Typing;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Sounds
@@ -24,7 +25,8 @@ namespace SCHIZO.Sounds
         [SerializeField, ExposedType("Constructable"), UsedImplicitly]
         private MonoBehaviour constructable;
 
-        private DropdownList<string> bus_Dropdown = new DropdownList<string>()
+        [StaticHelpers.Cache]
+        private static DropdownList<string> bus_Dropdown = new DropdownList<string>()
         {
             {"PDA Voice", "Nautilus.Utility.AudioUtils+BusPaths:PDAVoice"},
             {"Underwater Creatures", "Nautilus.Utility.AudioUtils+BusPaths:UnderwaterCreatures"},

@@ -1,9 +1,14 @@
 global using static SCHIZO.Plugin;
+using System.Collections;
+using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
+using ECCLibrary;
 using HarmonyLib;
 using Nautilus.Handlers;
+using Nautilus.Utility;
 using SCHIZO.Attributes.Loading;
+using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using UnityEngine;
@@ -13,6 +18,7 @@ namespace SCHIZO;
 [BepInPlugin("SCHIZO", "SCHIZO", "1.0.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
+    public static Assembly PLUGIN_ASSEMBLY { get; private set; }
     public static GameObject PLUGIN_OBJECT { get; private set; }
     public static ManualLogSource LOGGER { get; private set; }
     public static Harmony HARMONY { get; private set; }
@@ -21,12 +27,22 @@ public sealed class Plugin : BaseUnityPlugin
 
     private void Awake()
     {
+        PLUGIN_ASSEMBLY = Assembly.GetExecutingAssembly();
         PLUGIN_OBJECT = gameObject;
         LOGGER = Logger;
         HARMONY = new Harmony("SCHIZO");
 
         ResourceManager.InjectAssemblies();
+
         SoundConfig.Provider = CONFIG;
+    }
+
+    private IEnumerator Start()
+    {
+        yield return ObjectReferences.SetReferences();
+        yield return MaterialHelpers.LoadMaterials();
+        StaticHelpers.CacheAttribute.CacheAll();
+
         HARMONY.PatchAll();
 
         Assets.Registry.InvokeRegister();
@@ -36,26 +52,5 @@ public sealed class Plugin : BaseUnityPlugin
         LoadMethodAttribute.LoadAll();
 
         LoadConsoleCommandsAttribute.RegisterAll();
-        // LoadCreatureAttribute.RegisterAll(); TODO
-
-        /*CustomPrefab prefab = new("testermshark", "Test Ermshark", "");
-        prefab.SetGameObject(() =>
-        {
-            GameObject parent = new();
-            parent.SetActive(false);
-            DontDestroyOnLoad(parent);
-
-            GameObject instance = Instantiate(Assets.WithoutEcclibraryTestVariant, parent.transform);
-            instance.SetActive(false);
-
-            PrefabUtils.AddBasicComponents(instance, prefab.Info.ClassID, prefab.Info.TechType, LargeWorldEntity.CellLevel.Medium);
-
-            CoroutineHelpers.RunWhen(() => MaterialHelpers.ApplySNShadersIncludingRemaps(instance, 1), () => MaterialHelpers.IsReady);
-
-            return instance;
-        });
-        prefab.Register();*/
     }
 }
-
-// PrecursorScan_Level_1

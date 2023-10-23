@@ -17,25 +17,18 @@ public static partial class MaterialHelpers
     public static Texture ConstructableEmissiveTexture => Check(_constrEmissiveTex);
     public static Texture ConstructableNoiseTexture => Check(_constrNoiseTex);
 
-    public static bool IsReady { get; private set; }
+    private static bool _isReady;
 
     private static T Check<T>(T item, [CallerMemberName] string memberName = null)
     {
-        if (!IsReady) LOGGER.LogWarning($"Materials are not ready yet, so {memberName} might return null! Start a coroutine to wait until {nameof(MaterialHelpers)}.{nameof(IsReady)} is true.");
+        if (!_isReady) LOGGER.LogFatal($"Materials are not ready yet, so {nameof(MaterialHelpers)}.{memberName} will return null!");
         return item;
     }
 
-    [LoadMethod]
-    private static void LoadMaterials()
+    public static IEnumerator LoadMaterials()
     {
-        CoroutineHost.StartCoroutine(LoadMaterialsCoro());
-        return;
-
-        static IEnumerator LoadMaterialsCoro()
-        {
-            yield return LoadGhostMaterial();
-            IsReady = true;
-        }
+        yield return LoadGhostMaterial();
+        _isReady = true;
     }
 
     private static IEnumerator LoadGhostMaterial()
@@ -48,7 +41,7 @@ public static partial class MaterialHelpers
 
         if (task.GetResult() is not GameObject chair)
         {
-            LOGGER.LogError("Couldn't load ghost material - no prefab");
+            LOGGER.LogFatal("Couldn't load ghost material - no prefab");
             yield break;
         }
 

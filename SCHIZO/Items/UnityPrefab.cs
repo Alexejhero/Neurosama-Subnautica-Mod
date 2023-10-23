@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using SCHIZO.Creatures;
@@ -12,7 +11,7 @@ namespace SCHIZO.Items;
 
 public class UnityPrefab : CustomPrefab
 {
-    #region Prefab cache // TODO: see if this is still needed
+    #region Prefab cache
 
     private static readonly Transform _prefabCacheParent;
 
@@ -84,17 +83,12 @@ public class UnityPrefab : CustomPrefab
     {
         if (!UnityData.prefab) return null;
 
-        return (Func<GameObject>) getDeferred;
+        GameObject instance = Object.Instantiate(UnityData.prefab, _prefabCacheParent);
 
-        GameObject getDeferred()
-        {
-            GameObject instance = Object.Instantiate(UnityData.prefab, _prefabCacheParent);
+        SetupComponents(instance);
+        ModifyPrefab(instance);
 
-            SetupComponents(instance);
-            ModifyPrefab(instance);
-
-            return instance;
-        }
+        return instance;
     }
 
     protected virtual void ModifyPrefab(GameObject prefab)
