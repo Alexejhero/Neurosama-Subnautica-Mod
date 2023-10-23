@@ -3,7 +3,6 @@ using SCHIZO.Attributes.Visual;
 using SCHIZO.Registering;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SCHIZO.Jukebox
 {
@@ -25,7 +24,7 @@ namespace SCHIZO.Jukebox
         [HideIf(nameof(IsRemote))]
         public AudioClip audioClip;
 
-        [FormerlySerializedAs("URL"), ShowIf(nameof(IsRemote)), ValidateInput(nameof(Validate_urlIsHttp), "Must be an HTTP address. HTTPS does not work!"), Label("URL")]
+        [ShowIf(nameof(IsRemote)), ValidateInput(nameof(Validate_urlIsHttp), "Must be an HTTP address. HTTPS does not work!"), Label("URL")]
         public string url;
 
         [ShowIf(nameof(IsRemote))]
@@ -37,7 +36,7 @@ namespace SCHIZO.Jukebox
         public string streamLabelFormat;
 
         [BoxGroup("Track Info"), ShowIf(nameof(IsRemote))]
-        [InfoBox("If not overridden, the remote file or stream's metadata (if any) will be used.")]
+        [Tooltip("If not overridden, the remote file or stream's metadata (if any) will be used.")]
         public bool overrideTrackLabel;
 
         [BoxGroup("Track Info")]
@@ -47,7 +46,7 @@ namespace SCHIZO.Jukebox
         public bool unlockedOnStart = true;
 
         [BoxGroup("Unlock"), HideIf(nameof(unlockedOnStart)), UsedImplicitly]
-        [InfoBox("If not set, the disk will use the base game model.")]
+        [Tooltip("If not set, the disk will use the base game model.")]
         public GameObject diskPrefab;
 
         [BoxGroup("Unlock"), HideIf(nameof(unlockedOnStart)), UsedImplicitly]

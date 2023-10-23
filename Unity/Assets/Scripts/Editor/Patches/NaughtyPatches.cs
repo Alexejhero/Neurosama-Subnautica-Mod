@@ -5,6 +5,8 @@ using System.Reflection;
 using HarmonyLib;
 using NaughtyAttributes.Editor;
 using SCHIZO.Helpers;
+using UnityEditor;
+using UnityEngine;
 
 namespace Patches
 {
@@ -65,6 +67,14 @@ namespace Patches
             ____nonSerializedFields = ____nonSerializedFields.ToList();
             ____nativeProperties = ____nativeProperties.ToList();
             ____methods = ____methods.ToList();
+        }
+
+        [HarmonyPatch(typeof(PropertyUtility), nameof(PropertyUtility.GetLabel))]
+        [HarmonyPostfix]
+        public static void AddTooltip(SerializedProperty property, ref GUIContent __result)
+        {
+            TooltipAttribute tooltip = PropertyUtility.GetAttribute<TooltipAttribute>(property);
+            if (tooltip != null) __result.tooltip = tooltip.tooltip;
         }
     }
 }
