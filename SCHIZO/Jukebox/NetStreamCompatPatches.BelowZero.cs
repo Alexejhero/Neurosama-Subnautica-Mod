@@ -71,10 +71,10 @@ public static class NetStreamCompatPatches
         bool isPlaying = __instance.isControlling;
         bool hasInfo = BZJukebox.main._info.TryGetValue(track.identifier, out BZJukebox.TrackInfo info);
 
-        if (isPlaying && (!hasInfo || info.label != __instance.textFile.text))
+        if (/*isPlaying &&*/ (!hasInfo || info.label != __instance.textFile.text))
         {
             // LOGGER.LogWarning($"Updating label because {(!hasInfo ? "no info" : $"{info.label} != {__instance.textFile.text}")}");
-            __instance.SetLabel(/*isPlaying &&*/ hasInfo ? info.label : track.trackLabel);
+            __instance.SetLabel(isPlaying && hasInfo ? info.label : track.trackLabel);
         }
     }
 
@@ -109,11 +109,32 @@ public static class NetStreamCompatPatches
             CoroutineHost.StartCoroutine(Bad(instance));
         }
 
+        return;
+
         static IEnumerator Bad(JukeboxInstance instance)
         {
             BZJukebox.main.Release();
             yield return null;
             BZJukebox.Play(instance);
+        }
+    }
+
+    [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.PlayInternal))]
+    public static class PreventSeekingSameFileIfStream
+    {
+        [HarmonyPrefix]
+        public static void Prefix(out uint __state)
+        {
+            __state = BZJukebox.main._position;
+        }
+
+        [HarmonyPostfix]
+        public static void Postfix(BZJukebox __instance, uint __state)
+        {
+            if (!__instance.IsPlayingStream(out _)) return;
+
+            __instance._position = __state;
+            __instance._positionDirty = false;
         }
     }
 }

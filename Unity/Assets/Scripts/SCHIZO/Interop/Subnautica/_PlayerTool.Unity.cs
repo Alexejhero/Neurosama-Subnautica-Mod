@@ -6,7 +6,7 @@ namespace SCHIZO.Interop.Subnautica
 {
     partial class _PlayerTool : _ModelPlug
     {
-        [Required] public Collider mainCollider;
+        public Collider mainCollider;
         [ExposedType("Pickupable")] public MonoBehaviour pickupable;
         [ReorderableList] public Renderer[] renderers;
 

@@ -99,6 +99,7 @@ internal class ValidatorAttribute : Attribute;
 internal class ButtonAttribute(string text = null) : Attribute;
 
 [Conditional("NEVER")]
-internal class DrawerAttribute : PropertyAttribute
-{
-}
+internal class DrawerAttribute : PropertyAttribute;
+
+[Conditional("NEVER")]
+public class FoldoutAttribute(string name) : Attribute;

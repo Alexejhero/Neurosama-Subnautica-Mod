@@ -23,6 +23,7 @@ public sealed partial class CustomJukeboxTrack
         RESULT res = sound.hasHandle()
             ? sound.getOpenState(out state, out _, out _, out _)
             : RESULT.ERR_INVALID_HANDLE;
+        if (res is not (RESULT.OK or RESULT.ERR_INVALID_HANDLE)) LOGGER.LogError("Received error while checking sound state: " + res);
         return !res.ToString().StartsWith("ERR"); // oh yeah it's big brain time
     }
 
