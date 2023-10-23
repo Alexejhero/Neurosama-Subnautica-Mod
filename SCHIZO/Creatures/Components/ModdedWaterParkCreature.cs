@@ -14,8 +14,8 @@ partial class ModdedWaterParkCreature
         data.daysToGrow = daysToGrow;
         data.isPickupableOutside = isPickupableOutside;
         data.canBreed = canBreed;
-        data.eggOrChildPrefab = !string.IsNullOrWhiteSpace(eggOrChildPrefabClassId) ? new CustomGameObjectReference(eggOrChildPrefabClassId) : null;
-        data.adultPrefab = !string.IsNullOrWhiteSpace(adultPrefabClassId) ? new CustomGameObjectReference(adultPrefabClassId) : null;
+        data.eggOrChildPrefab = !string.IsNullOrWhiteSpace(eggOrChild.GetClassID()) ? new CustomGameObjectReference(eggOrChild.GetClassID()) : null;
+        data.adultPrefab = !string.IsNullOrWhiteSpace(adult.GetClassID()) ? new CustomGameObjectReference(adult.GetClassID()) : null;
 
         WaterParkCreature wpc = gameObject.AddComponent<WaterParkCreature>();
         wpc.data = data;

@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &2325356937229066915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a0a8b9c1ef24e50856be88c997b2364, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  multiplier: 0
-  damageType: 6
 --- !u!114 &782310010918425145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28,6 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: 0
   damageType: 10
+--- !u!114 &2325356937229066915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0a8b9c1ef24e50856be88c997b2364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiplier: 0
+  damageType: 6
 --- !u!114 &3985792811908532193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,20 +56,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: 0
   damageType: 5
---- !u!114 &9033928124360437748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a0a8b9c1ef24e50856be88c997b2364, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  multiplier: 0
-  damageType: 12
 --- !u!114 &8923895978610807552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,6 +70,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: 0
   damageType: 11
+--- !u!114 &9033928124360437748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0a8b9c1ef24e50856be88c997b2364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiplier: 0
+  damageType: 12
 --- !u!1001 &4581379911448225930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129,6 +129,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 6033540712234444676}
+    - target: {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
       propertyPath: ikAimLeftArm
       value: 1
       objectReference: {fileID: 0}
@@ -136,7 +141,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mainCollider
       value: 
-      objectReference: {fileID: 5160843933436120860}
+      objectReference: {fileID: 5973600603059322721}
     - target: {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: referenceAnimation
@@ -182,6 +187,17 @@ PrefabInstance:
       propertyPath: daysToGrow
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 818708038637812476, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: adult.isCustom
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 818708038637812476, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: adult.itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53,
+        type: 2}
     - target: {fileID: 818708038637812476, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: adultPrefabClassId
@@ -422,6 +438,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3634865132989336311, guid: 4b880f19c99c9d148a101f9a9ff446c2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7398334851023547326, guid: 4b880f19c99c9d148a101f9a9ff446c2,
         type: 3}
       propertyPath: m_RootOrder
@@ -553,9 +574,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b880f19c99c9d148a101f9a9ff446c2, type: 3}
---- !u!64 &5160843933436120860 stripped
+--- !u!64 &5973600603059322721 stripped
 MeshCollider:
-  m_CorrespondingSourceObject: {fileID: 2812740663086430858, guid: 4b880f19c99c9d148a101f9a9ff446c2,
+  m_CorrespondingSourceObject: {fileID: 3634865132989336311, guid: 4b880f19c99c9d148a101f9a9ff446c2,
     type: 3}
   m_PrefabInstance: {fileID: 6960274250848581014}
   m_PrefabAsset: {fileID: 0}
