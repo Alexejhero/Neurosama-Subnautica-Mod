@@ -4,6 +4,7 @@ using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using ECCLibrary;
+using ECCLibrary.Data;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
@@ -12,6 +13,7 @@ using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 namespace SCHIZO;
 

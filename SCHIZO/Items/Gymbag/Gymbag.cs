@@ -24,9 +24,7 @@ public sealed class Gymbag : ClonePrefab
 
         GameObject.Destroy(prefab.GetComponentInChildren<VFXFabricating>());
 
-        GameObject instance = Object.Instantiate(UnityData.prefab, renderers[0].transform.parent);
-
-        PrefabUtils.AddVFXFabricating(instance, null, 0, 0.93f, new Vector3(0, -0.05f), 0.75f, Vector3.zero);
+        Object.Instantiate(UnityData.prefab, renderers[0].transform.parent);
     }
 
     protected override void PostRegister()
