@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class VFXFabricating : MonoBehaviour
@@ -19,6 +20,7 @@ public class VFXFabricating : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         if (!enabled) return;
+        if (Selection.activeGameObject != gameObject) return;
 
         Transform spawnPoint = _spawnPoint;
 
