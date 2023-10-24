@@ -15,7 +15,7 @@ public sealed partial class CustomJukeboxTrack
     public int LoadFailCount { get; private set; }
     public void OnLoadFail() => LoadFailCount++;
     public void OnPlay() => LoadFailCount = 0;
-    public bool ShouldRetryLoad => IsLocal || LoadFailCount < 3;
+    public bool ShouldRetryLoad => LoadFailCount < (IsLocal ? 5 : 3);
 
     public bool IsSoundValid(out OPENSTATE state)
     {
