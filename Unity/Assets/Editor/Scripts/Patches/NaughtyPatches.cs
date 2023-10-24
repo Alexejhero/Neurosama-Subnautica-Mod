@@ -4,6 +4,9 @@ using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using NaughtyAttributes.Editor;
+using SCHIZO.Helpers;
+using UnityEditor;
+using UnityEngine;
 
 namespace Patches
 {
@@ -47,13 +50,8 @@ namespace Patches
             [HarmonyPrefix]
             public static bool TypeHierarchyPerfDetour(out List<Type> __result, object target)
             {
-                __result = WalkTypeHierarchy(target?.GetType()).ToList();
+                __result = ReflectionHelpers.WalkTypeHierarchy(target?.GetType()).ToList();
                 return false;
-            }
-            public static IEnumerable<Type> WalkTypeHierarchy(Type leaf)
-            {
-                for (Type curr = leaf; curr != null; curr = curr.BaseType)
-                    yield return curr;
             }
         }
 
@@ -69,6 +67,14 @@ namespace Patches
             ____nonSerializedFields = ____nonSerializedFields.ToList();
             ____nativeProperties = ____nativeProperties.ToList();
             ____methods = ____methods.ToList();
+        }
+
+        [HarmonyPatch(typeof(PropertyUtility), nameof(PropertyUtility.GetLabel))]
+        [HarmonyPostfix]
+        public static void AddTooltip(SerializedProperty property, ref GUIContent __result)
+        {
+            TooltipAttribute tooltip = PropertyUtility.GetAttribute<TooltipAttribute>(property);
+            if (tooltip != null) __result.tooltip = tooltip.tooltip;
         }
     }
 }

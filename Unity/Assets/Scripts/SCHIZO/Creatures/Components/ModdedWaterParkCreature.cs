@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using SCHIZO.Items.Data.Crafting;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Components
@@ -12,7 +13,7 @@ namespace SCHIZO.Creatures.Components
         [SerializeField, UsedImplicitly] private float daysToGrow = 1;
         [SerializeField, UsedImplicitly] private bool isPickupableOutside = true;
         [SerializeField, UsedImplicitly] private bool canBreed = true;
-        [SerializeField, UsedImplicitly] private string eggOrChildPrefabClassId;
-        [SerializeField, UsedImplicitly] private string adultPrefabClassId;
+        [SerializeField, UsedImplicitly] private Item eggOrChild;
+        [SerializeField, UsedImplicitly] private Item adult;
     }
 }

@@ -69,20 +69,23 @@ internal class DropdownAttribute(string valuesName) : Attribute;
 
 internal interface IDropdownList : IEnumerable<KeyValuePair<string, object>>;
 
-internal class DropdownList<T> : IDropdownList
+public class DropdownList<T> : IDropdownList
 {
+    private readonly List<KeyValuePair<string, object>> _values = new();
+
     public void Add(string displayName, T value)
     {
+        _values.Add(new KeyValuePair<string, object>(displayName, value));
     }
 
     public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
     {
-        yield break;
+        return _values.GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        yield break;
+        return GetEnumerator();
     }
 }
 
@@ -96,6 +99,7 @@ internal class ValidatorAttribute : Attribute;
 internal class ButtonAttribute(string text = null) : Attribute;
 
 [Conditional("NEVER")]
-internal class DrawerAttribute : PropertyAttribute
-{
-}
+internal class DrawerAttribute : PropertyAttribute;
+
+[Conditional("NEVER")]
+public class FoldoutAttribute(string name) : Attribute;

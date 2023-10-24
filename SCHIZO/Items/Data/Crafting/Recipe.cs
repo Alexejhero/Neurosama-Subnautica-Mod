@@ -17,7 +17,7 @@ partial class Recipe
         {
             craftAmount = craftAmount,
             Ingredients = new List<NIngredient>(ingredients.Where(IngredientFilter).Select(t => t.Convert())),
-            LinkedItems = new List<TechType>(linkedItems.Where(ItemFilter).Select(t => t.Convert()))
+            LinkedItems = new List<TechType>(linkedItems.Where(ItemFilter).Select(t => t.GetTechType()))
         };
     }
 

@@ -11,7 +11,7 @@ partial class WorldAmbientSoundPlayer
 
     private void Awake()
     {
-        _fmodSoundCollection = FMODSoundCollection.For(soundCollection, ReflectionHelpers.GetStaticValue<string>(bus));
+        _fmodSoundCollection = FMODSoundCollection.For(soundCollection, StaticHelpers.GetValue<string>(bus));
         ResetTimer();
     }
 

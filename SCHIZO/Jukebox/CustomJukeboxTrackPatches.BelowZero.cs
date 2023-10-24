@@ -62,15 +62,16 @@ public static class CustomJukeboxTrackPatches
         }
     }
 
+
     [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.Start))]
-    [HarmonyPatch(typeof(SeaTruckSegment), nameof(SeaTruckSegment.Start))]
+    [HarmonyPatch(typeof(uGUI_SeaTruckSegment), nameof(uGUI_SeaTruckSegment.Awake))]
     [HarmonyPostfix]
     public static void EnableRichText(object __instance)
     {
         TMP_Text text = __instance switch
         {
             JukeboxInstance jukebox => jukebox.textFile,
-            SeaTruckSegment { isMainCab: true } seatruck => seatruck.GetComponent<uGUI_JukeboxLabel>().textFile,
+            uGUI_JukeboxLabel seatruckLabel => seatruckLabel.textFile,
             _ => null,
         };
         if (text) text.richText = true;
@@ -94,7 +95,7 @@ public static class CustomJukeboxTrackPatches
 
         foreach (CustomJukeboxTrack track in customTracks.Values)
         {
-            __instance._info[track.identifier] = track.ToTrackInfo(false);
+            __instance._info[track.identifier] = track.ToTrackInfo();
         }
     }
 
@@ -189,7 +190,7 @@ public static class CustomJukeboxTrackPatches
             if (!track.isStream) __instance._sound.getLength(out newInfo.length, TIMEUNIT.MS);
 
             string newLabel = CustomJukeboxTrack.GetTrackLabel(artist, title);
-            newInfo.label = newLabel is null or ""
+            newInfo.label = string.IsNullOrEmpty(newLabel)
                 ? track.trackLabel
                 : track.FormatTrackLabel(newLabel, true);
 
@@ -226,12 +227,12 @@ public static class CustomJukeboxTrackPatches
     }
 
     [HarmonyPatch(typeof(File), nameof(File.Exists))]
-    //[HarmonyPostfix]
+    [HarmonyPostfix]
     public static void DebugStuff(string path)
     {
-        if (path is null or "") return;
+        if (string.IsNullOrEmpty(path)) return;
 
-        BZJukebox jukebox = BZJukebox.main;
+        BZJukebox jukebox = BZJukebox._main;
         if (!jukebox || !jukebox.IsTrackCustom(out CustomJukeboxTrack track)) return;
         if (!path.EndsWith(track.identifier)) return;
 

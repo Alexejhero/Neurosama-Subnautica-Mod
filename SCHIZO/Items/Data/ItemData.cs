@@ -15,7 +15,7 @@ partial class ItemData
     public PDAEncyclopediaInfo PDAEncyclopediaInfo => RetargetHelpers.Pick(pdaEncyclopediaInfoSN, pdaEncyclopediaInfoBZ);
     public KnownTechInfo KnownTechInfo => RetargetHelpers.Pick(knownTechInfoSN, knownTechInfoBZ);
     public bool UnlockAtStart => RetargetHelpers.Pick(unlockAtStartSN, unlockAtStartBZ);
-    public TechType RequiredForUnlock => RetargetHelpers.Pick(requiredForUnlockSN, requiredForUnlockBZ).Convert();
+    public TechType RequiredForUnlock => RetargetHelpers.Pick(requiredForUnlockSN, requiredForUnlockBZ).GetTechType();
 
     protected override void Register()
     {

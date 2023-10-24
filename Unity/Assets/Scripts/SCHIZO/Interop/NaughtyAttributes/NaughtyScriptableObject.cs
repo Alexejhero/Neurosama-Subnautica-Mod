@@ -205,5 +205,14 @@ namespace SCHIZO.Interop.NaughtyAttributes
         };
 
         #endregion
+
+        private protected class HideInNormalInspectorAttribute : HideIfAttribute
+        {
+            public HideInNormalInspectorAttribute() : base(nameof(_true))
+            {
+            }
+        }
+
+        public bool _true => true;
     }
 }

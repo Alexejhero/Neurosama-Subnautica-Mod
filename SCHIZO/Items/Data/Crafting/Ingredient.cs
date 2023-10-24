@@ -8,6 +8,6 @@ partial class Ingredient
     {
         if (_converted != null) return _converted;
 
-        return _converted = new NIngredient(item.Convert(), amount);
+        return _converted = new NIngredient(item.GetTechType(), amount);
     }
 }

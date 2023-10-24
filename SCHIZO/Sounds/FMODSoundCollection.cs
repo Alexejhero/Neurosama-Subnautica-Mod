@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using FMOD;
@@ -17,42 +16,55 @@ namespace SCHIZO.Sounds;
 [SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Serialization")]
 public sealed class FMODSoundCollection
 {
-    private static ConcurrentDictionary<(BaseSoundCollection, string), FMODSoundCollection> _cache = new();
+    private static Dictionary<string, FMODSoundCollection> _cache = new();
 
-    private string _busPath;
-    private List<string> _sounds = new();
+    [SerializeField] private string _busName;
+    [SerializeField] private List<string> _sounds = new();
 
-    private Bus _bus;
+    private bool _ready;
     private RandomList<string> _randomSounds;
     private List<Coroutine> _runningCoroutines;
 
     public static FMODSoundCollection For(BaseSoundCollection soundCollection, string bus)
     {
-        if (!_cache.TryGetValue((soundCollection, bus), out FMODSoundCollection cached))
-            cached = _cache[(soundCollection, bus)] = new FMODSoundCollection(soundCollection, bus);
-        return cached;
+        int instanceId = soundCollection.GetInstanceID();
+
+        if (_cache.TryGetValue(instanceId + bus, out FMODSoundCollection cached)) return cached;
+        return _cache[instanceId + bus] = new FMODSoundCollection(soundCollection, bus);
     }
 
     private FMODSoundCollection(BaseSoundCollection soundCollection, string bus)
     {
-        _busPath = bus;
-        _bus = RuntimeManager.GetBus(_busPath);
+        _busName = bus;
+        CoroutineHost.StartCoroutine(LoadSounds(soundCollection));
+    }
+
+    private IEnumerator LoadSounds(BaseSoundCollection soundCollection)
+    {
+        Bus bus = RuntimeManager.GetBus(_busName);
 
         foreach (AudioClip audioClip in soundCollection.GetSounds())
         {
             string id = Guid.NewGuid().ToString();
-            RegisterSound(id, audioClip);
+            RegisterSound(id, audioClip, bus);
             _sounds.Add(id);
+
+            yield return null;
         }
+
+        _ready = true;
     }
 
-    private void Initialize()
+    private bool Initialize()
     {
-        if (_randomSounds is { Count: > 0 }) return;
+        if (!_ready) return false;
+        if (_randomSounds is {Count: > 0}) return true;
 
         _randomSounds = new RandomList<string>();
         _runningCoroutines = new List<Coroutine>();
         _randomSounds.AddRange(_sounds);
+
+        return true;
     }
 
     public float LastPlay { get; private set; } = -1;
@@ -62,16 +74,16 @@ public sealed class FMODSoundCollection
         _runningCoroutines.Add(CoroutineHost.StartCoroutine(coroutine));
     }
 
-    private void RegisterSound(string id, AudioClip audioClip)
+    private void RegisterSound(string id, AudioClip audioClip, Bus bus)
     {
-        Sound s = CustomSoundHandler.RegisterCustomSound(id, audioClip, _bus, AudioUtils.StandardSoundModes_3D);
-        _bus.unlockChannelGroup();
+        Sound s = CustomSoundHandler.RegisterCustomSound(id, audioClip, bus, AudioUtils.StandardSoundModes_3D);
+        bus.unlockChannelGroup();
         s.set3DMinMaxDistance(1, 30);
     }
 
     public void CancelAllDelayed()
     {
-        Initialize();
+        if (!Initialize()) return;
 
         foreach (Coroutine c in _runningCoroutines)
         {
@@ -85,7 +97,7 @@ public sealed class FMODSoundCollection
 
     public void Play(FMOD_CustomEmitter emitter, float delay = 0)
     {
-        Initialize();
+        if (!Initialize()) return;
         if (CONFIG.DisableAllNoises) return;
 
         if (delay <= 0)

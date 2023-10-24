@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KnownTechInfo
   m_EditorClassIdentifier: 
   hasCustomUnlockMessage: 0
-  defaultUnlockMessage: Nautilus.Handlers.KnownTechHandler+DefaultUnlockData.NewCreatureDiscoveredMessage
+  defaultUnlockMessage: Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:NewCreatureDiscoveredMessage
   customUnlockMessage: 
-  unlockSound: Nautilus.Handlers.KnownTechHandler+DefaultUnlockData.NewCreatureDiscoveredSound
+  unlockSound: Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:NewCreatureDiscoveredSound
   unlockSprite: {fileID: 21300000, guid: 5d63c67e19cdd4445bcff6ddf9f6780c, type: 3}

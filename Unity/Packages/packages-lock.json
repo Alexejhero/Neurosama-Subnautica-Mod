@@ -1,11 +1,10 @@
 {
   "dependencies": {
     "com.5pdev.harmony-for-unity": {
-      "version": "https://github.com/5PDEV/Harmony-For-Unity.git",
+      "version": "file:Harmony for Unity",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "c70f19acfaf63bd906c2f9aa278420e7e757ea21"
+      "source": "embedded",
+      "dependencies": {}
     },
     "com.dbrizov.naughtyattributes": {
       "version": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
@@ -78,6 +77,13 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
+    },
+    "com.whinarn.unitymeshsimplifier": {
+      "version": "https://github.com/Whinarn/UnityMeshSimplifier.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "d741912bfeaad8da4fe0f258f4f3eefe1fe7b3f3"
     },
     "textasseteditor": {
       "version": "file:TextAssetEditor",
