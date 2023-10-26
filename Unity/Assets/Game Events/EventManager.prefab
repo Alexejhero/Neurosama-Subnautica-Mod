@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoStartEvents: 0
+  overridePlayerPrefs: 0
 --- !u!114 &2221432346329158674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,5 +64,5 @@ MonoBehaviour:
   ticketsSold: {x: 10, y: 50}
   attendeeSearchRadius: 250
   panelistSearchRadius: 30
-  eventDuration: 120
+  maxDuration: 300
   cooldown: 1800

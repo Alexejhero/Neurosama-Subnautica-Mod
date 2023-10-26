@@ -116,7 +116,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   minActionCheckInterval: -1
-  patience: 10
+  patience: 5
 --- !u!114 &782310010918425145
 MonoBehaviour:
   m_ObjectHideFlags: 0

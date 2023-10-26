@@ -7,8 +7,8 @@ namespace SCHIZO.Interop.Subnautica
 {
     partial class _CreatureAction : MonoBehaviour
     {
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("Creature")] public MonoBehaviour creature;
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ValidateType("SwimBehaviour")] public MonoBehaviour swimBehaviour;
+        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("Creature")] public MonoBehaviour creature;
+        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("SwimBehaviour")] public MonoBehaviour swimBehaviour;
 
         [BoxGroup("Base Creature Action"), Range(0, 1)] public float evaluatePriority = 0.4f;
 

@@ -10,6 +10,8 @@ public partial class GameEvent : IStoryGoalListener
         public string FirstTime => $"{evt.Name}.FirstTime";
     }
     public abstract bool IsOccurring { get; }
+    public bool IsFirstTime { get; private set; } = true;
+
     protected Player player;
     protected GameEventsManager config;
     protected string RequiredStoryGoal => RetargetHelpers.Pick(requiredStoryGoal_SN, requiredStoryGoal_BZ);
@@ -24,13 +26,15 @@ public partial class GameEvent : IStoryGoalListener
         config = GetComponent<GameEventsManager>();
 
         StoryGoalManager.main.AddListener(this);
+        if (StoryGoalHelpers.IsCompleted(Goals.FirstTime)) IsFirstTime = false;
     }
 
     #region Unlock goals
     // TODO: can/should this be improved?
     public void NotifyGoalComplete(string goal)
     {
-        if (StoryGoal.Equals(goal, RequiredStoryGoal)) Unlock();
+        if (string.Equals(goal, RequiredStoryGoal, System.StringComparison.OrdinalIgnoreCase))
+            Unlock();
     }
 
     public void NotifyGoalReset(string key) => Lock();
@@ -57,8 +61,14 @@ public partial class GameEvent : IStoryGoalListener
 
     public virtual void StartEvent()
     {
-        StoryGoalHelpers.Trigger(Goals.FirstTime);
-        LOGGER.LogMessage($"{Name} started");
+        string firstTimeMsg = "";
+        IsFirstTime = !StoryGoalHelpers.IsCompleted(Goals.FirstTime);
+        if (IsFirstTime)
+        {
+            StoryGoalHelpers.Trigger(Goals.FirstTime);
+            firstTimeMsg = " (first time)";
+        }
+        LOGGER.LogMessage($"{Name} started{firstTimeMsg}");
     }
 
     public virtual void EndEvent()
@@ -76,7 +86,7 @@ public partial class GameEvent : IStoryGoalListener
     protected abstract void UpdateRender();
     /// <summary>
     /// Called in FixedUpdate to check whether to auto-start the event.<br/>
-    /// This method should 
+    /// This function should check the start conditions specific to this event - random chance, time of day, etc.
     /// </summary>
     /// <returns>Whether to start the event.</returns>
     protected abstract bool ShouldStartEvent();

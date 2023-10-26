@@ -5,11 +5,16 @@ using UnityEngine;
 
 namespace SCHIZO.Events.Ermcon;
 
+/// <summary>
+/// The gathering of Erm lovers from all over.<br/>
+/// TODO docs please remind me
+/// </summary>
 public partial class Ermcon
 {
     public static Ermcon instance;
 
-    public override bool IsOccurring => conMembers.Count > 0;
+    public override bool IsOccurring => _isOccurring;
+    private bool _isOccurring;
 
     public HashSet<ErmconPanelist> targets;
     public ErmconPanelist playerTarget;
@@ -98,16 +103,16 @@ public partial class Ermcon
             }
         }
 
-        conMembers = conMembers.Where(m => m).ToList();
+        conMembers = conMembers.Where(m => m && m.enabled).ToList();
+        if (conMembers.Count == 0) EndEvent();
     }
 
     protected override void UpdateRender() { }
 
     public override void StartEvent()
     {
-        // don't search again if autostarting
-        List<ErmconAttendee> erms = conMembers.Count > 0 ? conMembers
-            : LocateLocalErmaniacs(player.gameObject).ToList(); // manual start
+        List<ErmconAttendee> erms = conMembers.Count > 0 ? conMembers    // auto start - use the search we just did in ShouldStartEvent
+            : LocateLocalErmaniacs(player.gameObject).ToList();          // manual start
         int totalAttendance = Mathf.Min(MaxAttendance, erms.Count);
         if (totalAttendance <= 0)
         {
@@ -116,8 +121,10 @@ public partial class Ermcon
         }
         LOGGER.LogMessage($"The upcoming Ermcon will be visited by {totalAttendance} afficionados");
         conMembers.AddRange(erms.Take(totalAttendance));
+        conMembers.ForEach(erm => erm.enabled = true);
 
-        _eventEndTime = Time.time + eventDuration;
+        _eventEndTime = Time.time + maxDuration;
+        _isOccurring = true;
         base.StartEvent();
     }
 
@@ -129,10 +136,11 @@ public partial class Ermcon
             if (!ermEnthusiast) continue;
             ermEnthusiast.enabled = false;
         }
+        conMembers.Clear();
+
 
         _eventEndTime = Time.time;
-
-        conMembers.Clear();
+        _isOccurring = false;
         base.EndEvent();
     }
 

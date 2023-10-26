@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using Nautilus.Commands;
 using Nautilus.Utility;
 using SCHIZO.Attributes.Loading;
+using SCHIZO.Events.Ermcon;
 using SCHIZO.Helpers;
 using UnityEngine;
 
@@ -58,6 +59,19 @@ public partial class GameEventsManager
                 MessageHelpers.WriteCommandOutput($"Syntax: autoevents [on|off]");
             }
         }
+    }
+
+#warning DEV DEBUG
+    public void Update()
+    {
+        if (!Input.GetKeyDown(KeyCode.LeftControl)) return;
+        if (!Player.main || !Player.main.guiHand
+            || !Player.main.guiHand.activeTarget) return;
+
+        ErmconAttendee target = Player.main.guiHand.activeTarget.GetComponent<ErmconAttendee>();
+        if (!target) return;
+
+        target.CycleDebug();
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
