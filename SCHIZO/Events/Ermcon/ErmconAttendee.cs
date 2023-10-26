@@ -19,18 +19,20 @@ public partial class ErmconAttendee : IHandTarget
     );
     private List<(HandTarget target, bool wasEnabled)> _otherHandTargets;
 
-    private float _boredom;
-    private float _engagement;
+    public float boredom;
+    public float burnout;
     public float stareTime;
 
     public ErmconPanelist CurrentTarget { get; private set; }
-    private HashSet<ErmconPanelist> _visited;
-    private float _timeOnTarget;
+    private Dictionary<ErmconPanelist, float> _visited;
 
     public override void Awake()
     {
         base.Awake();
-        _visited = new HashSet<ErmconPanelist>();
+        _visited = new Dictionary<ErmconPanelist, float>();
+        // "meta"-priority - this number determines the order in which actions get *evaluated*
+        // and the priority obtained from Evaluate() actually determines which action gets *performed*
+        evaluatePriority = 99f;
     }
     public void OnHandHover(GUIHand hand)
     {
@@ -51,6 +53,8 @@ public partial class ErmconAttendee : IHandTarget
 
     public void OnDisable()
     {
+        burnout = 0;
+        _visited.Clear();
         creature.ScanCreatureActions();
         creature.GetComponent<SwimBehaviour>().LookForward();
         _otherHandTargets.ForEach(pair => pair.target.enabled = pair.wasEnabled);
@@ -86,6 +90,11 @@ public partial class ErmconAttendee : IHandTarget
             stareTime -= deltaTime;
             return;
         }
+        if (burnout > patience)
+        {
+            StopPerform(time);
+            return;
+        }
         if (!UpdateTarget(deltaTime)) return;
 
         Vector3 targetPos = CurrentTarget.transform.position;
@@ -108,26 +117,21 @@ public partial class ErmconAttendee : IHandTarget
         swim.SwimTo(targetPos, swimVelocity);
     }
 
+    /// <returns>A <see cref="bool" /> indicating whether we have an active target.</returns>
     private bool UpdateTarget(float deltaTime)
     {
         if (!CurrentTarget) return SwitchTarget();
 
-        _boredom += deltaTime * _boredomGrowth.Evaluate(_timeOnTarget) / (1 + CurrentTarget.entertainmentFactor);
-        _boredom -= deltaTime * patienceMultiplier;
-        _timeOnTarget += deltaTime;
-        _engagement += CurrentTarget.entertainmentFactor * deltaTime - _boredom;
+        float timeOnTarget = _visited[CurrentTarget];
+        float boredomGrowth = deltaTime * _boredomGrowth.Evaluate(timeOnTarget) / (1 + CurrentTarget.entertainmentFactor);
+        timeOnTarget += deltaTime;
 
-        if (_boredom > _engagement)
+        boredom += boredomGrowth - patience;
+        _visited[CurrentTarget] = timeOnTarget;
+
+        if (boredom > patience)
             return SwitchTarget();
         return true;
-    }
-
-    public void OnTargetRemoved(ErmconPanelist panelist, GameObject source)
-    {
-        if (CurrentTarget == panelist)
-        {
-            SwitchTarget();
-        }
     }
 
     public override void StopPerform(float time)
@@ -140,19 +144,31 @@ public partial class ErmconAttendee : IHandTarget
 
     public bool SwitchTarget(ErmconPanelist forceTarget = null)
     {
-        CurrentTarget = forceTarget ? forceTarget : PickAnotherBooth(_visited);
+        CurrentTarget = forceTarget ? forceTarget : PickAnotherBooth();
         if (!CurrentTarget) return false;
-        _visited.Add(CurrentTarget);
+        if (!_visited.ContainsKey(CurrentTarget)) _visited[CurrentTarget] = 0;
         swimBehaviour.LookAt(CurrentTarget.transform);
-        _timeOnTarget = 0;
-        _boredom = 0;
-        _engagement = startingEngagement;
+        boredom = 0;
         return true;
     }
 
-    private ErmconPanelist PickAnotherBooth(ICollection<ErmconPanelist> visited)
+    /// <summary>
+    /// Targets are picked in this order:<br/>
+    /// <list type="number">
+    ///   <item>
+    ///     Time spent on target (0 if unvisited) divided by entertainment factor (EF), smallest first<br/>
+    ///     We divide by the EF because attendees naturally switch away from boring targets quicker
+    ///   </item>
+    ///   <item>
+    ///     EF as the tiebreaker, highest first
+    ///   </item>
+    /// </list>
+    /// </summary>
+    private ErmconPanelist PickAnotherBooth()
     {
-        return Ermcon.instance.Targets.FirstOrDefault(t => !visited.Contains(t))
-            ?? Ermcon.instance.playerTarget;
+        return Ermcon.instance.targets
+            .OrderBy(t => _visited.GetOrDefault(t, 0f) / t.entertainmentFactor)
+            .ThenByDescending(t => t.entertainmentFactor)
+            .FirstOrDefault();
     }
 }

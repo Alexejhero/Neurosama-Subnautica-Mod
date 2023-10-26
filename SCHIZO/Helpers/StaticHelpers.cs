@@ -1,10 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using NaughtyAttributes;
-using Nautilus.Utility;
 
 namespace SCHIZO.Helpers;
 
@@ -16,7 +15,7 @@ partial class StaticHelpers
         {
             PLUGIN_ASSEMBLY.GetTypes().SelectMany(t => t.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
                 .Where(f => f.GetCustomAttribute<CacheAttribute>() != null)
-                .Select(f => (DropdownList<string>) f.GetValue(null))
+                .Select(f => (IDropdownList) f.GetValue(null))
                 .Select(d => d.Select(kvp => (string) kvp.Value))
                 .ForEach(CacheValues);
         }

@@ -24,6 +24,7 @@ namespace SCHIZO.Sounds
         private bool NeedsEmitter => Is3D;
 
         // "private protected" = protected AND internal (NaughtyAttributes is internal on the mod side)
+        [StaticHelpers.Cache]
         private protected static readonly BetterDropdownList<string> buses = new BetterDropdownList<string>()
         {
             {PDA_VOICE, "Nautilus.Utility.AudioUtils+BusPaths:PDAVoice"},

@@ -9,14 +9,13 @@ public partial class Ermcon
 {
     public static Ermcon instance;
 
-    public override bool IsOccurring => ConMembers.Count > 0;
+    public override bool IsOccurring => conMembers.Count > 0;
 
-    public bool Hivemind;
-    public HashSet<ErmconPanelist> Targets;
+    public HashSet<ErmconPanelist> targets;
     public ErmconPanelist playerTarget;
 
-    private List<ErmconAttendee> ConMembers;
-    private float _eventStartTime;
+    private List<ErmconAttendee> conMembers;
+    private float _eventEndTime;
     private bool _hasRolled;
 
     private const float _minSearchInterval = 1f;
@@ -26,12 +25,11 @@ public partial class Ermcon
     private void Start()
     {
         instance = this;
-        ConMembers = new List<ErmconAttendee>();
-        Targets = new HashSet<ErmconPanelist>();
+        conMembers = new List<ErmconAttendee>();
+        targets = new HashSet<ErmconPanelist>();
         // let's not wait the whole cooldown on load
-        _eventStartTime = -cooldown / 2;
+        _eventEndTime = -cooldown / 2;
 
-        LOGGER.LogWarning($"{player} {GetComponent<GameEventsConfig>()}");
         player.playerDeathEvent.AddHandler(this, _ => EndEvent());
         playerTarget = player.gameObject.EnsureComponent<ErmconPanelist>();
         playerTarget.entertainmentFactor = 0.5f;
@@ -39,7 +37,7 @@ public partial class Ermcon
 
     protected override bool ShouldStartEvent()
     {
-        float sinceLastEvent = Time.time - (_eventStartTime + eventDuration);
+        float sinceLastEvent = Time.time - _eventEndTime;
         if (sinceLastEvent < cooldown)
             return false;
         // roll every 6 in-game hours (5min real time)
@@ -47,16 +45,13 @@ public partial class Ermcon
         // since it's always centered on (or around) the player, it's not a big problem that it's rare
         if (DayNightUtils.dayScalar % 0.25 < 0.01)
         {
-            if (_hasRolled)
-                return false;
+            if (_hasRolled) return false;
+
             _hasRolled = true;
             float chance = 0.1f * (sinceLastEvent / cooldown);
             float roll = Random.Range(0f, 1f);
-            if (roll > chance)
-            {
-                // LOGGER.LogDebug($"roll failed {roll}>{chance}");
-                return false;
-            }
+
+            if (roll > chance) return false;
         }
         else
         {
@@ -64,79 +59,87 @@ public partial class Ermcon
             return false;
         }
 
-        int ermsInRange = PhysicsHelpers.ObjectsInRange(gameObject, attendeeSearchRadius)
-            .WithComponent<ErmconAttendee>()
-            .Count();
-        if (ermsInRange < minAttendance)
+        List<ErmconAttendee> ermsInRange = LocateLocalErmaniacs(player.gameObject).ToList();
+        if (ermsInRange.Count < MinAttendance)
         {
-            //LOGGER.LogDebug($"Rolled for Ermcon event but only had {ermsInRange} erms, unlucky");
+            //LOGGER.LogInfo($"Rolled for Ermcon event but only had {ermsInRange.Count} erms, unlucky");
             return false;
         }
 
+        conMembers = ermsInRange;
         return true;
     }
+
     protected override void UpdateLogic()
     {
         float time = Time.fixedTime;
-        if (time > _eventStartTime + eventDuration)
+        if (time > _eventEndTime)
         {
             EndEvent();
             return;
         }
 
-        if (time > _lastSearchTime + _minSearchInterval * (1 + Targets.Count))
+        if (time > _lastSearchTime + _minSearchInterval * (1 + targets.Count))
         {
-            Targets.AddRange(InviteInfluencers(gameObject));
+            targets.AddRange(InviteInfluencers(gameObject));
             _lastSearchTime = time;
         }
 
         // untarget any deconstructed
-        List<Constructable> constructables = Targets.Select(c => c.gameObject).SelectComponent<Constructable>().ToList();
+        List<Constructable> constructables = targets.Select(c => c.gameObject).SelectComponent<Constructable>().ToList();
         foreach (Constructable con in constructables)
         {
             if (con.constructedAmount < 0.90f) // small buffer to prevent spam
             {
                 ErmconPanelist panelist = con.GetComponent<ErmconPanelist>();
-                Targets.Remove(panelist);
-                ConMembers.Where(c => c.CurrentTarget == panelist)
+                targets.Remove(panelist);
+                conMembers.Where(c => c.CurrentTarget == panelist)
                     .ForEach(c => c.OnTargetRemoved());
             }
         }
 
-        ConMembers = ConMembers.Where(m => m).ToList();
+        conMembers = conMembers.Where(m => m).ToList();
     }
 
     protected override void UpdateRender() { }
 
     public override void StartEvent()
     {
-        List<ErmconAttendee> withinRadius = PhysicsHelpers.ObjectsInRange(gameObject, attendeeSearchRadius)
-            .OrderByDistanceTo(player.transform.position)
-            .SelectComponentInParent<ErmconAttendee>() // InParent because collision gets WM
-            .ToList();
-        int totalAttendance = Mathf.Min(maxAttendance, withinRadius.Count);
-        LOGGER.LogMessage($"{totalAttendance} congoers will be attending the Ermcon");
-        for (int i = 0; i < totalAttendance; i++)
+        // don't search again if autostarting
+        List<ErmconAttendee> erms = conMembers.Count > 0 ? conMembers
+            : LocateLocalErmaniacs(player.gameObject).ToList(); // manual start
+        int totalAttendance = Mathf.Min(MaxAttendance, erms.Count);
+        if (totalAttendance <= 0)
         {
-            ErmconAttendee ermconAficionado = withinRadius[i];
-            ConMembers.Add(ermconAficionado);
+            MessageHelpers.WriteCommandOutput($"Nobody wanted to go to Ermcon :(");
+            return;
         }
+        LOGGER.LogMessage($"The upcoming Ermcon will be visited by {totalAttendance} afficionados");
+        conMembers.AddRange(erms.Take(totalAttendance));
 
-        _eventStartTime = Time.time;
+        _eventEndTime = Time.time + eventDuration;
         base.StartEvent();
     }
 
     public override void EndEvent()
     {
-        Targets.Clear();
-        foreach (ErmconAttendee ermEnthusiast in ConMembers)
+        targets.Clear();
+        foreach (ErmconAttendee ermEnthusiast in conMembers)
         {
             if (!ermEnthusiast) continue;
             ermEnthusiast.enabled = false;
         }
 
-        ConMembers.Clear();
+        _eventEndTime = Time.time;
+
+        conMembers.Clear();
         base.EndEvent();
+    }
+
+    private IEnumerable<ErmconAttendee> LocateLocalErmaniacs(GameObject center)
+    {
+        return PhysicsHelpers.ObjectsInRange(center, attendeeSearchRadius)
+            .SelectComponentInParent<ErmconAttendee>();
     }
 
     private IEnumerable<ErmconPanelist> InviteInfluencers(GameObject center)
@@ -145,7 +148,7 @@ public partial class Ermcon
             .SelectComponentInParent<ErmconPanelist>()
             .Where(x =>
             {
-                if (Targets.Contains(x)) return false;
+                if (targets.Contains(x)) return false;
                 Constructable con = x.GetComponent<Constructable>();
                 return !con || con.constructedAmount == 1;
             }).OrderByDistanceTo(center.transform.position);

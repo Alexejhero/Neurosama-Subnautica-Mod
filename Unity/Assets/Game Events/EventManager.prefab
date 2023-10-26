@@ -60,9 +60,8 @@ MonoBehaviour:
   canAutoStart: 1
   requiredStoryGoal_SN: 
   requiredStoryGoal_BZ: 
-  MinAttendance: 10
-  MaxAttendance: 50
-  SearchRadius: 250
-  ErmPanelistSearchRadius: 30
-  EventDurationSeconds: 120
-  CooldownSeconds: 1800
+  ticketsSold: {x: 10, y: 50}
+  attendeeSearchRadius: 250
+  panelistSearchRadius: 30
+  eventDuration: 120
+  cooldown: 1800

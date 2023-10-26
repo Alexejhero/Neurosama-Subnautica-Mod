@@ -15,7 +15,7 @@ partial class SoundPlayer
         // the string is most likely a field path, but we can also directly accept bus paths (and guids)
         string actualBus = busOrFieldPath.StartsWith("bus:/") || Guid.TryParse(busOrFieldPath, out _)
             ? busOrFieldPath
-            : ReflectionHelpers.GetStaticValue<string>(busOrFieldPath);
+            : StaticHelpers.GetValue<string>(busOrFieldPath);
         fmodSounds = FMODSoundCollection.For(soundCollection, actualBus);
     }
 }

@@ -67,6 +67,13 @@ internal class RequiredAttribute(string message = null) : Attribute;
 [Conditional("NEVER")]
 internal class DropdownAttribute(string valuesName) : Attribute;
 
+[Conditional("NEVER")]
+internal class MinMaxSliderAttribute : Attribute
+{
+    public MinMaxSliderAttribute(int min, int max) { }
+    public MinMaxSliderAttribute(float min, float max) { }
+}
+
 internal interface IDropdownList : IEnumerable<KeyValuePair<string, object>>;
 
 public class DropdownList<T> : IDropdownList

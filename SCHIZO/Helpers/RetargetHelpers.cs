@@ -1,7 +1,10 @@
+using System.Runtime.CompilerServices;
+
 namespace SCHIZO.Helpers;
 
 public static class RetargetHelpers
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static
 #if SUBNAUTICA
         TSubnautica
@@ -16,11 +19,4 @@ public static class RetargetHelpers
         return belowZero;
 #endif
     }
-
-    public static bool IsStoryEnabled()
-#if BELOWZERO
-        => GameModeManager.GetOption<bool>(GameOption.Story);
-#else
-        => true;
-#endif
 }
