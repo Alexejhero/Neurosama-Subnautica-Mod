@@ -11,6 +11,15 @@ public sealed partial class CarryCreature : CustomCreatureAction
     private float timeNextUpdate;
     private static readonly EcoRegion.TargetFilter _isTargetValidFilter = (IEcoTarget target) => target.GetGameObject().GetComponent<GetCarried>();
 
+    public EcoTargetType EcoTargetType => (EcoTargetType) _ecoTargetType;
+
+    public override void Awake()
+    {
+        base.Awake();
+#warning https://github.com/users/Alexejhero/projects/5/views/1?pane=issue&itemId=42850746
+        if (!creature) creature = GetComponent<Creature>();
+    }
+
     public override float Evaluate(float time)
     {
         if (timeNextFindTarget < time)
@@ -26,29 +35,52 @@ public sealed partial class CarryCreature : CustomCreatureAction
         return target && target.gameObject.activeInHierarchy ? GetEvaluatePriority() : 0f;
     }
 
-    public void TryPickup(GetCarried getCarried = null)
+    public bool TryPickup(GetCarried getCarried)
     {
-        getCarried ??= target!?.GetComponent<GetCarried>();
-        if (getCarried && getCarried.gameObject && getCarried.gameObject.activeInHierarchy)
+        if (!getCarried) return false;
+        target = getCarried;
+        return TryPickupTarget();
+    }
+
+    private bool TryPickupTarget()
+    {
+        if (!target || !target.gameObject || !target.gameObject.activeInHierarchy) return false;
+        
+        if (target.GetComponentInParent<Player>())
         {
-            if (getCarried.GetComponentInParent<Player>())
-            {
-                // in player's inventory
-                Drop();
-                timeNextFindTarget = Time.time + 6f;
-                return;
-            }
-            UWE.Utils.SetCollidersEnabled(getCarried.gameObject, false);
-            getCarried.transform.parent = attachPoint;
-            getCarried.transform.localPosition = Vector3.zero;
-            getCarried.OnPickedUp();
-            getCarried.swimBehaviour.Idle();
-            targetPickedUp = true;
-            UWE.Utils.SetIsKinematic(getCarried.GetComponent<Rigidbody>(), true);
-            UWE.Utils.SetEnabled(getCarried.GetComponent<LargeWorldEntity>(), false);
-            swimBehaviour.SwimTo(transform.position + Vector3.up + 5f * Random.onUnitSphere, Vector3.up, swimVelocity);
-            timeNextUpdate = Time.time + 1f;
+            // in player's inventory
+            Drop();
+            timeNextFindTarget = Time.time + 6f;
+            return false;
         }
+        UWE.Utils.SetCollidersEnabled(target.gameObject, false);
+        UWE.Utils.SetIsKinematic(target.GetComponent<Rigidbody>(), true);
+        UWE.Utils.SetEnabled(target.GetComponent<LargeWorldEntity>(), false);
+
+        Transform targetTransform = target.transform;
+        targetTransform.SetParent(attachPoint, true); // false sets scale incorrectly
+        target.OnPickedUp();
+        targetPickedUp = true;
+
+        RepositionTarget(target);
+
+        swimBehaviour.SwimTo(transform.position + Vector3.up + 5f * Random.onUnitSphere, Vector3.up, swimVelocity);
+        timeNextUpdate = Time.time + 1f;
+
+        return true;
+    }
+
+    private void RepositionTarget(GetCarried getCarried)
+    {
+        Transform targetTransform = getCarried.transform;
+        if (resetRotation) targetTransform.localRotation = Quaternion.identity;
+
+        // place the transform so the pickup point is on the attach point
+        Vector3 offset = getCarried.pickupPoint
+            ? -getCarried.pickupPoint.localPosition
+            : Vector3.zero;
+        offset.Scale(attachPoint.lossyScale);
+        targetTransform.localPosition = offset;
     }
 
     private void Drop()
@@ -64,7 +96,7 @@ public sealed partial class CarryCreature : CustomCreatureAction
 
     private void DropTarget(GameObject target)
     {
-        target.transform.parent = null;
+        target.transform.SetParent(null, true);
         UWE.Utils.SetCollidersEnabled(target, true);
         UWE.Utils.SetIsKinematic(target.GetComponent<Rigidbody>(), false);
         if (target.GetComponent<LargeWorldEntity>() is { } lwe)
@@ -73,7 +105,7 @@ public sealed partial class CarryCreature : CustomCreatureAction
 
     private void UpdateTarget()
     {
-        IEcoTarget ecoTarget = EcoRegionManager.main!?.FindNearestTarget(EcoTargetType.Coral, transform.position, _isTargetValidFilter, 1);
+        IEcoTarget ecoTarget = EcoRegionManager.main!?.FindNearestTarget(EcoTargetType, transform.position, _isTargetValidFilter, 1);
         GetCarried newTarget = ecoTarget?.GetGameObject()!?.GetComponent<GetCarried>();
         if (!newTarget) return;
 
@@ -106,7 +138,7 @@ public sealed partial class CarryCreature : CustomCreatureAction
             }
             if ((attachPoint.transform.position - target.transform.position).sqrMagnitude < Mathf.Pow(attachRadius, 2f))
             {
-                TryPickup();
+                TryPickupTarget();
                 return;
             }
         }
@@ -118,18 +150,24 @@ public sealed partial class CarryCreature : CustomCreatureAction
                 {
                     // picked up by someone else
                     Drop();
-                    return;
                 }
                 else
                 {
-                    TryPickup();
+                    TryPickupTarget();
                 }
+                return;
             }
             if (time > timeNextUpdate)
             {
                 timeNextUpdate = time + updateInterval;
+                RepositionTarget(target); // sometimes the target moves (for absolutely no reason) after it gets attached
                 swimBehaviour.SwimTo(transform.position + 2f * swimVelocity * Random.insideUnitSphere, swimVelocity);
-                if (Random.value < ADHD) Drop();
+                float roll = Random.value;
+                if (roll < ADHD)
+                {
+                    LOGGER.LogWarning($"dropping because {roll}<{ADHD}");
+                    Drop();
+                }
             }
             creature.Happy.Add(deltaTime);
             creature.Friendliness.Add(deltaTime);

@@ -1,4 +1,4 @@
-﻿namespace SCHIZO.Creatures.Components;
+namespace SCHIZO.Creatures.Components;
 
 partial class CustomCreatureTool
 {
@@ -11,8 +11,8 @@ partial class CustomCreatureTool
 
         if (IS_BELOWZERO)
         {
-            leftHandIKTarget = leftHandIKTargetOverrideBZ;
-            rightHandIKTarget = rightHandIKTargetOverrideBZ;
+            if (leftHandIKTargetOverrideBZ) leftHandIKTarget = leftHandIKTargetOverrideBZ;
+            if (rightHandIKTargetOverrideBZ) rightHandIKTarget = rightHandIKTargetOverrideBZ;
         }
 
         base.Awake();

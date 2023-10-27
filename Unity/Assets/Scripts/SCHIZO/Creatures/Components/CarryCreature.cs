@@ -1,12 +1,17 @@
 using UnityEngine;
 using NaughtyAttributes;
+using SCHIZO.Interop.Subnautica.Enums;
 
 namespace SCHIZO.Creatures.Components
 {
     public partial class CarryCreature : CustomCreatureAction
     {
+        [SerializeField]
+        private EcoTargetType_All _ecoTargetType;
         [Required]
         public Transform attachPoint;
+        [Tooltip("Rotate the carried creature to match the attach point's forward/up vectors.")]
+        public bool resetRotation;
         public float attachRadius = 2f;
         public float updateInterval = 2f;
         public float updateTargetInterval = 1f;

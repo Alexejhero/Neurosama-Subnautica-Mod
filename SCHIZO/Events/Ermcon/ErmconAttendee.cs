@@ -18,15 +18,25 @@ public partial class ErmconAttendee : IHandTarget
     );
     private List<(HandTarget target, bool wasEnabled)> _otherHandTargets;
 
+    /// <summary>
+    /// A value that increases the longer the creature is focused on one target.<br/>
+    /// Once the value surpasses the creature's <see cref="patience">patience</see>, it switches targets.
+    /// </summary>
     public float boredom;
+    /// <summary>
+    /// Like <see cref="boredom">boredom</see>, but for the whole <see cref="Ermcon"/>.<br/>
+    /// Once the value surpasses the creature's <see cref="patience">patience</see>, it stops participating in the event.
+    /// </summary>
     public float burnout;
+    /// <summary>
+    /// While this is above zero, the creature will stop and stare at the player.<br/>
+    /// Counts down with time.
+    /// </summary>
     public float stareTime;
 
     public ErmconPanelist CurrentTarget { get; private set; }
     private Dictionary<ErmconPanelist, float> _visited;
 
-    private float _lastUpdate;
-    private static readonly float _minUpdateInterval = 0.5f;
     public int _verbose;
     private float _savedPatience;
 
@@ -70,17 +80,17 @@ public partial class ErmconAttendee : IHandTarget
         _otherHandTargets.ForEach(pair => pair.target.enabled = pair.wasEnabled);
     }
 
-    public void OnTargetRemoved()
+    public void OnTargetRemoved(GameObject removedBy)
     {
         float time = Random.Range(2.5f, 3.5f);
-        LogSelf($"target removed, will stare for {time}");
-        StareFor(time);
-        swimBehaviour.LookAt(Ermcon.instance.playerTarget.transform);
+        LogSelf($"target removed by {removedBy}, will stare for {time}");
+        StareAt(removedBy.transform, time);
     }
 
-    public void StareFor(float time)
+    public void StareAt(Transform target, float time)
     {
-        if (stareTime < time) stareTime = time;
+        stareTime = time;
+        swimBehaviour.LookAt(target);
     }
 
     // we don't call base.*Perform because they're empty
@@ -111,9 +121,6 @@ public partial class ErmconAttendee : IHandTarget
             return;
         }
         if (!UpdateTarget(deltaTime)) return;
-
-        if (time < _lastUpdate + _minUpdateInterval) return;
-        _lastUpdate = time;
 
         Vector3 targetPos = CurrentTarget.transform.position;
         Vector3 toTarget = targetPos - swim.transform.position;

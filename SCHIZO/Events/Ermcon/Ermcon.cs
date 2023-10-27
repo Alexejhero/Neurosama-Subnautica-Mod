@@ -6,8 +6,11 @@ using UnityEngine;
 namespace SCHIZO.Events.Ermcon;
 
 /// <summary>
-/// The gathering of Erm lovers from all over.<br/>
-/// TODO docs please remind me
+/// The gathering of Erm enthusiasts from all over.<br/>
+/// When it starts, between <see cref="MinAttendance">MinAttendance</see> and <see cref="MaxAttendance">MaxAttendance</see> <see cref="ErmconAttendee"/>s will begin gathering around the player.<br/>
+/// Throughout the event, Erm aficionados will pick <see cref="ErmconPanelist"/>s to crowd around.<br/>
+/// Erm lovers get bored of staring at the same thing and will switch targets every now and then, staying longer based on the target's <see cref="ErmconPanelist.entertainmentFactor"/>.<br/>
+/// If there's not enough entertainment to go around, Erm enjoyers may <see cref="ErmconAttendee.burnout">burn out</see> and leave the event early. Make sure to provide the best environment for your Erms so they can thrive.
 /// </summary>
 public partial class Ermcon
 {
@@ -99,7 +102,7 @@ public partial class Ermcon
                 ErmconPanelist panelist = con.GetComponent<ErmconPanelist>();
                 targets.Remove(panelist);
                 conMembers.Where(c => c.CurrentTarget == panelist)
-                    .ForEach(c => c.OnTargetRemoved());
+                    .ForEach(c => c.OnTargetRemoved(player.gameObject));
             }
         }
 

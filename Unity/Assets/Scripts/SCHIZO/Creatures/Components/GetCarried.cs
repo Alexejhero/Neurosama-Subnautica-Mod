@@ -1,10 +1,17 @@
 using NaughtyAttributes;
+using SCHIZO.Attributes.Typing;
 using SCHIZO.Sounds;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SCHIZO.Creatures.Components
 {
     public partial class GetCarried : CustomCreatureAction
     {
+        [FormerlySerializedAs("attachPoint")]
+        public Transform pickupPoint;
+        [BoxGroup("Sounds"), ExposedType("FMOD_CustomEmitter")]
+        public MonoBehaviour emitter;
         [BoxGroup("Sounds")]
         public float carryNoiseInterval = 5f;
         [BoxGroup("Sounds")]
