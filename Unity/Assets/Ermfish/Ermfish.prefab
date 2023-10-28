@@ -263,6 +263,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   minActionCheckInterval: -1
+  likesBeingCarried: 1
   pickupPoint: {fileID: 5839032077065552717}
   emitter: {fileID: 5648931341203019549}
   carryNoiseInterval: 5

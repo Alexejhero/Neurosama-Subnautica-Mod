@@ -88,8 +88,16 @@ partial class GetCarried : CustomCreatureAction
             StopPerform(time);
             return;
         }
-        creature.Scared.Add(deltaTime);
-        creature.Tired.Add(deltaTime / 2f);
+        if (likesBeingCarried)
+        {
+            creature.Happy.Add(deltaTime);
+            creature.Friendliness.Add(deltaTime / 2f);
+        }
+        else
+        {
+            creature.Scared.Add(deltaTime);
+            creature.Tired.Add(deltaTime / 2f);
+        }
 
         if (time > nextCarryNoiseTime)
         {

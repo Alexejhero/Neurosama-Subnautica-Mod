@@ -29,10 +29,11 @@ public partial class ErmconAttendee : IHandTarget
     /// </summary>
     public float burnout;
     /// <summary>
-    /// While this is above zero, the creature will stop and stare at the player.<br/>
-    /// Counts down with time.
+    /// While this is above zero, the creature will stop and stare at the <see cref="StareTarget">StareTarget</see>.<br/>
+    /// Use <see cref="StareAt(Transform, float)"/> to set this.
     /// </summary>
-    public float stareTime;
+    public float StareTime { get; private set; }
+    public Transform StareTarget { get; private set; }
 
     public ErmconPanelist CurrentTarget { get; private set; }
     private Dictionary<ErmconPanelist, float> _visited;
@@ -63,6 +64,7 @@ public partial class ErmconAttendee : IHandTarget
     {
         base.OnEnable();
         patience = _savedPatience * Random.Range(0.8f, 1.2f);
+        if (Ermcon.instance.IsFirstTime) patience *= 1.5f;
         LogSelf($"enabled\npatience: {patience}");
         creature.actions.Clear();
         creature.actions.Add(this);
@@ -72,7 +74,7 @@ public partial class ErmconAttendee : IHandTarget
 
     public void OnDisable()
     {
-        LogSelf($"disabled");
+        LogSelf("disabled");
         burnout = 0;
         _visited.Clear();
         creature.ScanCreatureActions();
@@ -89,8 +91,8 @@ public partial class ErmconAttendee : IHandTarget
 
     public void StareAt(Transform target, float time)
     {
-        stareTime = time;
-        swimBehaviour.LookAt(target);
+        StareTime = time;
+        StareTarget = target;
     }
 
     // we don't call base.*Perform because they're empty
@@ -104,14 +106,14 @@ public partial class ErmconAttendee : IHandTarget
     {
         SwimBehaviour swim = swimBehaviour;
         Locomotion loco = swimBehaviour.splineFollowing.locomotion;
-        if (stareTime > 0)
+        if (StareTime > 0)
         {
-            LogSelf($"staring ({stareTime} left)", 2);
+            LogSelf($"staring ({StareTime} left)", 2);
             // stop and stare
             loco.ApplyVelocity(-0.5f * loco.useRigidbody.velocity);
             swim.Idle();
-            stareTime -= deltaTime;
-            if (stareTime <= 0 && CurrentTarget) swim.LookAt(CurrentTarget.transform);
+            swim.LookAt(StareTarget);
+            StareTime -= deltaTime;
             return;
         }
         if (burnout > patience)
@@ -142,6 +144,7 @@ public partial class ErmconAttendee : IHandTarget
         targetPos -= directionToTarget * CurrentTarget.personalSpaceRadius;
 
         swim.SwimTo(targetPos, swimVelocity);
+        swim.LookAt(CurrentTarget.transform);
     }
 
     /// <returns>A <see cref="bool" /> indicating whether we have an active target.</returns>
@@ -170,7 +173,6 @@ public partial class ErmconAttendee : IHandTarget
             """, 2);
         timeOnTarget += deltaTime;
 
-        if (Ermcon.instance.IsFirstTime) boredomGrowth *= 0.5f;
         boredom += boredomGrowth;
         burnout += boredomGrowth / patience;
         _visited[CurrentTarget] = timeOnTarget;
@@ -208,8 +210,8 @@ public partial class ErmconAttendee : IHandTarget
             burnout = Mathf.Max(0, burnout - patience/10);
         }
         LogSelf(msg);
-        swimBehaviour.LookAt(CurrentTarget.transform);
         boredom = 0;
+
         return true;
     }
 
@@ -233,14 +235,17 @@ public partial class ErmconAttendee : IHandTarget
             .FirstOrDefault()?.ToList()?.GetRandom();
     }
 
-    public void CycleDebug(int? force = null)
+    public void CycleDebug(int? forceLevel = null)
     {
-        _verbose = force ?? (++_verbose % 3);
+        _verbose = forceLevel ?? (++_verbose % 3);
         if (_verbose == 0) LogSelf("stopped logging", 0);
         else LogSelf("started logging at level " + _verbose);
 
-        GetComponent<FPModel>().propModel
-            .GetComponentsInChildren<Renderer>()
+        GameObject obj = gameObject;
+        FPModel fpModel = GetComponent<FPModel>();
+        if (fpModel && fpModel.propModel)
+            obj = fpModel.propModel;
+        obj.GetComponentsInChildren<Renderer>()
             .ForEach(r => r.material.color = _verbose switch
             {
                 1 => Color.red,

@@ -8,7 +8,7 @@ namespace SCHIZO.Creatures.Components
 {
     public partial class GetCarried : CustomCreatureAction
     {
-        [FormerlySerializedAs("attachPoint")]
+        public bool likesBeingCarried;
         public Transform pickupPoint;
         [BoxGroup("Sounds"), ExposedType("FMOD_CustomEmitter")]
         public MonoBehaviour emitter;
