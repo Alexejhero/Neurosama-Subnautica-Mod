@@ -61,7 +61,7 @@ public partial class GameEventsManager
         }
     }
 
-    [Conditional("DEBUG")]
+#if DEBUG
     public void Update()
     {
         if (!Input.GetKeyDown(KeyCode.LeftControl)) return;
@@ -72,6 +72,7 @@ public partial class GameEventsManager
 
         target.CycleDebug();
     }
+#endif
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static string FormatAutoStart(bool value) => value ? "automatic" : "manual";
