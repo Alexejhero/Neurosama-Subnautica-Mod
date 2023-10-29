@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using UnityEngine;
@@ -20,12 +21,21 @@ partial class ComponentAdder
             Instantiate(prefab, PLUGIN_OBJECT.transform);
             return;
         }
+        Type targetType = AccessTools.TypeByName(typeName);
+        Type actualTargetType = _isBaseType ? AccessTools.TypeByName(targetTypeName) : targetType;
+        if (scanForExisting)
+        {
+            foreach (Component o in FindObjectsOfType(actualTargetType).Cast<Component>())
+            {
+                Instantiate(prefab, o.transform);
+            }
+        }
 
-        MethodInfo targetMethod = AccessTools.Method($"{typeName}:{methodName}");
+        MethodInfo targetMethod = AccessTools.Method(targetType, methodName);
         if (targetMethod == null) throw new MissingMethodException(typeName, methodName);
 
         Target target = CreateTarget(targetMethod, mode);
-        Entry entry = new(!_isBaseType ? targetMethod.DeclaringType : AccessTools.TypeByName(targetTypeName), prefab);
+        Entry entry = new(actualTargetType, prefab);
 
         if (_toInstantiate.TryGetValue(target, out List<Entry> list))
         {

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using NaughtyAttributes;
 using UnityEngine;
@@ -17,6 +17,10 @@ namespace SCHIZO.Registering
 
         [SerializeField]
         private bool isSingleton;
+
+        [SerializeField, HideIf(nameof(isSingleton)), UsedImplicitly]
+        [Tooltip("Used for targets that are already present in the scene by the time this is registered.\nCan be used to inject into e.g. main menu UI.")]
+        private bool scanForExisting;
 
         [SerializeField, Required_string, HideIf(nameof(isSingleton)), UsedImplicitly]
         private string typeName;
