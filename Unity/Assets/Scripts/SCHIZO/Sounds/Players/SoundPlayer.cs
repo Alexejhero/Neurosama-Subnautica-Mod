@@ -2,20 +2,21 @@ using JetBrains.Annotations;
 using NaughtyAttributes;
 using SCHIZO.Attributes.Typing;
 using SCHIZO.Helpers;
+using SCHIZO.Interop.Subnautica;
 using UnityEngine;
 
-namespace SCHIZO.Sounds
+namespace SCHIZO.Sounds.Players
 {
     public abstract partial class SoundPlayer : MonoBehaviour
     {
         [SerializeField, Required, UsedImplicitly]
-        protected BaseSoundCollection soundCollection;
+        protected SoundCollection soundCollection;
 
         [SerializeField, Dropdown(nameof(buses)), ShowIf(nameof(NeedsBus)), UsedImplicitly]
         protected string bus;
 
-        [SerializeField, Required, ExposedType("FMOD_CustomEmitter"), ShowIf(nameof(NeedsEmitter)), UsedImplicitly]
-        private MonoBehaviour emitter;
+        [SerializeField, Required, ShowIf(nameof(NeedsEmitter)), UsedImplicitly]
+        private _FMOD_CustomEmitter emitter;
 
         protected abstract string DefaultBus { get; }
         protected abstract bool Is3D { get; }

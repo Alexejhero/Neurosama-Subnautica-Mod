@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
@@ -13,19 +12,18 @@ using UWE;
 
 namespace SCHIZO.Sounds;
 
-[SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Serialization")]
 public sealed class FMODSoundCollection
 {
-    private static Dictionary<string, FMODSoundCollection> _cache = new();
+    private static readonly Dictionary<string, FMODSoundCollection> _cache = new();
 
-    [SerializeField] private string _busName;
-    [SerializeField] private List<string> _sounds = new();
+    private readonly string _busName;
+    private readonly List<string> _sounds = new();
 
     private bool _ready;
     private RandomList<string> _randomSounds;
     private List<Coroutine> _runningCoroutines;
 
-    public static FMODSoundCollection For(BaseSoundCollection soundCollection, string bus)
+    public static FMODSoundCollection For(SoundCollection soundCollection, string bus)
     {
         int instanceId = soundCollection.GetInstanceID();
 
@@ -33,13 +31,13 @@ public sealed class FMODSoundCollection
         return _cache[instanceId + bus] = new FMODSoundCollection(soundCollection, bus);
     }
 
-    private FMODSoundCollection(BaseSoundCollection soundCollection, string bus)
+    private FMODSoundCollection(SoundCollection soundCollection, string bus)
     {
         _busName = bus;
         CoroutineHost.StartCoroutine(LoadSounds(soundCollection));
     }
 
-    private IEnumerator LoadSounds(BaseSoundCollection soundCollection)
+    private IEnumerator LoadSounds(SoundCollection soundCollection)
     {
         Bus bus = RuntimeManager.GetBus(_busName);
 

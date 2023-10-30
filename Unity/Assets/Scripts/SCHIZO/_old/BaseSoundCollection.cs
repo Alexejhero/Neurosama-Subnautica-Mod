@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SCHIZO.Sounds
+namespace SCHIZO._old
 {
     public abstract class BaseSoundCollection : ScriptableObject
     {

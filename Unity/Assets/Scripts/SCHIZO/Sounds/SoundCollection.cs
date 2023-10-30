@@ -5,10 +5,12 @@ using UnityEngine;
 namespace SCHIZO.Sounds
 {
     [CreateAssetMenu(menuName = "SCHIZO/Sounds/Sound Collection")]
-    public sealed class SoundCollection : BaseSoundCollection
+    public partial class SoundCollection : ScriptableObject
     {
-        [SerializeField, ReorderableList] private List<AudioClip> sounds;
+        [SerializeField, ReorderableList, ShowIf(nameof(ShowAudioClipList))] private List<AudioClip> sounds;
 
-        public override IEnumerable<AudioClip> GetSounds() => sounds;
+        public virtual IEnumerable<AudioClip> GetSounds() => sounds;
+
+        protected virtual bool ShowAudioClipList => true;
     }
 }

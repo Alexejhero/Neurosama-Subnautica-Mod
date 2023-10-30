@@ -1,10 +1,5 @@
-﻿using UnityEngine;
+﻿using SCHIZO.Interop.Subnautica;
 
-public class FMOD_CustomEmitter : MonoBehaviour
+public class FMOD_CustomEmitter : _FMOD_CustomEmitter
 {
-    public FMODAsset asset;
-    public bool playOnAwake;
-    public bool followParent = true;
-    public bool restartOnPlay;
-    [HideInInspector] public bool debug;
 }

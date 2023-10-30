@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace SCHIZO.Sounds;
+namespace SCHIZO.Sounds.Players;
 
 partial class WorldAmbientSoundPlayer
 {

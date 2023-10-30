@@ -3,13 +3,13 @@ using UnityEngine;
 namespace SCHIZO.Creatures.Components;
 
 /// <summary>Adapted from <see cref="CollectShiny"/></summary>
-public sealed partial class CarryCreature : CustomCreatureAction
+partial class CarryCreature
 {
     private GetCarried target;
     private bool targetPickedUp;
     private float timeNextFindTarget;
     private float timeNextUpdate;
-    private static readonly EcoRegion.TargetFilter _isTargetValidFilter = (IEcoTarget target) => target.GetGameObject().GetComponent<GetCarried>();
+    private static readonly EcoRegion.TargetFilter _isTargetValidFilter = target => target.GetGameObject().GetComponent<GetCarried>();
 
     public EcoTargetType EcoTargetType => (EcoTargetType) _ecoTargetType;
 
@@ -87,12 +87,12 @@ public sealed partial class CarryCreature : CustomCreatureAction
         targetPickedUp = false;
     }
 
-    private void DropTarget(GameObject target)
+    private void DropTarget(GameObject targetObject)
     {
-        target.transform.SetParent(null, true);
-        UWE.Utils.SetCollidersEnabled(target, true);
-        UWE.Utils.SetIsKinematic(target.GetComponent<Rigidbody>(), false);
-        if (target.GetComponent<LargeWorldEntity>() is { } lwe)
+        targetObject.transform.SetParent(null, true);
+        UWE.Utils.SetCollidersEnabled(targetObject, true);
+        UWE.Utils.SetIsKinematic(targetObject.GetComponent<Rigidbody>(), false);
+        if (targetObject.GetComponent<LargeWorldEntity>() is { } lwe)
             LargeWorldStreamer.main!?.cellManager.RegisterEntity(lwe);
     }
 

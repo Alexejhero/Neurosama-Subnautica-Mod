@@ -4,7 +4,7 @@ using SCHIZO.Interop.Subnautica.Enums;
 
 namespace SCHIZO.Creatures.Components
 {
-    public partial class CarryCreature : CustomCreatureAction
+    public sealed partial class CarryCreature : CustomCreatureAction
     {
         [SerializeField]
         private EcoTargetType_All _ecoTargetType;

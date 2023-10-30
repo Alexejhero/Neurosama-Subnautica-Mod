@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using SCHIZO.Attributes.Typing;
+using SCHIZO.Interop.Subnautica;
 using SCHIZO.Sounds;
 using UnityEngine;
 
@@ -9,15 +10,15 @@ namespace SCHIZO.Creatures.Components
     {
         public bool likesBeingCarried;
         public Transform pickupPoint;
-        [BoxGroup("Sounds"), ExposedType("FMOD_CustomEmitter")]
-        public MonoBehaviour emitter;
+        [BoxGroup("Sounds")]
+        public _FMOD_CustomEmitter emitter;
         [BoxGroup("Sounds")]
         public float carryNoiseInterval = 5f;
         [BoxGroup("Sounds")]
-        public BaseSoundCollection pickupSounds;
+        public SoundCollection pickupSounds;
         [BoxGroup("Sounds")]
-        public BaseSoundCollection carrySounds;
+        public SoundCollection carrySounds;
         [BoxGroup("Sounds")]
-        public BaseSoundCollection releaseSounds;
+        public SoundCollection releaseSounds;
     }
 }

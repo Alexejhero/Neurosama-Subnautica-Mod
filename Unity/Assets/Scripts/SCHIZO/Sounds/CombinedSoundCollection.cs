@@ -6,10 +6,12 @@ using UnityEngine;
 namespace SCHIZO.Sounds
 {
     [CreateAssetMenu(menuName = "SCHIZO/Sounds/Combined Sound Collection")]
-    public sealed class CombinedSoundCollection : BaseSoundCollection
+    public sealed class CombinedSoundCollection : SoundCollection
     {
-        [SerializeField, ReorderableList] private List<SoundCollection> combineWith;
+        [ReorderableList] public List<SoundCollection> combineWith;
 
         public override IEnumerable<AudioClip> GetSounds() => combineWith.SelectMany(s => s.GetSounds());
+
+        protected override bool ShowAudioClipList => false;
     }
 }

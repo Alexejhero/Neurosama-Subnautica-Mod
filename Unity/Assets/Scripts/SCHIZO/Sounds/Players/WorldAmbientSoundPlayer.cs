@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 using SCHIZO.Attributes.Typing;
 using UnityEngine;
 
-namespace SCHIZO.Sounds
+namespace SCHIZO.Sounds.Players
 {
     public sealed partial class WorldAmbientSoundPlayer : SoundPlayer
     {

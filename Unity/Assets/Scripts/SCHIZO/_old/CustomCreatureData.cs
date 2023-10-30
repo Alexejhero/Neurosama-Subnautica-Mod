@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace SCHIZO.Creatures._old
+namespace SCHIZO._old
 {
     // [CreateAssetMenu(menuName = "SCHIZO/Creatures/Custom Creature Data")]
     [Obsolete]

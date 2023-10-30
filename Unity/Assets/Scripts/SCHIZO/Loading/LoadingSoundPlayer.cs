@@ -1,4 +1,4 @@
-using SCHIZO.Sounds;
+using SoundPlayer = SCHIZO.Sounds.Players.SoundPlayer;
 
 namespace SCHIZO.Loading
 {

@@ -1,8 +1,7 @@
 using System;
-using SCHIZO.Sounds;
 using UnityEngine;
 
-namespace SCHIZO.Creatures._old
+namespace SCHIZO._old
 {
     // [CreateAssetMenu(menuName = "SCHIZO/Creatures/Creature Sound Data")]
     [Obsolete]

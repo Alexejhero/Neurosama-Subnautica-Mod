@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-namespace SCHIZO.Sounds
+namespace SCHIZO.Sounds.Players
 {
+    [Obsolete]
     public sealed class GenericSoundPlayer : SoundPlayer
     {
         [SerializeField] private bool is3D;

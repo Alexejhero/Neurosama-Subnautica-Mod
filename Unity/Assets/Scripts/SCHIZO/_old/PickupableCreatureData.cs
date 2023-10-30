@@ -3,7 +3,7 @@ using NaughtyAttributes;
 using SCHIZO.Materials;
 using UnityEngine;
 
-namespace SCHIZO.Creatures._old
+namespace SCHIZO._old
 {
     // [CreateAssetMenu(menuName = "SCHIZO/Creatures/Pickupable Creature Data")]
     [Obsolete]

@@ -8,7 +8,7 @@
 
 // Resharper disable all
 
-namespace SCHIZO.Resources;
+namespace SCHIZO.Resources.AssetBundles;
 
 public static class Assets
 {

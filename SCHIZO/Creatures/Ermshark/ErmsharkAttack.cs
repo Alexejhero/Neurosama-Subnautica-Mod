@@ -1,17 +1,15 @@
 using Nautilus.Utility;
 using SCHIZO.Creatures.Components;
-using SCHIZO.Sounds;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
 partial class ErmsharkAttack
 {
-    private FMODSoundCollection _fmodSounds;
-
-    private void Start()
+    private void Awake()
     {
-        _fmodSounds = FMODSoundCollection.For(attackSounds, AudioUtils.BusPaths.UnderwaterCreatures);
+        attackSounds = attackSounds.Initialize(AudioUtils.BusPaths.UnderwaterCreatures);
     }
 
     public override void OnTouch(Collider collider)
@@ -39,7 +37,7 @@ partial class ErmsharkAttack
                 }
                 else if (canBeFed && player.CanBeAttacked() && TryEat(heldObject, true))
                 {
-                    if (attackSound) Utils.PlayEnvSound(attackSound, mouth.transform.position);
+                    // if (attackSound) Utils.PlayEnvSound(attackSound, mouth.transform.position);
                     gameObject.SendMessage("OnMeleeAttack", heldObject, SendMessageOptions.DontRequireReceiver);
                     return;
                 }
@@ -61,12 +59,12 @@ partial class ErmsharkAttack
             {
                 Instantiate(damageFX, damageFxPos, damageFX.transform.rotation);
             }
-            if (attackSound != null)
+            /*if (attackSound != null)
             {
                 Utils.PlayEnvSound(attackSound, damageFxPos);
-            }
+            }*/
 
-            _fmodSounds.Play((FMOD_CustomEmitter) emitter);
+            if (attackSounds) attackSounds.Play(emitter.ToFMODEmitter());
 
             creature.Aggression.Add(-biteAggressionDecrement);
             if (living && !living.IsAlive())

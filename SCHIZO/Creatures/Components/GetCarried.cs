@@ -1,21 +1,19 @@
 using System;
 using System.Collections.Generic;
 using Nautilus.Utility;
-using SCHIZO.Sounds;
+using SCHIZO.Helpers;
+using SCHIZO.Sounds.Players;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace SCHIZO.Creatures.Components;
 
-partial class GetCarried : CustomCreatureAction
+partial class GetCarried
 {
     public bool isCarried;
-    public FMOD_CustomEmitter Emitter => (FMOD_CustomEmitter)emitter;
+    public FMOD_CustomEmitter Emitter => emitter.ToFMODEmitter();
 
     private float nextCarryNoiseTime;
-    private FMODSoundCollection _pickupSounds;
-    private FMODSoundCollection _carrySounds;
-    private FMODSoundCollection _releaseSounds;
     private List<(MonoBehaviour component, bool wasEnabled)> _disabledComponents;
     private static readonly List<Type> toDisable = new()
     {
@@ -31,9 +29,9 @@ partial class GetCarried : CustomCreatureAction
         // contrary to the name, this is actually the max possible priority
         // full explanation here <see cref="Events.Ermcon.ErmconAttendee.Awake"/>
         evaluatePriority = 99f;
-        _pickupSounds = pickupSounds ? FMODSoundCollection.For(pickupSounds, BUS) : null;
-        _carrySounds = carrySounds ? FMODSoundCollection.For(carrySounds, BUS) : null;
-        _releaseSounds = releaseSounds ? FMODSoundCollection.For(releaseSounds, BUS) : null;
+        pickupSounds = pickupSounds!?.Initialize(BUS);
+        carrySounds = carrySounds!?.Initialize(BUS);
+        releaseSounds = releaseSounds!?.Initialize(BUS);
         _disabledComponents = new List<(MonoBehaviour component, bool wasEnabled)>();
     }
     public override float Evaluate(float time) => isCarried ? 99f : -99f; // manual start/end
@@ -62,14 +60,14 @@ partial class GetCarried : CustomCreatureAction
 
     public void OnPickedUp()
     {
-        _pickupSounds?.Play(Emitter);
+        pickupSounds!?.Play(Emitter);
         isCarried = true;
         StartPerform(Time.time);
     }
 
     public void OnDropped()
     {
-        _releaseSounds?.Play(Emitter);
+        releaseSounds!?.Play(Emitter);
         isCarried = false;
         StopPerform(Time.time);
     }
@@ -102,7 +100,7 @@ partial class GetCarried : CustomCreatureAction
         if (time > nextCarryNoiseTime)
         {
             nextCarryNoiseTime = time + carryNoiseInterval * (1 + Random.value);
-            _carrySounds?.Play(Emitter);
+            carrySounds!?.Play(Emitter);
         }
     }
 

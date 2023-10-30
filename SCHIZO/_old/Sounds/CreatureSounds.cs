@@ -45,7 +45,7 @@ public sealed class CreatureSounds
         ScanSounds = CreateSoundPlayer(soundData.scanSounds, AudioUtils.BusPaths.PDAVoice);
     }
 
-    private static SoundPlayer CreateSoundPlayer(BaseSoundCollection sounds, string bus)
+    private static SoundPlayer CreateSoundPlayer(SoundCollection sounds, string bus)
     {
         return sounds != null ? new SoundPlayer(sounds, bus) : null;
     }
