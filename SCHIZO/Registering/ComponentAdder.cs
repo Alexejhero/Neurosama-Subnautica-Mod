@@ -21,6 +21,7 @@ partial class ComponentAdder
             Instantiate(prefab, PLUGIN_OBJECT.transform);
             return;
         }
+
         Type targetType = AccessTools.TypeByName(typeName);
         Type actualTargetType = _isBaseType ? AccessTools.TypeByName(targetTypeName) : targetType;
         if (scanForExisting)
