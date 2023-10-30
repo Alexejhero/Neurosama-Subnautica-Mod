@@ -147,7 +147,7 @@ public static class CustomJukeboxTrackPatches
         track.OnLoadFail();
         if (track.ShouldRetryLoad)
         {
-            LOGGER.LogWarning($"Custom track handle got released, force-recreating the sound");
+            LOGGER.LogWarning($"Custom track failed to load, trying again");
             InitCustomTrack(__instance, track);
             return false;
         }
