@@ -1,5 +1,5 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Sounds;
+using SCHIZO.Sounds.Collections;
 using UnityEngine;
 
 namespace SCHIZO.Items.Data
@@ -10,7 +10,7 @@ namespace SCHIZO.Items.Data
         [BoxGroup("Scanning")] public float scanTime = 3;
         [BoxGroup("Scanning")] public Sprite unlockSprite;
         [BoxGroup("Scanning")] public bool isImportantUnlock;
-        [BoxGroup("Scanning")] public BaseSoundCollection scanSounds;
+        [BoxGroup("Scanning")] public SoundCollection scanSounds;
 
         [BoxGroup("Databank")] public string encyPath;
         [BoxGroup("Databank")] public string title;

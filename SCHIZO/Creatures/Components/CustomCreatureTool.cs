@@ -1,4 +1,4 @@
-﻿namespace SCHIZO.Creatures.Components;
+namespace SCHIZO.Creatures.Components;
 
 partial class CustomCreatureTool
 {

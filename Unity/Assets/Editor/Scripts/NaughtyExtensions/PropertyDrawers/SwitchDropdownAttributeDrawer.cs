@@ -6,7 +6,7 @@ using SCHIZO.Attributes.Validation;
 using UnityEditor;
 using UnityEngine;
 
-namespace NaughtyExtensions.PropertyDrawers
+namespace Editor.Scripts.NaughtyExtensions.PropertyDrawers
 {
     [CustomPropertyDrawer(typeof(SwitchDropdownAttribute), true)]
     public sealed class SwitchDropdownAttributeDrawer : DropdownPropertyDrawer

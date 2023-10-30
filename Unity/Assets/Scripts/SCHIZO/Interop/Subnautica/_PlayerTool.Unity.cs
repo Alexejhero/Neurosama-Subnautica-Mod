@@ -34,7 +34,7 @@ namespace SCHIZO.Interop.Subnautica
         [Foldout("Bashing"), ExposedType("FMODAsset")] public Object hitBleederSound;
 
         [Foldout("First Use")] public bool hasFirstUseAnimation;
-        [Foldout("First Use"), ExposedType("FMOD_CustomEmitter")] public MonoBehaviour firstUseSound;
+        [Foldout("First Use")] public _FMOD_CustomEmitter firstUseSound;
 
         [Foldout("Reloading")] public ReloadMode reloadMode = ReloadMode.Direct;
         [Foldout("Reloading"), ExposedType("FMODAsset")] public Object reloadSound;

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SCHIZO.Jukebox
 {
-    [CreateAssetMenu(menuName = "SCHIZO/Sounds/Jukebox Track")]
+    [CreateAssetMenu(menuName = "SCHIZO/Jukebox/Custom Jukebox Track")]
     public sealed partial class CustomJukeboxTrack : ModRegistryItem
     {
         private enum Source

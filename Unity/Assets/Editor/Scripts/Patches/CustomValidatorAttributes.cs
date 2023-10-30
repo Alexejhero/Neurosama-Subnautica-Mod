@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Editor.Scripts.NaughtyExtensions.Validators;
 using HarmonyLib;
 using JetBrains.Annotations;
 using NaughtyAttributes;
 using NaughtyAttributes.Editor;
-using NaughtyExtensions.Validators;
 using SCHIZO.Attributes.Typing;
 using SCHIZO.Attributes.Validation;
 
-namespace Patches
+namespace Editor.Scripts.Patches
 {
     [HarmonyPatch, UsedImplicitly]
     public static class CustomValidatorAttributes

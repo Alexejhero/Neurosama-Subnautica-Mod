@@ -3,7 +3,7 @@ using SCHIZO.Registering;
 using UnityEditor;
 using UnityEngine;
 
-namespace PropertyDrawers
+namespace Editor.Scripts.PropertyDrawers
 {
     [CustomPropertyDrawer(typeof(Recipe))]
     public sealed class RecipeDrawer : PropertyDrawer

@@ -1,16 +1,14 @@
 using Nautilus.Utility;
-using SCHIZO.Sounds;
+using SCHIZO.Creatures.Components;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
 partial class ErmsharkAttack
 {
-    private FMODSoundCollection _fmodSounds;
-
-    private void Start()
+    private void Awake()
     {
-        _fmodSounds = FMODSoundCollection.For(attackSounds, AudioUtils.BusPaths.UnderwaterCreatures);
+        attackSounds = attackSounds.Initialize(AudioUtils.BusPaths.UnderwaterCreatures);
     }
 
     public override void OnTouch(Collider collider)
@@ -21,7 +19,7 @@ partial class ErmsharkAttack
         GameObject target = GetTarget(collider);
 
         if (global::CreatureData.GetCreatureType(gameObject) == global::CreatureData.GetCreatureType(target)) return;
-        // if (target.GetComponent<GetCarried>()) return; // prevents tutel scream when released
+        if (target.GetComponent<GetCarried>()) return; // prevents tutel scream when released
 
         Player player = target.GetComponent<Player>();
         if (player)
@@ -29,16 +27,16 @@ partial class ErmsharkAttack
             GameObject heldObject = Inventory.main.GetHeldObject();
             if (heldObject)
             {
-                /*if (heldObject.GetComponent<GetCarried>() is { } heldTutel)
+                if (heldObject.GetComponent<GetCarried>() is { } heldTutel)
                 {
                     Inventory.main.DropHeldItem(false);
-                    creature.GetComponent<BullyTutel>().TryPickupTutel(heldTutel);
+                    creature.GetComponent<CarryCreature>().TryPickup(heldTutel);
                     creature.SetFriend(player.gameObject, 120f);
                     return;
                 }
-                else*/ if (canBeFed && player.CanBeAttacked() && TryEat(heldObject, true))
+                else if (canBeFed && player.CanBeAttacked() && TryEat(heldObject, true))
                 {
-                    if (attackSound) Utils.PlayEnvSound(attackSound, mouth.transform.position);
+                    // if (attackSound) Utils.PlayEnvSound(attackSound, mouth.transform.position);
                     gameObject.SendMessage("OnMeleeAttack", heldObject, SendMessageOptions.DontRequireReceiver);
                     return;
                 }
@@ -60,12 +58,12 @@ partial class ErmsharkAttack
             {
                 Instantiate(damageFX, damageFxPos, damageFX.transform.rotation);
             }
-            if (attackSound != null)
+            /*if (attackSound != null)
             {
                 Utils.PlayEnvSound(attackSound, damageFxPos);
-            }
+            }*/
 
-            _fmodSounds.Play((FMOD_CustomEmitter) emitter);
+            if (attackSounds) attackSounds.Play(emitter);
 
             creature.Aggression.Add(-biteAggressionDecrement);
             if (living && !living.IsAlive())

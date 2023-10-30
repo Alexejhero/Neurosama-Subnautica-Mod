@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SCHIZO.Utilities
 {
-    [CreateAssetMenu(menuName = "SCHIZO/Mesh Combiner")]
+    [CreateAssetMenu(menuName = "SCHIZO/Utilities/Mesh Combiner")]
     public sealed partial class MeshCombiner : NaughtyScriptableObject
     {
     }

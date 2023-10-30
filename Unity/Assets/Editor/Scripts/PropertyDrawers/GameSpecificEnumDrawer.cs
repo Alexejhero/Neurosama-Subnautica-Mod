@@ -1,11 +1,27 @@
-﻿using UnityEditor;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using SCHIZO.Registering;
+using UnityEditor;
 using UnityEngine;
 
-namespace PropertyDrawers
+namespace Editor.Scripts.PropertyDrawers
 {
-    public abstract class GameSpecificEnumDrawer : PropertyDrawer
+    public abstract class GameSpecificEnumDrawer<T> : PropertyDrawer where T : Enum
     {
-        protected abstract bool IsValueAcceptable(string entry, string propertyPath);
+        protected static readonly List<string> SubnauticaValues = typeof(T).GetEnumNames()
+            .Where(n => typeof(T).GetField(n).GetCustomAttribute<GameAttribute>().game.HasFlag(Game.Subnautica)).ToList();
+
+        protected static readonly List<string> BelowZeroValues = typeof(T).GetEnumNames()
+            .Where(n => typeof(T).GetField(n).GetCustomAttribute<GameAttribute>().game.HasFlag(Game.BelowZero)).ToList();
+
+        protected virtual bool IsValueAcceptable(string entry, string propertyPath)
+        {
+            if (propertyPath.ToLower().Contains("sn")) return SubnauticaValues.Contains(entry);
+            if (propertyPath.ToLower().Contains("bz")) return BelowZeroValues.Contains(entry);
+            return SubnauticaValues.Contains(entry) || BelowZeroValues.Contains(entry);
+        }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {

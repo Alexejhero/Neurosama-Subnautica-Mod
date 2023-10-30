@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace PropertyDrawers
+namespace Editor.Scripts.PropertyDrawers
 {
     [CustomPropertyDrawer(typeof(CarefulAttribute))]
     public sealed class CarefulAttributeDrawer : PropertyDrawer

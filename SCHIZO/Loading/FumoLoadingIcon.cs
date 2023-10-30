@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
@@ -79,7 +79,9 @@ partial class FumoLoadingIcon
 
         static void Reroute(uGUI_Logo __instance, float unscaledDeltaTime)
         {
-            int maxAngle = __instance.GetComponentInChildren<FumoLoadingIcon>().ShouldShowFumo() ? 360 : 180;
+            FumoLoadingIcon fumoIcon = __instance.GetComponentInChildren<FumoLoadingIcon>();
+            if (!fumoIcon) return;
+            int maxAngle = fumoIcon.ShouldShowFumo() ? 360 : 180;
             __instance.angle = (__instance.angle + __instance.rotationSpeed * unscaledDeltaTime) % maxAngle;
         }
     }

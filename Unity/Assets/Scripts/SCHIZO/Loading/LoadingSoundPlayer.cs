@@ -1,13 +1,10 @@
-﻿using JetBrains.Annotations;
-using NaughtyAttributes;
-using SCHIZO.Sounds;
-using UnityEngine;
+using SoundPlayer = SCHIZO.Sounds.Players.SoundPlayer;
 
 namespace SCHIZO.Loading
 {
-    public sealed partial class LoadingSoundPlayer : MonoBehaviour
+    public sealed partial class LoadingSoundPlayer : SoundPlayer
     {
-        [Required, SerializeField, UsedImplicitly]
-        private BaseSoundCollection sounds;
+        protected override string DefaultBus => buses[PDA_VOICE];
+        protected override bool Is3D => false;
     }
 }

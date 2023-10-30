@@ -15,6 +15,10 @@ public class VFXFabricating : MonoBehaviour
     [SerializeField, HideInInspector] private Transform _fabricatorPrefab;
     [SerializeField, HideInInspector] private string _spawnPointPath = "submarine_fabricator_01/printBed/spawnPoint";
 
+    // ReSharper disable once Unity.RedundantEventFunction
+    private void OnEnable() {}
+
+#if UNITY_EDITOR
     private Transform _spawnPoint => _fabricatorPrefab.Find(_spawnPointPath).transform;
 
     private void OnDrawGizmosSelected()
@@ -95,7 +99,5 @@ public class VFXFabricating : MonoBehaviour
             }
         }
     }
-
-    // ReSharper disable once Unity.RedundantEventFunction
-    private void OnEnable() {}
+#endif
 }
