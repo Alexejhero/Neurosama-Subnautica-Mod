@@ -29,7 +29,7 @@ namespace SCHIZO.Sounds.Players
         {
             {PDA_VOICE, "Nautilus.Utility.AudioUtils+BusPaths:PDAVoice"},
             {UNDERWATER_CREATURES, "Nautilus.Utility.AudioUtils+BusPaths:UnderwaterCreatures"},
-            {INDOOR_SOUNDS, $"SCHIZO.Sounds.{nameof(SoundPlayer)}:{nameof(INDOOR_SOUNDS_BUS)}"}
+            {INDOOR_SOUNDS, $"SCHIZO.Sounds.Players.{nameof(SoundPlayer)}:{nameof(INDOOR_SOUNDS_BUS)}"}
         };
 
         protected const string PDA_VOICE = "PDA Voice";
