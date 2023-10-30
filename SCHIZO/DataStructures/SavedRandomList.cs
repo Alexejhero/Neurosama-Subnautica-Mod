@@ -11,17 +11,11 @@ public sealed class SavedRandomList<T> : IEnumerable<T>
 {
     private record struct IdentifiableItem(string Identifier, T Value);
 
-    private class PlayerPrefsManager : RandomList<IdentifiableItem>.IInitialStateModifier
+    private class PlayerPrefsManager(string key) : RandomList<IdentifiableItem>.IInitialStateModifier
     {
         private record struct RegistryKey(string Value);
 
-        private readonly string _key;
         private readonly HashSet<string> _identifiers = new();
-
-        public PlayerPrefsManager(string key)
-        {
-            _key = key;
-        }
 
         public bool Register(IdentifiableItem item)
         {
@@ -52,13 +46,13 @@ public sealed class SavedRandomList<T> : IEnumerable<T>
             }
         }
 
-        private bool Contains(RegistryKey key) => PlayerPrefs.HasKey(key.Value);
+        private RegistryKey KeyOf(string identifier) => new($"SCHIZO_RandomList_{key}_{identifier}");
 
-        private bool GetState(RegistryKey key) => PlayerPrefsExtra.GetBool(key.Value, default);
+        private static bool Contains(RegistryKey key) => PlayerPrefs.HasKey(key.Value);
 
-        private void SetState(RegistryKey key, bool used) => PlayerPrefsExtra.SetBool(key.Value, used);
+        private static bool GetState(RegistryKey key) => PlayerPrefsExtra.GetBool(key.Value, default);
 
-        private RegistryKey KeyOf(string identifier) => new($"SCHIZO_RandomList_{_key}_{identifier}");
+        private static void SetState(RegistryKey key, bool used) => PlayerPrefsExtra.SetBool(key.Value, used);
     }
 
     private readonly RandomList<IdentifiableItem> _randomList;

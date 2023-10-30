@@ -9,30 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
+  m_Script: {fileID: 11500000, guid: c08c4776b89c430d985e9557dc60112d, type: 3}
   m_Name: Greggs
   m_EditorClassIdentifier: 
-  autoRegister: 1
-  _prefab1: {fileID: 0}
-  _prefab2: {fileID: 0}
-  prefab: {fileID: 0}
-  sounds: {fileID: 0}
-  classId: greggs
-  displayName: Greggs
-  tooltip: god i fucking love greggs i would sell neuro just to lick a chicken bake
-    right now holy shit i would marry gregg where is he
-  icon: {fileID: 21300000, guid: 101dddedba61866439e4cc16a581c7d5, type: 3}
-  itemSize: {x: 1, y: 1}
-  isCraftable: 1
-  isBuildable: 0
-  craftingTime: 2.5
-  recipeSN: {fileID: 11400000, guid: 73a5409220efb7b479fcf3a12e43c1cc, type: 2}
-  craftTreeTypeSN: 1
-  craftTreePathSN: Survival/CookedFood
-  techGroupSN: 1
-  techCategorySN: 4
-  recipeBZ: {fileID: 11400000, guid: 73a5409220efb7b479fcf3a12e43c1cc, type: 2}
-  craftTreeTypeBZ: 1
-  craftTreePathBZ: Survival/CookedFood
-  techGroupBZ: 1
-  techCategoryBZ: 3
+  registryItems:
+  - {fileID: 11400000, guid: a79c1a7e483e68c4aa21c09f2ff6e460, type: 2}
+  - {fileID: 11400000, guid: dac4ac0b014a6df4b86a3a77e8bd2329, type: 2}

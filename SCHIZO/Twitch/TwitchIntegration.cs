@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using JetBrains.Annotations;
 using Nautilus.Commands;
-using SCHIZO.Attributes;
+using SCHIZO.Attributes.Loading;
 using SCHIZO.Helpers;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace SCHIZO.Twitch;
 
-[AddComponent(AddComponentAttribute.Target.Plugin)]
+[AddComponent]
 [LoadConsoleCommands]
 public sealed class TwitchIntegration : MonoBehaviour
 {

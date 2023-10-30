@@ -6,12 +6,6 @@ namespace SCHIZO;
 
 public static class ModItems
 {
-    public static readonly ModItem Erm = new("NeuroErm2", "Erm", "erm\n<size=75%>(Model by w1n7er)</size>");
-
-    public static readonly ModItem Ermfish = new("ermfish", "Ermfish", "erm\n<size=75%>(Model by w1n7er)</size>");
-    public static readonly ModItem CookedErmfish = new("cookedermfish", "Cooked Ermfish", "erm\n<size=75%>(Model by w1n7er, icon by SADecsSs)</size>");
-    public static readonly ModItem CuredErmfish = new("curedermfish", "Cured Ermfish", "erm\n<size=75%>(Model by w1n7er, icon by SADecsSs)</size>");
-
     public static readonly ModItem Ermshark = new("ermshark", "Ermshark");
     public static readonly ModItem Anneel = new("Anneel", "Anneel");
 
@@ -34,9 +28,9 @@ public sealed class ModItem
 
     public ModItem(string classId, string displayName, string tooltip = "")
     {
-        LOGGER.LogDebug("Registering item " + classId + " with name " + displayName);
+        LOGGER.LogDebug("Creating Moditem " + classId + " with name " + displayName);
 
-        if (_registeredItems.Contains(classId)) throw new Exception("Item with classId " + classId + " has already been registered!");
+        if (_registeredItems.Contains(classId)) throw new Exception("Item with classId " + classId + " has already been created!");
         _registeredItems.Add(classId);
 
         PrefabInfo = PrefabInfo.WithTechType(classId, displayName, tooltip);

@@ -25,13 +25,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8dc513878514f18bc57657a1e7cbc48, type: 3}
   m_Name: Gymbag SN
   m_EditorClassIdentifier: 
-  autoRegister: 1
-  _prefab1: {fileID: 6510856162202120923, guid: 4f8f3261922939040979547e91d8a6d4,
-    type: 3}
-  _prefab2: {fileID: 6510856162202120923, guid: 4f8f3261922939040979547e91d8a6d4,
-    type: 3}
   prefab: {fileID: 6510856162202120923, guid: 4f8f3261922939040979547e91d8a6d4, type: 3}
-  sounds: {fileID: 0}
   classId: gymbag
   displayName: Gymbag
   tooltip: 'A lightly worn gym bag that emanates a faint smell. How does it fit all
@@ -43,16 +37,33 @@ MonoBehaviour:
   isCraftable: 1
   isBuildable: 0
   craftingTime: 7
+  registerInSN: 1
   recipeSN: {fileID: 11400000, guid: e0e521934d8b48e40875678fd25a9432, type: 2}
   craftTreeTypeSN: 1
   craftTreePathSN: Personal/Equipment
   techGroupSN: 2
   techCategorySN: 6
+  pdaEncyclopediaInfoSN: {fileID: 0}
+  knownTechInfoSN: {fileID: 0}
+  unlockAtStartSN: 0
+  requiredForUnlockSN:
+    isCustom: 1
+    techType: 0
+    itemData: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
+  registerInBZ: 0
   recipeBZ: {fileID: 0}
+  canBeRecycledBZ: 1
   craftTreeTypeBZ: 0
   craftTreePathBZ: Personal/Equipment
   techGroupBZ: 13
   techCategoryBZ: 4
+  pdaEncyclopediaInfoBZ: {fileID: 0}
+  knownTechInfoBZ: {fileID: 0}
+  unlockAtStartBZ: 0
+  requiredForUnlockBZ:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
   loader: {fileID: -3885522438194914022}
   cloneTargetSN: 1807
   cloneTargetBZ: 0

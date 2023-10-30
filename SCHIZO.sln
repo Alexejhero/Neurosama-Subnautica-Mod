@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Non-project Files", "Non-pr
 		nuget.config = nuget.config
 		README.md = README.md
 		Directory.Build.props = Directory.Build.props
+		BelowZero.props = BelowZero.props
+		Subnautica.props = Subnautica.props
 	EndProjectSection
 EndProject
 Global

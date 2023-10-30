@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FMOD.Studio;
 using FMODUnity;
 using JetBrains.Annotations;
 using Nautilus.Commands;
-using SCHIZO.Attributes;
-using SCHIZO.Extensions;
+using SCHIZO.Attributes.Loading;
 using SCHIZO.Helpers;
 using UnityEngine;
 
@@ -25,7 +24,7 @@ public static class ConsoleCommands
         }
 
         List<PrefabIdentifier> items = PhysicsHelpers.ObjectsInRange(Player.main.transform, radius)
-            .OfTechType(techType).Where(g => g.GetComponentInParent<Pickupable>() is null or { inventoryItem: null })
+            .OfTechType(techType).Where(g => g.GetComponentInParent<Pickupable>() is not { inventoryItem: { } })
             .SelectComponentInParent<PrefabIdentifier>().ToList();
         items.Shuffle();
         HashSet<PrefabIdentifier> set = new(items);
@@ -72,7 +71,7 @@ public static class ConsoleCommands
             foreach (Bus bus in busArray)
             {
                 bus.getPath(out string busPath);
-                sb.AppendLine($"bankPath: {bankPath}: busPath: {busPath}");
+                sb.AppendLine($"bankPath: {bankPath}; busPath: {busPath}");
             }
         }
         LOGGER.LogMessage(sb.ToString());
