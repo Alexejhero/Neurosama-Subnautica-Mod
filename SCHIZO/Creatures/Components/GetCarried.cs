@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Nautilus.Utility;
-using SCHIZO.Helpers;
 using SCHIZO.Sounds.Players;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,7 +10,6 @@ namespace SCHIZO.Creatures.Components;
 partial class GetCarried
 {
     public bool isCarried;
-    public FMOD_CustomEmitter Emitter => emitter.ToFMODEmitter();
 
     private float nextCarryNoiseTime;
     private List<(MonoBehaviour component, bool wasEnabled)> _disabledComponents;
@@ -60,14 +58,14 @@ partial class GetCarried
 
     public void OnPickedUp()
     {
-        pickupSounds!?.Play(Emitter);
+        pickupSounds!?.Play(emitter);
         isCarried = true;
         StartPerform(Time.time);
     }
 
     public void OnDropped()
     {
-        releaseSounds!?.Play(Emitter);
+        releaseSounds!?.Play(emitter);
         isCarried = false;
         StopPerform(Time.time);
     }
@@ -100,7 +98,7 @@ partial class GetCarried
         if (time > nextCarryNoiseTime)
         {
             nextCarryNoiseTime = time + carryNoiseInterval * (1 + Random.value);
-            carrySounds!?.Play(Emitter);
+            carrySounds!?.Play(emitter);
         }
     }
 

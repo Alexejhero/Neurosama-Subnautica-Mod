@@ -1,9 +1,7 @@
 using NaughtyAttributes;
-using SCHIZO.Attributes.Typing;
 using SCHIZO.Creatures.Components;
 using SCHIZO.Interop.Subnautica;
-using SCHIZO.Sounds;
-using SCHIZO.Sounds.Players;
+using SCHIZO.Sounds.Collections;
 using UnityEngine;
 
 namespace SCHIZO.Events.Ermcon

@@ -1,8 +1,8 @@
 using JetBrains.Annotations;
 using NaughtyAttributes;
-using SCHIZO.Attributes.Typing;
 using SCHIZO.Helpers;
 using SCHIZO.Interop.Subnautica;
+using SCHIZO.Sounds.Collections;
 using UnityEngine;
 
 namespace SCHIZO.Sounds.Players

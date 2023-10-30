@@ -19,7 +19,7 @@ partial class SoundPlayer
 
     public void Play(float delay = 0)
     {
-        if (Is3D) soundCollection.Play(emitter.ToFMODEmitter(), delay);
+        if (Is3D) soundCollection.Play(emitter, delay);
         else soundCollection.Play2D(delay);
     }
 }

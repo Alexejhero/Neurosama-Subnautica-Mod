@@ -1,7 +1,6 @@
 using NaughtyAttributes;
-using SCHIZO.Attributes.Typing;
 using SCHIZO.Interop.Subnautica;
-using SCHIZO.Sounds;
+using SCHIZO.Sounds.Collections;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Components

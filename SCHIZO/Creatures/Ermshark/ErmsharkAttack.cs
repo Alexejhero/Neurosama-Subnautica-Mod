@@ -1,6 +1,5 @@
 using Nautilus.Utility;
 using SCHIZO.Creatures.Components;
-using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
@@ -64,7 +63,7 @@ partial class ErmsharkAttack
                 Utils.PlayEnvSound(attackSound, damageFxPos);
             }*/
 
-            if (attackSounds) attackSounds.Play(emitter.ToFMODEmitter());
+            if (attackSounds) attackSounds.Play(emitter);
 
             creature.Aggression.Add(-biteAggressionDecrement);
             if (living && !living.IsAlive())

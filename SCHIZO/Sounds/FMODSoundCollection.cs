@@ -7,6 +7,7 @@ using FMODUnity;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.DataStructures;
+using SCHIZO.Sounds.Collections;
 using UnityEngine;
 using UWE;
 

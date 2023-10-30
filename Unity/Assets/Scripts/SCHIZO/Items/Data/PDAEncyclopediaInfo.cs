@@ -1,5 +1,5 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Sounds;
+using SCHIZO.Sounds.Collections;
 using UnityEngine;
 
 namespace SCHIZO.Items.Data
