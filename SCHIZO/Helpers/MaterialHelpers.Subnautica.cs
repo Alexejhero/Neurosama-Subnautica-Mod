@@ -1,12 +1,17 @@
+using System.Collections;
 using Nautilus.Utility;
+using UnityEngine;
 
 namespace SCHIZO.Helpers;
 
 public static partial class MaterialHelpers
 {
-    public static bool IsReady => MaterialUtils.IsReady;
+    private static bool _isReady => MaterialUtils.IsReady;
 
-    public static partial void FixBZGhostMaterial(Constructable con)
+    public static Material GhostMaterial => MaterialUtils.GhostMaterial;
+
+    public static IEnumerator LoadMaterials()
     {
+        while (!_isReady) yield return null;
     }
 }

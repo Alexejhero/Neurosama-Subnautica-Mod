@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0985a00ee6f8fe428ff0d0e09eba1b9, type: 3}
+  m_Name: Tutel sounds
+  m_EditorClassIdentifier: 
+  ambientItemSounds: {fileID: 11400000, guid: 8760b2fe631724f46acf7ecd2da229dc, type: 2}
+  ambientWorldSounds: {fileID: 11400000, guid: 8760b2fe631724f46acf7ecd2da229dc, type: 2}
+  pickupSounds: {fileID: 11400000, guid: b91ed69d7bd774343bb87f1d71e74242, type: 2}
+  dropSounds: {fileID: 0}
+  drawSounds: {fileID: 0}
+  holsterSounds: {fileID: 0}
+  cookSounds: {fileID: 11400000, guid: e37479fc64b60e04d940afd7654ab357, type: 2}
+  eatSounds: {fileID: 11400000, guid: 4638dfbb133f1f54480bda7581f040fb, type: 2}
+  hurtSounds: {fileID: 11400000, guid: e34bb3771b2e20c48bef879692155b45, type: 2}
+  attackSounds: {fileID: 0}
+  scanSounds: {fileID: 11400000, guid: ef492aad68c54354fbddb8f880c89f34, type: 2}

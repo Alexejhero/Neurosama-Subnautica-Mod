@@ -1,16 +1,23 @@
-﻿using HarmonyLib;
+﻿using System.Collections.Generic;
+using System.Linq;
+using HarmonyLib;
+using SCHIZO.Items.Data;
+using SCHIZO.Resources;
 
 namespace SCHIZO.Items.Gymbag;
 
 [HarmonyPatch]
 public static class GymbagPatches
 {
+    private static readonly List<ItemData> _gymbagItems = new() {Assets.Gymbag_GymbagSN, Assets.Gymbag_GymbagBZ};
+    private static bool IsGymbag(TechType type) => _gymbagItems.Any(t => t.ModItem == type);
+
     [HarmonyPatch(typeof(PickupableStorage), nameof(PickupableStorage.OnHandClick))]
     [HarmonyPrefix]
     public static bool AllowGymbagPickup(PickupableStorage __instance, GUIHand hand)
     {
         TechType type = __instance.pickupable.GetTechType();
-        if (type != ModItems.Gymbag) return true;
+        if (!IsGymbag(type)) return true;
 
         __instance.pickupable.OnHandClick(hand);
         return false;
@@ -21,17 +28,10 @@ public static class GymbagPatches
     public static bool DisableGymbagPickupHudWarning(PickupableStorage __instance, GUIHand hand)
     {
         TechType type = __instance.pickupable.GetTechType();
-        if (type != ModItems.Gymbag) return true;
+        if (!IsGymbag(type)) return true;
 
         __instance.pickupable.OnHandHover(hand);
         return false;
-    }
-
-    [HarmonyPatch(typeof(Player), nameof(Player.Awake))]
-    [HarmonyPostfix]
-    public static void AddGymbagHandler(Player __instance)
-    {
-        __instance.gameObject.EnsureComponent<GymbagBehaviour>();
     }
 
     [HarmonyPatch(typeof(uGUI_ItemsContainer), nameof(uGUI_ItemsContainer.Init))]
@@ -40,7 +40,7 @@ public static class GymbagPatches
     {
         if (container == Inventory.main.container)
         {
-            GymbagBehaviour.Instance.InventoryUGUI = __instance;
+            GymbagManager.Instance.InventoryUGUI = __instance;
         }
     }
 
@@ -48,7 +48,7 @@ public static class GymbagPatches
     [HarmonyPostfix]
     public static void ClearLastOpenedOnPDAClose()
     {
-        GymbagBehaviour opener = GymbagBehaviour.Instance;
+        GymbagManager opener = GymbagManager.Instance;
 
         if (opener.CurrentOpenedRootGymbag != null && !opener.OpeningGymbag)
         {
@@ -58,12 +58,11 @@ public static class GymbagPatches
         }
     }
 
-
     [HarmonyPatch(typeof(ItemsContainer), $"{nameof(IItemsContainer)}.{nameof(IItemsContainer.AllowedToRemove)}")]
     [HarmonyPrefix]
     public static bool PreventRemovingOpenedGymbag(ItemsContainer __instance, ref bool __result, Pickupable pickupable)
     {
         if (__instance != Inventory.main.container) return true;
-        return __result = pickupable != GymbagBehaviour.Instance.CurrentOpenedRootGymbag?.item;
+        return __result = pickupable != GymbagManager.Instance.CurrentOpenedRootGymbag?.item;
     }
 }

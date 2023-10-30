@@ -1,16 +1,14 @@
-﻿using SCHIZO.Creatures.Tutel;
-using SCHIZO.Sounds;
+using Nautilus.Utility;
+using SCHIZO.Creatures.Components;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
 
-public sealed class ErmsharkAttack : MeleeAttack
+partial class ErmsharkAttack
 {
-    private SoundPlayer _attackSounds;
-
-    private void Start()
+    private void Awake()
     {
-        _attackSounds = CreatureSoundsHandler.GetCreatureSounds(ModItems.Ermshark).AttackSounds;
+        attackSounds = attackSounds.Initialize(AudioUtils.BusPaths.UnderwaterCreatures);
     }
 
     public override void OnTouch(Collider collider)
@@ -20,7 +18,7 @@ public sealed class ErmsharkAttack : MeleeAttack
 
         GameObject target = GetTarget(collider);
 
-        if (CreatureData.GetCreatureType(gameObject) == CreatureData.GetCreatureType(target)) return;
+        if (global::CreatureData.GetCreatureType(gameObject) == global::CreatureData.GetCreatureType(target)) return;
         if (target.GetComponent<GetCarried>()) return; // prevents tutel scream when released
 
         Player player = target.GetComponent<Player>();
@@ -32,19 +30,20 @@ public sealed class ErmsharkAttack : MeleeAttack
                 if (heldObject.GetComponent<GetCarried>() is { } heldTutel)
                 {
                     Inventory.main.DropHeldItem(false);
-                    creature.GetComponent<BullyTutel>().TryPickupTutel(heldTutel);
+                    creature.GetComponent<CarryCreature>().TryPickup(heldTutel);
                     creature.SetFriend(player.gameObject, 120f);
                     return;
                 }
                 else if (canBeFed && player.CanBeAttacked() && TryEat(heldObject, true))
                 {
-                    if (attackSound) Utils.PlayEnvSound(attackSound, mouth.transform.position);
+                    // if (attackSound) Utils.PlayEnvSound(attackSound, mouth.transform.position);
                     gameObject.SendMessage("OnMeleeAttack", heldObject, SendMessageOptions.DontRequireReceiver);
                     return;
                 }
             }
         }
 
+        // TODO: verify if ermshark can attack vehicles and cyclopses
         if (CanBite(target))
         {
             timeLastBite = Time.time;
@@ -59,12 +58,12 @@ public sealed class ErmsharkAttack : MeleeAttack
             {
                 Instantiate(damageFX, damageFxPos, damageFX.transform.rotation);
             }
-            if (attackSound != null)
+            /*if (attackSound != null)
             {
                 Utils.PlayEnvSound(attackSound, damageFxPos);
-            }
+            }*/
 
-            _attackSounds.Play(gameObject.GetComponent<FMOD_CustomEmitter>());
+            if (attackSounds) attackSounds.Play(emitter);
 
             creature.Aggression.Add(-biteAggressionDecrement);
             if (living && !living.IsAlive())

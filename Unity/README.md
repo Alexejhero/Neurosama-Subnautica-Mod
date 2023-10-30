@@ -1,0 +1,12 @@
+Script icons from Flaticon, made by: 
+- Freepik
+- juicy_fish
+- Pixel perfect
+- Rahul Kaklotar
+- Those Icons
+- Lizel Arina
+- Dabyella
+- Andrejs Kirma
+- DinosoftLabs
+- Kiranshastry
+- Hilmy Abiyyu A.

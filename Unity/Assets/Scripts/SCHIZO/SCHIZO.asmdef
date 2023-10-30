@@ -1,7 +1,8 @@
 {
     "name": "SCHIZO",
     "references": [
-        "GUID:776d03a35f1b52c4a9aed9f56d7b4229"
+        "GUID:776d03a35f1b52c4a9aed9f56d7b4229",
+        "GUID:77ccaf49895b0d64e87cd4b4faf83c49"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

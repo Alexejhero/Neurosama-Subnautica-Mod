@@ -11,6 +11,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
   m_Name: Scan
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   sounds:
   - {fileID: 8300000, guid: ced2016959dac344caa5592fc979eb0e, type: 3}

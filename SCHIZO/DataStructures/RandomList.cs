@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SCHIZO.DataStructures;
 
-public class RandomList<T> : IReadOnlyCollection<T>
+public class RandomList<T>(RandomList<T>.IInitialStateModifier initialStateModifier = null) : IReadOnlyCollection<T>
 {
     public interface IInitialStateModifier
     {
@@ -29,14 +29,9 @@ public class RandomList<T> : IReadOnlyCollection<T>
 
     private readonly List<T> _remainingItems = new();
     private readonly List<T> _usedItems = new();
-    private readonly IInitialStateModifier _ism;
+    private readonly IInitialStateModifier _ism = initialStateModifier ?? new DefaultInitialStateModifier();
 
     private bool _initialized;
-
-    public RandomList(IInitialStateModifier initialStateModifier = null)
-    {
-        _ism = initialStateModifier ?? new DefaultInitialStateModifier();
-    }
 
     public int Count => _remainingItems.Count + _usedItems.Count;
 

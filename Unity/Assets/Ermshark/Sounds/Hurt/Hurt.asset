@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
   m_Name: Hurt
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   sounds:
   - {fileID: 8300000, guid: 170d6b32544b4ac41a8cb6bfa891c285, type: 3}
   - {fileID: 8300000, guid: 7b54c2996e5721347b1bb6d3904f7b44, type: 3}

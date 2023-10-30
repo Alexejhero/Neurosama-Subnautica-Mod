@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
   m_Name: Attack
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   sounds:
   - {fileID: 8300000, guid: 98897a51a3b4eb946999cc85dff0b21b, type: 3}
   - {fileID: 8300000, guid: 1267b704d3ab81d4e855e082bcd4be21, type: 3}

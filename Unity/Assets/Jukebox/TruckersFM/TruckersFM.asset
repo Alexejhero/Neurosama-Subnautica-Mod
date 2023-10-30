@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a0830f50dd2e554381676c875e2cdf1, type: 3}
+  m_Name: TruckersFM
+  m_EditorClassIdentifier: 
+  identifier: TruckersFM
+  source: 1
+  audioClip: {fileID: 0}
+  url: http://radio.truckers.fm
+  isStream: 1
+  streamLabelFormat: '<align=center><size=75%>TruckersFM</size></align>
+
+    <size=50%>{0}</size>'
+  overrideTrackLabel: 0
+  trackLabel: TruckersFM
+  unlockedOnStart: 0
+  diskPrefab: {fileID: 0}
+  diskSpawnLocation: {x: -328, y: 14.22, z: 255}
+  unlockSound: {fileID: 8300000, guid: 5ba4e19b28e28bd40b3d57d369a781f0, type: 3}

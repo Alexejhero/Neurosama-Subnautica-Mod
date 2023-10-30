@@ -169,7 +169,6 @@ StyleCopReport.xml
 *.ipdb
 *.pgc
 *.pgd
-*.rsp
 *.sbr
 *.tlb
 *.tli
@@ -473,5 +472,6 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/windows,jetbrains+all,vs
 
 **/.idea
+.vsconfig
 SCHIZO/Resources/AssetBundles/AssetBundles
 SCHIZO/Resources/AssetBundles/*.manifest
