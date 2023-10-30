@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Nautilus.Handlers;
-using Nautilus.Utility;
 using UnityEngine;
 
 namespace SCHIZO.Items.Gymbag;

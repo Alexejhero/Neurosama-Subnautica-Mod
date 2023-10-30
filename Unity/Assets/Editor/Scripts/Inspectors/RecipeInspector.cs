@@ -1,9 +1,9 @@
-﻿using NaughtyAttributes.Editor;
-using PropertyDrawers;
+﻿using Editor.Scripts.PropertyDrawers;
+using NaughtyAttributes.Editor;
 using SCHIZO.Items.Data.Crafting;
 using UnityEditor;
 
-namespace Inspectors
+namespace Editor.Scripts.Inspectors
 {
     [CustomEditor(typeof(Recipe))]
     public sealed class RecipeInspector : NaughtyInspector

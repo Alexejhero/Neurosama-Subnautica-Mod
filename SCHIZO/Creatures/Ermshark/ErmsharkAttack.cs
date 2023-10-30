@@ -1,4 +1,5 @@
 using Nautilus.Utility;
+using SCHIZO.Creatures.Components;
 using SCHIZO.Sounds;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ partial class ErmsharkAttack
         GameObject target = GetTarget(collider);
 
         if (global::CreatureData.GetCreatureType(gameObject) == global::CreatureData.GetCreatureType(target)) return;
-        // if (target.GetComponent<GetCarried>()) return; // prevents tutel scream when released
+        if (target.GetComponent<GetCarried>()) return; // prevents tutel scream when released
 
         Player player = target.GetComponent<Player>();
         if (player)
@@ -29,14 +30,14 @@ partial class ErmsharkAttack
             GameObject heldObject = Inventory.main.GetHeldObject();
             if (heldObject)
             {
-                /*if (heldObject.GetComponent<GetCarried>() is { } heldTutel)
+                if (heldObject.GetComponent<GetCarried>() is { } heldTutel)
                 {
                     Inventory.main.DropHeldItem(false);
-                    creature.GetComponent<BullyTutel>().TryPickupTutel(heldTutel);
+                    creature.GetComponent<CarryCreature>().TryPickup(heldTutel);
                     creature.SetFriend(player.gameObject, 120f);
                     return;
                 }
-                else*/ if (canBeFed && player.CanBeAttacked() && TryEat(heldObject, true))
+                else if (canBeFed && player.CanBeAttacked() && TryEat(heldObject, true))
                 {
                     if (attackSound) Utils.PlayEnvSound(attackSound, mouth.transform.position);
                     gameObject.SendMessage("OnMeleeAttack", heldObject, SendMessageOptions.DontRequireReceiver);

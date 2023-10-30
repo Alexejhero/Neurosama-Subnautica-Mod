@@ -8,7 +8,7 @@ using SCHIZO.Helpers;
 using UnityEditor;
 using UnityEngine;
 
-namespace Patches
+namespace Editor.Scripts.Patches
 {
     [HarmonyPatch]
     public static class NaughtyPatches

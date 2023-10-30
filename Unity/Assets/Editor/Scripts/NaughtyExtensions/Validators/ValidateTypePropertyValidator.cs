@@ -7,7 +7,7 @@ using SCHIZO.Attributes.Typing;
 using SCHIZO.Helpers;
 using UnityEditor;
 
-namespace NaughtyExtensions.Validators
+namespace Editor.Scripts.NaughtyExtensions.Validators
 {
     public sealed class ValidateTypePropertyValidator : PropertyValidatorBase
     {

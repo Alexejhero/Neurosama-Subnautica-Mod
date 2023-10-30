@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -29,18 +29,16 @@ public static class LinqExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IEnumerable<GameObject> OfTechType(this IEnumerable<GameObject> gameObjects, ICollection<TechType> techTypes)
         => gameObjects.Where(gameObj => techTypes.Contains(CraftData.GetTechType(gameObj)));
-
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IOrderedEnumerable<GameObject> OrderByDistanceTo(this IEnumerable<GameObject> gameObjects, GameObject target)
-        => gameObjects.OrderBy(gameObj => gameObj.transform.position.DistanceSqrXZ(target.transform.position));
+    public static IEnumerable<GameObject> OfTechType(this IEnumerable<GameObject> gameObjects, IEnumerable<TechType> techTypes)
+        => gameObjects.Where(gameObj => techTypes.Contains(CraftData.GetTechType(gameObj)));
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IOrderedEnumerable<GameObject> OrderByDistanceTo(this IEnumerable<GameObject> gameObjects, Vector3 target)
         => gameObjects.OrderBy(gameObj => gameObj.transform.position.DistanceSqrXZ(target));
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IOrderedEnumerable<GameObject> OrderByDistanceToDescending(this IEnumerable<GameObject> gameObjects, GameObject target)
-        => gameObjects.OrderByDescending(gameObj => gameObj.transform.position.DistanceSqrXZ(target.transform.position));
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IOrderedEnumerable<GameObject> OrderByDistanceToDescending(this IEnumerable<GameObject> gameObjects, Vector3 target)
-        => gameObjects.OrderByDescending(gameObj => gameObj.transform.position.DistanceSqrXZ(target));
+    public static IOrderedEnumerable<T> OrderByDistanceTo<T>(this IEnumerable<T> components, Vector3 target)
+        where T : Component
+        => components.OrderBy(comp => comp.transform.position.DistanceSqrXZ(target));
 }

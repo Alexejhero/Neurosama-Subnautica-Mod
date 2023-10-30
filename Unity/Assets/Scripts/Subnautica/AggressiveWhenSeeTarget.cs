@@ -1,5 +1,6 @@
 ﻿using NaughtyAttributes;
 using SCHIZO.Interop.Subnautica;
+using SCHIZO.Interop.Subnautica.Enums;
 using SCHIZO.Utilities;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class AggressiveWhenSeeTarget : MonoBehaviour
 
     public AnimationCurve maxRangeMultiplier = ECCLIBRARY.maxRangeMultiplierCurve;
     public AnimationCurve distanceAggressionMultiplier = ECCLIBRARY.distanceAggressionMultiplierCurve;
-    public EcoTargetType targetType = EcoTargetType.Shark;
+    public EcoTargetType_All targetType = EcoTargetType_All.Shark;
     public float aggressionPerSecond = 1;
     public float maxRangeScalar = 10;
     public int maxSearchRings = 1;

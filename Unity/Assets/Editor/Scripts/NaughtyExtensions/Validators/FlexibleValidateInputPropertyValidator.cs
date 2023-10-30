@@ -6,7 +6,7 @@ using NaughtyAttributes.Editor;
 using SCHIZO.Attributes.Validation;
 using UnityEditor;
 
-namespace NaughtyExtensions.Validators
+namespace Editor.Scripts.NaughtyExtensions.Validators
 {
     public sealed class FlexibleValidateInputPropertyValidator : PropertyValidatorBase
     {

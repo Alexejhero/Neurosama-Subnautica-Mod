@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundCollection: {fileID: 11400000, guid: 2b7bde06469e9fc49911f3cac3ffa231, type: 2}
-  bus: SCHIZO.Sounds.WorldAmbientSoundPlayer:_indoorSoundsBus
+  bus: SCHIZO.Sounds.SoundPlayer:INDOOR_SOUNDS_BUS
   emitter: {fileID: 6178876673480739924}
   pickupable: {fileID: 0}
   constructable: {fileID: 4718122885188350257}
@@ -66,6 +66,20 @@ MonoBehaviour:
   followParent: 1
   restartOnPlay: 0
   debug: 0
+--- !u!114 &-4182478375658838026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4255816616590768573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecdd4541e7d83214c877638e50b612e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entertainmentFactor: 2
+  personalSpaceRadius: 3
 --- !u!1001 &13179956548186171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -239,6 +253,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 055ea2993f5883c459e08e4ea6b9d277, type: 3}
+--- !u!1 &4255816616590768573 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5844807597456787493, guid: 055ea2993f5883c459e08e4ea6b9d277,
+    type: 3}
+  m_PrefabInstance: {fileID: 7643557587647099288}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4640672921997225568 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3059532183318913016, guid: 055ea2993f5883c459e08e4ea6b9d277,
@@ -251,7 +271,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 7643557587647099288}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4255816616590768573}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 261a4738a8364c5fb9202fb9212e2cd3, type: 3}

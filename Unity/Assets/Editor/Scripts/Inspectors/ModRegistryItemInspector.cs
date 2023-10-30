@@ -3,7 +3,7 @@ using SCHIZO.Registering;
 using UnityEditor;
 using UnityEngine;
 
-namespace Inspectors
+namespace Editor.Scripts.Inspectors
 {
     [CustomEditor(typeof(ModRegistryItem), true)]
     public class ModRegistryItemInspector : NaughtyInspector

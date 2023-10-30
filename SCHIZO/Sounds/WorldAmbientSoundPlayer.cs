@@ -1,17 +1,14 @@
 using JetBrains.Annotations;
-using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Sounds;
 
 partial class WorldAmbientSoundPlayer
 {
-    private FMODSoundCollection _fmodSoundCollection;
     private float _timer = -1;
 
-    private void Awake()
+    private void Start()
     {
-        _fmodSoundCollection = FMODSoundCollection.For(soundCollection, StaticHelpers.GetValue<string>(bus));
         ResetTimer();
     }
 
@@ -25,7 +22,7 @@ partial class WorldAmbientSoundPlayer
         if (_timer < 0)
         {
             ResetTimer();
-            _fmodSoundCollection.Play((FMOD_CustomEmitter) emitter);
+            Play();
         }
     }
 

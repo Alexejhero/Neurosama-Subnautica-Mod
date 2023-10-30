@@ -13,7 +13,6 @@ using UWE;
 
 namespace SCHIZO.Sounds;
 
-[Serializable]
 [SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Serialization")]
 public sealed class FMODSoundCollection
 {

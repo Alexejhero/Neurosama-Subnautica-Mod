@@ -43,4 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11bc209e6934a4e9d5a87da31e0cbd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: {fileID: 11400000, guid: 1138c2d796e81ac43a4f257daf9651b7, type: 2}
+  soundCollection: {fileID: 11400000, guid: 1138c2d796e81ac43a4f257daf9651b7, type: 2}
+  bus: 
+  emitter: {fileID: 0}
