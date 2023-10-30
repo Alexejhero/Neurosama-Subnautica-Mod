@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78315918d0514014d864600fb981a894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoStartEvents: 0
+  autoStartEvents: 1
   overridePlayerPrefs: 0
 --- !u!114 &2221432346329158674
 MonoBehaviour:

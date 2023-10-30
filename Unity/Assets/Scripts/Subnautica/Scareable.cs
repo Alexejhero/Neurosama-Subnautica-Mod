@@ -1,5 +1,6 @@
 ﻿using NaughtyAttributes;
 using SCHIZO.Interop.Subnautica;
+using SCHIZO.Interop.Subnautica.Enums;
 using SCHIZO.Utilities;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class Scareable : MonoBehaviour
     [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public CreatureFear creatureFear;
     [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public _Creature creature;
 
-    public EcoTargetType targetType = EcoTargetType.Shark;
+    public EcoTargetType_All targetType = EcoTargetType_All.Shark;
     public CreatureAction fleeAction;
     public float scarePerSecond = 4;
     public float maxRangeScalar = 10;

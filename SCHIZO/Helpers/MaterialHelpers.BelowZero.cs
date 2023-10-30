@@ -2,7 +2,6 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using SCHIZO.Attributes.Loading;
 using UnityEngine;
-using UWE;
 
 namespace SCHIZO.Helpers;
 

@@ -22,7 +22,7 @@ partial class WorldAmbientSoundPlayer
         if (_timer < 0)
         {
             ResetTimer();
-            fmodSounds.Play((FMOD_CustomEmitter) emitter);
+            Play();
         }
     }
 

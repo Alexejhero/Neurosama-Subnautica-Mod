@@ -11,8 +11,8 @@ partial class CustomCreatureTool
 
         if (IS_BELOWZERO)
         {
-            if (leftHandIKTargetOverrideBZ) leftHandIKTarget = leftHandIKTargetOverrideBZ;
-            if (rightHandIKTargetOverrideBZ) rightHandIKTarget = rightHandIKTargetOverrideBZ;
+            leftHandIKTarget = leftHandIKTargetOverrideBZ;
+            rightHandIKTarget = rightHandIKTargetOverrideBZ;
         }
 
         base.Awake();

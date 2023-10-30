@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Nautilus.Commands;
 using Nautilus.Utility;
 using SCHIZO.Attributes.Loading;
-using SCHIZO.Events.Ermcon;
 using SCHIZO.Helpers;
 using UnityEngine;
 
@@ -19,7 +17,7 @@ public partial class GameEventsManager
     public static List<GameEvent> Events { get; private set; } = new();
 
     private const string AUTOEVENTS_PREFS_KEY = "SCHIZO_Events_AutoEvents";
-    public static bool HasBeenSet => PlayerPrefs.GetInt(AUTOEVENTS_PREFS_KEY, -1) != -1;
+    public static bool HasBeenSet => PlayerPrefs.HasKey(AUTOEVENTS_PREFS_KEY);
     public bool AutoStartEvents
     {
         get => GetAutoStart(autoStartEvents);
@@ -34,7 +32,7 @@ public partial class GameEventsManager
         if (Instance) Destroy(Instance);
         Instance = this;
         gameObject.GetComponents(Events);
-        
+
         if (!HasBeenSet || overridePlayerPrefs) SetAutoStart(autoStartEvents);
 
         DevConsole.RegisterConsoleCommand(this, "autoevents", false, true);
@@ -50,9 +48,9 @@ public partial class GameEventsManager
             return;
         }
 
-        if (ConsoleHelpers.TryParseBoolean(n.data[0] as string, out bool? start))
+        if (ConsoleHelpers.TryParseBoolean(n.data[0] as string, out bool start))
         {
-            SetAutoStart(start.Value);
+            SetAutoStart(start);
             MessageHelpers.WriteCommandOutput($"Events are now {FormatAutoStart(GetAutoStart())}");
         }
         else

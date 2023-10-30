@@ -17,7 +17,7 @@ partial class LoadingSoundPlayer
         if (_loading.progress > 0.5f)
         {
             _playedSound = true;
-            if (Utils.GetContinueMode()) fmodSounds.Play2D();
+            if (Utils.GetContinueMode()) Play();
         }
     }
 }

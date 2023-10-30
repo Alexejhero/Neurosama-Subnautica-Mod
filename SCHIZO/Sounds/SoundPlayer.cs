@@ -5,7 +5,7 @@ namespace SCHIZO.Sounds;
 
 partial class SoundPlayer
 {
-    protected FMODSoundCollection fmodSounds;
+    private FMODSoundCollection fmodSounds;
 
     protected void Awake()
     {
@@ -17,5 +17,11 @@ partial class SoundPlayer
             ? busOrFieldPath
             : StaticHelpers.GetValue<string>(busOrFieldPath);
         fmodSounds = FMODSoundCollection.For(soundCollection, actualBus);
+    }
+
+    public void Play(float delay = 0)
+    {
+        if (Is3D) fmodSounds.Play((FMOD_CustomEmitter) emitter, delay);
+        else fmodSounds.Play2D(delay);
     }
 }

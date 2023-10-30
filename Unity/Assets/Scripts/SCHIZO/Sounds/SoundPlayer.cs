@@ -15,7 +15,7 @@ namespace SCHIZO.Sounds
         protected string bus;
 
         [SerializeField, Required, ExposedType("FMOD_CustomEmitter"), ShowIf(nameof(NeedsEmitter)), UsedImplicitly]
-        protected MonoBehaviour emitter;
+        private MonoBehaviour emitter;
 
         protected abstract string DefaultBus { get; }
         protected abstract bool Is3D { get; }
@@ -23,7 +23,6 @@ namespace SCHIZO.Sounds
         private bool NeedsBus => string.IsNullOrEmpty(DefaultBus);
         private bool NeedsEmitter => Is3D;
 
-        // "private protected" = protected AND internal (NaughtyAttributes is internal on the mod side)
         [StaticHelpers.Cache]
         private protected static readonly BetterDropdownList<string> buses = new BetterDropdownList<string>()
         {

@@ -4,13 +4,12 @@ namespace SCHIZO.Creatures.Components;
 
 [SuppressMessage("ReSharper", "RedundantOverriddenMember")]
 [SuppressMessage("ReSharper", "Unity.RedundantEventFunction")]
-public partial class CustomCreatureAction
+partial class CustomCreatureAction
 {
 #if BELOWZERO
     public virtual void Awake()
     {
         CompileTimeSetup();
-        //Extensions.EnsureComponentsExtensions.EnsureComponentFields(this);
     }
 
     public override void Start()

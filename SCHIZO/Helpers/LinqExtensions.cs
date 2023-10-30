@@ -36,6 +36,7 @@ public static class LinqExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IOrderedEnumerable<GameObject> OrderByDistanceTo(this IEnumerable<GameObject> gameObjects, Vector3 target)
         => gameObjects.OrderBy(gameObj => gameObj.transform.position.DistanceSqrXZ(target));
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IOrderedEnumerable<T> OrderByDistanceTo<T>(this IEnumerable<T> components, Vector3 target)
         where T : Component

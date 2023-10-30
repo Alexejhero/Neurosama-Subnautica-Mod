@@ -29,7 +29,7 @@ partial class GetCarried : CustomCreatureAction
     {
         base.Awake();
         // contrary to the name, this is actually the max possible priority
-        /// full explanation here <see cref="Events.Ermcon.ErmconAttendee.Awake"/>
+        // full explanation here <see cref="Events.Ermcon.ErmconAttendee.Awake"/>
         evaluatePriority = 99f;
         _pickupSounds = pickupSounds ? FMODSoundCollection.For(pickupSounds, BUS) : null;
         _carrySounds = carrySounds ? FMODSoundCollection.For(carrySounds, BUS) : null;

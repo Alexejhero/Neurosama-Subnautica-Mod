@@ -2,7 +2,6 @@ using NaughtyAttributes;
 using SCHIZO.Attributes.Typing;
 using SCHIZO.Sounds;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SCHIZO.Creatures.Components
 {

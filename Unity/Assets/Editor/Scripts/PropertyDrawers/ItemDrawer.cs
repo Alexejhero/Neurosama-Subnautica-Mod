@@ -3,7 +3,7 @@ using SCHIZO.Items.Data.Crafting;
 using UnityEditor;
 using UnityEngine;
 
-namespace PropertyDrawers
+namespace Editor.Scripts.PropertyDrawers
 {
     [CustomPropertyDrawer(typeof(Item))]
     public sealed class ItemDrawer : PropertyDrawer

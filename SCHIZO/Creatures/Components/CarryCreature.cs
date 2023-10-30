@@ -13,13 +13,6 @@ public sealed partial class CarryCreature : CustomCreatureAction
 
     public EcoTargetType EcoTargetType => (EcoTargetType) _ecoTargetType;
 
-    public override void Awake()
-    {
-        base.Awake();
-#warning https://github.com/users/Alexejhero/projects/5/views/1?pane=issue&itemId=42850746
-        if (!creature) creature = GetComponent<Creature>();
-    }
-
     public override float Evaluate(float time)
     {
         if (timeNextFindTarget < time)
@@ -45,7 +38,7 @@ public sealed partial class CarryCreature : CustomCreatureAction
     private bool TryPickupTarget()
     {
         if (!target || !target.gameObject || !target.gameObject.activeInHierarchy) return false;
-        
+
         if (target.GetComponentInParent<Player>())
         {
             // in player's inventory

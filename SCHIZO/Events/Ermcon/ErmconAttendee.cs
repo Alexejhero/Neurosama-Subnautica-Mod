@@ -57,7 +57,7 @@ public partial class ErmconAttendee : IHandTarget
     }
     public void OnHandClick(GUIHand hand)
     {
-        // play "no~"?
+        if (pickupDeniedSoundPlayer) pickupDeniedSoundPlayer.Play();
     }
 
     public override void OnEnable()
@@ -232,7 +232,7 @@ public partial class ErmconAttendee : IHandTarget
             .GroupBy(t => (timeFactor: _visited.GetOrDefault(t, 0f) / t.entertainmentFactor, t.entertainmentFactor))
             .OrderBy(group => group.Key.timeFactor)
             .ThenByDescending(group => group.Key.entertainmentFactor)
-            .FirstOrDefault()?.ToList()?.GetRandom();
+            .FirstOrDefault()?.ToList().GetRandom();
     }
 
     public void CycleDebug(int? forceLevel = null)
