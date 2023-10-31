@@ -4,13 +4,13 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Nautilus.Commands;
 using Nautilus.Utility;
-using SCHIZO.Attributes.Loading;
+using SCHIZO.ConsoleCommands;
 using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Events;
 
-[LoadConsoleCommands]
+[RegisterConsoleCommands]
 public partial class GameEventsManager
 {
     public static GameEventsManager Instance { get; private set; }
@@ -34,29 +34,19 @@ public partial class GameEventsManager
         gameObject.GetComponents(Events);
 
         if (!HasBeenSet || overridePlayerPrefs) SetAutoStart(autoStartEvents);
-
-        DevConsole.RegisterConsoleCommand(this, "autoevents", false, true);
     }
 
-    // not an attribute command because those don't support optional parameters
-    [UsedImplicitly]
-    private void OnConsoleCommand_autoevents(NotificationCenter.Notification n)
+    [ConsoleCommand("autoevents"), UsedImplicitly]
+    public static void OnConsoleCommand_autoevents(bool? action = null)
     {
-        if (n.data is not { Count: > 0})
+        if (action == null)
         {
             MessageHelpers.WriteCommandOutput($"Events are currently {FormatAutoStart(GetAutoStart())}");
             return;
         }
 
-        if (ConsoleHelpers.TryParseBoolean(n.data[0] as string, out bool start))
-        {
-            SetAutoStart(start);
-            MessageHelpers.WriteCommandOutput($"Events are now {FormatAutoStart(GetAutoStart())}");
-        }
-        else
-        {
-            MessageHelpers.WriteCommandOutput($"Syntax: autoevents [on|off]");
-        }
+        SetAutoStart(action.Value);
+        MessageHelpers.WriteCommandOutput($"Events are now {FormatAutoStart(action.Value)}");
     }
 
 #if DEBUG

@@ -109,7 +109,7 @@ public sealed partial class CustomJukeboxTrack
         }
     }
 
-    private GameObject SpawnDisk(BZJukebox.UnlockableTrack trackId, Vector3 position)
+    private void SpawnDisk(BZJukebox.UnlockableTrack trackId, Vector3 position)
     {
         GameObject disk = Instantiate(CustomJukeboxTrackPatches.defaultDiskPrefab);
         disk.transform.position = position;
@@ -134,6 +134,5 @@ public sealed partial class CustomJukeboxTrack
         disk.GetComponent<LargeWorldEntity>().enabled = false; // don't save
 
         LOGGER.LogDebug($"Spawned disk for {trackId} at {position}");
-        return disk;
     }
 }

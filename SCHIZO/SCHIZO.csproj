@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Configurations>Subnautica;BelowZero</Configurations>
-        <NoWarn>$(NoWarn);CS0436;CS0649;Harmony003;Publicizer001;</NoWarn>
+        <NoWarn>$(NoWarn);CS0436;CS0649;CS0809;Harmony003;Publicizer001;</NoWarn>
     </PropertyGroup>
 
     <Import Project="$(SolutionDir)/Subnautica.props" Condition=" '$(Configuration)' == 'Subnautica' " />
@@ -13,9 +13,15 @@
         <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" />
 
         <PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
-        <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.1" PrivateAssets="all" />
+        <PackageReference Include="Krafs.Publicizer" Version="2.2.1" PrivateAssets="all" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Publicize Include="ECCLibrary:ECCLibrary.ObjectReferences" />
+        <Publicize Include="Nautilus:Nautilus.Commands.Parameter" />
+        <Publicize Include="Nautilus:Nautilus.Commands.Parameter.TypeConverters" />
+    </ItemGroup>
+    
     <ItemGroup>
         <Compile Include="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.cs">
             <DependentUpon>%(FileName).cs</DependentUpon>

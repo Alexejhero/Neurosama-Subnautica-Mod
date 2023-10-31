@@ -5,11 +5,10 @@ namespace SCHIZO.Twitch;
 [HarmonyPatch]
 public static class AchievementPatches
 {
-    [HarmonyPatch(typeof(GameAchievements), nameof(GameAchievements.Unlock))]
+    [HarmonyPatch(typeof(DevConsole), nameof(DevConsole.HasUsedConsole))]
     [HarmonyPrefix]
-    public static bool Prefix(GameAchievements.Id id)
+    public static bool Prefix(out bool __result)
     {
-        PlatformUtils.main.GetServices().UnlockAchievement(id);
-        return false;
+        return __result = false;
     }
 }
