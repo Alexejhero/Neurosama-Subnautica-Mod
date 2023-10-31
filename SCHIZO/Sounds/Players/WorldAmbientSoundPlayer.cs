@@ -28,7 +28,7 @@ partial class WorldAmbientSoundPlayer
 
     private void ResetTimer()
     {
-        _timer = Random.Range(SoundConfig.Provider.MinWorldSoundDelay, SoundConfig.Provider.MaxWorldSoundDelay);
+        _timer = Random.Range(MinDelay.GetValue(), MaxDelay.GetValue());
     }
 
     [UsedImplicitly]

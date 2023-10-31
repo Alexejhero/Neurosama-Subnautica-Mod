@@ -1,11 +1,20 @@
 using JetBrains.Annotations;
 using SCHIZO.Attributes.Typing;
+using SCHIZO.Options;
 using UnityEngine;
 
 namespace SCHIZO.Sounds.Players
 {
     public sealed partial class WorldAmbientSoundPlayer : SoundPlayer
     {
+        [Space]
+
+        [SerializeField, UsedImplicitly]
+        private ConfigurableValueFloat MinDelay;
+
+        [SerializeField, UsedImplicitly]
+        private ConfigurableValueFloat MaxDelay;
+
         [Space]
 
         [SerializeField, ExposedType("Pickupable"), UsedImplicitly]

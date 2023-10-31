@@ -1,3 +1,17 @@
 fileFormatVersion: 2
 guid: e4f19711010743bfa5da92c65afc5b86
-timeCreated: 1697297845
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - soundCollection: {instanceID: 0}
+  - emitter: {instanceID: 0}
+  - minDelayDefault: {fileID: 11400000, guid: 14beba417ed8e764a8489589984c141a, type: 2}
+  - maxDelayDefault: {fileID: 11400000, guid: 87f6c7eace682d841a58b07957ee144d, type: 2}
+  - pickupable: {instanceID: 0}
+  - constructable: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -20,6 +20,7 @@
         <Publicize Include="ECCLibrary:ECCLibrary.ObjectReferences" />
         <Publicize Include="Nautilus:Nautilus.Commands.Parameter" />
         <Publicize Include="Nautilus:Nautilus.Commands.Parameter.TypeConverters" />
+        <Publicize Include="Nautilus:Nautilus.Options.ModOptions._options" />
     </ItemGroup>
     
     <ItemGroup>

@@ -7,6 +7,7 @@ using FMODUnity;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.DataStructures;
+using SCHIZO.Resources;
 using SCHIZO.Sounds.Collections;
 using UnityEngine;
 using UWE;
@@ -97,7 +98,7 @@ public sealed class FMODSoundCollection
     public void Play(FMOD_CustomEmitter emitter, float delay = 0)
     {
         if (!Initialize()) return;
-        if (CONFIG.DisableAllNoises) return;
+        if (Assets.Options_DisableAllSounds.Value) return;
 
         if (delay <= 0)
         {

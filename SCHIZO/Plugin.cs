@@ -22,8 +22,6 @@ public sealed class Plugin : BaseUnityPlugin
     public static ManualLogSource LOGGER { get; private set; }
     public static Harmony HARMONY { get; private set; }
 
-    public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();
-
     private void Awake()
     {
         PLUGIN_ASSEMBLY = Assembly.GetExecutingAssembly();
@@ -32,8 +30,6 @@ public sealed class Plugin : BaseUnityPlugin
         HARMONY = new Harmony("SCHIZO");
 
         ResourceManager.InjectAssemblies();
-
-        SoundConfig.Provider = CONFIG;
     }
 
     private IEnumerator Start()

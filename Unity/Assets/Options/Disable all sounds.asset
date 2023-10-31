@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9649cfa0128743339263357954fa89dc, type: 3}
+  m_Name: Disable all sounds
+  m_EditorClassIdentifier: 
+  id: disable_all_sounds
+  label: Disable all sounds
+  defaultValue: 0
+  tooltip: Disables ALL custom sounds from the mod.

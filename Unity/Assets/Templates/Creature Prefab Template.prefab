@@ -741,6 +741,30 @@ MonoBehaviour:
   swimInterval: 1
   minSwimDuration: 3
   directionDistanceMultiplier: {x: 1, y: 1, z: 1}
+--- !u!114 &3365459996886375183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08298562675c4c18ba4b1d9744b135e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundCollection: {fileID: 0}
+  bus: 
+  emitter: {fileID: 0}
+  MinDelay:
+    isHardCoded: 0
+    modOption: {fileID: 11400000, guid: cddef268080982e4eae92e262bd08d9f, type: 2}
+    value: 0
+  MaxDelay:
+    isHardCoded: 0
+    modOption: {fileID: 11400000, guid: d2d8f608de10fb64d90460a0634789bf, type: 2}
+    value: 0
+  pickupable: {fileID: 3036659393320280015}
 --- !u!114 &3525315510431984540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -976,6 +1000,14 @@ MonoBehaviour:
   soundCollection: {fileID: 0}
   bus: Nautilus.Utility.AudioUtils+BusPaths:UnderwaterCreatures
   emitter: {fileID: 8210446819742810007}
+  MinDelay:
+    isHardCoded: 0
+    modOption: {fileID: 11400000, guid: 14beba417ed8e764a8489589984c141a, type: 2}
+    value: 0
+  MaxDelay:
+    isHardCoded: 0
+    modOption: {fileID: 11400000, guid: 87f6c7eace682d841a58b07957ee144d, type: 2}
+    value: 0
   pickupable: {fileID: 3036659393320280015}
   constructable: {fileID: 0}
 --- !u!114 &7808515654292971840
@@ -1040,22 +1072,6 @@ MonoBehaviour:
   followParent: 1
   restartOnPlay: 0
   debug: 0
---- !u!114 &3365459996886375183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08298562675c4c18ba4b1d9744b135e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundCollection: {fileID: 0}
-  bus: 
-  emitter: {fileID: 0}
-  pickupable: {fileID: 3036659393320280015}
 --- !u!1 &4711419397437546869
 GameObject:
   m_ObjectHideFlags: 0
