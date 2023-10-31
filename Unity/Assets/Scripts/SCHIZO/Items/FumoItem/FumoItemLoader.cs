@@ -1,12 +1,23 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem
 {
     public sealed partial class FumoItemLoader : ItemLoader
     {
-        [Tooltip("Where to spawn the fumo on a new game.")]
-        public Vector3 spawnPosition = new Vector3(-307, 18f, 274f);
-        public Vector3 spawnRotation;
+        [BoxGroup("Subnautica"), Label("Spawn on New Game")]
+        public bool spawnSN;
+        [BoxGroup("Subnautica"), Label("Spawn Position"), ShowIf(nameof(spawnSN))]
+        public Vector3 spawnPositionSN;
+        [BoxGroup("Subnautica"), Label("Spawn Rotation"), ShowIf(nameof(spawnSN))]
+        public Vector3 spawnRotationSN;
+
+        [BoxGroup("Below Zero"), Label("Spawn on New Game")]
+        public bool spawnBZ;
+        [BoxGroup("Below Zero"), Label("Spawn Position"), ShowIf(nameof(spawnBZ))]
+        public Vector3 spawnPositionBZ;
+        [BoxGroup("Below Zero"), Label("Spawn Rotation"), ShowIf(nameof(spawnBZ))]
+        public Vector3 spawnRotationBZ;
     }
 }
 

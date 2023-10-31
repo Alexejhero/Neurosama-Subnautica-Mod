@@ -62,5 +62,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000}
-  spawnPosition: {x: -327, y: 15, z: 265}
-  spawnRotation: {x: 0, y: 125, z: 0}
+  spawnSN: 0
+  spawnPositionSN: {x: 0, y: 0, z: 0}
+  spawnRotationSN: {x: 0, y: 0, z: 0}
+  spawnBZ: 1
+  spawnPositionBZ: {x: -327, y: 15, z: 265}
+  spawnRotationBZ: {x: 0, y: 125, z: 0}
