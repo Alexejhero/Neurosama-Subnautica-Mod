@@ -128,6 +128,7 @@ public sealed class FMODSoundCollection
         }
         else
         {
+            // TODO: Play this sound using an Emitter or something (so that it changes based on volume)
             CustomSoundHandler.TryPlayCustomSound(sound, out Channel channel);
             channel.set3DLevel(0);
         }
