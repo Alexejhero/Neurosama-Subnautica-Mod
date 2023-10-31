@@ -6,7 +6,7 @@ using BepInEx.Logging;
 using ECCLibrary;
 using HarmonyLib;
 using Nautilus.Handlers;
-using SCHIZO.Console;
+using SCHIZO.ConsoleCommands;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;
@@ -47,6 +47,6 @@ public sealed class Plugin : BaseUnityPlugin
         Assets.Registry.InvokeRegister();
         Assets.Registry.InvokePostRegister();
 
-        LoadConsoleCommandsAttribute.RegisterAll();
+        RegisterConsoleCommandsAttribute.RegisterAll();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using NaughtyAttributes;
-using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using UnityEngine;
 
 namespace SCHIZO.Interop.NaughtyAttributes

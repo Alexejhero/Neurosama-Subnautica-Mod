@@ -8,9 +8,9 @@ using Nautilus.Commands;
 using SCHIZO.Helpers;
 using UnityEngine;
 
-namespace SCHIZO.Console;
+namespace SCHIZO.ConsoleCommands;
 
-[LoadConsoleCommands]
+[RegisterConsoleCommands]
 public static class ConsoleCommands
 {
     [ConsoleCommand("isekai"), UsedImplicitly]
