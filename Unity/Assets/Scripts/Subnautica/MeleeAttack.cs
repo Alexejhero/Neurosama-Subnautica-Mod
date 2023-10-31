@@ -1,7 +1,4 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Interop.Subnautica;
-using SCHIZO.Utilities;
-using UnityEngine;
+﻿using SCHIZO.Interop.Subnautica;
 
 public class MeleeAttack : _MeleeAttack
 {

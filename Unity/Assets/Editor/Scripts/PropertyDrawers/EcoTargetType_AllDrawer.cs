@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using SCHIZO.Interop.Subnautica.Enums;
-using SCHIZO.Registering;
+﻿using SCHIZO.Interop.Subnautica.Enums;
 using UnityEditor;
 
 namespace Editor.Scripts.PropertyDrawers

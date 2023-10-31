@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: Enable automatic events
   m_EditorClassIdentifier: 
   id: autoevents
+  disableIfAnyTrue: []
+  disableIfAnyFalse: []
   label: Enable automatic events
   defaultValue: 1
   tooltip: 'Allows events to trigger automatically.
 
     If disabled, events can
-    only be started using the "event" command.'
+    only be started using the "event" command.
+
+    (Leave this on unless you''re
+    Vedal)'

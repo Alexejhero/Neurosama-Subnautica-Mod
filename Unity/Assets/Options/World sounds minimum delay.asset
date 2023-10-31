@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62dbd26141440dfbb2832db54a5abb9, type: 3}
   m_Name: World sounds minimum delay
   m_EditorClassIdentifier: 
+  id: world_ambient_min_delay
   disableIfAnyTrue:
   - {fileID: 11400000, guid: 9d930f9cd30bc6e42aaf2db5dc362cf1, type: 2}
   - {fileID: 11400000, guid: f0594ad0952ab554cbe3376036e1020a, type: 2}
   disableIfAnyFalse: []
-  id: world_ambient_min_delay
   label: World sounds minimum delay
   defaultValue: 10
   tooltip: The minimum delay between ambient world sounds.

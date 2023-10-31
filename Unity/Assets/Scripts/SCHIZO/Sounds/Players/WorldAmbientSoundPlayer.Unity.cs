@@ -1,4 +1,4 @@
-﻿using SCHIZO.Options;
+﻿using SCHIZO.Options.Float;
 using UnityEngine;
 
 namespace SCHIZO.Sounds.Players

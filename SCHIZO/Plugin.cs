@@ -5,11 +5,9 @@ using BepInEx;
 using BepInEx.Logging;
 using ECCLibrary;
 using HarmonyLib;
-using Nautilus.Handlers;
 using SCHIZO.ConsoleCommands;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
-using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO;

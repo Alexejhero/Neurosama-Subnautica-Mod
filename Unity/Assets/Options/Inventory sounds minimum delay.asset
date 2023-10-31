@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f62dbd26141440dfbb2832db54a5abb9, type: 3}
   m_Name: Inventory sounds minimum delay
   m_EditorClassIdentifier: 
+  id: inventory_ambient_min_delay
   disableIfAnyTrue:
   - {fileID: 11400000, guid: 9d930f9cd30bc6e42aaf2db5dc362cf1, type: 2}
   - {fileID: 11400000, guid: 586ae6e6828837441a6a92a32eb1ba84, type: 2}
   disableIfAnyFalse: []
-  id: inventory_ambient_min_delay
   label: Inventory sounds minimum delay
   defaultValue: 60
   tooltip: The minimum delay between ambient inventory sounds.

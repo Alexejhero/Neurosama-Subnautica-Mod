@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NaughtyAttributes;
+using SCHIZO.Options.Generic;
 using SCHIZO.Registering;
 using UnityEngine;
 

@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using NaughtyAttributes;
 using SCHIZO.Interop.Subnautica.Enums;
+using SCHIZO.Items.Gymbag;
 using UnityEngine;
 
 namespace SCHIZO.Items.Data
@@ -16,5 +17,10 @@ namespace SCHIZO.Items.Data
 
         [BZData, Label("Clone Target"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ))]
         private TechType_All cloneTargetBZ;
+
+#if UNITY_EDITOR
+        [ContextMenu("Set Loader/Gymbag")]
+        private void CreateGymbagLoader() => AssignItemLoader(CreateInstance<GymbagLoader>());
+#endif
     }
 }

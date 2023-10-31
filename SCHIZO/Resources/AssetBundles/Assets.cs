@@ -12,7 +12,7 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = -1806460644;
+    private const int _rnd = -2123123401;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
 
@@ -30,7 +30,7 @@ public static class Assets
     public static SCHIZO.Items.Data.CloneItemData Gymbag_GymbagBZ = _a.LoadAsset<SCHIZO.Items.Data.CloneItemData>("Assets/Gymbag/Gymbag BZ.asset");
     public static SCHIZO.Items.Data.CloneItemData Gymbag_GymbagSN = _a.LoadAsset<SCHIZO.Items.Data.CloneItemData>("Assets/Gymbag/Gymbag SN.asset");
     public static UnityEngine.Texture2D Loading_Icon_LoadingIcon = _a.LoadAsset<UnityEngine.Texture2D>("Assets/Loading/Icon/loading icon.png");
-    public static SCHIZO.Options.ToggleModOption Options_DisableAllSounds = _a.LoadAsset<SCHIZO.Options.ToggleModOption>("Assets/Options/Disable all sounds.asset");
-    public static SCHIZO.Options.ToggleModOption Options_EnableAutomaticEvents = _a.LoadAsset<SCHIZO.Options.ToggleModOption>("Assets/Options/Enable automatic events.asset");
+    public static SCHIZO.Options.Bool.ToggleModOption Options_DisableAllSounds = _a.LoadAsset<SCHIZO.Options.Bool.ToggleModOption>("Assets/Options/Disable all sounds.asset");
+    public static SCHIZO.Options.Bool.ToggleModOption Options_EnableAutomaticEvents = _a.LoadAsset<SCHIZO.Options.Bool.ToggleModOption>("Assets/Options/Enable automatic events.asset");
     public static SCHIZO.Registering.ModRegistry Registry = _a.LoadAsset<SCHIZO.Registering.ModRegistry>("Assets/Registry.asset");
 }

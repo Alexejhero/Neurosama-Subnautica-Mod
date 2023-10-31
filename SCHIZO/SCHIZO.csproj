@@ -32,6 +32,10 @@
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/_old/**/*.cs" />
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/Materials/**/*.cs" />
 
+        <Folder Include="Attributes" />
+        <Folder Include="Attributes/Typing" />
+        <Folder Include="Attributes/Validation" />
+        <Folder Include="Attributes/Visual" />
         <Folder Include="Utilities" />
     </ItemGroup>
 
