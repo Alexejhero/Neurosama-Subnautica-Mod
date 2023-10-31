@@ -10,11 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
-<<<<<<<< HEAD:Unity/Assets/Neurofumos/Neurofumo/Neurofumo.asset
-  m_Name: Neurofumo
-========
   m_Name: Neurofumo buildable data
->>>>>>>> 3ee33ec (do the prefab dance again (fumo)):Unity/Assets/Neurofumos/Neurofumo/Neurofumo buildable data.asset
   m_EditorClassIdentifier: 
   prefab: {fileID: 656058450781834795, guid: 5a15aed96d8d1b84592bfbe203825ee4, type: 3}
   classId: NeuroFumoNew
@@ -27,18 +23,13 @@ MonoBehaviour:
   isCraftable: 0
   isBuildable: 1
   craftingTime: 2.5
-<<<<<<<< HEAD:Unity/Assets/Neurofumos/Neurofumo/Neurofumo.asset
+  loader: {fileID: 0}
   registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 5061b10e23e00bb4d8bdb58109048276, type: 2}
-========
-  oldVersions: []
-  recipeSN: {fileID: 11400000, guid: 20e9814434289fc4ebed56a98325869b, type: 2}
->>>>>>>> 3ee33ec (do the prefab dance again (fumo)):Unity/Assets/Neurofumos/Neurofumo/Neurofumo buildable data.asset
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 13
   techCategorySN: 24
-<<<<<<<< HEAD:Unity/Assets/Neurofumos/Neurofumo/Neurofumo.asset
   pdaEncyclopediaInfoSN: {fileID: 0}
   knownTechInfoSN: {fileID: 0}
   unlockAtStartSN: 1
@@ -48,9 +39,7 @@ MonoBehaviour:
     itemData: {fileID: 0}
   registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: 5061b10e23e00bb4d8bdb58109048276, type: 2}
-========
-  recipeBZ: {fileID: 11400000, guid: 20e9814434289fc4ebed56a98325869b, type: 2}
->>>>>>>> 3ee33ec (do the prefab dance again (fumo)):Unity/Assets/Neurofumos/Neurofumo/Neurofumo buildable data.asset
+  canBeRecycledBZ: 1
   craftTreeTypeBZ: 0
   craftTreePathBZ: 
   techGroupBZ: 12

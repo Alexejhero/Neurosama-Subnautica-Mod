@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using SCHIZO.Creatures;
@@ -44,10 +44,10 @@ public class UnityPrefab : CustomPrefab
         }
 #endif
 
-        if (modItem.ItemData is CloneItemData cloneItemData)
+        if (modItem.ItemData.loader)
         {
-            LOGGER.LogDebug($"Creating prefab {cloneItemData.loader.GetType().Name} for {modItem.ItemData.classId}");
-            cloneItemData.loader.Load();
+            LOGGER.LogDebug($"Invoking loader {modItem.ItemData.loader.GetType().Name} for {modItem.ItemData.classId}");
+            modItem.ItemData.loader.Load();
             return;
         }
 

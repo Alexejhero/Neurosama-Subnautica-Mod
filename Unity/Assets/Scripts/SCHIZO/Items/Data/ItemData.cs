@@ -26,24 +26,27 @@ namespace SCHIZO.Items.Data
         [BoxGroup("TechType"), ResizableTextArea, ShowIf(nameof(ShowPickupableProps))]
         public string tooltip;
 
-        [BoxGroup("Common Properties"), ShowIf(nameof(ShowPickupableProps)), Required]
+        [CommonData, ShowIf(nameof(ShowPickupableProps)), Required]
         public Sprite icon;
 
-        [BoxGroup("Common Properties"), HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable))]
+        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable))]
         public Vector2Int itemSize = new Vector2Int(1, 1);
 
-        [BoxGroup("Common Properties"), HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable))]
+        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable))]
         public bool isCraftable;
 
-        [BoxGroup("Common Properties"), HideIf(Or, nameof(HidePickupableProps), nameof(isCraftable))]
+        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isCraftable))]
         public bool isBuildable;
 
-        [BoxGroup("Common Properties"), ShowIf(nameof(IsActuallyCraftable))]
+        [CommonData, ShowIf(nameof(IsActuallyCraftable))]
         public float craftingTime = 2.5f;
+        
+        [CommonData, ReadOnly]
+        public ItemLoader loader;
 
         #region Subnautica Data
 
-        [SNData, Label("Register"), SerializeField]
+        [SNData, Label("Register")]
         public bool registerInSN = true;
 
         [SNData, Label("Recipe"), SerializeField, ShowIf(And, nameof(registerInSN), nameof(IsBuildableOrCraftable))]
@@ -77,7 +80,7 @@ namespace SCHIZO.Items.Data
 
         #region Below Zero Data
 
-        [BZData, Label("Register"), SerializeField]
+        [BZData, Label("Register")]
         public bool registerInBZ = true;
 
         [BZData, Label("Recipe"), SerializeField, ShowIf(And, nameof(registerInBZ), nameof(IsBuildableOrCraftable))]

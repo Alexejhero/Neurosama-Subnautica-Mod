@@ -10,15 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
-  m_Name: LowpolyFumo data
+  m_Name: Lowpoly Neurofumo
   m_EditorClassIdentifier: 
-  autoRegister: 1
-  _prefab1: {fileID: 6983244766828207628, guid: f253403b22a785144968ffb134d4765e,
-    type: 3}
-  _prefab2: {fileID: 6983244766828207628, guid: f253403b22a785144968ffb134d4765e,
-    type: 3}
   prefab: {fileID: 6983244766828207628, guid: f253403b22a785144968ffb134d4765e, type: 3}
-  sounds: {fileID: 0}
   classId: NeuroFumo2
   displayName: Low-poly Neuro fumo
   tooltip: 'Fumo collection 1/2
@@ -29,16 +23,31 @@ MonoBehaviour:
   isCraftable: 0
   isBuildable: 1
   craftingTime: 2.5
-  oldVersions:
-  - oldClassID: NeuroFumo
-    oldRecipe: {fileID: 0}
-  recipeSN: {fileID: 11400000, guid: 20e9814434289fc4ebed56a98325869b, type: 2}
+  loader: {fileID: 0}
+  registerInSN: 1
+  recipeSN: {fileID: 11400000, guid: 5061b10e23e00bb4d8bdb58109048276, type: 2}
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 13
   techCategorySN: 24
-  recipeBZ: {fileID: 11400000, guid: 20e9814434289fc4ebed56a98325869b, type: 2}
+  pdaEncyclopediaInfoSN: {fileID: 0}
+  knownTechInfoSN: {fileID: 0}
+  unlockAtStartSN: 1
+  requiredForUnlockSN:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
+  registerInBZ: 1
+  recipeBZ: {fileID: 11400000, guid: 5061b10e23e00bb4d8bdb58109048276, type: 2}
+  canBeRecycledBZ: 1
   craftTreeTypeBZ: 0
   craftTreePathBZ: 
   techGroupBZ: 12
   techCategoryBZ: 15
+  pdaEncyclopediaInfoBZ: {fileID: 0}
+  knownTechInfoBZ: {fileID: 0}
+  unlockAtStartBZ: 1
+  requiredForUnlockBZ:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}

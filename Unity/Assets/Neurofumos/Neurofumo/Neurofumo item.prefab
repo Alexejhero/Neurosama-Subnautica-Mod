@@ -16,7 +16,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 3
---- !u!114 &5447517517831232544
+--- !u!114 &5550508841886641735
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25,12 +25,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5527787040625736568}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c71d98db8c6e5fa46bb8783f31819cb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 71dc3966fa6747049f784290eb157bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  propModel: {fileID: 8648252219053659192}
-  viewModel: {fileID: 2176013104111791849}
---- !u!114 &7462120519878411794
+  propModel: {fileID: 5433902086284589042}
+  viewModel: {fileID: 3269361375025024291}
+--- !u!114 &7811799095977924095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,11 +39,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5527787040625736568}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff95c21b9fa67a44eb8744aea9721ecb, type: 3}
+  m_Script: {fileID: 11500000, guid: 66e630f68f9446108b3deb81bd1e09e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isPickupable: 1
-  destroyOnDeath: 0
+  destroyOnDeath: 1
   randomizeRotationWhenDropped: 1
   activateRigidbodyWhenDropped: 1
   usePackUpIcon: 0
@@ -59,39 +59,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ff8faaa19293546bbf91c2785fc1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadMode: 1
+  plugOrigin: {fileID: 0}
   mainCollider: {fileID: 0}
-  firstUseSound: {fileID: 0}
-  bleederDamage: 3
-  spikeyTrapDamage: 1
-  socket: 0
-  ikAimRightArm: 1
+  pickupable: {fileID: 7811799095977924095}
+  renderers: []
   ikAimLeftArm: 1
-  rightHandIKTarget: {fileID: 831509881729026297}
-  useLeftAimTargetOnPlayer: 0
-  leftHandIKTarget: {fileID: 8500569638030407788}
+  ikAimRightArm: 1
+  leftHandIKTarget: {fileID: 5086197539357039526}
+  rightHandIKTarget: {fileID: 4100465261511830323}
   ikAimLookDownAngleLimit: 30
+  useLeftAimTargetOnPlayer: 0
   hasAnimations: 1
   drawTime: 0.5
+  drawSound: {fileID: 0}
+  drawSoundUnderwater: {fileID: 0}
   holsterTime: 0.1
+  holsterSoundAboveWater: {fileID: 0}
+  holsterSoundUnderwater: {fileID: 0}
   dropTime: 1
   bashTime: 0.7
-  pickupable: {fileID: 7462120519878411794}
-  hasFirstUseAnimation: 0
+  bleederDamage: 3
+  spikeyTrapDamage: 1
+  bashAnimationSound: {fileID: 0}
   hasBashAnimation: 0
+  hitBleederSound: {fileID: 0}
+  hasFirstUseAnimation: 0
+  firstUseSound: {fileID: 0}
+  reloadMode: 1
+  reloadSound: {fileID: 0}
+  socket: 0
   waitForAnimDrawEvent: 0
-  renderers: []
+  data:
+    referenceAnimation: 2522
+    subnauticaModel: {fileID: 3170597382691848538}
+    belowZeroModel: {fileID: 8451514127096826418}
+    leftHandIKTargetOverrideBZ: {fileID: 555669714207948833}
+    rightHandIKTargetOverrideBZ: {fileID: 4925704660396223488}
   hasPrimaryUse: 1
   primaryUseText: Hug ({0})
   hasSecondaryUse: 0
   secondaryUseText: 
   hasAltUse: 1
   altUseText: Flushed ({0})
-  inheritAnimationsFromSN: 2522
-  inheritAnimationsFrom2: 2522
   hugCooldown: 1
   hugColdResistBuff: 20
-  fumoModel: {fileID: 7274285754861078332}
+  fumoModel: {fileID: 6978155363206644661}
 --- !u!1001 &5020507161881458003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -168,33 +180,57 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5020507161881458003}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8648252219053659192 stripped
+--- !u!1 &5433902086284589042 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 4442993701892055403, guid: 5a15aed96d8d1b84592bfbe203825ee4,
+  m_CorrespondingSourceObject: {fileID: 1064386086890930849, guid: 5a15aed96d8d1b84592bfbe203825ee4,
     type: 3}
   m_PrefabInstance: {fileID: 5020507161881458003}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2176013104111791849 stripped
+--- !u!1 &3269361375025024291 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 6601904088849456058, guid: 5a15aed96d8d1b84592bfbe203825ee4,
+  m_CorrespondingSourceObject: {fileID: 7562518425654818928, guid: 5a15aed96d8d1b84592bfbe203825ee4,
     type: 3}
   m_PrefabInstance: {fileID: 5020507161881458003}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7274285754861078332 stripped
+--- !u!4 &6978155363206644661 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 2404668160496267887, guid: 5a15aed96d8d1b84592bfbe203825ee4,
+  m_CorrespondingSourceObject: {fileID: 2700769981969528550, guid: 5a15aed96d8d1b84592bfbe203825ee4,
     type: 3}
   m_PrefabInstance: {fileID: 5020507161881458003}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &831509881729026297 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5631313166019345834, guid: 5a15aed96d8d1b84592bfbe203825ee4,
+--- !u!1 &3170597382691848538 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7614554720012481545, guid: 5a15aed96d8d1b84592bfbe203825ee4,
     type: 3}
   m_PrefabInstance: {fileID: 5020507161881458003}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &8500569638030407788 stripped
+--- !u!4 &4100465261511830323 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3482544363810737471, guid: 5a15aed96d8d1b84592bfbe203825ee4,
+  m_CorrespondingSourceObject: {fileID: 9028498753040047712, guid: 5a15aed96d8d1b84592bfbe203825ee4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5020507161881458003}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5086197539357039526 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 232394011089317621, guid: 5a15aed96d8d1b84592bfbe203825ee4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5020507161881458003}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8451514127096826418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3523402586079297377, guid: 5a15aed96d8d1b84592bfbe203825ee4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5020507161881458003}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4925704660396223488 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 141848972193470803, guid: 5a15aed96d8d1b84592bfbe203825ee4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5020507161881458003}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &555669714207948833 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4763205321293395314, guid: 5a15aed96d8d1b84592bfbe203825ee4,
     type: 3}
   m_PrefabInstance: {fileID: 5020507161881458003}
   m_PrefabAsset: {fileID: 0}

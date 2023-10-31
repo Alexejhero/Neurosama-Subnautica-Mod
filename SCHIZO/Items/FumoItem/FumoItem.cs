@@ -1,8 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using Nautilus.Assets.Gadgets;
 using Nautilus.Handlers;
-using SCHIZO.Extensions;
-using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem;
 
@@ -15,22 +12,16 @@ public sealed class FumoItem : UnityPrefab
 
     public override void Register()
     {
-        this.SetEquipment(EquipmentType.Hand)
-            .WithQuickSlotType(QuickSlotType.Selectable);
+        CraftDataHandler.SetEquipmentType(ModItem, EquipmentType.Hand);
+        CraftDataHandler.SetQuickSlotType(ModItem, QuickSlotType.Selectable);
 
         base.Register();
-    }
-
-    protected override void ModifyPrefab(GameObject prefab)
-    {
-        base.ModifyPrefab(prefab);
-        prefab.EnsureComponentFields();
     }
 
     protected override void PostRegister()
     {
 #if BELOWZERO
-        CraftDataHandler.SetColdResistance(modItem, 20);
+        Nautilus.Handlers.CraftDataHandler.SetColdResistance(ModItem, 20);
 #endif
         base.PostRegister();
     }

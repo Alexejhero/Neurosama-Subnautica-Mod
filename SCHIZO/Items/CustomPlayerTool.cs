@@ -1,28 +1,29 @@
 using System.Text;
 
-namespace SCHIZO.Unity.Items;
+namespace SCHIZO.Items;
 
-public abstract partial class CustomPlayerTool : PlayerTool
+public abstract partial class CustomPlayerTool
 {
-    protected string animName;
-    protected TechType animTechType
+    public override string animToolName => data.referenceAnimation.ToString().ToLower();
+
+    protected new void Awake()
     {
-        set => animName = value.AsString(true);
+        if (data.subnauticaModel) data.subnauticaModel.SetActive(IS_SUBNAUTICA);
+        if (data.belowZeroModel) data.belowZeroModel.SetActive(IS_BELOWZERO);
+
+        if (IS_BELOWZERO)
+        {
+            leftHandIKTarget = data.leftHandIKTargetOverrideBZ;
+            rightHandIKTarget = data.rightHandIKTargetOverrideBZ;
+        }
+
+        base.Awake();
     }
-    public override string animToolName => animName ?? base.animToolName;
 
     private int cachedPrimaryUseTextHash;
     private int cachedSecondaryUseTextHash;
     private int cachedAltUseTextHash;
     private string cachedFullUseText;
-
-    protected new void Awake()
-    {
-        TechType animType = (TechType) Helpers.RetargetHelpers.Pick(inheritAnimationsFromSN, inheritAnimationsFrom2);
-        if (animType != TechType.None)
-            animTechType = animType;
-        base.Awake();
-    }
 
     public override string GetCustomUseText()
     {

@@ -1,24 +1,22 @@
-// ReSharper disable once CheckNamespace
-namespace SCHIZO.Unity.Items.FumoItem
+using UnityEngine;
+
+namespace SCHIZO.Items.FumoItem
 {
-    public sealed class FumoItemLoader : ItemLoader
+    public sealed partial class FumoItemLoader : ItemLoader
     {
-        public override void Load()
-        {
-#if !UNITY
-            new SCHIZO.Items.FumoItem.FumoItem(itemData.ModItem).Register();
-#endif
-        }
+        [Tooltip("Where to spawn the fumo on a new game.")]
+        public Vector3 spawnPosition = new Vector3(-307, 18f, 274f);
+        public Vector3 spawnRotation;
     }
 }
 
 #if UNITY_EDITOR
-namespace SCHIZO.Unity.Data
+namespace SCHIZO.Items.Data
 {
     public partial class ItemData
     {
-        [UnityEngine.ContextMenu("Set Loader/Fumo Item")]
-        private void CreateFumoItemLoader() => AssignItemLoader(CreateInstance<Items.FumoItem.FumoItemLoader>());
+        [ContextMenu("Set Loader/Fumo Item")]
+        private void CreateFumoItemLoader() => AssignItemLoader(CreateInstance<FumoItem.FumoItemLoader>());
     }
 }
 #endif
