@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using JetBrains.Annotations;
 using Nautilus.Commands;
-using SCHIZO.Attributes.Loading;
+using SCHIZO.Console;
 using SCHIZO.Helpers;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
@@ -13,20 +14,16 @@ using UnityEngine;
 
 namespace SCHIZO.Twitch;
 
-[AddComponent]
 [LoadConsoleCommands]
-public sealed class TwitchIntegration : MonoBehaviour
+partial class TwitchIntegration
 {
-    private const string OWNER_USERNAME = "alexejherodev";
-    private const string TARGET_CHANNEL = "vedal987";
-    private const string COMMAND_SENDER = "alexejherodev";
+    private const string _usernamePlayerPrefsKey = "SCHIZO_TwitchIntegration_OAuthToken";
+    private const string _tokenPlayerPrefsKey = "SCHIZO_TwitchIntegration_OAuthToken";
 
-    private const string _playerPrefsKey = "SCHIZO_TwitchIntegration_OAuthToken";
-
-    private readonly TwitchClient _client;
+    private TwitchClient _client;
     private readonly ConcurrentQueue<string> _msgQueue = new();
 
-    public TwitchIntegration()
+    private void Awake()
     {
         ClientOptions clientOptions = new()
         {
@@ -37,38 +34,47 @@ public sealed class TwitchIntegration : MonoBehaviour
         _client = new TwitchClient(customClient);
 
         _client.OnError += (_, evt) => LOGGER.LogError(evt.Exception);
-        _client.OnIncorrectLogin += (_, evt) => LOGGER.LogError($"Could not connect: {evt.Exception.Message}");
-        _client.OnConnected += (_, _) => LOGGER.LogInfo("Connected");
-        _client.OnConnectionError += (_, evt) => LOGGER.LogError($"Could not connect: {evt.Error.Message}");
-        _client.OnJoinedChannel += (_, _) => LOGGER.LogInfo("Joined");
-        _client.OnFailureToReceiveJoinConfirmation += (_, evt) => LOGGER.LogError($"Could not join: {evt.Exception.Details}");
+        _client.OnIncorrectLogin += (_, evt) => LOGGER.LogError($"Could not connect to Twitch: {evt.Exception.Message}");
+        _client.OnConnected += (_, evt) => LOGGER.LogInfo($"Connected to Twitch as {evt.BotUsername}");
+        _client.OnConnectionError += (_, evt) => LOGGER.LogError($"Could not connect to Twitch: {evt.Error.Message}");
+        _client.OnJoinedChannel += (_, evt) => LOGGER.LogInfo($"Joined Twitch channel {evt.Channel}");
+        _client.OnFailureToReceiveJoinConfirmation += (_, evt) => LOGGER.LogError($"Could not join Twitch channel: {evt.Exception.Details}");
         _client.OnMessageReceived += Client_OnMessageReceived;
 
-        string key = PlayerPrefs.GetString(_playerPrefsKey, "");
-        if (string.IsNullOrWhiteSpace(key))
+        string username = PlayerPrefs.GetString(_usernamePlayerPrefsKey, "");
+        string token = PlayerPrefs.GetString(_tokenPlayerPrefsKey, "");
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(token))
         {
             LOGGER.LogWarning("Twitch OAuth token is not set, Twitch Integration will be disabled.");
-            LOGGER.LogMessage("Run 'settwitchkey <key>' in the developer console and restart Subnautica in order to enable it.");
+            LOGGER.LogMessage("Run 'settwitchlogin <username> <token>' in the developer console and restart Subnautica in order to enable it.");
             return;
         }
-        ConnectionCredentials credentials = new(OWNER_USERNAME, key);
+        ConnectionCredentials credentials = new(username, token);
 
-        _client.Initialize(credentials, TARGET_CHANNEL);
+        _client.Initialize(credentials, targetChannel);
 
         _client.Connect();
     }
 
     private void Client_OnMessageReceived(object _, OnMessageReceivedArgs evt)
     {
-        const string PREFIX = "pls ";
-
         ChatMessage message = evt.ChatMessage;
 
-        if (message.Username.ToLower() != COMMAND_SENDER) return; // ensure I don't get isekaid
-        if (!message.Message.StartsWith(PREFIX)) return;
+        if (!IsUserWhitelisted(message.Username)) return; // ensure I don't get isekaid
+        if (!CheckPrefix(message.Message)) return;
 
         // OnMessageReceived runs in a worker thread, where we can't use Unity APIs
-        _msgQueue.Enqueue(message.Message[PREFIX.Length..]);
+        _msgQueue.Enqueue(message.Message[commandPrefix.Length..]);
+    }
+
+    private bool IsUserWhitelisted(string username)
+    {
+        return whitelistedUsers.Any(user => user.Equals(username, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    private bool CheckPrefix(string message)
+    {
+        return message.StartsWith(commandPrefix, prefixIsCaseSensitive ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase);
     }
 
     private void FixedUpdate()
@@ -76,17 +82,18 @@ public sealed class TwitchIntegration : MonoBehaviour
         if (_msgQueue.Count > 0 && _msgQueue.TryDequeue(out string message)) HandleMessage(message);
     }
 
-    private void HandleMessage(string message)
+    private static void HandleMessage(string message)
     {
         MessageHelpers.SuppressOutput = true;
         DevConsole.SendConsoleCommand(message);
         MessageHelpers.SuppressOutput = false;
     }
 
-    [ConsoleCommand("settwitchkey"), UsedImplicitly]
-    public static string OnConsoleCommand_settwitchkey(string key)
+    [ConsoleCommand("settwitchlogin"), UsedImplicitly]
+    public static string OnConsoleCommand_settwitchkey(string username, string token)
     {
-        PlayerPrefs.SetString(_playerPrefsKey, key);
-        return "Twitch token updated. Please restart Subnautica.";
+        PlayerPrefs.SetString(_usernamePlayerPrefsKey, username);
+        PlayerPrefs.SetString(_tokenPlayerPrefsKey, token);
+        return "Twitch login updated. Please restart Subnautica.";
     }
 }

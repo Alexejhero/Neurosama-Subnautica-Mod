@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Nautilus.Commands;
 using Nautilus.Utility;
-using SCHIZO.Attributes.Loading;
+using SCHIZO.Console;
 using SCHIZO.Helpers;
 using UnityEngine;
 

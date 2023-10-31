@@ -5,11 +5,10 @@ using FMOD.Studio;
 using FMODUnity;
 using JetBrains.Annotations;
 using Nautilus.Commands;
-using SCHIZO.Attributes.Loading;
 using SCHIZO.Helpers;
 using UnityEngine;
 
-namespace SCHIZO;
+namespace SCHIZO.Console;
 
 [LoadConsoleCommands]
 public static class ConsoleCommands

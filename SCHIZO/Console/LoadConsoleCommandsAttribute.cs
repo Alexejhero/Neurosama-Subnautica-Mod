@@ -4,10 +4,9 @@ using System.Reflection;
 using JetBrains.Annotations;
 using Nautilus.Handlers;
 
-namespace SCHIZO.Attributes.Loading;
+namespace SCHIZO.Console;
 
 [AttributeUsage(AttributeTargets.Class), MeansImplicitUse]
-[Obsolete]
 internal sealed class LoadConsoleCommandsAttribute : Attribute
 {
     public static void RegisterAll()

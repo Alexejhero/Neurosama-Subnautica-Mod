@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
-using SCHIZO.Attributes.Loading;
 using UnityEngine;
 
 namespace SCHIZO.Helpers;
 
-[LoadMethod]
 public static partial class MaterialHelpers
 {
     private static Material _ghostMaterial;
