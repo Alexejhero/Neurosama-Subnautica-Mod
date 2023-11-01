@@ -34,6 +34,7 @@
         <Folder Include="Attributes/Typing" />
         <Folder Include="Attributes/Validation" />
         <Folder Include="Attributes/Visual" />
+        <Folder Include="Effects_test\" />
         <Folder Include="Utilities" />
     </ItemGroup>
 

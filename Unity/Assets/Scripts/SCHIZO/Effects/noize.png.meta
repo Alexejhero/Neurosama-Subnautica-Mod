@@ -1,0 +1,2504 @@
+fileFormatVersion: 2
+guid: de2406d7499d6ca469211a70af1e653c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5473759273673781654
+    second: noize_0
+  - first:
+      213: -5353828480922637792
+    second: noize_1
+  - first:
+      213: -7118444050523900153
+    second: noize_2
+  - first:
+      213: 4409064654364890228
+    second: noize_3
+  - first:
+      213: 4193767130472280055
+    second: noize_4
+  - first:
+      213: -4628804786264249102
+    second: noize_5
+  - first:
+      213: -1171914710173425271
+    second: noize_6
+  - first:
+      213: -2266175213751079503
+    second: noize_7
+  - first:
+      213: -7173252020065993923
+    second: noize_8
+  - first:
+      213: -8342627837143436662
+    second: noize_9
+  - first:
+      213: 799325268700473017
+    second: noize_10
+  - first:
+      213: 1710826709369205905
+    second: noize_11
+  - first:
+      213: 5831171953925653211
+    second: noize_12
+  - first:
+      213: 5124970807374111852
+    second: noize_13
+  - first:
+      213: -7399933474673946308
+    second: noize_14
+  - first:
+      213: -2927208043880355754
+    second: noize_15
+  - first:
+      213: -6199247715584671393
+    second: noize_16
+  - first:
+      213: 1063600886946910713
+    second: noize_17
+  - first:
+      213: -1698812663853857688
+    second: noize_18
+  - first:
+      213: 2466789711620567662
+    second: noize_19
+  - first:
+      213: -6603358465510921321
+    second: noize_20
+  - first:
+      213: 4503841402962904437
+    second: noize_21
+  - first:
+      213: -6906144513460016172
+    second: noize_22
+  - first:
+      213: -4424367928249812228
+    second: noize_23
+  - first:
+      213: -2777814683844610744
+    second: noize_24
+  - first:
+      213: -1017724824903041110
+    second: noize_25
+  - first:
+      213: 8421386208468272001
+    second: noize_26
+  - first:
+      213: 5256881941333482102
+    second: noize_27
+  - first:
+      213: 4971355063780902567
+    second: noize_28
+  - first:
+      213: -3441548332703345679
+    second: noize_29
+  - first:
+      213: -9014284758601187574
+    second: noize_30
+  - first:
+      213: 1460755373196369829
+    second: noize_31
+  - first:
+      213: -8353172883081515869
+    second: noize_32
+  - first:
+      213: 8848680630224329309
+    second: noize_33
+  - first:
+      213: 1038780611602320709
+    second: noize_34
+  - first:
+      213: -3912782624120847636
+    second: noize_35
+  - first:
+      213: -5635741179900361308
+    second: noize_36
+  - first:
+      213: 2800148036147965149
+    second: noize_37
+  - first:
+      213: 8368294623849424667
+    second: noize_38
+  - first:
+      213: 6628162413875837966
+    second: noize_39
+  - first:
+      213: 4567812951728781440
+    second: noize_40
+  - first:
+      213: 3455207109478061488
+    second: noize_41
+  - first:
+      213: 1313466101615720502
+    second: noize_42
+  - first:
+      213: -7139945169914944213
+    second: noize_43
+  - first:
+      213: 1657243391640604452
+    second: noize_44
+  - first:
+      213: 1454231471757921924
+    second: noize_45
+  - first:
+      213: 8122400254163084357
+    second: noize_46
+  - first:
+      213: -5485487416172826542
+    second: noize_47
+  - first:
+      213: -5302162103535569406
+    second: noize_48
+  - first:
+      213: -4480173465590109269
+    second: noize_49
+  - first:
+      213: 13761013611496185
+    second: noize_50
+  - first:
+      213: 1855225053642424277
+    second: noize_51
+  - first:
+      213: -2789752217561493938
+    second: noize_52
+  - first:
+      213: 6581576451739449902
+    second: noize_53
+  - first:
+      213: -13624659939899878
+    second: noize_54
+  - first:
+      213: 9209552810502672268
+    second: noize_55
+  - first:
+      213: -976830422053956543
+    second: noize_56
+  - first:
+      213: -3972004311331438683
+    second: noize_57
+  - first:
+      213: -7579649395938417249
+    second: noize_58
+  - first:
+      213: -8654992067092828838
+    second: noize_59
+  - first:
+      213: 3249556047288390686
+    second: noize_60
+  - first:
+      213: -7262668848720880354
+    second: noize_61
+  - first:
+      213: 8873929010789363931
+    second: noize_62
+  - first:
+      213: 3720864809990139312
+    second: noize_63
+  - first:
+      213: 669318780546876646
+    second: noize_64
+  - first:
+      213: -5439365683153527457
+    second: noize_65
+  - first:
+      213: 7589146921148360964
+    second: noize_66
+  - first:
+      213: -3046961052275311455
+    second: noize_67
+  - first:
+      213: -1732280142755895267
+    second: noize_68
+  - first:
+      213: 3314608945862766743
+    second: noize_69
+  - first:
+      213: 2835059022834594998
+    second: noize_70
+  - first:
+      213: 855618817314734701
+    second: noize_71
+  - first:
+      213: -7118703629645701532
+    second: noize_72
+  - first:
+      213: 6181616855630029501
+    second: noize_73
+  - first:
+      213: 7984088716733458425
+    second: noize_74
+  - first:
+      213: -9127490241137858826
+    second: noize_75
+  - first:
+      213: 51704403187502625
+    second: noize_76
+  - first:
+      213: 2881284523975129538
+    second: noize_77
+  - first:
+      213: -7560767898357503862
+    second: noize_78
+  - first:
+      213: -6138775736890304909
+    second: noize_79
+  - first:
+      213: 3651484796184638035
+    second: noize_80
+  - first:
+      213: -8336816551640297335
+    second: noize_81
+  - first:
+      213: 5013635704310769541
+    second: noize_82
+  - first:
+      213: -5370259668255519341
+    second: noize_83
+  - first:
+      213: 4800733435222255018
+    second: noize_84
+  - first:
+      213: 4604845933946534344
+    second: noize_85
+  - first:
+      213: 337095005259323558
+    second: noize_86
+  - first:
+      213: 6091214906508699538
+    second: noize_87
+  - first:
+      213: -7407544630819662120
+    second: noize_88
+  - first:
+      213: 8573037829111640325
+    second: noize_89
+  - first:
+      213: 8290881216017544022
+    second: noize_90
+  - first:
+      213: 1032870629286842494
+    second: noize_91
+  - first:
+      213: 2486208179280824294
+    second: noize_92
+  - first:
+      213: 5876793654777618549
+    second: noize_93
+  - first:
+      213: -7848990331642413075
+    second: noize_94
+  - first:
+      213: 3974534091452584699
+    second: noize_95
+  - first:
+      213: 679154533191912236
+    second: noize_96
+  - first:
+      213: 8889050315271700738
+    second: noize_97
+  - first:
+      213: -5581603129230132852
+    second: noize_98
+  - first:
+      213: 6990713528078196812
+    second: noize_99
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 102.4
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 0
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 0
+  textureShape: 1
+  singleChannelComponent: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 1
+    textureFormat: 3
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 1024
+    resizeAlgorithm: 1
+    textureFormat: 3
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: noize_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 921.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6917355ee03b6fb40800000000000000
+      internalID: 5473759273673781654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_1
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 921.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02aac36cc5163b5b0800000000000000
+      internalID: -5353828480922637792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_2
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 921.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 707b707e9d4363d90800000000000000
+      internalID: -7118444050523900153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_3
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 921.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 474562361f4203d30800000000000000
+      internalID: 4409064654364890228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_4
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 921.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ff62825cf0433a30800000000000000
+      internalID: 4193767130472280055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_5
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 921.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fc6714429e23cfb0800000000000000
+      internalID: -4628804786264249102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_6
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 921.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 981ee09b7c58cbfe0800000000000000
+      internalID: -1171914710173425271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_7
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 921.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bd629956adec80e0800000000000000
+      internalID: -2266175213751079503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_8
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 921.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3bfc931b4d737c90800000000000000
+      internalID: -7173252020065993923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_9
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 921.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a82b7c9ee28093c80800000000000000
+      internalID: -8342627837143436662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 819.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b6a2ecc816c71b00800000000000000
+      internalID: 799325268700473017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_11
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 819.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 194b33ce3d31eb710800000000000000
+      internalID: 1710826709369205905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_12
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 819.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd285f94ffb7ce050800000000000000
+      internalID: 5831171953925653211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_13
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 819.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c64e7c9cbcd8f1740800000000000000
+      internalID: 5124970807374111852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_14
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 819.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c31998816b72e4990800000000000000
+      internalID: -7399933474673946308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_15
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 819.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65868d80bc77067d0800000000000000
+      internalID: -2927208043880355754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_16
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 819.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f518ce53c09d7f9a0800000000000000
+      internalID: -6199247715584671393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_17
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 819.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f1d2491f5ba2ce00800000000000000
+      internalID: 1063600886946910713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_18
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 819.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8644e0702ea9c68e0800000000000000
+      internalID: -1698812663853857688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_19
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 819.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e627bb05c2ccb3220800000000000000
+      internalID: 2466789711620567662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 717.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79b27a236782c54a0800000000000000
+      internalID: -6603358465510921321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_21
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 717.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5750d44c4ebd08e30800000000000000
+      internalID: 4503841402962904437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_22
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 717.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dbe3b3c7227820a0800000000000000
+      internalID: -6906144513460016172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_23
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 717.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfaf9018fcc7992c0800000000000000
+      internalID: -4424367928249812228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_24
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 717.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 845f39533483379d0800000000000000
+      internalID: -2777814683844610744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_25
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 717.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aafbe84f9a050e1f0800000000000000
+      internalID: -1017724824903041110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_26
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 717.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18300206326ced470800000000000000
+      internalID: 8421386208468272001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_27
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 717.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67a1953064234f840800000000000000
+      internalID: 5256881941333482102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_28
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 717.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a60005571dcdf440800000000000000
+      internalID: 4971355063780902567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_29
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 717.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f311e7860a2d30d0800000000000000
+      internalID: -3441548332703345679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 615.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0fbb5395c3d6e280800000000000000
+      internalID: -9014284758601187574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_31
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 615.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5afdc13c545a54410800000000000000
+      internalID: 1460755373196369829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_32
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 615.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ac20841581931c80800000000000000
+      internalID: -8353172883081515869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_33
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 615.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5a966f9624dcca70800000000000000
+      internalID: 8848680630224329309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_34
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 615.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54d8e1a667d7a6e00800000000000000
+      internalID: 1038780611602320709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_35
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 615.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce2c4f52fe003b9c0800000000000000
+      internalID: -3912782624120847636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_36
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 615.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a58ffd9143d9c1b0800000000000000
+      internalID: -5635741179900361308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_37
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 615.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddc6b159dcf1cd620800000000000000
+      internalID: 2800148036147965149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_38
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 615.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b172b5e8f97222470800000000000000
+      internalID: 8368294623849424667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_39
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 615.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0c3aa01996fbfb50800000000000000
+      internalID: 6628162413875837966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 513.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 088f834ada1246f30800000000000000
+      internalID: 4567812951728781440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_41
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 513.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b518d14f8c53ff20800000000000000
+      internalID: 3455207109478061488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_42
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 513.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 638725bd57e5a3210800000000000000
+      internalID: 1313466101615720502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_43
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 513.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b25247f62b1d9ec90800000000000000
+      internalID: -7139945169914944213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_44
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 513.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42f0a119516bff610800000000000000
+      internalID: 1657243391640604452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_45
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 513.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48e035791d77e2410800000000000000
+      internalID: 1454231471757921924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_46
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 513.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 544eee03fff88b070800000000000000
+      internalID: 8122400254163084357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_47
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 513.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 250b4232242afd3b0800000000000000
+      internalID: -5485487416172826542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_48
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 513.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 206793da8afea66b0800000000000000
+      internalID: -5302162103535569406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_49
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 513.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: babee5358f933d1c0800000000000000
+      internalID: -4480173465590109269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 411.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f20018a193e03000800000000000000
+      internalID: 13761013611496185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_51
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 411.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dff2cc5b551fb910800000000000000
+      internalID: 1855225053642424277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_52
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 411.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4e83ec832fc849d0800000000000000
+      internalID: -2789752217561493938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_53
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 411.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2a710489e4765b50800000000000000
+      internalID: 6581576451739449902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_54
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 411.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a16c818a1789fcff0800000000000000
+      internalID: -13624659939899878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_55
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 411.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8f4632ac77eecf70800000000000000
+      internalID: 9209552810502672268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_56
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 411.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 144dda718e99172f0800000000000000
+      internalID: -976830422053956543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_57
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 411.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aff4c89f1b90e8c0800000000000000
+      internalID: -3972004311331438683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_58
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 411.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f952619780dafc690800000000000000
+      internalID: -7579649395938417249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_59
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 411.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5dab13329a43e780800000000000000
+      internalID: -8654992067092828838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 309.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e14d854120eb81d20800000000000000
+      internalID: 3249556047288390686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_61
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 309.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1d52be4921d53b90800000000000000
+      internalID: -7262668848720880354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_62
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 309.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd032225b67862b70800000000000000
+      internalID: 8873929010789363931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_63
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 309.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bda6b8a4da23a330800000000000000
+      internalID: 3720864809990139312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_64
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 309.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e48efb72e5e94900800000000000000
+      internalID: 669318780546876646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_65
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 309.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5d1f2ceabd7384b0800000000000000
+      internalID: -5439365683153527457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_66
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 309.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4092c4f6ae0125960800000000000000
+      internalID: 7589146921148360964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_67
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 309.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1acfda2011507b5d0800000000000000
+      internalID: -3046961052275311455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_68
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 309.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d18629f5364b5f7e0800000000000000
+      internalID: -1732280142755895267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_69
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 309.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7907b73564bdffd20800000000000000
+      internalID: 3314608945862766743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_70
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 207.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b472551927285720800000000000000
+      internalID: 2835059022834594998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_71
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 207.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d624f25f7c4cfdb00800000000000000
+      internalID: 855618817314734701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_72
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 207.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46e1fade3c8453d90800000000000000
+      internalID: -7118703629645701532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_73
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 207.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db2256157c389c550800000000000000
+      internalID: 6181616855630029501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_74
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 207.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f72a18e26e2dce60800000000000000
+      internalID: 7984088716733458425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_75
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 207.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f622263cf3a45180800000000000000
+      internalID: -9127490241137858826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_76
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 207.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12e805971e0b7b000800000000000000
+      internalID: 51704403187502625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_77
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 207.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c93e5442016cf720800000000000000
+      internalID: 2881284523975129538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_78
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 207.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a886935b7a1c21790800000000000000
+      internalID: -7560767898357503862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_79
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 207.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 376dddeedffaecaa0800000000000000
+      internalID: -6138775736890304909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_80
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 105.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3523353631eaca230800000000000000
+      internalID: 3651484796184638035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_81
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 105.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98012e1448dad4c80800000000000000
+      internalID: -8336816551640297335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_82
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 105.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 587a8a41c13049540800000000000000
+      internalID: 5013635704310769541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_83
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 105.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39dc50ad8410975b0800000000000000
+      internalID: -5370259668255519341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_84
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 105.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa563cbbf91af9240800000000000000
+      internalID: 4800733435222255018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_85
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 105.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c9f84abaf2b7ef30800000000000000
+      internalID: 4604845933946534344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_86
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 105.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a85a0c0f1a9da400800000000000000
+      internalID: 337095005259323558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_87
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 105.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 297e3015fa7588450800000000000000
+      internalID: 6091214906508699538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_88
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 105.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d65426b76d133990800000000000000
+      internalID: -7407544630819662120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_89
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 105.6
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5017f22db7c89f670800000000000000
+      internalID: 8573037829111640325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_90
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6533fabf9802f0370800000000000000
+      internalID: 8290881216017544022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_91
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 3.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e70939d6d5e755e00800000000000000
+      internalID: 1032870629286842494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_92
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 3.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e744b3aa29c08220800000000000000
+      internalID: 2486208179280824294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_93
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 3.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5702a4341b09e8150800000000000000
+      internalID: 5876793654777618549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_94
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 3.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: def7afc01e8c21390800000000000000
+      internalID: -7848990331642413075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_95
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 3.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf216bcb2b1682730800000000000000
+      internalID: 3974534091452584699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_96
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 3.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2b008a1377dc6900800000000000000
+      internalID: 679154533191912236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_97
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 3.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20108506a204c5b70800000000000000
+      internalID: 8889050315271700738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_98
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 3.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c89770dc6892a82b0800000000000000
+      internalID: -5581603129230132852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: noize_99
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 3.5999985
+        width: 102.4
+        height: 102.4
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c406e975ae0040160800000000000000
+      internalID: 6990713528078196812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 9a8a855a002d45241994181125c7d795
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: assets
+  assetBundleVariant: 
