@@ -18,5 +18,5 @@ MonoBehaviour:
   scanSounds: {fileID: 11400000, guid: ef492aad68c54354fbddb8f880c89f34, type: 2}
   encyPath: Lifeforms/Fauna/SmallHerbivores
   title: Tutel
-  texture: {fileID: 2800000, guid: d2dcaef675a305141b1a2eb511cac9de, type: 3}
+  texture: {fileID: 2800000, guid: 7b273e37743f05b4d9823beffcd9c2a6, type: 3}
   description: {fileID: 4900000, guid: 40be8119d6a5f7840bf2056fa5123359, type: 3}

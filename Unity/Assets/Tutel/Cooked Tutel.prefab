@@ -32,6 +32,7 @@ GameObject:
   - component: {fileID: 2863062582594013924}
   - component: {fileID: 3410553282224181165}
   - component: {fileID: 8283812961700562626}
+  - component: {fileID: 1407610973674715148}
   m_Layer: 0
   m_Name: Sounds
   m_TagString: Untagged
@@ -99,6 +100,34 @@ MonoBehaviour:
   followParent: 1
   restartOnPlay: 0
   debug: 0
+--- !u!114 &1407610973674715148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777330982323493499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08298562675c4c18ba4b1d9744b135e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundCollection: {fileID: 11400000, guid: 8760b2fe631724f46acf7ecd2da229dc, type: 2}
+  bus: 
+  emitter: {fileID: 0}
+  minDelayDefault: {fileID: 11400000, guid: cddef268080982e4eae92e262bd08d9f, type: 2}
+  maxDelayDefault: {fileID: 11400000, guid: d2d8f608de10fb64d90460a0634789bf, type: 2}
+  MinDelay:
+    isHardCoded: 0
+    modOption: {fileID: 11400000, guid: cddef268080982e4eae92e262bd08d9f, type: 2}
+    value: 0
+    calculateMode: 0
+  MaxDelay:
+    isHardCoded: 0
+    modOption: {fileID: 11400000, guid: d2d8f608de10fb64d90460a0634789bf, type: 2}
+    value: 0
+    calculateMode: 0
+  pickupable: {fileID: 7670209859173859696}
 --- !u!1001 &3869907094777956685
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -120,7 +149,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 59dbd674a024b454987907311af75764, type: 2}
+      objectReference: {fileID: 2100000, guid: 16a9d561b37ed7a439edc2995931a138, type: 2}
     - target: {fileID: 2415795143960254423, guid: 9a41a55919175c34b93f91f532e743b8,
         type: 3}
       propertyPath: m_BlendShapeWeights.Array.size

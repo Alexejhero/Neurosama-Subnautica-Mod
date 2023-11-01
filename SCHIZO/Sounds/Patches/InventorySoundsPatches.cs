@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using HarmonyLib;
 using SCHIZO.Helpers;
 using SCHIZO.Sounds.Players;
@@ -18,7 +17,7 @@ public static class InventorySoundsPatches
             try
             {
                 if (!item.item || item.item.gameObject.activeInHierarchy) continue;
-                item.item.GetComponent<InventoryAmbientSoundPlayer>()?.Update();
+                item.item.GetComponentsInChildren<InventoryAmbientSoundPlayer>()?.ForEach(c => c.Update());
             }
             catch (Exception e)
             {

@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Linq;
+using JetBrains.Annotations;
 using NaughtyAttributes;
 using SCHIZO.Options.Float;
 using SCHIZO.Attributes.Typing;
@@ -24,7 +25,6 @@ namespace SCHIZO.Sounds.Players
         protected override string DefaultBus => buses[PDA_VOICE];
         protected override bool Is3D => false;
 
-        // ReSharper disable once Unity.PreferGenericMethodOverload
-        private bool Validate_pickupable(MonoBehaviour behaviour) => behaviour == GetComponent("Pickupable");
+        private bool Validate_pickupable() => !pickupable || pickupable.GetComponentsInChildren<InventoryAmbientSoundPlayer>().Contains(this);
     }
 }

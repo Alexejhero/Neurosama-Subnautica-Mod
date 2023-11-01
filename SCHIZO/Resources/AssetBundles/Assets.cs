@@ -12,7 +12,7 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = 875122845;
+    private const int _rnd = -130073006;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
 
@@ -21,7 +21,6 @@ public static class Assets
         
     // [System.Obsolete] public static SCHIZO._old.CustomCreatureData Old_Anneel_AnneelData = _a.LoadAsset<SCHIZO._old.CustomCreatureData>("Assets/_old/Anneel/Anneel data.asset");
     public static SCHIZO.Sounds.Collections.SoundCollection Old_Credits_SNEasterEgg = _a.LoadAsset<SCHIZO.Sounds.Collections.SoundCollection>("Assets/_old/Credits/SN Easter Egg.asset");
-    public static SCHIZO.Sounds.Collections.SoundCollection Ermfish_Sounds_PlayerDeath_ErmfishPlayerDeath = _a.LoadAsset<SCHIZO.Sounds.Collections.SoundCollection>("Assets/Ermfish/Sounds/Player Death/Ermfish Player Death.asset");
     public static SCHIZO.Items.Data.CloneItemData Gymbag_GymbagBZ = _a.LoadAsset<SCHIZO.Items.Data.CloneItemData>("Assets/Gymbag/Gymbag BZ.asset");
     public static SCHIZO.Items.Data.CloneItemData Gymbag_GymbagSN = _a.LoadAsset<SCHIZO.Items.Data.CloneItemData>("Assets/Gymbag/Gymbag SN.asset");
     public static UnityEngine.Texture2D Loading_Icon_LoadingIcon = _a.LoadAsset<UnityEngine.Texture2D>("Assets/Loading/Icon/loading icon.png");

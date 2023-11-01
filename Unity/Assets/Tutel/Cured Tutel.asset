@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
   m_Name: Cured Tutel
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 8973758568297860682, guid: f92f2a0ec1fde024bab489b2b46291d6, type: 3}
   classId: curedtutel
   displayName: Cured Tutel
   tooltip: 'that''s messed up
@@ -41,7 +41,7 @@ MonoBehaviour:
   recipeBZ: {fileID: 11400000, guid: 9fd545594daae3246852dd2099a18f5f, type: 2}
   canBeRecycledBZ: 0
   craftTreeTypeBZ: 1
-  craftTreePathBZ: Survival/CookedFood
+  craftTreePathBZ: Survival/CuredFood
   techGroupBZ: 13
   techCategoryBZ: 0
   pdaEncyclopediaInfoBZ: {fileID: 0}
