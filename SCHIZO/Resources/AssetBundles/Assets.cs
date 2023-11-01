@@ -12,14 +12,13 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = -130073006;
+    private const int _rnd = -1185798419;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
 
     public static T[] All<T>() where T : UnityEngine.Object => _a.LoadAllAssets<T>();
     public static UnityEngine.Object[] All() => _a.LoadAllAssets();
         
-    // [System.Obsolete] public static SCHIZO._old.CustomCreatureData Old_Anneel_AnneelData = _a.LoadAsset<SCHIZO._old.CustomCreatureData>("Assets/_old/Anneel/Anneel data.asset");
     public static SCHIZO.Sounds.Collections.SoundCollection Old_Credits_SNEasterEgg = _a.LoadAsset<SCHIZO.Sounds.Collections.SoundCollection>("Assets/_old/Credits/SN Easter Egg.asset");
     public static SCHIZO.Items.Data.CloneItemData Gymbag_GymbagBZ = _a.LoadAsset<SCHIZO.Items.Data.CloneItemData>("Assets/Gymbag/Gymbag BZ.asset");
     public static SCHIZO.Items.Data.CloneItemData Gymbag_GymbagSN = _a.LoadAsset<SCHIZO.Items.Data.CloneItemData>("Assets/Gymbag/Gymbag SN.asset");
@@ -27,7 +26,4 @@ public static class Assets
     public static SCHIZO.Options.Bool.ToggleModOption Options_DisableAllSounds = _a.LoadAsset<SCHIZO.Options.Bool.ToggleModOption>("Assets/Options/Disable all sounds.asset");
     public static SCHIZO.Options.Bool.ToggleModOption Options_EnableAutomaticEvents = _a.LoadAsset<SCHIZO.Options.Bool.ToggleModOption>("Assets/Options/Enable automatic events.asset");
     public static SCHIZO.Registering.ModRegistry Registry = _a.LoadAsset<SCHIZO.Registering.ModRegistry>("Assets/Registry.asset");
-    public static SCHIZO.Sounds.Collections.SoundCollection Tutel_Sounds_Ambient_TutelAmbient = _a.LoadAsset<SCHIZO.Sounds.Collections.SoundCollection>("Assets/Tutel/Sounds/Ambient/Tutel Ambient.asset");
-    public static SCHIZO.Sounds.Collections.CombinedSoundCollection Tutel_Sounds_GetCarried_CarryByErmshark = _a.LoadAsset<SCHIZO.Sounds.Collections.CombinedSoundCollection>("Assets/Tutel/Sounds/Get Carried/Carry by ermshark.asset");
-    public static SCHIZO.Sounds.Collections.CombinedSoundCollection Tutel_Sounds_GetCarried_PickupByErmshark = _a.LoadAsset<SCHIZO.Sounds.Collections.CombinedSoundCollection>("Assets/Tutel/Sounds/Get Carried/Pickup by ermshark.asset");
 }

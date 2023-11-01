@@ -16,6 +16,13 @@ namespace SCHIZO.Sounds;
 
 public sealed class FMODSoundCollection
 {
+    private enum VCA
+    {
+        Master,
+        Music,
+        Voice,
+        Ambient
+    }
     private static readonly Dictionary<string, FMODSoundCollection> _cache = new();
 
     private readonly string _busName;
@@ -129,9 +136,28 @@ public sealed class FMODSoundCollection
         }
         else
         {
-            // TODO: Play this sound using an Emitter or something (so that it changes based on volume)
             CustomSoundHandler.TryPlayCustomSound(sound, out Channel channel);
+            channel.setVolume(GetVolumeFor(GetVCAForBus(_busName)));
             channel.set3DLevel(0);
         }
+    }
+
+    private static VCA GetVCAForBus(string bus)
+    {
+        if (bus.Contains("bus:/master/Music")) return VCA.Music;
+        if (bus.Contains("/all voice/")) return VCA.Voice;
+        if (bus.StartsWith("/SFX/")) return VCA.Ambient;
+        return VCA.Master;
+    }
+
+    private static float GetVolumeFor(VCA vca)
+    {
+        return vca switch
+        {
+            VCA.Music => SoundSystem.masterVolume * SoundSystem.musicVolume,
+            VCA.Voice => SoundSystem.masterVolume * SoundSystem.voiceVolume,
+            VCA.Ambient => SoundSystem.masterVolume * SoundSystem.ambientVolume,
+            _ => SoundSystem.masterVolume,
+        };
     }
 }

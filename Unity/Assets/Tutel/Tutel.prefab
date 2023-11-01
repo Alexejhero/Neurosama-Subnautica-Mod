@@ -58,7 +58,7 @@ MonoBehaviour:
   onSurfaceMovement: {fileID: 2945450220734416713}
   updateTargetInterval: 5
   updateTargetRandomInterval: 6
-  moveVelocity: 13
+  moveVelocity: 6
   moveRadius: 7
   moveOnWalls: 0
 --- !u!114 &205571466966154798

@@ -24,6 +24,5 @@ namespace SCHIZO.Sounds.Players
         private MonoBehaviour constructable;
 
         protected override string DefaultBus => null;
-        protected override bool Is3D => true;
     }
 }
