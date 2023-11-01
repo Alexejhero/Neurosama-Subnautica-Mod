@@ -1,4 +1,4 @@
-namespace SCHIZO.Creatures.Components;
+namespace SCHIZO.Sounds.Players;
 
 partial class HurtSoundPlayer : IOnTakeDamage
 {

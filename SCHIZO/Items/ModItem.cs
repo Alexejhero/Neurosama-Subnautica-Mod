@@ -99,6 +99,11 @@ public sealed class ModItem
                 unlockTechTypes = new List<TechType> {this},
             });
         }
+
+        if (ItemData.itemSounds)
+        {
+            ItemData.itemSounds.Register(this);
+        }
     }
 
     public static implicit operator PrefabInfo(ModItem self) => self.PrefabInfo;

@@ -37,6 +37,7 @@
         <Folder Include="Attributes/Validation" />
         <Folder Include="Attributes/Visual" />
         <Folder Include="Utilities" />
+        <Folder Include="_old\Sounds\Patches\" />
     </ItemGroup>
 
     <ItemGroup>

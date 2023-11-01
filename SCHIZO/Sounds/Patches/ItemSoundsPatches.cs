@@ -8,26 +8,25 @@ using UnityEngine;
 namespace SCHIZO.Sounds.Patches;
 
 [HarmonyPatch]
-public static class CreatureSoundsPatches
+public static class ItemSoundsPatches
 {
     [HarmonyPatch(typeof(Pickupable), nameof(Pickupable.PlayPickupSound))]
     [HarmonyPostfix]
     public static void PlayCustomPickupSound(Pickupable __instance)
     {
-        if (!CreatureSoundsHandler.TryGetCreatureSounds(__instance.GetTechType(), out CreatureSounds sounds)) return;
-
-        sounds.PickupSounds?.Play2D();
+        if (!ItemSounds.TryGet(__instance.GetTechType(), out ItemSounds itemSounds)) return;
+        itemSounds.pickupSounds!?.Play2D();
     }
 
     [HarmonyPatch(typeof(Pickupable), nameof(Pickupable.PlayDropSound))]
     [HarmonyPostfix]
     public static void PlayCustomDropSound(Pickupable __instance)
     {
-        if (!CreatureSoundsHandler.TryGetCreatureSounds(__instance.GetTechType(), out CreatureSounds sounds)) return;
-        if (sounds.DropSounds == null) return;
+        if (!ItemSounds.TryGet(__instance.GetTechType(), out ItemSounds sounds)) return;
+        if (sounds.dropSounds == null) return;
 
-        sounds.HolsterSounds?.CancelAllDelayed();
-        sounds.DropSounds.Play(__instance.GetComponent<FMOD_CustomEmitter>());
+        sounds.holsterSounds!?.CancelAllDelayed();
+        sounds.dropSounds.Play(__instance.GetComponent<FMOD_CustomEmitter>());
     }
 
     [HarmonyPatch(typeof(PlayerTool), nameof(PlayerTool.OnDraw))]
@@ -36,12 +35,12 @@ public static class CreatureSoundsPatches
     {
         try
         {
-            if (!__instance.pickupable || !CreatureSoundsHandler.TryGetCreatureSounds(__instance.pickupable.GetTechType(), out CreatureSounds sounds)) return;
-            if (sounds.DrawSounds == null) return;
+            if (!__instance.pickupable || !ItemSounds.TryGet(__instance.pickupable.GetTechType(), out ItemSounds sounds)) return;
+            if (sounds.drawSounds == null) return;
 
-            if (Time.time < sounds.PickupSounds?.LastPlay + 0.5f) return;
+            if (Time.time < sounds.pickupSounds!?.LastPlay + 0.5f) return;
 
-            sounds.DrawSounds.Play2D();
+            sounds.drawSounds.Play2D();
         }
         catch
         {
@@ -55,14 +54,14 @@ public static class CreatureSoundsPatches
     {
         try
         {
-            if (!__instance.pickupable || !CreatureSoundsHandler.TryGetCreatureSounds(__instance.pickupable.GetTechType(), out CreatureSounds sounds)) return;
-            if (sounds.HolsterSounds == null) return;
+            if (!__instance.pickupable || !ItemSounds.TryGet(__instance.pickupable.GetTechType(), out ItemSounds sounds)) return;
+            if (sounds.holsterSounds == null) return;
 
-            if (Time.time < sounds.DropSounds?.LastPlay + 0.5f) return;
-            if (Time.time < sounds.EatSounds?.LastPlay + 0.5f) return;
-            if (Time.time < sounds.CookSounds?.LastPlay + 0.5f) return;
+            if (Time.time < sounds.dropSounds!?.LastPlay + 0.5f) return;
+            if (Time.time < sounds.eatSounds!?.LastPlay + 0.5f) return;
+            if (Time.time < sounds.cookSounds!?.LastPlay + 0.5f) return;
 
-            sounds.HolsterSounds.Play2D(0.15f);
+            sounds.holsterSounds.Play2D(0.15f);
         }
         catch
         {
@@ -97,12 +96,13 @@ public static class CreatureSoundsPatches
 
         private static void Patch(TechType techType)
         {
-            if (!CreatureSoundsHandler.TryGetCreatureSounds(techType, out CreatureSounds sounds)) return;
+            if (!ItemSounds.TryGet(techType, out ItemSounds sounds)) return;
+            if (sounds.eatSounds == null) return;
 
-            if (Time.time < sounds.EatSounds?.LastPlay + 0.1f) return;
+            if (Time.time < sounds.eatSounds.LastPlay + 0.1f) return;
 
-            sounds.HolsterSounds?.CancelAllDelayed();
-            sounds.EatSounds?.Play2D();
+            sounds.holsterSounds!?.CancelAllDelayed();
+            sounds.eatSounds.Play2D();
         }
     }
 
@@ -110,10 +110,10 @@ public static class CreatureSoundsPatches
     [HarmonyPostfix]
     public static void PlayCustomCookSound(TechType techType)
     {
-        if (!CreatureSoundsHandler.TryGetCreatureSounds(techType, out CreatureSounds sounds)) return;
-        if (sounds.CookSounds == null) return;
+        if (!ItemSounds.TryGet(techType, out ItemSounds sounds)) return;
+        if (sounds.cookSounds == null) return;
 
-        sounds.HolsterSounds?.CancelAllDelayed();
-        sounds.CookSounds.Play2D();
+        sounds.holsterSounds!?.CancelAllDelayed();
+        sounds.cookSounds.Play2D();
     }
 }

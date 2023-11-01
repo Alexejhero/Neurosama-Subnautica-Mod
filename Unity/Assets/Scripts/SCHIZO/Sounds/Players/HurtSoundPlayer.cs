@@ -1,6 +1,4 @@
-using SoundPlayer = SCHIZO.Sounds.Players.SoundPlayer;
-
-namespace SCHIZO.Creatures.Components
+namespace SCHIZO.Sounds.Players
 {
     public sealed partial class HurtSoundPlayer : SoundPlayer
     {

@@ -6,6 +6,7 @@ using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using SCHIZO.Items.Data.Crafting;
 using SCHIZO.Registering;
 using SCHIZO.Attributes.Visual;
+using SCHIZO.Sounds;
 using UnityEngine;
 using UnityEngine.Serialization;
 using static NaughtyAttributes.EConditionOperator;
@@ -26,20 +27,23 @@ namespace SCHIZO.Items.Data
         [BoxGroup("TechType"), ResizableTextArea, ShowIf(nameof(ShowPickupableProps))]
         public string tooltip;
 
-        [BoxGroup("Common Properties"), ShowIf(nameof(ShowPickupableProps)), Required]
+        [CommonData, ShowIf(nameof(ShowPickupableProps)), Required]
         public Sprite icon;
 
-        [BoxGroup("Common Properties"), HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable))]
+        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable))]
         public Vector2Int itemSize = new Vector2Int(1, 1);
 
-        [BoxGroup("Common Properties"), HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable))]
+        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable))]
         public bool isCraftable;
 
-        [BoxGroup("Common Properties"), HideIf(Or, nameof(HidePickupableProps), nameof(isCraftable))]
+        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isCraftable))]
         public bool isBuildable;
 
-        [BoxGroup("Common Properties"), ShowIf(nameof(IsActuallyCraftable))]
+        [CommonData, ShowIf(nameof(IsActuallyCraftable))]
         public float craftingTime = 2.5f;
+
+        [CommonData, ShowIf(nameof(itemSounds_ShowIf))]
+        public ItemSounds itemSounds;
 
         #region Subnautica Data
 
@@ -125,6 +129,8 @@ namespace SCHIZO.Items.Data
 
         private bool requiredForUnlockSN_ShowIf() => !unlockAtStartSN && IsBuildableOrCraftable();
         private bool requiredForUnlockBZ_ShowIf() => !unlockAtStartBZ && IsBuildableOrCraftable();
+
+        private bool itemSounds_ShowIf() => ShowPickupableProps() && !isBuildable;
 
         protected virtual bool ShowPickupableProps() => true;
         private bool HidePickupableProps() => !ShowPickupableProps();

@@ -23,6 +23,7 @@ MonoBehaviour:
   isCraftable: 1
   isBuildable: 0
   craftingTime: 2.5
+  itemSounds: {fileID: 11400000, guid: bfb77f100ed7e6e4fb42c9b05bcb00af, type: 2}
   registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 9636d4aefaf6b714fa2a2035b9ea0e0d, type: 2}
   craftTreeTypeSN: 1
