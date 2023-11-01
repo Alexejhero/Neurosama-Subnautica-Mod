@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36543930fd19c9c4d9d24356036f1cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sender: {fileID: 4873658758876609318}
+  coordinator: {fileID: 4873658758876609318}
   category: sound
 --- !u!114 &3219708204570859989
 MonoBehaviour:
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a998b9da583b8154e9e94234f2b9fa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sender: {fileID: 4873658758876609318}
+  coordinator: {fileID: 4873658758876609318}
   category: survival
   healthThresholds: {x: 0.25, y: 0.5}
   foodThresholds: {x: 0.1, y: 0.3}

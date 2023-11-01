@@ -4,6 +4,14 @@ namespace SCHIZO.Telemetry;
 
 partial class SurvivalTracker
 {
+    private enum State
+    {
+        Normal,
+        Low,
+        Critical,
+        Depleted // used for health to signal death
+    }
+
     private float _timeLastNotify;
     private Survival survival;
     private LiveMixin liveMixin;
@@ -80,19 +88,11 @@ partial class SurvivalTracker
 
         float interval = state == State.Critical ? notifyCriticalInterval : notifyLowInterval;
         if (Time.fixedTime - _timeLastNotify > interval)
-            Send($"{property}{state}", value);
+            Send($"{property}{state}", new { value });
     }
 
     private void NotifyDeath()
     {
         Send($"died");
-    }
-
-    private enum State
-    {
-        Normal,
-        Low,
-        Critical,
-        Depleted
     }
 }

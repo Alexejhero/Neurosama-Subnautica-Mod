@@ -5,6 +5,7 @@ namespace SCHIZO.Telemetry;
 
 partial class SoundTracker
 {
+    // SN ency logs don't use subtitles
     private SoundQueue Sounds => PDASounds.queue;
     // some specific BZ cutscenes don't use SoundQueue
     private uGUI_MessageQueue Subtitles => global::Subtitles.main ? global::Subtitles.main.queue : null;
@@ -31,7 +32,7 @@ partial class SoundTracker
         _wasPlaying = isPlaying;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         if (_wasPlaying) Send("stopped");
     }

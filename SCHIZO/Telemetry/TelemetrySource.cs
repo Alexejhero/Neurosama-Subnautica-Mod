@@ -1,9 +1,11 @@
-using UnityEngine.Networking;
-
 namespace SCHIZO.Telemetry;
 
 partial class TelemetrySource
 {
-    public void Send(string path, object data = null, UnityWebRequest.UnityWebRequestMethod method = UnityWebRequest.UnityWebRequestMethod.Post)
-        => StartCoroutine(sender.Send($"{category}/{path}", data, method));
+    public void Send(string path, object data = null)
+    {
+        if (!enabled) return;
+        string fullPath = string.IsNullOrEmpty(category) ? path : $"{category}/{path}";
+        StartCoroutine(coordinator.Send(fullPath, data));
+    }
 }

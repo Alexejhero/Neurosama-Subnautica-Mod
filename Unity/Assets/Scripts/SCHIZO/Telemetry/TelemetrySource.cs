@@ -6,7 +6,9 @@ namespace SCHIZO.Telemetry
     public abstract partial class TelemetrySource : MonoBehaviour
     {
         [Required]
-        public TelemetrySender sender;
+        public TelemetryCoordinator coordinator;
         public string category;
+
+        protected virtual void OnDisable() { }
     }
 }

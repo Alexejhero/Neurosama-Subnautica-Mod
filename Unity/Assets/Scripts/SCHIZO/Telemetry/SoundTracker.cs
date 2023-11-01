@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace SCHIZO.Telemetry
 {
-    [RequireComponent(typeof(TelemetrySender))]
-    public partial class SoundTracker : TelemetrySource
+    [RequireComponent(typeof(TelemetryCoordinator))]
+    public sealed partial class SoundTracker : TelemetrySource
     {
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SCHIZO.Telemetry
 {
-    public partial class SurvivalTracker : TelemetrySource
+    public sealed partial class SurvivalTracker : TelemetrySource
     {
         [InfoBox("The first threshold is the 'critical' percentage, and the second is the 'low' percentage")]
         [MinMaxSlider(0, 1)]
