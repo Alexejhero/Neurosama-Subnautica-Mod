@@ -1,11 +1,5 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Interop.Subnautica;
-using SCHIZO.Utilities;
-using UnityEngine;
+﻿using SCHIZO.Interop.Subnautica;
 
-public class CaveCrawlerGravity : MonoBehaviour
+public class CaveCrawlerGravity : _CaveCrawlerGravity
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public _CaveCrawler caveCrawler;
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public LiveMixin liveMixin;
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public Rigidbody crawlerRigidbody;
 }

@@ -30,15 +30,11 @@
         </Compile>
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.Unity.cs" />
 
-        <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/_old/**/*.cs" />
-        <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/Materials/**/*.cs" />
-
         <Folder Include="Attributes" />
         <Folder Include="Attributes/Typing" />
         <Folder Include="Attributes/Validation" />
         <Folder Include="Attributes/Visual" />
         <Folder Include="Utilities" />
-        <Folder Include="_old\Sounds\Patches\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -57,15 +53,6 @@
             <DependentUpon>%(FileName)</DependentUpon>
         </Compile>
     </ItemGroup>
-
-<!--    <Target Name="EmbedNuGetDlls" AfterTargets="ResolveReferences">
-        <ItemGroup>
-            <EmbeddedResource Include="@(ReferencePath)" Condition="$([System.String]::new('%(FullPath)').StartsWith($(NuGetPackageRoot)))">
-                <LinkBase>Resources/Packages</LinkBase>
-                <LogicalName>%(FileName)%(Extension)</LogicalName>
-            </EmbeddedResource>
-        </ItemGroup>
-    </Target>-->
 
     <ItemGroup>
         <Compile Remove="_old/**" />
