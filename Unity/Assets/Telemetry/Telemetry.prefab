@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2285487106083492389}
   - component: {fileID: 4873658758876609318}
   - component: {fileID: 9153571874671623823}
-  - component: {fileID: 3219708204570859989}
+  - component: {fileID: -3425228028272821971}
   m_Layer: 0
   m_Name: Telemetry
   m_TagString: Untagged
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseUrl: 
+  playerName: Vedal
 --- !u!114 &9153571874671623823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coordinator: {fileID: 4873658758876609318}
   category: sound
---- !u!114 &3219708204570859989
+--- !u!114 &-3425228028272821971
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -73,9 +74,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coordinator: {fileID: 4873658758876609318}
-  category: survival
-  healthThresholds: {x: 0.25, y: 0.5}
-  foodThresholds: {x: 0.1, y: 0.3}
-  waterThresholds: {x: 0.2, y: 0.4}
-  notifyLowInterval: 600
-  notifyCriticalInterval: 180
+  category: bars
+  trackedProperties:
+  - barName: health
+    componentTypeName: LiveMixin
+    valueMemberName: health
+    maxMemberName: maxHealth
+    maxValue: 0
+    thresholds: {x: 0.25, y: 0.5}
+  - barName: food
+    componentTypeName: Survival
+    valueMemberName: food
+    maxMemberName: 
+    maxValue: 100
+    thresholds: {x: 0.1, y: 0.3}
+  - barName: water
+    componentTypeName: Survival
+    valueMemberName: water
+    maxMemberName: 
+    maxValue: 100
+    thresholds: {x: 0.2, y: 0.4}
+  - barName: body temperature
+    componentTypeName: BodyTemperature
+    valueMemberName: currentBodyHeatValue
+    maxMemberName: coldMeterMaxValue
+    maxValue: 100
+    thresholds: {x: 0.1, y: 0.25}

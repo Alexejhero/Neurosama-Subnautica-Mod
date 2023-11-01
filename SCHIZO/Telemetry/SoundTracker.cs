@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 
 namespace SCHIZO.Telemetry;
 
@@ -8,26 +7,24 @@ partial class SoundTracker
     // SN ency logs don't use subtitles
     private SoundQueue Sounds => PDASounds.queue;
     // some specific BZ cutscenes don't use SoundQueue
-    private uGUI_MessageQueue Subtitles => global::Subtitles.main ? global::Subtitles.main.queue : null;
-    public bool IsPlaying => IsPlayingSounds() || IsShowingSubtitles;
-    public bool IsShowingSubtitles => Subtitles is { messages.Count: > 0 };
-    private partial bool IsPlayingSounds();
+    // now... technically this won't work if subtitles are off; however: just don't disable subtitles
+    private uGUI_MessageQueue Subs => Subtitles.main ? Subtitles.main.queue : null;
+    public bool IsPlaying => IsPlayingVO || IsShowingSubtitles;
+    private bool IsShowingSubtitles => Subs is { messages.Count: > 0 };
+    private bool IsPlayingVO
+#if BELOWZERO
+            => Sounds is { _current.host: SoundHost.Encyclopedia or SoundHost.Log or SoundHost.Realtime };
+#else
+            => Sounds is { _current: { }, _lengthSeconds: > 1f };
+#endif
+
     private bool _wasPlaying;
-
-    public Action onPlay;
-    public Action onStop;
-
-    private void Awake()
-    {
-        
-    }
 
     private void FixedUpdate()
     {
         bool isPlaying = IsPlaying;
         if (isPlaying == _wasPlaying) return;
 
-        (isPlaying ? onPlay : onStop)?.Invoke();
         Send(isPlaying ? "playing" : "stopped");
         _wasPlaying = isPlaying;
     }
@@ -35,9 +32,12 @@ partial class SoundTracker
     protected override void OnDisable()
     {
         if (_wasPlaying) Send("stopped");
+        _wasPlaying = false;
     }
 
-    private float TimeLeft(uGUI_MessageQueue.Message msg) => msg is null ? 0 : msg.duration + msg.delay - msg.time;
-    public float TimeLeftNext() => Subtitles?.messages.Select(TimeLeft).FirstOrFallback(0) ?? 0;
-    public float TimeLeftAll() => Subtitles?.messages.Sum(TimeLeft) ?? 0;
+    private void OnDestroy() => OnDisable();
+
+    // private float TimeLeft(uGUI_MessageQueue.Message msg) => msg is null ? 0 : msg.duration + msg.delay - msg.time;
+    // public float TimeLeftNext() => Subtitles?.messages.Select(TimeLeft).FirstOrFallback(0) ?? 0;
+    // public float TimeLeftAll() => Subtitles?.messages.Sum(TimeLeft) ?? 0;
 }
