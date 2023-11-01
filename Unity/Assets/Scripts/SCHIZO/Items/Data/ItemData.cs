@@ -42,7 +42,7 @@ namespace SCHIZO.Items.Data
         [CommonData, ShowIf(nameof(IsActuallyCraftable))]
         public float craftingTime = 2.5f;
 
-        [CommonData, ShowIf(nameof(itemSounds_ShowIf))]
+        [CommonData, ShowIf(nameof(Sounds_ShowIf))]
         public ItemSounds itemSounds;
 
         #region Subnautica Data
@@ -108,6 +108,9 @@ namespace SCHIZO.Items.Data
         [BZData, Label("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoBZ;
 
+        [BZData, Label("Sound Type"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(Sounds_ShowIf))]
+        private TechData_SoundType_BZ soundTypeBZ;
+
         [BZData, Label("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(IsBuildableOrCraftable))]
         private bool unlockAtStartBZ = true;
 
@@ -130,7 +133,7 @@ namespace SCHIZO.Items.Data
         private bool requiredForUnlockSN_ShowIf() => !unlockAtStartSN && IsBuildableOrCraftable();
         private bool requiredForUnlockBZ_ShowIf() => !unlockAtStartBZ && IsBuildableOrCraftable();
 
-        private bool itemSounds_ShowIf() => ShowPickupableProps() && !isBuildable;
+        private bool Sounds_ShowIf() => ShowPickupableProps() && !isBuildable;
 
         protected virtual bool ShowPickupableProps() => true;
         private bool HidePickupableProps() => !ShowPickupableProps();

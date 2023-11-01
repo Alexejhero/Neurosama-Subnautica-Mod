@@ -1,9 +1,12 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Creatures;
 using SCHIZO.Helpers;
 using SCHIZO.Items.Data;
+using SCHIZO.Sounds;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -70,13 +73,11 @@ public class UnityPrefab : CustomPrefab
 
     public new virtual void Register()
     {
-        ModItem.LoadStep2();
-
         NautilusPrefabConvertible prefab = GetPrefab();
         if (prefab != null) this.SetGameObject(prefab);
 
         base.Register();
-        PostRegister();
+        SetItemProperties();
     }
 
     protected virtual NautilusPrefabConvertible GetPrefab()
@@ -96,8 +97,82 @@ public class UnityPrefab : CustomPrefab
         MaterialUtils.ApplySNShaders(prefab, 1);
     }
 
-    protected virtual void PostRegister()
+    protected virtual void SetItemProperties()
     {
+        if (ModItem.ItemData.isCraftable && ModItem.ItemData.CraftTreeType != CraftTree.Type.None)
+        {
+            CraftTreeHandler.AddCraftingNode(ModItem.ItemData.CraftTreeType, ModItem, ModItem.ItemData.CraftTreePath);
+            CraftDataHandler.SetCraftingTime(ModItem, ModItem.ItemData.craftingTime);
+        }
+
+        if (ModItem.ItemData.isBuildable)
+        {
+            CraftDataHandler.AddBuildable(ModItem);
+        }
+
+#if BELOWZERO
+        if (!ModItem.ItemData.canBeRecycledBZ)
+        {
+            Recyclotron.bannedTech.Add(ModItem.ItemData.ModItem);
+        }
+
+        if (ModItem.ItemData.SoundType != TechData.SoundType.Default)
+        {
+            CraftDataHandler.SetSoundType(ModItem, ModItem.ItemData.SoundType);
+        }
+#endif
+
+        if (ModItem.ItemData.Recipe)
+        {
+            CraftDataHandler.SetRecipeData(ModItem, ModItem.ItemData.Recipe.Convert());
+        }
+
+        if (ModItem.ItemData.TechGroup != TechGroup.Uncategorized)
+        {
+            CraftDataHandler.AddToGroup(ModItem.ItemData.TechGroup, ModItem.ItemData.TechCategory, ModItem);
+        }
+
+        if (ModItem.ItemData.PDAEncyclopediaInfo)
+        {
+            PDAEncyclopediaInfo i = ModItem.ItemData.PDAEncyclopediaInfo;
+
+            PDAHandler.AddEncyclopediaEntry(ModItem.PrefabInfo.ClassID, i.encyPath, i.title, i.description.text, i.texture, i.unlockSprite,
+                i.isImportantUnlock ? PDAHandler.UnlockImportant : PDAHandler.UnlockBasic);
+
+            if (i.scanSounds) ScanSoundHandler.Register(ModItem, i.scanSounds);
+        }
+
+        if (ModItem.ItemData.KnownTechInfo)
+        {
+            KnownTechInfo i = ModItem.ItemData.KnownTechInfo;
+
+            KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
+            {
+                techType = ModItem,
+                unlockTechTypes = new List<TechType>(0),
+                unlockMessage = i.UnlockMessage,
+                unlockSound = i.UnlockSound,
+                unlockPopup = i.unlockSprite
+            });
+        }
+
+        if (ModItem.ItemData.UnlockAtStart)
+        {
+            KnownTechHandler.UnlockOnStart(ModItem);
+        }
+        else if (ModItem.ItemData.RequiredForUnlock != TechType.None)
+        {
+            KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
+            {
+                techType = ModItem.ItemData.RequiredForUnlock,
+                unlockTechTypes = new List<TechType> {ModItem},
+            });
+        }
+
+        if (ModItem.ItemData.itemSounds)
+        {
+            ModItem.ItemData.itemSounds.Register(ModItem);
+        }
     }
 
     protected virtual void SetupComponents(GameObject instance)

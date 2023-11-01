@@ -68,6 +68,18 @@ MonoBehaviour:
   soundCollection: {fileID: 11400000, guid: 2b7bde06469e9fc49911f3cac3ffa231, type: 2}
   bus: Nautilus.Utility.AudioUtils+BusPaths:UnderwaterCreatures
   emitter: {fileID: 2702267877378328202}
+  minDelayDefault: {fileID: 0}
+  maxDelayDefault: {fileID: 0}
+  MinDelay:
+    isHardCoded: 0
+    modOption: {fileID: 11400000, guid: 14beba417ed8e764a8489589984c141a, type: 2}
+    value: 0
+    calculateMode: 0
+  MaxDelay:
+    isHardCoded: 0
+    modOption: {fileID: 11400000, guid: 87f6c7eace682d841a58b07957ee144d, type: 2}
+    value: 0
+    calculateMode: 0
   pickupable: {fileID: 810566840944398461}
   constructable: {fileID: 0}
 --- !u!114 &2702267877378328202

@@ -18,9 +18,9 @@ public class UnityCreaturePrefab : UnityPrefab
 
     protected new CreatureData UnityData => (CreatureData) base.UnityData;
 
-    public override void Register()
+    protected override void SetItemProperties()
     {
-        base.Register();
+        base.SetItemProperties();
 
         CreatureDataUtils.SetBehaviorType(ModItem, UnityData.BehaviourType);
 
@@ -31,10 +31,6 @@ public class UnityCreaturePrefab : UnityPrefab
         {
             PDAHandler.AddCustomScannerEntry(ModItem, UnityData.PDAEncyclopediaInfo.scanTime, encyclopediaKey: PrefabInfo.ClassID);
         }
-
-#if BELOWZERO
-        CraftDataHandler.SetSoundType(ModItem, TechData.SoundType.Fish);
-#endif
 
         if (UnityData.isPickupable)
         {

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56947ab8e76a8c458651b0afc3e2040, type: 3}
+  m_Name: -199999876 ELO
+  m_EditorClassIdentifier: 
+  classId: HullPlate31
+  displayName: Old Hull Plate
+  tooltip: In remembrance of the worst chatter of the entire universe
+  texture: {fileID: 2800000, guid: 2999014aa0f4f9a488948101722169fc, type: 3}
+  overrideIcon: {fileID: 0}
+  expensive: 0
+  hidden: 0
+  deprecated: 1

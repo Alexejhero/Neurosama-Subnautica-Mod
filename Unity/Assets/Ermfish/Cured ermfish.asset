@@ -46,6 +46,7 @@ MonoBehaviour:
   techCategoryBZ: 0
   pdaEncyclopediaInfoBZ: {fileID: 0}
   knownTechInfoBZ: {fileID: 0}
+  soundTypeBZ: 31
   unlockAtStartBZ: 0
   requiredForUnlockBZ:
     isCustom: 1

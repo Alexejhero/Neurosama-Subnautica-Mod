@@ -1,7 +1,6 @@
 ﻿using JetBrains.Annotations;
 using NaughtyAttributes;
 using SCHIZO.Interop.Subnautica.Enums;
-using SCHIZO.Items.Gymbag;
 using UnityEngine;
 
 namespace SCHIZO.Items.Data
@@ -20,7 +19,7 @@ namespace SCHIZO.Items.Data
 
 #if UNITY_EDITOR
         [ContextMenu("Set Loader/Gymbag")]
-        private void CreateGymbagLoader() => AssignItemLoader(CreateInstance<GymbagLoader>());
+        private void CreateGymbagLoader() => AssignItemLoader(CreateInstance<Gymbag.GymbagLoader>());
 #endif
     }
 }

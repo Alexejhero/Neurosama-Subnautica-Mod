@@ -16,6 +16,9 @@ partial class ItemData
     public KnownTechInfo KnownTechInfo => RetargetHelpers.Pick(knownTechInfoSN, knownTechInfoBZ);
     public bool UnlockAtStart => RetargetHelpers.Pick(unlockAtStartSN, unlockAtStartBZ);
     public TechType RequiredForUnlock => RetargetHelpers.Pick(requiredForUnlockSN, requiredForUnlockBZ).GetTechType();
+#if BELOWZERO
+    public TechData.SoundType SoundType => (TechData.SoundType) soundTypeBZ;
+#endif
 
     protected override void Register()
     {

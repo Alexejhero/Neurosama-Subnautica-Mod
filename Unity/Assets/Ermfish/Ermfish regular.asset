@@ -73,6 +73,7 @@ MonoBehaviour:
   pdaEncyclopediaInfoBZ: {fileID: 11400000, guid: 8b76d116f9af8fc499d4c055bf652966,
     type: 2}
   knownTechInfoBZ: {fileID: 11400000, guid: 89b8b3505e3ad2e48b2f9b7c378e4bbe, type: 2}
+  soundTypeBZ: 31
   unlockAtStartBZ: 1
   requiredForUnlockBZ:
     isCustom: 0

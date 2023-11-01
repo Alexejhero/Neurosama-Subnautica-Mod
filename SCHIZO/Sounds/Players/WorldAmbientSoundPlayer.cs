@@ -7,8 +7,9 @@ partial class WorldAmbientSoundPlayer
 {
     private float _timer = -1;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         ResetTimer();
     }
 
