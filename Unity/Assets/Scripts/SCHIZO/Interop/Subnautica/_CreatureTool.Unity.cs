@@ -13,7 +13,7 @@ namespace SCHIZO.Interop.Subnautica
         [Foldout("\u00af\\_(ツ)_/\u00af")] public bool useSpeedAnimationParam;
         [Foldout("\u00af\\_(ツ)_/\u00af")] public bool disableSoundsOnKill = true;
 
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("Creature")] public MonoBehaviour creature;
+        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("_Creature")] public MonoBehaviour creature;
         [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public Animator animator;
         [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("Locomotion")] public MonoBehaviour locomotion;
         [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;

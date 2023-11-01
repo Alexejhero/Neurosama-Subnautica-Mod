@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
 using JetBrains.Annotations;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Sounds.Patches;
@@ -115,5 +116,17 @@ public static class ItemSoundsPatches
 
         sounds.holsterSounds!?.CancelAllDelayed();
         sounds.cookSounds.Play2D();
+    }
+
+    [HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.Kill))]
+    [HarmonyPostfix]
+    public static void PlayPlayerDeathSound(LiveMixin __instance)
+    {
+        if (Player.main.liveMixin != __instance) return;
+        foreach (InventoryItem item in Inventory.main.container.GetAllItems())
+        {
+            if (!ItemSounds.TryGet(item.techType, out ItemSounds sounds)) continue;
+            sounds.playerDeathSounds!?.Play2D(0.15f);
+        }
     }
 }

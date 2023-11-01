@@ -39,7 +39,7 @@ MonoBehaviour:
     itemData: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
   registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: 9636d4aefaf6b714fa2a2035b9ea0e0d, type: 2}
-  canBeRecycledBZ: 1
+  canBeRecycledBZ: 0
   craftTreeTypeBZ: 1
   craftTreePathBZ: Survival/CuredFood
   techGroupBZ: 13

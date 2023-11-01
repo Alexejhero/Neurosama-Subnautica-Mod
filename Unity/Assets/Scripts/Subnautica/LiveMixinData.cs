@@ -2,7 +2,7 @@
 using SCHIZO.Utilities;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LiveMixinData.asset", menuName = "Subnautica/Create LiveMixin Data Asset")]
+[CreateAssetMenu(fileName = "LiveMixinData.asset", menuName = "Subnautica/Live Mixin Data")]
 public class LiveMixinData : ScriptableObject
 {
     public float maxHealth = 100;

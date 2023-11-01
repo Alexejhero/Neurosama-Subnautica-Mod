@@ -11,7 +11,7 @@ namespace SCHIZO.HullPlates
         public string displayName;
         [HideIf(nameof(deprecated)), ResizableTextArea] public string tooltip;
         public Texture2D texture;
-        [HideIf(nameof(deprecated))] public Texture2D overrideIcon;
+        [HideIf(nameof(deprecated)), Careful] public Texture2D overrideIcon;
         public bool expensive;
         [HideIf(nameof(deprecated))] public bool hidden = true;
         public bool deprecated;

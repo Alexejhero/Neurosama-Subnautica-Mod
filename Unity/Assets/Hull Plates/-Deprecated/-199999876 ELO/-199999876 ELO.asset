@@ -15,7 +15,7 @@ MonoBehaviour:
   classId: HullPlate31
   displayName: Old Hull Plate
   tooltip: In remembrance of the worst chatter of the entire universe
-  texture: {fileID: 2800000, guid: 2999014aa0f4f9a488948101722169fc, type: 3}
+  texture: {fileID: 2800000, guid: 5a3a60e7c3436f645910e8c025f9ef04, type: 3}
   overrideIcon: {fileID: 0}
   expensive: 0
   hidden: 0

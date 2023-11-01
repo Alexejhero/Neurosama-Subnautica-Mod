@@ -83,4 +83,4 @@ MonoBehaviour:
   isPickupable: 1
   behaviourType: 2
   acidImmune: 1
-  bioReactorCharge: 0
+  bioReactorCharge: 200

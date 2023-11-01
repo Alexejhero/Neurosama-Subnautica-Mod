@@ -12,18 +12,6 @@ namespace SCHIZO.Creatures.Tutel;
 [LoadCreature]
 public sealed class TutelLoader : PickupableCreatureLoader<PickupableCreatureData, TutelPrefab, TutelLoader>
 {
-    public TutelLoader() : base(Assets.Tutel_TutelData)
-    {
-        PDAEncyPath = "Lifeforms/Fauna/SmallHerbivores";
-        VariantsAreAlive = true;
-        VFXFabricatingData = new VFXFabricatingData("VM/Tutel", -0.17f, 0.59275F, new Vector3(0, 0.15f), 0.1f, new Vector3(0, -180, 0));
-    }
-
-    protected override TutelPrefab CreatePrefab()
-    {
-        return new TutelPrefab(ModItems.Tutel, ModItems.CookedTutel, ModItems.CuredTutel, creatureData.regularPrefab);
-    }
-
     protected override IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()
     {
         // We need Tutel to spawn low down, not in open waters

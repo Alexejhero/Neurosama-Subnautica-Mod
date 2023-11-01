@@ -11,12 +11,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a56947ab8e76a8c458651b0afc3e2040, type: 3}
   m_Name: Vedal's Face Reveal
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   classId: HullPlateVedalSelfie
   displayName: Vedal's Face Reveal Hull Plate
   tooltip: Leaked face reveal of the famous vtuber Vedal987
-  texture: {fileID: 2800000, guid: 2dfce35a52e4a474db81518e897749c4, type: 3}
+  texture: {fileID: 0}
   overrideIcon: {fileID: 0}
   expensive: 0
   hidden: 1
-  deprecated: 0
+  deprecated: 1

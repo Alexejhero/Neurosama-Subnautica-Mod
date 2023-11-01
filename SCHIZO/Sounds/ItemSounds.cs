@@ -32,5 +32,7 @@ partial class ItemSounds
 
         cookSounds = cookSounds!?.Initialize(AudioUtils.BusPaths.PDAVoice);
         eatSounds = eatSounds!?.Initialize(AudioUtils.BusPaths.PDAVoice);
+
+        playerDeathSounds = playerDeathSounds!?.Initialize(AudioUtils.BusPaths.PDAVoice);
     }
 }

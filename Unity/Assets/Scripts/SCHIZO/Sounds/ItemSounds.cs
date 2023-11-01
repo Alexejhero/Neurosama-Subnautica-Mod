@@ -10,10 +10,18 @@ namespace SCHIZO.Sounds
         public SoundCollection pickupSounds;
         public SoundCollection dropSounds;
 
+        [Space]
+
         public SoundCollection drawSounds;
         public SoundCollection holsterSounds;
 
+        [Space]
+
         public SoundCollection cookSounds;
         public SoundCollection eatSounds;
+
+        [Space]
+
+        public SoundCollection playerDeathSounds;
     }
 }
