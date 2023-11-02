@@ -144,9 +144,9 @@ public sealed class FMODSoundCollection
 
     private static VCA GetVCAForBus(string bus)
     {
-        if (bus.Contains("bus:/master/Music")) return VCA.Music;
-        if (bus.Contains("/all voice/")) return VCA.Voice;
-        if (bus.StartsWith("/SFX/")) return VCA.Ambient;
+        if (bus.StartsWith("bus:/master/Music")) return VCA.Music;
+        if (bus.StartsWith("bus:/master/SFX_for_pause/PDA_pause/all/all voice")) return VCA.Voice;
+        if (bus.StartsWith("bus:/master/SFX_for_pause/PDA_pause/all/SFX")) return VCA.Ambient;
         return VCA.Master;
     }
 
