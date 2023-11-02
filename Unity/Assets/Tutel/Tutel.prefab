@@ -167,9 +167,12 @@ MonoBehaviour:
   pickupPoint: {fileID: 0}
   emitter: {fileID: 6151193553991328253}
   carryNoiseInterval: 5
-  pickupSounds: {fileID: 11400000, guid: 1117ab6ef838da74b8d402a14c1296da, type: 2}
-  carrySounds: {fileID: 11400000, guid: bd0d057bea799074cb9f5b385a41234f, type: 2}
-  releaseSounds: {fileID: 11400000, guid: 8760b2fe631724f46acf7ecd2da229dc, type: 2}
+  pickupSounds: {fileID: -4909919376518584713, guid: 1117ab6ef838da74b8d402a14c1296da,
+    type: 2}
+  carrySounds: {fileID: 6529170827671356787, guid: bd0d057bea799074cb9f5b385a41234f,
+    type: 2}
+  releaseSounds: {fileID: 8351835124949227367, guid: 8760b2fe631724f46acf7ecd2da229dc,
+    type: 2}
 --- !u!114 &2898540927015828278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,11 +741,23 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: e34bb3771b2e20c48bef879692155b45,
         type: 2}
+    - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: soundCollection_
+      value: 
+      objectReference: {fileID: 7261620089877675744, guid: e34bb3771b2e20c48bef879692155b45,
+        type: 2}
     - target: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: soundCollection
       value: 
       objectReference: {fileID: 11400000, guid: 8760b2fe631724f46acf7ecd2da229dc,
+        type: 2}
+    - target: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: soundCollection_
+      value: 
+      objectReference: {fileID: 1227164057349306871, guid: 8760b2fe631724f46acf7ecd2da229dc,
         type: 2}
     - target: {fileID: 3919769461741374411, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
@@ -889,6 +904,12 @@ PrefabInstance:
       propertyPath: soundCollection
       value: 
       objectReference: {fileID: 11400000, guid: 8760b2fe631724f46acf7ecd2da229dc,
+        type: 2}
+    - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: soundCollection_
+      value: 
+      objectReference: {fileID: 8351835124949227367, guid: 8760b2fe631724f46acf7ecd2da229dc,
         type: 2}
     - target: {fileID: 8066641660152872387, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}

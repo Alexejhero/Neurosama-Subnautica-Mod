@@ -13,7 +13,7 @@ namespace SCHIZO.Events.Ermcon
         [Tooltip("Affects how long the creature will stay focused on one target as well as the con itself. The relationship is non-linear.")]
         public float patience = 10f;
 
-        [SerializeField] private SoundCollection pickupDeniedSounds;
+        [SerializeField] private SoundCollectionInstance pickupDeniedSounds;
         [SerializeField] private _FMOD_CustomEmitter emitter;
 
         private bool ForceDisable()

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using HarmonyLib;
+using Nautilus.FMod;
 using Nautilus.Handlers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds;

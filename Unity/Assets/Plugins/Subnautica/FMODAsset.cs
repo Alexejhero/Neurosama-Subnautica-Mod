@@ -1,8 +1,7 @@
-﻿using UnityEngine;
+﻿using SCHIZO.Interop.Subnautica;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "Subnautica/FMOD Asset")]
-public class FMODAsset : ScriptableObject
+public class FMODAsset : _FMODAsset
 {
-    public string path;
-    public string id;
 }

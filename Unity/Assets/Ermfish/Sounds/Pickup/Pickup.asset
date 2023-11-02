@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
   m_Name: Pickup
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   sounds:
   - {fileID: 8300000, guid: 639bdeb94ec1cd140ad945633575a309, type: 3}
   - {fileID: 8300000, guid: 1c61e91d60f98914fb4a6b837be87b45, type: 3}
@@ -36,3 +36,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 380f9acf27ee04f45a099c0dfbb09f2d, type: 3}
   - {fileID: 8300000, guid: 65a772dd77e1dde458194ceafe416cae, type: 3}
   - {fileID: 8300000, guid: 9ffcda48d956de04ca489083e233db5e, type: 3}
+--- !u!114 &8458760947928161761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5191dfd75c432c9713c5321302eadd, type: 3}
+  m_Name: Pickup (PDAVoice)
+  m_EditorClassIdentifier: 
+  path: 
+  id: 
+  collection: {fileID: 11400000}
+  bus: 0
