@@ -15,10 +15,11 @@ namespace SCHIZO.Sounds.Players
         [SerializeField, Dropdown(nameof(buses)), ShowIf(nameof(NeedsBus)), UsedImplicitly]
         protected string bus;
 
-        [SerializeField, Required("If unset, sounds will play in 2D on the player."), UsedImplicitly]
+        [SerializeField, ShowIf(nameof(Is3D)), Required, UsedImplicitly]
         private _FMOD_CustomEmitter emitter;
 
         protected abstract string DefaultBus { get; }
+        protected abstract bool Is3D { get; }
 
         private bool NeedsBus => string.IsNullOrEmpty(DefaultBus);
 

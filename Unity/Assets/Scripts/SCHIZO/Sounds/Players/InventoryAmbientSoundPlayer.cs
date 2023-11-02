@@ -23,6 +23,7 @@ namespace SCHIZO.Sounds.Players
         private MonoBehaviour pickupable;
 
         protected override string DefaultBus => buses[PDA_VOICE];
+        protected override bool Is3D => false;
 
         private bool Validate_pickupable() => !pickupable || pickupable.GetComponentsInChildren<InventoryAmbientSoundPlayer>().Contains(this);
     }

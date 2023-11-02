@@ -25,8 +25,18 @@ public sealed class SoundCollectionInstance : SoundCollection
     }
 
     public override float LastPlay => _fmodSounds.LastPlay;
-    public override void Play2D(float delay = 0) => _fmodSounds.Play2D(delay);
-    public override void Play(FMOD_CustomEmitter emitter, float delay = 0) => _fmodSounds.Play(emitter, delay);
+
+    public override void Play2D(float delay = 0)
+    {
+        _fmodSounds.Play2D(delay);
+    }
+
+    public override void Play(FMOD_CustomEmitter emitter, float delay = 0)
+    {
+        if (!emitter) throw new ArgumentNullException(nameof(emitter));
+        _fmodSounds.Play(emitter, delay);
+    }
+
     public override void CancelAllDelayed() => _fmodSounds.CancelAllDelayed();
 
     [Obsolete("SoundCollectionInstance does not support enumerating sounds", true)]
