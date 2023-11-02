@@ -20,14 +20,3 @@ namespace SCHIZO.Items.FumoItem
         public Vector3 spawnRotationBZ;
     }
 }
-
-#if UNITY_EDITOR
-namespace SCHIZO.Items.Data
-{
-    public partial class ItemData
-    {
-        [ContextMenu("Set Loader/Fumo Item")]
-        private void CreateFumoItemLoader() => AssignItemLoader(CreateInstance<FumoItem.FumoItemLoader>());
-    }
-}
-#endif
