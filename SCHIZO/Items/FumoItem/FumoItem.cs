@@ -16,13 +16,8 @@ public sealed class FumoItem : UnityPrefab
         CraftDataHandler.SetQuickSlotType(ModItem, QuickSlotType.Selectable);
 
         base.Register();
-    }
-
-    protected override void PostRegister()
-    {
 #if BELOWZERO
-        Nautilus.Handlers.CraftDataHandler.SetColdResistance(ModItem, 20);
+        CraftDataHandler.SetColdResistance(ModItem, 20);
 #endif
-        base.PostRegister();
     }
 }
