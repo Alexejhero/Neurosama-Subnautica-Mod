@@ -1,7 +1,7 @@
 using NaughtyAttributes;
-using SCHIZO.Attributes.Visual;
 using SCHIZO.Registering;
 using JetBrains.Annotations;
+using SCHIZO.Attributes.Visual;
 using UnityEngine;
 
 namespace SCHIZO.Jukebox

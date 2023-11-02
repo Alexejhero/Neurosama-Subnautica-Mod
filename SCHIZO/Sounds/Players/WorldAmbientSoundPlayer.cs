@@ -7,8 +7,9 @@ partial class WorldAmbientSoundPlayer
 {
     private float _timer = -1;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         ResetTimer();
     }
 
@@ -28,7 +29,7 @@ partial class WorldAmbientSoundPlayer
 
     private void ResetTimer()
     {
-        _timer = Random.Range(SoundConfig.Provider.MinWorldSoundDelay, SoundConfig.Provider.MaxWorldSoundDelay);
+        _timer = Random.Range(MinDelay.GetValue(), MaxDelay.GetValue());
     }
 
     [UsedImplicitly]

@@ -1,10 +1,10 @@
 ﻿using System;
 using NaughtyAttributes;
-using SCHIZO.Attributes.Validation;
 using SCHIZO.Helpers;
 using SCHIZO.Interop.Subnautica.Enums;
 using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using SCHIZO.Registering;
+using SCHIZO.Attributes.Validation;
 using UnityEngine;
 
 namespace SCHIZO.Interop.NaughtyAttributes

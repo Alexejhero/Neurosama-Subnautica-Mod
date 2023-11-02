@@ -14,23 +14,26 @@
 
         <PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
         <PackageReference Include="Krafs.Publicizer" Version="2.2.1" PrivateAssets="all" />
+        <PackageReference Include="PolySharp" Version="1.13.2" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
         <Publicize Include="ECCLibrary:ECCLibrary.ObjectReferences" />
         <Publicize Include="Nautilus:Nautilus.Commands.Parameter" />
         <Publicize Include="Nautilus:Nautilus.Commands.Parameter.TypeConverters" />
+        <Publicize Include="Nautilus:Nautilus.Options.ModOptions._options" />
     </ItemGroup>
-    
+
     <ItemGroup>
         <Compile Include="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.cs">
             <DependentUpon>%(FileName).cs</DependentUpon>
         </Compile>
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.Unity.cs" />
 
-        <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/_old/**/*.cs" />
-        <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/Materials/**/*.cs" />
-
+        <Folder Include="Attributes" />
+        <Folder Include="Attributes/Typing" />
+        <Folder Include="Attributes/Validation" />
+        <Folder Include="Attributes/Visual" />
         <Folder Include="Utilities" />
     </ItemGroup>
 
@@ -50,15 +53,6 @@
             <DependentUpon>%(FileName)</DependentUpon>
         </Compile>
     </ItemGroup>
-
-<!--    <Target Name="EmbedNuGetDlls" AfterTargets="ResolveReferences">
-        <ItemGroup>
-            <EmbeddedResource Include="@(ReferencePath)" Condition="$([System.String]::new('%(FullPath)').StartsWith($(NuGetPackageRoot)))">
-                <LinkBase>Resources/Packages</LinkBase>
-                <LogicalName>%(FileName)%(Extension)</LogicalName>
-            </EmbeddedResource>
-        </ItemGroup>
-    </Target>-->
 
     <ItemGroup>
         <Compile Remove="_old/**" />

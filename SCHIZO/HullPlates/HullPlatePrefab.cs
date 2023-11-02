@@ -45,7 +45,7 @@ public sealed class HullPlatePrefab : CustomPrefab
         GameObject instance = GameObject.Instantiate(task.GetResult());
         TextureHider hider = instance.AddComponent<TextureHider>();
         MeshRenderer mesh = instance.FindChild("Icon").GetComponent<MeshRenderer>();
-        mesh.material.mainTexture = !_hullPlate.deprecated ? _hullPlate.texture : _loader.deprecatedTexture;
+        mesh.material.mainTexture = _hullPlate.texture !?? _loader.missingTexture;
         mesh.enabled = false;
         hider.rend = mesh;
         instance.name = _hullPlate.classId;

@@ -5,11 +5,9 @@ using BepInEx;
 using BepInEx.Logging;
 using ECCLibrary;
 using HarmonyLib;
-using Nautilus.Handlers;
 using SCHIZO.ConsoleCommands;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
-using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO;
@@ -22,8 +20,6 @@ public sealed class Plugin : BaseUnityPlugin
     public static ManualLogSource LOGGER { get; private set; }
     public static Harmony HARMONY { get; private set; }
 
-    public static readonly Config CONFIG = OptionsPanelHandler.RegisterModOptions<Config>();
-
     private void Awake()
     {
         PLUGIN_ASSEMBLY = Assembly.GetExecutingAssembly();
@@ -32,8 +28,6 @@ public sealed class Plugin : BaseUnityPlugin
         HARMONY = new Harmony("SCHIZO");
 
         ResourceManager.InjectAssemblies();
-
-        SoundConfig.Provider = CONFIG;
     }
 
     private IEnumerator Start()

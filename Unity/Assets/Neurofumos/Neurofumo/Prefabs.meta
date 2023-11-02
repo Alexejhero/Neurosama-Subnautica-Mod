@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Unity/Assets/Neurofumos/Neurofumo/Prefabs.meta
 guid: 4b5489b244f9b3847ad7b4f4ea7b8c4d
+========
+guid: 3a592b50667521141b1c8a76b118577a
+>>>>>>>> main:Unity/Assets/Tutel/Prefabs.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

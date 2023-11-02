@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Unity/Assets/Neurofumos/Neurofumo/Neurofumo item.prefab.meta
 guid: d6b80c3071433c34084905466e4bbfc0
 PrefabImporter:
+========
+guid: 49e476f249494de469eae3237afe7720
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> main:Unity/Assets/Tutel.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

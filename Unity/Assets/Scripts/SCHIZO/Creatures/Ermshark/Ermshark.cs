@@ -1,10 +1,9 @@
 ﻿using JetBrains.Annotations;
 using NaughtyAttributes;
-using SCHIZO.Attributes.Typing;
-using SCHIZO.Creatures.Components;
 using SCHIZO.Interop.Subnautica;
+using SCHIZO.Attributes.Typing;
+using SCHIZO.Sounds.Players;
 using UnityEngine;
-using WorldAmbientSoundPlayer = SCHIZO.Sounds.Players.WorldAmbientSoundPlayer;
 
 namespace SCHIZO.Creatures.Ermshark
 {

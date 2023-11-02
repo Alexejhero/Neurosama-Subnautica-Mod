@@ -5,7 +5,7 @@ namespace SCHIZO.Sounds.Players;
 
 partial class SoundPlayer
 {
-    protected void Awake()
+    protected virtual void Awake()
     {
         string busOrFieldPath = string.IsNullOrEmpty(bus) ? DefaultBus : bus;
         if (string.IsNullOrEmpty(busOrFieldPath)) throw new InvalidOperationException($"No bus assigned to {this}");
@@ -19,7 +19,6 @@ partial class SoundPlayer
 
     public void Play(float delay = 0)
     {
-        if (Is3D) soundCollection.Play(emitter, delay);
-        else soundCollection.Play2D(delay);
+        soundCollection.Play(emitter, delay);
     }
 }

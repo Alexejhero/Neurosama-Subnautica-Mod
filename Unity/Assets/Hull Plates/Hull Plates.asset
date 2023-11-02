@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hull Plates
   m_EditorClassIdentifier: 
   hiddenIcon: {fileID: 2800000, guid: dd5922de232c21945906cdb82544b37f, type: 3}
-  deprecatedTexture: {fileID: 2800000, guid: 0457474d9d252ec498deb1383627ee73, type: 3}
+  missingTexture: {fileID: 2800000, guid: 0457474d9d252ec498deb1383627ee73, type: 3}
   recipeRegular: {fileID: 11400000, guid: eb747c3fc3542114ea823cd15845eb74, type: 2}
   recipeExpensive: {fileID: 11400000, guid: d07d6c16988f32246b2694d21eed46f2, type: 2}
   hullPlates:
@@ -47,7 +47,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 19b3067166588fd4e8460e90e9764e75, type: 2}
   - {fileID: 11400000, guid: e274a35d99ee08a4788c3cf57c411a3b, type: 2}
   - {fileID: 11400000, guid: b03da6f8c8591e247b7686855b2dfe1e, type: 2}
-  - {fileID: 11400000, guid: 2510bfd2f46d0754db35bba65bbe62b0, type: 2}
   - {fileID: 11400000, guid: 13fbd993bf278414eb7cf5b86afe00fc, type: 2}
   - {fileID: 11400000, guid: 0201f66af926ef148999964080d63fd9, type: 2}
   - {fileID: 11400000, guid: 258f6fc580677af4c8871b3d36c0bb38, type: 2}
@@ -55,3 +54,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f7ad85db237581143bbac2a1d906d87a, type: 2}
   - {fileID: 11400000, guid: 2a2b1d83faf5b7c4499aae0b352aef5b, type: 2}
   - {fileID: 11400000, guid: 806b4591842020b4197694c1358c690d, type: 2}
+  - {fileID: 11400000, guid: 2510bfd2f46d0754db35bba65bbe62b0, type: 2}

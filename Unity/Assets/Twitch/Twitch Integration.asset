@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f47c082d6147689e539c5e8f321c42, type: 3}
   m_Name: Twitch Integration
   m_EditorClassIdentifier: 
-  isSingleton: 0
+  isSingleton: 1
   scanForExisting: 0
   typeName: 
   methodName: Awake
   _isBaseType: 0
   targetTypeName: 
   mode: 1
-  prefab: {fileID: 0}
+  prefab: {fileID: 6294940666108985101, guid: 93c6327136fb4024684518b8ab17c8b9, type: 3}

@@ -7,8 +7,9 @@ partial class InventoryAmbientSoundPlayer
 {
     private float _timer = -1;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         ResetTimer();
     }
 
@@ -27,7 +28,7 @@ partial class InventoryAmbientSoundPlayer
 
     private void ResetTimer()
     {
-        _timer = Random.Range(SoundConfig.Provider.MinInventorySoundDelay, SoundConfig.Provider.MaxInventorySoundDelay);
+        _timer = Random.Range(MinDelay.GetValue(), MaxDelay.GetValue());
     }
 
     [UsedImplicitly]

@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
+  m_Name: Cured Tutel
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 8973758568297860682, guid: f92f2a0ec1fde024bab489b2b46291d6, type: 3}
+  classId: curedtutel
+  displayName: Cured Tutel
+  tooltip: 'that''s messed up
+
+    <size=75%>(Model by FutabaKuuhaku)</size>'
+  icon: {fileID: 21300000, guid: ff24f3583d43776489fa6158cbd6c4ec, type: 3}
+  itemSize: {x: 1, y: 1}
+  isCraftable: 1
+  isBuildable: 0
+  craftingTime: 2.5
+  itemSounds: {fileID: 11400000, guid: 848cf4fb2ef44a84987c76d50f291e0d, type: 2}
+  registerInSN: 1
+  recipeSN: {fileID: 11400000, guid: 9fd545594daae3246852dd2099a18f5f, type: 2}
+  craftTreeTypeSN: 1
+  craftTreePathSN: Survival/CuredFood
+  techGroupSN: 1
+  techCategorySN: 5
+  pdaEncyclopediaInfoSN: {fileID: 0}
+  knownTechInfoSN: {fileID: 0}
+  unlockAtStartSN: 0
+  requiredForUnlockSN:
+    isCustom: 1
+    techType: 0
+    itemData: {fileID: 11400000, guid: 924564253d3567248a3ebf67ddbb420c, type: 2}
+  registerInBZ: 1
+  recipeBZ: {fileID: 11400000, guid: 9fd545594daae3246852dd2099a18f5f, type: 2}
+  canBeRecycledBZ: 0
+  craftTreeTypeBZ: 1
+  craftTreePathBZ: Survival/CuredFood
+  techGroupBZ: 13
+  techCategoryBZ: 0
+  pdaEncyclopediaInfoBZ: {fileID: 0}
+  knownTechInfoBZ: {fileID: 0}
+  soundTypeBZ: 31
+  unlockAtStartBZ: 0
+  requiredForUnlockBZ:
+    isCustom: 1
+    techType: 0
+    itemData: {fileID: 11400000, guid: 924564253d3567248a3ebf67ddbb420c, type: 2}

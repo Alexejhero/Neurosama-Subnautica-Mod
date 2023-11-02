@@ -1,4 +1,8 @@
-﻿using SCHIZO.Attributes.Visual;
+﻿using System;
+using System.Reflection;
+using HarmonyLib;
+using SCHIZO.Attributes.Visual;
+using SCHIZO.Items.Data.Crafting;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,7 +25,11 @@ namespace Editor.Scripts.PropertyDrawers
 
             using (new EditorGUI.DisabledScope(!_opened))
             {
-                EditorGUI.PropertyField(strRect, property, GUIContent.none);
+                Type type = property.serializedObject.targetObject.GetType();
+                FieldInfo field = AccessTools.Field(type, property.name);
+
+                if (field.FieldType == typeof(Item)) ItemDrawer.DrawItem(property, strRect);
+                else EditorGUI.PropertyField(strRect, property, GUIContent.none);
             }
 
             using (new EditorGUI.DisabledScope(_opened))

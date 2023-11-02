@@ -48,6 +48,7 @@ MonoBehaviour:
   isCraftable: 0
   isBuildable: 0
   craftingTime: 2.5
+  itemSounds: {fileID: 11400000, guid: bfb77f100ed7e6e4fb42c9b05bcb00af, type: 2}
   registerInSN: 1
   recipeSN: {fileID: 0}
   craftTreeTypeSN: 0
@@ -72,6 +73,7 @@ MonoBehaviour:
   pdaEncyclopediaInfoBZ: {fileID: 11400000, guid: 8b76d116f9af8fc499d4c055bf652966,
     type: 2}
   knownTechInfoBZ: {fileID: 11400000, guid: 89b8b3505e3ad2e48b2f9b7c378e4bbe, type: 2}
+  soundTypeBZ: 31
   unlockAtStartBZ: 1
   requiredForUnlockBZ:
     isCustom: 0
@@ -81,4 +83,4 @@ MonoBehaviour:
   isPickupable: 1
   behaviourType: 2
   acidImmune: 1
-  bioReactorCharge: 0
+  bioReactorCharge: 200

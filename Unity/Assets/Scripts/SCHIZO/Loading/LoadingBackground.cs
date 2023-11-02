@@ -1,5 +1,5 @@
-﻿using SCHIZO.Attributes.Visual;
-using SCHIZO.Registering;
+﻿using SCHIZO.Registering;
+using SCHIZO.Attributes.Visual;
 using UnityEngine;
 
 namespace SCHIZO.Loading

@@ -1,11 +1,12 @@
 ﻿using JetBrains.Annotations;
 using NaughtyAttributes;
-using SCHIZO.Attributes.Visual;
 using SCHIZO.Interop.Subnautica.Enums;
 using SCHIZO.Interop.Subnautica.Enums.BelowZero;
 using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using SCHIZO.Items.Data.Crafting;
 using SCHIZO.Registering;
+using SCHIZO.Attributes.Visual;
+using SCHIZO.Sounds;
 using UnityEngine;
 using UnityEngine.Serialization;
 using static NaughtyAttributes.EConditionOperator;
@@ -29,13 +30,13 @@ namespace SCHIZO.Items.Data
         [CommonData, ShowIf(nameof(ShowPickupableProps)), Required]
         public Sprite icon;
 
-        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable))]
+        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable)), Careful]
         public Vector2Int itemSize = new Vector2Int(1, 1);
 
-        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable))]
+        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable)), Careful]
         public bool isCraftable;
 
-        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isCraftable))]
+        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isCraftable)), Careful]
         public bool isBuildable;
 
         [CommonData, ShowIf(nameof(IsActuallyCraftable))]
@@ -44,12 +45,16 @@ namespace SCHIZO.Items.Data
         [CommonData, ReadOnly]
         public ItemLoader loader;
 
+
+        [CommonData, ShowIf(nameof(Sounds_ShowIf))]
+        public ItemSounds itemSounds;
+
         #region Subnautica Data
 
-        [SNData, Label("Register")]
+        [SNData, Label("Register"), SerializeField, Careful]
         public bool registerInSN = true;
 
-        [SNData, Label("Recipe"), SerializeField, ShowIf(And, nameof(registerInSN), nameof(IsBuildableOrCraftable))]
+        [SNData, Label("Recipe"), SerializeField, ShowIf(And, nameof(registerInSN), nameof(IsBuildableOrCraftable)), Careful]
         private Recipe recipeSN;
 
         [SNData, Label("Craft Tree"), ShowIf(And, nameof(registerInSN), nameof(IsActuallyCraftable)), SerializeField]
@@ -70,20 +75,20 @@ namespace SCHIZO.Items.Data
         [SNData, Label("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInSN), nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoSN;
 
-        [SNData, Label("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInSN), nameof(IsBuildableOrCraftable))]
+        [SNData, Label("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInSN), nameof(IsBuildableOrCraftable)), Careful]
         private bool unlockAtStartSN = true;
 
-        [SNData, Label("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInSN), nameof(requiredForUnlockSN_ShowIf))]
+        [SNData, Label("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInSN), nameof(requiredForUnlockSN_ShowIf)), Careful]
         private Item requiredForUnlockSN;
 
         #endregion
 
         #region Below Zero Data
 
-        [BZData, Label("Register")]
+        [BZData, Label("Register"), SerializeField, Careful]
         public bool registerInBZ = true;
 
-        [BZData, Label("Recipe"), SerializeField, ShowIf(And, nameof(registerInBZ), nameof(IsBuildableOrCraftable))]
+        [BZData, Label("Recipe"), SerializeField, ShowIf(And, nameof(registerInBZ), nameof(IsBuildableOrCraftable)), Careful]
         private Recipe recipeBZ;
 
         [BZData, Label("Can Be Recycled"), ShowIf(And, nameof(registerInBZ), nameof(IsActuallyCraftable))]
@@ -107,10 +112,13 @@ namespace SCHIZO.Items.Data
         [BZData, Label("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoBZ;
 
-        [BZData, Label("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(IsBuildableOrCraftable))]
+        [BZData, Label("Sound Type"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(Sounds_ShowIf))]
+        private TechData_SoundType_BZ soundTypeBZ;
+
+        [BZData, Label("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(IsBuildableOrCraftable)), Careful]
         private bool unlockAtStartBZ = true;
 
-        [BZData, Label("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(requiredForUnlockBZ_ShowIf))]
+        [BZData, Label("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(requiredForUnlockBZ_ShowIf)), Careful]
         private Item requiredForUnlockBZ;
 
         #endregion
@@ -128,6 +136,8 @@ namespace SCHIZO.Items.Data
 
         private bool requiredForUnlockSN_ShowIf() => !unlockAtStartSN && IsBuildableOrCraftable();
         private bool requiredForUnlockBZ_ShowIf() => !unlockAtStartBZ && IsBuildableOrCraftable();
+
+        private bool Sounds_ShowIf() => ShowPickupableProps() && !isBuildable;
 
         protected virtual bool ShowPickupableProps() => true;
         private bool HidePickupableProps() => !ShowPickupableProps();

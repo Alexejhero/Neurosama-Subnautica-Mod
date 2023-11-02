@@ -13,7 +13,6 @@ public partial class GameEvent : IStoryGoalListener
     public bool IsFirstTime { get; private set; } = true;
 
     protected Player player;
-    protected GameEventsManager config;
     protected string RequiredStoryGoal => RetargetHelpers.Pick(requiredStoryGoal_SN, requiredStoryGoal_BZ);
     protected bool IsUnlocked { get; private set; }
     public StoryGoals Goals { get; private set; }
@@ -23,7 +22,6 @@ public partial class GameEvent : IStoryGoalListener
     {
         Goals = new StoryGoals(this);
         player = Player.main;
-        config = GetComponent<GameEventsManager>();
 
         StoryGoalManager.main.AddListener(this);
         if (StoryGoalHelpers.IsCompleted(Goals.FirstTime)) IsFirstTime = false;
@@ -97,7 +95,7 @@ public partial class GameEvent : IStoryGoalListener
         else
         {
             bool ableToAutoStart = canAutoStart
-                && config.AutoStartEvents
+                && GameEventsManager.AutoStart
                 && IsUnlocked;
             if (ableToAutoStart && ShouldStartEvent()) StartEvent();
         }
