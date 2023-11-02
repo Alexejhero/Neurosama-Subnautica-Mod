@@ -9,7 +9,7 @@ namespace SCHIZO.Creatures.Ermshark
     public sealed partial class ErmsharkAttack : _MeleeAttack
     {
         [BoxGroup("Sounds"), SerializeField, Required, UsedImplicitly]
-        private SoundCollection attackSounds;
+        private SoundCollectionInstance attackSounds;
 
         [BoxGroup("Sounds"), SerializeField, Required, UsedImplicitly]
         private _FMOD_CustomEmitter emitter;

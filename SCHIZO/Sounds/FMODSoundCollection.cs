@@ -23,10 +23,12 @@ public sealed class FMODSoundCollection
         Voice,
         Ambient
     }
+
     private static readonly Dictionary<string, FMODSoundCollection> _cache = new();
 
     private readonly string _busName;
     private readonly List<string> _sounds = new();
+    private readonly List<Channel> _channels = new();
 
     private bool _ready;
     private RandomList<string> _randomSounds;
@@ -123,6 +125,18 @@ public sealed class FMODSoundCollection
         }
     }
 
+    public void Stop()
+    {
+        if (!Initialize()) return;
+        if (Assets.Options_DisableAllSounds.Value) return;
+
+        foreach (Channel channel in _channels)
+        {
+            channel.stop();
+        }
+        ClearChannelsCache();
+    }
+
     private void PlaySound(FMOD_CustomEmitter emitter = null)
     {
         LastPlay = Time.time;
@@ -139,7 +153,19 @@ public sealed class FMODSoundCollection
             CustomSoundHandler.TryPlayCustomSound(sound, out Channel channel);
             channel.setVolume(GetVolumeFor(GetVCAForBus(_busName)));
             channel.set3DLevel(0);
+
+            ClearChannelsCache();
+            _channels.Add(channel);
         }
+    }
+
+    private void ClearChannelsCache()
+    {
+        _channels.RemoveAll(c =>
+        {
+            RESULT result = c.isPlaying(out bool isPlaying);
+            return result != RESULT.OK || !isPlaying;
+        });
     }
 
     private static VCA GetVCAForBus(string bus)

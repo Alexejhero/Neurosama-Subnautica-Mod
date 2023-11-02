@@ -10,7 +10,6 @@ namespace SCHIZO.Sounds.Collections
         [SerializeField, ReorderableList, ShowIf(nameof(ShowAudioClipList))] private List<AudioClip> sounds;
 
         public virtual IEnumerable<AudioClip> GetSounds() => sounds;
-
         protected virtual bool ShowAudioClipList => true;
     }
 }

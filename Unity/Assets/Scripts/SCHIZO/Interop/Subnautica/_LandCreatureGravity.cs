@@ -3,7 +3,7 @@
 namespace SCHIZO.Interop.Subnautica
 {
     [ActualType("LandCreatureGravity")]
-    public abstract partial class _LandCreatureGravity
+    public partial class _LandCreatureGravity
     {
     }
 }

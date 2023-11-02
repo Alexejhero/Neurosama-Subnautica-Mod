@@ -241,7 +241,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   minActionCheckInterval: -1
   patience: 5
-  pickupDeniedSounds: {fileID: 11400000, guid: a9990fe6122b54044a82b0e0f21b27bb, type: 2}
+  pickupDeniedSounds: {fileID: 4185819974502500907, guid: a9990fe6122b54044a82b0e0f21b27bb,
+    type: 2}
   emitter: {fileID: 5648931341203019549}
 --- !u!114 &-906797858269330932
 MonoBehaviour:
@@ -701,6 +702,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 4f47d8b7127a0234ea057da7472d7808,
         type: 2}
+    - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: soundCollection_
+      value: 
+      objectReference: {fileID: 3464179523288004460, guid: 4f47d8b7127a0234ea057da7472d7808,
+        type: 2}
     - target: {fileID: 3015870805474854860, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: swimVelocity
@@ -721,6 +728,12 @@ PrefabInstance:
       propertyPath: soundCollection
       value: 
       objectReference: {fileID: 11400000, guid: 2b7bde06469e9fc49911f3cac3ffa231,
+        type: 2}
+    - target: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: soundCollection_
+      value: 
+      objectReference: {fileID: -1178557504063532876, guid: 2b7bde06469e9fc49911f3cac3ffa231,
         type: 2}
     - target: {fileID: 3919769461741374411, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
@@ -827,6 +840,12 @@ PrefabInstance:
       propertyPath: soundCollection
       value: 
       objectReference: {fileID: 11400000, guid: 2b7bde06469e9fc49911f3cac3ffa231,
+        type: 2}
+    - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: soundCollection_
+      value: 
+      objectReference: {fileID: -1161355378763634503, guid: 2b7bde06469e9fc49911f3cac3ffa231,
         type: 2}
     - target: {fileID: 8066641660152872387, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}

@@ -7,9 +7,8 @@ partial class InventoryAmbientSoundPlayer
 {
     private float _timer = -1;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         ResetTimer();
     }
 

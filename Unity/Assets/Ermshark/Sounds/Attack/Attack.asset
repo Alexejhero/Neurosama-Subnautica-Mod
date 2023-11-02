@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-651457221615391217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5191dfd75c432c9713c5321302eadd, type: 3}
+  m_Name: Attack (UnderwaterCreatures)
+  m_EditorClassIdentifier: 
+  path: 
+  id: 
+  collection: {fileID: 11400000}
+  bus: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11,7 +27,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
   m_Name: Attack
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   sounds:
   - {fileID: 8300000, guid: 98897a51a3b4eb946999cc85dff0b21b, type: 3}
   - {fileID: 8300000, guid: 1267b704d3ab81d4e855e082bcd4be21, type: 3}

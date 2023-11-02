@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
   m_Name: Tutel Ambient
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   sounds:
   - {fileID: 8300000, guid: e358a5ae11b0a17459898e1fd51ee966, type: 3}
   - {fileID: 8300000, guid: 10548ba76630b7641920b4f7e061b37e, type: 3}
@@ -30,3 +30,51 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ed1fb3943faaaf9499ad04b04bc3f804, type: 3}
   - {fileID: 8300000, guid: b5a82e6adc7e4c34bae2bce7d12ec6e6, type: 3}
   - {fileID: 8300000, guid: 0b77b3317b7557a4a8d68fa1a4b7369f, type: 3}
+--- !u!114 &1227164057349306871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5191dfd75c432c9713c5321302eadd, type: 3}
+  m_Name: Tutel Ambient (PDAVoice)
+  m_EditorClassIdentifier: 
+  path: 
+  id: 
+  collection: {fileID: 11400000}
+  bus: 0
+--- !u!114 &7432590903470703826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5191dfd75c432c9713c5321302eadd, type: 3}
+  m_Name: Tutel Ambient (IndoorSounds)
+  m_EditorClassIdentifier: 
+  path: 
+  id: 
+  collection: {fileID: 11400000}
+  bus: 2
+--- !u!114 &8351835124949227367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5191dfd75c432c9713c5321302eadd, type: 3}
+  m_Name: Tutel Ambient (UnderwaterCreatures)
+  m_EditorClassIdentifier: 
+  path: 
+  id: 
+  collection: {fileID: 11400000}
+  bus: 1

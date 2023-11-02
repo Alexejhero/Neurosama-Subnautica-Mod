@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundCollection: {fileID: 11400000, guid: 8760b2fe631724f46acf7ecd2da229dc, type: 2}
+  soundCollection_: {fileID: 7432590903470703826, guid: 8760b2fe631724f46acf7ecd2da229dc,
+    type: 2}
   bus: SCHIZO.Sounds.Players.SoundPlayer:INDOOR_SOUNDS_BUS
   emitter: {fileID: 196760604283640930}
   minDelayDefault: {fileID: 0}
