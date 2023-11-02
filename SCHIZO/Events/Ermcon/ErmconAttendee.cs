@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Nautilus.Utility;
 using UnityEngine;
 
 namespace SCHIZO.Events.Ermcon;
@@ -50,7 +49,6 @@ public partial class ErmconAttendee : IHandTarget
         // "meta"-priority - this number determines the order in which actions get *evaluated*
         // and the priority obtained from Evaluate() actually determines which action gets *performed*
         evaluatePriority = 99f;
-        pickupDeniedSounds = pickupDeniedSounds!?.Initialize(AudioUtils.BusPaths.UnderwaterCreatures);
     }
     public void OnHandHover(GUIHand hand)
     {

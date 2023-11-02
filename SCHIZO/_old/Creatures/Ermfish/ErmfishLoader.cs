@@ -17,11 +17,6 @@ public sealed class ErmfishLoader : PickupableCreatureLoader<PickupableCreatureD
     public static readonly SoundPlayer PlayerDeathSounds = new(Assets.Erm_Sounds_PlayerDeath_ErmfishPlayerDeath,
         IS_BELOWZERO ? "bus:/master/SFX_for_pause" : "bus:/master/SFX_for_pause/nofilter");
 
-    public ErmfishLoader() : base(Assets.Erm_ErmfishData)
-    {
-        VFXFabricatingData = new VFXFabricatingData("VM/model", -0.255f, 0.67275f, new Vector3(0, 0.22425f), 0.1f, new Vector3(0, -180, 0));
-    }
-
     protected override IEnumerable<LootDistributionData.BiomeData> GetLootDistributionData()
     {
         foreach (BiomeType biome in BiomeHelpers.GetOpenWaterBiomes())

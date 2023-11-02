@@ -7,21 +7,21 @@ namespace SCHIZO.Sounds
     [CreateAssetMenu(menuName = "SCHIZO/Sounds/Item Sounds")]
     public sealed partial class ItemSounds : NaughtyScriptableObject
     {
-        public SoundCollection pickupSounds;
-        public SoundCollection dropSounds;
+        public SoundCollectionInstance pickupSounds;
+        public SoundCollectionInstance dropSounds;
 
         [Space]
 
-        public SoundCollection drawSounds;
-        public SoundCollection holsterSounds;
+        public SoundCollectionInstance drawSounds;
+        public SoundCollectionInstance holsterSounds;
 
         [Space]
 
-        public SoundCollection cookSounds;
-        public SoundCollection eatSounds;
+        public SoundCollectionInstance cookSounds;
+        public SoundCollectionInstance eatSounds;
 
         [Space]
 
-        public SoundCollection playerDeathSounds;
+        public SoundCollectionInstance playerDeathSounds;
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Nautilus.Utility;
 using SCHIZO.Sounds.Players;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -20,18 +19,15 @@ partial class GetCarried
         typeof(Rigidbody),
     };
 
-    private const string BUS = AudioUtils.BusPaths.UnderwaterCreatures;
     public override void Awake()
     {
         base.Awake();
         // contrary to the name, this is actually the max possible priority
         // full explanation here <see cref="Events.Ermcon.ErmconAttendee.Awake"/>
         evaluatePriority = 99f;
-        pickupSounds = pickupSounds!?.Initialize(BUS);
-        carrySounds = carrySounds!?.Initialize(BUS);
-        releaseSounds = releaseSounds!?.Initialize(BUS);
         _disabledComponents = new List<(MonoBehaviour component, bool wasEnabled)>();
     }
+
     public override float Evaluate(float time) => isCarried ? 99f : -99f; // manual start/end
 
     private void DisableComponents()

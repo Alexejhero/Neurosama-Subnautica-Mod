@@ -1,4 +1,3 @@
-using Nautilus.Utility;
 using SCHIZO.Creatures.Components;
 using UnityEngine;
 
@@ -6,11 +5,6 @@ namespace SCHIZO.Creatures.Ermshark;
 
 partial class ErmsharkAttack
 {
-    private void Awake()
-    {
-        attackSounds = attackSounds!?.Initialize(AudioUtils.BusPaths.UnderwaterCreatures);
-    }
-
     public override void OnTouch(Collider collider)
     {
         if (!enabled) return;

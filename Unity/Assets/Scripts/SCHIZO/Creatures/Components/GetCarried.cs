@@ -14,10 +14,10 @@ namespace SCHIZO.Creatures.Components
         [BoxGroup("Sounds")]
         public float carryNoiseInterval = 5f;
         [BoxGroup("Sounds")]
-        public SoundCollection pickupSounds;
+        public SoundCollectionInstance pickupSounds;
         [BoxGroup("Sounds")]
-        public SoundCollection carrySounds;
+        public SoundCollectionInstance carrySounds;
         [BoxGroup("Sounds")]
-        public SoundCollection releaseSounds;
+        public SoundCollectionInstance releaseSounds;
     }
 }

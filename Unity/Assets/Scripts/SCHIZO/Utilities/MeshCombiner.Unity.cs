@@ -60,6 +60,7 @@ namespace SCHIZO.Utilities
             _combinedMesh.CombineMeshes(move);
 
             EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssets();
         }
 #endif
     }

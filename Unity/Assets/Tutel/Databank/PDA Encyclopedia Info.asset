@@ -15,7 +15,8 @@ MonoBehaviour:
   scanTime: 5
   unlockSprite: {fileID: 21300000, guid: 3b57e6f5b26fa7645b62b4b09d12d18e, type: 3}
   isImportantUnlock: 0
-  scanSounds: {fileID: 11400000, guid: ef492aad68c54354fbddb8f880c89f34, type: 2}
+  scanSounds: {fileID: 5553836039373703376, guid: ef492aad68c54354fbddb8f880c89f34,
+    type: 2}
   encyPath: Lifeforms/Fauna/SmallHerbivores
   title: Tutel
   texture: {fileID: 2800000, guid: 7b273e37743f05b4d9823beffcd9c2a6, type: 3}
