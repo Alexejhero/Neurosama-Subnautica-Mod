@@ -1,24 +1,18 @@
 using UnityEngine;
 using UWE;
 
-namespace SCHIZO.Effects_test
+namespace SCHIZO.SchizoVFX
 {
-    public partial class SchizoEffect
+    public partial class SchizoVFXComponent
     {
         public void Awake()
         {
             ImageEffectWithEvents eff = Camera.main.gameObject.GetComponent<ImageEffectWithEvents>();
             eff.afterOnRenderImage += DoEffect;
         }
-
-        private void Update()
-        {
-            Vector2 pos = Camera.main.WorldToScreenPoint(transform.position);
-            material.SetVector(0, new Vector4(pos.x, pos.y, 0, 0));
-        }
         private void DoEffect(RenderTexture source, RenderTexture destination)
         {
-            Graphics.Blit(source, destination, material);
+            Graphics.Blit(source, destination, effectMaterial);
         }
     }
 }
