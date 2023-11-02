@@ -1,5 +1,4 @@
 using System.Linq;
-using Nautilus.Utility;
 using SCHIZO.Creatures.Components;
 using SCHIZO.Helpers;
 using UnityEngine;
