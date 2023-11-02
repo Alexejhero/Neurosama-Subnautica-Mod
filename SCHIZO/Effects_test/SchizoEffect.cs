@@ -5,15 +5,18 @@ namespace SCHIZO.Effects_test
 {
     public partial class SchizoEffect
     {
-        ImageEffectWithEvents eff;
         public void Awake()
         {
-            eff = Camera.main.gameObject.GetComponent<ImageEffectWithEvents>();
-            eff.CheckShaderAndCreateMaterial(shader,material);
-            eff.afterOnRenderImage += effect;
+            ImageEffectWithEvents eff = Camera.main.gameObject.GetComponent<ImageEffectWithEvents>();
+            eff.afterOnRenderImage += DoEffect;
         }
 
-        private void effect(RenderTexture source, RenderTexture destination)
+        private void Update()
+        {
+            Vector2 pos = Camera.main.WorldToScreenPoint(transform.position);
+            material.SetVector(0, new Vector4(pos.x, pos.y, 0, 0));
+        }
+        private void DoEffect(RenderTexture source, RenderTexture destination)
         {
             Graphics.Blit(source, destination, material);
         }

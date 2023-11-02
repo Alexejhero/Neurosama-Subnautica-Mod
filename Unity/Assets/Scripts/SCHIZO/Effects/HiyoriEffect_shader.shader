@@ -4,7 +4,9 @@ Shader"Effects/HiyoriEffect"
     {
         [HideInInspector]
         _MainTex ("Texture", 2D) = "white" {}
-        _NoizeTex("Texture", 2D) = "white" {}
+        _NoizeTex ("Noize Texture", 2D) = "white" {}
+        [HideInInInspector]
+        _Position ("Position" , Vector) = (0,0,0,0)
     }
     SubShader
     {
@@ -18,7 +20,6 @@ Shader"Effects/HiyoriEffect"
             #pragma fragment frag
 
             #include "UnityCG.cginc"
-
             struct appdata
             {
                 float4 vertex : POSITION;
@@ -40,12 +41,15 @@ Shader"Effects/HiyoriEffect"
             }
 
             sampler2D _MainTex;
+            sampler2D _NoizeTex;
+            float2 _Position;
 
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
+                fixed4 colNoize = tex2D(_NoizeTex, _Position.xy);
                 // just invert the colors
-                col.rgb = 1 - col.rgb;
+                col.rgb += colNoize.rgb;
                 return col;
             }
             ENDCG
