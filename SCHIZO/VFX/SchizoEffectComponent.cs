@@ -7,8 +7,10 @@ namespace SCHIZO.SchizoVFX
     {
         public void Awake()
         {
-            ImageEffectWithEvents eff = Camera.main.gameObject.GetComponent<ImageEffectWithEvents>();
-            eff.afterOnRenderImage += DoEffect;
+            ImageEffectWithEvents eff = Camera.main.gameObject.AddComponent<ImageEffectWithEvents>();
+            eff.CheckResources();
+            eff.CheckShader(effectMaterial.shader);
+            eff.beforeOnRenderImage += DoEffect;
         }
         private void DoEffect(RenderTexture source, RenderTexture destination)
         {
