@@ -4,7 +4,7 @@ using UnityEngine;
 namespace SCHIZO.Creatures.Components;
 
 /// <summary>Adapted from <see cref="CollectShiny"/></summary>
-partial class CarryCreature : IOnTakeDamage
+partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
 {
     private GetCarried target;
     private bool targetPickedUp;
