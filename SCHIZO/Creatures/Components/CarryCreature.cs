@@ -1,9 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Components;
 
 /// <summary>Adapted from <see cref="CollectShiny"/></summary>
-partial class CarryCreature
+partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
 {
     private GetCarried target;
     private bool targetPickedUp;
@@ -12,6 +13,41 @@ partial class CarryCreature
     private static readonly EcoRegion.TargetFilter _isTargetValidFilter = target => target.GetGameObject().GetComponent<GetCarried>();
 
     public EcoTargetType EcoTargetType => (EcoTargetType) _ecoTargetType;
+
+    void IOnTakeDamage.OnTakeDamage(DamageInfo damageInfo)
+    {
+        if (damageInfo.damage > 0) Drop();
+    }
+
+    bool IOnMeleeAttack.HandleMeleeAttack(GameObject target)
+    {
+        // prevent bite after releasing
+        if (target.GetComponent<GetCarried>()) return true;
+
+        // pick up held creature instead of eating it
+        Player player = target.GetComponent<Player>();
+        if (!player) return false;
+
+        GameObject heldObject = Inventory.main.GetHeldObject();
+        if (!heldObject) return false;
+
+        GetCarried heldCarryable = heldObject.GetComponent<GetCarried>();
+        if (!heldCarryable) return false;
+
+        if (EcoTargetType != heldObject.GetComponent<IEcoTarget>()?.GetTargetType()) return false;
+
+        Inventory.main.DropHeldItem(false);
+        heldObject.SetActive(true); // really makes you think
+        StartCoroutine(DelayedPickupHack());
+        creature.SetFriend(player.gameObject, 120f);
+        return true;
+
+        IEnumerator DelayedPickupHack() // not sure how or why but WM sometimes doesn't get scaled correctly unless we wait a frame
+        {
+            yield return null;
+            TryPickup(heldCarryable);
+        }
+    }
 
     public override float Evaluate(float time)
     {
@@ -38,6 +74,7 @@ partial class CarryCreature
     private bool TryPickupTarget()
     {
         if (!target || !target.gameObject || !target.gameObject.activeInHierarchy) return false;
+        if (!target.CanBePickedUp()) return false;
 
         if (target.GetComponentInParent<Player>())
         {
@@ -56,11 +93,21 @@ partial class CarryCreature
         targetPickedUp = true;
 
         RepositionTarget(target);
+        StartCoroutine(DelayedReposition()); // some component just really likes running updates for a few frames after it gets disabled
 
         swimBehaviour.SwimTo(transform.position + Vector3.up + 5f * Random.onUnitSphere, Vector3.up, swimVelocity);
         timeNextUpdate = Time.time + 1f;
 
         return true;
+
+        IEnumerator DelayedReposition()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                yield return new WaitForSeconds(0.05f);
+                RepositionTarget(target);
+            }
+        }
     }
 
     private void RepositionTarget(GetCarried getCarried)
@@ -72,7 +119,7 @@ partial class CarryCreature
         Vector3 offset = getCarried.pickupPoint
             ? -getCarried.pickupPoint.localPosition
             : Vector3.zero;
-        offset.Scale(attachPoint.lossyScale);
+        offset.Scale(new Vector3(1f / targetTransform.localScale.x, 1f / targetTransform.localScale.y, 1f / targetTransform.localScale.z));
         targetTransform.localPosition = offset;
     }
 
@@ -90,7 +137,10 @@ partial class CarryCreature
     private void DropTarget(GameObject targetObject)
     {
         targetObject.transform.SetParent(null, true);
-        UWE.Utils.SetCollidersEnabled(targetObject, true);
+        GameObject colliderTarget = targetObject;
+        FPModel fpModel = targetObject.GetComponent<FPModel>();
+        if (fpModel) colliderTarget = fpModel.propModel;
+        UWE.Utils.SetCollidersEnabled(colliderTarget, true);
         UWE.Utils.SetIsKinematic(targetObject.GetComponent<Rigidbody>(), false);
         if (targetObject.GetComponent<LargeWorldEntity>() is { } lwe)
             LargeWorldStreamer.main!?.cellManager.RegisterEntity(lwe);
@@ -158,7 +208,7 @@ partial class CarryCreature
                 float roll = Random.value;
                 if (roll < ADHD)
                 {
-                    LOGGER.LogWarning($"dropping because {roll}<{ADHD}");
+                    //LOGGER.LogWarning($"dropping because {roll}<{ADHD}");
                     Drop();
                 }
             }

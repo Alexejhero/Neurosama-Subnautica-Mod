@@ -10,7 +10,8 @@ partial class GetCarried
 {
     public bool isCarried;
 
-    private float nextCarryNoiseTime;
+    private float _nextCarryNoiseTime;
+    private float _lastPickedUpTime;
     private List<(MonoBehaviour component, bool wasEnabled)> _disabledComponents;
     private static readonly List<Type> toDisable = new()
     {
@@ -29,6 +30,8 @@ partial class GetCarried
     }
 
     public override float Evaluate(float time) => isCarried ? 99f : -99f; // manual start/end
+
+    public bool CanBePickedUp() => Time.time - _lastPickedUpTime > 5f;
 
     private void DisableComponents()
     {
@@ -56,6 +59,7 @@ partial class GetCarried
     {
         pickupSounds!?.Play(emitter);
         isCarried = true;
+        _lastPickedUpTime = Time.time;
         StartPerform(Time.time);
     }
 
@@ -69,7 +73,7 @@ partial class GetCarried
     public override void StartPerform(float time)
     {
         DisableComponents();
-        nextCarryNoiseTime = time + carryNoiseInterval * (1 + Random.value);
+        _nextCarryNoiseTime = time + carryNoiseInterval * (1 + Random.value);
         if (!isCarried) OnPickedUp();
     }
 
@@ -91,9 +95,9 @@ partial class GetCarried
             creature.Tired.Add(deltaTime / 2f);
         }
 
-        if (time > nextCarryNoiseTime)
+        if (time > _nextCarryNoiseTime)
         {
-            nextCarryNoiseTime = time + carryNoiseInterval * (1 + Random.value);
+            _nextCarryNoiseTime = time + carryNoiseInterval * (1 + Random.value);
             carrySounds!?.Play(emitter);
         }
     }

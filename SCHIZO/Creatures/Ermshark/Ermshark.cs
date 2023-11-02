@@ -1,4 +1,6 @@
 using System.Collections;
+using SCHIZO.Helpers;
+using SCHIZO.Sounds.Players;
 using UnityEngine;
 using UWE;
 
@@ -27,6 +29,8 @@ partial class Ermshark : IOnTakeDamage
     {
         if (liveMixin.health > 0) return;
 
+        actions.ForEach(action => action.StopPerform());
+
         if (mitosisRemaining > 0)
         {
             Mitosis(damageInfo.position, liveMixin.damageEffect);
@@ -39,7 +43,7 @@ partial class Ermshark : IOnTakeDamage
             }
             else
             {
-                gameObject.SetActive(false); // todo verify this works
+                gameObject.SetActive(false);
                 Destroy(gameObject, 5);
             }
         }
@@ -50,10 +54,9 @@ partial class Ermshark : IOnTakeDamage
         transform.GetChild(0).localScale = Vector3.zero;
         liveMixin.ResetHealth();
 
-        enabled = false;
+        OnKill(); // disables self and SwimBehaviour
         locomotion.enabled = false;
-        hurtSoundPlayer.enabled = false;
-        ambientSoundPlayer.enabled = false;
+        GetComponents<SoundPlayer>().ForEach(soundPlayer => soundPlayer.enabled = false);
     }
 
     private void Mitosis(Vector3 position, GameObject hurtEffect)
