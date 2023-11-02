@@ -1,5 +1,7 @@
+using System.Linq;
 using Nautilus.Utility;
 using SCHIZO.Creatures.Components;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark;
@@ -19,31 +21,20 @@ partial class ErmsharkAttack
         GameObject target = GetTarget(collider);
 
         if (global::CreatureData.GetCreatureType(gameObject) == global::CreatureData.GetCreatureType(target)) return;
-        if (target.GetComponent<GetCarried>()) return; // prevents tutel scream when released
+        if (GetComponentsInParent<IOnMeleeAttack>().Any(handler => handler.HandleMeleeAttack(target))) return;
 
         Player player = target.GetComponent<Player>();
         if (player)
         {
             GameObject heldObject = Inventory.main.GetHeldObject();
-            if (heldObject)
+            if (heldObject && canBeFed && player.CanBeAttacked() && TryEat(heldObject, true))
             {
-                if (heldObject.GetComponent<GetCarried>() is { } heldTutel)
-                {
-                    Inventory.main.DropHeldItem(false);
-                    creature.GetComponent<CarryCreature>().TryPickup(heldTutel);
-                    creature.SetFriend(player.gameObject, 120f);
-                    return;
-                }
-                else if (canBeFed && player.CanBeAttacked() && TryEat(heldObject, true))
-                {
-                    // if (attackSound) Utils.PlayEnvSound(attackSound, mouth.transform.position);
-                    gameObject.SendMessage("OnMeleeAttack", heldObject, SendMessageOptions.DontRequireReceiver);
-                    return;
-                }
+                if (this.GetBiteSound()) Utils.PlayEnvSound(this.GetBiteSound(), mouth.transform.position);
+                gameObject.SendMessage("OnMeleeAttack", heldObject, SendMessageOptions.DontRequireReceiver);
+                return;
             }
         }
 
-        // TODO: verify if ermshark can attack vehicles and cyclopses
         if (CanBite(target))
         {
             timeLastBite = Time.time;
@@ -54,14 +45,8 @@ partial class ErmsharkAttack
                 living.NotifyCreatureDeathsOfCreatureAttack();
             }
             Vector3 damageFxPos = collider.ClosestPointOnBounds(mouth.transform.position);
-            if (damageFX != null)
-            {
-                Instantiate(damageFX, damageFxPos, damageFX.transform.rotation);
-            }
-            /*if (attackSound != null)
-            {
-                Utils.PlayEnvSound(attackSound, damageFxPos);
-            }*/
+            if (damageFX) Instantiate(damageFX, damageFxPos, damageFX.transform.rotation);
+            if (this.GetBiteSound()) Utils.PlayEnvSound(this.GetBiteSound(), damageFxPos);
 
             if (attackSounds) attackSounds.Play(emitter);
 
