@@ -41,16 +41,12 @@ Shader"SchizoVFX/HiyoriEffect"
             }
             
             sampler2D _MainTex;
-            sampler2D _NoizeTex;
-            float4 _ScreenPosition;
-
 
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-                fixed4 noiseCol = tex2D(_NoizeTex, float2(_SinTime.x, _CosTime.w));
-                noiseCol.rgb * clamp(distance(i.uv, _ScreenPosition.xy), 0, 1) ;
-                col.rgb += 1 - noiseCol;
+                // just invert the colors
+                col.rgb = float3(0,1,0) ;
                 return col;
             }
             ENDCG
