@@ -272,7 +272,7 @@ MonoBehaviour:
   pickupSounds: {fileID: 0}
   carrySounds: {fileID: 0}
   releaseSounds: {fileID: 0}
---- !u!114 &8584358048506064743
+--- !u!114 &8452010150921819073
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
