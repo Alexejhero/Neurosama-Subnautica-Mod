@@ -3,7 +3,7 @@
 namespace SCHIZO.Interop.Subnautica
 {
     [ActualType("CaveCrawlerGravity")]
-    public abstract partial class _CaveCrawlerGravity
+    public partial class _CaveCrawlerGravity
     {
     }
 }

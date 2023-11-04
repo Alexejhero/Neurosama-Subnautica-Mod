@@ -11,7 +11,6 @@ namespace SCHIZO.Sounds.Collections
         [ReorderableList] public List<SoundCollection> combineWith;
 
         public override IEnumerable<AudioClip> GetSounds() => combineWith.SelectMany(s => s.GetSounds());
-
         protected override bool ShowAudioClipList => false;
     }
 }

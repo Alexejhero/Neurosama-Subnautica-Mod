@@ -16,10 +16,19 @@ namespace SCHIZO.Sounds;
 
 public sealed class FMODSoundCollection
 {
+    private enum VCA
+    {
+        Master,
+        Music,
+        Voice,
+        Ambient
+    }
+
     private static readonly Dictionary<string, FMODSoundCollection> _cache = new();
 
     private readonly string _busName;
     private readonly List<string> _sounds = new();
+    private readonly List<Channel> _channels = new();
 
     private bool _ready;
     private RandomList<string> _randomSounds;
@@ -116,6 +125,18 @@ public sealed class FMODSoundCollection
         }
     }
 
+    public void Stop()
+    {
+        if (!Initialize()) return;
+        if (Assets.Options_DisableAllSounds.Value) return;
+
+        foreach (Channel channel in _channels)
+        {
+            channel.stop();
+        }
+        ClearChannelsCache();
+    }
+
     private void PlaySound(FMOD_CustomEmitter emitter = null)
     {
         LastPlay = Time.time;
@@ -129,9 +150,40 @@ public sealed class FMODSoundCollection
         }
         else
         {
-            // TODO: Play this sound using an Emitter or something (so that it changes based on volume)
             CustomSoundHandler.TryPlayCustomSound(sound, out Channel channel);
+            channel.setVolume(GetVolumeFor(GetVCAForBus(_busName)));
             channel.set3DLevel(0);
+
+            ClearChannelsCache();
+            _channels.Add(channel);
         }
+    }
+
+    private void ClearChannelsCache()
+    {
+        _channels.RemoveAll(c =>
+        {
+            RESULT result = c.isPlaying(out bool isPlaying);
+            return result != RESULT.OK || !isPlaying;
+        });
+    }
+
+    private static VCA GetVCAForBus(string bus)
+    {
+        if (bus.StartsWith("bus:/master/Music")) return VCA.Music;
+        if (bus.StartsWith("bus:/master/SFX_for_pause/PDA_pause/all/all voice")) return VCA.Voice;
+        if (bus.StartsWith("bus:/master/SFX_for_pause/PDA_pause/all/SFX")) return VCA.Ambient;
+        return VCA.Master;
+    }
+
+    private static float GetVolumeFor(VCA vca)
+    {
+        return vca switch
+        {
+            VCA.Music => SoundSystem.masterVolume * SoundSystem.musicVolume,
+            VCA.Voice => SoundSystem.masterVolume * SoundSystem.voiceVolume,
+            VCA.Ambient => SoundSystem.masterVolume * SoundSystem.ambientVolume,
+            _ => SoundSystem.masterVolume,
+        };
     }
 }

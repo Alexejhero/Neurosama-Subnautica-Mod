@@ -4,6 +4,7 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using JetBrains.Annotations;
 using SCHIZO.Helpers;
+using SCHIZO.Sounds.Players;
 using UnityEngine;
 
 namespace SCHIZO.Sounds.Patches;
@@ -28,6 +29,8 @@ public static class ItemSoundsPatches
 
         sounds.holsterSounds!?.CancelAllDelayed();
         sounds.dropSounds.Play(__instance.GetComponent<FMOD_CustomEmitter>());
+
+        __instance.GetComponentsInChildren<InventoryAmbientSoundPlayer>().ForEach(p => p.Stop());
     }
 
     [HarmonyPatch(typeof(PlayerTool), nameof(PlayerTool.OnDraw))]

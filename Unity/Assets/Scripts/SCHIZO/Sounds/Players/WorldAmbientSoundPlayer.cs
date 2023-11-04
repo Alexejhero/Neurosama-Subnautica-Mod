@@ -23,7 +23,6 @@ namespace SCHIZO.Sounds.Players
         [SerializeField, ExposedType("Constructable"), UsedImplicitly]
         private MonoBehaviour constructable;
 
-        protected override string DefaultBus => null;
         protected override bool Is3D => true;
     }
 }

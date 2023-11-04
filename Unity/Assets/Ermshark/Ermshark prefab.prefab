@@ -470,7 +470,8 @@ MonoBehaviour:
   biteAggressionDecrement: 0.4
   damageFX: {fileID: 0}
   _attackSound: {fileID: 0}
-  attackSounds: {fileID: 11400000, guid: 0d3bacd789afd8c488a63f3f4769c807, type: 2}
+  attackSounds: {fileID: -651457221615391217, guid: 0d3bacd789afd8c488a63f3f4769c807,
+    type: 2}
   emitter: {fileID: 3132534834664993527}
 --- !u!1 &9197955336955550917
 GameObject:
@@ -719,6 +720,12 @@ PrefabInstance:
       propertyPath: soundCollection
       value: 
       objectReference: {fileID: 11400000, guid: 9ee9dfa7770ab144dad626ab9273ce05,
+        type: 2}
+    - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: soundCollection_
+      value: 
+      objectReference: {fileID: -2232285011790399243, guid: 9ee9dfa7770ab144dad626ab9273ce05,
         type: 2}
     - target: {fileID: 3015870805474854860, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}

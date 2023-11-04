@@ -67,6 +67,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundCollection: {fileID: 11400000, guid: 8760b2fe631724f46acf7ecd2da229dc, type: 2}
+  soundCollection_: {fileID: 8351835124949227367, guid: 8760b2fe631724f46acf7ecd2da229dc,
+    type: 2}
   bus: Nautilus.Utility.AudioUtils+BusPaths:UnderwaterCreatures
   emitter: {fileID: 8283812961700562626}
   minDelayDefault: {fileID: 11400000, guid: 14beba417ed8e764a8489589984c141a, type: 2}
@@ -113,6 +115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundCollection: {fileID: 11400000, guid: 8760b2fe631724f46acf7ecd2da229dc, type: 2}
+  soundCollection_: {fileID: 1227164057349306871, guid: 8760b2fe631724f46acf7ecd2da229dc,
+    type: 2}
   bus: 
   emitter: {fileID: 0}
   minDelayDefault: {fileID: 11400000, guid: cddef268080982e4eae92e262bd08d9f, type: 2}
