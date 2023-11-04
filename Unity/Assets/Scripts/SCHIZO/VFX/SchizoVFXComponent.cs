@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SCHIZO.SchizoVFX
+namespace SCHIZO.VFX
 {
     public sealed partial class SchizoVFXComponent : MonoBehaviour
     {
