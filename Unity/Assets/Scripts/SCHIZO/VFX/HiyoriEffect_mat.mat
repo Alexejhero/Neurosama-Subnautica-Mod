@@ -39,6 +39,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DispMap:
+        m_Texture: {fileID: 2800000, guid: f3375d7d8fc2d8c499ce350b92c79c8c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -74,9 +78,12 @@ Material:
     m_Floats:
     - Vector1_6418C132: 5
     - Vector1_D7A5C049: 1
+    - _Blend: 0.75
     - _BumpScale: 1
+    - _Condition: -0.33
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _Distance: 10
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -88,6 +95,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Strength: 2
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
@@ -95,4 +103,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Position: {r: 0, g: 0, b: 0, a: 0}
-    - _ScreenPosition: {r: 0, g: 0, b: 1, a: 0}
+    - _ScreenPosition: {r: 524.2102, g: 123.346756, b: 1, a: 0.4268789}
