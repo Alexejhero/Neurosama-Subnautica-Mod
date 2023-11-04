@@ -49,14 +49,13 @@ MonoBehaviour:
   isBuildable: 0
   craftingTime: 2.5
   itemSounds: {fileID: 11400000, guid: 848cf4fb2ef44a84987c76d50f291e0d, type: 2}
+  pdaEncyInfo: {fileID: 11400000, guid: aa86b808e104bfa49905cfd6c27e78fd, type: 2}
   registerInSN: 1
   recipeSN: {fileID: 0}
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 14
   techCategorySN: 0
-  pdaEncyclopediaInfoSN: {fileID: 11400000, guid: aa86b808e104bfa49905cfd6c27e78fd,
-    type: 2}
   knownTechInfoSN: {fileID: 11400000, guid: ba024ae7fd4b2f649bbb22d395a493fe, type: 2}
   unlockAtStartSN: 1
   requiredForUnlockSN:
@@ -70,8 +69,6 @@ MonoBehaviour:
   craftTreePathBZ: 
   techGroupBZ: 13
   techCategoryBZ: 0
-  pdaEncyclopediaInfoBZ: {fileID: 11400000, guid: aa86b808e104bfa49905cfd6c27e78fd,
-    type: 2}
   knownTechInfoBZ: {fileID: 11400000, guid: ba024ae7fd4b2f649bbb22d395a493fe, type: 2}
   soundTypeBZ: 31
   unlockAtStartBZ: 1

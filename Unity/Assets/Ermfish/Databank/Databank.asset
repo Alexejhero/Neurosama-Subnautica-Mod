@@ -17,7 +17,8 @@ MonoBehaviour:
   isImportantUnlock: 0
   scanSounds: {fileID: 8990697991671373227, guid: 1138c2d796e81ac43a4f257daf9651b7,
     type: 2}
-  encyPath: Lifeforms/Fauna/SmallHerbivores
+  encyPathSN: Lifeforms/Fauna/SmallHerbivores
+  encyPathBZ: Research/Lifeforms/Fauna/SmallHerbivores
   title: Ermfish
   texture: {fileID: 2800000, guid: d49d9f150a353394d84717884b9d8c8f, type: 3}
   description: {fileID: 4900000, guid: a784ad2033ad64a409b8d4ad1cda86a4, type: 3}

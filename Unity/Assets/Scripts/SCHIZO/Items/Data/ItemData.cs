@@ -8,7 +8,6 @@ using SCHIZO.Registering;
 using SCHIZO.Attributes.Visual;
 using SCHIZO.Sounds;
 using UnityEngine;
-using UnityEngine.Serialization;
 using static NaughtyAttributes.EConditionOperator;
 
 namespace SCHIZO.Items.Data
@@ -45,9 +44,12 @@ namespace SCHIZO.Items.Data
         [CommonData, ShowIf(nameof(Sounds_ShowIf))]
         public ItemSounds itemSounds;
 
+        [CommonData, Label("PDA Ency Info")]
+        public PDAEncyclopediaInfo pdaEncyInfo;
+
         #region Subnautica Data
 
-        [SNData, Label("Register"), SerializeField, Careful]
+        [SNData, Label("Register"), Careful]
         public bool registerInSN = true;
 
         [SNData, Label("Recipe"), SerializeField, ShowIf(And, nameof(registerInSN), nameof(IsBuildableOrCraftable)), Careful]
@@ -65,9 +67,6 @@ namespace SCHIZO.Items.Data
         [SNData, Label("Tech Category"), SerializeField, ShowIf(And, nameof(registerInSN), nameof(techCategorySN_ShowIf)), UsedImplicitly]
         private TechCategory_SN techCategorySN;
 
-        [FormerlySerializedAs("databankInfoSN"), SNData, Label("PDA Ency Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN))]
-        private PDAEncyclopediaInfo pdaEncyclopediaInfoSN;
-
         [SNData, Label("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInSN), nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoSN;
 
@@ -81,7 +80,7 @@ namespace SCHIZO.Items.Data
 
         #region Below Zero Data
 
-        [BZData, Label("Register"), SerializeField, Careful]
+        [BZData, Label("Register"), Careful]
         public bool registerInBZ = true;
 
         [BZData, Label("Recipe"), SerializeField, ShowIf(And, nameof(registerInBZ), nameof(IsBuildableOrCraftable)), Careful]
@@ -101,9 +100,6 @@ namespace SCHIZO.Items.Data
 
         [BZData, Label("Tech Category"), SerializeField, ShowIf(And, nameof(registerInBZ), nameof(techCategoryBZ_ShowIf)), UsedImplicitly]
         private TechCategory_BZ techCategoryBZ;
-
-        [FormerlySerializedAs("databankInfoBZ")] [BZData, Label("PDA Ency Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ))]
-        private PDAEncyclopediaInfo pdaEncyclopediaInfoBZ;
 
         [BZData, Label("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoBZ;
