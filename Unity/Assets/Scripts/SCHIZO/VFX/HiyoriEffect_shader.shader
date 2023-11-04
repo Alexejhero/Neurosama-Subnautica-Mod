@@ -2,9 +2,9 @@ Shader"SchizoVFX/HiyoriEffect"
 {
     Properties
     {
-        [HideInInspector]
-        _MainTex ("Texture", 2D) = "white" {}
-        _NoizeTex ("Noize Texture", 2D) = "white" {}
+        [HideInInInspector]
+        _MainTex ("MainTex", 2D) = "gray" {}
+        _NoiseTex ("Noise Texture", 2D) = "white" {}
         [HideInInInspector]
         _ScreenPosition ("Position" , Vector) = (0,0,0,0)
     }
@@ -41,12 +41,21 @@ Shader"SchizoVFX/HiyoriEffect"
             }
             
             sampler2D _MainTex;
+            sampler2D _NoiseTex;
+            float4 _ScreenPosition;
 
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-                // just invert the colors
-                col.rgb = float3(0,1,0) ;
+                fixed4 noiseCol = tex2D(_NoiseTex, float2(_SinTime.x + i.uv.x, _CosTime.x + i.uv.y) * _ScreenParams.wz);
+                _ScreenPosition.xy /= _ScreenParams.xy;
+                bool isInfront = (_ScreenPosition.z > 0)? true: false;
+                float fac = saturate(distance(_ScreenPosition.xy, i.uv * _ScreenParams.wz) * 10);
+                if(isInfront)
+                {
+                    col.rgb *= fac;
+                    col.rgb += noiseCol.rgb * (1 - fac);
+                }
                 return col;
             }
             ENDCG
