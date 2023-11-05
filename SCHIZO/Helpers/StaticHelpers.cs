@@ -14,11 +14,13 @@ partial class StaticHelpers
     {
         public static void CacheAll()
         {
-            PLUGIN_ASSEMBLY.GetTypes().SelectMany(t => t.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
+            IEnumerable<string> names = PLUGIN_ASSEMBLY.GetTypes()
+                .SelectMany(t => t.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
                 .Where(m => m.GetCustomAttribute<CacheAttribute>() != null)
-                .Select(m => (IEnumerable) m.Invoke(null, Array.Empty<object>()))
-                .Select(e => e.Cast<ITriDropdownItem>().Select(i => (string) i.Value))
-                .ForEach(CacheValues);
+                .SelectMany(m => (IEnumerable<ITriDropdownItem>) m.Invoke(null, Array.Empty<object>()))
+                .Select(i => i.Value.ToString());
+
+            CacheValues(names);
         }
     }
 
