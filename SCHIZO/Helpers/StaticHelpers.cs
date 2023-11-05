@@ -1,9 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
-using NaughtyAttributes;
+using TriInspector;
 
 namespace SCHIZO.Helpers;
 
@@ -13,10 +14,10 @@ partial class StaticHelpers
     {
         public static void CacheAll()
         {
-            PLUGIN_ASSEMBLY.GetTypes().SelectMany(t => t.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
-                .Where(f => f.GetCustomAttribute<CacheAttribute>() != null)
-                .Select(f => (IDropdownList) f.GetValue(null))
-                .Select(d => d.Select(kvp => (string) kvp.Value))
+            PLUGIN_ASSEMBLY.GetTypes().SelectMany(t => t.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
+                .Where(m => m.GetCustomAttribute<CacheAttribute>() != null)
+                .Select(m => (IEnumerable) m.Invoke(null, Array.Empty<object>()))
+                .Select(e => e.Cast<ITriDropdownItem>().Select(i => (string) i.Value))
                 .ForEach(CacheValues);
         }
     }

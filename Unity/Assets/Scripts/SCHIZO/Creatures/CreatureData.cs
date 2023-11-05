@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using SCHIZO.Interop.Subnautica.Enums.Subnautica;
+﻿using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using SCHIZO.Items.Data;
 using TriInspector;
 using UnityEngine;

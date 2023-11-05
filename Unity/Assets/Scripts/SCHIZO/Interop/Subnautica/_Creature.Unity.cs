@@ -5,12 +5,9 @@ using UnityEngine;
 
 namespace SCHIZO.Interop.Subnautica
 {
-    // [DeclareFoldoutGroup("creature", Title = "Creature")]
     [DeclareUnexploredGroup(CREATURE_GROUP)]
     partial class _Creature : TriMonoBehaviour
     {
-        protected const string CREATURE_GROUP = "basecreature";
-
         [ComponentReferencesGroup, Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;
         [ComponentReferencesGroup, Required] public Animator traitsAnimator;
 

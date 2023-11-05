@@ -9,8 +9,6 @@ namespace SCHIZO.Interop.Subnautica
     [DeclareUnexploredGroup(CAVE_CRAWLER_GROUP)]
     public partial class _CaveCrawler : _Creature
     {
-        protected const string CAVE_CRAWLER_GROUP = "basecavecrawler";
-
         [ComponentReferencesGroup, Required] public Rigidbody rb;
         [ComponentReferencesGroup, Required, ExposedType("OnSurfaceTracker")] public MonoBehaviour onSurfaceTracker;
 

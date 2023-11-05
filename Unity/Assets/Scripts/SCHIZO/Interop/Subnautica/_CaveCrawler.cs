@@ -5,5 +5,6 @@ namespace SCHIZO.Interop.Subnautica
     [ActualType("CaveCrawler")]
     public abstract partial class _CaveCrawler
     {
+        protected const string CAVE_CRAWLER_GROUP = "basecavecrawler";
     }
 }
