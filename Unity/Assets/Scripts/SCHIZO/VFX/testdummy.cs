@@ -16,6 +16,6 @@ public class testdummy : MonoBehaviour
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        Graphics.Blit(source, destination, material);
+        Graphics.Blit(source, null, material);
     }
 }
