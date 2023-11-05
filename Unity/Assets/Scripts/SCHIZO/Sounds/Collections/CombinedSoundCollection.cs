@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NaughtyAttributes;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Sounds.Collections
@@ -8,7 +8,7 @@ namespace SCHIZO.Sounds.Collections
     [CreateAssetMenu(menuName = "SCHIZO/Sounds/Combined Sound Collection")]
     public sealed class CombinedSoundCollection : SoundCollection
     {
-        [ReorderableList] public List<SoundCollection> combineWith;
+        [ListDrawerSettings] public List<SoundCollection> combineWith;
 
         public override IEnumerable<AudioClip> GetSounds() => combineWith.SelectMany(s => s.GetSounds());
         protected override bool ShowAudioClipList => false;

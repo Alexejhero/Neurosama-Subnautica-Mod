@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
-using NaughtyAttributes;
-using SCHIZO.Interop.NaughtyAttributes;
+using JetBrains.Annotations;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Twitch
 {
-    public sealed partial class TwitchIntegration : NaughyMonoBehaviour
+    public sealed partial class TwitchIntegration : MonoBehaviour
     {
-        [SerializeField, Required_string] private string targetChannel = "vedal987";
-        [SerializeField, Required_string] private string commandPrefix = "pls ";
-        [SerializeField, ShowIf(nameof(prefixIsCaseSensitive_ShowIf))] private bool prefixIsCaseSensitive = false;
-        [SerializeField, ReorderableList] private List<string> whitelistedUsers = new List<string> { "alexejherodev" };
+        [SerializeField, Required, UsedImplicitly] private string targetChannel = "vedal987";
+        [SerializeField, Required, UsedImplicitly] private string commandPrefix = "pls ";
+        [SerializeField, ShowIf(nameof(prefixIsCaseSensitive_ShowIf)), UsedImplicitly] private bool prefixIsCaseSensitive = false;
+        [SerializeField, ListDrawerSettings, UsedImplicitly] private List<string> whitelistedUsers = new List<string> { "alexejherodev" };
 
         private bool prefixIsCaseSensitive_ShowIf()
         {

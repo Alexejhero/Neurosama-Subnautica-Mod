@@ -1,10 +1,10 @@
-﻿using SCHIZO.Interop.NaughtyAttributes;
+﻿using SCHIZO.TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Utilities
 {
     [CreateAssetMenu(menuName = "SCHIZO/Utilities/Mesh Combiner")]
-    public sealed partial class MeshCombiner : NaughtyScriptableObject
+    public sealed partial class MeshCombiner : TriScriptableObject
     {
     }
 }

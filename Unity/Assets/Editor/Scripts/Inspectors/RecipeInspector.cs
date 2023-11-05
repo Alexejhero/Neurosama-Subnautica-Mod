@@ -1,12 +1,12 @@
 ﻿using Editor.Scripts.PropertyDrawers;
-using NaughtyAttributes.Editor;
 using SCHIZO.Items.Data.Crafting;
+using TriInspector.Editors;
 using UnityEditor;
 
 namespace Editor.Scripts.Inspectors
 {
     [CustomEditor(typeof(Recipe))]
-    public sealed class RecipeInspector : NaughtyInspector
+    public sealed class RecipeInspector : TriEditor
     {
         public override void OnInspectorGUI()
         {
@@ -16,16 +16,14 @@ namespace Editor.Scripts.Inspectors
             TechType_AllDrawer.TargetGame = recipe.game;
         }
 
-        private new void OnEnable()
+        private void OnEnable()
         {
-            base.OnEnable();
             Recipe recipe = (Recipe) target;
             TechType_AllDrawer.TargetGame = recipe.game;
         }
 
-        private new void OnDisable()
+        private void OnDisable()
         {
-            base.OnDisable();
             TechType_AllDrawer.TargetGame = 0;
         }
     }

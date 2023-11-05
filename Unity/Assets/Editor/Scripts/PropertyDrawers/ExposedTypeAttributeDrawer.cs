@@ -1,5 +1,5 @@
 ﻿using System;
-using SCHIZO.Attributes.Typing;
+using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using UnityEditor;
 using UnityEngine;

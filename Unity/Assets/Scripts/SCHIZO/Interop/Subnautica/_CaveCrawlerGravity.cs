@@ -1,9 +1,6 @@
-﻿using SCHIZO.Attributes.Typing;
-
-namespace SCHIZO.Interop.Subnautica
+﻿namespace SCHIZO.Interop.Subnautica
 {
-    [ActualType("CaveCrawlerGravity")]
-    public partial class _CaveCrawlerGravity
+    public abstract partial class _CaveCrawlerGravity
     {
     }
 }

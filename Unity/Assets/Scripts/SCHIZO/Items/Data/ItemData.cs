@@ -1,42 +1,46 @@
-﻿using JetBrains.Annotations;
-using NaughtyAttributes;
+﻿using System.Linq;
+using JetBrains.Annotations;
+using SCHIZO.Attributes;
 using SCHIZO.Interop.Subnautica.Enums;
 using SCHIZO.Interop.Subnautica.Enums.BelowZero;
 using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using SCHIZO.Items.Data.Crafting;
 using SCHIZO.Registering;
-using SCHIZO.Attributes.Visual;
 using SCHIZO.Sounds;
+using TriInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
-using static NaughtyAttributes.EConditionOperator;
 
 namespace SCHIZO.Items.Data
 {
     [CreateAssetMenu(menuName = "SCHIZO/Items/Item Data")]
+    [DeclareBoxGroup("TechType")]
+    [DeclareBoxGroup("common", Title = "Common Properties")]
+    [DeclareBoxGroup("sn", Title = "Subnautica")]
+    [DeclareBoxGroup("bz", Title = "Below Zero")]
     public partial class ItemData : ModRegistryItem
     {
         public GameObject prefab;
 
-        [BoxGroup("TechType"), Required_string, Careful]
+        [Group("TechType"), Required, Careful]
         public string classId;
 
-        [BoxGroup("TechType"), Required_string]
+        [Group("TechType"), Required]
         public string displayName;
 
-        [BoxGroup("TechType"), ResizableTextArea, ShowIf(nameof(ShowPickupableProps))]
+        [Group("TechType"), TextArea(1, 5), ShowIf(nameof(ShowPickupableProps))]
         public string tooltip;
 
         [CommonData, ShowIf(nameof(ShowPickupableProps)), Required]
         public Sprite icon;
 
-        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable)), Careful]
+        [CommonData, HideIf(nameof(HidePickupableProps)), HideIf(nameof(isBuildable)), Careful]
         public Vector2Int itemSize = new Vector2Int(1, 1);
 
-        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isBuildable)), Careful]
+        [CommonData, HideIf(nameof(HidePickupableProps)), HideIf(nameof(isBuildable)), Careful]
         public bool isCraftable;
 
-        [CommonData, HideIf(Or, nameof(HidePickupableProps), nameof(isCraftable)), Careful]
+        [CommonData, HideIf(nameof(HidePickupableProps)), HideIf(nameof(isBuildable)), Careful]
         public bool isBuildable;
 
         [CommonData, ShowIf(nameof(IsActuallyCraftable))]
@@ -47,82 +51,195 @@ namespace SCHIZO.Items.Data
 
         #region Subnautica Data
 
-        [SNData, Label("Register"), SerializeField, Careful]
+        [SNData, LabelText("Register"), SerializeField, Careful]
         public bool registerInSN = true;
 
-        [SNData, Label("Recipe"), SerializeField, ShowIf(And, nameof(registerInSN), nameof(IsBuildableOrCraftable)), Careful]
+        [SNData, LabelText("Recipe"), SerializeField, ShowIf(nameof(registerInSN)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
         private Recipe recipeSN;
 
-        [SNData, Label("Craft Tree"), ShowIf(And, nameof(registerInSN), nameof(IsActuallyCraftable)), SerializeField]
+        [SNData, LabelText("Craft Tree"), ShowIf(nameof(registerInSN)), ShowIf(nameof(IsActuallyCraftable)), SerializeField]
         private CraftTree_Type_All craftTreeTypeSN = CraftTree_Type_All.None;
 
-        [SNData, Label("Craft Tree Path"), ShowIf(And, nameof(registerInSN), nameof(craftTreePathSN_ShowIf)), CraftTreePath(Game.Subnautica, nameof(craftTreeTypeSN)), SerializeField, UsedImplicitly]
+        [SNData, LabelText("Craft Tree Path"), ShowIf(nameof(registerInSN)), ShowIf(nameof(craftTreePathSN_ShowIf)), Dropdown(nameof(SNCraftTreePath)), SerializeField, UsedImplicitly]
         private string craftTreePathSN = "";
 
-        [SNData, Label("Tech Group"), ValidateInput(nameof(techGroupSN_Validate)), SerializeField, ShowIf(And, nameof(registerInSN), nameof(IsBuildableOrCraftable))]
+        [SNData, LabelText("Tech Group"), ValidateInput(nameof(techGroupSN_Validate)), SerializeField, ShowIf(nameof(registerInSN)), ShowIf(nameof(IsBuildableOrCraftable))]
         private TechGroup_SN techGroupSN = TechGroup_SN.Uncategorized;
 
-        [SNData, Label("Tech Category"), SerializeField, ShowIf(And, nameof(registerInSN), nameof(techCategorySN_ShowIf)), UsedImplicitly]
+        [SNData, LabelText("Tech Category"), SerializeField, ShowIf(nameof(registerInSN)), ShowIf(nameof(techCategorySN_ShowIf)), UsedImplicitly]
         private TechCategory_SN techCategorySN;
 
-        [FormerlySerializedAs("databankInfoSN"), SNData, Label("PDA Ency Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN))]
+        [SNData, LabelText("PDA Ency Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), FormerlySerializedAs("databankInfoSN")]
         private PDAEncyclopediaInfo pdaEncyclopediaInfoSN;
 
-        [SNData, Label("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInSN), nameof(ShowPickupableProps))]
+        [SNData, LabelText("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoSN;
 
-        [SNData, Label("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInSN), nameof(IsBuildableOrCraftable)), Careful]
+        [SNData, LabelText("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
         private bool unlockAtStartSN = true;
 
-        [SNData, Label("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInSN), nameof(requiredForUnlockSN_ShowIf)), Careful]
+        [SNData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(requiredForUnlockSN_ShowIf)), Careful]
         private Item requiredForUnlockSN;
 
         #endregion
 
         #region Below Zero Data
 
-        [BZData, Label("Register"), SerializeField, Careful]
+        [BZData, LabelText("Register"), SerializeField, Careful]
         public bool registerInBZ = true;
 
-        [BZData, Label("Recipe"), SerializeField, ShowIf(And, nameof(registerInBZ), nameof(IsBuildableOrCraftable)), Careful]
+        [BZData, LabelText("Recipe"), SerializeField, ShowIf(nameof(registerInBZ)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
         private Recipe recipeBZ;
 
-        [BZData, Label("Can Be Recycled"), ShowIf(And, nameof(registerInBZ), nameof(IsActuallyCraftable))]
+        [BZData, LabelText("Can Be Recycled"), ShowIf(nameof(registerInBZ)), ShowIf(nameof(IsActuallyCraftable))]
         public bool canBeRecycledBZ = true;
 
-        [BZData, Label("Craft Tree"), ShowIf(And, nameof(registerInBZ), nameof(IsActuallyCraftable)), SerializeField]
+        [BZData, LabelText("Craft Tree"), ShowIf(nameof(registerInBZ)), ShowIf(nameof(IsActuallyCraftable)), SerializeField]
         private CraftTree_Type_All craftTreeTypeBZ = CraftTree_Type_All.None;
 
-        [BZData, Label("Craft Tree Path"), ShowIf(And, nameof(registerInBZ), nameof(craftTreePathBZ_ShowIf)), CraftTreePath(Game.BelowZero, nameof(craftTreeTypeBZ)), SerializeField, UsedImplicitly]
+        [BZData, LabelText("Craft Tree Path"), ShowIf(nameof(registerInBZ)), ShowIf(nameof(craftTreePathBZ_ShowIf)), SerializeField, UsedImplicitly, Dropdown(nameof(BZCraftTreePath))]
         private string craftTreePathBZ = "";
 
-        [BZData, Label("Tech Group"), ValidateInput(nameof(techGroupBZ_Validate)), SerializeField, ShowIf(And, nameof(registerInBZ), nameof(IsBuildableOrCraftable))]
+        [BZData, LabelText("Tech Group"), ValidateInput(nameof(techGroupBZ_Validate)), SerializeField, ShowIf(nameof(registerInBZ)), ShowIf(nameof(IsBuildableOrCraftable))]
         private TechGroup_BZ techGroupBZ = TechGroup_BZ.Uncategorized;
 
-        [BZData, Label("Tech Category"), SerializeField, ShowIf(And, nameof(registerInBZ), nameof(techCategoryBZ_ShowIf)), UsedImplicitly]
+        [BZData, LabelText("Tech Category"), SerializeField, ShowIf(nameof(registerInBZ)), ShowIf(nameof(techCategoryBZ_ShowIf)), UsedImplicitly]
         private TechCategory_BZ techCategoryBZ;
 
-        [FormerlySerializedAs("databankInfoBZ")] [BZData, Label("PDA Ency Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ))]
+        [BZData, LabelText("PDA Ency Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), FormerlySerializedAs("databankInfoBZ")]
         private PDAEncyclopediaInfo pdaEncyclopediaInfoBZ;
 
-        [BZData, Label("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(ShowPickupableProps))]
+        [BZData, LabelText("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoBZ;
 
-        [BZData, Label("Sound Type"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(Sounds_ShowIf))]
+        [BZData, LabelText("Sound Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(Sounds_ShowIf))]
         private TechData_SoundType_BZ soundTypeBZ;
 
-        [BZData, Label("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(IsBuildableOrCraftable)), Careful]
+        [BZData, LabelText("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
         private bool unlockAtStartBZ = true;
 
-        [BZData, Label("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(And, nameof(registerInBZ), nameof(requiredForUnlockBZ_ShowIf)), Careful]
+        [BZData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(requiredForUnlockBZ_ShowIf)), Careful]
         private Item requiredForUnlockBZ;
 
         #endregion
 
         #region NaughtyAttributes stuff
 
-        private bool techGroupSN_Validate(TechGroup_SN val) => !isBuildable || val != TechGroup_SN.Uncategorized;
-        private bool techGroupBZ_Validate(TechGroup_BZ val) => !isBuildable || val != TechGroup_BZ.Uncategorized;
+        private TriDropdownList<string> SNCraftTreePath()
+        {
+            switch (craftTreeTypeSN)
+            {
+                case CraftTree_Type_All.Fabricator:
+                    return new TriDropdownList<string>()
+                        {
+                            {"<root>", ""},
+                            {"Resources/<self>", "Resources"},
+                            {"Resources/Basic materials", "Resources/BasicMaterials"},
+                            {"Resources/Advanced materials", "Resources/AdvancedMaterials"},
+                            {"Resources/Electronics", "Resources/Electronics"},
+                            {"Survival/<self>", "Survival"},
+                            {"Survival/Water", "Survival/Water"},
+                            {"Survival/Cooked food", "Survival/CookedFood"},
+                            {"Survival/Cured food", "Survival/CuredFood"},
+                            {"Personal/<self>", "Personal"},
+                            {"Personal/Equipment", "Personal/Equipment"},
+                            {"Personal/Tools", "Personal/Tools"},
+                            {"Personal/Deployables", "Machines"},
+                        };
+
+                case CraftTree_Type_All.Constructor:
+                    return new TriDropdownList<string>()
+                    {
+                        {"(root)", ""},
+                        {"Vehicles", "Vehicles"},
+                        {"Rocket", "Rocket"},
+                    };
+
+                case CraftTree_Type_All.SeamothUpgrades:
+                    return new TriDropdownList<string>()
+                    {
+                        {"(root)", ""},
+                        {"Common Modules", "CommonModules"},
+                        {"Seamoth Modules", "SeamothModules"},
+                        {"Prawn Suit Modules", "ExosuitModules"},
+                        {"Torpedoes", "Torpedoes"},
+                    };
+
+                default:
+                    return new TriDropdownList<string>()
+                    {
+                        {"(root)", ""},
+                    };
+            }
+        }
+
+        private TriDropdownList<string> BZCraftTreePath()
+        {
+            switch (craftTreeTypeBZ)
+            {
+                case CraftTree_Type_All.Fabricator:
+                case CraftTree_Type_All.SeaTruckFabricator:
+                    return new TriDropdownList<string>()
+                        {
+                            {"<root>", ""},
+                            {"Resources/<self>", "Resources"},
+                            {"Resources/Basic materials", "Resources/BasicMaterials"},
+                            {"Resources/Advanced materials", "Resources/AdvancedMaterials"},
+                            {"Resources/Electronics", "Resources/Electronics"},
+                            {"Survival/<self>", "Survival"},
+                            {"Survival/Water", "Survival/Water"},
+                            {"Survival/Cooked food", "Survival/CookedFood"},
+                            {"Survival/Cured food", "Survival/CuredFood"},
+                            {"Personal/<self>", "Personal"},
+                            {"Personal/Equipment", "Personal/Equipment"},
+                            {"Personal/Tools", "Personal/Tools"},
+                            {"Personal/Deployables", "Machines"},
+                            {"Upgrades/<self>", "Upgrades"},
+                            {"Upgrades/Prawn Suit Upgrades", "Upgrades/ExosuitUpgrades"},
+                            {"Upgrades/Seatruck Upgrades", "Upgrades/SeatruckUpgrades"},
+                        };
+
+                case CraftTree_Type_All.Constructor:
+                    return new TriDropdownList<string>()
+                    {
+                        {"(root)", ""},
+                        {"Vehicles", "Vehicles"},
+                        {"Modules", "Modules"},
+                    };
+
+                case CraftTree_Type_All.SeamothUpgrades:
+                    return new TriDropdownList<string>()
+                    {
+                        {"(root)", ""},
+                        {"Prawn Suit Upgrades", "ExosuitModules"},
+                        {"Seatruck Upgrades", "SeaTruckUpgrade"},
+                    };
+
+                default:
+                    return new TriDropdownList<string>()
+                    {
+                        {"(root)", ""},
+                    };
+            }
+        }
+
+        private void OnValidate()
+        {
+            if (!SNCraftTreePath().Select(i => i.Value).Contains(craftTreePathSN)) craftTreePathSN = "";
+            if (!SNCraftTreePath().Select(i => i.Value).Contains(craftTreePathSN)) craftTreePathSN = "";
+        }
+
+        private TriValidationResult techGroupSN_Validate()
+        {
+            if (isBuildable && techGroupSN == TechGroup_SN.Uncategorized) return TriValidationResult.Error("Tech group cannot be Uncategorized if the item is buildable");
+            return TriValidationResult.Valid;
+        }
+
+        private TriValidationResult techGroupBZ_Validate()
+        {
+            if (isBuildable && techGroupBZ == TechGroup_BZ.Uncategorized) return TriValidationResult.Error("Tech group cannot be Uncategorized if the item is buildable");
+            return TriValidationResult.Valid;
+        }
 
         private bool techCategorySN_ShowIf() => techGroupSN != TechGroup_SN.Uncategorized && IsBuildableOrCraftable();
         private bool techCategoryBZ_ShowIf() => techGroupBZ != TechGroup_BZ.Uncategorized && IsBuildableOrCraftable();
@@ -142,23 +259,23 @@ namespace SCHIZO.Items.Data
 
         private bool IsBuildableOrCraftable() => isBuildable || IsActuallyCraftable();
 
-        private protected sealed class CommonData : BoxGroupAttribute
+        private protected sealed class CommonData : GroupAttribute
         {
-            public CommonData() : base("Common Properties")
+            public CommonData() : base("common")
             {
             }
         }
 
-        private protected class SNData : BoxGroupAttribute
+        private protected class SNData : GroupAttribute
         {
-            public SNData() : base("Subnautica Data")
+            public SNData() : base("sn")
             {
             }
         }
 
-        private protected class BZData : BoxGroupAttribute
+        private protected class BZData : GroupAttribute
         {
-            public BZData() : base("Below Zero Data")
+            public BZData() : base("bz")
             {
             }
         }

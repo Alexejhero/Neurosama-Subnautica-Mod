@@ -6,19 +6,20 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.codewriter.triinspector": {
+      "version": "file:Tri-Inspector",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.localization": "1.0.0"
+      }
+    },
     "com.coffee.csharp-compiler-settings": {
       "version": "https://github.com/mob-sakai/CSharpCompilerSettingsForUnity.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
       "hash": "7b73d99d06f565e759c830d1974430feee014b86"
-    },
-    "com.dbrizov.naughtyattributes": {
-      "version": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "8a8fa5a9659a6d63f196391c71e06c4286c8acd7"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
@@ -50,7 +51,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.21",
+      "version": "2.0.22",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -64,6 +65,13 @@
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
+    },
+    "com.unity.localization": {
+      "version": "https://github.com/codewriter-packages/Unity-Localization-Stub-for-Tri-Inspector.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "184244fa1721e8e5da6aff2aca29b92f0a1e5ec7"
     },
     "com.unity.test-framework": {
       "version": "1.1.30",
