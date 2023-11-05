@@ -6,13 +6,6 @@
       "source": "embedded",
       "dependencies": {}
     },
-    "com.coffee.csharp-compiler-settings": {
-      "version": "https://github.com/mob-sakai/CSharpCompilerSettingsForUnity.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "7b73d99d06f565e759c830d1974430feee014b86"
-    },
     "com.codewriter.triinspector": {
       "version": "file:Tri-Inspector",
       "depth": 0,
@@ -21,11 +14,12 @@
         "com.unity.localization": "1.0.0"
       }
     },
-    "com.dbrizov.naughtyattributes": {
-      "version": "file:NaughtyAttributes",
+    "com.coffee.csharp-compiler-settings": {
+      "version": "https://github.com/mob-sakai/CSharpCompilerSettingsForUnity.git",
       "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "7b73d99d06f565e759c830d1974430feee014b86"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
