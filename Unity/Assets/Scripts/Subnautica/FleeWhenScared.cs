@@ -1,13 +1,12 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Interop.Subnautica;
-using SCHIZO.Utilities;
+﻿using SCHIZO.Interop.Subnautica;
+using TriInspector;
 using UnityEngine;
 
 [RequireComponent(typeof(SwimBehaviour))]
 [RequireComponent(typeof(CreatureFear))]
 public class FleeWhenScared : CreatureAction
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public CreatureFear creatureFear;
+    [ComponentReferencesGroup, Required] public CreatureFear creatureFear;
 
     public float swimVelocity = 10;
     public float swimInterval = 1;
@@ -20,5 +19,5 @@ public class FleeWhenScared : CreatureAction
     public float swimExhaustion = 0.25f;
     public float exhaustedVelocity = 1;
 
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset scaredSound;
+    [UnexploredGroup] public _FMODAsset scaredSound;
 }

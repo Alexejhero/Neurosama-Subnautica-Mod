@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using NaughtyAttributes;
+using JetBrains.Annotations;
 using SCHIZO.Options.Generic;
 using SCHIZO.Registering;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Options
@@ -9,7 +10,7 @@ namespace SCHIZO.Options
     [CreateAssetMenu(menuName = "SCHIZO/Options/Mod Option Panel")]
     public sealed partial class ModOptionPanel : ModRegistryItem
     {
-        [SerializeField, ReorderableList]
+        [SerializeField, ListDrawerSettings, UsedImplicitly]
         private List<ModOption> options;
     }
 }

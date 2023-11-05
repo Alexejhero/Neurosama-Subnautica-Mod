@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
+﻿using TriInspector;
 
 public class MoveOnSurface : CreatureAction
 {

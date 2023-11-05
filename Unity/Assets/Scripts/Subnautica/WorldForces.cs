@@ -7,7 +7,7 @@ using UnityEngine;
 [DeclareToggleGroup("wind", Title = "Wind (BZ only)")]
 public class WorldForces : TriMonoBehaviour
 {
-    [ComponentReferencesGroup, NaughtyAttributes.Required] public Rigidbody useRigidbody;
+    [ComponentReferencesGroup, Required] public Rigidbody useRigidbody;
 
     public bool moveWithPlatform;
 

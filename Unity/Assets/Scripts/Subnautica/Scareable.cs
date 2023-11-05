@@ -1,7 +1,7 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Interop.Subnautica;
+﻿using SCHIZO.Interop.Subnautica;
 using SCHIZO.Interop.Subnautica.Enums;
 using SCHIZO.TriInspector;
+using TriInspector;
 using UnityEngine;
 
 public class Scareable : TriMonoBehaviour

@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using NaughtyAttributes;
+using TriInspector;
 using UnityEditor;
 
 namespace SCHIZO.Sounds.Collections

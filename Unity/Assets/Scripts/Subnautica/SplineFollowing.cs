@@ -12,5 +12,5 @@ public class SplineFollowing : TriMonoBehaviour
     [UnexploredGroup] public float lookAhead = 1;
     [UnexploredGroup] public bool respectLOD = true;
 
-    // [HideInInspector] public float inertia = 1;
+    [HideInInspector] public float inertia = 1;
 }

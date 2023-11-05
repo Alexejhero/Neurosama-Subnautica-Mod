@@ -1,4 +1,4 @@
-﻿using NaughtyAttributes;
+﻿using TriInspector;
 using SCHIZO.Attributes.Typing;
 using SCHIZO.TriInspector;
 using UnityEngine;

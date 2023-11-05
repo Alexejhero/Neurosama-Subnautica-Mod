@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
 
 namespace SCHIZO.Helpers
 {
+    [Obsolete("", true)]
     public class BetterDropdownList<T> : Dictionary<string, T>, IDropdownList
     {
         IEnumerator<KeyValuePair<string, object>> IEnumerable<KeyValuePair<string, object>>.GetEnumerator()
@@ -17,4 +19,3 @@ namespace SCHIZO.Helpers
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
-

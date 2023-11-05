@@ -1,5 +1,5 @@
-﻿using NaughtyAttributes;
-using SCHIZO.TriInspector;
+﻿using SCHIZO.TriInspector;
+using TriInspector;
 using UnityEngine;
 
 public class SwimBehaviour : TriMonoBehaviour

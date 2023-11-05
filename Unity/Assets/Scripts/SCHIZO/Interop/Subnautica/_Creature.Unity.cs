@@ -1,5 +1,4 @@
-﻿using System;
-using SCHIZO.Attributes.Typing;
+﻿using SCHIZO.Attributes.Typing;
 using SCHIZO.TriInspector;
 using TriInspector;
 using UnityEngine;

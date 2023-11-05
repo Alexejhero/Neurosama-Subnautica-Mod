@@ -1,6 +1,5 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Interop.Subnautica;
-using SCHIZO.Utilities;
+﻿using SCHIZO.Interop.Subnautica;
+using TriInspector;
 using UnityEngine;
 
 [RequireComponent(typeof(LastTarget))]

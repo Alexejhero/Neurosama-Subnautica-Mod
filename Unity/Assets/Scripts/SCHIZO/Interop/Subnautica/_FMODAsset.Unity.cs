@@ -1,4 +1,4 @@
-﻿using NaughtyAttributes;
+﻿using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Interop.Subnautica
