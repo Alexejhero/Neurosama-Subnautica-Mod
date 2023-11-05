@@ -9,6 +9,7 @@ namespace NaughtyAttributes
         Error
     }
 
+    [Obsolete]
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true, Inherited = true)]
     public class InfoBoxAttribute : DrawerAttribute
     {

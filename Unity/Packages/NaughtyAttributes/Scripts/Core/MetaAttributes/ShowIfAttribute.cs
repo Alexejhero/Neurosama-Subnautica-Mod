@@ -2,6 +2,7 @@
 
 namespace NaughtyAttributes
 {
+    [Obsolete]
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class ShowIfAttribute : ShowIfAttributeBase
     {

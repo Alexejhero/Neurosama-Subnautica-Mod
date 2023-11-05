@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace NaughtyAttributes
 {
+    [Obsolete]
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
     public class DropdownAttribute : DrawerAttribute
     {
@@ -15,10 +16,12 @@ namespace NaughtyAttributes
         }
     }
 
+    [Obsolete]
     public interface IDropdownList : IEnumerable<KeyValuePair<string, object>>
     {
     }
 
+    [Obsolete]
     public class DropdownList<T> : IDropdownList
     {
         private List<KeyValuePair<string, object>> _values;

@@ -2,6 +2,7 @@
 
 namespace NaughtyAttributes
 {
+    [Obsolete]
     public enum EConditionOperator
     {
         And,
