@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using SCHIZO.Attributes;
 using SCHIZO.Options.Bool;
-using SCHIZO.Attributes.Visual;
 using TriInspector;
 using UnityEngine;
 
