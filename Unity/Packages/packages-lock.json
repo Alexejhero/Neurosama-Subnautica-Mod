@@ -14,6 +14,12 @@
         "com.unity.localization": "1.0.0"
       }
     },
+    "com.dbrizov.naughtyattributes": {
+      "version": "file:NaughtyAttributes",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

@@ -6,7 +6,6 @@ using HarmonyLib;
 using JetBrains.Annotations;
 using NaughtyAttributes;
 using NaughtyAttributes.Editor;
-using SCHIZO.Attributes.Typing;
 using SCHIZO.Attributes.Validation;
 
 namespace Editor.Scripts.Patches
@@ -19,7 +18,6 @@ namespace Editor.Scripts.Patches
 
         private static readonly Dictionary<Type, PropertyValidatorBase> _customPropertyValidators = new Dictionary<Type, PropertyValidatorBase>()
         {
-            {typeof(ValidateTypeAttribute), new ValidateTypePropertyValidator()},
             {typeof(FlexibleValidateInputAttribute), new FlexibleValidateInputPropertyValidator()},
             {typeof(object), null},
         };
