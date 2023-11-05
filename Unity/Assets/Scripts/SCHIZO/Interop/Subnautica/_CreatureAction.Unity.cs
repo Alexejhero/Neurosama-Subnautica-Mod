@@ -1,18 +1,20 @@
-using NaughtyAttributes;
 using SCHIZO.Attributes.Typing;
-using SCHIZO.Utilities;
+using TriExtensions;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Interop.Subnautica
 {
-    partial class _CreatureAction : MonoBehaviour
+    [DeclareBoxGroup("creatureaction", Title = "Base Creature Action")]
+    [DeclareUnexploredGroup("creatureaction")]
+    partial class _CreatureAction : TriMonoBehaviour
     {
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("_Creature")] public MonoBehaviour creature;
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("SwimBehaviour")] public MonoBehaviour swimBehaviour;
+        [ComponentReferencesGroup, Required, ExposedType("_Creature")] public MonoBehaviour creature;
+        [ComponentReferencesGroup, Required, ExposedType("SwimBehaviour")] public MonoBehaviour swimBehaviour;
 
-        [BoxGroup("Base Creature Action"), Range(0, 1)] public float evaluatePriority = 0.4f;
+        [Group("creatureaction"), Range(0, 1)] public float evaluatePriority = 0.4f;
 
-        [Foldout(STRINGS.UNCHANGED_BY_ECC)] public AnimationCurve priorityMultiplier;
-        [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float minActionCheckInterval = -1;
+        [UnexploredGroup("creatureaction")] public AnimationCurve priorityMultiplier;
+        [UnexploredGroup("creatureaction")] public float minActionCheckInterval = -1;
     }
 }

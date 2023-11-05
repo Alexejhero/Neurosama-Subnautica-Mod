@@ -1,12 +1,12 @@
 ﻿using SCHIZO.Attributes.Typing;
-using SCHIZO.TriInspector;
+using TriExtensions;
 using TriInspector;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 namespace ECCLibrary.Mono
 {
-    public class SwimInSchoolFieldSetter : TriMonoBehaviour
+    public sealed class SwimInSchoolFieldSetter : TriMonoBehaviour
     {
         [ComponentReferencesGroup, Required, ExposedType("SwimInSchool")]
         public MonoBehaviour behaviour;

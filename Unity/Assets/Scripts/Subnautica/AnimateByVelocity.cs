@@ -1,19 +1,18 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
+﻿using TriExtensions;
+using TriInspector;
 using UnityEngine;
 
-public class AnimateByVelocity : MonoBehaviour
+public class AnimateByVelocity : TriMonoBehaviour
 {
-    [Required] public GameObject rootGameObject;
-    [Required] public Animator animator;
+    [ComponentReferencesGroup, Required] public BehaviourLOD levelOfDetail;
+    [ComponentReferencesGroup, Required] public Animator animator;
 
+    [Required, SceneObjectsOnly] public GameObject rootGameObject;
     public float animationMoveMaxSpeed = 4;
     public float animationMaxPitch = 30;
     public float animationMaxTilt = 45;
     public bool useStrafeAnimation = false;
     public float dampTime = 0.5f;
-
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public BehaviourLOD levelOfDetail;
 
     // ReSharper disable once Unity.RedundantEventFunction
     private void OnEnable() {}

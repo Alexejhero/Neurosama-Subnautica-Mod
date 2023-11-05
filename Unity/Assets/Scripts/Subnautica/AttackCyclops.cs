@@ -1,9 +1,8 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
+﻿using TriInspector;
 
 public class AttackCyclops : CreatureAction
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public LastTarget lastTarget;
+    [ComponentReferencesGroup, Required] public LastTarget lastTarget;
     public float aggressPerSecond = 0.5f;
     public float attackAggressionThreshold = 0.75f;
     public float attackPause = 5;

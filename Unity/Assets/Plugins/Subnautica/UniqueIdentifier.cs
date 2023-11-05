@@ -1,5 +1,4 @@
-﻿using SCHIZO.Utilities;
-using TriInspector;
+﻿using TriInspector;
 using UnityEngine;
 
 [DisallowMultipleComponent]
