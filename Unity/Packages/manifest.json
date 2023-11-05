@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.coffee.csharp-compiler-settings": "https://github.com/mob-sakai/CSharpCompilerSettingsForUnity.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.assetbundlebrowser": "https://github.com/Unity-Technologies/AssetBundles-Browser.git",
     "com.unity.ide.rider": "1.2.1",
