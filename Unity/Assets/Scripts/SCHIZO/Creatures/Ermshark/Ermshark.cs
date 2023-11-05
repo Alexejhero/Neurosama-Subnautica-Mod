@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
+using SCHIZO.Attributes;
 using TriInspector;
 using SCHIZO.Interop.Subnautica;
-using SCHIZO.Attributes.Typing;
 using SCHIZO.Sounds.Players;
 using UnityEngine;
 

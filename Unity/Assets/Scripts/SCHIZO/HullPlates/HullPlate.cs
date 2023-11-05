@@ -1,4 +1,4 @@
-﻿using SCHIZO.Attributes.Visual;
+﻿using SCHIZO.Attributes;
 using TriInspector;
 using UnityEngine;
 

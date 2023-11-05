@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using JetBrains.Annotations;
+using SCHIZO.Attributes;
 using SCHIZO.Interop.Subnautica.Enums;
 using SCHIZO.Interop.Subnautica.Enums.BelowZero;
 using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using SCHIZO.Items.Data.Crafting;
 using SCHIZO.Registering;
-using SCHIZO.Attributes.Visual;
 using SCHIZO.Sounds;
 using TriInspector;
 using UnityEngine;

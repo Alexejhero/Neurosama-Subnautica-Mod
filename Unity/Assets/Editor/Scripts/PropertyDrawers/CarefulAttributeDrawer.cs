@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using HarmonyLib;
-using SCHIZO.Attributes.Visual;
+using SCHIZO.Attributes;
 using SCHIZO.Items.Data.Crafting;
 using UnityEditor;
 using UnityEngine;

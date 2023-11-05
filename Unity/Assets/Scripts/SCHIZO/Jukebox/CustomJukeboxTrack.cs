@@ -1,7 +1,7 @@
 using TriInspector;
 using SCHIZO.Registering;
 using JetBrains.Annotations;
-using SCHIZO.Attributes.Visual;
+using SCHIZO.Attributes;
 using UnityEngine;
 
 namespace SCHIZO.Jukebox
