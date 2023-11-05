@@ -1,20 +1,26 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Attributes.Typing;
-using SCHIZO.Utilities;
+﻿using SCHIZO.Attributes.Typing;
+using SCHIZO.TriInspector;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Interop.Subnautica
 {
+    [DeclareFoldoutGroup(CREATURE_GROUP, Title = "Creature")]
+    [DeclareUnexploredGroup(CAVE_CRAWLER_GROUP)]
     public partial class _CaveCrawler : _Creature
     {
-        [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float animationMaxSpeed = 1;
-        [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float animationMaxTilt = 10;
-        [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float dampTime = 0.5f;
-        [BoxGroup("Cave Crawler"), ExposedType("FMODAsset")] public ScriptableObject jumpSound;
-        [BoxGroup("Cave Crawler"), ExposedType("FMOD_CustomLoopingEmitter")] public _FMOD_CustomEmitter walkingSound;
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public Rigidbody rb;
-        [BoxGroup("Cave Crawler"), Required] public Collider aliveCollider;
-        [BoxGroup("Cave Crawler"), Required] public Collider deadCollider;
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("OnSurfaceTracker")] public MonoBehaviour onSurfaceTracker;
+        protected const string CAVE_CRAWLER_GROUP = "basecavecrawler";
+
+        [ComponentReferencesGroup, Required] public Rigidbody rb;
+        [ComponentReferencesGroup, Required, ExposedType("OnSurfaceTracker")] public MonoBehaviour onSurfaceTracker;
+
+        [Group(CAVE_CRAWLER_GROUP), ExposedType("FMODAsset")] public ScriptableObject jumpSound;
+        [Group(CAVE_CRAWLER_GROUP), ExposedType("FMOD_CustomLoopingEmitter")] public _FMOD_CustomEmitter walkingSound;
+        [Group(CAVE_CRAWLER_GROUP), Required] public Collider aliveCollider;
+        [Group(CAVE_CRAWLER_GROUP), Required] public Collider deadCollider;
+
+        [UnexploredGroup(CAVE_CRAWLER_GROUP)] public float animationMaxSpeed = 1;
+        [UnexploredGroup(CAVE_CRAWLER_GROUP)] public float animationMaxTilt = 10;
+        [UnexploredGroup(CAVE_CRAWLER_GROUP)] public float dampTime = 0.5f;
     }
 }

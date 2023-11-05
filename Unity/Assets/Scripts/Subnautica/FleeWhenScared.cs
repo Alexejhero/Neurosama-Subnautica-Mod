@@ -1,4 +1,5 @@
 ﻿using NaughtyAttributes;
+using SCHIZO.Interop.Subnautica;
 using SCHIZO.Utilities;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class FleeWhenScared : CreatureAction
     public float swimTiredness = 0.2f;
     public float tiredVelocity = 3;
 
-    public CreatureTrait exhausted = new CreatureTrait(0, 0.05f);
+    public _CreatureTrait exhausted = new _CreatureTrait(0, 0.05f);
     public float swimExhaustion = 0.25f;
     public float exhaustedVelocity = 1;
 

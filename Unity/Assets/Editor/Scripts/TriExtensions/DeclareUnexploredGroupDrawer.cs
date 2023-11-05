@@ -1,5 +1,5 @@
 ﻿using Editor.Scripts.TriExtensions;
-using TriExtensions;
+using SCHIZO.TriInspector;
 using TriInspector;
 using TriInspector.Elements;
 

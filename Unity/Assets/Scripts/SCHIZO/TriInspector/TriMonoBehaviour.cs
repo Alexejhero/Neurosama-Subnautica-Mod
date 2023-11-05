@@ -1,7 +1,7 @@
 ﻿using TriInspector;
 using UnityEngine;
 
-namespace TriExtensions
+namespace SCHIZO.TriInspector
 {
     [DeclareFoldoutGroup("component-references", Title = "Component References")]
     [DeclareUnexploredGroup]
@@ -10,6 +10,13 @@ namespace TriExtensions
         private protected class ComponentReferencesGroupAttribute : GroupAttribute
         {
             public ComponentReferencesGroupAttribute() : base("component-references")
+            {
+            }
+        }
+
+        private protected class ComponentReferencesGroupNextAttribute : GroupNextAttribute
+        {
+            public ComponentReferencesGroupNextAttribute() : base("component-references")
             {
             }
         }
@@ -24,5 +31,18 @@ namespace TriExtensions
             {
             }
         }
+
+        private protected class UnexploredGroupNextAttribute : GroupNextAttribute
+        {
+            public UnexploredGroupNextAttribute(string insideof) : base(insideof + "/unexplored")
+            {
+            }
+
+            public UnexploredGroupNextAttribute() : base("unexplored")
+            {
+            }
+        }
+
+        // TODO: RequiredAutoFixGetComponent thing
     }
 }

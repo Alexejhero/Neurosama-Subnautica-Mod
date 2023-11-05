@@ -1,15 +1,18 @@
 ﻿using NaughtyAttributes;
 using SCHIZO.Attributes.Typing;
-using SCHIZO.Utilities;
+using SCHIZO.TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Interop.Subnautica
 {
-    partial class _MeleeAttack : MonoBehaviour
+    partial class _MeleeAttack : TriMonoBehaviour
     {
-        [Required] public GameObject mouth;
-        [Required] public Animator animator;
+        [ComponentReferencesGroup, Required, ExposedType("LastTarget")] public MonoBehaviour lastTarget;
+        [ComponentReferencesGroup, Required] public _Creature creature;
+        [ComponentReferencesGroup, Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;
+        [ComponentReferencesGroup, Required] public Animator animator;
 
+        [Required] public GameObject mouth;
         public float biteInterval = 1;
         public float biteDamage = 30;
         public bool canBitePlayer = true;
@@ -19,17 +22,13 @@ namespace SCHIZO.Interop.Subnautica
         public bool ignoreSameKind = false;
         public bool canBeFed = true;
 
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("LastTarget")] public MonoBehaviour lastTarget;
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public _Creature creature;
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;
+        [UnexploredGroup] public float biteAggressionThreshold = 0.3f;
+        [UnexploredGroup] public float eatHungerDecrement = 0.5f;
+        [UnexploredGroup] public float eatHappyIncrement = 0.5f;
+        [UnexploredGroup] public float biteAggressionDecrement = 0.4f;
+        [UnexploredGroup] public GameObject damageFX;
 
-        [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float biteAggressionThreshold = 0.3f;
-        [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float eatHungerDecrement = 0.5f;
-        [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float eatHappyIncrement = 0.5f;
-        [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float biteAggressionDecrement = 0.4f;
-        [Foldout(STRINGS.UNCHANGED_BY_ECC)] public GameObject damageFX;
-
-        [Foldout(STRINGS.UNCHANGED_BY_ECC), ReadOnly] public Object _attackSound;
+        // [UnexploredGroup, ReadOnly] public Object attackSound;
 
         public void OnTouch(Collider col) {}
     }

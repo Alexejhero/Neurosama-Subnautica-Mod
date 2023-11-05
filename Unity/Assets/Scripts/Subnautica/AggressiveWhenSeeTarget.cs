@@ -1,6 +1,6 @@
 ﻿using SCHIZO.Interop.Subnautica;
 using SCHIZO.Interop.Subnautica.Enums;
-using TriExtensions;
+using SCHIZO.TriInspector;
 using TriInspector;
 using UnityEngine;
 
@@ -25,7 +25,7 @@ public class AggressiveWhenSeeTarget : TriMonoBehaviour
     [UnexploredGroup] public bool ignoreFrozen = false;
     [UnexploredGroup] public float leashDistance = -1;
     [UnexploredGroup] public float targetPriority = 1;
-    [UnexploredGroup] public FMODAsset sightedSound;
+    [UnexploredGroup] public _FMODAsset sightedSound;
 
     protected virtual bool ShowPlayerAttackInfobox() => false;
 

@@ -1,11 +1,9 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(SwimBehaviour))]
 public class AvoidObstacles : CreatureAction
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES)] public LastTarget lastTarget;
+    [ComponentReferencesGroup] public LastTarget lastTarget;
 
     public bool avoidTerrainOnly = true;
     public float avoidanceIterations = 10;

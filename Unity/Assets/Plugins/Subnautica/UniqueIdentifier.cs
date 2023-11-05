@@ -1,9 +1,7 @@
-﻿using TriInspector;
-using UnityEngine;
+﻿using UnityEngine;
 
 [DisallowMultipleComponent]
 public abstract class UniqueIdentifier : MonoBehaviour
 {
-    [ReadOnly]
-    public string _classId = "<assigned at runtime> (string)";
+    // [ReadOnly] public string _classId = "<assigned at runtime> (string)";
 }

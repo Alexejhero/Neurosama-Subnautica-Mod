@@ -1,6 +1,6 @@
 ﻿using TriInspector;
 
-namespace TriExtensions
+namespace SCHIZO.TriInspector
 {
     internal class DeclareUnexploredGroupAttribute : DeclareFoldoutGroupAttribute
     {

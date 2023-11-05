@@ -1,4 +1,5 @@
-﻿using TriInspector;
+﻿using SCHIZO.Interop.Subnautica;
+using TriInspector;
 
 public class AttackCyclops : CreatureAction
 {
@@ -9,5 +10,5 @@ public class AttackCyclops : CreatureAction
     public float maxDistToLeash = 30;
     public float swimVelocity = 10;
     public float swimInterval = 0.8f;
-    public CreatureTrait aggressiveToNoise = new CreatureTrait(0, 0.06f);
+    public _CreatureTrait aggressiveToNoise = new _CreatureTrait(0, 0.06f);
 }
