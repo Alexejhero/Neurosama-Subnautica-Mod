@@ -16,14 +16,18 @@ namespace Editor.Scripts.Inspectors
             TechType_AllDrawer.TargetGame = recipe.game;
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             Recipe recipe = (Recipe) target;
             TechType_AllDrawer.TargetGame = recipe.game;
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
+
             TechType_AllDrawer.TargetGame = 0;
         }
     }
