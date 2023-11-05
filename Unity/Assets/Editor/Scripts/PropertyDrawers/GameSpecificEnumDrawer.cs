@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,16 +11,31 @@ namespace Editor.Scripts.PropertyDrawers
     public abstract class GameSpecificEnumDrawer<T> : PropertyDrawer where T : Enum
     {
         protected static readonly List<string> SubnauticaValues = typeof(T).GetEnumNames()
-            .Where(n => typeof(T).GetField(n).GetCustomAttribute<GameAttribute>().game.HasFlag(Game.Subnautica)).ToList();
+            .Where(n => typeof(T).GetField(n).GetCustomAttribute<GameAttribute>().TryGetGame(out Game game) && game.HasFlag(Game.Subnautica))
+            .ToList();
 
         protected static readonly List<string> BelowZeroValues = typeof(T).GetEnumNames()
-            .Where(n => typeof(T).GetField(n).GetCustomAttribute<GameAttribute>().game.HasFlag(Game.BelowZero)).ToList();
+            .Where(n => typeof(T).GetField(n).GetCustomAttribute<GameAttribute>().TryGetGame(out Game game) && game.HasFlag(Game.BelowZero)).ToList();
+
+        protected GameAttribute gameAttribute;
 
         protected virtual bool IsValueAcceptable(string entry, string propertyPath)
         {
-            if (propertyPath.ToLower().Contains("sn")) return SubnauticaValues.Contains(entry);
-            if (propertyPath.ToLower().Contains("bz")) return BelowZeroValues.Contains(entry);
-            return SubnauticaValues.Contains(entry) || BelowZeroValues.Contains(entry);
+            gameAttribute ??= fieldInfo.GetCustomAttribute<GameAttribute>();
+
+            if (gameAttribute?.TryGetGame(out Game game) != true)
+                game = default;
+
+            if (propertyPath.IndexOf("sn", StringComparison.OrdinalIgnoreCase) >= 0) game = Game.Subnautica;
+            if (propertyPath.IndexOf("bz", StringComparison.OrdinalIgnoreCase) >= 0) game = Game.BelowZero;
+
+            return IsValueAcceptable(entry, game);
+        }
+
+        protected bool IsValueAcceptable(string value, Game game)
+        {
+            return (!game.HasFlag(Game.Subnautica) || SubnauticaValues.Contains(value))
+                && (!game.HasFlag(Game.BelowZero) || BelowZeroValues.Contains(value));
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

@@ -14,8 +14,8 @@ namespace Editor.Scripts.PropertyDrawers
 
             Recipe recipe = (Recipe) property.objectReferenceValue;
 
-            if (property.propertyPath.ToLower().Contains("sn") && !recipe.game.HasFlag(Game.Subnautica)) return false;
-            if (property.propertyPath.ToLower().Contains("bz") && !recipe.game.HasFlag(Game.BelowZero)) return false;
+            if (property.propertyPath.IndexOf("sn", System.StringComparison.OrdinalIgnoreCase) >= 0 && !recipe.game.HasFlag(Game.Subnautica)) return false;
+            if (property.propertyPath.IndexOf("bz", System.StringComparison.OrdinalIgnoreCase) >= 0 && !recipe.game.HasFlag(Game.BelowZero)) return false;
             return true;
         }
 
