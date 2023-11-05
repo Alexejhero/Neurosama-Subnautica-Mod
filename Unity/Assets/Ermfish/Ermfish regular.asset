@@ -22,9 +22,6 @@ MonoBehaviour:
   loopEffectBelowPercent: 0
   loopingDamageEffect: {fileID: 0}
   canResurrect: 0
-  damageEffect: {fileID: 0}
-  deathEffect: {fileID: 0}
-  electricalDamageEffect: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

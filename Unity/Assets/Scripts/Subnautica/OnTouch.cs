@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof (Collider))]
+[RequireComponent(typeof(Collider))]
 public class OnTouch : MonoBehaviour
 {
     public string tagFilter;

@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using NaughtyAttributes;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Components

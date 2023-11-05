@@ -1,4 +1,4 @@
-﻿using NaughtyAttributes;
+﻿using TriInspector;
 using UnityEngine;
 
 public class AquariumFish : MonoBehaviour

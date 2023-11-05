@@ -1,11 +1,11 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
+﻿using SCHIZO.TriInspector;
+using TriInspector;
 using UnityEngine;
 
-public class Locomotion : MonoBehaviour
+public class Locomotion : TriMonoBehaviour
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public BehaviourLOD levelOfDetail;
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public Rigidbody useRigidbody;
+    [ComponentReferencesGroup, Required] public BehaviourLOD levelOfDetail;
+    [ComponentReferencesGroup, Required] public Rigidbody useRigidbody;
 
     public float maxAcceleration = 10;
     public float forwardRotationSpeed = 0.6f;
@@ -15,6 +15,6 @@ public class Locomotion : MonoBehaviour
     public bool canWalkOnSurface = false;
     public bool freezeHorizontalRotation = false;
 
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float maxVelocity = 10;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool rotateToSurfaceNormal = true;
+    [UnexploredGroup] public float maxVelocity = 10;
+    [UnexploredGroup] public bool rotateToSurfaceNormal = true;
 }

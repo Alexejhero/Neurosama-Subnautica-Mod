@@ -1,12 +1,12 @@
-﻿using NaughtyAttributes.Editor;
-using SCHIZO.Registering;
+﻿using SCHIZO.Registering;
+using TriInspector.Editors;
 using UnityEditor;
 using UnityEngine;
 
 namespace Editor.Scripts.Inspectors
 {
     [CustomEditor(typeof(ModRegistryItem), true)]
-    public class ModRegistryItemInspector : NaughtyInspector
+    public class ModRegistryItemInspector : TriEditor
     {
         private GUIStyle _toggle;
 

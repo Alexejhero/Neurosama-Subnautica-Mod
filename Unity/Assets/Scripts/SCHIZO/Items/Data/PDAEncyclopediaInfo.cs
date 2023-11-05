@@ -4,23 +4,26 @@ using SCHIZO.Attributes.Validation;
 using SCHIZO.Interop.NaughtyAttributes;
 using SCHIZO.Registering;
 using SCHIZO.Sounds.Collections;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Items.Data
 {
     [CreateAssetMenu(menuName = "SCHIZO/Items/PDA Encyclopedia Info")]
+    [DeclareBoxGroup("Scanning")]
+    [DeclareBoxGroup("Databank")]
     public sealed class PDAEncyclopediaInfo : ScriptableObject
     {
-        [BoxGroup("Scanning")] public float scanTime = 3;
-        [BoxGroup("Scanning")] public Sprite unlockSprite;
-        [BoxGroup("Scanning")] public bool isImportantUnlock;
-        [BoxGroup("Scanning")] public SoundCollectionInstance scanSounds;
+        [Group("Scanning")] public float scanTime = 3;
+        [Group("Scanning")] public Sprite unlockSprite;
+        [Group("Scanning")] public bool isImportantUnlock;
+        [Group("Scanning")] public SoundCollectionInstance scanSounds;
 
         [BoxGroup("Databank"), EncyPath(Game.Subnautica)] public string encyPathSN;
         [BoxGroup("Databank"), EncyPath(Game.BelowZero)] public string encyPathBZ;
-        [BoxGroup("Databank")] public string title;
-        [BoxGroup("Databank")] public Texture2D texture;
-        [BoxGroup("Databank")] public TextAsset description;
+        [Group("Databank")] public string title;
+        [Group("Databank")] public Texture2D texture;
+        [Group("Databank")] public TextAsset description;
 
         private sealed class EncyPathAttribute : SwitchDropdownAttribute
         {

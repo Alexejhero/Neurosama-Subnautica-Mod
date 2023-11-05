@@ -1,6 +1,4 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(SwimBehaviour))]
 public class FleeOnDamage : CreatureAction
@@ -11,5 +9,5 @@ public class FleeOnDamage : CreatureAction
     public float swimVelocity = 10;
     public float swimInterval = 1;
 
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool breakLeash = true;
+    [UnexploredGroup] public bool breakLeash = true;
 }
