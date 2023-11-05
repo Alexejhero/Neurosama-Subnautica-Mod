@@ -1,26 +1,38 @@
-﻿using System;
+using System;
+using SCHIZO.Helpers;
 
 namespace SCHIZO.Registering
 {
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class GameAttribute : Attribute
     {
-        public readonly Game game;
+        private readonly Game _game;
+        private readonly string _gameMember;
 
-        public GameAttribute(Game game)
+        public GameAttribute(Game game = default)
         {
-            this.game = game;
+            _game = game;
+        }
+        public GameAttribute(string memberName)
+        {
+            _gameMember = memberName;
         }
 
-        public GameAttribute() : this(Game.Any) { }
+        public bool TryGetGame(out Game game) => TryGetGame(null, out game);
+        public bool TryGetGame(object target, out Game game)
+        {
+            game = _game;
+            if (game > 0 || string.IsNullOrEmpty(_gameMember)) return true;
+            if (target == null) return false;
+            game = ReflectionHelpers.GetMemberValue<Game>(target, _gameMember);
+            return true;
+        }
     }
 
     [Flags]
     public enum Game
     {
-        Any = 0,
         Subnautica = 1,
         BelowZero = 2,
-        Both = Subnautica | BelowZero,
     }
 }

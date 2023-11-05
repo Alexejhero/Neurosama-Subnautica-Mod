@@ -1,8 +1,3 @@
-using System;
-using NaughtyAttributes;
-using SCHIZO.Attributes.Validation;
-using SCHIZO.Interop.NaughtyAttributes;
-using SCHIZO.Registering;
 using SCHIZO.Sounds.Collections;
 using TriInspector;
 using UnityEngine;
@@ -14,44 +9,20 @@ namespace SCHIZO.Items.Data
     [DeclareBoxGroup("Databank")]
     public sealed class PDAEncyclopediaInfo : ScriptableObject
     {
-        [Group("Scanning")] public float scanTime = 3;
-        [Group("Scanning")] public Sprite unlockSprite;
-        [Group("Scanning")] public bool isImportantUnlock;
-        [Group("Scanning")] public SoundCollectionInstance scanSounds;
+        [GroupNext("Scanning")]
+        public float scanTime = 3;
+        public Sprite unlockSprite;
+        public bool isImportantUnlock;
+        public SoundCollectionInstance scanSounds;
 
-        [BoxGroup("Databank"), EncyPath(Game.Subnautica)] public string encyPathSN;
-        [BoxGroup("Databank"), EncyPath(Game.BelowZero)] public string encyPathBZ;
-        [Group("Databank")] public string title;
-        [Group("Databank")] public Texture2D texture;
-        [Group("Databank")] public TextAsset description;
+        [GroupNext("Databank")]
+        [Dropdown(nameof(SNEncyPaths))] public string encyPathSN;
+        [Dropdown(nameof(BZEncyPaths))] public string encyPathBZ;
+        public string title;
+        public Texture2D texture;
+        public TextAsset description;
 
-        private sealed class EncyPathAttribute : SwitchDropdownAttribute
-        {
-            private readonly Game _game;
-
-            public EncyPathAttribute(Game game)
-            {
-                _game = game;
-            }
-
-            public override string GetDropdownListName(SerializedPropertyHolder property)
-            {
-                switch (_game)
-                {
-                    case Game.Subnautica:
-                        return nameof(_encyPaths_SN);
-
-                    case Game.BelowZero:
-                        return nameof(_encyPaths_BZ);
-
-                    default:
-                        throw new NotSupportedException($"Choose either Subnautica or BelowZero for {nameof(EncyPathAttribute)}");
-                }
-            }
-
-        }
-
-        private readonly DropdownList<string> _encyPaths_SN = new DropdownList<string>()
+        private TriDropdownList<string> SNEncyPaths() => new()
         {
             {"(root)", ""},
 
@@ -98,7 +69,7 @@ namespace SCHIZO.Items.Data
             {"Time Capsules", "TimeCapsules"},
         };
 
-        private readonly DropdownList<string> _encyPaths_BZ = new DropdownList<string>()
+        private TriDropdownList<string> BZEncyPaths() => new()
         {
             {"(root)", ""},
 

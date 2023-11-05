@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: Coordinated Spawns
   m_EditorClassIdentifier: 
   spawns:
-  - item:
+  - game: 3
+    item:
       isCustom: 0
-      techType: 0
+      techType: 2000
       itemData: {fileID: 0}
-    subnautica:
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0}
-    belowZero:
-      position: {x: 0, y: 0, z: 0}
+    locations:
+    - position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
