@@ -6,6 +6,13 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.coffee.csharp-compiler-settings": {
+      "version": "https://github.com/mob-sakai/CSharpCompilerSettingsForUnity.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "7b73d99d06f565e759c830d1974430feee014b86"
+    },
     "com.dbrizov.naughtyattributes": {
       "version": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
       "depth": 0,
