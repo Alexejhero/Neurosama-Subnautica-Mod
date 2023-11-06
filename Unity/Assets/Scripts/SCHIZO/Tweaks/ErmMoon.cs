@@ -1,14 +1,19 @@
 ﻿using JetBrains.Annotations;
-using NaughtyAttributes;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Tweaks
 {
     public sealed partial class ErmMoon : MonoBehaviour
     {
-        [SerializeField, Required, ValidateInput(nameof(ValidateErmText), "Erm texture must be readable!"), UsedImplicitly]
+        [SerializeField, ValidateInput(nameof(ValidateErmText)), UsedImplicitly]
         private Texture2D ermTexture;
 
-        private bool ValidateErmText(Texture2D input) => !input || input.isReadable;
+        private TriValidationResult ValidateErmText(Texture2D input)
+        {
+            if (!input) return TriValidationResult.Error("Texture is required");
+            if (!input.isReadable) return TriValidationResult.Error("Texture must be readable");
+            return TriValidationResult.Valid;
+        }
     }
 }

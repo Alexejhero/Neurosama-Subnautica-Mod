@@ -1,14 +1,14 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
+﻿using SCHIZO.TriInspector.Attributes;
+using TriInspector;
 
 public class MoveOnSurface : CreatureAction
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public OnSurfaceTracker onSurfaceTracker;
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public WalkBehaviour walkBehaviour;
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public OnSurfaceMovement onSurfaceMovement;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float updateTargetInterval = 5;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float updateTargetRandomInterval = 6;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float moveVelocity = 13;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float moveRadius = 7;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool moveOnWalls;
+    [ComponentReferencesGroup, Required] public OnSurfaceTracker onSurfaceTracker;
+    [ComponentReferencesGroup, Required] public WalkBehaviour walkBehaviour;
+    [ComponentReferencesGroup, Required] public OnSurfaceMovement onSurfaceMovement;
+    [UnexploredGroup] public float updateTargetInterval = 5;
+    [UnexploredGroup] public float updateTargetRandomInterval = 6;
+    [UnexploredGroup] public float moveVelocity = 13;
+    [UnexploredGroup] public float moveRadius = 7;
+    [UnexploredGroup] public bool moveOnWalls;
 }

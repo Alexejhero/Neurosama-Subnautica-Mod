@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
-using NaughtyAttributes;
 using SCHIZO.Helpers;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Items.Data
@@ -11,32 +11,38 @@ namespace SCHIZO.Items.Data
         [SerializeField]
         private bool hasCustomUnlockMessage;
 
-        [SerializeField, Label("Unlock Message"), HideIf(nameof(hasCustomUnlockMessage)), Dropdown(nameof(defaultUnlockMessages)), UsedImplicitly]
+        [SerializeField, LabelText("Unlock Message"), HideIf(nameof(hasCustomUnlockMessage)), Dropdown(nameof(DefaultUnlockMessages)), UsedImplicitly]
         private string defaultUnlockMessage;
 
-        [SerializeField, Label("Unlock Message"), ShowIf(nameof(hasCustomUnlockMessage)), UsedImplicitly]
+        [SerializeField, LabelText("Unlock Message"), ShowIf(nameof(hasCustomUnlockMessage)), UsedImplicitly]
         private string customUnlockMessage;
 
-        [SerializeField, UsedImplicitly, Dropdown(nameof(unlockSounds))]
+        [SerializeField, UsedImplicitly, Dropdown(nameof(UnlockSounds))]
         private string unlockSound;
 
         [SerializeField, Required]
         public Sprite unlockSprite;
 
         [StaticHelpers.Cache]
-        private static DropdownList<string> defaultUnlockMessages = new DropdownList<string>
+        private static TriDropdownList<string> DefaultUnlockMessages()
         {
-            {"Blueprint Scan", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintUnlockMessage"},
-            {"Blueprint Pickup", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintPickupMessage"},
-            {"Creature Discovered", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:NewCreatureDiscoveredMessage"},
-        };
+            return new TriDropdownList<string>()
+            {
+                {"Blueprint Scan", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintUnlockMessage"},
+                {"Blueprint Pickup", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintPickupMessage"},
+                {"Creature Discovered", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:NewCreatureDiscoveredMessage"},
+            };
+        }
 
         [StaticHelpers.Cache]
-        private static DropdownList<string> unlockSounds = new DropdownList<string>
+        private static TriDropdownList<string> UnlockSounds()
         {
-            {"Basic", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BasicUnlockSound"},
-            {"Blueprint", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintUnlockSound"},
-            {"Creature Discovered", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:NewCreatureDiscoveredSound"},
-        };
+            return new TriDropdownList<string>()
+            {
+                {"Basic", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BasicUnlockSound"},
+                {"Blueprint", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintUnlockSound"},
+                {"Creature Discovered", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:NewCreatureDiscoveredSound"},
+            };
+        }
     }
 }

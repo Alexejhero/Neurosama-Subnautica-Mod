@@ -1,21 +1,21 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
+﻿using SCHIZO.TriInspector;
+using SCHIZO.TriInspector.Attributes;
+using TriInspector;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [DisallowMultipleComponent]
-public class CreatureDeath : MonoBehaviour
+public class CreatureDeath : TriMonoBehaviour
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public LiveMixin liveMixin;
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public Rigidbody useRigidbody;
-    [Foldout(STRINGS.COMPONENT_REFERENCES)] public Eatable eatable;
+    [ComponentReferencesGroup, Required] public LiveMixin liveMixin;
+    [ComponentReferencesGroup, Required] public Rigidbody useRigidbody;
+    [ComponentReferencesGroup] public Eatable eatable;
 
     public float removeCorpseAfterSeconds = -1;
     public bool respawn = true;
     [ShowIf(nameof(respawn))] public bool respawnOnlyIfKilledByCreature = false;
     [ShowIf(nameof(respawn))] public float respawnInterval = 300;
+    public bool sink = true;
 
-    [Foldout(STRINGS.ASSIGNED_AT_RUNTIME), ReadOnly] public GameObject respawnerPrefab;
-
-    [HideInInspector] public bool sink = true;
+    // [Foldout(STRINGS.ASSIGNED_AT_RUNTIME), ReadOnly] public GameObject respawnerPrefab;
 }

@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
+using SCHIZO.Attributes;
 using SCHIZO.Options.Float;
-using SCHIZO.Attributes.Typing;
 using UnityEngine;
 
 namespace SCHIZO.Sounds.Players

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using NaughtyAttributes;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Registering
@@ -22,7 +22,7 @@ namespace SCHIZO.Registering
         [Tooltip("Used for targets that are already present in the scene by the time this is registered.\nCan be used to inject into e.g. main menu UI.")]
         private bool scanForExisting;
 
-        [SerializeField, Required_string, HideIf(nameof(isSingleton)), UsedImplicitly]
+        [SerializeField, Required, HideIf(nameof(isSingleton)), UsedImplicitly]
         private string typeName;
 
         [SerializeField, Dropdown(nameof(_methodNames)), HideIf(nameof(isSingleton)), UsedImplicitly]

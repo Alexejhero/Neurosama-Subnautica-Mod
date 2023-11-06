@@ -1,23 +1,23 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
+﻿using SCHIZO.TriInspector;
+using SCHIZO.TriInspector.Attributes;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LiveMixinData.asset", menuName = "Subnautica/Live Mixin Data")]
-public class LiveMixinData : ScriptableObject
+[CreateAssetMenu(menuName = "Subnautica/Live Mixin Data")]
+public class LiveMixinData : TriScriptableObject
 {
     public float maxHealth = 100;
     public bool passDamageDataOnDeath;
     public bool broadcastKillOnDeath = true;
 
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool weldable = false;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool knifeable = true;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool destroyOnDeath = false;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float minDamageForSound = 0;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float loopEffectBelowPercent = 0;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public GameObject loopingDamageEffect = null;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool canResurrect;
+    [UnexploredGroup] public bool weldable = false;
+    [UnexploredGroup] public bool knifeable = true;
+    [UnexploredGroup] public bool destroyOnDeath = false;
+    [UnexploredGroup] public float minDamageForSound = 0;
+    [UnexploredGroup] public float loopEffectBelowPercent = 0;
+    [UnexploredGroup] public GameObject loopingDamageEffect = null;
+    [UnexploredGroup] public bool canResurrect;
 
-    [Foldout(STRINGS.ASSIGNED_AT_RUNTIME), ReadOnly] public GameObject damageEffect = null;
-    [Foldout(STRINGS.ASSIGNED_AT_RUNTIME), ReadOnly] public GameObject deathEffect = null;
-    [Foldout(STRINGS.ASSIGNED_AT_RUNTIME), ReadOnly] public GameObject electricalDamageEffect = null;
+    // [Foldout(STRINGS.ASSIGNED_AT_RUNTIME), ReadOnly] public GameObject damageEffect = null;
+    // [Foldout(STRINGS.ASSIGNED_AT_RUNTIME), ReadOnly] public GameObject deathEffect = null;
+    // [Foldout(STRINGS.ASSIGNED_AT_RUNTIME), ReadOnly] public GameObject electricalDamageEffect = null;
 }

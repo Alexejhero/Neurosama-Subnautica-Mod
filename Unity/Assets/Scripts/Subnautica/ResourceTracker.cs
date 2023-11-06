@@ -1,10 +1,11 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
+﻿using SCHIZO.TriInspector;
+using SCHIZO.TriInspector.Attributes;
+using TriInspector;
 using UnityEngine;
 
-public class ResourceTracker : MonoBehaviour
+public class ResourceTracker : TriMonoBehaviour
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public Rigidbody rb;
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public PrefabIdentifier prefabIdentifier;
-    [Foldout(STRINGS.COMPONENT_REFERENCES)] public Pickupable pickupable;
+    [ComponentReferencesGroup, Required] public Rigidbody rb;
+    [ComponentReferencesGroup, Required] public PrefabIdentifier prefabIdentifier;
+    [ComponentReferencesGroup] public Pickupable pickupable;
 }

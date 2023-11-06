@@ -2,6 +2,8 @@ fileFormatVersion: 2
 guid: 3d316254c8cfea64cb626dce93a4def6
 AssemblyDefinitionImporter:
   externalObjects: {}
-  userData: 
+  userData: '{"m_Version":140,"m_CompilerType":1,"m_LanguageVersion":2147483646,"m_EnableLogging":false,"m_Nullable":0,"m_CompilerPackage":{"m_Name":"Microsoft.Net.Compilers.Toolset","m_Version":"4.7.0","m_Category":0},"m_CompilerFilter":{"m_PredefinedAssemblies":true,"m_IncludedAssemblies":["Assets/","!Assets/Standard
+    Assets/","!Packages/"]},"m_AnalyzerPackages":[],"m_AnalyzerFilter":{"m_PredefinedAssemblies":true,"m_IncludedAssemblies":["Assets/","!Assets/Standard
+    Assets/","!Packages/"]},"m_SymbolModifier":[],"m_UseDefaultCompiler":false,"m_PackageName":"Microsoft.Net.Compilers.Toolset","m_PackageVersion":"4.7.0","m_EnableNullable":false,"m_ModifySymbols":""}'
   assetBundleName: 
   assetBundleVariant: 

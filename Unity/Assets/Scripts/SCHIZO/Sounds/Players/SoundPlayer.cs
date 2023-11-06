@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
-using NaughtyAttributes;
 using SCHIZO.Interop.Subnautica;
 using SCHIZO.Sounds.Collections;
+using TriInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 

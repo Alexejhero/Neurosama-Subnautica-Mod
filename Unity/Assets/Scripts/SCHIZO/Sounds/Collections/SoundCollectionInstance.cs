@@ -4,7 +4,7 @@ namespace SCHIZO.Sounds.Collections
 {
     public sealed partial class SoundCollectionInstance : _FMODAsset
     {
-        [NaughtyAttributes.ReadOnly] public SoundCollection collection;
+        [ReadOnly] public SoundCollection collection;
         public BusPaths bus;
     }
 }

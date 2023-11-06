@@ -1,6 +1,8 @@
-﻿public class FMOD_CustomLoopingEmitter : FMOD_CustomEmitter
+﻿using SCHIZO.Interop.Subnautica;
+
+public class FMOD_CustomLoopingEmitter : FMOD_CustomEmitter
 {
-    public FMODAsset assetStart;
-    public FMODAsset assetStop;
+    public _FMODAsset assetStart;
+    public _FMODAsset assetStop;
     public float stopSoundInterval;
 }

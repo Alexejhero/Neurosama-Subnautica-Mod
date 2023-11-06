@@ -12,7 +12,7 @@ public class VFXFabricating : MonoBehaviour
 
     [SerializeField, HideInInspector] private Mesh _fabricatorMesh;
     [SerializeField, HideInInspector] private Transform _fabricatorPrefab;
-    [SerializeField, HideInInspector] private string _spawnPointPath = "submarine_fabricator_01/printBed/spawnPoint";
+    private const string _spawnPointPath = "submarine_fabricator_01/printBed/spawnPoint";
 
     // ReSharper disable once Unity.RedundantEventFunction
     private void OnEnable() {}

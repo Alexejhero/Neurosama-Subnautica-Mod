@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using NaughtyAttributes;
+using TriInspector;
 using UnityEditor;
 
 namespace SCHIZO.Registering

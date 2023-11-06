@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using NaughtyAttributes;
+using TriInspector;
 using UnityEditor;
 
 namespace SCHIZO.Sounds.Collections
@@ -12,8 +12,15 @@ namespace SCHIZO.Sounds.Collections
         public void OnValidate()
         {
             if (collection == null) return;
+
+            string oldName = name;
             name = $"{collection.name} ({bus})";
-            AssetDatabase.SaveAssets();
+
+            if (oldName != name)
+            {
+                EditorUtility.SetDirty(collection);
+                AssetDatabase.SaveAssets();
+            }
         }
 
         [Button("Delete Instance"), UsedImplicitly]
