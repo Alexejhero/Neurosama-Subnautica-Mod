@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Greggs item
   m_EditorClassIdentifier: 
   prefab: {fileID: 0}
+  loader:
+    id: 0
   classId: greggs
   displayName: Greggs
   tooltip: god i fucking love greggs i would sell neuro just to lick a chicken bake
@@ -22,7 +24,6 @@ MonoBehaviour:
   isCraftable: 1
   isBuildable: 0
   craftingTime: 2.5
-  loader: {fileID: 0}
   itemSounds: {fileID: 0}
   pdaEncyInfo: {fileID: 0}
   unlockAtStart: 0
@@ -37,6 +38,8 @@ MonoBehaviour:
     isCustom: 1
     techType: 0
     itemData: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
   registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: 73a5409220efb7b479fcf3a12e43c1cc, type: 2}
   canBeRecycledBZ: 0
@@ -50,3 +53,10 @@ MonoBehaviour:
     isCustom: 1
     techType: 0
     itemData: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: ItemLoader, ns: SCHIZO.Items, asm: SCHIZO}

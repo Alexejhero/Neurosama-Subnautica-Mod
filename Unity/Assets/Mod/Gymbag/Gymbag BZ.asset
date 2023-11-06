@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Gymbag BZ
   m_EditorClassIdentifier: 
   prefab: {fileID: 7836867044347112342, guid: 12e5c7a1730f1304a8e99e401ff164f6, type: 3}
+  loader:
+    id: 0
   classId: quantumgymbag
   displayName: Quantum Gymbag
   tooltip: 'Provides portable access to the quantum storage network... provided you
@@ -24,7 +26,6 @@ MonoBehaviour:
   isCraftable: 1
   isBuildable: 0
   craftingTime: 7
-  loader: {fileID: 4433931489050843293}
   itemSounds: {fileID: 0}
   pdaEncyInfo: {fileID: 0}
   unlockAtStart: 0
@@ -39,6 +40,8 @@ MonoBehaviour:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
   registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: d793435e7366e1d44b0283a9debcf181, type: 2}
   canBeRecycledBZ: 1
@@ -52,8 +55,13 @@ MonoBehaviour:
     isCustom: 0
     techType: 1567
     itemData: {fileID: 0}
-  cloneTargetSN: 0
-  cloneTargetBZ: 1567
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: GymbagLoader, ns: SCHIZO.Items.Gymbag, asm: SCHIZO}
 --- !u!114 &4433931489050843293
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Ermshark
   m_EditorClassIdentifier: 
   prefab: {fileID: 2061343355341963926, guid: a7efd04469290f14d91b13b1059d3284, type: 3}
+  loader:
+    id: 0
   classId: ermshark
   displayName: Ermshark
   tooltip: 
@@ -23,6 +25,7 @@ MonoBehaviour:
   craftingTime: 2.5
   itemSounds: {fileID: 0}
   pdaEncyInfo: {fileID: 11400000, guid: dbc6837d8eb5b9f42a96dcb82632b52e, type: 2}
+  unlockAtStart: 0
   registerInSN: 1
   recipeSN: {fileID: 0}
   craftTreeTypeSN: 0
@@ -30,11 +33,12 @@ MonoBehaviour:
   techGroupSN: 14
   techCategorySN: 0
   knownTechInfoSN: {fileID: 0}
-  unlockAtStartSN: 0
   requiredForUnlockSN:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
   registerInBZ: 1
   recipeBZ: {fileID: 0}
   canBeRecycledBZ: 1
@@ -44,16 +48,22 @@ MonoBehaviour:
   techCategoryBZ: 0
   knownTechInfoBZ: {fileID: 0}
   soundTypeBZ: 0
-  unlockAtStartBZ: 0
   requiredForUnlockBZ:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
   _liveMixin: {fileID: 1838783449033335020}
   isPickupable: 0
   behaviourType: 4
   acidImmune: 1
   bioReactorCharge: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: CreatureLoader, ns: SCHIZO.Creatures, asm: SCHIZO}
 --- !u!114 &1838783449033335020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +86,3 @@ MonoBehaviour:
   loopEffectBelowPercent: 0
   loopingDamageEffect: {fileID: 0}
   canResurrect: 0
-  damageEffect: {fileID: 0}
-  deathEffect: {fileID: 0}
-  electricalDamageEffect: {fileID: 0}

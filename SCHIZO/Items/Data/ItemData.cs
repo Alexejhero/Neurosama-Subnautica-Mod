@@ -28,7 +28,22 @@ partial class ItemData
 
     protected override void PostRegister()
     {
-        UnityPrefab.CreateAndRegister(ModItem);
+#if SUBNAUTICA
+        if (!registerInSN)
+        {
+            LOGGER.LogMessage($"Not registering {classId} in SN");
+            return;
+        }
+#else
+        if (!registerInBZ)
+        {
+            LOGGER.LogMessage($"Not registering {classId} in BZ");
+            return;
+        }
+#endif
+
+        LOGGER.LogDebug($"Creating prefab {loader.GetType().Name} for {classId}");
+        loader.Load(ModItem);
     }
 
 #if UNITY_EDITOR

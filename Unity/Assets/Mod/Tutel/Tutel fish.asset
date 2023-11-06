@@ -22,9 +22,6 @@ MonoBehaviour:
   loopEffectBelowPercent: 0
   loopingDamageEffect: {fileID: 0}
   canResurrect: 0
-  damageEffect: {fileID: 0}
-  deathEffect: {fileID: 0}
-  electricalDamageEffect: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38,6 +35,8 @@ MonoBehaviour:
   m_Name: Tutel fish
   m_EditorClassIdentifier: 
   prefab: {fileID: 936897676119936064, guid: cf37468f3b2eaea4ca60b4f263a20e84, type: 3}
+  loader:
+    id: 0
   classId: tutel
   displayName: Tutel
   tooltip: 'that''s crazy
@@ -50,6 +49,7 @@ MonoBehaviour:
   craftingTime: 2.5
   itemSounds: {fileID: 11400000, guid: 848cf4fb2ef44a84987c76d50f291e0d, type: 2}
   pdaEncyInfo: {fileID: 11400000, guid: aa86b808e104bfa49905cfd6c27e78fd, type: 2}
+  unlockAtStart: 1
   registerInSN: 1
   recipeSN: {fileID: 0}
   craftTreeTypeSN: 0
@@ -57,11 +57,12 @@ MonoBehaviour:
   techGroupSN: 14
   techCategorySN: 0
   knownTechInfoSN: {fileID: 11400000, guid: ba024ae7fd4b2f649bbb22d395a493fe, type: 2}
-  unlockAtStartSN: 1
   requiredForUnlockSN:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
   registerInBZ: 1
   recipeBZ: {fileID: 0}
   canBeRecycledBZ: 1
@@ -71,13 +72,19 @@ MonoBehaviour:
   techCategoryBZ: 0
   knownTechInfoBZ: {fileID: 11400000, guid: ba024ae7fd4b2f649bbb22d395a493fe, type: 2}
   soundTypeBZ: 31
-  unlockAtStartBZ: 1
   requiredForUnlockBZ:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
   _liveMixin: {fileID: -3872750893360604716}
   isPickupable: 1
   behaviourType: 8
   acidImmune: 1
   bioReactorCharge: 200
+  references:
+    version: 1
+    00000000:
+      type: {class: CreatureLoader, ns: SCHIZO.Creatures, asm: SCHIZO}

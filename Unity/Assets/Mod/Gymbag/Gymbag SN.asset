@@ -26,6 +26,8 @@ MonoBehaviour:
   m_Name: Gymbag SN
   m_EditorClassIdentifier: 
   prefab: {fileID: 6510856162202120923, guid: 4f8f3261922939040979547e91d8a6d4, type: 3}
+  loader:
+    id: 0
   classId: gymbag
   displayName: Gymbag
   tooltip: 'A lightly worn gym bag that emanates a faint smell. How does it fit all
@@ -37,7 +39,6 @@ MonoBehaviour:
   isCraftable: 1
   isBuildable: 0
   craftingTime: 7
-  loader: {fileID: -3885522438194914022}
   itemSounds: {fileID: 0}
   pdaEncyInfo: {fileID: 0}
   unlockAtStart: 0
@@ -52,6 +53,8 @@ MonoBehaviour:
     isCustom: 1
     techType: 0
     itemData: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
   registerInBZ: 0
   recipeBZ: {fileID: 0}
   canBeRecycledBZ: 1
@@ -65,5 +68,10 @@ MonoBehaviour:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
-  cloneTargetSN: 1807
-  cloneTargetBZ: 0
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: GymbagLoader, ns: SCHIZO.Items.Gymbag, asm: SCHIZO}

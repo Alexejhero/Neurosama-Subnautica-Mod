@@ -22,6 +22,9 @@ namespace SCHIZO.Items.Data
     {
         public GameObject prefab;
 
+        [SerializeReference, ValidateInput(nameof(loader_Validate))]
+        public ItemLoader loader = new();
+
         [Group("TechType"), Required, Careful]
         public string classId;
 
@@ -46,9 +49,6 @@ namespace SCHIZO.Items.Data
         [CommonData, ShowIf(nameof(IsActuallyCraftable))]
         public float craftingTime = 2.5f;
 
-        [CommonData, ReadOnly]
-        public ItemLoader loader;
-
         [CommonData, ShowIf(nameof(NonBuildableItemProperties_ShowIf))]
         public ItemSounds itemSounds;
 
@@ -60,8 +60,8 @@ namespace SCHIZO.Items.Data
 
         #region Subnautica Data
 
-        [SNData, LabelText("Register"), Careful]
-        public bool registerInSN = true;
+        [SNData, LabelText("Register"), Careful, SerializeField]
+        private bool registerInSN = true;
 
         [SNData, LabelText("Recipe"), SerializeField, ShowIf(nameof(registerInSN)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
         private Recipe recipeSN;
@@ -94,8 +94,8 @@ namespace SCHIZO.Items.Data
 
         #region Below Zero Data
 
-        [BZData, LabelText("Register"), Careful]
-        public bool registerInBZ = true;
+        [BZData, LabelText("Register"), Careful, SerializeField]
+        private bool registerInBZ = true;
 
         [BZData, LabelText("Recipe"), SerializeField, ShowIf(nameof(registerInBZ)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
         private Recipe recipeBZ;
@@ -135,7 +135,13 @@ namespace SCHIZO.Items.Data
 
         #endregion
 
-        #region NaughtyAttributes stuff
+        #region TriInspector stuff
+
+        private TriValidationResult loader_Validate()
+        {
+            if (loader == null) return TriValidationResult.Error("Loader is required!");
+            return loader.AcceptsItem(this);
+        }
 
         private TriDropdownList<string> SNCraftTreePath()
         {

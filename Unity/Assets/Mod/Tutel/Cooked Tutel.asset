@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Cooked Tutel
   m_EditorClassIdentifier: 
   prefab: {fileID: 451644687272284489, guid: 92afe95e92596a641b8afa0a5410081a, type: 3}
+  loader:
+    id: 0
   classId: cookedtutel
   displayName: Cooked Tutel
   tooltip: 'that''s actually crazy
@@ -23,7 +25,6 @@ MonoBehaviour:
   isCraftable: 1
   isBuildable: 0
   craftingTime: 2.5
-  loader: {fileID: 0}
   itemSounds: {fileID: 11400000, guid: 848cf4fb2ef44a84987c76d50f291e0d, type: 2}
   pdaEncyInfo: {fileID: 0}
   unlockAtStart: 0
@@ -38,6 +39,8 @@ MonoBehaviour:
     isCustom: 1
     techType: 0
     itemData: {fileID: 11400000, guid: 924564253d3567248a3ebf67ddbb420c, type: 2}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
   registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: c395cdd47f6107548af3a7a51e295eb7, type: 2}
   canBeRecycledBZ: 0
@@ -51,3 +54,10 @@ MonoBehaviour:
     isCustom: 1
     techType: 0
     itemData: {fileID: 11400000, guid: 924564253d3567248a3ebf67ddbb420c, type: 2}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: ItemLoader, ns: SCHIZO.Items, asm: SCHIZO}

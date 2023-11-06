@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Erm
   m_EditorClassIdentifier: 
   prefab: {fileID: 4255816616590768573, guid: 1ba6ee38731d0904090961bdf67ddb00, type: 3}
+  loader:
+    id: 0
   classId: NeuroErm2
   displayName: Erm
   tooltip: 'erm
@@ -23,7 +25,6 @@ MonoBehaviour:
   isCraftable: 0
   isBuildable: 1
   craftingTime: 2.5
-  loader: {fileID: 0}
   itemSounds: {fileID: 0}
   pdaEncyInfo: {fileID: 0}
   unlockAtStart: 0
@@ -38,6 +39,8 @@ MonoBehaviour:
     isCustom: 1
     techType: 0
     itemData: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
   registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: 9ef8730f2922d8047bfb88e7e6edfebd, type: 2}
   canBeRecycledBZ: 1
@@ -51,3 +54,10 @@ MonoBehaviour:
     isCustom: 1
     techType: 0
     itemData: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: ItemLoader, ns: SCHIZO.Items, asm: SCHIZO}
