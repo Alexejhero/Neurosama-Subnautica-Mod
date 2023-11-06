@@ -14,6 +14,9 @@ partial class ItemData
     public TechCategory TechCategory => (TechCategory) RetargetHelpers.Pick(techCategorySN, techCategoryBZ);
     public KnownTechInfo KnownTechInfo => RetargetHelpers.Pick(knownTechInfoSN, knownTechInfoBZ);
     public TechType RequiredForUnlock => RetargetHelpers.Pick(requiredForUnlockSN, requiredForUnlockBZ).GetTechType();
+    public EquipmentType EquipmentType => (EquipmentType) RetargetHelpers.Pick(equipmentTypeSN, equipmentTypeBZ);
+    public QuickSlotType QuickSlotType => (QuickSlotType) RetargetHelpers.Pick(quickSlotTypeSN, quickSlotTypeBZ);
+
 #if BELOWZERO
     public TechData.SoundType SoundType => (TechData.SoundType) soundTypeBZ;
 #endif
@@ -27,6 +30,7 @@ partial class ItemData
     {
         UnityPrefab.CreateAndRegister(ModItem);
     }
+
 #if UNITY_EDITOR
     [ContextMenu("Set Loader/Fumo Item")]
     private void CreateFumoItemLoader() => AssignItemLoader(CreateInstance<FumoItem.FumoItemLoader>());

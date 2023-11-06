@@ -40,7 +40,7 @@ namespace SCHIZO.Items.Data
         [CommonData, HideIf(nameof(HidePickupableProps)), HideIf(nameof(isBuildable)), Careful]
         public bool isCraftable;
 
-        [CommonData, HideIf(nameof(HidePickupableProps)), HideIf(nameof(isBuildable)), Careful]
+        [CommonData, HideIf(nameof(HidePickupableProps)), HideIf(nameof(isCraftable)), Careful]
         public bool isBuildable;
 
         [CommonData, ShowIf(nameof(IsActuallyCraftable))]
@@ -49,7 +49,7 @@ namespace SCHIZO.Items.Data
         [CommonData, ReadOnly]
         public ItemLoader loader;
 
-        [CommonData, ShowIf(nameof(Sounds_ShowIf))]
+        [CommonData, ShowIf(nameof(NonBuildableItemProperties_ShowIf))]
         public ItemSounds itemSounds;
 
         [CommonData]
@@ -84,6 +84,12 @@ namespace SCHIZO.Items.Data
         [SNData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(requiredForUnlock_ShowIf)), Careful]
         private Item requiredForUnlockSN;
 
+        [SNData, LabelText("Equipment Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(NonBuildableItemProperties_ShowIf)), HideIf(nameof(isBuildable)), Careful]
+        private EquipmentType_All equipmentTypeSN;
+
+        [SNData, LabelText("Quick Slot Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(NonBuildableItemProperties_ShowIf)), ShowIf(nameof(equipmentTypeSN), EquipmentType_All.Hand)]
+        private QuickSlotType_All quickSlotTypeSN;
+
         #endregion
 
         #region Below Zero Data
@@ -112,11 +118,17 @@ namespace SCHIZO.Items.Data
         [BZData, LabelText("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoBZ;
 
-        [BZData, LabelText("Sound Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(Sounds_ShowIf))]
+        [BZData, LabelText("Sound Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(NonBuildableItemProperties_ShowIf))]
         private TechData_SoundType_BZ soundTypeBZ;
 
         [BZData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(requiredForUnlock_ShowIf)), Careful]
         private Item requiredForUnlockBZ;
+
+        [BZData, LabelText("Equipment Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(NonBuildableItemProperties_ShowIf)), Careful]
+        private EquipmentType_All equipmentTypeBZ;
+
+        [BZData, LabelText("Quick Slot Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(NonBuildableItemProperties_ShowIf)), ShowIf(nameof(equipmentTypeBZ), EquipmentType_All.Hand)]
+        private QuickSlotType_All quickSlotTypeBZ;
 
         #endregion
 
@@ -246,7 +258,7 @@ namespace SCHIZO.Items.Data
 
         private bool requiredForUnlock_ShowIf() => !unlockAtStart && IsBuildableOrCraftable();
 
-        private bool Sounds_ShowIf() => ShowPickupableProps() && !isBuildable;
+        private bool NonBuildableItemProperties_ShowIf() => ShowPickupableProps() && !isBuildable;
 
         protected virtual bool ShowPickupableProps() => true;
         private bool HidePickupableProps() => !ShowPickupableProps();

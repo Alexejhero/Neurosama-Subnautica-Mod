@@ -174,6 +174,16 @@ public class UnityPrefab : CustomPrefab
         {
             ModItem.ItemData.itemSounds.Register(ModItem);
         }
+
+        if (ModItem.ItemData.EquipmentType != EquipmentType.None)
+        {
+            CraftDataHandler.SetEquipmentType(ModItem, ModItem.ItemData.EquipmentType);
+
+            if (ModItem.ItemData.EquipmentType == EquipmentType.Hand && ModItem.ItemData.QuickSlotType != QuickSlotType.None)
+            {
+                CraftDataHandler.SetQuickSlotType(ModItem, ModItem.ItemData.QuickSlotType);
+            }
+        }
     }
 
     protected virtual void SetupComponents(GameObject instance)

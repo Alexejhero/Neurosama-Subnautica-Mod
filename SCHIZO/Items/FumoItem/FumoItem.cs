@@ -12,9 +12,6 @@ public sealed class FumoItem : UnityPrefab
 
     public override void Register()
     {
-        CraftDataHandler.SetEquipmentType(ModItem, EquipmentType.Hand);
-        CraftDataHandler.SetQuickSlotType(ModItem, QuickSlotType.Selectable);
-
         base.Register();
 #if BELOWZERO
         CraftDataHandler.SetColdResistance(ModItem, 20);
