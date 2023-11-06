@@ -5,6 +5,7 @@ using Nautilus.Handlers;
 using SCHIZO.Items;
 using UnityEngine;
 using UWE;
+using OurCreatureData = SCHIZO.Creatures.Data.CreatureData;
 
 namespace SCHIZO.Creatures;
 
@@ -13,10 +14,10 @@ public class UnityCreaturePrefab : UnityPrefab
     [SetsRequiredMembers]
     public UnityCreaturePrefab(ModItem item) : base(item)
     {
-        if (item.ItemData is not CreatureData) throw new ArgumentException("Item data is not a creature data", nameof(ModItem));
+        if (item.ItemData is not OurCreatureData) throw new ArgumentException("Item data is not a creature data", nameof(ModItem));
     }
 
-    protected new CreatureData UnityData => (CreatureData) base.UnityData;
+    protected new OurCreatureData UnityData => (OurCreatureData) base.UnityData;
 
     protected override void SetItemProperties()
     {
