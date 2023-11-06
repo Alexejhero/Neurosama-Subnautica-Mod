@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: -199999876 ELO
   m_EditorClassIdentifier: 
   classId: HullPlate31
-  displayName: Old Hull Plate
+  displayName: -199999876 ELO Hull Plate
   tooltip: In remembrance of the worst chatter of the entire universe
   texture: {fileID: 2800000, guid: 5a3a60e7c3436f645910e8c025f9ef04, type: 3}
   overrideIcon: {fileID: 0}

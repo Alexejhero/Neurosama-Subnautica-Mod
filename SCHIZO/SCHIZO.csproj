@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Configurations>Subnautica;BelowZero</Configurations>
-        <NoWarn>$(NoWarn);CS0436;CS0649;CS0809;Harmony003;Publicizer001;</NoWarn>
+        <NoWarn>$(NoWarn);CS0169;CS0436;CS0649;CS0809;Harmony003;Publicizer001;</NoWarn>
     </PropertyGroup>
 
     <Import Project="$(SolutionDir)/Subnautica.props" Condition=" '$(Configuration)' == 'Subnautica' " />
@@ -30,10 +30,11 @@
         </Compile>
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.Unity.cs" />
 
+        <Compile Include="$(SolutionDir)/Unity/Packages/Tri-Inspector/Runtime/**/*.cs" Visible="False" />
+
         <Folder Include="Attributes" />
-        <Folder Include="Attributes/Typing" />
-        <Folder Include="Attributes/Validation" />
-        <Folder Include="Attributes/Visual" />
+        <Folder Include="TriInspector" />
+        <Folder Include="TriInspector/Attributes" />
         <Folder Include="Utilities" />
     </ItemGroup>
 

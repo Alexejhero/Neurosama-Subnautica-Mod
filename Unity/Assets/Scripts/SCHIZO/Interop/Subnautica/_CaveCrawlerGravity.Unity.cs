@@ -1,14 +1,15 @@
-using NaughtyAttributes;
-using SCHIZO.Attributes.Typing;
-using SCHIZO.Utilities;
+﻿using SCHIZO.Attributes;
+using SCHIZO.TriInspector;
+using SCHIZO.TriInspector.Attributes;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Interop.Subnautica
 {
-    partial class _CaveCrawlerGravity : MonoBehaviour
+    partial class _CaveCrawlerGravity : TriMonoBehaviour
     {
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public _CaveCrawler caveCrawler;
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;
-        [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public Rigidbody crawlerRigidbody;
+        [ComponentReferencesGroup, Required] public _CaveCrawler caveCrawler;
+        [ComponentReferencesGroup, Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;
+        [ComponentReferencesGroup, Required] public Rigidbody crawlerRigidbody;
     }
 }

@@ -13,6 +13,7 @@ public static class BusPathsExtensions
             BusPaths.UnderwaterCreatures => AudioUtils.BusPaths.UnderwaterCreatures,
             BusPaths.IndoorSounds => "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds",
             BusPaths.SFX => "bus:/master/SFX_for_pause/PDA_pause/all/SFX",
+            BusPaths.SFXNoPDAPause => IS_SUBNAUTICA ? "bus:/master/SFX_for_pause/nofilter" : "bus:/master/SFX_for_pause",
             _ => throw new ArgumentOutOfRangeException(nameof(bus), bus, null)
         };
     }

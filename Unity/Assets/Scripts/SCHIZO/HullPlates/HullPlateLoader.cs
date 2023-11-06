@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using NaughtyAttributes;
+using TriInspector;
 using SCHIZO.Items.Data.Crafting;
 using SCHIZO.Registering;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SCHIZO.HullPlates
 {
@@ -12,10 +11,10 @@ namespace SCHIZO.HullPlates
     public sealed partial class HullPlateLoader : ModRegistryItem
     {
         [Required] public Texture2D hiddenIcon;
-        [FormerlySerializedAs("deprecatedTexture"), Required] public Texture2D missingTexture;
+        [Required] public Texture2D missingTexture;
         [Required] public Recipe recipeRegular;
         [Required] public Recipe recipeExpensive;
-        [ReorderableList] public List<HullPlate> hullPlates;
+        [ListDrawerSettings(AlwaysExpanded = true)] public List<HullPlate> hullPlates;
 
         [Button]
         private void Sort()

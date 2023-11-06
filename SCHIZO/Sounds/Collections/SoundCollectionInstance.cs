@@ -14,16 +14,13 @@ partial class SoundCollectionInstance
 
     public float LastPlay => _fmodSounds.LastPlay;
 
-    public void Play2D(float delay = 0)
-    {
-        _fmodSounds.Play2D(delay);
-    }
+    public void PlayRandom2D(float delay = 0) => _fmodSounds.PlayRandom2D(delay);
 
-    public void Play(FMOD_CustomEmitter emitter, float delay = 0)
-    {
-        if (!emitter) throw new ArgumentNullException(nameof(emitter));
-        _fmodSounds.Play(emitter, delay);
-    }
+    public void Play2D(int index, float delay = 0) => _fmodSounds.Play2D(index, delay);
+
+    public void PlayRandom3D(FMOD_CustomEmitter emitter, float delay = 0) => _fmodSounds.PlayRandom3D(emitter, delay);
+
+    public void Play3D(int index, FMOD_CustomEmitter emitter, float delay = 0) => _fmodSounds.Play3D(index, emitter, delay);
 
     public void CancelAllDelayed() => _fmodSounds.CancelAllDelayed();
 

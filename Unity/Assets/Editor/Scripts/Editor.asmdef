@@ -1,0 +1,23 @@
+{
+    "name": "Editor",
+    "references": [
+        "GUID:6ed54bcbddd234d55b95cd3dd4df4bec",
+        "GUID:3d316254c8cfea64cb626dce93a4def6",
+        "GUID:324caed91501a9c47a04ebfd87b68794",
+        "GUID:e851236b9ac2b9b4eaaa99506366edea",
+        "GUID:c4b8fc492eac8184fb9a42684cf8c464"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "0Harmony.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

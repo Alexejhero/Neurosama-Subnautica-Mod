@@ -1,5 +1,4 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
+﻿using SCHIZO.TriInspector.Attributes;
 using UnityEngine;
 
 [RequireComponent(typeof(SwimBehaviour))]
@@ -10,5 +9,5 @@ public class StayAtLeashPosition : CreatureAction
     public float swimInterval = 1;
     public float minSwimDuration = 3;
 
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public Vector3 directionDistanceMultiplier = Vector3.one;
+    [UnexploredGroup] public Vector3 directionDistanceMultiplier = Vector3.one;
 }

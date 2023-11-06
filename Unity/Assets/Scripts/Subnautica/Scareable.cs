@@ -1,13 +1,14 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Interop.Subnautica;
+﻿using SCHIZO.Interop.Subnautica;
 using SCHIZO.Interop.Subnautica.Enums;
-using SCHIZO.Utilities;
+using SCHIZO.TriInspector;
+using SCHIZO.TriInspector.Attributes;
+using TriInspector;
 using UnityEngine;
 
-public class Scareable : MonoBehaviour
+public class Scareable : TriMonoBehaviour
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public CreatureFear creatureFear;
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public _Creature creature;
+    [ComponentReferencesGroup, Required] public CreatureFear creatureFear;
+    [ComponentReferencesGroup, Required] public _Creature creature;
 
     public EcoTargetType_All targetType = EcoTargetType_All.Shark;
     public CreatureAction fleeAction;
@@ -17,5 +18,5 @@ public class Scareable : MonoBehaviour
     public float updateTargetInterval = 1;
     public float updateRange = 100;
 
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public AnimationCurve daynightRangeMultiplier;
+    [UnexploredGroup] public AnimationCurve daynightRangeMultiplier;
 }

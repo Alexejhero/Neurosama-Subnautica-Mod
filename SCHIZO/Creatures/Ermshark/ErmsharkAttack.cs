@@ -42,7 +42,7 @@ partial class ErmsharkAttack
             if (damageFX) Instantiate(damageFX, damageFxPos, damageFX.transform.rotation);
             if (this.GetBiteSound()) Utils.PlayEnvSound(this.GetBiteSound(), damageFxPos);
 
-            if (attackSounds) attackSounds.Play(emitter);
+            if (attackSounds) attackSounds.PlayRandom3D(emitter);
 
             creature.Aggression.Add(-biteAggressionDecrement);
             if (living && !living.IsAlive())

@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using NaughtyAttributes;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Loading
@@ -7,7 +7,7 @@ namespace SCHIZO.Loading
     [CreateAssetMenu(menuName = "SCHIZO/Loading/Loading Background Collection")]
     public sealed partial class LoadingBackgroundCollection : ScriptableObject
     {
-        [ReorderableList, SerializeField, UsedImplicitly]
+        [ListDrawerSettings, SerializeField, UsedImplicitly]
         private LoadingBackground[] backgrounds;
     }
 }

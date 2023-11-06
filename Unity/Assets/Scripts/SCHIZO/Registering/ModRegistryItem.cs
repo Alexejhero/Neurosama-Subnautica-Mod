@@ -1,8 +1,8 @@
-﻿using SCHIZO.Interop.NaughtyAttributes;
+﻿using SCHIZO.TriInspector;
 
 namespace SCHIZO.Registering
 {
-    public abstract partial class ModRegistryItem : NaughtyScriptableObject
+    public abstract partial class ModRegistryItem : TriScriptableObject
     {
         protected bool IsRegistered
         {

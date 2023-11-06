@@ -1,10 +1,11 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
+﻿using SCHIZO.TriInspector;
+using SCHIZO.TriInspector.Attributes;
+using TriInspector;
 using UnityEngine;
 
-public class SwimBehaviour : MonoBehaviour
+public class SwimBehaviour : TriMonoBehaviour
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public SplineFollowing splineFollowing;
+    [ComponentReferencesGroup, Required] public SplineFollowing splineFollowing;
 
     [Range(0.0f, 1f)] public float turnSpeed = 1;
 }

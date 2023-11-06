@@ -1,12 +1,13 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
+﻿using SCHIZO.Interop.Subnautica;
+using SCHIZO.TriInspector.Attributes;
+using TriInspector;
 using UnityEngine;
 
 [RequireComponent(typeof(LastTarget))]
 [RequireComponent(typeof(SwimBehaviour))]
 public class AttackLastTarget : CreatureAction
 {
-    [Foldout(STRINGS.COMPONENT_REFERENCES), Required] public LastTarget lastTarget;
+    [ComponentReferencesGroup, Required] public LastTarget lastTarget;
 
     public float swimVelocity = 10;
     public float aggressionThreshold = 0.75f;
@@ -16,13 +17,13 @@ public class AttackLastTarget : CreatureAction
     public bool resetAggressionOnTime = true;
     public float rememberTargetTime = 5;
 
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float swimInterval = 0.8f;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public float swimIntoPlayerViewMinDistance = 0;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool ignoreAboveWaterTargets = false;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool ignoreUnderWaterTargets = false;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool predictTargetMovement = false;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public bool attackStartRoar = false;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset _attackStartSound;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset _attackLoopSound;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset _attackStartFXcontrol;
+    [UnexploredGroup] public float swimInterval = 0.8f;
+    [UnexploredGroup] public float swimIntoPlayerViewMinDistance = 0;
+    [UnexploredGroup] public bool ignoreAboveWaterTargets = false;
+    [UnexploredGroup] public bool ignoreUnderWaterTargets = false;
+    [UnexploredGroup] public bool predictTargetMovement = false;
+    [UnexploredGroup] public bool attackStartRoar = false;
+    [UnexploredGroup] public _FMODAsset attackStartSound;
+    [UnexploredGroup] public _FMODAsset attackLoopSound;
+    [UnexploredGroup] public _FMODAsset attackStartFXcontrol;
 }

@@ -1,10 +1,14 @@
-﻿using NaughtyAttributes;
+﻿using SCHIZO.TriInspector;
+using SCHIZO.TriInspector.Attributes;
 using UnityEngine;
 
 namespace SCHIZO.Interop.Subnautica
 {
-    partial class _ModelPlug : MonoBehaviour
+    [DeclareUnexploredGroup(MODEL_PLUG_GROUP)]
+    partial class _ModelPlug : TriMonoBehaviour
     {
-        [Foldout("\u00af\\_(ツ)_/\u00af")] public Transform plugOrigin;
+        protected const string MODEL_PLUG_GROUP = "Model Plug";
+
+        [UnexploredGroup(MODEL_PLUG_GROUP)] public Transform plugOrigin;
     }
 }
