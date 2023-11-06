@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using NaughtyAttributes;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Telemetry
@@ -14,12 +14,14 @@ namespace SCHIZO.Telemetry
             public string componentTypeName;
             public string valueMemberName;
             public string maxMemberName;
-            public float maxValue = 100; // should be hidden if we have a member name but ShowIf/HideIf doesn't work in nested classes so :shrug:
+            [ShowIf(nameof(maxValue_ShowIf))] public float maxValue = 100;
             [InfoBox("The first threshold is the 'critical' percentage, and the second is the 'low' percentage")]
-            [MinMaxSlider(0,1)]
             public Vector2 thresholds;
+
+            private bool maxValue_ShowIf() => string.IsNullOrWhiteSpace(maxMemberName);
         }
-        [ReorderableList, SerializeField]
+
+        [ListDrawerSettings(AlwaysExpanded = true), SerializeField]
         private List<TrackedBar> trackedProperties;
     }
 }

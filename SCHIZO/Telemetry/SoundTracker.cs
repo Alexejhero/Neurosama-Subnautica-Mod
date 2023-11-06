@@ -25,13 +25,13 @@ partial class SoundTracker
         bool isPlaying = IsPlaying;
         if (isPlaying == _wasPlaying) return;
 
-        Send(isPlaying ? "playing" : "stopped");
+        SendTelemetry(isPlaying ? "playing" : "stopped");
         _wasPlaying = isPlaying;
     }
 
     protected override void OnDisable()
     {
-        if (_wasPlaying) Send("stopped");
+        if (_wasPlaying) SendTelemetry("stopped");
         _wasPlaying = false;
     }
 

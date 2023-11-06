@@ -94,12 +94,12 @@ partial class BarTracker
 
     private void Notify(string property, BarState state)
     {
-        Send("react", $"{coordinator.playerName}'s {property} is {FormatState(state)}."); // ({(int)(value*100)}%)
+        SendTelemetry("react", $"{_coordinator.playerName}'s {property} is {FormatState(state)}."); // ({(int)(value*100)}%)
     }
 
     private void NotifyDeath()
     {
-        Send("react", $"{coordinator.playerName} has died.");
+        SendTelemetry("react", $"{_coordinator.playerName} has died.");
     }
 
     private string FormatState(BarState state)

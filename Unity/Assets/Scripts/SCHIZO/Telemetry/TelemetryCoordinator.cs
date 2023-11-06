@@ -9,6 +9,7 @@ namespace SCHIZO.Telemetry
         public string baseUrl;
         public string playerName;
 
+        // ReSharper disable once Unity.RedundantEventFunction
         private void OnDisable() { }
     }
 }

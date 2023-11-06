@@ -11,12 +11,12 @@ partial class TelemetryCoordinator
         if (!baseUrl.EndsWith("/")) baseUrl += "/";
     }
 
-    public IEnumerator Send(string path, object data = null, UnityWebRequest.UnityWebRequestMethod method = UnityWebRequest.UnityWebRequestMethod.Post)
+    public IEnumerator CoSendTelemetry(string path, object data = null)
     {
         if (!enabled) yield break;
 
         string fullUri = baseUrl + path;
-        string dataJson = data == null ? "" : JsonConvert.SerializeObject(data);
+        string dataJson = data == null ? "{}" : JsonConvert.SerializeObject(data);
 
         LOGGER.LogWarning($"POST {fullUri}\n{dataJson}");
         UnityWebRequest request = UnityWebRequest.Post(fullUri, dataJson);

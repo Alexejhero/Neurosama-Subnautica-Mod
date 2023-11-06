@@ -2,10 +2,17 @@ namespace SCHIZO.Telemetry;
 
 partial class TelemetrySource
 {
-    public void Send(string path, object data = null)
+    protected TelemetryCoordinator _coordinator;
+
+    private void Awake()
+    {
+        _coordinator = GetComponent<TelemetryCoordinator>();
+    }
+
+    public void SendTelemetry(string path, object data = null)
     {
         if (!enabled) return;
 
-        StartCoroutine(coordinator.Send(path, data));
+        StartCoroutine(_coordinator.CoSendTelemetry(path, data));
     }
 }
