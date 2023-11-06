@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSingleton: 0
   scanForExisting: 0
-  typeName: 
-  methodName: 
+  typeName: EndCreditsManager
+  methodName: Start
   _isBaseType: 0
   targetTypeName: 
-  mode: 1
-  prefab: {fileID: 0}
+  mode: 0
+  prefab: {fileID: 7802731415246289858, guid: c5a854940199ca24bb775884f197d60c, type: 3}
