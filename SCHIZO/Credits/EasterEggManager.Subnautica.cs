@@ -31,4 +31,9 @@ partial class EasterEggManager
             _easterEggAdjusted = true;
         }
     }
+
+    public void Reset()
+    {
+        _easterEggAdjusted = false;
+    }
 }

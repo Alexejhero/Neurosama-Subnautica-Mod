@@ -9,8 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c08c4776b89c430d985e9557dc60112d, type: 3}
+  m_Script: {fileID: 11500000, guid: 39f47c082d6147689e539c5e8f321c42, type: 3}
   m_Name: Credits
   m_EditorClassIdentifier: 
-  registryItems:
-  - {fileID: 11400000, guid: 89d1591f3f478f5499a26e7970ce6f40, type: 2}
+  isSingleton: 0
+  scanForExisting: 0
+  typeName: EndCreditsManager
+  methodName: Start
+  _isBaseType: 0
+  targetTypeName: 
+  mode: 0
+  prefab: {fileID: 7802731415246289858, guid: c5a854940199ca24bb775884f197d60c, type: 3}

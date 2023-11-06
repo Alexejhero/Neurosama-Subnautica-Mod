@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using TriInspector;
 using UnityEngine;
 
@@ -8,11 +10,11 @@ namespace SCHIZO.Credits
     [CreateAssetMenu(menuName = "SCHIZO/Credits/Credits List")]
     public sealed class CreditsData : ScriptableObject
     {
-        [SerializeField, ListDrawerSettings(AlwaysExpanded = true)]
-        private List<CreditsEntry> mainCredits = new();
+        [ListDrawerSettings(AlwaysExpanded = true)]
+        public List<CreditsEntry> mainCredits = new();
 
-        [SerializeField, TextArea(1, 10)]
-        private string extraCredits;
+        [TextArea(1, 10)]
+        public string extraCredits;
 
         #region Nested types
 
@@ -48,5 +50,32 @@ namespace SCHIZO.Credits
         }
 
         #endregion
+    }
+
+    public static class CreditsTypeExtensions
+    {
+        private static readonly Dictionary<CreditsData.CreditsType, CreditsData.CreditAttribute> _cache = new();
+
+        public static IEnumerable<CreditsData.CreditsType> ToList(this CreditsData.CreditsType type)
+        {
+            return Enum.GetValues(typeof(CreditsData.CreditsType)).Cast<CreditsData.CreditsType>().Where(test => type.HasFlag(test));
+        }
+
+        public static string GetSN(this CreditsData.CreditsType type)
+        {
+            return GetAttribute(type).sn;
+        }
+
+        public static string GetBZ(this CreditsData.CreditsType type)
+        {
+            return GetAttribute(type).bz;
+        }
+
+        private static CreditsData.CreditAttribute GetAttribute(CreditsData.CreditsType type)
+        {
+            return _cache.TryGetValue(type, out CreditsData.CreditAttribute attribute)
+                ? attribute
+                : _cache[type] = typeof(CreditsData.CreditsType).GetField(type.ToString()).GetCustomAttribute<CreditsData.CreditAttribute>();
+        }
     }
 }
