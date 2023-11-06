@@ -25,7 +25,7 @@ partial class FumoLoadingIcon
         {
             _patched = true;
             HARMONY.Patch(AccessTools.Method(typeof(uGUI_Logo), nameof(uGUI_Logo.Update)),
-                transpiler: new HarmonyMethod(AccessTools.Method(typeof(FumoLoadingIcon), nameof(FixFumoRotationPatch))));
+                transpiler: new HarmonyMethod(typeof(FumoLoadingIcon), nameof(FixFumoRotationPatch)));
         }
     }
 
