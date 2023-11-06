@@ -10,31 +10,27 @@ namespace Editor.Scripts.PropertyDrawers.Attributes
 {
     internal sealed class CarefulAttributeDrawer : TriAttributeDrawer<CarefulAttribute>
     {
-        private bool _opened;
+        private TriProperty _opened;
 
         public override void OnGUI(Rect position, TriProperty property, TriElement next)
         {
             Rect propRect = new(position.x, position.y, position.width - 55, position.height);
             Rect buttonRect = new(position.x + position.width - 50, position.y, 50, position.height);
 
-            using (new EditorGUI.DisabledScope(!_opened))
+            using (new EditorGUI.DisabledScope(_opened != property))
             {
                 next.OnGUI(propRect);
             }
 
-            if (!_opened)
+            using (new EditorGUI.DisabledScope(_opened == property))
             {
                 if (GUI.Button(buttonRect, "Edit"))
                 {
-                    if (EditorUtility.DisplayDialog("Careful!", "This field is not supposed to be changed after it has been set. Are you sure you want to edit it?", "Yes", "No"))
+                    if (Event.current.shift || EditorUtility.DisplayDialog("Careful!", "This field is not supposed to be changed after it has been set. Are you sure you want to edit it?\n(Hold SHIFT to bypass this message in the future.)", "Yes", "No"))
                     {
-                        _opened = true;
+                        _opened = property;
                     }
                 }
-            }
-            else
-            {
-                if (GUI.Button(buttonRect, "Done")) _opened = false;
             }
         }
     }

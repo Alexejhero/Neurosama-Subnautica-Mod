@@ -23,16 +23,17 @@ MonoBehaviour:
   isCraftable: 0
   isBuildable: 1
   craftingTime: 2.5
+  loader: {fileID: 0}
   itemSounds: {fileID: 0}
+  pdaEncyInfo: {fileID: 0}
+  unlockAtStart: 0
   registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 9ef8730f2922d8047bfb88e7e6edfebd, type: 2}
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 13
   techCategorySN: 24
-  pdaEncyclopediaInfoSN: {fileID: 0}
   knownTechInfoSN: {fileID: 0}
-  unlockAtStartSN: 0
   requiredForUnlockSN:
     isCustom: 1
     techType: 0
@@ -44,9 +45,8 @@ MonoBehaviour:
   craftTreePathBZ: 
   techGroupBZ: 12
   techCategoryBZ: 15
-  pdaEncyclopediaInfoBZ: {fileID: 0}
   knownTechInfoBZ: {fileID: 0}
-  unlockAtStartBZ: 0
+  soundTypeBZ: 0
   requiredForUnlockBZ:
     isCustom: 1
     techType: 0

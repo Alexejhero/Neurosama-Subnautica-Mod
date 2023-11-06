@@ -24,15 +24,17 @@ MonoBehaviour:
   isCraftable: 1
   isBuildable: 0
   craftingTime: 7
+  loader: {fileID: 4433931489050843293}
+  itemSounds: {fileID: 0}
+  pdaEncyInfo: {fileID: 0}
+  unlockAtStart: 0
   registerInSN: 0
   recipeSN: {fileID: 0}
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 14
   techCategorySN: 0
-  pdaEncyclopediaInfoSN: {fileID: 0}
   knownTechInfoSN: {fileID: 0}
-  unlockAtStartSN: 0
   requiredForUnlockSN:
     isCustom: 0
     techType: 0
@@ -44,14 +46,12 @@ MonoBehaviour:
   craftTreePathBZ: Personal/Equipment
   techGroupBZ: 2
   techCategoryBZ: 4
-  pdaEncyclopediaInfoBZ: {fileID: 0}
   knownTechInfoBZ: {fileID: 0}
-  unlockAtStartBZ: 0
+  soundTypeBZ: 0
   requiredForUnlockBZ:
     isCustom: 0
     techType: 1567
     itemData: {fileID: 0}
-  loader: {fileID: 4433931489050843293}
   cloneTargetSN: 0
   cloneTargetBZ: 1567
 --- !u!114 &4433931489050843293

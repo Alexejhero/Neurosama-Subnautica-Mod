@@ -157,7 +157,7 @@ public class UnityPrefab : CustomPrefab
             });
         }
 
-        if (ModItem.ItemData.UnlockAtStart)
+        if (ModItem.ItemData.unlockAtStart)
         {
             KnownTechHandler.UnlockOnStart(ModItem);
         }

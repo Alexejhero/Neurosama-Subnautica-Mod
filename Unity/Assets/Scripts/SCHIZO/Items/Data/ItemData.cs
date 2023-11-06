@@ -9,6 +9,7 @@ using SCHIZO.Registering;
 using SCHIZO.Sounds;
 using TriInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SCHIZO.Items.Data
 {
@@ -48,12 +49,14 @@ namespace SCHIZO.Items.Data
         [CommonData, ReadOnly]
         public ItemLoader loader;
 
-
         [CommonData, ShowIf(nameof(Sounds_ShowIf))]
         public ItemSounds itemSounds;
 
-        [CommonData, LabelText("PDA Ency Info")]
+        [CommonData]
         public PDAEncyclopediaInfo pdaEncyInfo;
+
+        [CommonData, UsedImplicitly, ShowIf(nameof(IsBuildableOrCraftable)), Careful, FormerlySerializedAs("unlockAtStartSN")]
+        public bool unlockAtStart = true;
 
         #region Subnautica Data
 
@@ -78,10 +81,7 @@ namespace SCHIZO.Items.Data
         [SNData, LabelText("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoSN;
 
-        [SNData, LabelText("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
-        private bool unlockAtStartSN = true;
-
-        [SNData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(requiredForUnlockSN_ShowIf)), Careful]
+        [SNData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(requiredForUnlock_ShowIf)), Careful]
         private Item requiredForUnlockSN;
 
         #endregion
@@ -115,10 +115,7 @@ namespace SCHIZO.Items.Data
         [BZData, LabelText("Sound Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(Sounds_ShowIf))]
         private TechData_SoundType_BZ soundTypeBZ;
 
-        [BZData, LabelText("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
-        private bool unlockAtStartBZ = true;
-
-        [BZData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(requiredForUnlockBZ_ShowIf)), Careful]
+        [BZData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(requiredForUnlock_ShowIf)), Careful]
         private Item requiredForUnlockBZ;
 
         #endregion
@@ -247,8 +244,7 @@ namespace SCHIZO.Items.Data
         private bool craftTreePathSN_ShowIf() => IsActuallyCraftable() && craftTreeTypeSN != CraftTree_Type_All.None;
         private bool craftTreePathBZ_ShowIf() => IsActuallyCraftable() && craftTreeTypeBZ != CraftTree_Type_All.None;
 
-        private bool requiredForUnlockSN_ShowIf() => !unlockAtStartSN && IsBuildableOrCraftable();
-        private bool requiredForUnlockBZ_ShowIf() => !unlockAtStartBZ && IsBuildableOrCraftable();
+        private bool requiredForUnlock_ShowIf() => !unlockAtStart && IsBuildableOrCraftable();
 
         private bool Sounds_ShowIf() => ShowPickupableProps() && !isBuildable;
 

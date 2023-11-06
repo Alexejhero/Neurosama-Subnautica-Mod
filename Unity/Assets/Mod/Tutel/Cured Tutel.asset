@@ -23,16 +23,17 @@ MonoBehaviour:
   isCraftable: 1
   isBuildable: 0
   craftingTime: 2.5
+  loader: {fileID: 0}
   itemSounds: {fileID: 11400000, guid: 848cf4fb2ef44a84987c76d50f291e0d, type: 2}
+  pdaEncyInfo: {fileID: 0}
+  unlockAtStart: 0
   registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 9fd545594daae3246852dd2099a18f5f, type: 2}
   craftTreeTypeSN: 1
   craftTreePathSN: Survival/CuredFood
   techGroupSN: 1
   techCategorySN: 5
-  pdaEncyclopediaInfoSN: {fileID: 0}
   knownTechInfoSN: {fileID: 0}
-  unlockAtStartSN: 0
   requiredForUnlockSN:
     isCustom: 1
     techType: 0
@@ -44,10 +45,8 @@ MonoBehaviour:
   craftTreePathBZ: Survival/CuredFood
   techGroupBZ: 13
   techCategoryBZ: 0
-  pdaEncyclopediaInfoBZ: {fileID: 0}
   knownTechInfoBZ: {fileID: 0}
   soundTypeBZ: 31
-  unlockAtStartBZ: 0
   requiredForUnlockBZ:
     isCustom: 1
     techType: 0
