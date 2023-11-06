@@ -24,7 +24,7 @@ namespace Editor.Scripts.PropertyDrawers.Objects
 
         public static void DrawItem(SerializedProperty property, Rect position)
         {
-            SerializedProperty isCustomProp = property.FindPropertyRelative(nameof(Item.isCustom));
+            SerializedProperty isCustomProp = property.FindPropertyRelative("isCustom");
             bool isCustom = isCustomProp.boolValue;
 
             Rect toggleRect = new Rect(position.x, position.y, EditorStyles.toggle.CalcSize(GUIContent.none).x, position.height);
@@ -38,12 +38,12 @@ namespace Editor.Scripts.PropertyDrawers.Objects
             position.xMin += EditorStyles.toggle.padding.left;
             if (isCustom)
             {
-                SerializedProperty prop = property.FindPropertyRelative(nameof(Item.itemData));
+                SerializedProperty prop = property.FindPropertyRelative("itemData");
                 DrawerUtils.DoObjectField(position, position, DrawerUtils.ControlId(prop.propertyPath + "itemdata", position), prop.objectReferenceValue, typeof(ItemData), prop, false, EditorStyles.objectField);
             }
             else
             {
-                SerializedProperty prop = property.FindPropertyRelative(nameof(Item.techType));
+                SerializedProperty prop = property.FindPropertyRelative("techType");
                 TechType_AllDrawer.DrawDropdownButtonStatic(prop, DrawerUtils.ControlId(prop.propertyPath + "techtype", position), position);
             }
         }
