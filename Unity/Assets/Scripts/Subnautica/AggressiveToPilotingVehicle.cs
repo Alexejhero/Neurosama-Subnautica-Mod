@@ -1,5 +1,6 @@
 ﻿using SCHIZO.Interop.Subnautica;
 using SCHIZO.TriInspector;
+using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 
 public class AggressiveToPilotingVehicle : TriMonoBehaviour

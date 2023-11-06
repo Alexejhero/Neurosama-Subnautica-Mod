@@ -17,7 +17,7 @@ public static class ItemSoundsPatches
     public static void PlayCustomPickupSound(Pickupable __instance)
     {
         if (!ItemSounds.TryGet(__instance.GetTechType(), out ItemSounds itemSounds)) return;
-        itemSounds.pickupSounds!?.Play2D();
+        itemSounds.pickupSounds!?.PlayRandom2D();
     }
 
     [HarmonyPatch(typeof(Pickupable), nameof(Pickupable.PlayDropSound))]
@@ -28,7 +28,7 @@ public static class ItemSoundsPatches
         if (sounds.dropSounds == null) return;
 
         sounds.holsterSounds!?.CancelAllDelayed();
-        sounds.dropSounds.Play(__instance.GetComponent<FMOD_CustomEmitter>());
+        sounds.dropSounds.PlayRandom3D(__instance.GetComponent<FMOD_CustomEmitter>());
 
         __instance.GetComponentsInChildren<InventoryAmbientSoundPlayer>().ForEach(p => p.Stop());
     }
@@ -44,7 +44,7 @@ public static class ItemSoundsPatches
 
             if (Time.time < sounds.pickupSounds!?.LastPlay + 0.5f) return;
 
-            sounds.drawSounds.Play2D();
+            sounds.drawSounds.PlayRandom2D();
         }
         catch
         {
@@ -65,7 +65,7 @@ public static class ItemSoundsPatches
             if (Time.time < sounds.eatSounds!?.LastPlay + 0.5f) return;
             if (Time.time < sounds.cookSounds!?.LastPlay + 0.5f) return;
 
-            sounds.holsterSounds.Play2D(0.15f);
+            sounds.holsterSounds.PlayRandom2D(0.15f);
         }
         catch
         {
@@ -106,7 +106,7 @@ public static class ItemSoundsPatches
             if (Time.time < sounds.eatSounds.LastPlay + 0.1f) return;
 
             sounds.holsterSounds!?.CancelAllDelayed();
-            sounds.eatSounds.Play2D();
+            sounds.eatSounds.PlayRandom2D();
         }
     }
 
@@ -118,7 +118,7 @@ public static class ItemSoundsPatches
         if (sounds.cookSounds == null) return;
 
         sounds.holsterSounds!?.CancelAllDelayed();
-        sounds.cookSounds.Play2D();
+        sounds.cookSounds.PlayRandom2D();
     }
 
     [HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.Kill))]
@@ -129,7 +129,7 @@ public static class ItemSoundsPatches
         foreach (InventoryItem item in Inventory.main.container.GetAllItems())
         {
             if (!ItemSounds.TryGet(item.techType, out ItemSounds sounds)) continue;
-            sounds.playerDeathSounds!?.Play2D(0.15f);
+            sounds.playerDeathSounds!?.PlayRandom2D(0.15f);
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using Editor.Scripts.TriExtensions;
-using SCHIZO.TriInspector;
+using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using TriInspector.Elements;
 
-[assembly: RegisterTriGroupDrawer(typeof(TriFoldoutGroupDrawer))]
+[assembly: RegisterTriGroupDrawer(typeof(DeclareUnexploredGroupDrawer))]
 
 namespace Editor.Scripts.TriExtensions
 {
-    internal class TriFoldoutGroupDrawer : TriGroupDrawer<DeclareUnexploredGroupAttribute>
+    internal class DeclareUnexploredGroupDrawer : TriGroupDrawer<DeclareUnexploredGroupAttribute>
     {
         public override TriPropertyCollectionBaseElement CreateElement(DeclareUnexploredGroupAttribute attribute)
         {

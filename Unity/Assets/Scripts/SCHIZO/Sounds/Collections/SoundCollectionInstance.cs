@@ -1,11 +1,11 @@
 ﻿using SCHIZO.Interop.Subnautica;
-using TriInspector;
+using ReadOnlyAttr = TriInspector.ReadOnlyAttribute;
 
 namespace SCHIZO.Sounds.Collections
 {
     public sealed partial class SoundCollectionInstance : _FMODAsset
     {
-        [ReadOnly] public SoundCollection collection;
+        [ReadOnlyAttr] public SoundCollection collection;
         public BusPaths bus;
     }
 }

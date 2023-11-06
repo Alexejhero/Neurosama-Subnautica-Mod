@@ -12,8 +12,15 @@ namespace SCHIZO.Sounds.Collections
         public void OnValidate()
         {
             if (collection == null) return;
+
+            string oldName = name;
             name = $"{collection.name} ({bus})";
-            AssetDatabase.SaveAssets();
+
+            if (oldName != name)
+            {
+                EditorUtility.SetDirty(collection);
+                AssetDatabase.SaveAssets();
+            }
         }
 
         [Button("Delete Instance"), UsedImplicitly]

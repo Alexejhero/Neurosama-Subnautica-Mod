@@ -1,4 +1,4 @@
-﻿using Editor.Scripts.PropertyDrawers;
+﻿using Editor.Scripts.PropertyDrawers.Enums;
 using SCHIZO.Items.Data.Crafting;
 using TriInspector.Editors;
 using UnityEditor;

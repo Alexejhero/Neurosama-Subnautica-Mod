@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SCHIZO.TriInspector.Attributes;
+using UnityEngine;
 
 [RequireComponent(typeof(SwimBehaviour))]
 public class AvoidObstacles : CreatureAction

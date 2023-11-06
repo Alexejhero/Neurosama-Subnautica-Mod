@@ -1,6 +1,7 @@
 ﻿using SCHIZO.Interop.Subnautica;
 using SCHIZO.Interop.Subnautica.Enums;
 using SCHIZO.TriInspector;
+using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 

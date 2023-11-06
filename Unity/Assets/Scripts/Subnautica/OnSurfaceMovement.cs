@@ -1,4 +1,5 @@
 ﻿using SCHIZO.TriInspector;
+using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 
 public class OnSurfaceMovement : TriMonoBehaviour

@@ -5,6 +5,7 @@
         PDAVoice,
         UnderwaterCreatures,
         IndoorSounds,
-        SFX
+        SFX,
+        SFXNoFilter,
     }
 }

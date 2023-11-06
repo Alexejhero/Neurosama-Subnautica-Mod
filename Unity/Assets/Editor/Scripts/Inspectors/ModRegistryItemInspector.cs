@@ -13,14 +13,8 @@ namespace Editor.Scripts.Inspectors
         private void Awake()
         {
             _toggle = new GUIStyle(EditorStyles.toggle);
-            _toggle.normal.textColor = Color.red;
-            _toggle.hover.textColor = Color.red;
-            _toggle.focused.textColor = Color.red;
-            _toggle.active.textColor = Color.red;
-            _toggle.onNormal.textColor = Color.green;
-            _toggle.onHover.textColor = Color.green;
-            _toggle.onFocused.textColor = Color.green;
-            _toggle.onActive.textColor = Color.green;
+            _toggle.normal.textColor = _toggle.hover.textColor = _toggle.focused.textColor = _toggle.active.textColor = Color.red;
+            _toggle.onNormal.textColor = _toggle.onHover.textColor = _toggle.onFocused.textColor = _toggle.onActive.textColor = Color.green;
         }
 
         protected override void OnHeaderGUI()
@@ -33,7 +27,7 @@ namespace Editor.Scripts.Inspectors
             bool isInRegistry = ModRegistry.Instance.registryItems.Contains(item);
             bool isSomehowInRegistry = ModRegistry.Instance.Flatten().Contains(item);
 
-            Rect position = new Rect(46, 24, 105, 15);
+            Rect position = new(46, 24, 105, 15);
 
             if (!isInRegistry && isSomehowInRegistry)
             {
