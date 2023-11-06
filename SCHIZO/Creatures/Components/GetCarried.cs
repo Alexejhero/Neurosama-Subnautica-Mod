@@ -57,7 +57,7 @@ partial class GetCarried
 
     public void OnPickedUp()
     {
-        pickupSounds!?.Play(emitter);
+        pickupSounds!?.PlayRandom3D(emitter);
         isCarried = true;
         _lastPickedUpTime = Time.time;
         StartPerform(Time.time);
@@ -65,7 +65,7 @@ partial class GetCarried
 
     public void OnDropped()
     {
-        releaseSounds!?.Play(emitter);
+        releaseSounds!?.PlayRandom3D(emitter);
         isCarried = false;
         StopPerform(Time.time);
     }
@@ -98,7 +98,7 @@ partial class GetCarried
         if (time > _nextCarryNoiseTime)
         {
             _nextCarryNoiseTime = time + carryNoiseInterval * (1 + Random.value);
-            carrySounds!?.Play(emitter);
+            carrySounds!?.PlayRandom3D(emitter);
         }
     }
 

@@ -4,8 +4,8 @@ partial class SoundPlayer
 {
     public void Play(float delay = 0)
     {
-        if (Is3D) sounds.Play(emitter, delay);
-        else sounds.Play2D(delay);
+        if (Is3D) sounds.PlayRandom3D(emitter, delay);
+        else sounds.PlayRandom2D(delay);
     }
 
     public void Stop()

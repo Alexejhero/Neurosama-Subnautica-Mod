@@ -57,7 +57,7 @@ public partial class ErmconAttendee : IHandTarget
     }
     public void OnHandClick(GUIHand hand)
     {
-        pickupDeniedSounds!?.Play(emitter);
+        pickupDeniedSounds!?.PlayRandom3D(emitter);
     }
 
     public override void OnEnable()

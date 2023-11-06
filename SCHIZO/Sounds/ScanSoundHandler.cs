@@ -24,7 +24,7 @@ public static class ScanSoundHandler
             if (!verbose) return; // prevents scan sounds playing on loading screen
             if (!_scanSounds.TryGetValue(entryData.key, out SoundCollectionInstance sounds)) return;
 
-            sounds.Play2D();
+            sounds.PlayRandom2D();
         }
     }
 }
