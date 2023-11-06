@@ -16,8 +16,8 @@ partial class StaticHelpers
             IEnumerable<string> names = PLUGIN_ASSEMBLY.GetTypes()
                 .SelectMany(t => t.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
                 .Where(m => m.GetCustomAttribute<CacheAttribute>() != null)
-                .SelectMany(m => (IEnumerable<ITriDropdownItem>) m.Invoke(null, Array.Empty<object>()))
-                .Select(i => i.Value.ToString());
+                .SelectMany(m => (IEnumerable<TriDropdownItem<string>>) m.Invoke(null, Array.Empty<object>()))
+                .Select(i => i.Value);
 
             CacheValues(names);
         }
