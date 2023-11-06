@@ -1,12 +1,12 @@
 ﻿using SCHIZO.Attributes;
-using SCHIZO.TriInspector;
 using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Interop.Subnautica
 {
-    partial class _CaveCrawlerGravity : TriMonoBehaviour
+    [DeclareComponentReferencesGroup]
+    partial class _CaveCrawlerGravity : MonoBehaviour
     {
         [ComponentReferencesGroup, Required] public _CaveCrawler caveCrawler;
         [ComponentReferencesGroup, Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;

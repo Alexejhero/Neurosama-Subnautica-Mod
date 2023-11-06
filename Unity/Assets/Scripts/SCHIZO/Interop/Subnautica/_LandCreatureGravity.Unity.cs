@@ -1,12 +1,13 @@
 ﻿using SCHIZO.Attributes;
-using SCHIZO.TriInspector;
 using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Interop.Subnautica
 {
-    partial class _LandCreatureGravity : TriMonoBehaviour
+    [DeclareComponentReferencesGroup]
+    [DeclareUnexploredGroup]
+    partial class _LandCreatureGravity : MonoBehaviour
     {
         [ComponentReferencesGroup, Required, ExposedType("OnSurfaceTracker")] public MonoBehaviour onSurfaceTracker;
         [ComponentReferencesGroup, Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;

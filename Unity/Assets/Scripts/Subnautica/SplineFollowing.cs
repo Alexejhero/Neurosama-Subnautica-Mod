@@ -1,9 +1,10 @@
-﻿using SCHIZO.TriInspector;
-using SCHIZO.TriInspector.Attributes;
+﻿using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
-public class SplineFollowing : TriMonoBehaviour
+[DeclareComponentReferencesGroup]
+[DeclareUnexploredGroup]
+public class SplineFollowing : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public Locomotion locomotion;
     [ComponentReferencesGroup, Required] public Rigidbody useRigidbody;

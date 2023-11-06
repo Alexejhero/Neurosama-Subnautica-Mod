@@ -1,12 +1,13 @@
 ﻿using SCHIZO.Attributes;
 using TriInspector;
-using SCHIZO.TriInspector;
 using SCHIZO.TriInspector.Attributes;
 using UnityEngine;
 
 namespace SCHIZO.Interop.Subnautica
 {
-    partial class _MeleeAttack : TriMonoBehaviour
+    [DeclareComponentReferencesGroup]
+    [DeclareUnexploredGroup]
+    partial class _MeleeAttack : MonoBehaviour
     {
         [ComponentReferencesGroup, Required, ExposedType("LastTarget")] public MonoBehaviour lastTarget;
         [ComponentReferencesGroup, Required] public _Creature creature;

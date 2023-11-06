@@ -1,9 +1,9 @@
-﻿using SCHIZO.TriInspector;
-using SCHIZO.TriInspector.Attributes;
+﻿using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
-public class AnimateByVelocity : TriMonoBehaviour
+[DeclareComponentReferencesGroup]
+public class AnimateByVelocity : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public BehaviourLOD levelOfDetail;
     [ComponentReferencesGroup, Required] public Animator animator;

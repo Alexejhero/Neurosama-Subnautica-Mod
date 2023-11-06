@@ -1,9 +1,9 @@
-﻿using SCHIZO.TriInspector;
-using SCHIZO.TriInspector.Attributes;
+﻿using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
-public class CreatureFlinch : TriMonoBehaviour
+[DeclareComponentReferencesGroup]
+public class CreatureFlinch : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public Animator animator;
 

@@ -1,9 +1,9 @@
-﻿using SCHIZO.TriInspector;
-using SCHIZO.TriInspector.Attributes;
+﻿using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
-public class DeadAnimationOnEnable : TriMonoBehaviour
+[DeclareComponentReferencesGroup]
+public class DeadAnimationOnEnable : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public LiveMixin liveMixin;
 

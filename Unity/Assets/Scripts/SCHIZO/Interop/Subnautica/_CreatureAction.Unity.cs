@@ -1,14 +1,15 @@
 using SCHIZO.Attributes;
-using SCHIZO.TriInspector;
 using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Interop.Subnautica
 {
+    [DeclareComponentReferencesGroup]
+    [DeclareUnexploredGroup]
     [DeclareBoxGroup("creatureaction", Title = "Base Creature Action")]
     [DeclareUnexploredGroup("creatureaction")]
-    partial class _CreatureAction : TriMonoBehaviour
+    partial class _CreatureAction : MonoBehaviour
     {
         [ComponentReferencesGroup, Required, ExposedType("_Creature")] public MonoBehaviour creature;
         [ComponentReferencesGroup, Required, ExposedType("SwimBehaviour")] public MonoBehaviour swimBehaviour;
