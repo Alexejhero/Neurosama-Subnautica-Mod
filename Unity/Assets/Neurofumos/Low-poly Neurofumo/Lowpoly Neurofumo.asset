@@ -23,6 +23,7 @@ MonoBehaviour:
   isCraftable: 0
   isBuildable: 1
   craftingTime: 2.5
+  loader: {fileID: 0}
   registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 5061b10e23e00bb4d8bdb58109048276, type: 2}
   craftTreeTypeSN: 0
@@ -38,6 +39,7 @@ MonoBehaviour:
     itemData: {fileID: 0}
   registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: 5061b10e23e00bb4d8bdb58109048276, type: 2}
+  canBeRecycledBZ: 1
   craftTreeTypeBZ: 0
   craftTreePathBZ: 
   techGroupBZ: 12

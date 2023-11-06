@@ -582,27 +582,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
-      propertyPath: belowZeroModel
+      propertyPath: data.belowZeroModel
       value: 
       objectReference: {fileID: 330301511440489033}
     - target: {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
-      propertyPath: subnauticaModel
+      propertyPath: data.subnauticaModel
       value: 
       objectReference: {fileID: 1394141172487900287}
     - target: {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
-      propertyPath: referenceAnimation
+      propertyPath: data.referenceAnimation
       value: 2522
       objectReference: {fileID: 0}
     - target: {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
-      propertyPath: leftHandIKTargetOverrideBZ
+      propertyPath: data.leftHandIKTargetOverrideBZ
       value: 
       objectReference: {fileID: 6609199908313761074}
     - target: {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
-      propertyPath: rightHandIKTargetOverrideBZ
+      propertyPath: data.rightHandIKTargetOverrideBZ
       value: 
       objectReference: {fileID: 7353742809884138177}
     - target: {fileID: -916793966807223697, guid: 5ff80f47f2822bb438251c8a7a1370ca,

@@ -45,6 +45,10 @@ namespace SCHIZO.Items.Data
 
         [CommonData, ShowIf(nameof(IsActuallyCraftable))]
         public float craftingTime = 2.5f;
+        
+        [CommonData, ReadOnly]
+        public ItemLoader loader;
+
 
         [CommonData, ShowIf(nameof(Sounds_ShowIf))]
         public ItemSounds itemSounds;
