@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Registry
   m_EditorClassIdentifier: 
   registryItems:
+  - {fileID: 11400000, guid: 89d1591f3f478f5499a26e7970ce6f40, type: 2}
   - {fileID: 11400000, guid: 2001b19be75ff684aa38223bca2a074a, type: 2}
   - {fileID: 11400000, guid: 0e02cf6a34773f0448fcaf3dc90f0a92, type: 2}
   - {fileID: 11400000, guid: 5159b45dc6c3d83449b9eb96602c772c, type: 2}

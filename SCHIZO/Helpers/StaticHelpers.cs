@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -16,8 +17,9 @@ partial class StaticHelpers
             IEnumerable<string> names = PLUGIN_ASSEMBLY.GetTypes()
                 .SelectMany(t => t.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
                 .Where(m => m.GetCustomAttribute<CacheAttribute>() != null)
-                .SelectMany(m => (IEnumerable<TriDropdownItem<string>>) m.Invoke(null, Array.Empty<object>()))
-                .Select(i => i.Value);
+                .Select(m => (IEnumerable) m.Invoke(null, Array.Empty<object>()))
+                .SelectMany(i => i.Cast<ITriDropdownItem>())
+                .Select(i => i.Value.ToString());
 
             CacheValues(names);
         }
