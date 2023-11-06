@@ -1,9 +1,10 @@
-﻿using SCHIZO.TriInspector;
-using SCHIZO.TriInspector.Attributes;
+﻿using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
-public class ResourceTracker : TriMonoBehaviour
+[DeclareComponentReferencesGroup]
+[DeclareUnexploredGroup]
+public class ResourceTracker : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public Rigidbody rb;
     [ComponentReferencesGroup, Required] public PrefabIdentifier prefabIdentifier;

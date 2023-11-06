@@ -8,7 +8,6 @@ using System.Text;
 using AssetBundleBrowser.AssetBundleDataSource;
 using HarmonyLib;
 using JetBrains.Annotations;
-using SCHIZO.Creatures;
 using SCHIZO.Items.Data;
 using SCHIZO.Registering;
 using UnityEditor;

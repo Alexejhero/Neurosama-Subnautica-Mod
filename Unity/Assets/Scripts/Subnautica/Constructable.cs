@@ -2,6 +2,7 @@
 using TriInspector;
 using UnityEngine;
 
+[DeclareUnexploredGroup]
 public class Constructable : HandTarget
 {
     [Required] public GameObject model;

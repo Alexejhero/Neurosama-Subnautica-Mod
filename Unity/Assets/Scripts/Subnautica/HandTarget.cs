@@ -1,5 +1,5 @@
-﻿using SCHIZO.TriInspector;
+﻿using UnityEngine;
 
-public class HandTarget : TriMonoBehaviour
+public class HandTarget : MonoBehaviour
 {
 }

@@ -1,13 +1,14 @@
 ﻿using SCHIZO.Attributes;
-using SCHIZO.TriInspector;
 using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Interop.Subnautica
 {
+    [DeclareComponentReferencesGroup]
+    [DeclareUnexploredGroup]
     [DeclareUnexploredGroup(CREATURE_GROUP)]
-    partial class _Creature : TriMonoBehaviour
+    partial class _Creature : MonoBehaviour
     {
         [ComponentReferencesGroup, Required, ExposedType("LiveMixin")] public MonoBehaviour liveMixin;
         [ComponentReferencesGroup, Required] public Animator traitsAnimator;

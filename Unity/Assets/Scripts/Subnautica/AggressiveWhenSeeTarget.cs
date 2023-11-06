@@ -1,13 +1,14 @@
 ﻿using SCHIZO.Interop.Subnautica;
 using SCHIZO.Interop.Subnautica.Enums;
-using SCHIZO.TriInspector;
 using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
+[DeclareComponentReferencesGroup]
+[DeclareUnexploredGroup]
 [RequireComponent(typeof(LastTarget))]
 [RequireComponent(typeof(CreatureFear))]
-public class AggressiveWhenSeeTarget : TriMonoBehaviour
+public class AggressiveWhenSeeTarget : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public LastTarget lastTarget;
     [ComponentReferencesGroup, Required] public _Creature creature;

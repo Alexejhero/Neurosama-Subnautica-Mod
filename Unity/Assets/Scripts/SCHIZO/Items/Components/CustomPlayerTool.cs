@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using SCHIZO.Interop.Subnautica;
 using SCHIZO.Items.Data;
 using TriInspector;
@@ -8,7 +9,7 @@ namespace SCHIZO.Items.Components
     [DeclareFoldoutGroup("Use Text")]
     public partial class CustomPlayerTool : _PlayerTool
     {
-        [SerializeField] private CustomToolData data;
+        [SerializeField, UsedImplicitly] private CustomToolData data;
 
         [GroupNext("Use Text"), SerializeField]
         protected bool hasPrimaryUse;
