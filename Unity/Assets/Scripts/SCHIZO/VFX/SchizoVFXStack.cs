@@ -5,14 +5,13 @@ namespace SCHIZO.VFX
 {
     public partial class SchizoVFXStack : MonoBehaviour
     {
-        public List<MatWithProps> effectMaterials = new List<MatWithProps> ();
+        public List<MatWithProps> effectMaterials = new List<MatWithProps>();
 
         private void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
             if (effectMaterials.Count == 0)
             {
-                Debug.LogWarning("No effects to render");
-                Graphics.Blit (source, destination);
+                Graphics.Blit(source, destination);
                 return;
             }
 
@@ -23,10 +22,6 @@ namespace SCHIZO.VFX
             bool startedWithA = true;
             foreach (MatWithProps effectMaterial in effectMaterials)
             {
-                if ( effectMaterial == null)
-                {
-                    throw new System.Exception("Effect object is missing");
-                }
                 Material m = effectMaterial.material;
                 m.SetVector(effectMaterial.vectorPropertyID, effectMaterial.vectorPropertyValue);
                 m.SetColor(effectMaterial.colorPropertyID, effectMaterial.colorPropertyValue);

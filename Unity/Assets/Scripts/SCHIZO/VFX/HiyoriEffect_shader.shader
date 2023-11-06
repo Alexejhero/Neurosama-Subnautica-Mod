@@ -2,12 +2,12 @@ Shader"SchizoVFX/HiyoriEffect"
 {
     Properties
     {
-        [HideInInInspector]
+        [HideInInspector]
         _MainTex ("MainTex", 2D) = "gray" {}
         _NoiseTex ("Noise Texture", 2D) = "white" {}
         [Normal]     
         _DispMap ("Displacement map", 2D) = "white" {}
-        [HideInInInspector]
+        [HideInInspector]
         _ScreenPosition ("Position" , Vector) = (0,0,0,0)
         _Distance ("Distance" , float) = 0.5
         _Strength ("Strength", float) = 0.5
@@ -67,7 +67,7 @@ Shader"SchizoVFX/HiyoriEffect"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                _Blend = max(0, 10 - (_Blend * _ScreenParams.w * _Distance));
+                _Blend = max(0, 20 - (_Blend * _ScreenParams.w * _Distance));
                 _Strength = max(0, _Strength);
                 _ScreenPosition.xy /= _ScreenParams.xy;
                 float2 aspectUV = FixUV(i.uv);
@@ -79,7 +79,7 @@ Shader"SchizoVFX/HiyoriEffect"
                 bool isInfront = (_ScreenPosition.z > 0)? true : false;
                 if(isInfront)
                 {
-                    int condition = step(_ScreenPosition.w , _Condition + _Distance * 0.05);
+                    int condition = step(_ScreenPosition.w , _Condition );
                     col.rgb = (col.rgb * condition) + ((1 - condition) * lerp((noiseCol.rgb + (col.rgb * _Blend)) / (_Blend + 1), colDist.rgb, fac));
                 }
                 return col;

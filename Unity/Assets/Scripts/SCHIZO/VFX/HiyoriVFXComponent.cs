@@ -9,7 +9,8 @@ public class HiyoriVFXComponent : SchizoVFXComponent
     {
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
         float rnd = Random.Range(-1f, 1f);
-        MatWithProps matWithProps = new MatWithProps(effectMaterial, propID, new Vector4(pos.x, pos.y, pos.z, rnd));
+        matWithProps.vectorPropertyID = propID;
+        matWithProps.vectorPropertyValue = new Vector4(pos.x, pos.y, pos.z, rnd);
         SendEffect(matWithProps);
     }
 }

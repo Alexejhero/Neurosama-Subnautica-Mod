@@ -4,7 +4,7 @@ namespace SCHIZO.VFX
 {
     public partial class SchizoVFXComponent : MonoBehaviour
     {
-        public Material effectMaterial;
+        public MatWithProps matWithProps;
         public void SendEffect(MatWithProps matWithProps)
         {
             SchizoVFXStack VFXstack = Camera.main.gameObject.GetComponent<SchizoVFXStack>();
