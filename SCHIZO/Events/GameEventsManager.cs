@@ -14,8 +14,8 @@ public partial class GameEventsManager
 {
     public static bool AutoStart
     {
-        get => Assets.Options_EnableAutomaticEvents.Value;
-        set => Assets.Options_EnableAutomaticEvents.Value = value;
+        get => Assets.Mod_Options_EnableAutomaticEvents.Value;
+        set => Assets.Mod_Options_EnableAutomaticEvents.Value = value;
     }
 
     private static GameEventsManager Instance { get; set; }

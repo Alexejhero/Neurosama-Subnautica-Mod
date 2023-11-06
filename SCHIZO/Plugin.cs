@@ -38,8 +38,8 @@ public sealed class Plugin : BaseUnityPlugin
 
         HARMONY.PatchAll();
 
-        Assets.Registry.InvokeRegister();
-        Assets.Registry.InvokePostRegister();
+        Assets.Mod_Registry.InvokeRegister();
+        Assets.Mod_Registry.InvokePostRegister();
 
         RegisterConsoleCommandsAttribute.RegisterAll();
     }
