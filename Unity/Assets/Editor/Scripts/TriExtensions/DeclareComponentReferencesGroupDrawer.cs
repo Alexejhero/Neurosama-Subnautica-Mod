@@ -3,13 +3,13 @@ using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using TriInspector.Elements;
 
-[assembly: RegisterTriGroupDrawer(typeof(DeclareUnexploredGroupDrawer))]
+[assembly: RegisterTriGroupDrawer(typeof(DeclareComponentReferencesGroupDrawer))]
 
 namespace Editor.Scripts.TriExtensions
 {
-    internal class DeclareUnexploredGroupDrawer : TriGroupDrawer<DeclareUnexploredGroupAttribute>
+    internal class DeclareComponentReferencesGroupDrawer : TriGroupDrawer<DeclareComponentReferencesGroupAttribute>
     {
-        public override TriPropertyCollectionBaseElement CreateElement(DeclareUnexploredGroupAttribute attribute)
+        public override TriPropertyCollectionBaseElement CreateElement(DeclareComponentReferencesGroupAttribute attribute)
         {
             return new TriBoxGroupElement(new TriBoxGroupElement.Props
             {
