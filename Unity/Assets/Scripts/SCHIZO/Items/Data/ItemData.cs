@@ -44,7 +44,7 @@ namespace SCHIZO.Items.Data
 
         [CommonData, ShowIf(nameof(IsActuallyCraftable))]
         public float craftingTime = 2.5f;
-        
+
         [CommonData, ReadOnly]
         public ItemLoader loader;
 
@@ -150,7 +150,7 @@ namespace SCHIZO.Items.Data
                 case CraftTree_Type_All.Constructor:
                     return new TriDropdownList<string>()
                     {
-                        {"(root)", ""},
+                        {"<root>", ""},
                         {"Vehicles", "Vehicles"},
                         {"Rocket", "Rocket"},
                     };
@@ -158,7 +158,7 @@ namespace SCHIZO.Items.Data
                 case CraftTree_Type_All.SeamothUpgrades:
                     return new TriDropdownList<string>()
                     {
-                        {"(root)", ""},
+                        {"<root>", ""},
                         {"Common Modules", "CommonModules"},
                         {"Seamoth Modules", "SeamothModules"},
                         {"Prawn Suit Modules", "ExosuitModules"},
@@ -168,7 +168,7 @@ namespace SCHIZO.Items.Data
                 default:
                     return new TriDropdownList<string>()
                     {
-                        {"(root)", ""},
+                        {"<root>", ""},
                     };
             }
         }
@@ -202,7 +202,7 @@ namespace SCHIZO.Items.Data
                 case CraftTree_Type_All.Constructor:
                     return new TriDropdownList<string>()
                     {
-                        {"(root)", ""},
+                        {"<root>", ""},
                         {"Vehicles", "Vehicles"},
                         {"Modules", "Modules"},
                     };
@@ -210,7 +210,7 @@ namespace SCHIZO.Items.Data
                 case CraftTree_Type_All.SeamothUpgrades:
                     return new TriDropdownList<string>()
                     {
-                        {"(root)", ""},
+                        {"<root>", ""},
                         {"Prawn Suit Upgrades", "ExosuitModules"},
                         {"Seatruck Upgrades", "SeaTruckUpgrade"},
                     };
@@ -218,7 +218,7 @@ namespace SCHIZO.Items.Data
                 default:
                     return new TriDropdownList<string>()
                     {
-                        {"(root)", ""},
+                        {"<root>", ""},
                     };
             }
         }

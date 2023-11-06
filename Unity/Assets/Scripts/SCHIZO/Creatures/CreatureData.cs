@@ -1,4 +1,5 @@
-﻿using SCHIZO.Interop.Subnautica.Enums.Subnautica;
+﻿using SCHIZO.Attributes;
+using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using SCHIZO.Items.Data;
 using TriInspector;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace SCHIZO.Creatures
     [DeclareBoxGroup("creaturedata", Title = "Creature Data")]
     public partial class CreatureData : ItemData
     {
-        [PropertyOrder(1)] public bool isPickupable;
+        [PropertyOrder(1), Careful] public bool isPickupable;
 
         [Group("creaturedata"), ValidateInput(nameof(Validate_behaviourType)), SerializeField]
         private BehaviourType_SN behaviourType;
