@@ -21,20 +21,23 @@ MonoBehaviour:
   isCraftable: 1
   isBuildable: 0
   craftingTime: 3
-  loader: {fileID: 5871656827747850127}
+  loader: {fileID: 0}
+  itemSounds: {fileID: 0}
+  pdaEncyInfo: {fileID: 0}
+  unlockAtStart: 1
   registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 5061b10e23e00bb4d8bdb58109048276, type: 2}
   craftTreeTypeSN: 1
   craftTreePathSN: Personal/Equipment
   techGroupSN: 2
   techCategorySN: 6
-  pdaEncyclopediaInfoSN: {fileID: 0}
   knownTechInfoSN: {fileID: 0}
-  unlockAtStartSN: 1
   requiredForUnlockSN:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
+  equipmentTypeSN: 1
+  quickSlotTypeSN: 3
   registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: 5061b10e23e00bb4d8bdb58109048276, type: 2}
   canBeRecycledBZ: 1
@@ -42,29 +45,12 @@ MonoBehaviour:
   craftTreePathBZ: Personal/Equipment
   techGroupBZ: 2
   techCategoryBZ: 4
-  pdaEncyclopediaInfoBZ: {fileID: 0}
   knownTechInfoBZ: {fileID: 0}
-  unlockAtStartBZ: 1
+  soundTypeBZ: 0
   requiredForUnlockBZ:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
---- !u!114 &5871656827747850127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6ccdfc454a12c9479d650310c108005, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000}
-  spawnSN: 0
-  spawnPositionSN: {x: 0, y: 0, z: 0}
-  spawnRotationSN: {x: 0, y: 0, z: 0}
-  spawnBZ: 1
-  spawnPositionBZ: {x: -327, y: 15, z: 265}
-  spawnRotationBZ: {x: 0, y: 125, z: 0}
+  equipmentTypeBZ: 1
+  quickSlotTypeBZ: 3
+  coldResistanceBZ: 0

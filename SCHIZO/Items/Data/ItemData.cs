@@ -18,7 +18,7 @@ partial class ItemData
     public QuickSlotType QuickSlotType => (QuickSlotType) RetargetHelpers.Pick(quickSlotTypeSN, quickSlotTypeBZ);
 
 #if BELOWZERO
-    public TechData.SoundType SoundType => (TechData.SoundType) soundTypeBZ;
+    public TechData.SoundType SoundTypeBZ => (TechData.SoundType) soundTypeBZ;
 #endif
 
     protected override void Register()

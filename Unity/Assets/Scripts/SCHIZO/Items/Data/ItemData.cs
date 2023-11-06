@@ -130,6 +130,9 @@ namespace SCHIZO.Items.Data
         [BZData, LabelText("Quick Slot Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(NonBuildableItemProperties_ShowIf)), ShowIf(nameof(equipmentTypeBZ), EquipmentType_All.Hand)]
         private QuickSlotType_All quickSlotTypeBZ;
 
+        [BZData, ShowIf(nameof(registerInBZ)), ShowIf(nameof(NonBuildableItemProperties_ShowIf)), ShowIf(nameof(equipmentTypeBZ), EquipmentType_All.Hand), Range(0, 100)]
+        public int coldResistanceBZ;
+
         #endregion
 
         #region NaughtyAttributes stuff

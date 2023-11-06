@@ -110,18 +110,6 @@ public class UnityPrefab : CustomPrefab
             CraftDataHandler.AddBuildable(ModItem);
         }
 
-#if BELOWZERO
-        if (!ModItem.ItemData.canBeRecycledBZ)
-        {
-            Recyclotron.bannedTech.Add(ModItem.ItemData.ModItem);
-        }
-
-        if (ModItem.ItemData.SoundType != TechData.SoundType.Default)
-        {
-            CraftDataHandler.SetSoundType(ModItem, ModItem.ItemData.SoundType);
-        }
-#endif
-
         if (ModItem.ItemData.Recipe)
         {
             CraftDataHandler.SetRecipeData(ModItem, ModItem.ItemData.Recipe.Convert());
@@ -178,12 +166,34 @@ public class UnityPrefab : CustomPrefab
         if (ModItem.ItemData.EquipmentType != EquipmentType.None)
         {
             CraftDataHandler.SetEquipmentType(ModItem, ModItem.ItemData.EquipmentType);
+        }
 
-            if (ModItem.ItemData.EquipmentType == EquipmentType.Hand && ModItem.ItemData.QuickSlotType != QuickSlotType.None)
+        if (ModItem.ItemData.EquipmentType == EquipmentType.Hand)
+        {
+            if (ModItem.ItemData.QuickSlotType != QuickSlotType.None)
             {
                 CraftDataHandler.SetQuickSlotType(ModItem, ModItem.ItemData.QuickSlotType);
             }
+
+#if BELOWZERO
+            if (ModItem.ItemData.coldResistanceBZ > 0)
+            {
+                CraftDataHandler.SetColdResistance(ModItem, ModItem.ItemData.coldResistanceBZ);
+            }
+#endif
         }
+
+#if BELOWZERO
+        if (!ModItem.ItemData.canBeRecycledBZ)
+        {
+            Recyclotron.bannedTech.Add(ModItem.ItemData.ModItem);
+        }
+
+        if (ModItem.ItemData.SoundTypeBZ != TechData.SoundType.Default)
+        {
+            CraftDataHandler.SetSoundType(ModItem, ModItem.ItemData.SoundTypeBZ);
+        }
+#endif
     }
 
     protected virtual void SetupComponents(GameObject instance)
