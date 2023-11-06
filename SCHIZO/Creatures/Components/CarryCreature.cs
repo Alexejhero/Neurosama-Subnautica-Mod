@@ -19,13 +19,13 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         if (damageInfo.damage > 0) Drop();
     }
 
-    bool IOnMeleeAttack.HandleMeleeAttack(GameObject target)
+    bool IOnMeleeAttack.HandleMeleeAttack(GameObject targetObject)
     {
         // prevent bite after releasing
-        if (target.GetComponent<GetCarried>()) return true;
+        if (targetObject.GetComponent<GetCarried>()) return true;
 
         // pick up held creature instead of eating it
-        Player player = target.GetComponent<Player>();
+        Player player = targetObject.GetComponent<Player>();
         if (!player) return false;
 
         GameObject heldObject = Inventory.main.GetHeldObject();
