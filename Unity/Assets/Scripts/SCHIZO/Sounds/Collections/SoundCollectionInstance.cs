@@ -1,4 +1,5 @@
 ﻿using SCHIZO.Interop.Subnautica;
+using TriInspector;
 
 namespace SCHIZO.Sounds.Collections
 {

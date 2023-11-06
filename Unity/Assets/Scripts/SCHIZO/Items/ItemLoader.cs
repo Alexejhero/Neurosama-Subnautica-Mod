@@ -1,10 +1,11 @@
 ﻿using SCHIZO.Items.Data;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Items
 {
     public abstract partial class ItemLoader : ScriptableObject
     {
-        [NaughtyAttributes.ReadOnly] public ItemData itemData;
+        [ReadOnly] public ItemData itemData;
     }
 }

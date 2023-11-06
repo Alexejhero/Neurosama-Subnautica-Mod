@@ -1,22 +1,25 @@
-using NaughtyAttributes;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem
 {
+    [DeclareBoxGroup("Subnautica")]
+    [DeclareBoxGroup("Below Zero")]
     public sealed partial class FumoItemLoader : ItemLoader
     {
-        [BoxGroup("Subnautica"), Label("Spawn on New Game")]
+        [InfoBox("TODO: remove these when coordinated spawns are in", TriMessageType.Warning)]
+        [Group("Subnautica"), LabelText("Spawn on New Game")]
         public bool spawnSN;
-        [BoxGroup("Subnautica"), Label("Spawn Position"), ShowIf(nameof(spawnSN))]
+        [Group("Subnautica"), LabelText("Spawn Position"), ShowIf(nameof(spawnSN))]
         public Vector3 spawnPositionSN;
-        [BoxGroup("Subnautica"), Label("Spawn Rotation"), ShowIf(nameof(spawnSN))]
+        [Group("Subnautica"), LabelText("Spawn Rotation"), ShowIf(nameof(spawnSN))]
         public Vector3 spawnRotationSN;
 
-        [BoxGroup("Below Zero"), Label("Spawn on New Game")]
+        [Group("Below Zero"), LabelText("Spawn on New Game")]
         public bool spawnBZ;
-        [BoxGroup("Below Zero"), Label("Spawn Position"), ShowIf(nameof(spawnBZ))]
+        [Group("Below Zero"), LabelText("Spawn Position"), ShowIf(nameof(spawnBZ))]
         public Vector3 spawnPositionBZ;
-        [BoxGroup("Below Zero"), Label("Spawn Rotation"), ShowIf(nameof(spawnBZ))]
+        [Group("Below Zero"), LabelText("Spawn Rotation"), ShowIf(nameof(spawnBZ))]
         public Vector3 spawnRotationBZ;
     }
 }
