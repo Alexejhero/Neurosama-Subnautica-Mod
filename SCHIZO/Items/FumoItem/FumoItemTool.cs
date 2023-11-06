@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem;
 
-public sealed partial class FumoItemTool : CustomPlayerTool
+partial class FumoItemTool
 {
     public bool IsHugging => _isHugging;
     public bool IsFlushed => _isFlushed;

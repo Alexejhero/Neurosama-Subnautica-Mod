@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace SCHIZO.Items;
+namespace SCHIZO.Items.Components;
 
 public abstract partial class CustomPlayerTool
 {

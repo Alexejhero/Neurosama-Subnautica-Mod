@@ -1,8 +1,9 @@
+using System.Diagnostics;
 using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem;
 
-public partial class FumoItemTool
+partial class FumoItemTool
 {
     private (Transform parent, Vector3 localPosOffset) GetHugOffset(float distScale)
     {
@@ -17,6 +18,7 @@ public partial class FumoItemTool
         return (parent, offset);
     }
 
+    [Conditional("BELOWZERO")]
     private void ApplyColdResistBuff(int _)
     {
     }

@@ -1,3 +1,5 @@
+using SCHIZO.Items.Components;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem
@@ -7,6 +9,6 @@ namespace SCHIZO.Items.FumoItem
         public float hugCooldown = 1f;
         [Range(0, 100)]
         public int hugColdResistBuff = 20;
-        public Transform fumoModel;
+        [Required] public Transform fumoModel;
     }
 }

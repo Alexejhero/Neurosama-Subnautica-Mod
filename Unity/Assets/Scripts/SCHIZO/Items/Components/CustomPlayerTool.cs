@@ -1,9 +1,9 @@
-using TriInspector;
 using SCHIZO.Interop.Subnautica;
 using SCHIZO.Items.Data;
+using TriInspector;
 using UnityEngine;
 
-namespace SCHIZO.Items
+namespace SCHIZO.Items.Components
 {
     [DeclareFoldoutGroup("Use Text")]
     public partial class CustomPlayerTool : _PlayerTool

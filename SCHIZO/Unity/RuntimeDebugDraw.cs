@@ -1,3 +1,5 @@
+// ReSharper disable all
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +8,7 @@ using Object = UnityEngine.Object;
 /*
  *	Runtime Debug Draw https://github.com/jagt/unity3d-runtime-debug-draw
  *	Single file debuging DrawLine/DrawText/etc that works in both Scene/Game view, also works in built PC/mobile builds.
- *	
+ *
  *	Very Important Notes:
  *	1.	You are expected to make some changes in this file before intergrating this into you projects.
  *			a.	`_DEBUG` symbol, you should this to your project's debugging symbol so these draw calls will be compiled away in final release builds.
@@ -21,10 +23,11 @@ using Object = UnityEngine.Object;
  *		compile away these calls anyway. Additionally DrawText is implemented with OnGUI, which costs a lot on mobile devices.
  *	3.	Don't rename this file of 'RuntimeDebugDraw' or this won't work. This file contains a MonoBehavior also named 'RuntimeDebugDraw' and Unity needs this file
  *		to have the same name. If you really want to rename this file, remember to rename the 'RuntimeDebugDraw' class below too.
- *	
+ *
  *	License: Public Domain
  */
 
+// ReSharper disable once CheckNamespace
 namespace RuntimeDebugDraw
 {
 	public static class Draw
@@ -70,12 +73,16 @@ namespace RuntimeDebugDraw
 			return;
 		}
 
-		/// <summary>
-		/// Draws a line from <paramref name="start"/> to <paramref name="start"/> + <paramref name="dir"/> in world coordinates.
-		/// </summary>
+        /// <summary>
+        /// Draws a line from <paramref name="start"/> to <paramref name="start"/> + <paramref name="dir"/> in world coordinates.
+        /// </summary>
         /// <inheritdoc cref="DrawLine(Vector3, Vector3, Color?, float, bool)"/>
-		/// <param name="dir">Direction and length of the ray.</param>
-		public static void DrawRay(Vector3 start, Vector3 dir, Color? color = null, float duration = 0, bool depthTest = true)
+        /// <param name="start"></param>
+        /// <param name="dir">Direction and length of the ray.</param>
+        /// <param name="color"></param>
+        /// <param name="duration"></param>
+        /// <param name="depthTest"></param>
+        public static void DrawRay(Vector3 start, Vector3 dir, Color? color = null, float duration = 0, bool depthTest = true)
 		{
 			CheckAndBuildHiddenRTDrawObject();
             color ??= DrawDefaultColor;
@@ -123,10 +130,10 @@ namespace RuntimeDebugDraw
 		/// <summary>
 		/// Singleton RuntimeDebugDraw component that is needed to call Unity APIs.
 		/// </summary>
-		private static Internal.RuntimeDebugDraw _rtDraw;
+		private static RuntimeDebugDraw _rtDraw;
 
 		/// <summary>
-		/// Check and build 
+		/// Check and build
 		/// </summary>
 		private const string HIDDEN_PARENT_NAME = "________HIDDEN_C4F6A87F298241078E21C0D7C1D87A76_";
 		private static void CheckAndBuildHiddenRTDrawObject()
@@ -135,7 +142,7 @@ namespace RuntimeDebugDraw
 				return;
 
 			//	try reuse existing one first
-			_rtDraw = Object.FindObjectOfType<Internal.RuntimeDebugDraw>();
+			_rtDraw = Object.FindObjectOfType<RuntimeDebugDraw>();
 			if (_rtDraw != null)
 				return;
 
@@ -144,7 +151,7 @@ namespace RuntimeDebugDraw
             GameObject parent = new(HIDDEN_PARENT_NAME);
             GameObject child = new(HIDDEN_PARENT_NAME);
 			child.transform.parent = parent.transform;
-			_rtDraw = child.AddComponent<Internal.RuntimeDebugDraw>();
+			_rtDraw = child.AddComponent<RuntimeDebugDraw>();
 			//	hack to only hide outer go, so that RuntimeDebugDraw's OnGizmos will work properly.
 			parent.hideFlags = HideFlags.HideAndDontSave;
 			if (Application.isPlaying)
@@ -163,7 +170,7 @@ namespace RuntimeDebugDraw
 		static DrawEditor()
 		{
 			//	set a low execution order
-			var name = typeof(RuntimeDebugDraw.Internal.RuntimeDebugDraw).Name;
+			var name = typeof(RuntimeDebugDraw.RuntimeDebugDraw).Name;
 			foreach (UnityEditor.MonoScript monoScript in UnityEditor.MonoImporter.GetAllRuntimeMonoScripts())
 			{
 				if (name != monoScript.name)
@@ -179,11 +186,8 @@ namespace RuntimeDebugDraw
 	}
 #endif
 	#endregion
-}
 
-namespace RuntimeDebugDraw.Internal
-{
-	internal class RuntimeDebugDraw : MonoBehaviour
+    	internal class RuntimeDebugDraw : MonoBehaviour
 	{
 		#region Basics
 		private void CheckInitialized()
@@ -284,8 +288,8 @@ namespace RuntimeDebugDraw.Internal
 				mesh.MarkDynamic();
 
 				//	relying on a builtin shader, but it shouldn't change that much.
-				mat = new Material(Shader.Find("Hidden/Internal-Colored"));
-				mat.SetInt("_ZTest", depthTest 
+				mat = new Material(Shader.Find($"Hidden/Internal-Colored"));
+				mat.SetInt("_ZTest", depthTest
 					? 4	// LEqual
 					: 0	// Always
 					);
@@ -517,7 +521,7 @@ namespace RuntimeDebugDraw.Internal
 		public void RegisterAttachText(Transform target, Func<string> strFunc, Vector3 offset, Color color, int size)
 		{
 			CheckInitialized();
-		
+
 			AttachTextEntry entry = null;
 			for (int ix = 0; ix < _attachTextEntries.Count; ix++)
 			{
@@ -704,4 +708,3 @@ namespace RuntimeDebugDraw.Internal
 		#endregion
 	}
 }
-

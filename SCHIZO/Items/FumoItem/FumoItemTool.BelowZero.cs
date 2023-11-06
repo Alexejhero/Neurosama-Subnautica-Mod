@@ -4,7 +4,6 @@ namespace SCHIZO.Items.FumoItem;
 
 public partial class FumoItemTool
 {
-
     private (Transform parent, Vector3 localPosOffset) GetHugOffset(float distScale)
     {
         // TODO: move just the arms instead of the entire body (IK)
