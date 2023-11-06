@@ -22,7 +22,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8dc513878514f18bc57657a1e7cbc48, type: 3}
+  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
   m_Name: Gymbag SN
   m_EditorClassIdentifier: 
   prefab: {fileID: 6510856162202120923, guid: 4f8f3261922939040979547e91d8a6d4, type: 3}
