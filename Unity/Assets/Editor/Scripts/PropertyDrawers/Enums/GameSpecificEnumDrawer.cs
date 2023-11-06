@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Editor.Scripts.Extensions;
 using Editor.Scripts.PropertyDrawers.Utilities;
 using SCHIZO.Registering;
 using UnityEditor;
@@ -18,17 +19,21 @@ namespace Editor.Scripts.PropertyDrawers.Enums
         protected static readonly List<string> BelowZeroValues = typeof(T).GetEnumNames()
             .Where(n => typeof(T).GetField(n).GetCustomAttribute<GameAttribute>().TryGetGame(out Game game) && game.HasFlag(Game.BelowZero)).ToList();
 
+        protected bool? hasGameAttr;
         protected GameAttribute gameAttribute;
-
-        protected virtual bool IsValueAcceptable(string entry, string propertyPath)
+        protected SerializedProperty parentWithGameAttribute;
+        protected virtual bool IsValueAcceptable(SerializedProperty property, string entry)
         {
-            gameAttribute ??= fieldInfo.GetCustomAttribute<GameAttribute>();
+            Game game = default;
+            if (!hasGameAttr.HasValue)
+            {
+                hasGameAttr = property.TryGetAttributeInHierarchy(out gameAttribute, out parentWithGameAttribute);
+            }
 
-            if (gameAttribute?.TryGetGame(out Game game) != true)
-                game = default;
-
-            if (propertyPath.IndexOf("sn", StringComparison.OrdinalIgnoreCase) >= 0) game = Game.Subnautica;
-            if (propertyPath.IndexOf("bz", StringComparison.OrdinalIgnoreCase) >= 0) game = Game.BelowZero;
+            gameAttribute?.TryGetGame(parentWithGameAttribute, out game);
+            // todo replace with attributes to be explicit?
+            if (property.propertyPath.EndsWith("SN")) game = Game.Subnautica;
+            if (property.propertyPath.EndsWith("BZ")) game = Game.BelowZero;
 
             return IsValueAcceptable(entry, game);
         }
@@ -60,11 +65,11 @@ namespace Editor.Scripts.PropertyDrawers.Enums
         protected void DrawDropdownButton(SerializedProperty property, int controlid, Rect position)
         {
             Color oldColor = GUI.backgroundColor;
-            if (!IsValueAcceptable(property.enumNames[property.enumValueIndex], property.propertyPath)) GUI.backgroundColor = Color.red;
+            if (!IsValueAcceptable(property, property.enumNames[property.enumValueIndex])) GUI.backgroundColor = Color.red;
 
             if (DropdownButton(controlid, position, new GUIContent(property.enumDisplayNames[property.enumValueIndex])))
             {
-                SearchablePopup.Show(position, property.enumDisplayNames, property.enumNames, property.enumValueIndex, property.propertyPath, IsValueAcceptable, i =>
+                SearchablePopup.Show(position, property, IsValueAcceptable, i =>
                 {
                     property.enumValueIndex = i;
                     property.serializedObject.ApplyModifiedProperties();

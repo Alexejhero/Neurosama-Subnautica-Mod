@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: Coordinated Spawns
   m_EditorClassIdentifier: 
   spawns:
-  - game: 3
+  - game: 2
+    item:
+      isCustom: 0
+      techType: 2007
+      itemData: {fileID: 0}
+    locations:
+    - position: {x: -327, y: 15, z: 265}
+      rotation: {x: 0, y: 0, z: 0}
+  - game: 1
     item:
       isCustom: 0
       techType: 2000

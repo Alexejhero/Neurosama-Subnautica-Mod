@@ -1,31 +1,20 @@
 using System;
-using SCHIZO.Helpers;
 
 namespace SCHIZO.Registering
 {
-    [AttributeUsage(AttributeTargets.Field)]
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
     public sealed class GameAttribute : Attribute
     {
-        private readonly Game _game;
-        private readonly string _gameMember;
+        internal readonly Game game;
+        internal readonly string gameMember;
 
         public GameAttribute(Game game = default)
         {
-            _game = game;
+            this.game = game;
         }
         public GameAttribute(string memberName)
         {
-            _gameMember = memberName;
-        }
-
-        public bool TryGetGame(out Game game) => TryGetGame(null, out game);
-        public bool TryGetGame(object target, out Game game)
-        {
-            game = _game;
-            if (game > 0 || string.IsNullOrEmpty(_gameMember)) return true;
-            if (target == null) return false;
-            game = ReflectionHelpers.GetMemberValue<Game>(target, _gameMember);
-            return true;
+            gameMember = memberName;
         }
     }
 

@@ -1,4 +1,3 @@
-using System.Reflection;
 using Editor.Scripts.Extensions;
 using SCHIZO.Helpers;
 using SCHIZO.Interop.Subnautica.Enums;
@@ -13,11 +12,11 @@ namespace Editor.Scripts.PropertyDrawers.Enums
     {
         public static Game TargetGame;
 
-        protected override bool IsValueAcceptable(string entry, string propertyPath)
+        protected override bool IsValueAcceptable(SerializedProperty property, string entry)
         {
-            return TargetGame == default
-                ? base.IsValueAcceptable(entry, propertyPath)
-                : IsValueAcceptable(entry, TargetGame);
+            return TargetGame != default
+                ? IsValueAcceptable(entry, TargetGame)
+                : base.IsValueAcceptable(property, entry);
         }
 
         public static void DrawDropdownButtonStatic(SerializedProperty property, int controlid, Rect position)
