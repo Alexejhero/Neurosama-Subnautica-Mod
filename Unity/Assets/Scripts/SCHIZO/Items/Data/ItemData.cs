@@ -9,7 +9,6 @@ using SCHIZO.Registering;
 using SCHIZO.Sounds;
 using TriInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SCHIZO.Items.Data
 {
@@ -45,7 +44,7 @@ namespace SCHIZO.Items.Data
 
         [CommonData, ShowIf(nameof(IsActuallyCraftable))]
         public float craftingTime = 2.5f;
-        
+
         [CommonData, ReadOnly]
         public ItemLoader loader;
 
@@ -53,9 +52,12 @@ namespace SCHIZO.Items.Data
         [CommonData, ShowIf(nameof(Sounds_ShowIf))]
         public ItemSounds itemSounds;
 
+        [CommonData, LabelText("PDA Ency Info")]
+        public PDAEncyclopediaInfo pdaEncyInfo;
+
         #region Subnautica Data
 
-        [SNData, LabelText("Register"), SerializeField, Careful]
+        [SNData, LabelText("Register"), Careful]
         public bool registerInSN = true;
 
         [SNData, LabelText("Recipe"), SerializeField, ShowIf(nameof(registerInSN)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
@@ -73,9 +75,6 @@ namespace SCHIZO.Items.Data
         [SNData, LabelText("Tech Category"), SerializeField, ShowIf(nameof(registerInSN)), ShowIf(nameof(techCategorySN_ShowIf)), UsedImplicitly]
         private TechCategory_SN techCategorySN;
 
-        [SNData, LabelText("PDA Ency Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), FormerlySerializedAs("databankInfoSN")]
-        private PDAEncyclopediaInfo pdaEncyclopediaInfoSN;
-
         [SNData, LabelText("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoSN;
 
@@ -89,7 +88,7 @@ namespace SCHIZO.Items.Data
 
         #region Below Zero Data
 
-        [BZData, LabelText("Register"), SerializeField, Careful]
+        [BZData, LabelText("Register"), Careful]
         public bool registerInBZ = true;
 
         [BZData, LabelText("Recipe"), SerializeField, ShowIf(nameof(registerInBZ)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
@@ -109,9 +108,6 @@ namespace SCHIZO.Items.Data
 
         [BZData, LabelText("Tech Category"), SerializeField, ShowIf(nameof(registerInBZ)), ShowIf(nameof(techCategoryBZ_ShowIf)), UsedImplicitly]
         private TechCategory_BZ techCategoryBZ;
-
-        [BZData, LabelText("PDA Ency Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), FormerlySerializedAs("databankInfoBZ")]
-        private PDAEncyclopediaInfo pdaEncyclopediaInfoBZ;
 
         [BZData, LabelText("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoBZ;
@@ -154,7 +150,7 @@ namespace SCHIZO.Items.Data
                 case CraftTree_Type_All.Constructor:
                     return new TriDropdownList<string>()
                     {
-                        {"(root)", ""},
+                        {"<root>", ""},
                         {"Vehicles", "Vehicles"},
                         {"Rocket", "Rocket"},
                     };
@@ -162,7 +158,7 @@ namespace SCHIZO.Items.Data
                 case CraftTree_Type_All.SeamothUpgrades:
                     return new TriDropdownList<string>()
                     {
-                        {"(root)", ""},
+                        {"<root>", ""},
                         {"Common Modules", "CommonModules"},
                         {"Seamoth Modules", "SeamothModules"},
                         {"Prawn Suit Modules", "ExosuitModules"},
@@ -172,7 +168,7 @@ namespace SCHIZO.Items.Data
                 default:
                     return new TriDropdownList<string>()
                     {
-                        {"(root)", ""},
+                        {"<root>", ""},
                     };
             }
         }
@@ -206,7 +202,7 @@ namespace SCHIZO.Items.Data
                 case CraftTree_Type_All.Constructor:
                     return new TriDropdownList<string>()
                     {
-                        {"(root)", ""},
+                        {"<root>", ""},
                         {"Vehicles", "Vehicles"},
                         {"Modules", "Modules"},
                     };
@@ -214,7 +210,7 @@ namespace SCHIZO.Items.Data
                 case CraftTree_Type_All.SeamothUpgrades:
                     return new TriDropdownList<string>()
                     {
-                        {"(root)", ""},
+                        {"<root>", ""},
                         {"Prawn Suit Upgrades", "ExosuitModules"},
                         {"Seatruck Upgrades", "SeaTruckUpgrade"},
                     };
@@ -222,7 +218,7 @@ namespace SCHIZO.Items.Data
                 default:
                     return new TriDropdownList<string>()
                     {
-                        {"(root)", ""},
+                        {"<root>", ""},
                     };
             }
         }

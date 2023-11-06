@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Editor.Scripts.Extensions;
 using Editor.Scripts.PropertyDrawers.Utilities;
 using SCHIZO.Registering;
 using UnityEditor;
@@ -12,16 +13,35 @@ namespace Editor.Scripts.PropertyDrawers.Enums
     public abstract class GameSpecificEnumDrawer<T> : PropertyDrawer where T : Enum
     {
         protected static readonly List<string> SubnauticaValues = typeof(T).GetEnumNames()
-            .Where(n => typeof(T).GetField(n).GetCustomAttribute<GameAttribute>().game.HasFlag(Game.Subnautica)).ToList();
+            .Where(n => typeof(T).GetField(n).GetCustomAttribute<GameAttribute>().TryGetGame(out Game game) && game.HasFlag(Game.Subnautica))
+            .ToList();
 
         protected static readonly List<string> BelowZeroValues = typeof(T).GetEnumNames()
-            .Where(n => typeof(T).GetField(n).GetCustomAttribute<GameAttribute>().game.HasFlag(Game.BelowZero)).ToList();
+            .Where(n => typeof(T).GetField(n).GetCustomAttribute<GameAttribute>().TryGetGame(out Game game) && game.HasFlag(Game.BelowZero)).ToList();
 
-        protected virtual bool IsValueAcceptable(string entry, string propertyPath)
+        protected bool? hasGameAttr;
+        protected GameAttribute gameAttribute;
+        protected SerializedProperty parentWithGameAttribute;
+        protected virtual bool IsValueAcceptable(SerializedProperty property, string entry)
         {
-            if (propertyPath.ToLower().Contains("sn")) return SubnauticaValues.Contains(entry);
-            if (propertyPath.ToLower().Contains("bz")) return BelowZeroValues.Contains(entry);
-            return SubnauticaValues.Contains(entry) || BelowZeroValues.Contains(entry);
+            Game game = default;
+            if (!hasGameAttr.HasValue)
+            {
+                hasGameAttr = property.TryGetAttributeInHierarchy(out gameAttribute, out parentWithGameAttribute);
+            }
+
+            gameAttribute?.TryGetGame(parentWithGameAttribute, out game);
+            // todo replace with attributes to be explicit?
+            if (property.propertyPath.EndsWith("SN")) game = Game.Subnautica;
+            if (property.propertyPath.EndsWith("BZ")) game = Game.BelowZero;
+
+            return IsValueAcceptable(entry, game);
+        }
+
+        protected bool IsValueAcceptable(string value, Game game)
+        {
+            return (!game.HasFlag(Game.Subnautica) || SubnauticaValues.Contains(value))
+                && (!game.HasFlag(Game.BelowZero) || BelowZeroValues.Contains(value));
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -45,11 +65,11 @@ namespace Editor.Scripts.PropertyDrawers.Enums
         protected void DrawDropdownButton(SerializedProperty property, int controlid, Rect position)
         {
             Color oldColor = GUI.backgroundColor;
-            if (!IsValueAcceptable(property.enumNames[property.enumValueIndex], property.propertyPath)) GUI.backgroundColor = Color.red;
+            if (!IsValueAcceptable(property, property.enumNames[property.enumValueIndex])) GUI.backgroundColor = Color.red;
 
             if (DropdownButton(controlid, position, new GUIContent(property.enumDisplayNames[property.enumValueIndex])))
             {
-                SearchablePopup.Show(position, property.enumDisplayNames, property.enumNames, property.enumValueIndex, property.propertyPath, IsValueAcceptable, i =>
+                SearchablePopup.Show(position, property, IsValueAcceptable, i =>
                 {
                     property.enumValueIndex = i;
                     property.serializedObject.ApplyModifiedProperties();

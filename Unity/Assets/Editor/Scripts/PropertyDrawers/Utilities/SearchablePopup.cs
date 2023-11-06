@@ -28,20 +28,14 @@ namespace Editor.Scripts.PropertyDrawers.Utilities
         /// <param name="activatorRect">
         /// Rectangle of the button that triggered the popup.
         /// </param>
-        /// <param name="options">List of strings to choose from.</param>
-        /// <param name="current">
-        /// Index of the currently selected string.
-        /// </param>
-        /// <param name="enumNames"></param>
-        /// <param name="propertyPath"></param>
+        /// <param name="property"></param>
         /// <param name="isAcceptableFunc"></param>
         /// <param name="onSelectionMade">
         /// Callback to trigger when a choice is made.
         /// </param>
-        public static void Show(Rect activatorRect, string[] options, string[] enumNames, int current, string propertyPath, Func<string, string, bool> isAcceptableFunc, Action<int> onSelectionMade)
+        public static void Show(Rect activatorRect, SerializedProperty property, Func<SerializedProperty, string, bool> isAcceptableFunc, Action<int> onSelectionMade)
         {
-            SearchablePopup win =
-                new SearchablePopup(options, enumNames, current, propertyPath, isAcceptableFunc, onSelectionMade);
+            SearchablePopup win = new(property, isAcceptableFunc, onSelectionMade);
             PopupWindow.Show(activatorRect, win);
         }
 
@@ -130,7 +124,7 @@ namespace Editor.Scripts.PropertyDrawers.Utilities
 
                 for (int i = 0; i < allItems.Length; i++)
                 {
-                    if (string.IsNullOrEmpty(Filter) || allItems[i].ToLower().Contains(Filter.ToLower()))
+                    if (string.IsNullOrEmpty(Filter) || allItems[i].IndexOf(Filter, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         Entry entry = new Entry
                         {
@@ -161,7 +155,7 @@ namespace Editor.Scripts.PropertyDrawers.Utilities
         /// </summary>
         private readonly int currentIndex;
 
-        private string propertyPath;
+        private readonly SerializedProperty property;
 
         /// <summary>
         /// Container for all available options that does the actual string
@@ -206,13 +200,13 @@ namespace Editor.Scripts.PropertyDrawers.Utilities
 
         #region -- Initialization ---------------------------------------------
 
-        private SearchablePopup(string[] names, string[] itemNames, int currentIndex, string propertyPath, Func<string, string, bool> isAcceptableFunc, Action<int> onSelectionMade)
+        private SearchablePopup(SerializedProperty property, Func<SerializedProperty, string, bool> isAcceptableFunc, Action<int> onSelectionMade)
         {
-            list = new FilteredList(names, itemNames);
-            this.currentIndex = currentIndex;
-            this.propertyPath = propertyPath;
+            list = new FilteredList(property.enumDisplayNames, property.enumNames);
+            currentIndex = property.enumValueIndex;
+            this.property = property;
+            _isValueAcceptableFunction = isAcceptableFunc;
             this.onSelectionMade = onSelectionMade;
-            this._isValueAcceptableFunction = isAcceptableFunc;
 
             hoverIndex = currentIndex;
             scrollToIndex = currentIndex;
@@ -291,13 +285,13 @@ namespace Editor.Scripts.PropertyDrawers.Utilities
             }
         }
 
-        private readonly Dictionary<(string entry, string propertyPath), bool> _isValueAcceptableCache = new Dictionary<(string entry, string propertyPath), bool>();
-        private readonly Func<string, string, bool> _isValueAcceptableFunction;
-        private bool IsValueAcceptableCached(string entry, string propPath)
+        private readonly Dictionary<(SerializedProperty property, string entry), bool> _isValueAcceptableCache = new();
+        private readonly Func<SerializedProperty, string, bool> _isValueAcceptableFunction;
+        private bool IsValueAcceptableCached(SerializedProperty targetProp, string entry)
         {
-            if (_isValueAcceptableCache.TryGetValue((entry, propPath), out bool result)) return result;
-            result = _isValueAcceptableFunction(entry, propPath);
-            _isValueAcceptableCache.Add((entry, propPath), result);
+            if (_isValueAcceptableCache.TryGetValue((targetProp, entry), out bool result)) return result;
+            result = _isValueAcceptableFunction(targetProp, entry);
+            _isValueAcceptableCache.Add((targetProp, entry), result);
             return result;
         }
 
@@ -324,7 +318,7 @@ namespace Editor.Scripts.PropertyDrawers.Utilities
                     scroll.x = 0;
                 }
 
-                if (rowRect.Contains(Event.current.mousePosition) && (IsValueAcceptableCached(list.Entries[i].ItemName, propertyPath) ||
+                if (rowRect.Contains(Event.current.mousePosition) && (IsValueAcceptableCached(property, list.Entries[i].ItemName) ||
                     Event.current.shift))
                 {
                     if (Event.current.type == EventType.MouseMove ||
@@ -356,7 +350,7 @@ namespace Editor.Scripts.PropertyDrawers.Utilities
             labelRect.xMin += ROW_INDENT;
 
             Color oldColor = GUI.contentColor;
-            if (!IsValueAcceptableCached(list.Entries[i].ItemName, propertyPath)) GUI.contentColor = Color.gray;
+            if (!IsValueAcceptableCached(property, list.Entries[i].ItemName)) GUI.contentColor = Color.gray;
 
             GUI.Label(labelRect, list.Entries[i].Text);
 
@@ -376,7 +370,7 @@ namespace Editor.Scripts.PropertyDrawers.Utilities
                     while (tempHoverIndex < list.Entries.Count - 1)
                     {
                         tempHoverIndex++;
-                        if (IsValueAcceptableCached(list.Entries[tempHoverIndex].ItemName, propertyPath) || Event.current.shift)
+                        if (IsValueAcceptableCached(property, list.Entries[tempHoverIndex].ItemName) || Event.current.shift)
                         {
                             hoverIndex = tempHoverIndex;
                             break;
@@ -394,7 +388,7 @@ namespace Editor.Scripts.PropertyDrawers.Utilities
                     while (tempHoverIndex > 0)
                     {
                         tempHoverIndex--;
-                        if (IsValueAcceptableCached(list.Entries[tempHoverIndex].ItemName, propertyPath) ||
+                        if (IsValueAcceptableCached(property, list.Entries[tempHoverIndex].ItemName) ||
                             Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
                         {
                             hoverIndex = tempHoverIndex;

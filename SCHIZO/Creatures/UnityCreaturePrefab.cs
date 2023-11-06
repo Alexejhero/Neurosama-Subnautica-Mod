@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using ECCLibrary;
 using Nautilus.Handlers;
@@ -27,9 +27,9 @@ public class UnityCreaturePrefab : UnityPrefab
         if (UnityData.acidImmune) CreatureDataUtils.SetAcidImmune(ModItem);
         if (UnityData.bioReactorCharge > 0) CreatureDataUtils.SetBioreactorCharge(ModItem, UnityData.bioReactorCharge);
 
-        if (UnityData.PDAEncyclopediaInfo)
+        if (UnityData.pdaEncyInfo)
         {
-            PDAHandler.AddCustomScannerEntry(ModItem, UnityData.PDAEncyclopediaInfo.scanTime, encyclopediaKey: PrefabInfo.ClassID);
+            PDAHandler.AddCustomScannerEntry(ModItem, UnityData.pdaEncyInfo.scanTime, encyclopediaKey: PrefabInfo.ClassID);
         }
 
         if (UnityData.isPickupable)

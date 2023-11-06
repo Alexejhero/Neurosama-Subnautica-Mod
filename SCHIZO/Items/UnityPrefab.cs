@@ -132,11 +132,12 @@ public class UnityPrefab : CustomPrefab
             CraftDataHandler.AddToGroup(ModItem.ItemData.TechGroup, ModItem.ItemData.TechCategory, ModItem);
         }
 
-        if (ModItem.ItemData.PDAEncyclopediaInfo)
+        if (ModItem.ItemData.pdaEncyInfo)
         {
-            PDAEncyclopediaInfo i = ModItem.ItemData.PDAEncyclopediaInfo;
+            PDAEncyclopediaInfo i = ModItem.ItemData.pdaEncyInfo;
+            string encyPath = RetargetHelpers.Pick(i.encyPathSN, i.encyPathBZ);
 
-            PDAHandler.AddEncyclopediaEntry(ModItem.PrefabInfo.ClassID, i.encyPath, i.title, i.description.text, i.texture, i.unlockSprite,
+            PDAHandler.AddEncyclopediaEntry(ModItem.PrefabInfo.ClassID, encyPath, i.title, i.description.text, i.texture, i.unlockSprite,
                 i.isImportantUnlock ? PDAHandler.UnlockImportant : PDAHandler.UnlockBasic);
 
             if (i.scanSounds) ScanSoundHandler.Register(ModItem, i.scanSounds);
