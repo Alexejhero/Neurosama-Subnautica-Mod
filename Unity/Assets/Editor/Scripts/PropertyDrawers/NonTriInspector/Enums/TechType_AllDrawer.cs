@@ -5,7 +5,7 @@ using SCHIZO.Registering;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts.PropertyDrawers.Enums
+namespace Editor.Scripts.PropertyDrawers.NonTriInspector.Enums
 {
     [CustomPropertyDrawer(typeof(TechType_All))]
     public sealed class TechType_AllDrawer : GameSpecificEnumDrawer<TechType_All>

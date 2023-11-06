@@ -2,7 +2,7 @@
 using UnityEngine;
 using static SCHIZO.Credits.CreditsData;
 
-namespace Editor.Scripts.PropertyDrawers.Objects
+namespace Editor.Scripts.PropertyDrawers.NonTriInspector.Objects
 {
     [CustomPropertyDrawer(typeof(CreditsEntry))]
     public sealed class CreditsEntryDrawer : PropertyDrawer

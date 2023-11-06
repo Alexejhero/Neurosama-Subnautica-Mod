@@ -3,7 +3,7 @@ using SCHIZO.Registering;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts.PropertyDrawers.Objects
+namespace Editor.Scripts.PropertyDrawers.NonTriInspector.Objects
 {
     [CustomPropertyDrawer(typeof(Game))]
     public sealed class GameDrawer : PropertyDrawer
