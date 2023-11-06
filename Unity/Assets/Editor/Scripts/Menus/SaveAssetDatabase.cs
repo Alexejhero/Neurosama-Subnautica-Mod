@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 
-namespace Editor.Scripts
+namespace Editor.Scripts.Menus
 {
     public static class SaveAssetDatabase
     {
