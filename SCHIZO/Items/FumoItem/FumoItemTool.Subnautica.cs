@@ -19,6 +19,7 @@ partial class FumoItemTool
     }
 
     [Conditional("BELOWZERO")]
+    // ReSharper disable once UnusedParameter.Local
     private void ApplyColdResistBuff(int _)
     {
     }

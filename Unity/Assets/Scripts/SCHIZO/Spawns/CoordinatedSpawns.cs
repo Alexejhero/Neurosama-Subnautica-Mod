@@ -5,7 +5,7 @@ using TriInspector;
 
 namespace SCHIZO.Spawns
 {
-    [CreateAssetMenu(menuName = "SCHIZO/Registering/Coordinated Spawns")]
+    [CreateAssetMenu(menuName = "SCHIZO/Spawns/Coordinated Spawns")]
     public sealed partial class CoordinatedSpawns : ModRegistryItem
     {
         [ListDrawerSettings(AlwaysExpanded = true)]
