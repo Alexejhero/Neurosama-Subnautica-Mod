@@ -36,7 +36,7 @@ partial class CreditsManager
     [UsedImplicitly]
     public string GetCreditsTextBZ()
     {
-        StringBuilder builder = new("<style=h1>Neuro-sama Subnautica Mod</style>");
+        StringBuilder builder = new("<style=h1>Neuro-sama Below Zero Mod</style>");
         builder.AppendLine();
         builder.AppendLine();
 

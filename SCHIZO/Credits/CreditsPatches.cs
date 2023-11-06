@@ -48,10 +48,12 @@ public static class CreditsPatches
 #endif
             }
 
+#if SUBNAUTICA
             if (__instance.GetComponentInChildren<EasterEggManager>() is { } easterEggManager)
             {
                 easterEggManager.Reset();
             }
+#endif
         }
     }
 }
