@@ -56,10 +56,8 @@ namespace Editor.Scripts.Extensions
 
         public static IEnumerable<SerializedProperty> WalkHierarchy(this SerializedProperty prop)
         {
-            for (SerializedProperty curr = prop; curr != null; curr = prop.GetParent())
-            {
+            for (SerializedProperty curr = prop; curr != null; curr = curr.GetParent())
                 yield return curr;
-            }
         }
 
         public static T GetSerializedValue<T>(this SerializedProperty property)
@@ -67,7 +65,7 @@ namespace Editor.Scripts.Extensions
             // adapted from https://github.com/lordofduct/spacepuppy-unity-framework-4.0/blob/679088a9fca826764de39390b4e08c6feaa06b52/Framework/com.spacepuppy.core/Editor/src/EditorHelper.cs#L278
             string path = property.propertyPath.Replace(".Array.data[", "[");
             object obj = property.serializedObject.targetObject;
-            UnityEngine.Debug.Log($"{property.propertyPath} {obj}");
+
             foreach (string elem in path.Split('.'))
             {
                 if (elem[elem.Length - 1] == ']')
