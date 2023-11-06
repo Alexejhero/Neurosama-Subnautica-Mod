@@ -29,13 +29,12 @@
             <DependentUpon>%(FileName).cs</DependentUpon>
         </Compile>
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.Unity.cs" />
-        
+
         <Compile Include="$(SolutionDir)/Unity/Packages/Tri-Inspector/Runtime/**/*.cs" LinkBase="TriInspector/Linked" Visible="False" />
 
         <Folder Include="Attributes" />
-        <Folder Include="Attributes/Typing" />
-        <Folder Include="Attributes/Validation" />
-        <Folder Include="Attributes/Visual" />
+        <Folder Include="TriInspector" />
+        <Folder Include="TriInspector/Attributes" />
         <Folder Include="Utilities" />
     </ItemGroup>
 

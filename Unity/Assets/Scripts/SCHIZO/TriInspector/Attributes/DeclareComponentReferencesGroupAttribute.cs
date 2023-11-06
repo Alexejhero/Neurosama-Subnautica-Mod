@@ -4,7 +4,9 @@ namespace SCHIZO.TriInspector.Attributes
 {
     internal class DeclareComponentReferencesGroupAttribute : DeclareFoldoutGroupAttribute
     {
-        public DeclareComponentReferencesGroupAttribute() : base(ComponentReferencesGroupAttribute.GROUP_NAME)
+        public const string GROUP_NAME = "component-references";
+
+        public DeclareComponentReferencesGroupAttribute() : base(GROUP_NAME)
         {
             base.Title = "Component References";
         }

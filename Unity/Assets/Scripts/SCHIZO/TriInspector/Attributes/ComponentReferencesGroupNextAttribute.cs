@@ -4,7 +4,7 @@ namespace SCHIZO.TriInspector.Attributes
 {
     internal class ComponentReferencesGroupNextAttribute : GroupNextAttribute
     {
-        public ComponentReferencesGroupNextAttribute() : base(ComponentReferencesGroupAttribute.GROUP_NAME)
+        public ComponentReferencesGroupNextAttribute() : base(DeclareComponentReferencesGroupAttribute.GROUP_NAME)
         {
         }
     }
