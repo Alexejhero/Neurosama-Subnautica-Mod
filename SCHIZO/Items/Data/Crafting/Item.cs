@@ -1,3 +1,5 @@
+using SCHIZO.Interop.Subnautica.Enums;
+
 namespace SCHIZO.Items.Data.Crafting;
 
 partial class Item
@@ -34,5 +36,12 @@ partial class Item
             if (!itemData) return _classId = string.Empty;
             return _classId = itemData.classId;
         }
+    }
+
+    public static bool IsValid(Item item)
+    {
+        if (item.isCustom && !item.itemData) return false;
+        if (!item.isCustom && item.techType == TechType_All.None) return false;
+        return true;
     }
 }

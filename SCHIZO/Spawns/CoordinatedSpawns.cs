@@ -13,7 +13,7 @@ partial class CoordinatedSpawns
 
             foreach (SpawnInfo.SpawnLocation location in spawnInfo.locations)
             {
-                NSpawnInfo nSpawnInfo = new((TechType)spawnInfo.item.techType, location.position, location.rotation);
+                NSpawnInfo nSpawnInfo = new(spawnInfo.item.GetTechType(), location.position, location.rotation);
                 CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(nSpawnInfo);
             }
         }
