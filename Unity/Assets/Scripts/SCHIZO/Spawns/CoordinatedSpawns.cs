@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using SCHIZO.Registering;
-using SCHIZO.Items.Data.Crafting;
 using TriInspector;
 
 namespace SCHIZO.Spawns
@@ -12,20 +10,5 @@ namespace SCHIZO.Spawns
     {
         [ListDrawerSettings(AlwaysExpanded = true)]
         public List<SpawnInfo> spawns;
-    }
-    [Serializable]
-    public sealed partial class SpawnInfo
-    {
-        public Game game;
-        [Game(nameof(game))]
-        public Item item;
-        public SpawnLocation[] locations;
-
-        [Serializable]
-        public partial struct SpawnLocation
-        {
-            public Vector3 position;
-            public Vector3 rotation;
-        }
     }
 }
