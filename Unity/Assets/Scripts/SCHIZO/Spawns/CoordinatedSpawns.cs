@@ -16,7 +16,6 @@ namespace SCHIZO.Spawns
     [Serializable]
     public sealed partial class SpawnInfo
     {
-        [EnumToggleButtons]
         public Game game;
         [Game(nameof(game))]
         public Item item;

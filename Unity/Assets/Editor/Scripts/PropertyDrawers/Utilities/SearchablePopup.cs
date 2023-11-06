@@ -28,12 +28,7 @@ namespace Editor.Scripts.PropertyDrawers.Utilities
         /// <param name="activatorRect">
         /// Rectangle of the button that triggered the popup.
         /// </param>
-        /// <param name="options">List of strings to choose from.</param>
-        /// <param name="enumNames"></param>
-        /// <param name="current">
-        /// Index of the currently selected string.
-        /// </param>
-        /// <param name="propertyPath"></param>
+        /// <param name="property"></param>
         /// <param name="isAcceptableFunc"></param>
         /// <param name="onSelectionMade">
         /// Callback to trigger when a choice is made.
@@ -292,11 +287,11 @@ namespace Editor.Scripts.PropertyDrawers.Utilities
 
         private readonly Dictionary<(SerializedProperty property, string entry), bool> _isValueAcceptableCache = new();
         private readonly Func<SerializedProperty, string, bool> _isValueAcceptableFunction;
-        private bool IsValueAcceptableCached(SerializedProperty property, string entry)
+        private bool IsValueAcceptableCached(SerializedProperty targetProp, string entry)
         {
-            if (_isValueAcceptableCache.TryGetValue((property, entry), out bool result)) return result;
-            result = _isValueAcceptableFunction(property, entry);
-            _isValueAcceptableCache.Add((property, entry), result);
+            if (_isValueAcceptableCache.TryGetValue((targetProp, entry), out bool result)) return result;
+            result = _isValueAcceptableFunction(targetProp, entry);
+            _isValueAcceptableCache.Add((targetProp, entry), result);
             return result;
         }
 

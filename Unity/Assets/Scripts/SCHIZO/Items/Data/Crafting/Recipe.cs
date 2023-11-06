@@ -7,7 +7,7 @@ namespace SCHIZO.Items.Data.Crafting
     [CreateAssetMenu(menuName = "SCHIZO/Items/Recipe")]
     public sealed partial class Recipe : ScriptableObject
     {
-        [OnValueChanged("OnGameChanged"), EnumToggleButtons]
+        [OnValueChanged("OnGameChanged")]
         public Game game = Game.Subnautica | Game.BelowZero;
 
         public int craftAmount = 1;

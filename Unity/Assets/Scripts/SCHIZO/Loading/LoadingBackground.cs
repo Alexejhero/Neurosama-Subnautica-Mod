@@ -1,6 +1,5 @@
 ﻿using SCHIZO.Attributes;
 using SCHIZO.Registering;
-using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Loading
@@ -11,7 +10,6 @@ namespace SCHIZO.Loading
         public Sprite art;
         public string credit;
         [Careful] public string randomListId;
-        [EnumToggleButtons]
         public Game game = Game.Subnautica | Game.BelowZero;
     }
 }
