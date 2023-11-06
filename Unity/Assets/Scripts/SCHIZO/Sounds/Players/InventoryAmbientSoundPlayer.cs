@@ -1,7 +1,8 @@
-﻿using JetBrains.Annotations;
-using NaughtyAttributes;
+using System.Linq;
+using JetBrains.Annotations;
+using SCHIZO.Attributes;
 using SCHIZO.Options.Float;
-using SCHIZO.Attributes.Typing;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Sounds.Players
@@ -18,13 +19,16 @@ namespace SCHIZO.Sounds.Players
 
         [Space]
 
-        [SerializeField, ExposedType("Pickupable"), Required, UsedImplicitly, ValidateInput(nameof(Validate_pickupable), "Pickupable component must be on the same GameObject as the sound player!")]
+        [SerializeField, ExposedType("Pickupable"), Required, UsedImplicitly, ValidateInput(nameof(Validate_pickupable))]
         private MonoBehaviour pickupable;
 
-        protected override string DefaultBus => buses[PDA_VOICE];
         protected override bool Is3D => false;
 
-        // ReSharper disable once Unity.PreferGenericMethodOverload
-        private bool Validate_pickupable(MonoBehaviour behaviour) => behaviour == GetComponent("Pickupable");
+        private TriValidationResult Validate_pickupable()
+        {
+            if (!pickupable) return TriValidationResult.Error("Pickupable is required!");
+            if (!pickupable.GetComponentsInChildren<InventoryAmbientSoundPlayer>().Contains(this)) return TriValidationResult.Error("Pickupable component must be a parent of this sound player!");
+            return TriValidationResult.Valid;
+        }
     }
 }

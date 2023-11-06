@@ -1,17 +1,18 @@
 ﻿using JetBrains.Annotations;
-using NaughtyAttributes;
 using SCHIZO.Interop.Subnautica;
 using SCHIZO.Sounds.Collections;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Ermshark
 {
+    [DeclareBoxGroup("Sounds")]
     public sealed partial class ErmsharkAttack : _MeleeAttack
     {
-        [BoxGroup("Sounds"), SerializeField, Required, UsedImplicitly]
-        private SoundCollection attackSounds;
+        [Group("Sounds"), SerializeField, Required, UsedImplicitly]
+        private SoundCollectionInstance attackSounds;
 
-        [BoxGroup("Sounds"), SerializeField, Required, UsedImplicitly]
+        [Group("Sounds"), SerializeField, Required, UsedImplicitly]
         private _FMOD_CustomEmitter emitter;
     }
 }

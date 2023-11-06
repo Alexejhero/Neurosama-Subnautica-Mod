@@ -1,12 +1,13 @@
+using JetBrains.Annotations;
 using UnityEngine;
-using NaughtyAttributes;
 using SCHIZO.Interop.Subnautica.Enums;
+using TriInspector;
 
 namespace SCHIZO.Creatures.Components
 {
     public sealed partial class CarryCreature : CustomCreatureAction
     {
-        [SerializeField]
+        [SerializeField, UsedImplicitly]
         private EcoTargetType_All _ecoTargetType;
         [Required]
         public Transform attachPoint;

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using HarmonyLib;
-using Nautilus.Utility;
 using SCHIZO.Sounds.Collections;
 
 namespace SCHIZO.Sounds;
@@ -10,9 +9,9 @@ public static class ScanSoundHandler
 {
     private static readonly Dictionary<TechType, SoundCollectionInstance> _scanSounds = new();
 
-    public static void Register(TechType techType, SoundCollection soundCollection)
+    public static void Register(TechType techType, SoundCollectionInstance soundCollection)
     {
-        _scanSounds.Add(techType, soundCollection.Initialize(AudioUtils.BusPaths.PDAVoice));
+        _scanSounds.Add(techType, soundCollection);
     }
 
     [HarmonyPatch]
@@ -25,7 +24,7 @@ public static class ScanSoundHandler
             if (!verbose) return; // prevents scan sounds playing on loading screen
             if (!_scanSounds.TryGetValue(entryData.key, out SoundCollectionInstance sounds)) return;
 
-            sounds.Play2D();
+            sounds.PlayRandom2D();
         }
     }
 }

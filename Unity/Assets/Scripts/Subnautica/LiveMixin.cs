@@ -1,14 +1,15 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Utilities;
+﻿using SCHIZO.TriInspector.Attributes;
+using TriInspector;
 using UnityEngine;
 
+[DeclareUnexploredGroup]
 public class LiveMixin : MonoBehaviour
 {
-    [Required, Expandable] public LiveMixinData data;
+    [Required, InlineEditor] public LiveMixinData data;
     public float health;
 
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset damageSound;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset deathSound;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset damageClip;
-    [Foldout(STRINGS.UNCHANGED_BY_ECC)] public FMODAsset deathClip;
+    [UnexploredGroup] public FMODAsset damageSound;
+    [UnexploredGroup] public FMODAsset deathSound;
+    [UnexploredGroup] public FMODAsset damageClip;
+    [UnexploredGroup] public FMODAsset deathClip;
 }

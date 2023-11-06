@@ -1,9 +1,11 @@
-﻿using NaughtyAttributes;
+﻿using SCHIZO.TriInspector.Attributes;
+using TriInspector;
 using UnityEngine;
 
+[DeclareComponentReferencesGroup]
 public class CreatureFlinch : MonoBehaviour
 {
-    [Required] public Animator animator;
+    [ComponentReferencesGroup, Required] public Animator animator;
 
     public float interval = 1;
     public float damageThreshold = 10;

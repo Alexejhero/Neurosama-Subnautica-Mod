@@ -1,19 +1,26 @@
-﻿using SCHIZO.Interop.NaughtyAttributes;
-using SCHIZO.Sounds.Collections;
+﻿using SCHIZO.Sounds.Collections;
 using UnityEngine;
 
 namespace SCHIZO.Sounds
 {
     [CreateAssetMenu(menuName = "SCHIZO/Sounds/Item Sounds")]
-    public sealed partial class ItemSounds : NaughtyScriptableObject
+    public sealed partial class ItemSounds : ScriptableObject
     {
-        public SoundCollection pickupSounds;
-        public SoundCollection dropSounds;
+        public SoundCollectionInstance pickupSounds;
+        public SoundCollectionInstance dropSounds;
 
-        public SoundCollection drawSounds;
-        public SoundCollection holsterSounds;
+        [Space]
 
-        public SoundCollection cookSounds;
-        public SoundCollection eatSounds;
+        public SoundCollectionInstance drawSounds;
+        public SoundCollectionInstance holsterSounds;
+
+        [Space]
+
+        public SoundCollectionInstance cookSounds;
+        public SoundCollectionInstance eatSounds;
+
+        [Space]
+
+        public SoundCollectionInstance playerDeathSounds;
     }
 }

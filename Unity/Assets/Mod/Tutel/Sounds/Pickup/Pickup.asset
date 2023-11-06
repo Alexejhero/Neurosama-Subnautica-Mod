@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
+  m_Name: Pickup
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: 552af2b58ce66e345b081456bb422a4d, type: 3}
+  - {fileID: 8300000, guid: a00664660441cdb4b8d4be9acb96ce9f, type: 3}
+  - {fileID: 8300000, guid: bd299175495ee7746b5f23c41c86e5a9, type: 3}
+  - {fileID: 8300000, guid: ca7da3823b990cc48b559165b3b150fe, type: 3}
+  - {fileID: 8300000, guid: 14215fb9a88207b47be5e9ad14d09aec, type: 3}
+  - {fileID: 8300000, guid: afc5001464a27cc4a8d8500e195857c0, type: 3}
+  - {fileID: 8300000, guid: 7fa6d2c28a3f91643a71b92793f55c1f, type: 3}
+--- !u!114 &1781330733623333228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5191dfd75c432c9713c5321302eadd, type: 3}
+  m_Name: Pickup (PDAVoice)
+  m_EditorClassIdentifier: 
+  path: 
+  id: 
+  collection: {fileID: 11400000}
+  bus: 0

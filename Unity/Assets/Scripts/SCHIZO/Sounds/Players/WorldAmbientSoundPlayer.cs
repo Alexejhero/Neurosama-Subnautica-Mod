@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
+using SCHIZO.Attributes;
 using SCHIZO.Options.Float;
-using SCHIZO.Attributes.Typing;
 using UnityEngine;
 
 namespace SCHIZO.Sounds.Players
@@ -23,7 +23,6 @@ namespace SCHIZO.Sounds.Players
         [SerializeField, ExposedType("Constructable"), UsedImplicitly]
         private MonoBehaviour constructable;
 
-        protected override string DefaultBus => null;
         protected override bool Is3D => true;
     }
 }

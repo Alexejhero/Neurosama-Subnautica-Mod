@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using ECCLibrary;
 using Nautilus.Handlers;
@@ -18,23 +18,19 @@ public class UnityCreaturePrefab : UnityPrefab
 
     protected new CreatureData UnityData => (CreatureData) base.UnityData;
 
-    public override void Register()
+    protected override void SetItemProperties()
     {
-        base.Register();
+        base.SetItemProperties();
 
         CreatureDataUtils.SetBehaviorType(ModItem, UnityData.BehaviourType);
 
         if (UnityData.acidImmune) CreatureDataUtils.SetAcidImmune(ModItem);
         if (UnityData.bioReactorCharge > 0) CreatureDataUtils.SetBioreactorCharge(ModItem, UnityData.bioReactorCharge);
 
-        if (UnityData.PDAEncyclopediaInfo)
+        if (UnityData.pdaEncyInfo)
         {
-            PDAHandler.AddCustomScannerEntry(ModItem, UnityData.PDAEncyclopediaInfo.scanTime, encyclopediaKey: PrefabInfo.ClassID);
+            PDAHandler.AddCustomScannerEntry(ModItem, UnityData.pdaEncyInfo.scanTime, encyclopediaKey: PrefabInfo.ClassID);
         }
-
-#if BELOWZERO
-        CraftDataHandler.SetSoundType(ModItem, TechData.SoundType.Fish);
-#endif
 
         if (UnityData.isPickupable)
         {

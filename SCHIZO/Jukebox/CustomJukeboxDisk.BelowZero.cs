@@ -2,6 +2,7 @@ using System.Text;
 using FMODUnity;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Sounds;
 using UnityEngine;
 
 namespace SCHIZO.Jukebox;
@@ -24,9 +25,9 @@ public sealed class CustomJukeboxDisk : JukeboxDisk
 
             if (!CustomSoundHandler.TryGetCustomSound(guid, out _))
             {
-                const string BUS = "bus:/master/SFX_for_pause/PDA_pause/all";
-                CustomSoundHandler.RegisterCustomSound(guid, unlockSound, BUS, AudioUtils.StandardSoundModes_2D);
-                RuntimeManager.GetBus(BUS).unlockChannelGroup();
+                string bus = BusPaths.SFX.GetBusName();
+                CustomSoundHandler.RegisterCustomSound(guid, unlockSound, bus, AudioUtils.StandardSoundModes_2D);
+                RuntimeManager.GetBus(bus).unlockChannelGroup();
             }
 
             acquireSound = AudioUtils.GetFmodAsset(guid);

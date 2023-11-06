@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using HarmonyLib;
+using SCHIZO.Helpers;
 using SCHIZO.Sounds.Players;
 
 namespace SCHIZO.Sounds.Patches;
@@ -12,12 +12,12 @@ public static class InventorySoundsPatches
     [HarmonyPostfix]
     public static void PlayInventorySounds()
     {
-        foreach (InventoryItem item in Inventory.main.container.GetItemTypes().SelectMany(Inventory.main.container.GetItems))
+        foreach (InventoryItem item in Inventory.main.container.GetAllItems())
         {
             try
             {
                 if (!item.item || item.item.gameObject.activeInHierarchy) continue;
-                item.item.GetComponent<InventoryAmbientSoundPlayer>()?.Update();
+                item.item.GetComponentsInChildren<InventoryAmbientSoundPlayer>()?.ForEach(c => c.Update());
             }
             catch (Exception e)
             {

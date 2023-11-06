@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using NaughtyAttributes;
+using TriInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,7 +8,7 @@ namespace SCHIZO.Registering
     [CreateAssetMenu(menuName = "SCHIZO/Registering/Compound Mod Registry Item")]
     public partial class CompoundModRegistryItem : ModRegistryItem
     {
-        [FormerlySerializedAs("registered"), ReorderableList]
+        [FormerlySerializedAs("registered"), ListDrawerSettings(AlwaysExpanded = true)]
         public List<ModRegistryItem> registryItems = new List<ModRegistryItem>();
     }
 }

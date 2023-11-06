@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Configurations>Subnautica;BelowZero</Configurations>
-        <NoWarn>$(NoWarn);CS0436;CS0649;CS0809;Harmony003;Publicizer001;</NoWarn>
+        <NoWarn>$(NoWarn);CS0169;CS0436;CS0649;CS0809;Harmony003;Publicizer001;</NoWarn>
     </PropertyGroup>
 
     <Import Project="$(SolutionDir)/Subnautica.props" Condition=" '$(Configuration)' == 'Subnautica' " />
@@ -14,6 +14,7 @@
 
         <PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
         <PackageReference Include="Krafs.Publicizer" Version="2.2.1" PrivateAssets="all" />
+        <PackageReference Include="PolySharp" Version="1.13.2" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
@@ -22,22 +23,19 @@
         <Publicize Include="Nautilus:Nautilus.Commands.Parameter.TypeConverters" />
         <Publicize Include="Nautilus:Nautilus.Options.ModOptions._options" />
     </ItemGroup>
-    
+
     <ItemGroup>
         <Compile Include="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.cs">
             <DependentUpon>%(FileName).cs</DependentUpon>
         </Compile>
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.Unity.cs" />
 
-        <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/_old/**/*.cs" />
-        <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/Materials/**/*.cs" />
+        <Compile Include="$(SolutionDir)/Unity/Packages/Tri-Inspector/Runtime/**/*.cs" Visible="False" />
 
         <Folder Include="Attributes" />
-        <Folder Include="Attributes/Typing" />
-        <Folder Include="Attributes/Validation" />
-        <Folder Include="Attributes/Visual" />
+        <Folder Include="TriInspector" />
+        <Folder Include="TriInspector/Attributes" />
         <Folder Include="Utilities" />
-        <Folder Include="_old\Sounds\Patches\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -56,15 +54,6 @@
             <DependentUpon>%(FileName)</DependentUpon>
         </Compile>
     </ItemGroup>
-
-<!--    <Target Name="EmbedNuGetDlls" AfterTargets="ResolveReferences">
-        <ItemGroup>
-            <EmbeddedResource Include="@(ReferencePath)" Condition="$([System.String]::new('%(FullPath)').StartsWith($(NuGetPackageRoot)))">
-                <LinkBase>Resources/Packages</LinkBase>
-                <LogicalName>%(FileName)%(Extension)</LogicalName>
-            </EmbeddedResource>
-        </ItemGroup>
-    </Target>-->
 
     <ItemGroup>
         <Compile Remove="_old/**" />

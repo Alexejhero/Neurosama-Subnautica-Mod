@@ -1,30 +1,35 @@
-﻿using JetBrains.Annotations;
-using NaughtyAttributes;
+﻿using SCHIZO.Attributes;
 using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using SCHIZO.Items.Data;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Creatures
 {
     [CreateAssetMenu(menuName = "SCHIZO/Creatures/Creature Data")]
+    [DeclareBoxGroup("creaturedata", Title = "Creature Data")]
     public partial class CreatureData : ItemData
     {
-        public bool isPickupable;
+        [PropertyOrder(1), Careful] public bool isPickupable;
 
-        [BoxGroup("Creature Data"), Required_BehaviourType_SN, SerializeField, UsedImplicitly]
+        [Group("creaturedata"), ValidateInput(nameof(Validate_behaviourType)), SerializeField]
         private BehaviourType_SN behaviourType;
 
-        [BoxGroup("Creature Data")]
+        [Group("creaturedata")]
         public bool acidImmune = true;
 
-        [BoxGroup("Creature Data")]
+        [Group("creaturedata")]
         public float bioReactorCharge;
 
         #region NaughyAttributes stuff
 
         protected override bool ShowPickupableProps() => isPickupable;
 
-        private bool Validate_behaviourType(BehaviourType_SN val) => val != BehaviourType_SN.Unknown;
+        private TriValidationResult Validate_behaviourType()
+        {
+            if (behaviourType == BehaviourType_SN.Unknown) return TriValidationResult.Error("Behaviour type cannot be Unknown");
+            return TriValidationResult.Valid;
+        }
 
         #endregion
     }

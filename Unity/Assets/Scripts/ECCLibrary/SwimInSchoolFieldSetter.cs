@@ -1,13 +1,13 @@
-﻿using NaughtyAttributes;
-using SCHIZO.Attributes.Typing;
+﻿using SCHIZO.Attributes;
+using TriInspector;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 namespace ECCLibrary.Mono
 {
-    public class SwimInSchoolFieldSetter : MonoBehaviour
+    public sealed class SwimInSchoolFieldSetter : MonoBehaviour
     {
-        [Foldout("Component References"), Required, ExposedType("SwimInSchool")]
+        [Required, ExposedType("SwimInSchool")]
         public MonoBehaviour behaviour;
 
         public float breakDistance = 20;

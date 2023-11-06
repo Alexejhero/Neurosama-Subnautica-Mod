@@ -16,14 +16,71 @@ namespace SCHIZO.Sounds;
 
 public sealed class FMODSoundCollection
 {
+    private enum VCA
+    {
+        Master,
+        Music,
+        Voice,
+        Ambient
+    }
+
     private static readonly Dictionary<string, FMODSoundCollection> _cache = new();
 
     private readonly string _busName;
     private readonly List<string> _sounds = new();
+    private readonly List<Channel> _channels = new();
 
     private bool _ready;
     private RandomList<string> _randomSounds;
     private List<Coroutine> _runningCoroutines;
+
+    #region Public API
+
+    public float LastPlay { get; private set; } = -1;
+
+    public void CancelAllDelayed()
+    {
+        if (!Initialize()) return;
+
+        foreach (Coroutine c in _runningCoroutines)
+        {
+            CoroutineHost.StopCoroutine(c);
+        }
+
+        _runningCoroutines.Clear();
+    }
+
+    public void Stop()
+    {
+        if (!Initialize()) return;
+        if (Assets.Mod_Options_DisableAllSounds.Value) return;
+
+        foreach (Channel channel in _channels)
+        {
+            channel.stop();
+        }
+        ClearChannelsCache();
+    }
+
+    public void PlayRandom2D(float delay = 0) => Play(-1, null, delay);
+
+    public void PlayRandom3D(FMOD_CustomEmitter emitter, float delay = 0)
+    {
+        if (!emitter) throw new ArgumentNullException(nameof(emitter));
+        Play(-1, emitter, delay);
+    }
+
+    public void Play2D(int index, float delay = 0) => Play(index, null, delay);
+
+    public void Play3D(int index, FMOD_CustomEmitter emitter, float delay = 0)
+    {
+        if (!emitter) throw new ArgumentNullException(nameof(emitter));
+        Play(index, emitter, delay);
+    }
+
+    #endregion
+
+    #region Initialization
 
     public static FMODSoundCollection For(SoundCollection soundCollection, string bus)
     {
@@ -67,13 +124,6 @@ public sealed class FMODSoundCollection
         return true;
     }
 
-    public float LastPlay { get; private set; } = -1;
-
-    private void StartSoundCoroutine(IEnumerator coroutine)
-    {
-        _runningCoroutines.Add(CoroutineHost.StartCoroutine(coroutine));
-    }
-
     private void RegisterSound(string id, AudioClip audioClip, Bus bus)
     {
         Sound s = CustomSoundHandler.RegisterCustomSound(id, audioClip, bus, AudioUtils.StandardSoundModes_3D);
@@ -81,28 +131,21 @@ public sealed class FMODSoundCollection
         s.set3DMinMaxDistance(1, 30);
     }
 
-    public void CancelAllDelayed()
+    #endregion
+
+    private void StartSoundCoroutine(IEnumerator coroutine)
     {
-        if (!Initialize()) return;
-
-        foreach (Coroutine c in _runningCoroutines)
-        {
-            CoroutineHost.StopCoroutine(c);
-        }
-
-        _runningCoroutines.Clear();
+        _runningCoroutines.Add(CoroutineHost.StartCoroutine(coroutine));
     }
 
-    public void Play2D(float delay = 0) => Play(null, delay);
-
-    public void Play(FMOD_CustomEmitter emitter, float delay = 0)
+    private void Play(int index, FMOD_CustomEmitter emitter, float delay = 0)
     {
         if (!Initialize()) return;
-        if (Assets.Options_DisableAllSounds.Value) return;
+        if (Assets.Mod_Options_DisableAllSounds.Value) return;
 
         if (delay <= 0)
         {
-            PlaySound(emitter);
+            PlaySound(index, emitter);
             return;
         }
 
@@ -112,15 +155,15 @@ public sealed class FMODSoundCollection
         IEnumerator PlayWithDelay(float del)
         {
             yield return new WaitForSeconds(del);
-            PlaySound(emitter);
+            PlaySound(index, emitter);
         }
     }
 
-    private void PlaySound(FMOD_CustomEmitter emitter = null)
+    private void PlaySound(int index, FMOD_CustomEmitter emitter = null)
     {
         LastPlay = Time.time;
 
-        string sound = _sounds.GetRandom();
+        string sound = index == -1 ? _sounds.GetRandom() : _sounds[index];
 
         if (emitter)
         {
@@ -129,9 +172,40 @@ public sealed class FMODSoundCollection
         }
         else
         {
-            // TODO: Play this sound using an Emitter or something (so that it changes based on volume)
             CustomSoundHandler.TryPlayCustomSound(sound, out Channel channel);
+            channel.setVolume(GetVolumeFor(GetVCAForBus(_busName)));
             channel.set3DLevel(0);
+
+            ClearChannelsCache();
+            _channels.Add(channel);
         }
+    }
+
+    private void ClearChannelsCache()
+    {
+        _channels.RemoveAll(c =>
+        {
+            RESULT result = c.isPlaying(out bool isPlaying);
+            return result != RESULT.OK || !isPlaying;
+        });
+    }
+
+    private static VCA GetVCAForBus(string bus)
+    {
+        if (bus.StartsWith("bus:/master/Music")) return VCA.Music;
+        if (bus.StartsWith("bus:/master/SFX_for_pause/PDA_pause/all/all voice")) return VCA.Voice;
+        if (bus.StartsWith("bus:/master/SFX_for_pause/PDA_pause/all/SFX")) return VCA.Ambient;
+        return VCA.Master;
+    }
+
+    private static float GetVolumeFor(VCA vca)
+    {
+        return vca switch
+        {
+            VCA.Music => SoundSystem.masterVolume * SoundSystem.musicVolume,
+            VCA.Voice => SoundSystem.masterVolume * SoundSystem.voiceVolume,
+            VCA.Ambient => SoundSystem.masterVolume * SoundSystem.ambientVolume,
+            _ => SoundSystem.masterVolume,
+        };
     }
 }

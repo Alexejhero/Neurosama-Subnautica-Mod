@@ -7,7 +7,7 @@ partial class InventoryAmbientSoundPlayer
 {
     private float _timer = -1;
 
-    private void Start()
+    private void Awake()
     {
         ResetTimer();
     }

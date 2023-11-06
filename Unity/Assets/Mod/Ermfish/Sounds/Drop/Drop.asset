@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c07b4304e30a144f81553498090382c, type: 3}
+  m_Name: Drop
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 8300000, guid: dd4f251a5376677438ef54575cbabe0b, type: 3}
+  - {fileID: 8300000, guid: 0c2d66b29f9bd65429e88cf0ad88bf44, type: 3}
+  - {fileID: 8300000, guid: a32a8e7c27c7f74448ca7795dda344a1, type: 3}
+  - {fileID: 8300000, guid: ad4be3bfcc52d4440b717ba2a43c83a0, type: 3}
+  - {fileID: 8300000, guid: dc35e82d23d14dd439f0169d86f2ab88, type: 3}
+  - {fileID: 8300000, guid: 17d4a2e6832b763499935afdcf72723a, type: 3}
+  - {fileID: 8300000, guid: c8350860ad1889c4eaaf8126f69f0351, type: 3}
+  - {fileID: 8300000, guid: 20fbd41f93340c14696f7e7568c1ab87, type: 3}
+  - {fileID: 8300000, guid: f6f85f53dc24e8b4d88af94828507870, type: 3}
+  - {fileID: 8300000, guid: c7c2ed98cdc67c640ac9d899ba965f9b, type: 3}
+  - {fileID: 8300000, guid: d3faa196ace6035438501062783edc87, type: 3}
+  - {fileID: 8300000, guid: 1f61f18143a3dec45a6d55b204df5897, type: 3}
+  - {fileID: 8300000, guid: 2c50ed680a98a584994915eb923b16bc, type: 3}
+  - {fileID: 8300000, guid: 4c49fe077bff8a7498819f71dbb17ef0, type: 3}
+  - {fileID: 8300000, guid: f5eff0dc903c2a148934536108afde2b, type: 3}
+  - {fileID: 8300000, guid: dedf78625d5669c47a778659a76c2132, type: 3}
+  - {fileID: 8300000, guid: bbfb4b602f69fa3479744a0cd81fe385, type: 3}
+  - {fileID: 8300000, guid: defbd16f21696c246b36e4bb670ae420, type: 3}
+  - {fileID: 8300000, guid: 4a8b1199f27ca554685267c4a3088f8d, type: 3}
+--- !u!114 &8627429168110412010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5191dfd75c432c9713c5321302eadd, type: 3}
+  m_Name: Drop (UnderwaterCreatures)
+  m_EditorClassIdentifier: 
+  path: 
+  id: 
+  collection: {fileID: 11400000}
+  bus: 1

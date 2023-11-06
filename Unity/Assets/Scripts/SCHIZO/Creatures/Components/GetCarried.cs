@@ -1,23 +1,21 @@
-using NaughtyAttributes;
 using SCHIZO.Interop.Subnautica;
 using SCHIZO.Sounds.Collections;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Components
 {
+    [DeclareBoxGroup("Sounds")]
     public partial class GetCarried : CustomCreatureAction
     {
         public bool likesBeingCarried;
         public Transform pickupPoint;
-        [BoxGroup("Sounds")]
+
+        [GroupNext("Sounds")]
         public _FMOD_CustomEmitter emitter;
-        [BoxGroup("Sounds")]
         public float carryNoiseInterval = 5f;
-        [BoxGroup("Sounds")]
-        public SoundCollection pickupSounds;
-        [BoxGroup("Sounds")]
-        public SoundCollection carrySounds;
-        [BoxGroup("Sounds")]
-        public SoundCollection releaseSounds;
+        public SoundCollectionInstance pickupSounds;
+        public SoundCollectionInstance carrySounds;
+        public SoundCollectionInstance releaseSounds;
     }
 }
