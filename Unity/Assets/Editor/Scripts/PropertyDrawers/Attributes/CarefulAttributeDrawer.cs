@@ -1,4 +1,5 @@
-﻿using Editor.Scripts.PropertyDrawers.Attributes;
+﻿using Editor.Scripts.Menus;
+using Editor.Scripts.PropertyDrawers.Attributes;
 using SCHIZO.Attributes;
 using TriInspector;
 using UnityEditor;
@@ -26,7 +27,7 @@ namespace Editor.Scripts.PropertyDrawers.Attributes
             {
                 if (GUI.Button(buttonRect, "Edit"))
                 {
-                    if (Event.current.shift || EditorUtility.DisplayDialog("Careful!", "This field is not supposed to be changed after it has been set. Are you sure you want to edit it?\n(Hold SHIFT to bypass this message in the future.)", "Yes", "No"))
+                    if (IgnoreCarefulWarning.Enabled || Event.current.shift || EditorUtility.DisplayDialog("Careful!", "This field is not supposed to be changed after it has been set. Are you sure you want to edit it?\n(Hold SHIFT to bypass this message in the future.)", "Yes", "No"))
                     {
                         _opened = property;
                     }
