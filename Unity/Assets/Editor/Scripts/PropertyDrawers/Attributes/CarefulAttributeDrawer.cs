@@ -1,42 +1,30 @@
-﻿using System;
-using System.Reflection;
-using Editor.Scripts.PropertyDrawers.Objects;
-using Editor.Scripts.PropertyDrawers.Utilities;
-using HarmonyLib;
+﻿using Editor.Scripts.PropertyDrawers.Attributes;
 using SCHIZO.Attributes;
-using SCHIZO.Items.Data.Crafting;
+using TriInspector;
 using UnityEditor;
 using UnityEngine;
 
+[assembly: RegisterTriAttributeDrawer(typeof(CarefulAttributeDrawer), TriDrawerOrder.Decorator, ApplyOnArrayElement = true)]
+
 namespace Editor.Scripts.PropertyDrawers.Attributes
 {
-    [CustomPropertyDrawer(typeof(CarefulAttribute))]
-    public sealed class CarefulAttributeDrawer : PropertyDrawer
+    internal sealed class CarefulAttributeDrawer : TriAttributeDrawer<CarefulAttribute>
     {
         private bool _opened;
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnGUI(Rect position, TriProperty property, TriElement next)
         {
-            EditorGUI.BeginProperty(position, label, property);
-            position = EditorGUI.PrefixLabel(position, DrawerUtils.ControlId(property.propertyPath + "label", position), label);
-
-            Rect strRect = new Rect(position.x, position.y, position.width - 55, position.height);
-            Rect openRect = new Rect(position.x + position.width - 50, position.y, 50, position.height);
-
-            if (IsEmpty(property)) _opened = true;
+            Rect propRect = new(position.x, position.y, position.width - 55, position.height);
+            Rect buttonRect = new(position.x + position.width - 50, position.y, 50, position.height);
 
             using (new EditorGUI.DisabledScope(!_opened))
             {
-                Type type = property.serializedObject.targetObject.GetType();
-                FieldInfo field = AccessTools.Field(type, property.name);
-
-                if (field.FieldType == typeof(Item)) ItemDrawer.DrawItem(property, strRect);
-                else EditorGUI.PropertyField(strRect, property, GUIContent.none);
+                next.OnGUI(propRect);
             }
 
-            using (new EditorGUI.DisabledScope(_opened))
+            if (!_opened)
             {
-                if (GUI.Button(openRect, "Edit"))
+                if (GUI.Button(buttonRect, "Edit"))
                 {
                     if (EditorUtility.DisplayDialog("Careful!", "This field is not supposed to be changed after it has been set. Are you sure you want to edit it?", "Yes", "No"))
                     {
@@ -44,27 +32,9 @@ namespace Editor.Scripts.PropertyDrawers.Attributes
                     }
                 }
             }
-
-            EditorGUI.EndProperty();
-
-            property.serializedObject.ApplyModifiedProperties();
-        }
-
-        private static bool IsEmpty(SerializedProperty property)
-        {
-            switch (property.propertyType)
+            else
             {
-                case SerializedPropertyType.String:
-                    return string.IsNullOrWhiteSpace(property.stringValue);
-
-                case SerializedPropertyType.ObjectReference:
-                    return !property.objectReferenceValue;
-
-                case SerializedPropertyType.ExposedReference:
-                    return !property.exposedReferenceValue;
-
-                default:
-                    return false;
+                if (GUI.Button(buttonRect, "Done")) _opened = false;
             }
         }
     }
