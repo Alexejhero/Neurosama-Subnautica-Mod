@@ -8,9 +8,17 @@ namespace SCHIZO.VFX
     {
         [Required]
         public Material material;
-        public int vectorPropertyID = -1;
+
+        public string floatPropertyName;
+        public int floatPropertyID => Shader.PropertyToID(floatPropertyName);
+        public float floatPropertyValue = 0f;
+
+        public string vectorPropertyName;
+        public int vectorPropertyID => Shader.PropertyToID(vectorPropertyName);
         public Vector4 vectorPropertyValue = Vector4.zero;
-        public int colorPropertyID = Shader.PropertyToID("_Color");
+
+        public string colorPropertyName = "_Color";
+        public int colorPropertyID => Shader.PropertyToID(colorPropertyName);
         public Color colorPropertyValue = Color.white;
     }
 }

@@ -23,13 +23,14 @@ namespace SCHIZO.VFX
             foreach (MatWithProps effectMaterial in effectMaterials)
             {
                 Material m = effectMaterial.material;
+                m.SetFloat(effectMaterial.floatPropertyID, effectMaterial.floatPropertyValue);
                 m.SetVector(effectMaterial.vectorPropertyID, effectMaterial.vectorPropertyValue);
                 m.SetColor(effectMaterial.colorPropertyID, effectMaterial.colorPropertyValue);
                 Graphics.Blit(startedWithA ? tempA : tempB, startedWithA ? tempB : tempA, m);
                 startedWithA = !startedWithA;
             }
 
-            Graphics.Blit(startedWithA ? tempB : tempA, destination);
+            Graphics.Blit(startedWithA ? tempA : tempB, destination);
             RenderTexture.ReleaseTemporary(tempA);
             RenderTexture.ReleaseTemporary(tempB);
             effectMaterials.Clear();

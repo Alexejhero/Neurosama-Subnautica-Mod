@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DispMap:
-        m_Texture: {fileID: 2800000, guid: f3375d7d8fc2d8c499ce350b92c79c8c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9b4ee33abf69aef4493930e99a2c5049, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -80,11 +80,13 @@ Material:
     - Vector1_D7A5C049: 1
     - _Blend: 2.38
     - _BumpScale: 1
-    - _Condition: 0.78
+    - _Condition: 0.83
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _Distance: 4.29
+    - _DisplacementStrength: 1
+    - _Distance: 0
     - _DstBlend: 0
+    - _FlickerTreshold: 0.987
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -92,15 +94,17 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Radius: 0.323
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Strength: 1.7
+    - _Strength: 0.757
     - _UVSec: 0
     - _ZWrite: 1
+    - _ZeroDistance: 4010
     m_Colors:
     - Vector2_FAC4AB11: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Position: {r: 0, g: 0, b: 0, a: 0}
-    - _ScreenPosition: {r: 524.2102, g: 123.346756, b: 1, a: -0.6548784}
+    - _ScreenPosition: {r: 647.8368, g: 126.004135, b: 1, a: -0.9873111}

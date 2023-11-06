@@ -4,15 +4,18 @@ Shader"SchizoVFX/HiyoriEffect"
     {
         [HideInInspector]
         _MainTex ("MainTex", 2D) = "gray" {}
+        [NoScaleOffset]
         _NoiseTex ("Noise Texture", 2D) = "white" {}
-        [Normal]     
+        [Normal][NoScaleOffset]
         _DispMap ("Displacement map", 2D) = "white" {}
         [HideInInspector]
         _ScreenPosition ("Position" , Vector) = (0,0,0,0)
-        _Distance ("Distance" , float) = 0.5
-        _Strength ("Strength", float) = 0.5
-        _Condition("Frequency", Range (-1, 1)) = -0.5
-        _Blend ("Blend", float) = 0.75
+        _Distance ("Distance" , float) = 50
+        _ZeroDistance("Zero Distance", Range(10, 20000)) = 50
+        _Strength ("Strength", Range(0, 1)) = 1
+        _DisplacementStrength("Displacement Strength", Range(0, 1)) = 1
+        _Radius ("Max Radius at Zero Distance", Range(0, 1)) = 1
+        _FlickerTreshold("Flicker Treshold", Range (0, 1)) = 0.5
     }
     SubShader
     {
@@ -46,15 +49,6 @@ Shader"SchizoVFX/HiyoriEffect"
                 return o;
             }
             
-            sampler2D _MainTex;
-            sampler2D _NoiseTex;
-            sampler2D _DispMap;
-            float4 _ScreenPosition;
-            float _Distance;
-            float _Strength;
-            float _Condition;
-            float _Blend;
-
             float2 FixUV(float2 iuv)
             {   
                 float2 res;
@@ -65,22 +59,36 @@ Shader"SchizoVFX/HiyoriEffect"
                 return float2(max(res.x, uv.x) * sign(iuv.x), max(res.y, uv.y) * sign(iuv.y));
             }
 
+            sampler2D _MainTex;
+            sampler2D _NoiseTex;
+            sampler2D _DispMap;
+            float4 _ScreenPosition;
+            float _Radius;
+            float _Distance;
+            float _ZeroDistance;
+            float _Strength;
+            float _FlickerTreshold;
+            float _DisplacementStrength;
+            
             fixed4 frag (v2f i) : SV_Target
             {
-                _Blend = max(0, 20 - (_Blend * _ScreenParams.w * _Distance));
-                _Strength = max(0, _Strength);
+                float2 straightUV = FixUV(i.uv);
+                float2 randomishUV = straightUV + float2(sin(_Time.w * 24) , cos(_Time.w * 24));
                 _ScreenPosition.xy /= _ScreenParams.xy;
-                float2 aspectUV = FixUV(i.uv);
-                float4 offset = (0.5 - tex2D(_DispMap, aspectUV + (_ScreenPosition.w * 3))) * _Strength;
-                float fac = saturate(distance(FixUV(_ScreenPosition.xy) *_Distance, aspectUV * _Distance ));
+
+                _Radius *= 1 -( (1 / _ZeroDistance) * _Distance);
+
+                float mask = (1 - saturate(distance(straightUV, FixUV(_ScreenPosition.xy)) + (1 - _Radius))) * _Strength;
+                mask *= step((_FlickerTreshold + 1) / 2, _ScreenPosition.w);
+
                 fixed4 col = tex2D(_MainTex, i.uv);
-                fixed4 colDist = tex2D(_MainTex, i.uv + ((offset.wz) * (1 - fac)));
-                fixed4 noiseCol = tex2D(_NoiseTex, aspectUV + (_ScreenPosition.w * 5));
-                bool isInfront = (_ScreenPosition.z > 0)? true : false;
-                if(isInfront)
+                fixed4 noiseCol = tex2D(_NoiseTex, randomishUV);
+                float2 displacement = ((0.5 - tex2D(_DispMap, randomishUV)) * 2).zw;
+                fixed4 displacedCol = tex2D(_MainTex, i.uv + (displacement * _DisplacementStrength));
+                
+                if (_ScreenPosition.z > 0)
                 {
-                    int condition = step(_ScreenPosition.w , _Condition );
-                    col.rgb = (col.rgb * condition) + ((1 - condition) * lerp((noiseCol.rgb + (col.rgb * _Blend)) / (_Blend + 1), colDist.rgb, fac));
+                    col = (col + (noiseCol * mask) + (displacedCol * mask)) * (1 - mask);
                 }
                 return col;
             }

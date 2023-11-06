@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Hiyori Material
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 46705c62fcf81094384720a059556167, type: 2}
-  vectorPropertyID: -1
+  floatPropertyName: _Distance
+  floatPropertyValue: 0
+  vectorPropertyName: _ScreenPosition
   vectorPropertyValue: {x: 0, y: 0, z: 0, w: 0}
-  colorPropertyID: 11
+  colorPropertyName: 
   colorPropertyValue: {r: 1, g: 1, b: 1, a: 1}

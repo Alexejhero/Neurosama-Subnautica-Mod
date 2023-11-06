@@ -8,8 +8,8 @@ namespace SCHIZO.VFX
         public void SendEffect(MatWithProps matWithProps)
         {
             SchizoVFXStack VFXstack = Camera.main.gameObject.GetComponent<SchizoVFXStack>();
-            if ( VFXstack == null ) { Camera.main.gameObject.AddComponent<SchizoVFXStack>(); }
-            Camera.main.gameObject.GetComponent<SchizoVFXStack>().effectMaterials.Add(matWithProps);
+            if ( VFXstack == null ) Camera.main.gameObject.AddComponent<SchizoVFXStack>();
+            VFXstack.effectMaterials.Add(matWithProps);
         }
     }
 }
