@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace SCHIZO.Items.Data.Crafting
@@ -6,10 +7,10 @@ namespace SCHIZO.Items.Data.Crafting
     [Serializable]
     public sealed partial class Ingredient
     {
-        [SerializeField]
+        [SerializeField, UsedImplicitly]
         private Item item;
 
-        [SerializeField]
+        [SerializeField, UsedImplicitly]
         private int amount = 1;
     }
 }

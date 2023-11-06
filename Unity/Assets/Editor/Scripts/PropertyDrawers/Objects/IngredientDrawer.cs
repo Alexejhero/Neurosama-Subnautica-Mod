@@ -10,7 +10,7 @@ namespace Editor.Scripts.PropertyDrawers.Objects
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            SerializedProperty amountProp = property.FindPropertyRelative(nameof(Ingredient.amount));
+            SerializedProperty amountProp = property.FindPropertyRelative("amount");
             int amount = amountProp.intValue;
             if (amount < 1) amountProp.intValue = 1;
             if (amount > 99) amountProp.intValue = 99;
@@ -19,7 +19,7 @@ namespace Editor.Scripts.PropertyDrawers.Objects
             position = EditorGUI.PrefixLabel(position, DrawerUtils.ControlId(property.propertyPath + "label", position), label);
 
             Rect itemRect = new Rect(position.x, position.y, position.width - 50, position.height);
-            ItemDrawer.DrawItem(property.FindPropertyRelative(nameof(Ingredient.item)), itemRect);
+            ItemDrawer.DrawItem(property.FindPropertyRelative("item"), itemRect);
 
             Rect amountRect = new Rect(position.x + position.width - 45, position.y, 45, position.height);
 
