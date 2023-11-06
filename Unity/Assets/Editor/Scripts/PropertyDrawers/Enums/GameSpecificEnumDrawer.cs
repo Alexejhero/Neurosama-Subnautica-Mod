@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Editor.Scripts.PropertyDrawers.Utilities;
 using SCHIZO.Registering;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts.PropertyDrawers
+namespace Editor.Scripts.PropertyDrawers.Enums
 {
     public abstract class GameSpecificEnumDrawer<T> : PropertyDrawer where T : Enum
     {

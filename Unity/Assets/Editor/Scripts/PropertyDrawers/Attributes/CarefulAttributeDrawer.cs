@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Reflection;
+using Editor.Scripts.PropertyDrawers.Objects;
+using Editor.Scripts.PropertyDrawers.Utilities;
 using HarmonyLib;
 using SCHIZO.Attributes;
 using SCHIZO.Items.Data.Crafting;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts.PropertyDrawers
+namespace Editor.Scripts.PropertyDrawers.Attributes
 {
     [CustomPropertyDrawer(typeof(CarefulAttribute))]
     public sealed class CarefulAttributeDrawer : PropertyDrawer

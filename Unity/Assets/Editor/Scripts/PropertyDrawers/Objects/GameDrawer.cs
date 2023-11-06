@@ -1,8 +1,9 @@
-﻿using SCHIZO.Registering;
+﻿using Editor.Scripts.PropertyDrawers.Utilities;
+using SCHIZO.Registering;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts.PropertyDrawers
+namespace Editor.Scripts.PropertyDrawers.Objects
 {
     [CustomPropertyDrawer(typeof(Game))]
     public sealed class GameDrawer : PropertyDrawer

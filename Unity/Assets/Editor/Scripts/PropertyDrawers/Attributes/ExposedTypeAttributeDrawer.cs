@@ -1,10 +1,11 @@
 ﻿using System;
+using Editor.Scripts.PropertyDrawers.Utilities;
 using SCHIZO.Attributes;
 using SCHIZO.Helpers;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts.PropertyDrawers
+namespace Editor.Scripts.PropertyDrawers.Attributes
 {
     [CustomPropertyDrawer(typeof(ExposedTypeAttribute))]
     public sealed class ExposedTypeAttributeDrawer : PropertyDrawer

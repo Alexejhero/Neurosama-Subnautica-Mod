@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts.PropertyDrawers
+namespace Editor.Scripts.PropertyDrawers.Objects
 {
     [CustomPropertyDrawer(typeof(HullPlate))]
     public sealed class HullPlateDrawer : PropertyDrawer

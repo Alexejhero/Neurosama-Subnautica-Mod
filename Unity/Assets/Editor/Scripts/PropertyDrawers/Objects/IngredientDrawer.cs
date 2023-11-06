@@ -1,8 +1,9 @@
-﻿using SCHIZO.Items.Data.Crafting;
+﻿using Editor.Scripts.PropertyDrawers.Utilities;
+using SCHIZO.Items.Data.Crafting;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts.PropertyDrawers
+namespace Editor.Scripts.PropertyDrawers.Objects
 {
     [CustomPropertyDrawer(typeof(Ingredient))]
     public sealed class IngredientDrawer : PropertyDrawer
