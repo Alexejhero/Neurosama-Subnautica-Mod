@@ -4,9 +4,7 @@ namespace SCHIZO.TriInspector.Attributes
 {
     internal class ComponentReferencesGroupAttribute : GroupAttribute
     {
-        public const string GROUP_NAME = "component-references";
-
-        public ComponentReferencesGroupAttribute() : base(GROUP_NAME)
+        public ComponentReferencesGroupAttribute() : base(DeclareComponentReferencesGroupAttribute.GROUP_NAME)
         {
         }
     }

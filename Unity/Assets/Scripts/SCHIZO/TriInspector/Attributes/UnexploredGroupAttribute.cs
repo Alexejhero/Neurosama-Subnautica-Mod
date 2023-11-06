@@ -4,11 +4,11 @@ namespace SCHIZO.TriInspector.Attributes
 {
     internal class UnexploredGroupAttribute : GroupAttribute
     {
-        public UnexploredGroupAttribute(string insideof) : base(insideof + "/unexplored")
+        public UnexploredGroupAttribute(string insideof) : base(insideof + "/" + DeclareUnexploredGroupAttribute.GROUP_NAME)
         {
         }
 
-        public UnexploredGroupAttribute() : base("unexplored")
+        public UnexploredGroupAttribute() : base(DeclareUnexploredGroupAttribute.GROUP_NAME)
         {
         }
     }
