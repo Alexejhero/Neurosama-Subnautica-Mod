@@ -1,9 +1,5 @@
-﻿using System.Reflection;
-using HarmonyLib;
-using JetBrains.Annotations;
-using SCHIZO.Registering;
+﻿using SCHIZO.Registering;
 using TriInspector;
-using UnityEditor;
 using UnityEngine;
 
 namespace SCHIZO.Items.Data.Crafting

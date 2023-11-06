@@ -1,4 +1,5 @@
 ﻿using SCHIZO.Interop.Subnautica;
+using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 

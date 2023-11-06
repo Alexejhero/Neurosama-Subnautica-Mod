@@ -1,4 +1,5 @@
 ﻿using SCHIZO.TriInspector;
+using SCHIZO.TriInspector.Attributes;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Subnautica/Live Mixin Data")]
