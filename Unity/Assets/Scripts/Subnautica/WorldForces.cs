@@ -1,12 +1,12 @@
-﻿using SCHIZO.TriInspector;
-using SCHIZO.TriInspector.Attributes;
+﻿using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
+[DeclareComponentReferencesGroup]
 [DeclareToggleGroup("gravity", Title = "Gravity")]
 [DeclareToggleGroup("drag", Title = "Drag")]
 [DeclareToggleGroup("wind", Title = "Wind (BZ only)")]
-public class WorldForces : TriMonoBehaviour
+public class WorldForces : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public Rigidbody useRigidbody;
 

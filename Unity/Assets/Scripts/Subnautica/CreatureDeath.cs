@@ -1,11 +1,11 @@
-﻿using SCHIZO.TriInspector;
-using SCHIZO.TriInspector.Attributes;
+﻿using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
+[DeclareComponentReferencesGroup]
 [RequireComponent(typeof(Rigidbody))]
 [DisallowMultipleComponent]
-public class CreatureDeath : TriMonoBehaviour
+public class CreatureDeath : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public LiveMixin liveMixin;
     [ComponentReferencesGroup, Required] public Rigidbody useRigidbody;

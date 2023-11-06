@@ -28,4 +28,8 @@ partial class ItemData
     {
         UnityPrefab.CreateAndRegister(ModItem);
     }
+#if UNITY_EDITOR
+    [ContextMenu("Set Loader/Fumo Item")]
+    private void CreateFumoItemLoader() => AssignItemLoader(CreateInstance<FumoItem.FumoItemLoader>());
+#endif
 }

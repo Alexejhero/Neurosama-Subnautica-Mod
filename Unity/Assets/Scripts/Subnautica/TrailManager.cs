@@ -1,9 +1,9 @@
-﻿using SCHIZO.TriInspector;
-using SCHIZO.TriInspector.Attributes;
+﻿using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
-public class TrailManager : TriMonoBehaviour
+[DeclareComponentReferencesGroup]
+public class TrailManager : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public BehaviourLOD levelOfDetail;
 

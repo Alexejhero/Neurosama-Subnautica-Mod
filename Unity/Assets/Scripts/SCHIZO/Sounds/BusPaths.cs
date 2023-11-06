@@ -6,6 +6,6 @@
         UnderwaterCreatures,
         IndoorSounds,
         SFX,
-        SFXNoFilter,
+        SFXNoPDAPause,
     }
 }

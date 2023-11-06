@@ -1,8 +1,8 @@
-﻿using SCHIZO.TriInspector;
+﻿using UnityEngine;
 
 namespace SCHIZO.Registering
 {
-    public abstract partial class ModRegistryItem : TriScriptableObject
+    public abstract partial class ModRegistryItem : ScriptableObject
     {
         protected bool IsRegistered
         {

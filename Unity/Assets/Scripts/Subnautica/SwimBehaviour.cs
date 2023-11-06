@@ -1,9 +1,9 @@
-﻿using SCHIZO.TriInspector;
-using SCHIZO.TriInspector.Attributes;
+﻿using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
-public class SwimBehaviour : TriMonoBehaviour
+[DeclareComponentReferencesGroup]
+public class SwimBehaviour : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public SplineFollowing splineFollowing;
 

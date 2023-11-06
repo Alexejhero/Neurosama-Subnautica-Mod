@@ -1,9 +1,9 @@
-﻿using SCHIZO.TriInspector;
-using SCHIZO.TriInspector.Attributes;
+﻿using SCHIZO.TriInspector.Attributes;
 using UnityEngine;
 
+[DeclareUnexploredGroup]
 [CreateAssetMenu(menuName = "Subnautica/Live Mixin Data")]
-public class LiveMixinData : TriScriptableObject
+public class LiveMixinData : ScriptableObject
 {
     public float maxHealth = 100;
     public bool passDamageDataOnDeath;

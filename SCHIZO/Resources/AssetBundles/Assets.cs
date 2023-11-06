@@ -12,14 +12,13 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = -684662253;
+    private const int _rnd = 132700021;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
 
     public static T[] All<T>() where T : UnityEngine.Object => _a.LoadAllAssets<T>();
     public static UnityEngine.Object[] All() => _a.LoadAllAssets();
         
-    public static SCHIZO.Sounds.Collections.SoundCollection Old_Credits_SNEasterEgg = _a.LoadAsset<SCHIZO.Sounds.Collections.SoundCollection>("Assets/_old/Credits/SN Easter Egg.asset");
     public static SCHIZO.Items.Data.CloneItemData Gymbag_GymbagBZ = _a.LoadAsset<SCHIZO.Items.Data.CloneItemData>("Assets/Gymbag/Gymbag BZ.asset");
     public static SCHIZO.Items.Data.CloneItemData Gymbag_GymbagSN = _a.LoadAsset<SCHIZO.Items.Data.CloneItemData>("Assets/Gymbag/Gymbag SN.asset");
     public static UnityEngine.Texture2D Loading_Icon_LoadingIcon = _a.LoadAsset<UnityEngine.Texture2D>("Assets/Loading/Icon/loading icon.png");
