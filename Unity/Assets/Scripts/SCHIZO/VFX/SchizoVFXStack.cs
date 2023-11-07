@@ -5,7 +5,7 @@ namespace SCHIZO.VFX
 {
     public partial class SchizoVFXStack : MonoBehaviour
     {
-        public List<MatWithProps> effectMaterials = new List<MatWithProps>();
+        public static List<Material> effectMaterials = new List<Material>();
 
         private void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
@@ -20,13 +20,9 @@ namespace SCHIZO.VFX
             Graphics.CopyTexture(source, tempA);
 
             bool startedWithA = true;
-            foreach (MatWithProps effectMaterial in effectMaterials)
+            foreach (Material effectMaterial in effectMaterials)
             {
-                Material m = effectMaterial.material;
-                m.SetFloat(effectMaterial.floatPropertyID, effectMaterial.floatPropertyValue);
-                m.SetVector(effectMaterial.vectorPropertyID, effectMaterial.vectorPropertyValue);
-                m.SetColor(effectMaterial.colorPropertyID, effectMaterial.colorPropertyValue);
-                Graphics.Blit(startedWithA ? tempA : tempB, startedWithA ? tempB : tempA, m);
+                Graphics.Blit(startedWithA ? tempA : tempB, startedWithA ? tempB : tempA, effectMaterial);
                 startedWithA = !startedWithA;
             }
 

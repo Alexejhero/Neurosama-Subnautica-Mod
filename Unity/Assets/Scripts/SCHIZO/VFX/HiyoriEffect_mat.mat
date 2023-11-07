@@ -101,7 +101,7 @@ Material:
     - _Strength: 0.757
     - _UVSec: 0
     - _ZWrite: 1
-    - _ZeroDistance: 4010
+    - _ZeroDistance: 100
     m_Colors:
     - Vector2_FAC4AB11: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

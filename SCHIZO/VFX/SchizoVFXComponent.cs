@@ -1,4 +1,3 @@
-namespace SCHIZO.VFX
-{
-    public partial class SchizoVFXComponent;
-}
+namespace SCHIZO.VFX;
+
+public partial class SchizoVFXComponent;

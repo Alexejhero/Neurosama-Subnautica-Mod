@@ -10,8 +10,7 @@ Shader"SchizoVFX/HiyoriEffect"
         _DispMap ("Displacement map", 2D) = "white" {}
         [HideInInspector]
         _ScreenPosition ("Position" , Vector) = (0,0,0,0)
-        _Distance ("Distance" , float) = 50
-        _ZeroDistance("Zero Distance", Range(10, 20000)) = 50
+        _ZeroDistance("Zero Distance", Range(2, 500)) = 50
         _Strength ("Strength", Range(0, 1)) = 1
         _DisplacementStrength("Displacement Strength", Range(0, 1)) = 1
         _Radius ("Max Radius at Zero Distance", Range(0, 1)) = 1
@@ -64,7 +63,6 @@ Shader"SchizoVFX/HiyoriEffect"
             sampler2D _DispMap;
             float4 _ScreenPosition;
             float _Radius;
-            float _Distance;
             float _ZeroDistance;
             float _Strength;
             float _FlickerTreshold;
@@ -76,7 +74,7 @@ Shader"SchizoVFX/HiyoriEffect"
                 float2 randomishUV = straightUV + float2(sin(_Time.w * 24) , cos(_Time.w * 24));
                 _ScreenPosition.xy /= _ScreenParams.xy;
 
-                _Radius *= 1 -( (1 / _ZeroDistance) * _Distance);
+                _Radius *= 1 -( (1 / _ZeroDistance) * _ScreenPosition.z);
 
                 float mask = (1 - saturate(distance(straightUV, FixUV(_ScreenPosition.xy)) + (1 - _Radius))) * _Strength;
                 mask *= step((_FlickerTreshold + 1) / 2, _ScreenPosition.w);
@@ -86,11 +84,7 @@ Shader"SchizoVFX/HiyoriEffect"
                 float2 displacement = ((0.5 - tex2D(_DispMap, randomishUV)) * 2).zw;
                 fixed4 displacedCol = tex2D(_MainTex, i.uv + (displacement * _DisplacementStrength));
                 
-                if (_ScreenPosition.z > 0)
-                {
-                    col = (col + (noiseCol * mask) + (displacedCol * mask)) * (1 - mask);
-                }
-                return col;
+                return (col + (noiseCol * mask) + (displacedCol * mask)) * (1 - mask);
             }
             ENDCG
         }
