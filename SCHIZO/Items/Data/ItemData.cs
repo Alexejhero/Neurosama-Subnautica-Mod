@@ -28,19 +28,11 @@ partial class ItemData
 
     protected override void PostRegister()
     {
-#if SUBNAUTICA
-        if (!registerInSN)
+        if (!RetargetHelpers.Pick(registerInSN, registerInBZ))
         {
-            LOGGER.LogMessage($"Not registering {classId} in SN");
+            LOGGER.LogMessage($"Not registering {classId} in {(IS_BELOWZERO ? "BZ" : "SN")}");
             return;
         }
-#else
-        if (!registerInBZ)
-        {
-            LOGGER.LogMessage($"Not registering {classId} in BZ");
-            return;
-        }
-#endif
 
         LOGGER.LogDebug($"Creating prefab {loader.GetType().Name} for {classId}");
         loader.Load(ModItem);
