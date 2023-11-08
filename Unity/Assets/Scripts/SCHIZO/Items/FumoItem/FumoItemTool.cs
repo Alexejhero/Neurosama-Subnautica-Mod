@@ -9,6 +9,7 @@ namespace SCHIZO.Items.FumoItem
         public float hugCooldown = 1f;
         [Range(0, 100)]
         public int hugColdResistBuff = 20;
-        [Required] public Transform fumoModel;
+        [Required] public Transform fumoModelSN;
+        [Required] public Transform fumoModelBZ;
     }
 }
