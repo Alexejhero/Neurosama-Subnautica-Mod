@@ -5,15 +5,13 @@ public class HiyoriVFXComponent : MonoBehaviour
 {
     public Material material;
     private Material matInstance;
-    private SchizoVFXComponent svc;
 
     private readonly int vectorID = Shader.PropertyToID("_ScreenPosition");
 
     public void Awake()
     {
         matInstance = new Material(material);
-        svc = gameObject.AddComponent<SchizoVFXComponent>();
-        svc.usingCustomMaterial = true;
+        SchizoVFXStack stack = SchizoVFXStack.VFXStack;
     }
 
     public void LateUpdate()
@@ -24,7 +22,7 @@ public class HiyoriVFXComponent : MonoBehaviour
         {
             float rnd = Random.Range(-1f, 1f) * Time.timeScale;
             matInstance.SetVector( vectorID, new Vector4(pos.x, pos.y, pos.z, rnd));
-            svc.applyEffect(matInstance);
+            SchizoVFXStack.effectMaterials.Add(matInstance);
         }
     }
 }

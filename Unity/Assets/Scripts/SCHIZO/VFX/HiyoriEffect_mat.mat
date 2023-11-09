@@ -107,4 +107,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Position: {r: 0, g: 0, b: 0, a: 0}
-    - _ScreenPosition: {r: 647.8368, g: 126.004135, b: 1, a: -0.9873111}
+    - _ScreenPosition: {r: 477.78473, g: 248.9643, b: 10.709102, a: -0.5093179}

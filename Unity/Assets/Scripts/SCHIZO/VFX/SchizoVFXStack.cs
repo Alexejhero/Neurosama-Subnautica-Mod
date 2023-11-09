@@ -3,8 +3,21 @@ using System.Collections.Generic;
 
 namespace SCHIZO.VFX
 {
-    public partial class SchizoVFXStack : MonoBehaviour
+    public class SchizoVFXStack : MonoBehaviour
     {
+        private static SchizoVFXStack _instance;
+
+        public static SchizoVFXStack VFXStack
+        {
+            get
+            {
+                if (_instance != null) return _instance;
+                _instance = Camera.main.GetComponent<SchizoVFXStack>();
+                if(_instance == null) _instance = Camera.main.gameObject.AddComponent<SchizoVFXStack>();
+                return _instance;
+            }
+        }
+
         public static List<Material> effectMaterials = new List<Material>();
 
         private void OnRenderImage(RenderTexture source, RenderTexture destination)

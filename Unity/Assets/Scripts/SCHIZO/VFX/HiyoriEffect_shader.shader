@@ -58,6 +58,7 @@ Shader"SchizoVFX/HiyoriEffect"
                 return float2(max(res.x, uv.x) * sign(iuv.x), max(res.y, uv.y) * sign(iuv.y));
             }
 
+            sampler2D _CameraDepthTexture;
             sampler2D _MainTex;
             sampler2D _NoiseTex;
             sampler2D _DispMap;
@@ -67,23 +68,27 @@ Shader"SchizoVFX/HiyoriEffect"
             float _Strength;
             float _FlickerTreshold;
             float _DisplacementStrength;
-            
+
             fixed4 frag (v2f i) : SV_Target
             {
+                float depth = LinearEyeDepth(tex2D(_CameraDepthTexture, i.uv));
+                float depthDist = saturate( -(_ScreenPosition.z - depth));
+
                 float2 straightUV = FixUV(i.uv);
                 float2 randomishUV = straightUV + float2(sin(_Time.w * 24) , cos(_Time.w * 24));
                 _ScreenPosition.xy /= _ScreenParams.xy;
 
-                _Radius *= 1 -( (1 / _ZeroDistance) * _ScreenPosition.z);
+                _Radius *= 1 - ( (1 / _ZeroDistance) * _ScreenPosition.z);
 
                 float mask = (1 - saturate(distance(straightUV, FixUV(_ScreenPosition.xy)) + (1 - _Radius))) * _Strength;
+                mask *= depthDist;
                 mask *= step((_FlickerTreshold + 1) / 2, _ScreenPosition.w);
 
                 fixed4 col = tex2D(_MainTex, i.uv);
                 fixed4 noiseCol = tex2D(_NoiseTex, randomishUV);
                 float2 displacement = ((0.5 - tex2D(_DispMap, randomishUV)) * 2).zw;
                 fixed4 displacedCol = tex2D(_MainTex, i.uv + (displacement * _DisplacementStrength));
-                
+
                 return (col + (noiseCol * mask) + (displacedCol * mask)) * (1 - mask);
             }
             ENDCG
