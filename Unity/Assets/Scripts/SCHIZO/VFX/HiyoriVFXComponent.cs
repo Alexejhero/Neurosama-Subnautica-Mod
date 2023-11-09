@@ -22,7 +22,7 @@ public class HiyoriVFXComponent : MonoBehaviour
         {
             float rnd = Random.Range(-1f, 1f) * Time.timeScale;
             matInstance.SetVector( vectorID, new Vector4(pos.x, pos.y, pos.z, rnd));
-            SchizoVFXStack.effectMaterials.Add(matInstance);
+            SchizoVFXStack.RenderEffect(matInstance);
         }
     }
 }
