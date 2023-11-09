@@ -1,9 +1,10 @@
-﻿using SCHIZO.TriInspector;
-using SCHIZO.TriInspector.Attributes;
+﻿using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
-public class Locomotion : TriMonoBehaviour
+[DeclareComponentReferencesGroup]
+[DeclareUnexploredGroup]
+public class Locomotion : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public BehaviourLOD levelOfDetail;
     [ComponentReferencesGroup, Required] public Rigidbody useRigidbody;

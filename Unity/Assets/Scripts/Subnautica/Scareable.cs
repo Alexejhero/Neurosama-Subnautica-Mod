@@ -1,11 +1,12 @@
 ﻿using SCHIZO.Interop.Subnautica;
 using SCHIZO.Interop.Subnautica.Enums;
-using SCHIZO.TriInspector;
 using SCHIZO.TriInspector.Attributes;
 using TriInspector;
 using UnityEngine;
 
-public class Scareable : TriMonoBehaviour
+[DeclareComponentReferencesGroup]
+[DeclareUnexploredGroup]
+public class Scareable : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public CreatureFear creatureFear;
     [ComponentReferencesGroup, Required] public _Creature creature;

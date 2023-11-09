@@ -15,9 +15,9 @@ partial class StaticHelpers
         public static void CacheAll()
         {
             IEnumerable<string> names = PLUGIN_ASSEMBLY.GetTypes()
-                .SelectMany(t => t.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
+                .SelectMany(t => t.GetMembers(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
                 .Where(m => m.GetCustomAttribute<CacheAttribute>() != null)
-                .Select(m => (IEnumerable) m.Invoke(null, Array.Empty<object>()))
+                .Select(ReflectionHelpers.GetStaticMemberValue<IEnumerable>)
                 .SelectMany(i => i.Cast<ITriDropdownItem>())
                 .Select(i => i.Value.ToString());
 

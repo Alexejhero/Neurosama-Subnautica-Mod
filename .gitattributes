@@ -1,1 +1,5 @@
 SCHIZO/Resources/AssetBundles/* merge=ours
+
+*.asset text eol=lf
+*.prefab text eol=lf
+*.meta text eol=lf

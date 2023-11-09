@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
+  m_Name: Gymbag BZ
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7836867044347112342, guid: 12e5c7a1730f1304a8e99e401ff164f6, type: 3}
+  loader:
+    id: 0
+  classId: quantumgymbag
+  displayName: Quantum Gymbag
+  tooltip: 'Provides portable access to the quantum storage network... provided you
+    don''t mind the smell.
+
+    <size=75%>(Model by Vaalmyr)</size>'
+  icon: {fileID: 21300000, guid: fa22a6c6c787aeb42bb9084a1aaa3260, type: 3}
+  itemSize: {x: 2, y: 2}
+  isCraftable: 1
+  isBuildable: 0
+  craftingTime: 7
+  itemSounds: {fileID: 0}
+  pdaEncyInfo: {fileID: 0}
+  unlockAtStart: 0
+  registerInSN: 0
+  recipeSN: {fileID: 0}
+  craftTreeTypeSN: 0
+  craftTreePathSN: 
+  techGroupSN: 14
+  techCategorySN: 0
+  knownTechInfoSN: {fileID: 0}
+  requiredForUnlockSN:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
+  registerInBZ: 1
+  recipeBZ: {fileID: 11400000, guid: d793435e7366e1d44b0283a9debcf181, type: 2}
+  canBeRecycledBZ: 1
+  craftTreeTypeBZ: 1
+  craftTreePathBZ: Personal/Equipment
+  techGroupBZ: 2
+  techCategoryBZ: 4
+  knownTechInfoBZ: {fileID: 0}
+  soundTypeBZ: 0
+  requiredForUnlockBZ:
+    isCustom: 0
+    techType: 1567
+    itemData: {fileID: 0}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: GymbagLoader, ns: SCHIZO.Items.Gymbag, asm: SCHIZO}

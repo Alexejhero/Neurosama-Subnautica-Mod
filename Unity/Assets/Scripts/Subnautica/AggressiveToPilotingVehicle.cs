@@ -1,9 +1,10 @@
 ﻿using SCHIZO.Interop.Subnautica;
-using SCHIZO.TriInspector;
 using SCHIZO.TriInspector.Attributes;
 using TriInspector;
+using UnityEngine;
 
-public class AggressiveToPilotingVehicle : TriMonoBehaviour
+[DeclareComponentReferencesGroup]
+public class AggressiveToPilotingVehicle : MonoBehaviour
 {
     [ComponentReferencesGroup, Required] public LastTarget lastTarget;
     [ComponentReferencesGroup, Required] public _Creature creature;

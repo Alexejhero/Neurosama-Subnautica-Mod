@@ -12,14 +12,27 @@ namespace Editor.Scripts.Inspectors
 
         private void Awake()
         {
-            _toggle = new GUIStyle(EditorStyles.toggle);
-            _toggle.normal.textColor = _toggle.hover.textColor = _toggle.focused.textColor = _toggle.active.textColor = Color.red;
-            _toggle.onNormal.textColor = _toggle.onHover.textColor = _toggle.onFocused.textColor = _toggle.onActive.textColor = Color.green;
+            try
+            {
+                _toggle = new GUIStyle(EditorStyles.toggle);
+                _toggle.normal.textColor = _toggle.hover.textColor = _toggle.focused.textColor = _toggle.active.textColor = Color.red;
+                _toggle.onNormal.textColor = _toggle.onHover.textColor = _toggle.onFocused.textColor = _toggle.onActive.textColor = Color.green;
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         protected override void OnHeaderGUI()
         {
             base.OnHeaderGUI();
+
+            if (_toggle == null)
+            {
+                Awake();
+                if (_toggle == null) return;
+            }
 
             ModRegistryItem item = target as ModRegistryItem;
             if (!item || item is ModRegistry) return;

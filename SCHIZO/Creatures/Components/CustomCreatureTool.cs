@@ -2,17 +2,17 @@ namespace SCHIZO.Creatures.Components;
 
 partial class CustomCreatureTool
 {
-    public override string animToolName => referenceAnimation.ToString().ToLower();
+    public override string animToolName => data.referenceAnimation.ToString().ToLower();
 
     private new void Awake()
     {
-        if (subnauticaModel) subnauticaModel.SetActive(IS_SUBNAUTICA);
-        if (belowZeroModel) belowZeroModel.SetActive(IS_BELOWZERO);
+        if (data.subnauticaModel) data.subnauticaModel.SetActive(IS_SUBNAUTICA);
+        if (data.belowZeroModel) data.belowZeroModel.SetActive(IS_BELOWZERO);
 
         if (IS_BELOWZERO)
         {
-            leftHandIKTarget = leftHandIKTargetOverrideBZ;
-            rightHandIKTarget = rightHandIKTargetOverrideBZ;
+            leftHandIKTarget = data.leftHandIKTargetOverrideBZ;
+            rightHandIKTarget = data.rightHandIKTargetOverrideBZ;
         }
 
         base.Awake();

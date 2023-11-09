@@ -2,8 +2,8 @@ namespace SCHIZO.Items.Gymbag;
 
 partial class GymbagLoader
 {
-    public override void Load()
+    public override void Load(ModItem modItem)
     {
-        new Gymbag(itemData.ModItem, itemData.CloneTarget).Register();
+        new Gymbag(modItem).Register();
     }
 }

@@ -8,7 +8,6 @@ using System.Text;
 using AssetBundleBrowser.AssetBundleDataSource;
 using HarmonyLib;
 using JetBrains.Annotations;
-using SCHIZO.Creatures;
 using SCHIZO.Items.Data;
 using SCHIZO.Registering;
 using UnityEditor;
@@ -91,8 +90,7 @@ namespace Editor.Scripts.Patches
         private static Object HandleMultipleAssets(Object[] objects, Object main, string path)
         {
             if (main is GameObject) return main;
-            if (main is CloneItemData) return main;
-            if (main is CreatureData) return main;
+            if (main is ItemData) return main;
 
             if (objects[0] is Texture2D && objects[1] is Sprite sprite1) return sprite1;
             if (objects[0] is Sprite sprite2 && objects[1] is Texture2D) return sprite2;

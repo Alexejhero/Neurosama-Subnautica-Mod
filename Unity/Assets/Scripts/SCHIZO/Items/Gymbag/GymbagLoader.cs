@@ -1,6 +1,9 @@
-﻿namespace SCHIZO.Items.Gymbag
+using JetBrains.Annotations;
+
+namespace SCHIZO.Items.Gymbag
 {
-    public sealed partial class GymbagLoader : CloneItemLoader
+    [UsedImplicitly]
+    public sealed partial class GymbagLoader : ItemLoader
     {
     }
 }

@@ -53,7 +53,7 @@ public sealed class FMODSoundCollection
     public void Stop()
     {
         if (!Initialize()) return;
-        if (Assets.Options_DisableAllSounds.Value) return;
+        if (Assets.Mod_Options_DisableAllSounds.Value) return;
 
         foreach (Channel channel in _channels)
         {
@@ -141,7 +141,7 @@ public sealed class FMODSoundCollection
     private void Play(int index, FMOD_CustomEmitter emitter, float delay = 0)
     {
         if (!Initialize()) return;
-        if (Assets.Options_DisableAllSounds.Value) return;
+        if (Assets.Mod_Options_DisableAllSounds.Value) return;
 
         if (delay <= 0)
         {

@@ -1,8 +1,9 @@
-﻿using SCHIZO.TriInspector;
-using SCHIZO.TriInspector.Attributes;
+﻿using SCHIZO.TriInspector.Attributes;
 using TriInspector;
+using UnityEngine;
 
-public class LiveMixin : TriMonoBehaviour
+[DeclareUnexploredGroup]
+public class LiveMixin : MonoBehaviour
 {
     [Required, InlineEditor] public LiveMixinData data;
     public float health;
