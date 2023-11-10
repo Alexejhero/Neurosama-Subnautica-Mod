@@ -25,11 +25,6 @@ namespace SCHIZO.VFX
             if (effectMaterials.Contains(m)) return;
             effectMaterials.Add(m);
         }
-       
-        public static void RenderEffectForceInstance(Material m)
-        {
-            effectMaterials.Add(new Material(m)); //surely it's not going to pollute memory Clueless
-        }
 
         private void OnRenderImage(RenderTexture source, RenderTexture destination)
         {

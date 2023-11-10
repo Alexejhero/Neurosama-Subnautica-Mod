@@ -14,13 +14,12 @@ namespace SCHIZO.VFX
         private void Awake()
         {
             SchizoVFXStack stack = SchizoVFXStack.VFXStack;
+            if (forceUniqueInstance) material = new Material (material);
         }
 
         public void Update()
         {
-            if (forceUniqueInstance) { SchizoVFXStack.RenderEffectForceInstance(material); }
-            else { SchizoVFXStack.RenderEffect(material); }
-           
+            SchizoVFXStack.RenderEffect(material);
         }
     }
 }
