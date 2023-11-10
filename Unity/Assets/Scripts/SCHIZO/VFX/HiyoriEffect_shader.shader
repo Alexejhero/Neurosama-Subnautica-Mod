@@ -72,7 +72,7 @@ Shader"SchizoVFX/HiyoriEffect"
             fixed4 frag (v2f i) : SV_Target
             {
                 float depth = LinearEyeDepth(tex2D(_CameraDepthTexture, i.uv));
-                float depthDist = saturate( -(_ScreenPosition.z - depth));
+                float depthDist = saturate(depth - _ScreenPosition.z);
 
                 float2 straightUV = FixUV(i.uv);
                 float2 randomishUV = straightUV + float2(sin(_Time.w * 24) , cos(_Time.w * 24));

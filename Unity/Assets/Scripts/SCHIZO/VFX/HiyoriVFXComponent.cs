@@ -11,7 +11,7 @@ public class HiyoriVFXComponent : MonoBehaviour
     public void Awake()
     {
         matInstance = new MatPassID(new Material(material));
-        SchizoVFXStack stack = SchizoVFXStack.VFXStack;
+        _ = SchizoVFXStack.VFXStack;
     }
 
     public void LateUpdate()

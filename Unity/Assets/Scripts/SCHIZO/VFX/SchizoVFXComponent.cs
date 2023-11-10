@@ -16,7 +16,7 @@ namespace SCHIZO.VFX
         private void Awake()
         {
             mat = new MatPassID(forceUniqueInstance ? new Material(material) : material);
-            SchizoVFXStack stack = SchizoVFXStack.VFXStack;
+            _ = SchizoVFXStack.VFXStack;
         }
 
         public void Update()
