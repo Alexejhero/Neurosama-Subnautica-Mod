@@ -18,9 +18,9 @@ namespace SCHIZO.VFX
             }
         }
 
-        private static List<Material> effectMaterials = new List<Material>();
+        private static List<MatPassID> effectMaterials = new List<MatPassID>();
 
-        public static void RenderEffect(Material m)
+        public static void RenderEffect(MatPassID m)
         {
             if (effectMaterials.Contains(m)) return;
             effectMaterials.Add(m);
@@ -39,9 +39,9 @@ namespace SCHIZO.VFX
             Graphics.CopyTexture(source, tempA);
 
             bool startedWithA = true;
-            foreach (Material effectMaterial in effectMaterials)
+            foreach (MatPassID effectMaterial in effectMaterials)
             {
-                Graphics.Blit(startedWithA ? tempA : tempB, startedWithA ? tempB : tempA, effectMaterial);
+                Graphics.Blit(startedWithA ? tempA : tempB, startedWithA ? tempB : tempA, effectMaterial.mat, effectMaterial.id);
                 startedWithA = !startedWithA;
             }
 

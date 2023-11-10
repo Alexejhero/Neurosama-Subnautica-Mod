@@ -11,15 +11,17 @@ namespace SCHIZO.VFX
         [PropertyTooltip(tooltip:"Force each instance of effect in scene to be rendered.")]
         public bool forceUniqueInstance = false;
 
+        private MatPassID mat;
+
         private void Awake()
         {
+            mat = new MatPassID(forceUniqueInstance ? new Material(material) : material);
             SchizoVFXStack stack = SchizoVFXStack.VFXStack;
-            if (forceUniqueInstance) material = new Material (material);
         }
 
         public void Update()
         {
-            SchizoVFXStack.RenderEffect(material);
+            SchizoVFXStack.RenderEffect(mat);
         }
     }
 }
