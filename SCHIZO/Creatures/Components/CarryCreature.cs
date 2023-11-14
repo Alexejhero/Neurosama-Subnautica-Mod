@@ -3,16 +3,24 @@ using UnityEngine;
 
 namespace SCHIZO.Creatures.Components;
 
-/// <summary>Adapted from <see cref="CollectShiny"/></summary>
 partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
 {
-    private GetCarried target;
-    private bool targetPickedUp;
+    public Carryable target;
+    public Creature creature;
+    public bool targetPickedUp;
+
+    private float pickupRadiusSquared;
     private float timeNextFindTarget;
     private float timeNextUpdate;
-    private static readonly EcoRegion.TargetFilter _isTargetValidFilter = target => target.GetGameObject().GetComponent<GetCarried>();
+    private static readonly EcoRegion.TargetFilter _isTargetValidFilter = target => target.GetGameObject().GetComponent<Carryable>();
 
     public EcoTargetType EcoTargetType => (EcoTargetType) _ecoTargetType;
+
+    public void Awake()
+    {
+        creature = GetComponent<Creature>();
+        pickupRadiusSquared = Mathf.Pow(attachRadius, 2f);
+    }
 
     void IOnTakeDamage.OnTakeDamage(DamageInfo damageInfo)
     {
@@ -22,7 +30,7 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
     bool IOnMeleeAttack.HandleMeleeAttack(GameObject targetObject)
     {
         // prevent bite after releasing
-        if (targetObject.GetComponent<GetCarried>()) return true;
+        if (targetObject.GetComponent<Carryable>()) return true;
 
         // pick up held creature instead of eating it
         Player player = targetObject.GetComponent<Player>();
@@ -31,10 +39,13 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         GameObject heldObject = Inventory.main.GetHeldObject();
         if (!heldObject) return false;
 
-        GetCarried heldCarryable = heldObject.GetComponent<GetCarried>();
+        Carryable heldCarryable = heldObject.GetComponent<Carryable>();
         if (!heldCarryable) return false;
 
-        if (EcoTargetType != heldObject.GetComponent<IEcoTarget>()?.GetTargetType()) return false;
+        EcoTargetType filterType = EcoTargetType;
+        EcoTargetType targetType = heldObject.GetComponent<IEcoTarget>()?.GetTargetType()
+            ?? EcoTargetType.None;
+        if (filterType != targetType) return false;
 
         Inventory.main.DropHeldItem(false);
         heldObject.SetActive(true); // really makes you think
@@ -49,24 +60,69 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         }
     }
 
-    public override float Evaluate(float time)
+    public void FixedUpdate()
     {
-        if (timeNextFindTarget < time)
+        float time = Time.fixedTime;
+        float deltaTime = Time.fixedDeltaTime;
+        if (time > timeNextFindTarget)
         {
             UpdateTarget();
-            if (target)
-            {
-                creature.Aggression.Value = 0;
-                creature.Curiosity.Value = 10;
-            }
             timeNextFindTarget = time + updateTargetInterval * (1f + 0.2f * Random.value);
         }
-        return target && target.gameObject.activeInHierarchy ? GetEvaluatePriority() : 0f;
+
+        if (!target) return;
+
+        if (time < timeNextUpdate) return;
+
+        if (!targetPickedUp)
+        {
+            Vector3 toTarget = target.transform.position - attachSocket.transform.position;
+            if (toTarget.sqrMagnitude < pickupRadiusSquared)
+            {
+                bool pickedUp = targetPickedUp = TryPickup(target);
+                if (!pickedUp)
+                {
+                    target = null;
+                    swimToTarget.target = null;
+                    timeNextFindTarget = time + updateTargetInterval * 2;
+                }
+            }
+        }
+        else
+        {
+            float roll = Random.value;
+            if (roll < ADHD)
+            {
+                //LOGGER.LogWarning($"dropping because {roll}<{ADHD}");
+                Drop();
+                return;
+            }
+            //RepositionTarget(target);
+
+            creature.Happy.Add(deltaTime);
+            creature.Friendliness.Add(deltaTime);
+        }
     }
 
-    public bool TryPickup(GetCarried getCarried)
+    private void UpdateTarget()
+    {
+        if (targetPickedUp) return;
+
+        IEcoTarget ecoTarget = EcoRegionManager.main!?.FindNearestTarget(EcoTargetType, transform.position, _isTargetValidFilter, 1);
+        Carryable newTarget = ecoTarget?.GetGameObject()!?.GetComponent<Carryable>();
+        if (!newTarget || newTarget == target || !newTarget.GetComponent<Rigidbody>()) return;
+
+        Vector3 toNewTarget = newTarget.transform.position - transform.position;
+        if (Physics.Raycast(transform.position, toNewTarget, toNewTarget.magnitude, Voxeland.GetTerrainLayerMask()))
+            return;
+        target = newTarget;
+        swimToTarget.target = newTarget.transform;
+    }
+
+    public bool TryPickup(Carryable getCarried)
     {
         if (!getCarried) return false;
+        if (target) Drop();
         target = getCarried;
         return TryPickupTarget();
     }
@@ -80,7 +136,6 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         {
             // in player's inventory
             Drop();
-            timeNextFindTarget = Time.time + 6f;
             return false;
         }
         UWE.Utils.SetCollidersEnabled(target.gameObject, false);
@@ -88,39 +143,18 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         UWE.Utils.SetEnabled(target.GetComponent<LargeWorldEntity>(), false);
 
         Transform targetTransform = target.transform;
-        targetTransform.SetParent(attachPoint, true); // false sets scale incorrectly
-        target.OnPickedUp();
+        Quaternion savedRotation = targetTransform.localRotation;
+        ModelPlug.PlugIntoSocket(targetTransform, target.attachPlug, attachSocket);
+        if (!resetRotation) targetTransform.localRotation = savedRotation;
+        target.OnPickedUp(this);
         targetPickedUp = true;
 
-        RepositionTarget(target);
-        StartCoroutine(DelayedReposition()); // some component just really likes running updates for a few frames after it gets disabled
-
-        swimBehaviour.SwimTo(transform.position + Vector3.up + 5f * Random.onUnitSphere, Vector3.up, swimVelocity);
-        timeNextUpdate = Time.time + 1f;
-
         return true;
-
-        IEnumerator DelayedReposition()
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                yield return new WaitForSeconds(0.05f);
-                RepositionTarget(target);
-            }
-        }
     }
 
-    private void RepositionTarget(GetCarried getCarried)
+    private void RepositionTarget(Carryable getCarried)
     {
-        Transform targetTransform = getCarried.transform;
-        if (resetRotation) targetTransform.localRotation = Quaternion.identity;
-
-        // place the transform so the pickup point is on the attach point
-        Vector3 offset = getCarried.pickupPoint
-            ? -getCarried.pickupPoint.localPosition
-            : Vector3.zero;
-        offset.Scale(new Vector3(1f / targetTransform.localScale.x, 1f / targetTransform.localScale.y, 1f / targetTransform.localScale.z));
-        targetTransform.localPosition = offset;
+        ModelPlug.PlugIntoSocket(getCarried.transform, getCarried.attachPlug, attachSocket);
     }
 
     private void Drop()
@@ -128,7 +162,7 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         if (target && targetPickedUp)
         {
             DropTarget(target.gameObject);
-            target.OnDropped();
+            target.OnDropped(this);
         }
         target = null;
         targetPickedUp = false;
@@ -146,78 +180,5 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
             LargeWorldStreamer.main!?.cellManager.RegisterEntity(lwe);
     }
 
-    private void UpdateTarget()
-    {
-        IEcoTarget ecoTarget = EcoRegionManager.main!?.FindNearestTarget(EcoTargetType, transform.position, _isTargetValidFilter, 1);
-        GetCarried newTarget = ecoTarget?.GetGameObject()!?.GetComponent<GetCarried>();
-        if (!newTarget) return;
-
-        Vector3 toNewTarget = newTarget.transform.position - transform.position;
-        float dist = toNewTarget.magnitude - 0.5f;
-        if (dist > 0 && Physics.Raycast(transform.position, toNewTarget, dist, Voxeland.GetTerrainLayerMask()))
-            return;
-        if (target == newTarget || !newTarget.GetComponent<Rigidbody>())
-            return;
-        if (target)
-        {
-            float sqrDistToNew = toNewTarget.sqrMagnitude;
-            float sqrDistToCurr = (target.transform.position - transform.position).sqrMagnitude;
-
-            if (sqrDistToNew > sqrDistToCurr)
-                Drop();
-        }
-        target = newTarget;
-    }
-
-    public override void Perform(float time, float deltaTime)
-    {
-        if (!target) return;
-        if (!targetPickedUp)
-        {
-            if (time > timeNextUpdate)
-            {
-                timeNextUpdate = time + updateInterval;
-                swimBehaviour.SwimTo(target.transform.position, -Vector3.up, swimVelocity);
-            }
-            if ((attachPoint.transform.position - target.transform.position).sqrMagnitude < Mathf.Pow(attachRadius, 2f))
-            {
-                TryPickupTarget();
-                return;
-            }
-        }
-        else
-        {
-            if (target.transform.parent != attachPoint)
-            {
-                if (target.transform.parent && target.transform.parent.GetComponentInParent<CarryCreature>())
-                {
-                    // picked up by someone else
-                    Drop();
-                }
-                else
-                {
-                    TryPickupTarget();
-                }
-                return;
-            }
-            if (time > timeNextUpdate)
-            {
-                timeNextUpdate = time + updateInterval;
-                RepositionTarget(target); // sometimes the target moves (for absolutely no reason) after it gets attached
-                swimBehaviour.SwimTo(transform.position + 2f * swimVelocity * Random.insideUnitSphere, swimVelocity);
-                float roll = Random.value;
-                if (roll < ADHD)
-                {
-                    //LOGGER.LogWarning($"dropping because {roll}<{ADHD}");
-                    Drop();
-                }
-            }
-            creature.Happy.Add(deltaTime);
-            creature.Friendliness.Add(deltaTime);
-        }
-    }
-
-    public override void StopPerform(float time) => Drop();
-
-    private void OnDisable() => Drop();
+    public void OnDisable() => Drop();
 }
