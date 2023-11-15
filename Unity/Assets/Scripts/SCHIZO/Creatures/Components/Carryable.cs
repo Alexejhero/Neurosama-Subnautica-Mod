@@ -2,7 +2,6 @@ using SCHIZO.Interop.Subnautica;
 using SCHIZO.Sounds.Collections;
 using TriInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SCHIZO.Creatures.Components
 {

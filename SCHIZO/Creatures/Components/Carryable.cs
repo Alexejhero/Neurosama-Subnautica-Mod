@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Sounds.Collections;
 using SCHIZO.Sounds.Players;
@@ -11,8 +13,9 @@ namespace SCHIZO.Creatures.Components;
 partial class Carryable
 {
     public bool isCarried;
-    public Action<CarryCreature> PickedUp;
-    public Action<CarryCreature> Dropped;
+    public Func<Carryable, CarryCreature, bool> CanAttach;
+    public Action<Carryable, CarryCreature> Attached;
+    public Action<Carryable, CarryCreature> Detached;
 
     private Creature creature;
 
@@ -33,7 +36,8 @@ partial class Carryable
         creature = GetComponent<Creature>();
     }
 
-    public bool CanBePickedUp() => !isCarried && Time.time - _lastPickedUpTime > 5f;
+    public bool CanBePickedUp(CarryCreature pickuper) => !isCarried && Time.time - _lastPickedUpTime > 5f
+                && (CanAttach?.Multicast().All(f => f(this, pickuper)) ?? true);
 
     private void DisableComponents()
     {
@@ -61,31 +65,30 @@ partial class Carryable
     {
         if (isCarried) RestoreComponents();
         DisableComponents();
-        PickedUp?.Invoke(parent);
         PlaySound(attachSounds);
         isCarried = true;
         _lastPickedUpTime = Time.time;
         _nextCarryNoiseTime = Time.time + carryNoiseInterval * (1 + Random.value);
+
+        Attached?.Invoke(this, parent);
     }
 
     public void OnDropped(CarryCreature parent)
     {
         PlaySound(detachSounds);
-        Dropped?.Invoke(parent);
         isCarried = false;
         RestoreComponents();
+
+        Detached?.Invoke(this, parent);
     }
 
     public void FixedUpdate()
     {
-        if (!isCarried)
-        {
-            OnDropped(null);
-            return;
-        }
+        if (!isCarried) return;
 
         float time = Time.fixedTime;
         float deltaTime = Time.fixedDeltaTime;
+
         if (creature)
         {
             if (likesBeingCarried)

@@ -1,4 +1,5 @@
 using System.Collections;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Components;
@@ -20,6 +21,14 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
     {
         creature = GetComponent<Creature>();
         pickupRadiusSquared = Mathf.Pow(attachRadius, 2f);
+        Pickupable pickupable = GetComponent<Pickupable>();
+        if (pickupable) pickupable.pickedUpEvent.AddHandler(gameObject, (_) => Drop());
+    }
+
+    public void OnDestroy()
+    {
+        Pickupable pickupable = GetComponent<Pickupable>();
+        if (pickupable) pickupable.pickedUpEvent.RemoveHandlers(gameObject);
     }
 
     void IOnTakeDamage.OnTakeDamage(DamageInfo damageInfo)
@@ -50,7 +59,7 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         Inventory.main.DropHeldItem(false);
         heldObject.SetActive(true); // really makes you think
         StartCoroutine(DelayedPickupHack());
-        creature.SetFriend(player.gameObject, 120f);
+        if (creature) creature.SetFriend(player.gameObject, 120f);
         return true;
 
         IEnumerator DelayedPickupHack() // not sure how or why but WM sometimes doesn't get scaled correctly unless we wait a frame
@@ -73,55 +82,77 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         if (!target) return;
 
         if (time < timeNextUpdate) return;
+        timeNextUpdate = time + updateInterval;
 
         if (!targetPickedUp)
         {
+            swimToTarget.target = target.transform;
             Vector3 toTarget = target.transform.position - attachSocket.transform.position;
             if (toTarget.sqrMagnitude < pickupRadiusSquared)
             {
                 bool pickedUp = targetPickedUp = TryPickup(target);
                 if (!pickedUp)
                 {
-                    target = null;
-                    swimToTarget.target = null;
+                    ClearTarget();
                     timeNextFindTarget = time + updateTargetInterval * 2;
                 }
             }
         }
         else
         {
-            float roll = Random.value;
-            if (roll < ADHD)
+            RepositionTarget();
+            if (ADHD > 0)
             {
-                //LOGGER.LogWarning($"dropping because {roll}<{ADHD}");
-                Drop();
-                return;
+                float roll = Random.value;
+                if (roll < ADHD)
+                {
+                    //LOGGER.LogWarning($"dropping because {roll}<{ADHD}");
+                    Drop();
+                    return;
+                }
             }
-            //RepositionTarget(target);
-
-            creature.Happy.Add(deltaTime);
-            creature.Friendliness.Add(deltaTime);
+            if (creature)
+            {
+                creature.Happy.Add(deltaTime);
+                creature.Friendliness.Add(deltaTime);
+            }
         }
     }
 
     private void UpdateTarget()
     {
-        if (targetPickedUp) return;
+        if (targetPickedUp || EcoTargetType == EcoTargetType.None) return;
 
         IEcoTarget ecoTarget = EcoRegionManager.main!?.FindNearestTarget(EcoTargetType, transform.position, _isTargetValidFilter, 1);
         Carryable newTarget = ecoTarget?.GetGameObject()!?.GetComponent<Carryable>();
         if (!newTarget || newTarget == target || !newTarget.GetComponent<Rigidbody>()) return;
+        if (newTarget.gameObject == gameObject) return; // holy hell
 
         Vector3 toNewTarget = newTarget.transform.position - transform.position;
         if (Physics.Raycast(transform.position, toNewTarget, toNewTarget.magnitude, Voxeland.GetTerrainLayerMask()))
             return;
+        SetTarget(newTarget);
+    }
+
+    public void SetTarget(Carryable newTarget)
+    {
+        if (!newTarget) return;
+        if (newTarget.gameObject == gameObject) return;
+
         target = newTarget;
-        swimToTarget.target = newTarget.transform;
+        Transform targetTransform = newTarget.attachPlug !?? newTarget.transform;
+        swimToTarget.target = targetTransform;
+    }
+
+    public void ClearTarget()
+    {
+        target = null;
+        swimToTarget.target = null;
     }
 
     public bool TryPickup(Carryable getCarried)
     {
-        if (!getCarried) return false;
+        if (!getCarried || getCarried.gameObject == gameObject) return false;
         if (target) Drop();
         target = getCarried;
         return TryPickupTarget();
@@ -130,7 +161,7 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
     private bool TryPickupTarget()
     {
         if (!target || !target.gameObject || !target.gameObject.activeInHierarchy) return false;
-        if (!target.CanBePickedUp()) return false;
+        if (!target.CanBePickedUp(this)) return false;
 
         if (target.GetComponentInParent<Player>())
         {
@@ -143,28 +174,52 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         UWE.Utils.SetEnabled(target.GetComponent<LargeWorldEntity>(), false);
 
         Transform targetTransform = target.transform;
-        Quaternion savedRotation = targetTransform.localRotation;
-        ModelPlug.PlugIntoSocket(targetTransform, target.attachPlug, attachSocket);
-        if (!resetRotation) targetTransform.localRotation = savedRotation;
+        targetTransform.SetParent(attachSocket, true); // false sets scale incorrectly
+
+        RepositionTarget();
+        StartCoroutine(DelayedReposition()); // some component just really likes running updates for a few frames after it gets disabled
+
         target.OnPickedUp(this);
         targetPickedUp = true;
+        swimToTarget.target = null;
 
         return true;
+
+        IEnumerator DelayedReposition()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                yield return new WaitForSeconds(0.05f);
+                RepositionTarget();
+            }
+        }
     }
 
-    private void RepositionTarget(Carryable getCarried)
+    private void RepositionTarget()
     {
-        ModelPlug.PlugIntoSocket(getCarried.transform, getCarried.attachPlug, attachSocket);
+        Transform targetTransform = target.transform;
+        if (resetRotation) targetTransform.localRotation = Quaternion.identity;
+
+        targetTransform.localPosition = Vector3.zero;
+        // place the transform so the plug is exactly on the socket
+        Vector3 offset = Vector3.zero;
+        
+        if (target.attachPlug)
+        {
+            offset = attachSocket.InverseTransformPoint(target.attachPlug.position);
+        }
+        
+        targetTransform.localPosition = -offset;
     }
 
-    private void Drop()
+    public void Drop()
     {
         if (target && targetPickedUp)
         {
             DropTarget(target.gameObject);
             target.OnDropped(this);
         }
-        target = null;
+        SetTarget(null);
         targetPickedUp = false;
     }
 

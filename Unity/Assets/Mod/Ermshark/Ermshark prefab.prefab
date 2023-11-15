@@ -963,6 +963,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
+      propertyPath: sounds
+      value: 
+      objectReference: {fileID: 2647928344090774995, guid: 0d1e2f32135ed8640b34d5605f7cc7f2,
+        type: 2}
+    - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
       propertyPath: pickupable
       value: 
       objectReference: {fileID: 0}
