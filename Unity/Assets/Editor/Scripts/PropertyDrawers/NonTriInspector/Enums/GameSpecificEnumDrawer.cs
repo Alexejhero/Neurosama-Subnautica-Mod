@@ -8,7 +8,7 @@ using SCHIZO.Registering;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts.PropertyDrawers.Enums
+namespace Editor.Scripts.PropertyDrawers.NonTriInspector.Enums
 {
     public abstract class GameSpecificEnumDrawer<T> : PropertyDrawer where T : Enum
     {

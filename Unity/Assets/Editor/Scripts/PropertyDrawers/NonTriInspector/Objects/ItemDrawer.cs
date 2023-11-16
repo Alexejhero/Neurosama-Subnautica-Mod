@@ -1,11 +1,11 @@
-﻿using Editor.Scripts.PropertyDrawers.Enums;
+﻿using Editor.Scripts.PropertyDrawers.NonTriInspector.Enums;
 using Editor.Scripts.PropertyDrawers.Utilities;
 using SCHIZO.Items.Data;
 using SCHIZO.Items.Data.Crafting;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts.PropertyDrawers.Objects
+namespace Editor.Scripts.PropertyDrawers.NonTriInspector.Objects
 {
     [CustomPropertyDrawer(typeof(Item))]
     public sealed class ItemDrawer : PropertyDrawer

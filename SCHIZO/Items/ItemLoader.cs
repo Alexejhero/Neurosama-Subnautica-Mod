@@ -2,5 +2,8 @@ namespace SCHIZO.Items;
 
 partial class ItemLoader
 {
-    public abstract void Load();
+    public virtual void Load(ModItem modItem)
+    {
+        new UnityPrefab(modItem).Register();
+    }
 }

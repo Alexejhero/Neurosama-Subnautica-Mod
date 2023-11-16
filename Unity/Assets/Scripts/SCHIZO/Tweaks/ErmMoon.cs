@@ -9,10 +9,10 @@ namespace SCHIZO.Tweaks
         [SerializeField, ValidateInput(nameof(ValidateErmText)), UsedImplicitly]
         private Texture2D ermTexture;
 
-        private TriValidationResult ValidateErmText(Texture2D input)
+        private TriValidationResult ValidateErmText()
         {
-            if (!input) return TriValidationResult.Error("Texture is required");
-            if (!input.isReadable) return TriValidationResult.Error("Texture must be readable");
+            if (!ermTexture) return TriValidationResult.Error("Texture is required");
+            if (!ermTexture.isReadable) return TriValidationResult.Error("Texture must be readable");
             return TriValidationResult.Valid;
         }
     }

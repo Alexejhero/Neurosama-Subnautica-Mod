@@ -4,7 +4,7 @@ using SCHIZO.Items.Data;
 using TriInspector;
 using UnityEngine;
 
-namespace SCHIZO.Creatures
+namespace SCHIZO.Creatures.Data
 {
     [CreateAssetMenu(menuName = "SCHIZO/Creatures/Creature Data")]
     [DeclareBoxGroup("creaturedata", Title = "Creature Data")]
@@ -21,7 +21,7 @@ namespace SCHIZO.Creatures
         [Group("creaturedata")]
         public float bioReactorCharge;
 
-        #region NaughyAttributes stuff
+        #region TriInspector stuff
 
         protected override bool ShowPickupableProps() => isPickupable;
 
@@ -32,5 +32,10 @@ namespace SCHIZO.Creatures
         }
 
         #endregion
+
+        private CreatureData()
+        {
+            loader = new CreatureLoader();
+        }
     }
 }

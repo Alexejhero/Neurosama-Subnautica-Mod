@@ -3,7 +3,7 @@ using SCHIZO.Items.Data.Crafting;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts.PropertyDrawers.Objects
+namespace Editor.Scripts.PropertyDrawers.NonTriInspector.Objects
 {
     [CustomPropertyDrawer(typeof(Ingredient))]
     public sealed class IngredientDrawer : PropertyDrawer

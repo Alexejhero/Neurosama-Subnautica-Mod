@@ -21,8 +21,8 @@ namespace Editor.Scripts.Extensions
         private static GetFieldInfo Setup()
         {
             Type t = Type.GetType("UnityEditor.ScriptAttributeUtility, UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
-            MethodInfo mi = t.GetMethod("GetFieldInfoAndStaticTypeFromProperty", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-            return (GetFieldInfo) Delegate.CreateDelegate(typeof(GetFieldInfo), mi);
+            MethodInfo mi = t!.GetMethod("GetFieldInfoAndStaticTypeFromProperty", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+            return (GetFieldInfo) Delegate.CreateDelegate(typeof(GetFieldInfo), mi!);
         }
 
         public static T GetCustomAttribute<T>(this SerializedProperty prop) where T : Attribute

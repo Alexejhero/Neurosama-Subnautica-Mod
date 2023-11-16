@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8dc513878514f18bc57657a1e7cbc48, type: 3}
+  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
   m_Name: Gymbag BZ
   m_EditorClassIdentifier: 
   prefab: {fileID: 7836867044347112342, guid: 12e5c7a1730f1304a8e99e401ff164f6, type: 3}
+  loader:
+    id: 0
   classId: quantumgymbag
   displayName: Quantum Gymbag
   tooltip: 'Provides portable access to the quantum storage network... provided you
@@ -24,19 +26,22 @@ MonoBehaviour:
   isCraftable: 1
   isBuildable: 0
   craftingTime: 7
+  itemSounds: {fileID: 0}
+  pdaEncyInfo: {fileID: 0}
+  unlockAtStart: 0
   registerInSN: 0
   recipeSN: {fileID: 0}
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 14
   techCategorySN: 0
-  pdaEncyclopediaInfoSN: {fileID: 0}
   knownTechInfoSN: {fileID: 0}
-  unlockAtStartSN: 0
   requiredForUnlockSN:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
   registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: d793435e7366e1d44b0283a9debcf181, type: 2}
   canBeRecycledBZ: 1
@@ -44,26 +49,16 @@ MonoBehaviour:
   craftTreePathBZ: Personal/Equipment
   techGroupBZ: 2
   techCategoryBZ: 4
-  pdaEncyclopediaInfoBZ: {fileID: 0}
   knownTechInfoBZ: {fileID: 0}
-  unlockAtStartBZ: 0
+  soundTypeBZ: 0
   requiredForUnlockBZ:
     isCustom: 0
     techType: 1567
     itemData: {fileID: 0}
-  loader: {fileID: 4433931489050843293}
-  cloneTargetSN: 0
-  cloneTargetBZ: 1567
---- !u!114 &4433931489050843293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bccd0fe3345541bd9f46038f0e47f15f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: GymbagLoader, ns: SCHIZO.Items.Gymbag, asm: SCHIZO}

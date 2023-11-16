@@ -5,7 +5,7 @@ using SCHIZO.Helpers;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts.PropertyDrawers.Attributes
+namespace Editor.Scripts.PropertyDrawers.NonTriInspector.Attributes
 {
     [CustomPropertyDrawer(typeof(ExposedTypeAttribute))]
     public sealed class ExposedTypeAttributeDrawer : PropertyDrawer

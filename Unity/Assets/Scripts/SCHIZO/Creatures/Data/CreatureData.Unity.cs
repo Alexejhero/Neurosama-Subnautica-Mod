@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace SCHIZO.Creatures
+namespace SCHIZO.Creatures.Data
 {
     partial class CreatureData
     {

@@ -22,6 +22,7 @@ public static class CustomJukeboxTrackPatches
     static CustomJukeboxTrackPatches()
     {
         CoroutineHost.StartCoroutine(GetJukeboxDiskPrefab());
+        CoroutineHost.StartCoroutine(InitJukebox());
     }
     private static IEnumerator GetJukeboxDiskPrefab()
     {
@@ -34,6 +35,14 @@ public static class CustomJukeboxTrackPatches
         if (!request.TryGetPrefab(out defaultDiskPrefab))
             LOGGER.LogError("Could not get prefab for jukebox disk!");
         LOGGER.LogDebug("Loaded default prefab for custom tracks");
+    }
+
+    private static IEnumerator InitJukebox()
+    {
+        while (PlatformUtils.main.GetServices() == null)
+            yield return null;
+
+        _ = BZJukebox.main;
     }
 
     [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.Awake))]
@@ -56,12 +65,10 @@ public static class CustomJukeboxTrackPatches
                 CustomJukeboxTrack track = pair.Value;
 
                 BZJukebox.unlockableMusic[pair.Key] = track.identifier;
-                BZJukebox.musicLabels[track.identifier] = track.trackLabel; // only read inside Awake but why not
                 __instance._info[track.identifier] = track.ToTrackInfo(false);
             }
         }
     }
-
 
     [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.Start))]
     [HarmonyPatch(typeof(uGUI_SeaTruckSegment), nameof(uGUI_SeaTruckSegment.Awake))]

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Neurofumo buildable data
   m_EditorClassIdentifier: 
   prefab: {fileID: 656058450781834795, guid: 5a15aed96d8d1b84592bfbe203825ee4, type: 3}
+  loader:
+    id: 0
   classId: NeuroFumoNew
   displayName: Neuro fumo
   tooltip: 'Fumo collection 2/2
@@ -23,20 +25,22 @@ MonoBehaviour:
   isCraftable: 0
   isBuildable: 1
   craftingTime: 2.5
-  loader: {fileID: 0}
+  itemSounds: {fileID: 0}
+  pdaEncyInfo: {fileID: 0}
+  unlockAtStart: 1
   registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 5061b10e23e00bb4d8bdb58109048276, type: 2}
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 13
   techCategorySN: 24
-  pdaEncyclopediaInfoSN: {fileID: 0}
   knownTechInfoSN: {fileID: 0}
-  unlockAtStartSN: 1
   requiredForUnlockSN:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
   registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: 5061b10e23e00bb4d8bdb58109048276, type: 2}
   canBeRecycledBZ: 1
@@ -44,10 +48,16 @@ MonoBehaviour:
   craftTreePathBZ: 
   techGroupBZ: 12
   techCategoryBZ: 15
-  pdaEncyclopediaInfoBZ: {fileID: 0}
   knownTechInfoBZ: {fileID: 0}
-  unlockAtStartBZ: 1
+  soundTypeBZ: 0
   requiredForUnlockBZ:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: ItemLoader, ns: SCHIZO.Items, asm: SCHIZO}

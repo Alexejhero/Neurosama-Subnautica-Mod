@@ -13,7 +13,7 @@
 
         <Optimize>false</Optimize>
         <DebugSymbols>true</DebugSymbols>
-        <DebugType>embedded</DebugType>
+        <DebugType>portable</DebugType>
 
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>

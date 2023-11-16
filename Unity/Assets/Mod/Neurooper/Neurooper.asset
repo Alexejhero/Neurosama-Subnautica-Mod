@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Neurooper
   m_EditorClassIdentifier: 
   prefab: {fileID: 8659870324471520731, guid: 2ffdf31a51c92e34f8d0e239b9ba7fe7, type: 3}
+  loader:
+    id: 0
   classId: Neuroopper2
   displayName: Neurooper
   tooltip: <size=75%>(Model by greencap, original art by Sandro)</size>
@@ -21,29 +23,39 @@ MonoBehaviour:
   isCraftable: 0
   isBuildable: 1
   craftingTime: 2.5
+  itemSounds: {fileID: 0}
+  pdaEncyInfo: {fileID: 0}
+  unlockAtStart: 1
   registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 80c4f2fcb24f8c94d852011d2b386776, type: 2}
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 13
   techCategorySN: 24
-  pdaEncyclopediaInfoSN: {fileID: 0}
   knownTechInfoSN: {fileID: 0}
-  unlockAtStartSN: 1
   requiredForUnlockSN:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
   registerInBZ: 1
   recipeBZ: {fileID: 11400000, guid: 0e9d61d05cb388549a5c61c351ffc42d, type: 2}
+  canBeRecycledBZ: 1
   craftTreeTypeBZ: 0
   craftTreePathBZ: 
   techGroupBZ: 12
   techCategoryBZ: 15
-  pdaEncyclopediaInfoBZ: {fileID: 0}
   knownTechInfoBZ: {fileID: 0}
-  unlockAtStartBZ: 1
+  soundTypeBZ: 0
   requiredForUnlockBZ:
     isCustom: 0
     techType: 0
     itemData: {fileID: 0}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: ItemLoader, ns: SCHIZO.Items, asm: SCHIZO}

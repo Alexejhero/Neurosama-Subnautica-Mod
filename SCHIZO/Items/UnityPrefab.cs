@@ -31,47 +31,14 @@ public class UnityPrefab : CustomPrefab
     protected ItemData UnityData => ModItem.ItemData;
     protected PrefabInfo PrefabInfo => ModItem.PrefabInfo;
 
-    public static void CreateAndRegister(ModItem modItem)
-    {
-#if SUBNAUTICA
-        if (!modItem.ItemData.registerInSN)
-        {
-            LOGGER.LogMessage($"Not registering {modItem.ItemData.classId} in SN");
-            return;
-        }
-#else
-        if (!modItem.ItemData.registerInBZ)
-        {
-            LOGGER.LogMessage($"Not registering {modItem.ItemData.classId} in BZ");
-            return;
-        }
-#endif
-
-        if (modItem.ItemData.loader)
-        {
-            LOGGER.LogDebug($"Invoking loader {modItem.ItemData.loader.GetType().Name} for {modItem.ItemData.classId}");
-            modItem.ItemData.loader.Load();
-            return;
-        }
-
-        if (modItem.ItemData is Creatures.CreatureData)
-        {
-            LOGGER.LogDebug($"Creating prefab {nameof(UnityCreaturePrefab)} for {modItem.ItemData.classId}");
-            new UnityCreaturePrefab(modItem).Register();
-            return;
-        }
-
-        LOGGER.LogDebug($"Creating prefab {nameof(UnityPrefab)} for {modItem.ItemData.classId}");
-        new UnityPrefab(modItem).Register();
-    }
-
     [SetsRequiredMembers]
-    protected UnityPrefab(ModItem item) : base(item)
+    public UnityPrefab(ModItem item) : base(item)
+    // ReSharper disable once ConvertToPrimaryConstructor
     {
         ModItem = item;
     }
 
-    public new virtual void Register()
+    public new void Register()
     {
         NautilusPrefabConvertible prefab = GetPrefab();
         if (prefab != null) this.SetGameObject(prefab);
@@ -110,18 +77,6 @@ public class UnityPrefab : CustomPrefab
             CraftDataHandler.AddBuildable(ModItem);
         }
 
-#if BELOWZERO
-        if (!ModItem.ItemData.canBeRecycledBZ)
-        {
-            Recyclotron.bannedTech.Add(ModItem.ItemData.ModItem);
-        }
-
-        if (ModItem.ItemData.SoundType != TechData.SoundType.Default)
-        {
-            CraftDataHandler.SetSoundType(ModItem, ModItem.ItemData.SoundType);
-        }
-#endif
-
         if (ModItem.ItemData.Recipe)
         {
             CraftDataHandler.SetRecipeData(ModItem, ModItem.ItemData.Recipe.Convert());
@@ -157,7 +112,7 @@ public class UnityPrefab : CustomPrefab
             });
         }
 
-        if (ModItem.ItemData.UnlockAtStart)
+        if (ModItem.ItemData.unlockAtStart)
         {
             KnownTechHandler.UnlockOnStart(ModItem);
         }
@@ -174,6 +129,38 @@ public class UnityPrefab : CustomPrefab
         {
             ModItem.ItemData.itemSounds.Register(ModItem);
         }
+
+        if (ModItem.ItemData.EquipmentType != EquipmentType.None)
+        {
+            CraftDataHandler.SetEquipmentType(ModItem, ModItem.ItemData.EquipmentType);
+        }
+
+        if (ModItem.ItemData.EquipmentType == EquipmentType.Hand)
+        {
+            if (ModItem.ItemData.QuickSlotType != QuickSlotType.None)
+            {
+                CraftDataHandler.SetQuickSlotType(ModItem, ModItem.ItemData.QuickSlotType);
+            }
+
+#if BELOWZERO
+            if (ModItem.ItemData.coldResistanceBZ > 0)
+            {
+                CraftDataHandler.SetColdResistance(ModItem, ModItem.ItemData.coldResistanceBZ);
+            }
+#endif
+        }
+
+#if BELOWZERO
+        if (!ModItem.ItemData.canBeRecycledBZ)
+        {
+            Recyclotron.bannedTech.Add(ModItem.ItemData.ModItem);
+        }
+
+        if (ModItem.ItemData.SoundTypeBZ != TechData.SoundType.Default)
+        {
+            CraftDataHandler.SetSoundType(ModItem, ModItem.ItemData.SoundTypeBZ);
+        }
+#endif
     }
 
     protected virtual void SetupComponents(GameObject instance)

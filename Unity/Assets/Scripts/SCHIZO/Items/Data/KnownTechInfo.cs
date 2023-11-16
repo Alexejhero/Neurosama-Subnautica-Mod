@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 using SCHIZO.Helpers;
 using TriInspector;
 using UnityEngine;
@@ -24,25 +24,19 @@ namespace SCHIZO.Items.Data
         public Sprite unlockSprite;
 
         [StaticHelpers.Cache]
-        private static TriDropdownList<string> DefaultUnlockMessages()
+        protected static readonly TriDropdownList<string> DefaultUnlockMessages = new()
         {
-            return new TriDropdownList<string>()
-            {
-                {"Blueprint Scan", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintUnlockMessage"},
-                {"Blueprint Pickup", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintPickupMessage"},
-                {"Creature Discovered", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:NewCreatureDiscoveredMessage"},
-            };
-        }
+            {"Blueprint Scan", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintUnlockMessage"},
+            {"Blueprint Pickup", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintPickupMessage"},
+            {"Creature Discovered", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:NewCreatureDiscoveredMessage"},
+        };
 
         [StaticHelpers.Cache]
-        private static TriDropdownList<string> UnlockSounds()
+        protected static readonly TriDropdownList<string> UnlockSounds = new()
         {
-            return new TriDropdownList<string>()
-            {
-                {"Basic", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BasicUnlockSound"},
-                {"Blueprint", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintUnlockSound"},
-                {"Creature Discovered", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:NewCreatureDiscoveredSound"},
-            };
-        }
+            {"Basic", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BasicUnlockSound"},
+            {"Blueprint", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:BlueprintUnlockSound"},
+            {"Creature Discovered", "Nautilus.Handlers.KnownTechHandler+DefaultUnlockData:NewCreatureDiscoveredSound"},
+        };
     }
 }

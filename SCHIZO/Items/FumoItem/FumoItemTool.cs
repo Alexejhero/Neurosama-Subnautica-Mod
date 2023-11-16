@@ -1,4 +1,5 @@
 using System.Collections;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem;
@@ -7,6 +8,7 @@ partial class FumoItemTool
 {
     public bool IsHugging => _isHugging;
     public bool IsFlushed => _isFlushed;
+    private Transform FumoModel => RetargetHelpers.Pick(fumoModelSN, fumoModelBZ);
 
     private const float _hugTransitionDuration = 0.2f;
     private float _hugDistScale;
@@ -23,7 +25,7 @@ partial class FumoItemTool
     private bool _flushOnAltUse;
     private bool _flushOnHug;
     private bool _isFlushed;
-    private const float _flushedZscalar = 2f;
+    private float _flushedZscalar = 1.5f;
 
     private GroundMotor _groundMotor;
 
@@ -184,8 +186,8 @@ partial class FumoItemTool
 
     private void ApplyZScaleMulti(float multi)
     {
-        Vector3 scale = fumoModel.localScale;
+        Vector3 scale = FumoModel.localScale;
         scale.z *= multi;
-        fumoModel.localScale = scale;
+        FumoModel.localScale = scale;
     }
 }

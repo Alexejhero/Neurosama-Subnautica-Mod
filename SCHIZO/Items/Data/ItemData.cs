@@ -13,10 +13,12 @@ partial class ItemData
     public TechGroup TechGroup => (TechGroup) RetargetHelpers.Pick(techGroupSN, techGroupBZ);
     public TechCategory TechCategory => (TechCategory) RetargetHelpers.Pick(techCategorySN, techCategoryBZ);
     public KnownTechInfo KnownTechInfo => RetargetHelpers.Pick(knownTechInfoSN, knownTechInfoBZ);
-    public bool UnlockAtStart => RetargetHelpers.Pick(unlockAtStartSN, unlockAtStartBZ);
     public TechType RequiredForUnlock => RetargetHelpers.Pick(requiredForUnlockSN, requiredForUnlockBZ).GetTechType();
+    public EquipmentType EquipmentType => (EquipmentType) RetargetHelpers.Pick(equipmentTypeSN, equipmentTypeBZ);
+    public QuickSlotType QuickSlotType => (QuickSlotType) RetargetHelpers.Pick(quickSlotTypeSN, quickSlotTypeBZ);
+
 #if BELOWZERO
-    public TechData.SoundType SoundType => (TechData.SoundType) soundTypeBZ;
+    public TechData.SoundType SoundTypeBZ => (TechData.SoundType) soundTypeBZ;
 #endif
 
     protected override void Register()
@@ -26,8 +28,16 @@ partial class ItemData
 
     protected override void PostRegister()
     {
-        UnityPrefab.CreateAndRegister(ModItem);
+        if (!RetargetHelpers.Pick(registerInSN, registerInBZ))
+        {
+            LOGGER.LogMessage($"Not registering {classId} in {(IS_BELOWZERO ? "BZ" : "SN")}");
+            return;
+        }
+
+        LOGGER.LogDebug($"Creating prefab {loader.GetType().Name} for {classId}");
+        loader.Load(ModItem);
     }
+
 #if UNITY_EDITOR
     [ContextMenu("Set Loader/Fumo Item")]
     private void CreateFumoItemLoader() => AssignItemLoader(CreateInstance<FumoItem.FumoItemLoader>());

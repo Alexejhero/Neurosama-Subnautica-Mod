@@ -9,6 +9,7 @@ using SCHIZO.Registering;
 using SCHIZO.Sounds;
 using TriInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SCHIZO.Items.Data
 {
@@ -20,6 +21,9 @@ namespace SCHIZO.Items.Data
     public partial class ItemData : ModRegistryItem
     {
         public GameObject prefab;
+
+        [SerializeReference, ValidateInput(nameof(loader_Validate))]
+        public ItemLoader loader = new();
 
         [Group("TechType"), Required, Careful]
         public string classId;
@@ -39,26 +43,25 @@ namespace SCHIZO.Items.Data
         [CommonData, HideIf(nameof(HidePickupableProps)), HideIf(nameof(isBuildable)), Careful]
         public bool isCraftable;
 
-        [CommonData, HideIf(nameof(HidePickupableProps)), HideIf(nameof(isBuildable)), Careful]
+        [CommonData, HideIf(nameof(HidePickupableProps)), HideIf(nameof(isCraftable)), Careful]
         public bool isBuildable;
 
         [CommonData, ShowIf(nameof(IsActuallyCraftable))]
         public float craftingTime = 2.5f;
 
-        [CommonData, ReadOnly]
-        public ItemLoader loader;
-
-
-        [CommonData, ShowIf(nameof(Sounds_ShowIf))]
+        [CommonData, ShowIf(nameof(NonBuildableItemProperties_ShowIf))]
         public ItemSounds itemSounds;
 
-        [CommonData, LabelText("PDA Ency Info")]
+        [CommonData]
         public PDAEncyclopediaInfo pdaEncyInfo;
+
+        [CommonData, UsedImplicitly, ShowIf(nameof(IsBuildableOrCraftable)), Careful, FormerlySerializedAs("unlockAtStartSN")]
+        public bool unlockAtStart = true;
 
         #region Subnautica Data
 
-        [SNData, LabelText("Register"), Careful]
-        public bool registerInSN = true;
+        [SNData, LabelText("Register"), Careful, SerializeField]
+        private bool registerInSN = true;
 
         [SNData, LabelText("Recipe"), SerializeField, ShowIf(nameof(registerInSN)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
         private Recipe recipeSN;
@@ -78,18 +81,21 @@ namespace SCHIZO.Items.Data
         [SNData, LabelText("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoSN;
 
-        [SNData, LabelText("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
-        private bool unlockAtStartSN = true;
-
-        [SNData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(requiredForUnlockSN_ShowIf)), Careful]
+        [SNData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(requiredForUnlock_ShowIf)), Careful]
         private Item requiredForUnlockSN;
+
+        [SNData, LabelText("Equipment Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(NonBuildableItemProperties_ShowIf)), HideIf(nameof(isBuildable)), Careful]
+        private EquipmentType_All equipmentTypeSN;
+
+        [SNData, LabelText("Quick Slot Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(NonBuildableItemProperties_ShowIf)), ShowIf(nameof(equipmentTypeSN), EquipmentType_All.Hand)]
+        private QuickSlotType_All quickSlotTypeSN;
 
         #endregion
 
         #region Below Zero Data
 
-        [BZData, LabelText("Register"), Careful]
-        public bool registerInBZ = true;
+        [BZData, LabelText("Register"), Careful, SerializeField]
+        private bool registerInBZ = true;
 
         [BZData, LabelText("Recipe"), SerializeField, ShowIf(nameof(registerInBZ)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
         private Recipe recipeBZ;
@@ -112,18 +118,30 @@ namespace SCHIZO.Items.Data
         [BZData, LabelText("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(ShowPickupableProps))]
         private KnownTechInfo knownTechInfoBZ;
 
-        [BZData, LabelText("Sound Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(Sounds_ShowIf))]
+        [BZData, LabelText("Sound Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(NonBuildableItemProperties_ShowIf))]
         private TechData_SoundType_BZ soundTypeBZ;
 
-        [BZData, LabelText("Unlock At Start"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(IsBuildableOrCraftable)), Careful]
-        private bool unlockAtStartBZ = true;
-
-        [BZData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(requiredForUnlockBZ_ShowIf)), Careful]
+        [BZData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(requiredForUnlock_ShowIf)), Careful]
         private Item requiredForUnlockBZ;
+
+        [BZData, LabelText("Equipment Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(NonBuildableItemProperties_ShowIf)), Careful]
+        private EquipmentType_All equipmentTypeBZ;
+
+        [BZData, LabelText("Quick Slot Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(NonBuildableItemProperties_ShowIf)), ShowIf(nameof(equipmentTypeBZ), EquipmentType_All.Hand)]
+        private QuickSlotType_All quickSlotTypeBZ;
+
+        [BZData, ShowIf(nameof(registerInBZ)), ShowIf(nameof(NonBuildableItemProperties_ShowIf)), ShowIf(nameof(equipmentTypeBZ), EquipmentType_All.Hand), Range(0, 100)]
+        public int coldResistanceBZ;
 
         #endregion
 
-        #region NaughtyAttributes stuff
+        #region TriInspector stuff
+
+        private TriValidationResult loader_Validate()
+        {
+            if (loader == null) return TriValidationResult.Error("Loader is required!");
+            return loader.AcceptsItem(this);
+        }
 
         private TriDropdownList<string> SNCraftTreePath()
         {
@@ -247,10 +265,9 @@ namespace SCHIZO.Items.Data
         private bool craftTreePathSN_ShowIf() => IsActuallyCraftable() && craftTreeTypeSN != CraftTree_Type_All.None;
         private bool craftTreePathBZ_ShowIf() => IsActuallyCraftable() && craftTreeTypeBZ != CraftTree_Type_All.None;
 
-        private bool requiredForUnlockSN_ShowIf() => !unlockAtStartSN && IsBuildableOrCraftable();
-        private bool requiredForUnlockBZ_ShowIf() => !unlockAtStartBZ && IsBuildableOrCraftable();
+        private bool requiredForUnlock_ShowIf() => !unlockAtStart && IsBuildableOrCraftable();
 
-        private bool Sounds_ShowIf() => ShowPickupableProps() && !isBuildable;
+        private bool NonBuildableItemProperties_ShowIf() => ShowPickupableProps() && !isBuildable;
 
         protected virtual bool ShowPickupableProps() => true;
         private bool HidePickupableProps() => !ShowPickupableProps();
