@@ -16,7 +16,8 @@ MonoBehaviour:
   unlockSprite: {fileID: -5766314480424053237, guid: 7946b959d2e11e244873dc5dcd05c170,
     type: 3}
   isImportantUnlock: 0
-  scanSounds: {fileID: 0}
+  scanSounds: {fileID: 7880270422868680120, guid: e872b9eb7485a1c47af0d8b0bc01ebde,
+    type: 2}
   encyPathSN: Lifeforms/Fauna/LargeHerbivores
   encyPathBZ: Research/Lifeforms/Fauna/LargeHerbivores
   title: Anneel
