@@ -6,6 +6,7 @@ using UnityEngine;
 namespace SCHIZO.Registering
 {
     [CreateAssetMenu(menuName = "SCHIZO/Registering/Component Adder")]
+    [DeclareBoxGroup("Target")]
     public sealed partial class ComponentAdder : ModRegistryItem
     {
         public enum Mode
@@ -14,6 +15,14 @@ namespace SCHIZO.Registering
             Postfix,
             CoroutineStep0Prefix,
         }
+
+        [SerializeField, UsedImplicitly]
+        private Game game;
+
+        [SerializeField, Required, UsedImplicitly]
+        private GameObject prefab;
+
+        [GroupNext("Target")]
 
         [SerializeField]
         private bool isSingleton;
@@ -36,9 +45,6 @@ namespace SCHIZO.Registering
 
         [SerializeField, HideIf(nameof(isSingleton)), UsedImplicitly]
         private Mode mode = Mode.Postfix;
-
-        [SerializeField, Required, UsedImplicitly]
-        private GameObject prefab;
 
         #region NaughtyAttributes stuff
 

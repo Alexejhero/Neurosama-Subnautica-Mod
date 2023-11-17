@@ -38,6 +38,8 @@ public static class GymbagPatches
     [HarmonyPostfix]
     public static void SetInventoryUGUI(uGUI_ItemsContainer __instance, ItemsContainer container)
     {
+        if (!Inventory.main || !GymbagManager.Instance) return;
+
         if (container == Inventory.main.container)
         {
             GymbagManager.Instance.InventoryUGUI = __instance;
