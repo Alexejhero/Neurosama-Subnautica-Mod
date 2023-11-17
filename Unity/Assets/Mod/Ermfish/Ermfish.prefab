@@ -218,6 +218,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3723841728758596834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc42e514932a01944b425963c56250c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swimToTarget: {fileID: 8265457806104071489}
+  _ecoTargetType: 2010
+  attachRadius: 2
+  updateInterval: 2
+  updateTargetInterval: 1
+  attachSocket: {fileID: 3425085474201060618}
+  resetRotation: 1
+  ADHD: 0
 --- !u!114 &-2321474093542275019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,9 +276,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae8bc41ee49d684f95eb8955c7071d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creature: {fileID: 0}
-  swimBehaviour: {fileID: 0}
-  evaluatePriority: 0.4
+  likesBeingCarried: 1
+  attachPlug: {fileID: 5839032077065552717}
+  emitter: {fileID: 5648931341203019549}
+  carryNoiseInterval: 5
+  attachSounds: {fileID: 0}
+  carrySounds: {fileID: 0}
+  detachSounds: {fileID: 0}
+--- !u!114 &1349106207919405109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d7f09158e470e841abeeb53b7af894c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxStack: 5
+  socket: {fileID: -3723841728758596834}
+  plug: {fileID: -906797858269330932}
+  updateInterval: 2
+  growStackChance: 0.1
+  endsDetachChance: 0.05
+  middleDetachChance: 0.02
+--- !u!114 &8265457806104071489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804aa32b92fdc9a4d966f17405ac50c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 7500958825842708008}
+  swimBehaviour: {fileID: 3767109891289925411}
+  evaluatePriority: 0.8
   priorityMultiplier:
     serializedVersion: 2
     m_Curve: []
@@ -266,13 +324,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   minActionCheckInterval: -1
-  likesBeingCarried: 1
-  pickupPoint: {fileID: 5839032077065552717}
-  emitter: {fileID: 5648931341203019549}
-  carryNoiseInterval: 5
-  pickupSounds: {fileID: 0}
-  carrySounds: {fileID: 0}
-  releaseSounds: {fileID: 0}
+  swimVelocity: 6
+  swimInterval: 1
 --- !u!1 &5952168343408095337
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,8 +350,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5952168343408095337}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.82, z: 0.28}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_LocalPosition: {x: 0, y: 1.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8335868717171090933}
   m_Father: {fileID: 8883497526312519149}
@@ -909,18 +962,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4581379911448225930}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5648931341203019549 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8210446819742810007, guid: 5ff80f47f2822bb438251c8a7a1370ca,
-    type: 3}
-  m_PrefabInstance: {fileID: 4581379911448225930}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f419283b15274b87be363a33ff631238, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &8883497526312519149 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4962070890995002727, guid: 5ff80f47f2822bb438251c8a7a1370ca,
@@ -955,6 +996,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b14011210f954223ae768ae50e1b9e2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5648931341203019549 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8210446819742810007, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 4581379911448225930}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f419283b15274b87be363a33ff631238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &5935777102349017973
