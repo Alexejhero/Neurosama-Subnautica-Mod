@@ -1,8 +1,6 @@
-using System;
-
 namespace SCHIZO.Telemetry;
 
-partial class SoundTracker
+partial class PlayingVO
 {
     // SN ency logs don't use subtitles
     private SoundQueue Sounds => PDASounds.queue;
@@ -25,13 +23,13 @@ partial class SoundTracker
         bool isPlaying = IsPlaying;
         if (isPlaying == _wasPlaying) return;
 
-        SendTelemetry(isPlaying ? "playing" : "stopped");
+        Send(isPlaying);
         _wasPlaying = isPlaying;
     }
 
     protected override void OnDisable()
     {
-        if (_wasPlaying) SendTelemetry("stopped");
+        if (_wasPlaying) Send(false);
         _wasPlaying = false;
     }
 
@@ -40,4 +38,9 @@ partial class SoundTracker
     // private float TimeLeft(uGUI_MessageQueue.Message msg) => msg is null ? 0 : msg.duration + msg.delay - msg.time;
     // public float TimeLeftNext() => Subtitles?.messages.Select(TimeLeft).FirstOrFallback(0) ?? 0;
     // public float TimeLeftAll() => Subtitles?.messages.Sum(TimeLeft) ?? 0;
+
+    private void Send(bool isPlaying)
+    {
+        SendTelemetry("playingVO", new { playing = isPlaying });
+    }
 }

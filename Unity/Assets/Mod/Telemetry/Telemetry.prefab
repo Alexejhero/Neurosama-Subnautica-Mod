@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4873658758876609318}
   - component: {fileID: 9153571874671623823}
   - component: {fileID: -3425228028272821971}
+  - component: {fileID: -1314993168007453336}
+  - component: {fileID: -5687693379941121372}
   m_Layer: 0
   m_Name: Telemetry
   m_TagString: Untagged
@@ -59,7 +61,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36543930fd19c9c4d9d24356036f1cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coordinator: {fileID: 4873658758876609318}
   category: sound
 --- !u!114 &-3425228028272821971
 MonoBehaviour:
@@ -73,7 +74,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a998b9da583b8154e9e94234f2b9fa81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coordinator: {fileID: 4873658758876609318}
   category: bars
   trackedProperties:
   - barName: health
@@ -100,3 +100,38 @@ MonoBehaviour:
     maxMemberName: coldMeterMaxValue
     maxValue: 100
     thresholds: {x: 0.1, y: 0.25}
+--- !u!114 &-1314993168007453336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3589150290664465208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1463cc656c5408d4aaf681485ffb8397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: status
+  startup: hello
+  loadedGame: loaded
+  savedGame: saved
+  quitToMenu: quitToMenu
+  shutdown: goodbye
+--- !u!114 &-5687693379941121372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3589150290664465208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd6fde275b445c4ab858646dcc002dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: story
+  goalDescriptions:
+  - goal: SanctuaryCompleted
+    description: A mysterious alien Architect has suddenly downloaded himself into
+      {0}'s brain.

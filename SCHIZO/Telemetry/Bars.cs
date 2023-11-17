@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace SCHIZO.Telemetry;
 
-partial class BarTracker
+partial class Bars
 {
     private enum BarState
     {

@@ -1,11 +1,14 @@
 namespace SCHIZO.Telemetry;
 
-partial class TelemetrySource
+partial class TelemetrySource<T>
+    where T : TelemetrySource<T>
 {
+    protected static T instance;
     protected TelemetryCoordinator _coordinator;
 
-    private void Awake()
+    protected virtual void Awake()
     {
+        instance = (T)this;
         _coordinator = GetComponent<TelemetryCoordinator>();
     }
 
