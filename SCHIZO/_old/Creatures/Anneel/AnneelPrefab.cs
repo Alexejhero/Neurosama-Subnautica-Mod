@@ -17,13 +17,7 @@ public sealed class AnneelPrefab : CustomCreaturePrefab<Creature>
         EcoTargetType = EcoTargetType.MediumFish;
         MaxHealth = 200;
 
-        SwimRandomData = new SwimRandomData(0.2f, _swimVelocity, new Vector3(30, 5, 30), 2, 1);
         StayAtLeashData = new StayAtLeashData(0.6f, _swimVelocity * 1.25f, 60);
-        ScareableData = new ScareableData();
-        FleeWhenScaredData = new FleeWhenScaredData(0.8f, _swimVelocity);
-        AvoidObstaclesData = new AvoidObstaclesData(0.6f, _swimVelocity, false, 5, 5);
-        Mass = 120;
-        LocomotionData = new LocomotionData(10, 0.1f);
         AnimateByVelocityData = new AnimateByVelocityData(_swimVelocity * 0.9f);
         BehaviourLODData = new BehaviourLODData(50, 100, 150);
     }

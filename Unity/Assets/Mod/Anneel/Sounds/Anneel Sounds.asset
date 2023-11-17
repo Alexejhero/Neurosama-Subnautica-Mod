@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0985a00ee6f8fe428ff0d0e09eba1b9, type: 3}
+  m_Name: Anneel Sounds
+  m_EditorClassIdentifier: 
+  ambientItemSounds: {fileID: 11400000, guid: a84125360066da34293340d1c3daa385, type: 2}
+  ambientWorldSounds: {fileID: 11400000, guid: a84125360066da34293340d1c3daa385, type: 2}
+  pickupSounds: {fileID: 0}
+  dropSounds: {fileID: 0}
+  drawSounds: {fileID: 0}
+  holsterSounds: {fileID: 0}
+  cookSounds: {fileID: 0}
+  eatSounds: {fileID: 0}
+  hurtSounds: {fileID: 11400000, guid: 3e1f6575f08ab5342ba40374ee778109, type: 2}
+  attackSounds: {fileID: 0}
+  scanSounds: {fileID: 11400000, guid: e872b9eb7485a1c47af0d8b0bc01ebde, type: 2}

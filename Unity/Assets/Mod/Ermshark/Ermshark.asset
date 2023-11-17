@@ -25,6 +25,8 @@ MonoBehaviour:
   craftingTime: 2.5
   itemSounds: {fileID: 0}
   pdaEncyInfo: {fileID: 11400000, guid: dbc6837d8eb5b9f42a96dcb82632b52e, type: 2}
+  knownTechInfo: {fileID: 0}
+  spawnData: {fileID: 11400000, guid: 794f76adb2698dc41921c7e61017eeb0, type: 2}
   unlockAtStart: 0
   registerInSN: 1
   recipeSN: {fileID: 0}
@@ -32,7 +34,6 @@ MonoBehaviour:
   craftTreePathSN: 
   techGroupSN: 14
   techCategorySN: 0
-  knownTechInfoSN: {fileID: 0}
   requiredForUnlockSN:
     isCustom: 0
     techType: 0

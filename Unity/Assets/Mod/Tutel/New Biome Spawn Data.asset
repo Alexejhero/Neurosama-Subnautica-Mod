@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31176ccc850eb4a40a6800859f45666b, type: 3}
   m_Name: New Biome Spawn Data
   m_EditorClassIdentifier: 
-  spawnLocation: 0
-  rules: []
+  spawnLocation: 1
+  rules:
+  - count: 1
+    probability: 0.05
+  - count: 3
+    probability: 0.025

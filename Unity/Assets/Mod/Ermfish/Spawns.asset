@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: Spawns
   m_EditorClassIdentifier: 
   spawnLocation: 0
-  rules: []
+  rules:
+  - count: 1
+    probability: 0.025
+  - count: 5
+    probability: 0.01
