@@ -5,9 +5,9 @@ Shader"SchizoVFX/HiyoriEffect"
         [HideInInspector]
         _MainTex ("MainTex", 2D) = "gray" {}
         [NoScaleOffset]
-        _NoiseTex ("Noise Texture", 2D) = "white" {}
+        _Image ("Noise Texture", 2DArray) = "white" {}
         [Normal][NoScaleOffset]
-        _DispMap ("Displacement map", 2D) = "white" {}
+        _Displacement ("Displacement map", 2D) = "white" {}
         [HideInInspector]
         _ScreenPosition ("Position" , Vector) = (0,0,0,0)
         _ZeroDistance("Zero Distance", Range(2, 500)) = 50
@@ -60,8 +60,8 @@ Shader"SchizoVFX/HiyoriEffect"
 
             sampler2D _CameraDepthTexture;
             sampler2D _MainTex;
-            sampler2D _NoiseTex;
-            sampler2D _DispMap;
+            sampler2D _Image;
+            sampler2D _Displacement;
             float4 _ScreenPosition;
             float _Radius;
             float _ZeroDistance;
@@ -85,8 +85,8 @@ Shader"SchizoVFX/HiyoriEffect"
                 mask *= step((_FlickerTreshold + 1) / 2, _ScreenPosition.w);
 
                 fixed4 col = tex2D(_MainTex, i.uv);
-                fixed4 noiseCol = tex2D(_NoiseTex, randomishUV);
-                float2 displacement = ((0.5 - tex2D(_DispMap, randomishUV)) * 2).zw;
+                fixed4 noiseCol = tex2D(_Image, randomishUV);
+                float2 displacement = ((0.5 - tex2D(_Displacement, randomishUV)) * 2).zw;
                 fixed4 displacedCol = tex2D(_MainTex, i.uv + (displacement * _DisplacementStrength));
 
                 return (col + (noiseCol * mask) + (displacedCol * mask)) * (1 - mask);

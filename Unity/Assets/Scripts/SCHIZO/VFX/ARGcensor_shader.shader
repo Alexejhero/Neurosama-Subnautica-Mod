@@ -1,15 +1,14 @@
-﻿Shader "Hidden/ScreenNoiseVignette"
+Shader"SchizoVFX/ARGcensor"
 {
     Properties
     {
         [HideInInspector]
-        _MainTex ("-", 2D) = "white" {}
+        _MainTex ("MainTex", 2D) = "gray" {}
         [NoScaleOffset]
-        _Image ("Noise", 2D) = "gray" {}
-        [Normal][NoScaleOffset]
-        _Displacement ("Displacement Normal", 2D) = "black" {}
-        _DispStrength ("Displacement Strength", Range(0,1)) = 1
-        _Strength ("Effect Strength", Range(0,1)) = 1
+        _Images ("Noise Texture", 2DArray) = "white" {}
+        [HideInInspector]
+        _ScreenPosition ("Position" , Vector) = (0,0,0,0)
+        _Strength ("Strength", Range(0, 1)) = 1
     }
     SubShader
     {
@@ -22,6 +21,7 @@
             #pragma vertex vert
             #pragma fragment frag
 
+            #pragma require 2darray
             #include "UnityCG.cginc"
 
             struct appdata
@@ -43,9 +43,9 @@
                 o.uv = v.uv;
                 return o;
             }
-
+            
             float2 FixUV(float2 iuv)
-            { 
+            {   
                 float2 res;
                 float2 uv = abs(iuv);
                 float asp = max(_ScreenParams.x, _ScreenParams.y) / min(_ScreenParams.x, _ScreenParams.y);
@@ -54,21 +54,26 @@
                 return float2(max(res.x, uv.x) * sign(iuv.x), max(res.y, uv.y) * sign(iuv.y));
             }
 
+            sampler2D _CameraDepthTexture;
             sampler2D _MainTex;
-            sampler2D _Image;
-            sampler2D _Displacement;
-            float _DispStrength;
+            UNITY_DECLARE_TEX2DARRAY(_Images);
+            float4 _ScreenPosition;
             float _Strength;
 
-            float4 frag (v2f i) : SV_Target
+            fixed4 frag (v2f i) : SV_Target
             {
-                float2 straightUV = FixUV(i.uv);
-                float2 randomishUV = straightUV + float2(sin(_Time.w * 24) , cos(_Time.w * 24));
+                _ScreenPosition.xy /= _ScreenParams.xy;
+
+                float depth = LinearEyeDepth(tex2D(_CameraDepthTexture, i.uv));
+                float depthDist = saturate(( _ScreenPosition.z - depth) * 10) ;
+
+                float2 straightUV = FixUV((i.uv - _ScreenPosition.xy) * _ScreenPosition.z);
+
+                float4 colors = UNITY_SAMPLE_TEX2DARRAY(_Images, float3(straightUV + _ScreenPosition.xy, _ScreenPosition.w));
+
                 fixed4 col = tex2D(_MainTex, i.uv);
-                float4 displacedCol = tex2D(_MainTex, i.uv + ((0.5 - tex2D(_Displacement, randomishUV).zw) * 2) * _DispStrength);
-                fixed4 noise = tex2D(_Image, randomishUV);
-                float distMask = distance(i.uv, 0.5) * _Strength;
-                return (col + (noise * distMask) + (displacedCol * distMask)) * (1 - distMask);
+
+                return lerp(col, colors, colors.w * depthDist * _Strength);
             }
             ENDCG
         }

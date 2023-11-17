@@ -4,8 +4,8 @@
     {
         [HideInInspector]
         _MainTex ("_", 2D) = "white" {}
-        _ColorOuter("Outer Color", Color) = (0.3, 1, 0.3, 1)
-        _ColorInner("Inner Color", Color) = (1, 0.3, 0.3, 1)
+        _Color("Inner Color", Color) = (1, 0.3, 0.3, 1)
+        _Color0("Outer Color", Color) = (0.3, 1, 0.3, 1)
         _Strength("Strength", Range(0, 1)) = 0.5
     }
     SubShader
@@ -42,20 +42,20 @@
             }
 
             sampler2D _MainTex;
-            float4 _ColorOuter;
-            float4 _ColorInner;
+            float4 _Color;
+            float4 _Color0;
             float _Strength;
 
             fixed4 frag (v2f i) : SV_Target
             {
+                float4 _ColorInner = _Color;
+                float4 _ColorOuter = _Color0;
                 fixed4 col = tex2D(_MainTex, i.uv);
                 float2 center = i.uv + 0.5;
                 float dist = distance(i.uv, 0.5);
                 _ColorOuter = lerp(col, _ColorOuter, _ColorOuter.w);
                 _ColorInner = lerp(col, _ColorInner, _ColorInner.w);
                 return lerp(col, (_ColorOuter * dist) + (_ColorInner * (1 - dist)), _Strength);
-
-
             }
             ENDCG
         }

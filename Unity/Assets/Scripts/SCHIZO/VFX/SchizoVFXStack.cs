@@ -13,7 +13,7 @@ namespace SCHIZO.VFX
             {
                 if (_instance != null) return _instance;
                 _instance = Camera.main.GetComponent<SchizoVFXStack>();
-                if(_instance == null) _instance = Camera.main.gameObject.AddComponent<SchizoVFXStack>();
+                if (_instance == null) _instance = Camera.main.gameObject.AddComponent<SchizoVFXStack>();
                 return _instance;
             }
         }

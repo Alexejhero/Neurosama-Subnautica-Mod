@@ -7,7 +7,7 @@
         [NoScaleOffset]
         _Image("Image", 2D) = "gray" {}
         _Scale("Scale" , Range(0, 10)) = 1
-        _Opacity("Opacity", Range(0, 1)) = 1
+        _Strength("Opacity", Range(0, 1)) = 1
     }
     SubShader
     {
@@ -55,7 +55,7 @@
             sampler2D _MainTex;
             sampler2D _Image;
             float _Scale;
-            float _Opacity;
+            float _Strength;
 
             fixed4 frag (v2f i) : SV_Target
             {
@@ -64,7 +64,7 @@
 
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                return lerp(col, col + image, image.w * _Opacity);
+                return lerp(col, col + image, image.w * _Strength);
             }
             ENDCG
         }
@@ -110,7 +110,7 @@
             sampler2D _MainTex;
             sampler2D _Image;
             float _Scale;
-            float _Opacity;
+            float _Strength;
 
             fixed4 frag (v2f i) : SV_Target
             {
@@ -119,7 +119,7 @@
 
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                return lerp(col, image, image.w * _Opacity);
+                return lerp(col, image, image.w * _Strength);
             }
             ENDCG
         }
@@ -165,7 +165,7 @@
             sampler2D _MainTex;
             sampler2D _Image;
             float _Scale;
-            float _Opacity;
+            float _Strength;
 
             fixed4 frag (v2f i) : SV_Target
             {
@@ -174,7 +174,7 @@
 
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                return lerp(col, col * image, image.w * _Opacity);
+                return lerp(col, col * image, image.w * _Strength);
             }
             ENDCG
         }
@@ -220,7 +220,7 @@
             sampler2D _MainTex;
             sampler2D _Image;
             float _Scale;
-            float _Opacity;
+            float _Strength;
 
             fixed4 frag (v2f i) : SV_Target
             {
@@ -229,7 +229,7 @@
 
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                return lerp(col, 1 - ((1 - col) * (1 - image)), image.w * _Opacity);
+                return lerp(col, 1 - ((1 - col) * (1 - image)), image.w * _Strength);
             }
             ENDCG
         }
@@ -275,7 +275,7 @@
             sampler2D _MainTex;
             sampler2D _Image;
             float _Scale;
-            float _Opacity;
+            float _Strength;
 
             fixed4 frag (v2f i) : SV_Target
             {
@@ -284,7 +284,7 @@
 
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                return lerp(col, image - col, image.w * _Opacity);
+                return lerp(col, image - col, image.w * _Strength);
             }
             ENDCG
         }
