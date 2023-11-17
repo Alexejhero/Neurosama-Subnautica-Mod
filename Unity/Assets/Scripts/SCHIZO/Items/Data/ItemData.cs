@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using SCHIZO.Attributes;
 using SCHIZO.Interop.Subnautica.Enums;
@@ -7,6 +8,7 @@ using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using SCHIZO.Items.Data.Crafting;
 using SCHIZO.Registering;
 using SCHIZO.Sounds;
+using SCHIZO.Spawns;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -55,6 +57,12 @@ namespace SCHIZO.Items.Data
         [CommonData]
         public PDAEncyclopediaInfo pdaEncyInfo;
 
+        [CommonData, ShowIf(nameof(ShowPickupableProps)), FormerlySerializedAs("knownTechInfoSN")]
+        public KnownTechInfo knownTechInfo;
+
+        [CommonData]
+        public BiomeSpawnData spawnData;
+
         [CommonData, UsedImplicitly, ShowIf(nameof(IsBuildableOrCraftable)), Careful, FormerlySerializedAs("unlockAtStartSN")]
         public bool unlockAtStart = true;
 
@@ -77,9 +85,6 @@ namespace SCHIZO.Items.Data
 
         [SNData, LabelText("Tech Category"), SerializeField, ShowIf(nameof(registerInSN)), ShowIf(nameof(techCategorySN_ShowIf)), UsedImplicitly]
         private TechCategory_SN techCategorySN;
-
-        [SNData, LabelText("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(ShowPickupableProps))]
-        private KnownTechInfo knownTechInfoSN;
 
         [SNData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(requiredForUnlock_ShowIf)), Careful]
         private Item requiredForUnlockSN;

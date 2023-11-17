@@ -12,7 +12,6 @@ partial class ItemData
     public string[] CraftTreePath => RetargetHelpers.Pick(craftTreePathSN, craftTreePathBZ).Split('/');
     public TechGroup TechGroup => (TechGroup) RetargetHelpers.Pick(techGroupSN, techGroupBZ);
     public TechCategory TechCategory => (TechCategory) RetargetHelpers.Pick(techCategorySN, techCategoryBZ);
-    public KnownTechInfo KnownTechInfo => RetargetHelpers.Pick(knownTechInfoSN, knownTechInfoBZ);
     public TechType RequiredForUnlock => RetargetHelpers.Pick(requiredForUnlockSN, requiredForUnlockBZ).GetTechType();
     public EquipmentType EquipmentType => (EquipmentType) RetargetHelpers.Pick(equipmentTypeSN, equipmentTypeBZ);
     public QuickSlotType QuickSlotType => (QuickSlotType) RetargetHelpers.Pick(quickSlotTypeSN, quickSlotTypeBZ);
