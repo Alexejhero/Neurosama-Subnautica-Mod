@@ -65,7 +65,7 @@ public sealed partial class ErmStack
     {
         ErmStack target = FindTarget();
         if (!target || target == this) return;
-        
+
         socket.SetTarget(target.plug);
     }
 
@@ -94,8 +94,7 @@ public sealed partial class ErmStack
                 .OfTechType(selfTechType)
                 .OrderByDistanceTo(gameObject.transform.position)
                 .SelectComponentInParent<ErmStack>()
-                .Where(s => !s.nextSocket && s != this)
-                .FirstOrDefault();
+                .FirstOrDefault(s => !s.nextSocket && s != this);
         }
     }
 
@@ -133,7 +132,7 @@ public sealed partial class ErmStack
         }
         else
         {
-            socket = node.nextSocket?.socket ?? node.socket;
+            socket = node.nextSocket ? node.nextSocket.socket : node.socket;
         }
         socket.Drop();
     }
@@ -149,6 +148,7 @@ public sealed partial class ErmStack
         return socketStack.head != head && socketStack.tail != tail
             && !socketStack.nextPlug;
     }
+
     public void OnConnected(Carryable plug, CarryCreature socket)
     {
         // only called on the plug side - so we update the socket from the plug

@@ -1,5 +1,4 @@
 using System.Collections;
-using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Components;
@@ -203,12 +202,12 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         targetTransform.localPosition = Vector3.zero;
         // place the transform so the plug is exactly on the socket
         Vector3 offset = Vector3.zero;
-        
+
         if (target.attachPlug)
         {
             offset = attachSocket.InverseTransformPoint(target.attachPlug.position);
         }
-        
+
         targetTransform.localPosition = -offset;
     }
 
