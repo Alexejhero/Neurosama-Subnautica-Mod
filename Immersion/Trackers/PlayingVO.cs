@@ -1,6 +1,6 @@
-namespace SCHIZO.Telemetry;
+namespace Immersion.Trackers;
 
-partial class PlayingVO
+public sealed class PlayingVO : Tracker
 {
     // SN ency logs don't use subtitles
     private SoundQueue Sounds => PDASounds.queue;
@@ -27,7 +27,7 @@ partial class PlayingVO
         _wasPlaying = isPlaying;
     }
 
-    protected override void OnDisable()
+    private void OnDisable()
     {
         if (_wasPlaying) Send(false);
         _wasPlaying = false;
@@ -41,6 +41,6 @@ partial class PlayingVO
 
     private void Send(bool isPlaying)
     {
-        SendTelemetry("playingVO", new { playing = isPlaying });
+        Send("playingVO", new { playing = isPlaying });
     }
 }

@@ -1,9 +1,9 @@
 using System.Collections;
 using Story;
 
-namespace SCHIZO.Telemetry;
+namespace Immersion.Trackers;
 
-partial class StoryGoals : IStoryGoalListener
+public sealed partial class StoryGoals : Tracker, IStoryGoalListener
 {
     protected override void Awake()
     {
@@ -21,18 +21,27 @@ partial class StoryGoals : IStoryGoalListener
 
     public void NotifyGoalComplete(string key)
     {
+        if (StoryGoalManager.main.IsGoalComplete(key)) return;
+
         LOGGER.LogWarning($"Completed {key}");
-        SendTelemetry("story", new { completedGoal = key });
+        string description = TryGetDescription(key, out string desc) ? desc : key;
+        Send("story", new { description });
     }
     public void NotifyGoalReset(string key)
     {
+        // goals can only be reset with console commands
         LOGGER.LogWarning($"Reset {key}");
-        SendTelemetry("story", new { resetGoal = key });
     }
-
+    // called when loading game
     public void NotifyGoalsDeserialized()
     {
         LOGGER.LogWarning($"Deserialized");
-        // SendTelemetry("story", new { deserialized = "" });
+        // send "story so far"? (probably not)
+    }
+
+    private bool TryGetDescription(string goal, out string description)
+    {
+        description = Descriptions.StoryGoals.ResourceManager.GetString(goal);
+        return !string.IsNullOrEmpty(description);
     }
 }

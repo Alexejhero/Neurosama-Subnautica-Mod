@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Configurations>BelowZero</Configurations>
+        <NoWarn>$(NoWarn);CS0169;CS0436;CS0649;CS0809;Harmony003;Publicizer001;</NoWarn>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="../Dependencies/BelowZero/FMODUnity.dll" />
+        <Reference Include="System.Net.Http" />
+
+        <PackageReference Include="Subnautica.BelowZero.GameLibs" Version="49371.0.0.1-r.0" />
+        <PackageReference Include="SubnauticaZero.Nautilus" Version="1.0.0-pre.21" />
+        <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+        <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" />
+
+        <!--<PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />-->
+        <!--<PackageReference Include="Krafs.Publicizer" Version="2.2.1" PrivateAssets="all" />-->
+        <PackageReference Include="PolySharp" Version="1.13.2" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="**\*.*.cs">
+            <DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '^(.*)\.(.*)$', '$1')).cs</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Descriptions\StoryGoals.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>StoryGoals.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Descriptions\StoryGoals.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>StoryGoals.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+</Project>
