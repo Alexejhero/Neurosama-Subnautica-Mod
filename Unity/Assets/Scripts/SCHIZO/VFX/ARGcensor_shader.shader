@@ -9,6 +9,7 @@ Shader"SchizoVFX/ARGcensor"
         [HideInInspector]
         _ScreenPosition ("Position" , Vector) = (0,0,0,0)
         _Strength ("Strength", Range(0, 1)) = 1
+        _Scale ("Scale", float) = 2
     }
     SubShader
     {
@@ -59,21 +60,24 @@ Shader"SchizoVFX/ARGcensor"
             UNITY_DECLARE_TEX2DARRAY(_Images);
             float4 _ScreenPosition;
             float _Strength;
+            float _Scale;
 
             fixed4 frag (v2f i) : SV_Target
             {
                 _ScreenPosition.xy /= _ScreenParams.xy;
 
                 float depth = LinearEyeDepth(tex2D(_CameraDepthTexture, i.uv));
-                float depthDist = saturate(( _ScreenPosition.z - depth) * 10) ;
+                float depthDist = saturate((depth - _ScreenPosition.z) * 100) ;
 
-                float2 straightUV = FixUV((i.uv - _ScreenPosition.xy) * _ScreenPosition.z);
+                _Scale = (1 / _Scale) * _ScreenPosition.z;
 
-                float4 colors = UNITY_SAMPLE_TEX2DARRAY(_Images, float3(straightUV + _ScreenPosition.xy, _ScreenPosition.w));
+                float2 straightPos = FixUV(_ScreenPosition.xy * _Scale);
+                float2 straightUV = FixUV(i.uv * _Scale) + 0.5;
 
+                float4 image = UNITY_SAMPLE_TEX2DARRAY(_Images, float3(straightUV - straightPos, _ScreenPosition.w));
                 fixed4 col = tex2D(_MainTex, i.uv);
-
-                return lerp(col, colors, colors.w * depthDist * _Strength);
+                
+                return lerp(col, image, image.w * depthDist * _Strength);
             }
             ENDCG
         }
