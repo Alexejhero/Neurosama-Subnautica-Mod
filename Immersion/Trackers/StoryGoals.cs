@@ -19,8 +19,14 @@ public sealed class StoryGoals : Tracker, IStoryGoalListener
         StoryGoalManager.main.AddListener(this);
     }
 
+    private static readonly HashSet<string> ShutUpAboutOnPDAClosed = new(StoryGoal.KeyComparer)
+    {
+        "OnPDAClosed"
+    };
+
     public void NotifyGoalComplete(string key)
     {
+        if (ShutUpAboutOnPDAClosed.Contains(key)) return;
         LOGGER.LogWarning($"Completed {key}");
 
         if (TryGetDescription(key, out string description))
@@ -39,8 +45,6 @@ public sealed class StoryGoals : Tracker, IStoryGoalListener
     }
 
     private bool TryGetDescription(string goal, out string description)
-    {
-        description = Descriptions.StoryGoals.ResourceManager.GetString(goal);
-        return !string.IsNullOrEmpty(description);
-    }
+        => Data.StoryGoalsData.StoryGoalDescriptions.TryGetValue(goal, out description)
+            && !string.IsNullOrEmpty(description);
 }

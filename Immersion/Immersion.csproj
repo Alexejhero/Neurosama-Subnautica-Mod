@@ -24,19 +24,4 @@
             <DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '^(.*)\.(.*)$', '$1')).cs</DependentUpon>
         </Compile>
     </ItemGroup>
-
-    <ItemGroup>
-      <Compile Update="Descriptions\StoryGoals.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>StoryGoals.resx</DependentUpon>
-      </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Update="Descriptions\StoryGoals.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>StoryGoals.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-    </ItemGroup>
 </Project>
