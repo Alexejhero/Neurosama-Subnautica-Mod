@@ -3,7 +3,7 @@ using Story;
 
 namespace Immersion.Trackers;
 
-public sealed partial class StoryGoals : Tracker, IStoryGoalListener
+public sealed class StoryGoals : Tracker, IStoryGoalListener
 {
     protected override void Awake()
     {
@@ -21,11 +21,10 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
 
     public void NotifyGoalComplete(string key)
     {
-        if (StoryGoalManager.main.IsGoalComplete(key)) return;
-
         LOGGER.LogWarning($"Completed {key}");
-        string description = TryGetDescription(key, out string desc) ? desc : key;
-        Send("story", new { description });
+
+        if (TryGetDescription(key, out string description))
+            Send("story", new { description });
     }
     public void NotifyGoalReset(string key)
     {

@@ -10,7 +10,7 @@
         <Reference Include="System.Net.Http" />
 
         <PackageReference Include="Subnautica.BelowZero.GameLibs" Version="49371.0.0.1-r.0" />
-        <PackageReference Include="SubnauticaZero.Nautilus" Version="1.0.0-pre.21" />
+        <PackageReference Include="SubnauticaZero.Nautilus" Version="1.0.0-pre.22" />
         <PackageReference Include="BepInEx.Core" Version="5.4.21" />
         <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" />
 

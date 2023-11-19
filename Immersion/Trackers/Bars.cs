@@ -41,6 +41,7 @@ public sealed class Bars : Tracker
             new Bar("food", () => survival.food, () => 100, 0.1f, 0.3f),
             new Bar("water", () => survival.water, () => 100, 0.2f, 0.4f),
             new Bar("body temperature", () => bodyTemp.currentBodyHeatValue, () => bodyTemp.maxBodyHeatValue, 0.1f, 0.25f),
+            // it's also possible to track things like the currently equipped tool's energy charge
         ];
     }
 
