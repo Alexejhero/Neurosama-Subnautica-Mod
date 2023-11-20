@@ -3,12 +3,14 @@ using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
+using Immersion.Trackers;
 
 namespace Immersion;
 
-[BepInPlugin("Immersion", "Immersion", "1.0.0")]
+[BepInPlugin(PLUGIN_NAME, PLUGIN_NAME, "1.0.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
+    public const string PLUGIN_NAME = "Immersion";
     public static Assembly PLUGIN_ASSEMBLY { get; private set; }
     public static GameObject PLUGIN_OBJECT { get; private set; }
     public static ManualLogSource LOGGER { get; private set; }

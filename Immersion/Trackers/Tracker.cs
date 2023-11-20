@@ -1,6 +1,6 @@
 using Nautilus.Utility;
 
-namespace Immersion;
+namespace Immersion.Trackers;
 
 public abstract class Tracker : MonoBehaviour
 {

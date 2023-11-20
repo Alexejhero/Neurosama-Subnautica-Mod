@@ -1,9 +1,10 @@
 using System.Collections;
+using Immersion.Formatting;
 using Story;
 
 namespace Immersion.Trackers;
 
-public sealed class StoryGoals : Tracker, IStoryGoalListener
+public sealed partial class StoryGoals : Tracker, IStoryGoalListener
 {
     protected override void Awake()
     {
@@ -30,7 +31,10 @@ public sealed class StoryGoals : Tracker, IStoryGoalListener
         LOGGER.LogWarning($"Completed {key}");
 
         if (TryGetDescription(key, out string description))
+        {
+            description = Format.FormatPlayer(description);
             Send("story", new { description });
+        }
     }
     public void NotifyGoalReset(string key)
     {
@@ -45,6 +49,6 @@ public sealed class StoryGoals : Tracker, IStoryGoalListener
     }
 
     private bool TryGetDescription(string goal, out string description)
-        => Data.StoryGoalsData.StoryGoalDescriptions.TryGetValue(goal, out description)
+        => StoryGoalDescriptions.TryGetValue(goal, out description)
             && !string.IsNullOrEmpty(description);
 }
