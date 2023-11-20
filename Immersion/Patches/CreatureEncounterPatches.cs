@@ -6,9 +6,7 @@ namespace Immersion.Patches;
 [HarmonyPatch]
 public static class CreatureEncounterPatches
 {
-    private static CreatureEncounters _encounters;
-                                                    // unity lifetime checks smile (also rider L)
-    private static CreatureEncounters Encounters => _encounters ? _encounters : _encounters = PLUGIN_OBJECT.GetComponent<CreatureEncounters>();
+    private static CreatureEncounters Encounters => COMPONENT_HOLDER.GetComponent<CreatureEncounters>();
 
     [HarmonyPatch(typeof(SpikeyTrapAttachTarget), nameof(SpikeyTrapAttachTarget.Attach))]
     [HarmonyPostfix]

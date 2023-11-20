@@ -1,5 +1,6 @@
 using Immersion.Formatting;
 using Immersion.Trackers;
+using Nautilus.Commands;
 
 namespace Immersion;
 
@@ -9,23 +10,13 @@ internal class ConsoleCommands : MonoBehaviour
     public static string SetUsage => "set <field> [value]";
     public static string SetExample => "set player Joe";
     public static string EnableDisableUsage => "<enable|disable> [tracker]";
-    public static string EnableDisableExample => $"disable {nameof(Trackers.PlayingVO)}";
+    public static string EnableDisableExample => $"disable {nameof(PlayingVO)}";
 
-    public void Awake()
-    {
-        DevConsole.RegisterConsoleCommand(this, Command, false, false);
-    }
+    [ConsoleCommand(PLUGIN_NAME)]
+    public string PluginControlCommand(params string[] args)
+        => ProcessCommand(args);
 
-    public static void OnConsoleCommand_immersion(NotificationCenter.Notification n)
-    {
-        List<string> args = n.data?.OfType<string>().ToList();
-        string msg = ProcessCommand(args);
-        if (msg == null) return;
-
-        ErrorMessage.AddMessage($"[{PLUGIN_NAME}] {msg}");
-    }
-
-    private static string ProcessCommand(List<string> args)
+    private static string ProcessCommand(IList<string> args)
     {
         if (args is not [..])
             return $"""
@@ -35,6 +26,7 @@ internal class ConsoleCommands : MonoBehaviour
                 {Command} {EnableDisableUsage}
                     (e.g. `{Command} {EnableDisableExample}`)
                 """;
+        args[0] = args[0].ToLower();
         return args[0] switch
         {
             "set" => SetGlobal(args),
@@ -43,7 +35,7 @@ internal class ConsoleCommands : MonoBehaviour
         };
     }
 
-    private static string SetGlobal(List<string> args)
+    private static string SetGlobal(IList<string> args)
     {
         if (args is not ["set", string fieldName, ..])
             return $"Usage: `{Command} {SetUsage}`";
@@ -57,7 +49,7 @@ internal class ConsoleCommands : MonoBehaviour
         return $"{fieldName} set to {newValue}";
     }
 
-    private static string EnableDisable(List<string> args)
+    private static string EnableDisable(IList<string> args)
     {
         if (args.Count < 1) return $"Usage: {Command} {EnableDisableUsage}";
         bool enable = args[0] == "enable";
@@ -96,7 +88,7 @@ internal class ConsoleCommands : MonoBehaviour
 
     public static void SetComponentEnabled(Type type, bool enable)
     {
-        Behaviour component = (Behaviour)PLUGIN_OBJECT.GetComponent(type);
+        Behaviour component = (Behaviour)COMPONENT_HOLDER.GetComponent(type);
         component.enabled = enable;
         if (component is Tracker tracker)
             tracker.startEnabled = enable;
