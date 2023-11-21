@@ -6,6 +6,7 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Helpers;
 using SCHIZO.Items.Data;
+using SCHIZO.Registering;
 using SCHIZO.Sounds;
 using SCHIZO.Spawns;
 using UnityEngine;
@@ -63,6 +64,7 @@ public class UnityPrefab : CustomPrefab
     protected virtual void ModifyPrefab(GameObject prefab)
     {
         MaterialUtils.ApplySNShaders(prefab, 1);
+        prefab.GetComponents<IPrefabInit>().ForEach(iPI => iPI.PrefabInit());
     }
 
     protected virtual void SetItemProperties()

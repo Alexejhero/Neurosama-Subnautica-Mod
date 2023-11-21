@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using ECCLibrary.Data;
 using Nautilus.Handlers;
 using SCHIZO.Attributes;
@@ -16,10 +16,4 @@ public sealed class ErmfishLoader : PickupableCreatureLoader<PickupableCreatureD
     // todo: test BZ bus path when SoundPlayers are fixed
     public static readonly SoundPlayer PlayerDeathSounds = new(Assets.Erm_Sounds_PlayerDeath_ErmfishPlayerDeath,
         IS_BELOWZERO ? "bus:/master/SFX_for_pause" : "bus:/master/SFX_for_pause/nofilter");
-
-    protected override void PostRegisterAlive(ModItem item)
-    {
-        base.PostRegisterAlive(item);
-        ItemActionHandler.RegisterMiddleClickAction(item, _ => creatureSounds.AmbientItemSounds.Play2D(), "pull ahoge", "English");
-    }
 }
