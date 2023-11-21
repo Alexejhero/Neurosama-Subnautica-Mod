@@ -64,7 +64,7 @@ public class UnityPrefab : CustomPrefab
     protected virtual void ModifyPrefab(GameObject prefab)
     {
         MaterialUtils.ApplySNShaders(prefab, 1);
-        prefab.GetComponents<IPrefabInit>().ForEach(iPI => iPI.PrefabInit());
+        prefab.GetComponents<IPrefabInit>().ForEach(iPI => iPI.PrefabInit(prefab));
     }
 
     protected virtual void SetItemProperties()

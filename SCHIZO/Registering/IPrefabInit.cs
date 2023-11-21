@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace SCHIZO.Registering;
 
 public interface IPrefabInit
@@ -6,5 +8,5 @@ public interface IPrefabInit
     /// <remarks>
     /// Use this to set up "static" things - registered only once and persisting through the whole application session.
     /// </remarks>
-    void PrefabInit();
+    void PrefabInit(GameObject prefab);
 }
