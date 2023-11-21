@@ -11,12 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39f47c082d6147689e539c5e8f321c42, type: 3}
   m_Name: Loading Erm Sound
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
+  game: 3
+  prefab: {fileID: 4167475196704015524, guid: 8de1a02b175f6e54ab1bf793d82c2209, type: 3}
   isSingleton: 0
   scanForExisting: 1
   typeName: uGUI_SceneLoading
   methodName: Awake
   _isBaseType: 0
-  targetTypeName:
+  targetTypeName: 
   mode: 1
-  prefab: {fileID: 4167475196704015524, guid: 8de1a02b175f6e54ab1bf793d82c2209, type: 3}

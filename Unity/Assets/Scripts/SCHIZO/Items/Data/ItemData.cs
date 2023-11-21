@@ -120,9 +120,6 @@ namespace SCHIZO.Items.Data
         [BZData, LabelText("Tech Category"), SerializeField, ShowIf(nameof(registerInBZ)), ShowIf(nameof(techCategoryBZ_ShowIf)), UsedImplicitly]
         private TechCategory_BZ techCategoryBZ;
 
-        [BZData, LabelText("Known Tech Info"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(ShowPickupableProps))]
-        private KnownTechInfo knownTechInfoBZ;
-
         [BZData, LabelText("Sound Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(NonBuildableItemProperties_ShowIf))]
         private TechData_SoundType_BZ soundTypeBZ;
 

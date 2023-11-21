@@ -9,7 +9,7 @@ namespace SCHIZO.Items.Gymbag;
 [HarmonyPatch]
 public static class GymbagPatches
 {
-    private static readonly List<ItemData> _gymbagItems = new() {Assets.Mod_Gymbag_GymbagBZ, Assets.Mod_Gymbag_GymbagBZ};
+    private static readonly List<ItemData> _gymbagItems = [Assets.Mod_Gymbag_GymbagSN, Assets.Mod_Gymbag_GymbagBZ];
     private static bool IsGymbag(TechType type) => _gymbagItems.Any(t => t.ModItem == type);
 
     [HarmonyPatch(typeof(PickupableStorage), nameof(PickupableStorage.OnHandClick))]

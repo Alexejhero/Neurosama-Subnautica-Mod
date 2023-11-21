@@ -10,9 +10,9 @@ public static class BiomeSpawnLocationExtensions
     {
         return location switch
         {
-            BiomeSpawnLocation.OpenWater => BiomeHelpers.GetBiomesEndingIn("CreatureOnly"),
-            BiomeSpawnLocation.Surfaces => BiomeHelpers.GetBiomesEndingIn("Wall", "CaveEntrance", "CaveFloor", "CaveWall",
-                "SandFlat", "ShellTunnelHuge", "Grass", "Sand", "CaveSand", "CavePlants", "Floor", "Mountains", "RockWall", "Beach", "Ledge"),
+            BiomeSpawnLocation.OpenWater => BiomeHelpers.GetBiomesEndingIn("_Open", "_Open_CreatureOnly"),
+            BiomeSpawnLocation.Surfaces => BiomeHelpers.GetBiomesEndingIn("Ground", "Wall", "Floor", "Ledge",
+                "CaveEntrance", "CavePlants", "SandFlat", "ShellTunnelHuge", "Grass", "Sand", "Mountains", "Beach"),
             _ => throw new ArgumentOutOfRangeException(nameof(location), location, null)
         };
     }
