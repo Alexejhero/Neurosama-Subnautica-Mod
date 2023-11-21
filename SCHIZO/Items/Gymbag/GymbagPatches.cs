@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using SCHIZO.Items.Data;
@@ -51,6 +51,8 @@ public static class GymbagPatches
     public static void ClearLastOpenedOnPDAClose()
     {
         GymbagManager opener = GymbagManager.Instance;
+
+        if (!opener) return;
 
         if (opener.CurrentOpenedRootGymbag != null && !opener.OpeningGymbag)
         {

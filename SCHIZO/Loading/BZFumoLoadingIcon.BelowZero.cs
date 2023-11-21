@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace SCHIZO.Loading;
@@ -14,7 +14,7 @@ partial class BZFumoLoadingIcon
         }
 
         uGUI_Flipbook flipbook = GetComponent<uGUI_Flipbook>();
-        ((Image) flipbook.target).sprite = sprite;
+        if (flipbook && flipbook.target) ((Image) flipbook.target).sprite = sprite;
     }
 
     private void Update()
