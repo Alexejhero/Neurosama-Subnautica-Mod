@@ -4,13 +4,19 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
+using Mono;
 using Nautilus.Commands;
+using Nautilus.Patchers;
+using Nautilus.Utility;
 
 namespace SCHIZO.Patches;
 
 [HarmonyPatch]
 public static class NautilusConsoleCommandPatches
 {
+    // TODO do this whole mess properly as a PR to nautilus
+    // right now we don't have time to wait for the next release
+
     [HarmonyPatch(typeof(Parameter), MethodType.Constructor, typeof(ParameterInfo))]
     [HarmonyTranspiler]
     public static IEnumerable<CodeInstruction> AllowNullableValueTypesAndArrays(IEnumerable<CodeInstruction> instructions)
@@ -43,10 +49,7 @@ public static class NautilusConsoleCommandPatches
                 return false;
             type = type.GetElementType();
         }
-        if (type.GenericTypeArguments is [Type actualValueType]
-            && typeof(Nullable<>)
-                .MakeGenericType(type.GenericTypeArguments)
-                .IsAssignableFrom(type))
+        if (Nullable.GetUnderlyingType(type) is { } actualValueType)
             type = actualValueType;
         bool isSupported = Parameter.TypeConverters.ContainsKey(type);
         return isSupported;
@@ -61,11 +64,14 @@ public static class NautilusConsoleCommandPatches
 
         static object ParseInner(string input, Type paramType)
         {
-            if (paramType.IsArray) paramType = paramType.GetElementType();
-
-            if (typeof(Nullable<>).IsAssignableFrom(paramType))
+            if (paramType.IsArray)
             {
-                paramType = paramType.GenericTypeArguments[0];
+                paramType = paramType.GetElementType();
+            }
+
+            if (Nullable.GetUnderlyingType(paramType) is { } actualType)
+            {
+                paramType = actualType;
                 if (string.IsNullOrEmpty(input) || string.Equals(input, "null", StringComparison.OrdinalIgnoreCase))
                     return null;
             }
@@ -73,7 +79,7 @@ public static class NautilusConsoleCommandPatches
         }
     }
 
-    [HarmonyPatch(typeof(Nautilus.Patchers.ConsoleCommandsPatcher), nameof(Nautilus.Patchers.ConsoleCommandsPatcher.HandleCommand))]
+    [HarmonyPatch(typeof(ConsoleCommandsPatcher), nameof(ConsoleCommandsPatcher.HandleCommand))]
     [HarmonyTranspiler]
     public static IEnumerable<CodeInstruction> CheckForDifferentMissingValue(IEnumerable<CodeInstruction> instructions)
     {
@@ -90,15 +96,23 @@ public static class NautilusConsoleCommandPatches
             new CodeMatch(ci => ci.opcode == OpCodes.Brtrue_S || ci.opcode == OpCodes.Brtrue));
         if (matcher.IsValid)
         {
-            FieldInfo missingType = AccessTools.Field(typeof(Type), nameof(Type.Missing));
-            MethodInfo staticObjectEquals = AccessTools.Method(typeof(object), nameof(Equals), [typeof(object), typeof(object)]);
-            matcher.Insert(
-                new CodeInstruction(OpCodes.Ldsfld, missingType),
-                new CodeInstruction(OpCodes.Call, staticObjectEquals)
+            matcher.InsertAndAdvance(
+                new CodeInstruction(OpCodes.Call, new Func<object, bool>(IsParameterParsedOK).Method)
             );
+            matcher.Opcode = matcher.Opcode == OpCodes.Brtrue_S
+                ? OpCodes.Brfalse_S
+                : OpCodes.Brfalse;
         }
 
         return matcher.InstructionEnumeration();
+    }
+
+    [HarmonyPatch(typeof(ConsoleCommand), MethodType.Constructor, typeof(string), typeof(MethodInfo), typeof(bool), typeof(object))]
+    [HarmonyPostfix]
+    public static void Megacringe(ConsoleCommand __instance)
+    {
+        __instance.SetInstanceField("<Parameters>k__BackingField",
+            __instance.Parameters.ToList());
     }
 
     [HarmonyPatch(typeof(ConsoleCommand), nameof(ConsoleCommand.TryParseParameters))]
@@ -106,11 +120,89 @@ public static class NautilusConsoleCommandPatches
     public static bool TryParseParametersReplacement(ConsoleCommand __instance, IEnumerable<string> inputParameters, out object[] parsedParameters, out bool __result)
     {
         List<string> input = inputParameters.ToList();
-        List<Parameter> parameters = __instance.Parameters.ToList();
+        List<Parameter> parameters = (List<Parameter>)__instance.Parameters;
         int consumed = BetterTryParseParameters(input, parameters, out parsedParameters);
-        // TODO: transpile HandleCommand instead and use the consumed count to present a more informative error message
-        __result = consumed == inputParameters.Count();
+        // TODO: transpile/replace HandleCommand instead and add a message for too many args
+        __result = consumed == input.Count
+            && parsedParameters != null
+            && parsedParameters.All(IsParameterParsedOK);
         return false;
+    }
+
+    private static bool IsParameterParsedOK(object o)
+    {
+        return o is Array arr
+            ? arr.Length > 0
+            : o != Type.Missing;
+    }
+
+    [HarmonyPatch(typeof(ConsoleCommandsPatcher), nameof(ConsoleCommandsPatcher.HandleCommand))]
+    [HarmonyTranspiler]
+    public static IEnumerable<CodeInstruction> BetterTypeNames1(IEnumerable<CodeInstruction> instructions)
+    {
+        CodeMatcher matcher = new(instructions);
+        matcher.MatchForward(true,
+            new CodeMatch(OpCodes.Ldloc_2),
+            new CodeMatch(ci => ci.opcode == OpCodes.Callvirt && ci.operand is MethodInfo { Name: "get_ParameterTypes" }),
+            new CodeMatch(ci => ci.opcode == OpCodes.Ldloc_S && ci.operand is LocalBuilder { LocalIndex: 8 }),
+            new CodeMatch(OpCodes.Ldelem_Ref),
+            new CodeMatch(ci => ci.opcode == OpCodes.Callvirt && ci.operand is MethodInfo { Name: "get_Name" })
+        );
+        if (matcher.IsValid)
+        {
+            matcher.Operand = new Func<Type, string>(GetAliasedTypeName).Method;
+        }
+
+        return matcher.InstructionEnumeration();
+    }
+
+    [HarmonyPatch(typeof(ConsoleCommandsPatcher), "GetColoredString", typeof(Parameter))]
+    [HarmonyTranspiler]
+    public static IEnumerable<CodeInstruction> BetterTypeNames2(IEnumerable<CodeInstruction> instructions)
+    {
+        CodeMatcher matcher = new(instructions);
+        matcher.MatchForward(true,
+            new CodeMatch(ci => ci.opcode == OpCodes.Call && ci.operand is MethodInfo { Name: "get_ParameterType" }),
+            new CodeMatch(ci => ci.opcode == OpCodes.Callvirt && ci.operand is MethodInfo { Name: "get_Name" })
+        );
+        if (matcher.IsValid)
+        {
+            matcher.Operand = new Func<Type, string>(GetAliasedTypeName).Method;
+        }
+
+        return matcher.InstructionEnumeration();
+    }
+
+    private static readonly List<string> _buildinTypeAliases =
+    [
+        "void",
+        null,   // all other types
+        "DBNull",
+        "bool",
+        "char",
+        "sbyte",
+        "byte",
+        "short",
+        "ushort",
+        "int",
+        "uint",
+        "long",
+        "ulong",
+        "float",
+        "double",
+        "decimal",
+        null,   // DateTime?
+        null,   // ???
+        "string"
+    ];
+
+    public static string GetAliasedTypeName(this Type type)
+    {
+        if (type.IsArray)
+            return GetAliasedTypeName(type.GetElementType()) + "[]";
+        if (Nullable.GetUnderlyingType(type) is { } actualType)
+            return GetAliasedTypeName(actualType) + "?";
+        return _buildinTypeAliases[(int) type.GetTypeCode()] ?? type.Name;
     }
 
     private static int BetterTryParseParameters(List<string> input, List<Parameter> parameters, out object[] parsedParameters)
@@ -120,7 +212,7 @@ public static class NautilusConsoleCommandPatches
 
         int paramCount = parameters.Count;
         int optionalCount = parameters.Count(param => param.IsOptional);
-        // TODO: add validation (there must be at most one array param and it MUST be the last parameter)
+
         if (parameters[^1].ParameterType.IsArray)
             optionalCount++;
         int requiredCount = paramCount - optionalCount;
@@ -132,7 +224,7 @@ public static class NautilusConsoleCommandPatches
         {
             Type paramType = parameters[i].ParameterType;
             parsedParameters[i] = paramType.IsArray
-                ? Array.CreateInstance(paramType.GetElementType(), inputCount - i)
+                ? Array.CreateInstance(paramType.GetElementType(), Math.Max(0, inputCount - i))
                 : Type.Missing;
         }
 
@@ -155,6 +247,8 @@ public static class NautilusConsoleCommandPatches
             }
             catch (Exception)
             {
+                // TODO: need to change HandleCommand to report parse errors for arrays
+                // (currently prints " is not a valid !")
                 break;
             }
 
