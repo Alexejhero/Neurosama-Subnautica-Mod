@@ -5,7 +5,7 @@
 
     <ItemGroup>
         <PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0" />
-        <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.21" />
+        <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.22" />
     </ItemGroup>
 
     <ItemGroup>
