@@ -1,6 +1,7 @@
 using Immersion.Formatting;
 using Immersion.Trackers;
 using Nautilus.Commands;
+using Nautilus.Handlers;
 
 namespace Immersion;
 
@@ -12,13 +13,18 @@ internal class ConsoleCommands : MonoBehaviour
     public static string EnableDisableUsage => "<enable|disable> [tracker]";
     public static string EnableDisableExample => $"disable {nameof(PlayingVO)}";
 
+    public void Awake()
+    {
+        ConsoleCommandsHandler.RegisterConsoleCommands(typeof(ConsoleCommands));
+    }
+
     [ConsoleCommand(PLUGIN_NAME)]
-    public string PluginControlCommand(params string[] args)
+    public static string PluginControlCommand(params string[] args)
         => ProcessCommand(args);
 
     private static string ProcessCommand(IList<string> args)
     {
-        if (args is not [..])
+        if (args is not [_, ..])
             return $"""
                 Usage:
                 {Command} {SetUsage}
