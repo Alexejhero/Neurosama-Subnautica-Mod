@@ -17,8 +17,8 @@ MonoBehaviour:
     id: 0
   classId: quantumgymbag
   displayName: Quantum Gymbag
-  tooltip: 'Provides portable access to the quantum storage network... if you don''t
-    mind the smell.
+  tooltip: 'Provides portable access to the quantum storage network... provided you
+    don''t mind the smell.
 
     <size=75%>(Model by Vaalmyr)</size>'
   icon: {fileID: 21300000, guid: fa22a6c6c787aeb42bb9084a1aaa3260, type: 3}
