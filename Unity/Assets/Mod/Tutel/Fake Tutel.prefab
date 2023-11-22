@@ -44,10 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f19711010743bfa5da92c65afc5b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundCollection: {fileID: 11400000, guid: 8760b2fe631724f46acf7ecd2da229dc, type: 2}
-  soundCollection_: {fileID: 7432590903470703826, guid: 8760b2fe631724f46acf7ecd2da229dc,
-    type: 2}
-  bus: SCHIZO.Sounds.Players.SoundPlayer:INDOOR_SOUNDS_BUS
+  sounds: {fileID: 7432590903470703826, guid: 8760b2fe631724f46acf7ecd2da229dc, type: 2}
   emitter: {fileID: 196760604283640930}
   minDelayDefault: {fileID: 0}
   maxDelayDefault: {fileID: 0}
