@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using SCHIZO.Items.Data;
@@ -9,7 +9,7 @@ namespace SCHIZO.Items.Gymbag;
 [HarmonyPatch]
 public static class GymbagPatches
 {
-    private static readonly List<ItemData> _gymbagItems = new() {Assets.Mod_Gymbag_GymbagBZ, Assets.Mod_Gymbag_GymbagBZ};
+    private static readonly List<ItemData> _gymbagItems = [Assets.Mod_Gymbag_GymbagSN, Assets.Mod_Gymbag_GymbagBZ];
     private static bool IsGymbag(TechType type) => _gymbagItems.Any(t => t.ModItem == type);
 
     [HarmonyPatch(typeof(PickupableStorage), nameof(PickupableStorage.OnHandClick))]
@@ -38,6 +38,8 @@ public static class GymbagPatches
     [HarmonyPostfix]
     public static void SetInventoryUGUI(uGUI_ItemsContainer __instance, ItemsContainer container)
     {
+        if (!Inventory.main || !GymbagManager.Instance) return;
+
         if (container == Inventory.main.container)
         {
             GymbagManager.Instance.InventoryUGUI = __instance;
@@ -49,6 +51,8 @@ public static class GymbagPatches
     public static void ClearLastOpenedOnPDAClose()
     {
         GymbagManager opener = GymbagManager.Instance;
+
+        if (!opener) return;
 
         if (opener.CurrentOpenedRootGymbag != null && !opener.OpeningGymbag)
         {

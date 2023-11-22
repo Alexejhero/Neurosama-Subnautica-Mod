@@ -16,6 +16,8 @@ partial class ComponentAdder
 
     protected override void Register()
     {
+        if (!game.HasFlag(GAME)) return;
+
         if (isSingleton)
         {
             Instantiate(prefab, PLUGIN_OBJECT.transform);

@@ -127,7 +127,6 @@ public sealed class FMODSoundCollection
     private void RegisterSound(string id, AudioClip audioClip, Bus bus)
     {
         Sound s = CustomSoundHandler.RegisterCustomSound(id, audioClip, bus, AudioUtils.StandardSoundModes_3D);
-        bus.unlockChannelGroup();
         s.set3DMinMaxDistance(1, 30);
     }
 

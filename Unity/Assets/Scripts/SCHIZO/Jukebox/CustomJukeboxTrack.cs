@@ -1,8 +1,9 @@
 using TriInspector;
-using SCHIZO.Registering;
 using JetBrains.Annotations;
 using SCHIZO.Attributes;
+using SCHIZO.Registering;
 using UnityEngine;
+using SCHIZO.Spawns;
 
 namespace SCHIZO.Jukebox
 {
@@ -54,7 +55,7 @@ namespace SCHIZO.Jukebox
         public GameObject diskPrefab;
 
         [HideIf(nameof(unlockedOnStart)), UsedImplicitly]
-        public Vector3 diskSpawnLocation;
+        public SpawnLocation diskSpawnLocation;
 
         [HideIf(nameof(unlockedOnStart)), UsedImplicitly]
         public AudioClip unlockSound;

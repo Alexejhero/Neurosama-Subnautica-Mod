@@ -11,7 +11,7 @@ partial class CoordinatedSpawns
         {
             if (!spawnInfo.game.HasFlag(GAME)) continue;
 
-            foreach (SpawnInfo.SpawnLocation location in spawnInfo.locations)
+            foreach (SpawnLocation location in spawnInfo.locations)
             {
                 NSpawnInfo nSpawnInfo = new(spawnInfo.item.GetTechType(), location.position, location.rotation);
                 CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(nSpawnInfo);

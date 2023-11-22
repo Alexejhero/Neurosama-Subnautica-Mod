@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f47c082d6147689e539c5e8f321c42, type: 3}
   m_Name: Gymbag Manager
   m_EditorClassIdentifier: 
+  game: 3
+  prefab: {fileID: 2089593656554174762, guid: 23536af7233107d42bef46d5c407a8a5, type: 3}
   isSingleton: 0
   scanForExisting: 0
   typeName: Player
@@ -19,4 +21,3 @@ MonoBehaviour:
   _isBaseType: 0
   targetTypeName: 
   mode: 1
-  prefab: {fileID: 2089593656554174762, guid: 23536af7233107d42bef46d5c407a8a5, type: 3}

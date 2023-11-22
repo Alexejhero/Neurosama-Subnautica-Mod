@@ -63,9 +63,7 @@ public static class CustomJukeboxTrackPatches
             foreach (KeyValuePair<BZJukebox.UnlockableTrack, CustomJukeboxTrack> pair in customTracks)
             {
                 CustomJukeboxTrack track = pair.Value;
-
-                BZJukebox.unlockableMusic[pair.Key] = track.identifier;
-                __instance._info[track.identifier] = track.ToTrackInfo(false);
+                track.RegisterInJukebox(__instance);
             }
         }
     }

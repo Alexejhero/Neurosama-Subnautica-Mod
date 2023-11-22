@@ -202,7 +202,7 @@ public static class NautilusConsoleCommandPatches
             return GetAliasedTypeName(type.GetElementType()) + "[]";
         if (Nullable.GetUnderlyingType(type) is { } actualType)
             return GetAliasedTypeName(actualType) + "?";
-        return _buildinTypeAliases[(int) type.GetTypeCode()] ?? type.Name;
+        return _buildinTypeAliases[(int) Type.GetTypeCode(type)] ?? type.Name;
     }
 
     private static int BetterTryParseParameters(List<string> input, List<Parameter> parameters, out object[] parsedParameters)

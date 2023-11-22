@@ -27,7 +27,6 @@ public sealed class CustomJukeboxDisk : JukeboxDisk
             {
                 string bus = BusPaths.SFX.GetBusName();
                 CustomSoundHandler.RegisterCustomSound(guid, unlockSound, bus, AudioUtils.StandardSoundModes_2D);
-                RuntimeManager.GetBus(bus).unlockChannelGroup();
             }
 
             acquireSound = AudioUtils.GetFmodAsset(guid);
