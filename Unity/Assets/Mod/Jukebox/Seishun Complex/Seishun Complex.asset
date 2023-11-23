@@ -25,4 +25,4 @@ MonoBehaviour:
   diskSpawnLocation:
     position: {x: -326, y: 14.21, z: 255}
     rotation: {x: 0, y: 0, z: 0}
-  unlockSound: {fileID: 8300000, guid: 005268b15c059594891b6c1757b0181f, type: 3}
+  unlockSound: {fileID: 0}
