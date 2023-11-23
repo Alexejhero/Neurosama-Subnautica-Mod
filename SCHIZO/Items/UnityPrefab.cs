@@ -108,7 +108,7 @@ public class UnityPrefab : CustomPrefab
             KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
             {
                 techType = ModItem,
-                unlockTechTypes = new List<TechType>(0),
+                unlockTechTypes = [],
                 unlockMessage = i.UnlockMessage,
                 unlockSound = i.UnlockSound,
                 unlockPopup = i.unlockSprite
@@ -124,7 +124,7 @@ public class UnityPrefab : CustomPrefab
             KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
             {
                 techType = ModItem.ItemData.RequiredForUnlock,
-                unlockTechTypes = new List<TechType> {ModItem},
+                unlockTechTypes = [ModItem],
             });
         }
 
@@ -155,7 +155,7 @@ public class UnityPrefab : CustomPrefab
 
         if (ModItem.ItemData.spawnData)
         {
-            List<LootDistributionData.BiomeData> lootDistData = new();
+            List<LootDistributionData.BiomeData> lootDistData = [];
 
             foreach (BiomeType biome in ModItem.ItemData.spawnData.spawnLocation.GetBiomes())
             {

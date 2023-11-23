@@ -48,7 +48,7 @@ namespace SCHIZO.Registering
 
         #region NaughtyAttributes stuff
 
-        private List<string> _methodNames = new List<string> {"Awake", "Start"};
+        private List<string> _methodNames = ["Awake", "Start"];
         private bool TargetTypeNameShowIf() => _isBaseType && !isSingleton;
 
         #endregion

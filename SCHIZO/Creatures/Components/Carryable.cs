@@ -22,17 +22,17 @@ partial class Carryable
     private float _nextCarryNoiseTime;
     private float _lastPickedUpTime;
     private List<Behaviour> _disabledComponents;
-    private static readonly List<Type> toDisable = new()
-    {
+    private static readonly List<Type> toDisable =
+    [
         typeof(WorldAmbientSoundPlayer),
         typeof(SwimBehaviour),
         typeof(Rigidbody),
-        typeof(Creature),
-    };
+        typeof(Creature)
+    ];
 
     public void Awake()
     {
-        _disabledComponents = new List<Behaviour>();
+        _disabledComponents = [];
         creature = GetComponent<Creature>();
     }
 
