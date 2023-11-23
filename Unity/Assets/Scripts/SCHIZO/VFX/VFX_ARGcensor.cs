@@ -1,7 +1,7 @@
 using SCHIZO.VFX;
 using UnityEngine;
 
-public class VFX_ARGCensor : MonoBehaviour
+public partial class VFX_ARGCensor : MonoBehaviour
 {
     public T2DArray t2da;
     public Material material;
@@ -20,6 +20,8 @@ public class VFX_ARGCensor : MonoBehaviour
     public float interval = 0.05f;
     private float lastUpdate;
     private float lastRnd = 0f;
+
+    private bool isUnderwater = true;
 
     public void Awake()
     {
@@ -42,7 +44,7 @@ public class VFX_ARGCensor : MonoBehaviour
 
         float dot = Vector3.Dot(transform.forward, dirToCam);
 
-        if (pos.z > 0 && dot > -0.3f)
+        if (isUnderwater && pos.z > 0 && dot > -0.3f)
         {
             if (Time.time - lastUpdate > interval)
             {
