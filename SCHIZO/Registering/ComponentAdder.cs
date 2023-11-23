@@ -16,6 +16,8 @@ partial class ComponentAdder
 
     protected override void Register()
     {
+        if (!game.HasFlag(GAME)) return;
+
         if (isSingleton)
         {
             Instantiate(prefab, PLUGIN_OBJECT.transform);
@@ -45,7 +47,7 @@ partial class ComponentAdder
         else
         {
             DoPatch(target);
-            _toInstantiate.Add(target, new List<Entry> {entry});
+            _toInstantiate.Add(target, [entry]);
         }
     }
 

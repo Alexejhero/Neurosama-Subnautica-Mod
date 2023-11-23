@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f47c082d6147689e539c5e8f321c42, type: 3}
   m_Name: Game Event Loader
   m_EditorClassIdentifier: 
+  game: 3
+  prefab: {fileID: 1486619896881858908, guid: 8315cca6935ba1141a23ef0653a4c802, type: 3}
   isSingleton: 0
+  scanForExisting: 0
   typeName: Player
   methodName: Awake
   _isBaseType: 0
   targetTypeName: 
   mode: 1
-  prefab: {fileID: 1486619896881858908, guid: 8315cca6935ba1141a23ef0653a4c802, type: 3}

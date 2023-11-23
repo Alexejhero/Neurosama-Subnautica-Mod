@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Nautilus.Assets;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using SCHIZO.Creatures;
 using SCHIZO.Helpers;
 using SCHIZO.Items.Data;
+using SCHIZO.Registering;
 using SCHIZO.Sounds;
+using SCHIZO.Spawns;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -62,6 +64,7 @@ public class UnityPrefab : CustomPrefab
     protected virtual void ModifyPrefab(GameObject prefab)
     {
         MaterialUtils.ApplySNShaders(prefab, 1);
+        prefab.GetComponents<IPrefabInit>().ForEach(iPI => iPI.PrefabInit(prefab));
     }
 
     protected virtual void SetItemProperties()
@@ -98,14 +101,14 @@ public class UnityPrefab : CustomPrefab
             if (i.scanSounds) ScanSoundHandler.Register(ModItem, i.scanSounds);
         }
 
-        if (ModItem.ItemData.KnownTechInfo)
+        if (ModItem.ItemData.knownTechInfo)
         {
-            KnownTechInfo i = ModItem.ItemData.KnownTechInfo;
+            KnownTechInfo i = ModItem.ItemData.knownTechInfo;
 
             KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
             {
                 techType = ModItem,
-                unlockTechTypes = new List<TechType>(0),
+                unlockTechTypes = [],
                 unlockMessage = i.UnlockMessage,
                 unlockSound = i.UnlockSound,
                 unlockPopup = i.unlockSprite
@@ -121,7 +124,7 @@ public class UnityPrefab : CustomPrefab
             KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
             {
                 techType = ModItem.ItemData.RequiredForUnlock,
-                unlockTechTypes = new List<TechType> {ModItem},
+                unlockTechTypes = [ModItem],
             });
         }
 
@@ -148,6 +151,18 @@ public class UnityPrefab : CustomPrefab
                 CraftDataHandler.SetColdResistance(ModItem, ModItem.ItemData.coldResistanceBZ);
             }
 #endif
+        }
+
+        if (ModItem.ItemData.spawnData)
+        {
+            List<LootDistributionData.BiomeData> lootDistData = [];
+
+            foreach (BiomeType biome in ModItem.ItemData.spawnData.spawnLocation.GetBiomes())
+            {
+                lootDistData.AddRange(ModItem.ItemData.spawnData.rules.Select(rule => rule.GetBiomeData(biome)));
+            }
+
+            if (lootDistData.Count > 0) LootDistributionHandler.AddLootDistributionData(ModItem.PrefabInfo.ClassID, lootDistData.ToArray());
         }
 
 #if BELOWZERO

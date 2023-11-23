@@ -28,6 +28,8 @@ public sealed class Plugin : BaseUnityPlugin
         HARMONY = new Harmony("SCHIZO");
 
         ResourceManager.InjectAssemblies();
+
+        HARMONY.PatchAll();
     }
 
     private IEnumerator Start()
@@ -35,8 +37,6 @@ public sealed class Plugin : BaseUnityPlugin
         yield return ObjectReferences.SetReferences();
         yield return MaterialHelpers.LoadMaterials();
         StaticHelpers.CacheAttribute.CacheAll();
-
-        HARMONY.PatchAll();
 
         Assets.Mod_Registry.InvokeRegister();
         Assets.Mod_Registry.InvokePostRegister();

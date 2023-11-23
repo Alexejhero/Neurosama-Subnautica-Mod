@@ -66,6 +66,7 @@ public sealed partial class CustomJukeboxTrack
             return;
         }
         CustomJukeboxTrackPatches.customTracks[trackId] = this;
+        RegisterInJukebox(null);
 
         if (!Player.main) return;
 
@@ -73,6 +74,12 @@ public sealed partial class CustomJukeboxTrack
         // less than ideal but let's roll with it
         LOGGER.LogWarning($"Setting up unlock for track '{identifier}' during a game! This might not behave how you expect it to.");
         SetupUnlock();
+    }
+
+    internal void RegisterInJukebox(BZJukebox jukebox)
+    {
+        BZJukebox.unlockableMusic[this] = identifier;
+        if (jukebox) jukebox._info[identifier] = ToTrackInfo(false);
     }
 
     public static bool TryGetCustomTrack(string identifier, out CustomJukeboxTrack track)
@@ -105,14 +112,15 @@ public sealed partial class CustomJukeboxTrack
         }
         else
         {
-            SpawnDisk(trackId, diskSpawnLocation);
+            SpawnDisk(trackId, diskSpawnLocation.position, diskSpawnLocation.rotation);
         }
     }
 
-    private void SpawnDisk(BZJukebox.UnlockableTrack trackId, Vector3 position)
+    private void SpawnDisk(BZJukebox.UnlockableTrack trackId, Vector3 position, Vector3 rotation)
     {
         GameObject disk = Instantiate(CustomJukeboxTrackPatches.defaultDiskPrefab);
         disk.transform.position = position;
+        disk.transform.eulerAngles = rotation;
 
         if (diskPrefab)
         {

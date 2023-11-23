@@ -1,5 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1929730170816715192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7424511047622246468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabe378a7ca60c64592b97ccfb4eff65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayText: pull ahoge
+  target: {fileID: 5867531457241688998}
+  method: Play
+  arguments:
+  - 0
 --- !u!114 &5322964063655101349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20,7 +37,6 @@ MonoBehaviour:
   _fabricatorMesh: {fileID: 4300000, guid: f02dbf41adbb6c14c8b2eb4704e4fd18, type: 2}
   _fabricatorPrefab: {fileID: 4931248133309480, guid: 18b270460e531e34ca5ebc989dccd026,
     type: 3}
-  _spawnPointPath: submarine_fabricator_01/printBed/spawnPoint
 --- !u!1 &5893961862289814926
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,10 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f19711010743bfa5da92c65afc5b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundCollection: {fileID: 11400000, guid: 2b7bde06469e9fc49911f3cac3ffa231, type: 2}
-  soundCollection_: {fileID: -1161355378763634503, guid: 2b7bde06469e9fc49911f3cac3ffa231,
-    type: 2}
-  bus: Nautilus.Utility.AudioUtils+BusPaths:UnderwaterCreatures
+  sounds: {fileID: -1161355378763634503, guid: 2b7bde06469e9fc49911f3cac3ffa231, type: 2}
   emitter: {fileID: 2702267877378328202}
   minDelayDefault: {fileID: 0}
   maxDelayDefault: {fileID: 0}
@@ -114,10 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08298562675c4c18ba4b1d9744b135e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundCollection: {fileID: 11400000, guid: 2b7bde06469e9fc49911f3cac3ffa231, type: 2}
-  soundCollection_: {fileID: -1178557504063532876, guid: 2b7bde06469e9fc49911f3cac3ffa231,
-    type: 2}
-  bus: 
+  sounds: {fileID: -1178557504063532876, guid: 2b7bde06469e9fc49911f3cac3ffa231, type: 2}
   emitter: {fileID: 0}
   minDelayDefault: {fileID: 11400000, guid: cddef268080982e4eae92e262bd08d9f, type: 2}
   maxDelayDefault: {fileID: 11400000, guid: d2d8f608de10fb64d90460a0634789bf, type: 2}
@@ -223,6 +233,12 @@ PrefabInstance:
     - {fileID: 3307992340188546611, guid: c4afaa0bdc846574aa2185e0c81013f9, type: 3}
     - {fileID: 8149664679376285555, guid: c4afaa0bdc846574aa2185e0c81013f9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c4afaa0bdc846574aa2185e0c81013f9, type: 3}
+--- !u!1 &7424511047622246468 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9122564453119383797, guid: c4afaa0bdc846574aa2185e0c81013f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1842242175228025009}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2044740554873313177 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 428006668337057576, guid: c4afaa0bdc846574aa2185e0c81013f9,
@@ -235,7 +251,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1842242175228025009}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7424511047622246468}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66e630f68f9446108b3deb81bd1e09e5, type: 3}
