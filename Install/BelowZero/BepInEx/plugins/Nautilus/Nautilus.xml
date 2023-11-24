@@ -848,7 +848,12 @@
         </member>
         <member name="P:Nautilus.Assets.Gadgets.EggGadget.RequiredAcuSize">
             <summary>
-            The total amount of ACU floors required for the egg to be dropped in the ACU. defaulted to 1.
+            The total amount of normal ACU floors required for the egg to be dropped in the ACU. If this is set to 0, the egg will not be accepted in the normal ACU. Defaulted to 1.
+            </summary>
+        </member>
+        <member name="P:Nautilus.Assets.Gadgets.EggGadget.RequiredLargeAcuSize">
+            <summary>
+            The total amount of Large ACU floors required for the egg to be dropped in. If this is set to 0, the egg will not be accepted in the large ACU. Defaulted to 1.
             </summary>
         </member>
         <member name="P:Nautilus.Assets.Gadgets.EggGadget.AcidImmune">
@@ -861,13 +866,20 @@
             Constructs a Creature egg gadget instance.
             </summary>
             <param name="prefab">The custom prefab to operate on.</param>
-            <param name="requiredAcuSize">The total amount of ACU floors required for the egg to be dropped in the ACU.</param>
+            <param name="requiredAcuSize">The total amount of ACU floors required for the egg to be dropped in the ACU. This value is shared between the normal and large ACU.</param>
         </member>
         <member name="M:Nautilus.Assets.Gadgets.EggGadget.WithRequiredAcuSize(System.Int32)">
             <summary>
-            The total amount of ACU floors required for the egg to be dropped in the ACU.
+            The total amount of normal ACU floors required for the egg to be dropped in the ACU.
             </summary>
-            <param name="requiredAcuSize">The ACU stacks value.</param>
+            <param name="requiredAcuSize">The ACU stacks value. If this is set to 0, the egg will not be accepted in the normal ACU.</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
+        <member name="M:Nautilus.Assets.Gadgets.EggGadget.WithRequiredLargeAcuSize(System.Int32)">
+            <summary>
+            The total amount of Large ACU floors required for the egg to be dropped in. 
+            </summary>
+            <param name="requiredLargeAcuSize">The large ACU stacks value. If this is set to 0, the egg will not be accepted in the large ACU.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
         </member>
         <member name="M:Nautilus.Assets.Gadgets.EggGadget.SetAcidImmune(System.Boolean)">
@@ -1022,6 +1034,20 @@
             <param name="fragmentsToScan">Amount of <paramref name="requiredForUnlock"/> that must be scanned to unlock this item.</param>
             <returns>A reference to the created <see cref="T:Nautilus.Assets.Gadgets.ScanningGadget"/> to continue the scanning settings on.</returns>
         </member>
+        <member name="M:Nautilus.Assets.Gadgets.GadgetExtensions.CreateFragment(Nautilus.Assets.ICustomPrefab,TechType,System.Single,System.Int32,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Makes this prefab a fragment.
+            </summary>
+            <param name="customPrefab">The fragment custom prefab.</param>
+            <param name="blueprint">The blueprint that gets unlocked once this item is scanned</param>
+            <param name="scanTime">The amount of seconds it takes to scan this item.</param>
+            <param name="fragmentsToScan">The amount of fragments required to be scanned before the blueprint is unlocked.</param>
+            <param name="encyKey">The encyclopedia key to unlock once the scanning is completed.</param>
+            <param name="destroyAfterScan">Should this object be destroyed after a successful scan?</param>
+            <param name="isFragment">If this is set to <see keyword="true"/>, the loot distribution will not bother spawning this fragment if the blueprint is already unlocked.<br/>
+            This is the default behaviour for almost all of the vanilla fragments.</param>
+            <returns>A reference to the created <see cref="T:Nautilus.Assets.Gadgets.ScanningGadget"/> to continue the scanning settings on.</returns>
+        </member>
         <member name="M:Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategory(Nautilus.Assets.ICustomPrefab,TechGroup,TechCategory)">
             <summary>
             Adds this item into a blueprint category to appear in.
@@ -1069,7 +1095,7 @@
             <summary>
             Sets this item as a vehicle upgrade module. Cyclops upgrades are not supported by this function.
             <para>If you're using this function, please do not use <see cref="M:Nautilus.Assets.Gadgets.GadgetExtensions.SetEquipment(Nautilus.Assets.ICustomPrefab,EquipmentType)"/>,<br/>
-            it would interefere with this and possibly make the game crash or cause the mod to not work.</para>
+            it would interfere with this and possibly make the game crash or cause the mod to not work.</para>
             </summary>
             <param name="customPrefab">The custom prefab to set vehicle upgrade for.</param>
             <param name="equipmentType">The type of equipment slot this item can fit into. Preferably use something related to vehicles.</param>
@@ -1114,12 +1140,22 @@
             Makes this item have additional creature-egg-related functionality.
             </summary>
             <param name="customPrefab">The custom prefab the creature egg gadget is created for.</param>
-            <param name="requiredAcuSize">The total amount of ACU floors required for the egg to be dropped in the ACU.</param>
+            <param name="requiredAcuSize">The total amount of ACU floors required for the egg to be dropped in the ACU. This value is shared between the normal and the large ACU.</param>
             <returns>A reference to the created <see cref="T:Nautilus.Assets.Gadgets.EggGadget"/> instance after the operation has completed.</returns>
         </member>
         <member name="T:Nautilus.Assets.Gadgets.ScanningGadget">
             <summary>
             Represents a scanning gadget.
+            </summary>
+        </member>
+        <member name="P:Nautilus.Assets.Gadgets.ScanningGadget.IsBuildable">
+            <summary>
+            Classifies this item as buildable via the habitat builder.
+            </summary>
+        </member>
+        <member name="P:Nautilus.Assets.Gadgets.ScanningGadget.IsHardLocked">
+            <summary>
+            Marks this item as hard locked.
             </summary>
         </member>
         <member name="P:Nautilus.Assets.Gadgets.ScanningGadget.RequiredForUnlock">
@@ -1247,6 +1283,13 @@
             <param name="isBuildable">Should this item be buildable?</param>
             <returns>A reference to this instance after the operation has completed.</returns>
         </member>
+        <member name="M:Nautilus.Assets.Gadgets.ScanningGadget.SetHardLocked(System.Boolean)">
+            <summary>
+            Makes this item hard locked. Hard locked items are not unlocked by default even in creative and can't be unlocked using the `unlockall` command.
+            </summary>
+            <param name="isHardLocked">Should this item be hard locked?</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
         <member name="M:Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry(System.String,UnityEngine.Sprite,UnityEngine.Texture2D,FMODAsset,FMODAsset)">
             <summary>
             <para>Adds an encyclopedia entry for this item in the PDA. This method does not ask for display text, for that you must use the <see cref="T:Nautilus.Handlers.LanguageHandler"/>.</para>
@@ -1260,6 +1303,17 @@
             <param name="encyAudio">The audio that can be played in the entry.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
         </member>
+        <member name="M:Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry(TechType,System.Single,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Adds additional info on how the Scanner tool should treat this item when scanning it.
+            </summary>
+            <param name="blueprint">The blueprint that gets unlocked once this item is scanned.</param>
+            <param name="scanTime">The amount of seconds it takes to scan this item.</param>
+            <param name="isFragment">Is this a fragment?</param>
+            <param name="encyKey">The encyclopedia key to unlock once the scanning is completed.</param>
+            <param name="destroyAfterScan">Should this object be destroyed after a successful scan?</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
         <member name="M:Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry(System.Single,System.Boolean,System.String,System.Boolean)">
             <summary>
             Adds additional info on how the Scanner tool should treat this item when scanning it.
@@ -1269,13 +1323,13 @@
             <param name="encyKey">The encyclopedia key to unlock once the scanning is completed.</param>
             <param name="destroyAfterScan">Should this object be destroyed after a successful scan?</param>
             <returns>A reference to this instance after the operation has completed.</returns>
+            <remarks>This overload overrides the PDAScanner entry data for the <see cref="P:Nautilus.Assets.Gadgets.ScanningGadget.RequiredForUnlock"/>'s entry.</remarks>
         </member>
         <member name="M:Nautilus.Assets.Gadgets.ScanningGadget.WithAnalysisTech(UnityEngine.Sprite,FMODAsset,System.String)">
             <summary>
             Adds additional info on what should happen when this item is unlocked.
             </summary>
             <param name="popupSprite">The sprite that should popup on unlock.</param>
-            <param name="storyGoalsToTrigger">The story goals that should be triggered on unlock.</param>
             <param name="unlockSound">The sound that will be played on unlock.</param>
             <param name="unlockMessage">Message which should be shown on unlock.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1612,6 +1666,22 @@
         <member name="P:Nautilus.Assets.PrefabInfo.TechType">
             <summary>The <see cref="P:Nautilus.Assets.PrefabInfo.TechType"/> of the corresponding item.</summary>
         </member>
+        <member name="M:Nautilus.Assets.PrefabInfo.WithTechType(System.String,System.Boolean,System.Reflection.Assembly)">
+            <summary>
+            Constructs a new <see cref="T:Nautilus.Assets.PrefabInfo"/> instance with automatically set <see cref="P:Nautilus.Assets.PrefabInfo.PrefabFileName"/> and <see cref="P:Nautilus.Assets.PrefabInfo.TechType"/>.
+            </summary>
+            <remarks>This overload does not do anything about the language side of this prefab (DisplayName and Description) and assumes that the entries were already added.<br/>
+            For the DisplayName, the language line must be "{ClassID}".<br/>
+            For the Description, the language line must be "Tooltip_{ClassID}" instead.</remarks>
+            <param name="classId">The class identifier used for the <see cref="T:PrefabIdentifier"/> component whenever applicable.</param>
+            <param name="unlockAtStart">Whether this tech type should be unlocked on game start or not. Default to <see langword="true"/>.</param>
+            <param name="techTypeOwner">The assembly that owns the created tech type. The name of this assembly will be shown in the PDA.</param>
+            <returns>An instance of the constructed <see cref="T:Nautilus.Assets.PrefabInfo"/>.</returns>
+            <seealso cref="M:Nautilus.Assets.PrefabInfo.WithTechType(System.String,System.String,System.String,System.String,System.Boolean,System.Reflection.Assembly)"/>
+            <seealso cref="M:Nautilus.Handlers.LanguageHandler.SetLanguageLine(System.String,System.String,System.String)"/>
+            <seealso cref="M:Nautilus.Handlers.LanguageHandler.RegisterLocalizationFolder(System.String)"/>
+            <seealso cref="M:Nautilus.Handlers.LanguageHandler.RegisterLocalization(System.String,System.Collections.Generic.Dictionary{System.String,System.String})"/>
+        </member>
         <member name="M:Nautilus.Assets.PrefabInfo.WithTechType(System.String,System.String,System.String,System.String,System.Boolean,System.Reflection.Assembly)">
             <summary>
             Constructs a new <see cref="T:Nautilus.Assets.PrefabInfo"/> instance with automatically set <see cref="P:Nautilus.Assets.PrefabInfo.PrefabFileName"/> and <see cref="P:Nautilus.Assets.PrefabInfo.TechType"/>.
@@ -1713,6 +1783,13 @@
             </summary>
             <param name="info">The prefab info to base this template off of.</param>
             <param name="classIdToClone">The class ID to clone and use for this template.</param>
+        </member>
+        <member name="M:Nautilus.Assets.PrefabTemplates.CloneTemplate.#ctor(Nautilus.Assets.PrefabInfo,UnityEngine.AddressableAssets.AssetReferenceGameObject)">
+            <summary>
+            Creates a <see cref="T:Nautilus.Assets.PrefabTemplates.CloneTemplate"/> instance.
+            </summary>
+            <param name="info">The prefab info to base this template off of.</param>
+            <param name="prefabToClone">The AssetReferenceGameObject with a valid key to clone and use for this template.</param>
         </member>
         <member name="M:Nautilus.Assets.PrefabTemplates.CloneTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})">
             <summary>
@@ -1927,6 +2004,11 @@
             The modification station that upgrades your equipment.
             </summary>
         </member>
+        <member name="F:Nautilus.Assets.PrefabTemplates.FabricatorTemplate.Model.MoonPool">
+            <summary>
+            The style of fabricator found in the Moon Pool and the Cyclops sub.
+            </summary>
+        </member>
         <member name="P:Nautilus.Assets.PrefabTemplates.FabricatorTemplate.FabricatorModel">
             <summary>
             The model this template will use. Leave it to <see cref="F:Nautilus.Assets.PrefabTemplates.FabricatorTemplate.Model.Custom"/> if you've got a custom model.
@@ -2043,6 +2125,11 @@
             The parameters for the command.
             </summary>
         </member>
+        <member name="P:Nautilus.Commands.ConsoleCommand.RequiredParameterCount">
+            <summary>
+            The minimum number of parameters required to invoke the command.
+            </summary>
+        </member>
         <member name="P:Nautilus.Commands.ConsoleCommand.ParameterTypes">
             <summary>
             The types of the parameters.
@@ -2063,25 +2150,25 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Nautilus.Commands.ConsoleCommand.HasValidParameterTypes">
-            <summary>
-            Determines whether the target methods parameters are valid.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Nautilus.Commands.ConsoleCommand.GetInvalidParameters">
             <summary>
             Returns a list of all invalid parameters.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Nautilus.Commands.ConsoleCommand.TryParseParameters(System.Collections.Generic.IEnumerable{System.String},System.Object[]@)">
+        <member name="M:Nautilus.Commands.ConsoleCommand.TryParseParameters(System.Collections.Generic.IReadOnlyList{System.String},System.Object[]@)">
             <summary>
             Attempts to parse input parameters into appropriate types as defined in the target method.
             </summary>
-            <param name="inputParameters">The parameters as input by the user.</param>
+            <param name="input">The parameters as input by the user.</param>
             <param name="parsedParameters">The parameters that have been successfully parsed.</param>
-            <returns>Whether or not all parameters were succesfully parsed.</returns>
+            <returns>
+            A tuple containing:
+            <list type="number">
+            <item>The number of input items consumed.</item>
+            <item>The number of command parameters that were successfully parsed.</item>
+            </list>
+            </returns>
         </member>
         <member name="M:Nautilus.Commands.ConsoleCommand.Invoke(System.Object[])">
             <summary>
@@ -2165,6 +2252,9 @@
             <summary>
             Creates a new tab node for the crafting tree and links it to the calling node.
             </summary>
+            <remarks>
+            Please note that this method will NOT set the language lines for the node and you must do it yourself.
+            </remarks>
             <param name="nameID">The name/ID of this node.</param>
             <returns>A new tab node linked to the root node and ready to use.</returns>
         </member>
@@ -2509,6 +2599,34 @@
             </summary>
             <param name="this"></param>
             <param name="message">the message text</param>
+        </member>
+        <member name="M:Nautilus.Extensions.GeneralExtensions.AppendJoin``1(System.Text.StringBuilder,System.String,System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Concatenates string representations of the provided <paramref name="values"/>,
+            using the specified <paramref name="separator"/> between them.
+            </summary>
+            <typeparam name="T">Type of value that will be converted to <see cref="T:System.String"/>.</typeparam>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/>.</param>
+            <param name="separator">The <see cref="T:System.String"/> to insert between each pair of values.</param>
+            <param name="values">Values to concatenate into the <paramref name="builder"/>.</param>
+            <returns>The provided <see cref="T:System.Text.StringBuilder"/>.</returns>
+        </member>
+        <member name="M:Nautilus.Extensions.TypeExtensions.GetFriendlyTypeName(System.Type)">
+            <summary>
+            Format the given <paramref name="type"/>'s name into a more developer-friendly form.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nautilus.Extensions.TypeExtensions.GetUnderlyingType(System.Type)">
+            <summary>
+            "Unwraps" the inner <paramref name="type"/> from an array and/or nullable type.
+            </summary>
+            <param name="type"></param>
+            <returns>
+            The inner type - for example, <see cref="T:System.String"/> from a <see cref="T:System.Array">string[]</see>, or <see cref="T:System.Boolean"/> from <see cref="T:System.Nullable`1">bool?</see>.<br/>
+            If the <paramref name="type"/> isn't wrapped, it is returned as-is.
+            </returns>
         </member>
         <member name="T:Nautilus.FMod.FModMultiSounds">
             <summary>
@@ -3191,8 +3309,15 @@
             <summary>
             Converts an EnumBuilder to its corresponding enum object. 
             </summary>
-            <param name="enumBuilder">The Enum Builder</param>
+            <param name="enumBuilder">The Enum Builder.</param>
             <returns>The enum object equivalent to this instance.</returns>
+        </member>
+        <member name="M:Nautilus.Handlers.EnumBuilder`1.op_Explicit(`0)~Nautilus.Handlers.EnumBuilder{`0}">
+            <summary>
+            Converts an Enum object to EnumBuilder.
+            </summary>
+            <param name="enum">The Enum object.</param>
+            <returns>The constructed enum builder for the specified enum object.</returns>
         </member>
         <member name="M:Nautilus.Handlers.EnumBuilder`1.ToString">
             <summary>
@@ -3420,7 +3545,23 @@
             <summary>
             Allows you to unlock a TechType on game start.
             </summary>
-            <param name="techType"></param>
+            <param name="techType">The TechType to unlock at start.</param>
+        </member>
+        <member name="M:Nautilus.Handlers.KnownTechHandler.AddRequirementForUnlock(TechType,TechType)">
+            <summary>
+            Unlocks the <paramref name="blueprint"/> when the <paramref name="requirement"/> tech type is unlocked.
+            </summary>
+            <param name="blueprint">The blueprint to unlock.</param>
+            <param name="requirement">The tech type that will unlock the specified blueprint once unlocked.</param>
+        </member>
+        <member name="M:Nautilus.Handlers.KnownTechHandler.SetHardLocked(TechType)">
+            <summary>
+            Makes the specified tech type hard locked. Hard locking means that the tech type will not be unlocked via the unlockall command and will not be unlocked by default
+            in creative. 
+            </summary>
+            <remarks>Calling this method will remove the specified item from being unlocked at start.</remarks>
+            <param name="techType">The tech type to set as hard locked.</param>
+            <seealso cref="M:Nautilus.Handlers.KnownTechHandler.UnlockOnStart(TechType)"/>
         </member>
         <member name="M:Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType})">
             <summary>
@@ -3528,13 +3669,22 @@
             </summary>
             <param name="targetTechType">Target <see cref="T:TechType"/> to remove the unlocks for.</param>
             <param name="techTypes">List of <see cref="T:TechType"/> to remove the targetTechType from.</param>
+            <seealso cref="M:Nautilus.Handlers.KnownTechHandler.RemoveAllCurrentAnalysisTechEntry(TechType)"/>
         </member>
         <member name="M:Nautilus.Handlers.KnownTechHandler.RemoveAllCurrentAnalysisTechEntry(TechType)">
             <summary>
             Allows you to remove all unlock entries from a <see cref="T:TechType"/> to be able to disable or change it to a new unlock.
-            ***Note: This is patch time specific so the LAST mod to call this on a techtype will be the only one to control what unlocks said type after its use.***
             </summary>
+            <remarks>The unlock entry for analysis techs for the specified <paramref name="targetTechType"/> will not be removed. I.E: This method will not remove self-unlocks.<br/>
+            To also target unlock entry removal for the specified tech type's analysis tech entry, use <see cref="M:Nautilus.Handlers.KnownTechHandler.RemoveAnalysisTechEntryFromSpecific(TechType,System.Collections.Generic.List{TechType})"/> instead.</remarks>
             <param name="targetTechType">Target <see cref="T:TechType"/> to remove the unlocks for.</param>
+            <seealso cref="M:Nautilus.Handlers.KnownTechHandler.RemoveAnalysisTechEntry(TechType)"/>
+        </member>
+        <member name="M:Nautilus.Handlers.KnownTechHandler.RemoveDefaultUnlock(TechType)">
+            <summary>
+            Allows you to remove a <see cref="T:TechType"/> from being unlocked by default.
+            </summary>
+            <param name="techType"></param>
         </member>
         <member name="T:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData">
             <summary>
@@ -4119,13 +4269,25 @@
             Registers a given <see cref="T:System.Action"/> to be performed when its associated goal is completed.
             </summary>
             <param name="key">The key of the goal that triggers the <paramref name="customEventCallback"/>.</param>
-            <param name="customEventCallback">The method that is called when the associated goal is completed. The name of the goal will be passed as a parameter.</param>
+            <param name="customEventCallback">The method that is called when the associated goal is completed.</param>
+        </member>
+        <member name="M:Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(System.Action{System.String})">
+            <summary>
+            Registers a given <see cref="T:System.Action"/> to be performed when a goal is completed.
+            </summary>
+            <param name="customEventCallback">The method that is called when any goal is completed. The name of the goal will be passed as a parameter.</param>
         </member>
         <member name="M:Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.String,System.Action)">
             <summary>
             Unregisters a custom event.
             </summary>
             <param name="key">The key of the goal that triggers the <paramref name="customEventCallback"/>.</param>
+            <param name="customEventCallback">The method to unregister.</param>
+        </member>
+        <member name="M:Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.Action{System.String})">
+            <summary>
+            Unregisters a custom event.
+            </summary>
             <param name="customEventCallback">The method to unregister.</param>
         </member>
         <member name="T:Nautilus.Handlers.SurvivalHandler">
