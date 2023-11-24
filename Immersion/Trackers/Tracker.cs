@@ -1,9 +1,16 @@
+using HarmonyLib;
 using Nautilus.Utility;
 
 namespace Immersion.Trackers;
 
 public abstract class Tracker : MonoBehaviour
 {
+    protected enum Priority
+    {
+        Low,
+        High,
+    }
+
     internal static readonly Dictionary<string, Type> trackerTypes;
     private string startEnabledPrefsKey => $"{GetType().FullName}_Enabled";
     internal bool startEnabled
@@ -28,10 +35,28 @@ public abstract class Tracker : MonoBehaviour
         enabled = startEnabled;
     }
 
-    public void Send(string path, object data = null)
+    protected void Send(string path, object data = null)
     {
         if (!enabled) return;
 
         _ = sender.Send(path, data);
     }
+
+    protected void React(Priority priority, object data = null)
+    {
+        if (!enabled) return;
+
+        string endpoint = PickEndpoint(priority);
+        if (endpoint == null) return;
+
+        _ = sender.Send(endpoint, data);
+    }
+
+    private string PickEndpoint(Priority priority)
+        => priority switch
+        {
+            Priority.Low => "non-priority",
+            Priority.High => "priority",
+            _ => null,
+        };
 }

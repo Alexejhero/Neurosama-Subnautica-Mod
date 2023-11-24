@@ -31,7 +31,7 @@ public sealed class CreatureEncounters : Tracker
             return;
         bool scanned = PDAScanner.complete.Contains(creatureTechType);
         string creatureName = scanned ? data.scannedName : data.unscannedDescription;
-        Send("react", $"{Globals.PlayerName} is being attacked by {creatureName}!");
+        React(Priority.High, $"{Globals.PlayerName} is being attacked by {creatureName}!");
     }
 
     private static string GoalFor(TechType techType) => $"{typeof(CreatureEncounters).FullName}.{techType}";

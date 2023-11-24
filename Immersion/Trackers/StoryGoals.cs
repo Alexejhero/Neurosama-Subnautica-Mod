@@ -1,5 +1,6 @@
 using System.Collections;
 using Immersion.Formatting;
+using Nautilus.Utility;
 using Story;
 
 namespace Immersion.Trackers;
@@ -9,7 +10,7 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
     protected override void Awake()
     {
         base.Awake();
-        GameStatus.Loaded += () => StartCoroutine(CoAddListener());
+        SaveUtils.RegisterOnFinishLoadingEvent(() => StartCoroutine(CoAddListener()));
     }
 
     private IEnumerator CoAddListener()
@@ -33,7 +34,7 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
         if (TryGetDescription(key, out string description))
         {
             description = Format.FormatPlayer(description);
-            Send("story", new { description });
+            React(Priority.Low, new { description });
         }
     }
     public void NotifyGoalReset(string key)

@@ -37,6 +37,6 @@ public sealed class PlayingVO : Tracker
 
     private void Send(bool isPlaying)
     {
-        Send(ENDPOINT, new { playing = isPlaying });
+        Send(ENDPOINT, new { playing = isPlaying });        
     }
 }

@@ -2,8 +2,6 @@ namespace Immersion.Trackers;
 
 public sealed class Bars : Tracker
 {
-    private const string ENDPOINT = "react";
-
     private enum BarState
     {
         Normal,
@@ -92,12 +90,12 @@ public sealed class Bars : Tracker
 
     private void Notify(string property, BarState state)
     {
-        Send(ENDPOINT, $"{Globals.PlayerName}'s {property} is {FormatState(state)}.");
+        React(state > BarState.Low ? Priority.High : Priority.Low, $"{Globals.PlayerName}'s {property} is {FormatState(state)}.");
     }
 
     private void NotifyDeath()
     {
-        Send(ENDPOINT, $"{Globals.PlayerName} has died.");
+        React(Priority.High, $"{Globals.PlayerName} has died.");
     }
 
     private string FormatState(BarState state)
