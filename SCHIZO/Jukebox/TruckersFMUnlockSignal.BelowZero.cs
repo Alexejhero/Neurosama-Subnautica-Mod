@@ -38,11 +38,14 @@ partial class TruckersFMUnlockSignal
 
     public void OnTrackUnlocked(TrackId trackId)
     {
+        if (!enabled) return;
+
         if (trackId == track)
         {
-            Destroy(gameObject);
-            return;
+            DestroySignal();
+            enabled = false;
         }
+
         if (signal) return;
         if (customOnly && !CustomJukeboxTrack.TryGetCustomTrack(trackId, out CustomJukeboxTrack _)) return;
 
@@ -61,10 +64,16 @@ partial class TruckersFMUnlockSignal
         signal.pos = track.diskSpawnLocation.position;
     }
 
+    private void DestroySignal()
+    {
+        if (signal) Destroy(signal.gameObject);
+    }
+
     private void Reset()
     {
         unlockedTracks = 0;
-        if (signal) Destroy(signal.gameObject);
+        enabled = true;
+        DestroySignal();
     }
 
     [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.OnUnlock))]

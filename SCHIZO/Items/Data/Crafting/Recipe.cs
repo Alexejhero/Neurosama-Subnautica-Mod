@@ -15,8 +15,8 @@ partial class Recipe
         return _converted = new RecipeData
         {
             craftAmount = craftAmount,
-            Ingredients = new List<NIngredient>(ingredients.Where(Ingredient.IsValid).Select(t => t.Convert())),
-            LinkedItems = new List<TechType>(linkedItems.Where(Item.IsValid).Select(t => t.GetTechType()))
+            Ingredients = [..ingredients.Where(Ingredient.IsValid).Select(t => t.Convert())],
+            LinkedItems = [..linkedItems.Where(Item.IsValid).Select(t => t.GetTechType())]
         };
     }
 }

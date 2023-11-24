@@ -47,7 +47,7 @@ partial class ComponentAdder
         else
         {
             DoPatch(target);
-            _toInstantiate.Add(target, new List<Entry> {entry});
+            _toInstantiate.Add(target, [entry]);
         }
     }
 

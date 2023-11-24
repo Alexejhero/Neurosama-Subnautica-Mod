@@ -26,7 +26,7 @@ public static class ConsoleCommands
             .OfTechType(techType).Where(g => g.GetComponentInParent<Pickupable>() is not { inventoryItem: { } })
             .SelectComponentInParent<PrefabIdentifier>().ToList();
         items.Shuffle();
-        HashSet<PrefabIdentifier> set = new(items);
+        HashSet<PrefabIdentifier> set = [..items];
 
         foreach (PrefabIdentifier item in set.Take((int) Mathf.Round(set.Count * percentage)))
         {

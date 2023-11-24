@@ -377,8 +377,7 @@ MonoBehaviour:
   displayText: pull ahoge
   target: {fileID: 1234215859049231237}
   method: Play
-  arguments:
-  - 0
+  arguments: []
 --- !u!114 &-2321474093542275019
 MonoBehaviour:
   m_ObjectHideFlags: 0

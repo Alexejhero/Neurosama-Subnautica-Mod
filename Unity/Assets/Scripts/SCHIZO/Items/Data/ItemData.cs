@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using JetBrains.Annotations;
 using SCHIZO.Attributes;
@@ -83,7 +83,7 @@ namespace SCHIZO.Items.Data
         [SNData, LabelText("Tech Group"), ValidateInput(nameof(techGroupSN_Validate)), SerializeField, ShowIf(nameof(registerInSN)), ShowIf(nameof(IsBuildableOrCraftable))]
         private TechGroup_SN techGroupSN = TechGroup_SN.Uncategorized;
 
-        [SNData, LabelText("Tech Category"), SerializeField, ShowIf(nameof(registerInSN)), ShowIf(nameof(techCategorySN_ShowIf)), UsedImplicitly]
+        [SNData, LabelText("Tech Category"), SerializeField, ShowIf(nameof(registerInSN)), ShowIf(nameof(techCategorySN_ShowIf)), UsedImplicitly, Dropdown(nameof(SNTechCategory))]
         private TechCategory_SN techCategorySN;
 
         [SNData, LabelText("Required For Unlock"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInSN)), ShowIf(nameof(requiredForUnlock_ShowIf)), Careful]
@@ -117,7 +117,7 @@ namespace SCHIZO.Items.Data
         [BZData, LabelText("Tech Group"), ValidateInput(nameof(techGroupBZ_Validate)), SerializeField, ShowIf(nameof(registerInBZ)), ShowIf(nameof(IsBuildableOrCraftable))]
         private TechGroup_BZ techGroupBZ = TechGroup_BZ.Uncategorized;
 
-        [BZData, LabelText("Tech Category"), SerializeField, ShowIf(nameof(registerInBZ)), ShowIf(nameof(techCategoryBZ_ShowIf)), UsedImplicitly]
+        [BZData, LabelText("Tech Category"), SerializeField, ShowIf(nameof(registerInBZ)), ShowIf(nameof(techCategoryBZ_ShowIf)), UsedImplicitly, Dropdown(nameof(BZTechCategory))]
         private TechCategory_BZ techCategoryBZ;
 
         [BZData, LabelText("Sound Type"), SerializeField, UsedImplicitly, ShowIf(nameof(registerInBZ)), ShowIf(nameof(NonBuildableItemProperties_ShowIf))]
@@ -147,106 +147,254 @@ namespace SCHIZO.Items.Data
 
         private TriDropdownList<string> SNCraftTreePath()
         {
-            switch (craftTreeTypeSN)
+            return craftTreeTypeSN switch
             {
-                case CraftTree_Type_All.Fabricator:
-                    return new TriDropdownList<string>()
-                        {
-                            {"<root>", ""},
-                            {"Resources/<self>", "Resources"},
-                            {"Resources/Basic materials", "Resources/BasicMaterials"},
-                            {"Resources/Advanced materials", "Resources/AdvancedMaterials"},
-                            {"Resources/Electronics", "Resources/Electronics"},
-                            {"Survival/<self>", "Survival"},
-                            {"Survival/Water", "Survival/Water"},
-                            {"Survival/Cooked food", "Survival/CookedFood"},
-                            {"Survival/Cured food", "Survival/CuredFood"},
-                            {"Personal/<self>", "Personal"},
-                            {"Personal/Equipment", "Personal/Equipment"},
-                            {"Personal/Tools", "Personal/Tools"},
-                            {"Personal/Deployables", "Machines"},
-                        };
-
-                case CraftTree_Type_All.Constructor:
-                    return new TriDropdownList<string>()
-                    {
-                        {"<root>", ""},
-                        {"Vehicles", "Vehicles"},
-                        {"Rocket", "Rocket"},
-                    };
-
-                case CraftTree_Type_All.SeamothUpgrades:
-                    return new TriDropdownList<string>()
-                    {
-                        {"<root>", ""},
-                        {"Common Modules", "CommonModules"},
-                        {"Seamoth Modules", "SeamothModules"},
-                        {"Prawn Suit Modules", "ExosuitModules"},
-                        {"Torpedoes", "Torpedoes"},
-                    };
-
-                default:
-                    return new TriDropdownList<string>()
-                    {
-                        {"<root>", ""},
-                    };
-            }
+                CraftTree_Type_All.Fabricator => new TriDropdownList<string>
+                {
+                    {"<root>", ""},
+                    {"Resources/<self>", "Resources"},
+                    {"Resources/Basic materials", "Resources/BasicMaterials"},
+                    {"Resources/Advanced materials", "Resources/AdvancedMaterials"},
+                    {"Resources/Electronics", "Resources/Electronics"},
+                    {"Survival/<self>", "Survival"},
+                    {"Survival/Water", "Survival/Water"},
+                    {"Survival/Cooked food", "Survival/CookedFood"},
+                    {"Survival/Cured food", "Survival/CuredFood"},
+                    {"Personal/<self>", "Personal"},
+                    {"Personal/Equipment", "Personal/Equipment"},
+                    {"Personal/Tools", "Personal/Tools"},
+                    {"Personal/Deployables", "Machines"},
+                },
+                CraftTree_Type_All.Constructor => new TriDropdownList<string>
+                {
+                    {"<root>", ""},
+                    {"Vehicles", "Vehicles"},
+                    {"Rocket", "Rocket"},
+                },
+                CraftTree_Type_All.SeamothUpgrades => new TriDropdownList<string>
+                {
+                    {"<root>", ""},
+                    {"Common Modules", "CommonModules"},
+                    {"Seamoth Modules", "SeamothModules"},
+                    {"Prawn Suit Modules", "ExosuitModules"},
+                    {"Torpedoes", "Torpedoes"},
+                },
+                _ => new TriDropdownList<string> {{"<root>", ""},}
+            };
         }
 
         private TriDropdownList<string> BZCraftTreePath()
         {
-            switch (craftTreeTypeBZ)
+            return craftTreeTypeBZ switch
             {
-                case CraftTree_Type_All.Fabricator:
-                case CraftTree_Type_All.SeaTruckFabricator:
-                    return new TriDropdownList<string>()
-                        {
-                            {"<root>", ""},
-                            {"Resources/<self>", "Resources"},
-                            {"Resources/Basic materials", "Resources/BasicMaterials"},
-                            {"Resources/Advanced materials", "Resources/AdvancedMaterials"},
-                            {"Resources/Electronics", "Resources/Electronics"},
-                            {"Survival/<self>", "Survival"},
-                            {"Survival/Water", "Survival/Water"},
-                            {"Survival/Cooked food", "Survival/CookedFood"},
-                            {"Survival/Cured food", "Survival/CuredFood"},
-                            {"Personal/<self>", "Personal"},
-                            {"Personal/Equipment", "Personal/Equipment"},
-                            {"Personal/Tools", "Personal/Tools"},
-                            {"Personal/Deployables", "Machines"},
-                            {"Upgrades/<self>", "Upgrades"},
-                            {"Upgrades/Prawn Suit Upgrades", "Upgrades/ExosuitUpgrades"},
-                            {"Upgrades/Seatruck Upgrades", "Upgrades/SeatruckUpgrades"},
-                        };
-
-                case CraftTree_Type_All.Constructor:
-                    return new TriDropdownList<string>()
-                    {
-                        {"<root>", ""},
-                        {"Vehicles", "Vehicles"},
-                        {"Modules", "Modules"},
-                    };
-
-                case CraftTree_Type_All.SeamothUpgrades:
-                    return new TriDropdownList<string>()
-                    {
-                        {"<root>", ""},
-                        {"Prawn Suit Upgrades", "ExosuitModules"},
-                        {"Seatruck Upgrades", "SeaTruckUpgrade"},
-                    };
-
-                default:
-                    return new TriDropdownList<string>()
-                    {
-                        {"<root>", ""},
-                    };
-            }
+                CraftTree_Type_All.Fabricator => new TriDropdownList<string>
+                {
+                    {"<root>", ""},
+                    {"Resources/<self>", "Resources"},
+                    {"Resources/Basic materials", "Resources/BasicMaterials"},
+                    {"Resources/Advanced materials", "Resources/AdvancedMaterials"},
+                    {"Resources/Electronics", "Resources/Electronics"},
+                    {"Survival/<self>", "Survival"},
+                    {"Survival/Water", "Survival/Water"},
+                    {"Survival/Cooked food", "Survival/CookedFood"},
+                    {"Survival/Cured food", "Survival/CuredFood"},
+                    {"Personal/<self>", "Personal"},
+                    {"Personal/Equipment", "Personal/Equipment"},
+                    {"Personal/Tools", "Personal/Tools"},
+                    {"Personal/Deployables", "Machines"},
+                    {"Upgrades/<self>", "Upgrades"},
+                    {"Upgrades/Prawn Suit Upgrades", "Upgrades/ExosuitUpgrades"},
+                    {"Upgrades/Seatruck Upgrades", "Upgrades/SeatruckUpgrades"},
+                },
+                CraftTree_Type_All.SeaTruckFabricator => new TriDropdownList<string>
+                {
+                    {"<root>", ""},
+                    {"Resources/<self>", "Resources"},
+                    {"Resources/Basic materials", "Resources/BasicMaterials"},
+                    {"Resources/Advanced materials", "Resources/AdvancedMaterials"},
+                    {"Resources/Electronics", "Resources/Electronics"},
+                    {"Survival/<self>", "Survival"},
+                    {"Survival/Water", "Survival/Water"},
+                    {"Survival/Cooked food", "Survival/CookedFood"},
+                    {"Survival/Cured food", "Survival/CuredFood"},
+                    {"Personal/<self>", "Personal"},
+                    {"Personal/Equipment", "Personal/Equipment"},
+                    {"Personal/Tools", "Personal/Tools"},
+                    {"Personal/Deployables", "Machines"},
+                    {"Upgrades/<self>", "Upgrades"},
+                    {"Upgrades/Prawn Suit Upgrades", "Upgrades/ExosuitUpgrades"},
+                    {"Upgrades/Seatruck Upgrades", "Upgrades/SeatruckUpgrades"},
+                },
+                CraftTree_Type_All.Constructor => new TriDropdownList<string>
+                {
+                    {"<root>", ""},
+                    {"Vehicles", "Vehicles"},
+                    {"Modules", "Modules"},
+                },
+                CraftTree_Type_All.SeamothUpgrades => new TriDropdownList<string>
+                {
+                    {"<root>", ""},
+                    {"Prawn Suit Upgrades", "ExosuitModules"},
+                    {"Seatruck Upgrades", "SeaTruckUpgrade"},
+                },
+                _ => new TriDropdownList<string>
+                {
+                    {"<root>", ""}
+                }
+            };
         }
 
         private void OnValidate()
         {
             if (!SNCraftTreePath().Select(i => i.Value).Contains(craftTreePathSN)) craftTreePathSN = "";
-            if (!SNCraftTreePath().Select(i => i.Value).Contains(craftTreePathSN)) craftTreePathSN = "";
+            if (!BZCraftTreePath().Select(i => i.Value).Contains(craftTreePathBZ)) craftTreePathBZ = "";
+
+            if (!SNTechCategory().Select(i => i.Value).Contains(techCategorySN)) techCategorySN = (TechCategory_SN)(-1);
+            if (!BZTechCategory().Select(i => i.Value).Contains(techCategoryBZ)) techCategoryBZ = (TechCategory_BZ)(-1);
+        }
+
+        private TriDropdownList<TechCategory_SN> SNTechCategory()
+        {
+            return techGroupSN switch
+            {
+                TechGroup_SN.Resources => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Basic Materials", TechCategory_SN.BasicMaterials},
+                    {"Advanced Materials", TechCategory_SN.AdvancedMaterials},
+                    {"Electronics", TechCategory_SN.Electronics}
+                },
+                TechGroup_SN.Survival => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Water", TechCategory_SN.Water},
+                    {"Cooked Food", TechCategory_SN.CookedFood},
+                    {"Cured Food", TechCategory_SN.CuredFood},
+                },
+                TechGroup_SN.Personal => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Equipment", TechCategory_SN.Equipment},
+                    {"Tools", TechCategory_SN.Tools}
+                },
+                TechGroup_SN.Machines => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Machines", TechCategory_SN.Machines}
+                },
+                TechGroup_SN.Constructor => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Mobile vehicle bay", TechCategory_SN.Constructor}
+                },
+                TechGroup_SN.VehicleUpgrades => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Vehicle Upgrades", TechCategory_SN.VehicleUpgrades}
+                },
+                TechGroup_SN.Workbench => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Modification station", TechCategory_SN.Workbench}
+                },
+                TechGroup_SN.MapRoomUpgrades => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Scanner Room Upgrades", TechCategory_SN.MapRoomUpgrades}
+                },
+                TechGroup_SN.Cyclops => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Cyclops", TechCategory_SN.Cyclops},
+                    {"Cyclops Upgrades", TechCategory_SN.CyclopsUpgrades},
+                },
+                TechGroup_SN.BasePieces => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Base Pieces", TechCategory_SN.BasePiece},
+                    {"Base Rooms", TechCategory_SN.BaseRoom},
+                    {"Base Walls", TechCategory_SN.BaseWall},
+                },
+                TechGroup_SN.ExteriorModules => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Exterior Modules", TechCategory_SN.ExteriorModule},
+                    {"Exterior Lights", TechCategory_SN.ExteriorLight},
+                    {"Exterior Other", TechCategory_SN.ExteriorOther},
+                },
+                TechGroup_SN.InteriorPieces => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Interior Installations", TechCategory_SN.InteriorPiece},
+                    {"Interior Rooms", TechCategory_SN.InteriorRoom},
+                },
+                TechGroup_SN.InteriorModules => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Interior Modules", TechCategory_SN.InteriorModule}
+                },
+                TechGroup_SN.Miscellaneous => new TriDropdownList<TechCategory_SN>
+                {
+                    {"Miscellaneous", TechCategory_SN.Misc},
+                    {"Hull Plates", TechCategory_SN.MiscHullplates}
+                },
+                _ => []
+            };
+        }
+
+        private TriDropdownList<TechCategory_BZ> BZTechCategory()
+        {
+            return techGroupBZ switch
+            {
+                TechGroup_BZ.Resources => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Basic Materials", TechCategory_BZ.BasicMaterials},
+                    {"Advanced Materials", TechCategory_BZ.AdvancedMaterials},
+                    {"Electronics", TechCategory_BZ.Electronics}
+                },
+                TechGroup_BZ.Survival => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Food and Drinks", TechCategory_BZ.FoodAndDrinks}
+                },
+                TechGroup_BZ.Personal => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Equipment", TechCategory_BZ.Equipment},
+                    {"Tools", TechCategory_BZ.Tools}
+                },
+                TechGroup_BZ.Machines => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Machines", TechCategory_BZ.Machines}
+                },
+                TechGroup_BZ.Constructor => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Mobile vehicle bay", TechCategory_BZ.Constructor}
+                },
+                TechGroup_BZ.VehicleUpgrades => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Vehicle Upgrades", TechCategory_BZ.VehicleUpgrades}
+                },
+                TechGroup_BZ.Workbench => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Modification station", TechCategory_BZ.Workbench}
+                },
+                TechGroup_BZ.MapRoomUpgrades => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Scanner Room Upgrades", TechCategory_BZ.MapRoomUpgrades}
+                },
+                TechGroup_BZ.BasePieces => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Base Pieces", TechCategory_BZ.BasePiece}
+                },
+                TechGroup_BZ.ExteriorModules => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Exterior Modules", TechCategory_BZ.ExteriorModule}
+                },
+                TechGroup_BZ.InteriorPieces => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Interior Installations", TechCategory_BZ.InteriorPiece}
+                },
+                TechGroup_BZ.InteriorModules => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Interior Modules", TechCategory_BZ.InteriorModule}
+                },
+                TechGroup_BZ.Miscellaneous => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Miscellaneous", TechCategory_BZ.Misc},
+                    {"Hull Plates", TechCategory_BZ.MiscHullplates}
+                },
+                TechGroup_BZ.Precursor => new TriDropdownList<TechCategory_BZ>
+                {
+                    {"Architect Components", TechCategory_BZ.PrecursorBodyParts}
+                },
+                _ => []
+            };
         }
 
         private TriValidationResult techGroupSN_Validate()
@@ -278,26 +426,11 @@ namespace SCHIZO.Items.Data
 
         private bool IsBuildableOrCraftable() => isBuildable || IsActuallyCraftable();
 
-        private protected sealed class CommonData : GroupAttribute
-        {
-            public CommonData() : base("common")
-            {
-            }
-        }
+        private protected sealed class CommonData() : GroupAttribute("common");
 
-        private protected class SNData : GroupAttribute
-        {
-            public SNData() : base("sn")
-            {
-            }
-        }
+        private protected class SNData() : GroupAttribute("sn");
 
-        private protected class BZData : GroupAttribute
-        {
-            public BZData() : base("bz")
-            {
-            }
-        }
+        private protected class BZData() : GroupAttribute("bz");
 
         #endregion
     }

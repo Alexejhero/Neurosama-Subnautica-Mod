@@ -10,7 +10,7 @@ namespace SCHIZO.Twitch
         [SerializeField, Required, UsedImplicitly] private string targetChannel = "vedal987";
         [SerializeField, Required, UsedImplicitly] private string commandPrefix = "pls ";
         [SerializeField, ShowIf(nameof(prefixIsCaseSensitive_ShowIf)), UsedImplicitly] private bool prefixIsCaseSensitive = false;
-        [SerializeField, ListDrawerSettings, UsedImplicitly] private List<string> whitelistedUsers = new List<string> { "alexejherodev" };
+        [SerializeField, ListDrawerSettings, UsedImplicitly] private List<string> whitelistedUsers = ["alexejherodev"];
 
         private bool prefixIsCaseSensitive_ShowIf()
         {
