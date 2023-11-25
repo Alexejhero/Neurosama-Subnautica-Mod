@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AmongUsFadeOut
+  m_Name: TwoColorTint
   m_Shader: {fileID: 4800000, guid: 1dc8757c7d3713840a43ff9072ccc8ca, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

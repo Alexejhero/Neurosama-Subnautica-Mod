@@ -1,4 +1,4 @@
-﻿Shader "Hidden/AmongUsFadeOut_shader"
+﻿Shader "Hidden/TwoColorTint_shader"
 {
     Properties
     {
