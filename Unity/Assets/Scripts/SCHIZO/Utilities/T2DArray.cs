@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TriInspector;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="SCHIZO/VFX/Texture2DArray")]
+[CreateAssetMenu(menuName ="SCHIZO/Utilities/Texture2DArray")]
 public class T2DArray : ScriptableObject
 {
     [InfoBox("All Textures must have same dimensions!", TriMessageType.Error, nameof(texturesDimensionsMismatch))]

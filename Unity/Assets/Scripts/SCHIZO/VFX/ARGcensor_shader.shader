@@ -5,7 +5,7 @@ Shader"SchizoVFX/ARGcensor"
         [HideInInspector]
         _MainTex ("MainTex", 2D) = "gray" {}
         [NoScaleOffset]
-        _Images ("Noise Texture", 2DArray) = "white" {}
+        _Images ("Texture Array", 2DArray) = "white" {}
         [HideInInspector]
         _ScreenPosition ("Position" , Vector) = (0,0,0,0)
         _Strength ("Strength", Range(0, 1)) = 1
@@ -13,6 +13,7 @@ Shader"SchizoVFX/ARGcensor"
     }
     SubShader
     {
+        Tags {"Queue" = "AlphaTest" "PreviewType" = "Plane" }
         // No culling or depth
         Cull Off ZWrite Off ZTest Always
 

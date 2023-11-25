@@ -1,38 +1,29 @@
 using SCHIZO.VFX;
 using UnityEngine;
 
-public partial class VFX_ARGCensor : MonoBehaviour
+public class VFX_ARGCensor : MonoBehaviour
 {
     public T2DArray t2da;
-    public Material material;
+    private Texture2DArray texture2DArray;
 
-    private MatPassID matInstance;
-    private Texture2DArray t2darray;
+    public float fadeOutStartDistance = 35f;
+    public float scale = 1.3f;
+    public float frameChangeInterval = 0.08f;
 
-    private readonly int vectorID = Shader.PropertyToID("_ScreenPosition");
-    private readonly int scaleID = Shader.PropertyToID("_Scale");
+    private MatPassID matPassID;
 
-    [Range(0f, 1f)]
-    public float opacity;
-
-    public float scale = 2f;
-
-    public float interval = 0.05f;
     private float lastUpdate;
     private float lastRnd = 0f;
 
-    private bool isUnderwater = true;
-
     public void Awake()
     {
-        t2darray = t2da.PopulateTexture2DArray();
-        t2darray.wrapMode = TextureWrapMode.Clamp;
-
-        matInstance = new MatPassID(new Material(material));
-        matInstance.mat.SetTexture("_Images", t2darray);
-        matInstance.mat.SetFloat("_Strength", opacity);
-
         _ = SchizoVFXStack.VFXStack;
+
+        texture2DArray = t2da.PopulateTexture2DArray();
+        texture2DArray.wrapMode = TextureWrapMode.Clamp;
+
+        matPassID = new MatPassID(VFXMaterialHolder.instance.GetMaterialForEffect(Effects.ARGCensor));
+        matPassID.SetTexture("_Images", texture2DArray);
 
         lastUpdate = Time.time;
     }
@@ -44,17 +35,23 @@ public partial class VFX_ARGCensor : MonoBehaviour
 
         float dot = Vector3.Dot(transform.forward, dirToCam);
 
-        if (isUnderwater && pos.z > 0 && dot > -0.3f)
+        bool isBelowWaterLevel = Camera.main.transform.position.y < 0f;
+
+        if (isBelowWaterLevel && pos.z > 0 && dot > -0.3f)
         {
-            if (Time.time - lastUpdate > interval)
+            if (Time.time - lastUpdate > frameChangeInterval)
             {
-                lastRnd = Random.Range(0, t2darray.depth - 1) * Time.timeScale;
+                lastRnd = Random.Range(0, texture2DArray.depth) * Time.timeScale;
                 lastUpdate = Time.time;
             }
 
-            matInstance.mat.SetVector(vectorID, new Vector4(pos.x, pos.y, pos.z, lastRnd));
-            matInstance.mat.SetFloat(scaleID, scale);
-            SchizoVFXStack.RenderEffect(matInstance);
+            float opacity = Mathf.Clamp01((1f / pos.z) * fadeOutStartDistance);
+
+            matPassID.SetVector("_ScreenPosition", new Vector4(pos.x, pos.y, pos.z, lastRnd));
+            matPassID.SetFloat("_Strength", opacity);
+            matPassID.SetFloat("_Scale", scale);
+
+            SchizoVFXStack.RenderEffect(matPassID);
         }
     }
 }

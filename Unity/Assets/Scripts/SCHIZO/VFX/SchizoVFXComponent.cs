@@ -5,8 +5,7 @@ namespace SCHIZO.VFX
 {
     public class SchizoVFXComponent : MonoBehaviour
     {
-        [Required(Message = "Material that is used to render effect on main camera. Always applied if the object, this component is attached to, present in scene.")]
-        public Material material;
+        public Effects effect;
 
         public Texture2D texture;
         public TextureWrapMode wrapMode;
@@ -23,25 +22,23 @@ namespace SCHIZO.VFX
         [InfoBox("Blend mode of main image/color (if material supports it)")]
         public BlendMode blendMode;
 
-        [PropertyTooltip(tooltip: "Force each instance of effect in scene to be rendered.")]
-        public bool forceUniqueInstanceOnClones = false;
-
         private MatPassID mat;
 
         private void Awake()
         {
-            mat = new MatPassID(forceUniqueInstanceOnClones ? new Material(material) : material, blendMode);
+            _ = SchizoVFXStack.VFXStack;
+
+            mat = new MatPassID(VFXMaterialHolder.instance.GetMaterialForEffect(effect), blendMode);
 
             if (texture) texture.wrapMode = wrapMode;
             if (displacement) displacement.wrapMode = displacementWrapMode;
 
-            mat.mat.SetFloat("_Strength", strength);
-            mat.mat.SetTexture("_Image", texture);
-            mat.mat.SetTexture("_Displacement", displacement);
-            mat.mat.color = color;
-            mat.mat.SetColor("_Color0", color2);
+            mat.SetFloat("_Strength", strength);
+            mat.SetTexture("_Image", texture);
+            mat.SetTexture("_Displacement", displacement);
+            mat.SetColor("_Color", color);
+            mat.SetColor("_Color0", color2);
 
-            _ = SchizoVFXStack.VFXStack;
         }
 
         public void Update()

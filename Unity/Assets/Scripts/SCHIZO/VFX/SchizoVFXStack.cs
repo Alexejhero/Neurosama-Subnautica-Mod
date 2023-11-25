@@ -18,7 +18,7 @@ namespace SCHIZO.VFX
             }
         }
 
-        private static List<MatPassID> effectMaterials = new List<MatPassID>();
+        private static List<MatPassID> effectMaterials = [];
 
         public static void RenderEffect(MatPassID m)
         {
@@ -41,7 +41,7 @@ namespace SCHIZO.VFX
             bool startedWithA = true;
             foreach (MatPassID effectMaterial in effectMaterials)
             {
-                Graphics.Blit(startedWithA ? tempA : tempB, startedWithA ? tempB : tempA, effectMaterial.mat, effectMaterial.id);
+                Graphics.Blit(startedWithA ? tempA : tempB, startedWithA ? tempB : tempA, effectMaterial.ApplyProperties(), effectMaterial.passID);
                 startedWithA = !startedWithA;
             }
 
