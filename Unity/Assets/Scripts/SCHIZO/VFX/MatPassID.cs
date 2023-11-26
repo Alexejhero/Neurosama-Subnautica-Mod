@@ -14,8 +14,8 @@ public enum BlendMode
 public sealed class MatPassID
 {
     public MatPassID(Material material) { _mat = material; _passID = 0; }
-    public MatPassID(Material material, int passID) : this(material) { _passID = Mathf.Clamp(passID, 0, mat.passCount - 1);}
-    public MatPassID(Material material, BlendMode blendMode) : this(material) { _passID = Mathf.Clamp((int)blendMode, 0, mat.passCount - 1); }
+    public MatPassID(Material material, int passID) : this(material) { _passID = Mathf.Clamp(passID, 0, _mat.passCount - 1);}
+    public MatPassID(Material material, BlendMode blendMode) : this(material) { _passID = Mathf.Clamp((int)blendMode, 0, _mat.passCount - 1); }
 
     private int _passID;
     public int passID { get => _passID; }
