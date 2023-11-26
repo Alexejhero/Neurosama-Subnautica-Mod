@@ -15,10 +15,13 @@ MonoBehaviour:
   registryItems:
   - {fileID: 11400000, guid: 87067f32545a0f74b95731190912dcd3, type: 2}
   - {fileID: 11400000, guid: 89d1591f3f478f5499a26e7970ce6f40, type: 2}
+  - {fileID: 11400000, guid: 8df69dce16e6a9746b1e9ea5c820d3ef, type: 2}
   - {fileID: 11400000, guid: 2001b19be75ff684aa38223bca2a074a, type: 2}
   - {fileID: 11400000, guid: 0e02cf6a34773f0448fcaf3dc90f0a92, type: 2}
   - {fileID: 11400000, guid: 5159b45dc6c3d83449b9eb96602c772c, type: 2}
   - {fileID: 11400000, guid: 8e637e13ab814a74ea04f99028676dc1, type: 2}
+  - {fileID: 11400000, guid: ac6932989e512cc43a944ca4fc5924f0, type: 2}
+  - {fileID: 11400000, guid: 6710c9cdea33a7f4ab8ba37ee479c8e8, type: 2}
   - {fileID: 11400000, guid: 3bff6ebf65b5a574c8236cebdf45f0c3, type: 2}
   - {fileID: 11400000, guid: 9468e8aad1813fd4798c9fca7a768467, type: 2}
   - {fileID: 11400000, guid: 6abf367663a723f4fa2a8e0715a05a6c, type: 2}
