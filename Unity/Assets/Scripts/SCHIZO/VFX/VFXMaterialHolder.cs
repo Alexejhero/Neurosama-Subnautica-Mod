@@ -16,37 +16,39 @@ namespace SCHIZO.VFX
     {
         public static VFXMaterialHolder instance { get; private set; }
 
-        [Required, SerializeField]
-        private Material _ColorTintMaterial;
+        public static Texture2DArray t2dArrayForARGEffect; 
 
-        [Required, SerializeField]
-        private Material _TwoColorTintMaterial;
+        [Required]
+        public Material ColorTintMaterial;
 
-        [Required, SerializeField]
-        private Material _NoiseVignetteMaterial;
+        [Required]
+        public Material TwoColorTintMaterial;
 
-        [Required, SerializeField]
-        private Material _ImageOverlayMaterial;
+        [Required]
+        public Material NoiseVignetteMaterial;
 
-        [Required, SerializeField]
-        private Material _ARGCensorMaterial;
+        [Required]
+        public Material ImageOverlayMaterial;
+
+        [Required]
+        public Material ARGCensorMaterial;
 
         public Material GetMaterialForEffect(Effects effect)
         {
             switch (effect)
             {
                 case Effects.ColorTint:
-                    return _ColorTintMaterial;
+                    return ColorTintMaterial;
                 case Effects.TwoColorTint:
-                    return _TwoColorTintMaterial;
+                    return TwoColorTintMaterial;
                 case Effects.NoiseVignette:
-                    return _NoiseVignetteMaterial;
+                    return NoiseVignetteMaterial;
                 case Effects.ImageOverlay:
-                    return _ImageOverlayMaterial;
+                    return ImageOverlayMaterial;
                 case Effects.ARGCensor:
-                    return _ARGCensorMaterial;
+                    return ARGCensorMaterial;
             }
-            return _ColorTintMaterial;
+            return ColorTintMaterial;
         }
 
         private void Awake()

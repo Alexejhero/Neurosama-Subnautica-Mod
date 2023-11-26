@@ -13,55 +13,59 @@ public enum BlendMode
 
 public sealed class MatPassID
 {
-    public MatPassID(Material material) { _mat = material; _passID = 0; }
-    public MatPassID(Material material, int passID) : this(material) { _passID = Mathf.Clamp(passID, 0, _mat.passCount - 1);}
-    public MatPassID(Material material, BlendMode blendMode) : this(material) { _passID = Mathf.Clamp((int)blendMode, 0, _mat.passCount - 1); }
+    public MatPassID(Effects effect) { _effect = effect; _passID = 0; }
+    public MatPassID(Effects effect, int passID) : this(effect) { _passID = passID; }
+    public MatPassID(Effects effect, BlendMode blendMode) : this(effect) { _passID = (int) blendMode; }
 
     private int _passID;
-    public int passID { get => _passID; }
+    private Effects _effect;
 
-    private Material _mat;
-    public Material mat { get => _mat; }
-
-    private Dictionary <int, Vector4> vectors = [];
+    private Dictionary <int, Vector4> vectors;
     public void SetVector(string name, Vector4 value)
     {
         int id = Shader.PropertyToID(name);
 
+        vectors ??= [];
         if (vectors.ContainsKey(id)) { vectors[id] = value; }
         else { vectors.Add(id, value); }
     }
 
-    private Dictionary<int, float> floats = [];
+    private Dictionary<int, float> floats;
     public void SetFloat(string name, float value)
     {
         int id = Shader.PropertyToID(name);
 
+        floats ??= [];
         if (floats.ContainsKey(id)) { floats[id] = value; }
         else{ floats.Add(id, value); }
     }
 
-    private Dictionary<int, Color> colors = [];
+    private Dictionary<int, Color> colors;
     public void SetColor(string name, Color value)
     {
         int id = Shader.PropertyToID(name);
 
+        colors ??= [];
         if (colors.ContainsKey(id)) { colors[id] = value; }
         else { colors.Add(id, value); }
     }
 
-    private Dictionary<int, Texture> textures = [];
+    private Dictionary<int, Texture> textures;
     public void SetTexture(string name, Texture value)
     {
         int id = Shader.PropertyToID(name);
 
+        textures ??= [];
         if (textures.ContainsKey(id)) { textures[id] = value; }
         else { textures.Add(id, value); }
     }
 
-    public Material ApplyProperties()
+    public Material ApplyProperties(out int ID)
     {
-        if(vectors.Count != 0)
+        Material _mat = VFXMaterialHolder.instance.GetMaterialForEffect(_effect);
+        ID = Mathf.Clamp(_passID, 0, _mat.passCount - 1);
+
+        if(vectors != null && vectors.Count != 0)
         {
             foreach (KeyValuePair<int, Vector4> v in vectors)
             {
@@ -69,25 +73,25 @@ public sealed class MatPassID
             }
         }
 
-        if(floats.Count != 0)
+        if(floats != null && floats.Count != 0)
         {
-            foreach(KeyValuePair<int, float> f in floats)
+            foreach (KeyValuePair<int, float> f in floats)
             {
                 _mat.SetFloat(f.Key, f.Value);
             }
         }
 
-        if(colors.Count != 0)
+        if(colors != null && colors.Count != 0)
         {
-            foreach(KeyValuePair<int, Color> c in colors)
+            foreach (KeyValuePair<int, Color> c in colors)
             {
                 _mat.SetColor(c.Key, c.Value);
             }
         }
 
-        if(textures.Count != 0)
+        if(textures != null && textures.Count != 0)
         {
-            foreach(KeyValuePair<int, Texture> t in textures)
+            foreach (KeyValuePair<int, Texture> t in textures)
             {
                 _mat.SetTexture(t.Key, t.Value);
             }

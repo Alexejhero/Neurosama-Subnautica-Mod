@@ -20,7 +20,11 @@ public class SchizoVFXStack : MonoBehaviour
 
     private static List<MatPassID> effectMaterials = [];
 
-    public static void RenderEffect(MatPassID m) => effectMaterials.Add(m);
+    public static void RenderEffect(MatPassID m)
+    {
+        if (effectMaterials.Contains(m)) return;
+        effectMaterials.Add(m);
+    }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
@@ -37,7 +41,7 @@ public class SchizoVFXStack : MonoBehaviour
         bool startedWithA = true;
         foreach (MatPassID effectMaterial in effectMaterials)
         {
-            Graphics.Blit(startedWithA ? tempA : tempB, startedWithA ? tempB : tempA, effectMaterial.ApplyProperties(), effectMaterial.passID);
+            Graphics.Blit(startedWithA ? tempA : tempB, startedWithA ? tempB : tempA, effectMaterial.ApplyProperties(out int passID), passID);
             startedWithA = !startedWithA;
         }
 
