@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace SCHIZO.VFX;
+
+/// <summary>
+/// Effects that support blend modes are: color tint, and image overlay. 
+/// </summary>
 public enum BlendMode
 {
     Add = 0,
@@ -11,6 +15,10 @@ public enum BlendMode
     Substract = 4,
 }
 
+/// <summary>
+/// Class that holds information about <see cref ="Effects"/> effect, <see cref ="BlendMode"/> blend mode for supported effect or int ID of shader pass to render with.
+/// Material Properties can be set via <c>SetVector()</c>, <c>SetFloat()</c>, <c>SetColor()</c>, <c>SetTexture()</c> methods.
+/// </summary>
 public sealed class MatPassID
 {
     public MatPassID(Effects effect) { _effect = effect; _passID = 0; }
