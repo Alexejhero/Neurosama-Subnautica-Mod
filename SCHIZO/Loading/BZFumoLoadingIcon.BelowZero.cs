@@ -1,3 +1,4 @@
+using Nautilus.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,18 +8,23 @@ partial class BZFumoLoadingIcon
 {
     private void Awake()
     {
-        if (!GetComponentInParent<SavingIndicator>())
+        uGUI_Flipbook flipbook = GetComponentInParent<uGUI_Flipbook>();
+        if (!flipbook)
         {
             Destroy(this);
             return;
         }
-
-        uGUI_Flipbook flipbook = GetComponent<uGUI_Flipbook>();
-        if (flipbook && flipbook.target) ((Image) flipbook.target).sprite = sprite;
+        if (flipbook.target.Exists() is Image im)
+        {
+            im.sprite = sprite;
+            flipbook.cols = 1;
+            flipbook.rows = 1;
+            flipbook.frameEnd = 0;
+        }
     }
 
     private void Update()
     {
-        transform.parent.Rotate(0, Time.deltaTime, 0);
+        transform.parent.Rotate(0, 360 * Time.deltaTime, 0);
     }
 }
