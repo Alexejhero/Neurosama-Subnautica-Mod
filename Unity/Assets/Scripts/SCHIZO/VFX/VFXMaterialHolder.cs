@@ -1,3 +1,4 @@
+using SCHIZO.Utilities;
 using TriInspector;
 using UnityEngine;
 
@@ -39,7 +40,7 @@ namespace SCHIZO.VFX
     {
         public static VFXMaterialHolder instance { get; private set; }
 
-        public static Texture2DArray t2dArrayForARGEffect;
+        public T2DArray t2dArrayForARGEffect;
 
         [Required]
         public Material ColorTintMaterial;

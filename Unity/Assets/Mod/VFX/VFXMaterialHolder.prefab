@@ -43,6 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c725190810dc464c9d10cf16ffdbcb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  t2dArrayForARGEffect: {fileID: 11400000, guid: 80810d273cc457943a9413d4f8468fc2,
+    type: 2}
   ColorTintMaterial: {fileID: 2100000, guid: 17b0a876284c4a848bd301679b412c08, type: 2}
   TwoColorTintMaterial: {fileID: 2100000, guid: 2e05a74b4162ac24aa2312e135ad1412,
     type: 2}

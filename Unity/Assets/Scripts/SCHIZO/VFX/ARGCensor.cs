@@ -1,10 +1,8 @@
-using SCHIZO.Utilities;
 using SCHIZO.VFX;
 using UnityEngine;
 
 public class ARGCensor : MonoBehaviour
 {
-    public T2DArray t2da;
     private Texture2DArray texture2DArray;
 
     public float fadeOutStartDistance = 35f;
@@ -20,12 +18,7 @@ public class ARGCensor : MonoBehaviour
     {
         _ = SchizoVFXStack.VFXStack;
 
-        if (VFXMaterialHolder.t2dArrayForARGEffect == null)
-        {
-            VFXMaterialHolder.t2dArrayForARGEffect = t2da.PopulateTexture2DArray();
-            VFXMaterialHolder.t2dArrayForARGEffect.wrapMode = TextureWrapMode.Clamp;
-        }
-        texture2DArray = VFXMaterialHolder.t2dArrayForARGEffect;
+        texture2DArray = VFXMaterialHolder.instance.t2dArrayForARGEffect.array;
 
         matPassID = new MatPassID(Effects.ARGCensor);
         matPassID.SetTexture("_Images", texture2DArray);
