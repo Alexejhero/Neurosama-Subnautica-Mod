@@ -34,8 +34,7 @@ public sealed class MatPassID
         int id = Shader.PropertyToID(name);
 
         vectors ??= [];
-        if (vectors.ContainsKey(id)) { vectors[id] = value; }
-        else { vectors.Add(id, value); }
+        vectors[id] = value;
     }
 
     private Dictionary<int, float> floats;
@@ -44,8 +43,7 @@ public sealed class MatPassID
         int id = Shader.PropertyToID(name);
 
         floats ??= [];
-        if (floats.ContainsKey(id)) { floats[id] = value; }
-        else{ floats.Add(id, value); }
+        floats[id] = value;
     }
 
     private Dictionary<int, Color> colors;
@@ -54,8 +52,7 @@ public sealed class MatPassID
         int id = Shader.PropertyToID(name);
 
         colors ??= [];
-        if (colors.ContainsKey(id)) { colors[id] = value; }
-        else { colors.Add(id, value); }
+        colors[id] = value;
     }
 
     private Dictionary<int, Texture> textures;
@@ -64,8 +61,7 @@ public sealed class MatPassID
         int id = Shader.PropertyToID(name);
 
         textures ??= [];
-        if (textures.ContainsKey(id)) { textures[id] = value; }
-        else { textures.Add(id, value); }
+        textures[id] = value;
     }
 
     public Material ApplyProperties(out int ID)

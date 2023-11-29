@@ -17,7 +17,7 @@ namespace SCHIZO.Utilities
 
         private void OnValidate()
         {
-            if (textures.Count > 1 ) ClearEmpty(textures);
+            if (textures.Count > 1 ) textures.RemoveAll(o => o == null);
             tooFewTextures = textures.Count < 2;
 
             if (textures.Count > 1 && textures[0] != null)
@@ -35,12 +35,6 @@ namespace SCHIZO.Utilities
                     }
                 }
             }
-        }
-
-        private List<T> ClearEmpty<T>(List<T> list)
-        {
-            list.RemoveAll(o => o.GetType() == typeof(T));
-            return list;
         }
 
         public Texture2DArray PopulateTexture2DArray()
