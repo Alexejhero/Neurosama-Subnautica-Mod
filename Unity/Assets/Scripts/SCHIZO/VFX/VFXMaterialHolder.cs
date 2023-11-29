@@ -39,7 +39,7 @@ namespace SCHIZO.VFX
     {
         public static VFXMaterialHolder instance { get; private set; }
 
-        public static Texture2DArray t2dArrayForARGEffect; 
+        public static Texture2DArray t2dArrayForARGEffect;
 
         [Required]
         public Material ColorTintMaterial;
