@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
+  m_Name: Erm Bed
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
+  loader:
+    id: 0
+  classId: ermbed
+  displayName: Erm Bed
+  tooltip: '[PH] What if..we hold hands..under the Erm blanket tonight? :flushed:
+
+    Haha
+    just kidding... unless..? :pleading_face: :point_right::point_left:'
+  icon: {fileID: 21300000, guid: de33cd9fb1d7b1845b02a84bb068ecdd, type: 3}
+  itemSize: {x: 1, y: 1}
+  isCraftable: 0
+  isBuildable: 1
+  craftingTime: 2.5
+  itemSounds: {fileID: 0}
+  pdaEncyInfo: {fileID: 0}
+  knownTechInfo: {fileID: 0}
+  spawnData: {fileID: 0}
+  unlockAtStart: 1
+  registerInSN: 1
+  recipeSN: {fileID: 11400000, guid: fdfcef575533c63489a4f1cd9e53fb79, type: 2}
+  craftTreeTypeSN: 0
+  craftTreePathSN: 
+  techGroupSN: 13
+  techCategorySN: 24
+  requiredForUnlockSN:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
+  registerInBZ: 1
+  recipeBZ: {fileID: 11400000, guid: fdfcef575533c63489a4f1cd9e53fb79, type: 2}
+  canBeRecycledBZ: 1
+  craftTreeTypeBZ: 0
+  craftTreePathBZ: 
+  techGroupBZ: 12
+  techCategoryBZ: 15
+  soundTypeBZ: 0
+  requiredForUnlockBZ:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: ErmBedLoader, ns: SCHIZO.Items.ErmBed, asm: SCHIZO}
+      data:
+        blanketTexture: {fileID: 2800000, guid: 091cd90205f7d704998359c66d1c1ff0,
+          type: 3}
