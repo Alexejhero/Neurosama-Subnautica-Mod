@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace SCHIZO.Loading;
 
-partial class BZFumoLoadingIcon
+partial class BZFumoLogo
 {
     private void Awake()
     {
