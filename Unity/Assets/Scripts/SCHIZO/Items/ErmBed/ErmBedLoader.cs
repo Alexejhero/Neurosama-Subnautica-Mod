@@ -13,7 +13,7 @@ namespace SCHIZO.Items.ErmBed
 
         public override TriValidationResult AcceptsItem(ItemData item)
         {
-            return item.classId == "ermbed" ? TriValidationResult.Valid
+            return item.classId.ToLower() == "ermbed" ? TriValidationResult.Valid
                 : TriValidationResult.Error("ErmBedLoader only accepts an ErmBed");
         }
     }

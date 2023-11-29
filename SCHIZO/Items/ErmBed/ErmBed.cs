@@ -12,7 +12,7 @@ public sealed class ErmBed : ClonePrefab
         TechType.BedZeta;
 #endif
 
-    private Texture2D _replacementTexture;
+    private readonly Texture2D _replacementTexture;
 
     [SetsRequiredMembers]
     public ErmBed(ModItem modItem) : base(modItem, CLONE_TARGET)
