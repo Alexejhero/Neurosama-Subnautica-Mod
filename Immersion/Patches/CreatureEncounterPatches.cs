@@ -13,7 +13,7 @@ public static class CreatureEncounterPatches
     public static void NotifySpikeyTrapAttack(SpikeyTrapAttachTarget __instance)
     {
         if (__instance.player != Player.main) return;
-        
+
         Encounters.NotifyCreatureEncounter(TechType.SpikeyTrap);
     }
 
@@ -22,5 +22,14 @@ public static class CreatureEncounterPatches
     public static void NotifyLilyPaddlerHypnosis()
     {
         Encounters.NotifyCreatureEncounter(TechType.LilyPaddler);
+    }
+
+    [HarmonyPatch(typeof(IceWormJumpScareTrigger), nameof(IceWormJumpScareTrigger.InvokeJumpScareEvent))]
+    [HarmonyPostfix]
+    public static void NotifyIceWormJumpScare(IceWormJumpScareTrigger __instance)
+    {
+        if (!__instance.used) return;
+
+        Encounters.NotifyCreatureEncounter(TechType.IceWorm);
     }
 }

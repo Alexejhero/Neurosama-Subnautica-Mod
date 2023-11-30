@@ -16,12 +16,14 @@
 
         <!--<PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />-->
         <!--<PackageReference Include="Krafs.Publicizer" Version="2.2.1" PrivateAssets="all" />-->
-        <PackageReference Include="PolySharp" Version="1.13.2" PrivateAssets="all" />
+        <PackageReference Include="PolySharp" Version="1.14.0" PrivateAssets="all" />
+
+        <PackageReference Include="AvsAn" Version="3.2.0" /> <!-- don't forget to copy it to the plugin folder ;) -->
     </ItemGroup>
 
-    <ItemGroup>
+    <!--<ItemGroup>
         <Compile Update="**\*.*.cs">
             <DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '^(.*)\.(.*)$', '$1')).cs</DependentUpon>
         </Compile>
-    </ItemGroup>
+    </ItemGroup>-->
 </Project>

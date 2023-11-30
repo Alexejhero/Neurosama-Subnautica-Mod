@@ -16,6 +16,7 @@ public readonly record struct PronounSet(string Subject, string Object, string P
 {
     #region Predefined
     public static readonly PronounSet IMe = new("I", "me", "my", "I'm", "I've", "myself");
+    public static readonly PronounSet You = new("You", "you", "your", "you're", "you've", "yourself");
     public static readonly PronounSet HeHim = new("he", "him", "his", "he's", "he's", "himself");
     public static readonly PronounSet SheHer = new("she", "her", "her", "she's", "she's", "herself");
     public static readonly PronounSet TheyThem = new("they", "them", "their", "they're", "they've", "themself");
@@ -23,7 +24,7 @@ public readonly record struct PronounSet(string Subject, string Object, string P
     public static readonly PronounSet ItIts = new("it", "it", "its", "it's", "it's", "itself");
     #endregion Predefined
 
-    public static List<PronounSet> DefinedSets = [IMe, HeHim, SheHer, TheyThem, TheyThemPlural, ItIts];
+    public static List<PronounSet> DefinedSets = [IMe, You, HeHim, SheHer, TheyThem, TheyThemPlural, ItIts];
 
     public readonly string[] Parts = [Subject, Object, Possessive, IsContraction, HasContraction, Reflexive];
     public override string ToString() => string.Join("/", Parts);

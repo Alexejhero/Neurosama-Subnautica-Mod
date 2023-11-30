@@ -17,7 +17,4 @@
 
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
-    <!-- solution-wide gitignored user-defined props/targets -->
-    <Import Project="Common.props.user" Condition="Exists('Common.props.user')" />
-    <Import Project="Common.targets.user" Condition="Exists('Common.targets.user')" />
 </Project>

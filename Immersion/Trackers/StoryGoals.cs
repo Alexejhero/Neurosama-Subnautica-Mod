@@ -23,11 +23,8 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
 
     public void NotifyGoalComplete(string key)
     {
-#warning development
-        {
-            if (key == "OnPDAClosed") return;
-            LOGGER.LogWarning($"Completed {key}");
-        }
+        if (key == "OnPDAClosed") return;
+        LOGGER.LogDebug($"Completed story goal {key}");
 
         if (TryGetDescription(key, out string description))
         {
@@ -38,12 +35,12 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
     public void NotifyGoalReset(string key)
     {
         // goals can only be reset with console commands
-        LOGGER.LogWarning($"Reset {key}");
+        LOGGER.LogDebug($"Reset story goal {key}");
     }
     // called when loading game
     public void NotifyGoalsDeserialized()
     {
-        LOGGER.LogWarning($"Deserialized");
+        LOGGER.LogDebug($"Deserialized story goals");
         // send "story so far"? (probably not)
     }
 
