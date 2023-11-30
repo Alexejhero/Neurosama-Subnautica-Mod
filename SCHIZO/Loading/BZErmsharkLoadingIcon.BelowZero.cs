@@ -100,7 +100,7 @@ partial class BZErmsharkLoadingIcon
         isOurs = false;
     }
 
-#if DEBUG
+#if DEBUG_LOADING_SCREEN
     public void Update()
     {
         if (GameModeManager.gameModePresets is not { Count: > 0 })
