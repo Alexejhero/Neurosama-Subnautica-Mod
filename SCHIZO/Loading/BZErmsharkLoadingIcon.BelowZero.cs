@@ -1,5 +1,3 @@
-//#warning DEBUG
-//#define DEBUG
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -13,9 +11,9 @@ namespace SCHIZO.Loading;
 [HarmonyPatch]
 partial class BZErmsharkLoadingIcon
 {
-    partial struct Animation
+    partial struct FrameAnimation
     {
-        public static implicit operator BZAnimation(Animation anim)
+        public static implicit operator BZAnimation(FrameAnimation anim)
             => new() { from = anim.from, to = anim.to };
     }
 
@@ -26,6 +24,7 @@ partial class BZErmsharkLoadingIcon
     private float[] ourFramerates;
 
     private BZAnimation[] originalAnimations;
+    private AnimationCurve originalSpeedCurve;
     private Texture originalTexture;
     private float originalTextureWidth;
     private int originalRows;
@@ -56,6 +55,7 @@ partial class BZErmsharkLoadingIcon
         originalAnimations = loadingScreen.animations;
         originalTexture = loadingScreen.pengling.mainTexture;
         originalTextureWidth = loadingScreen.textureWidth;
+        originalSpeedCurve = loadingScreen.speedCurve;
         originalRows = loadingScreen.rows;
         originalCols = loadingScreen.cols;
 
@@ -75,6 +75,7 @@ partial class BZErmsharkLoadingIcon
         loadingScreen.materialPengling.mainTexture = texture;
         loadingScreen.pengling.texture = texture;
         loadingScreen.textureWidth = texture.width;
+        loadingScreen.speedCurve = movingLoopSpeedCurve;
         rectTransform.sizeDelta = new Vector2(0, ourSpriteDimensions.y);
         loadingScreen.rows = rows;
         loadingScreen.cols = columns;
@@ -90,6 +91,7 @@ partial class BZErmsharkLoadingIcon
         loadingScreen.materialPengling.mainTexture = originalTexture;
         loadingScreen.pengling.texture = originalTexture;
         loadingScreen.textureWidth = originalTextureWidth;
+        loadingScreen.speedCurve = originalSpeedCurve;
         rectTransform.sizeDelta = new Vector2(0, originalSpriteDimensions.y);
         loadingScreen.rows = originalRows;
         loadingScreen.cols = originalCols;
@@ -130,6 +132,10 @@ partial class BZErmsharkLoadingIcon
         if (!Patch2_WaitForIdleLoopToStartMoving(matcher))
             LOGGER.LogFatal("Could not apply patch 2 (wait for idle anim loop before moving) to uGUI_SceneLoading.OnUpdate!");
 
+        matcher.Start();
+        if (!Patch3_CheckSpeedCurveOnMovingLoop(matcher))
+            LOGGER.LogFatal("Could not apply patch 3 (moving loop speed curve) to uGUI_SceneLoading.OnUpdate!");
+
         return matcher.InstructionEnumeration();
     }
 
@@ -163,8 +169,27 @@ partial class BZErmsharkLoadingIcon
         matcher.Advance(1);
         matcher.InsertAndAdvance(
             new CodeInstruction(OpCodes.Ldarg_0),
-            new CodeInstruction(OpCodes.Call, new Func<uGUI_SceneLoading, bool>(HasAnimJustLooped).Method),
+            new CodeInstruction(OpCodes.Call, new Func<uGUI_SceneLoading, bool>(CallHasAnimJustLooped).Method),
             new CodeInstruction(OpCodes.Brfalse, breakLabel)
+        );
+        return true;
+    }
+
+    private static bool Patch3_CheckSpeedCurveOnMovingLoop(CodeMatcher matcher)
+    {
+        // patch 3 - call the "check loop" function at the start of the "Move" state branch of the switch statement
+        // so we can restore the normal speed curve from the animation workaround
+        matcher.MatchForward(false,
+            new CodeMatch(OpCodes.Ldarg_0),
+            new CodeMatch(OpCodes.Ldfld, AccessTools.Field(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.speed)))
+        );
+        if (!matcher.IsValid) return false;
+
+        matcher.Insert(
+            new CodeInstruction(OpCodes.Ldarg_0)
+                .MoveLabelsFrom(matcher.Instruction),
+            new CodeInstruction(OpCodes.Call, new Func<uGUI_SceneLoading, bool>(CallHasAnimJustLooped).Method),
+            new CodeInstruction(OpCodes.Pop)
         );
         return true;
     }
@@ -174,17 +199,17 @@ partial class BZErmsharkLoadingIcon
     private static bool CustomIconAnimFramerate(out float __result)
     {
         __result = 0;
-        if (!instance.isOurs) return true;
+        if (!instance || !instance.isOurs) return true;
 
-        // technically a sin... but get_duration is only called inside Update
-        Animation ourAnim = (int)instance.loadingScreen.state switch
+        // technically a sin... but get_duration is only ever called inside Update
+        FrameAnimation ourAnim = (int)instance.loadingScreen.state switch
         {
             0 => instance.idle,
             1 => instance.moving,
             2 => instance.stopping,
             _ => default,
         };
-        if (ourAnim.framerate == 0) return true;
+        if (ourAnim.framerate == default) return true;
 
         __result = ourAnim.frameCount / ourAnim.framerate;
         return false;
@@ -193,15 +218,34 @@ partial class BZErmsharkLoadingIcon
     private static float GetMoveThresholdProportion()
         => instance && instance.isOurs ? _prop : 0.8f;
 
-    private static bool HasAnimJustLooped(uGUI_SceneLoading loading)
+    private static bool CallHasAnimJustLooped(uGUI_SceneLoading loading)
     {
-        if (!instance || !instance.isOurs) return true;
+        if (!instance) return true;
+
+        bool looped = instance.HasAnimJustLooped(loading);
+        if (looped && instance.isOurs)
+        {
+            // awful awful code
+            loading.speedCurve = loading.state == uGUI_SceneLoading.State.Idle
+                ? instance.idleToMovingSpeedCurve
+                : instance.movingLoopSpeedCurve;
+        }
+        return looped;
+    }
+
+    private int _lastFrame;
+    private bool HasAnimJustLooped(uGUI_SceneLoading loading)
+    {
+        if (!isOurs) return true;
+
         BZAnimation anim = loading.animations[(int) loading.state];
         int frame = GetCurrentFrame(anim, loading.time);
+        bool hasLooped = frame < _lastFrame && _lastFrame <= anim.to;
+        _lastFrame = frame;
 
-        return frame == anim.from || frame == anim.to; // leeway of one frame on the loop
+        return hasLooped;
     }
 
     private static int GetCurrentFrame(BZAnimation anim, float time)
-        => anim.from + (int)((time / anim.duration) * anim.total);
+        => anim.from + (int)((time / anim.duration) * (anim.to - anim.from));
 }

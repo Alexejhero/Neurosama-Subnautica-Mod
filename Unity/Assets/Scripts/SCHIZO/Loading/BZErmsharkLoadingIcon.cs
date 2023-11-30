@@ -1,11 +1,13 @@
 using System;
 using TriInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SCHIZO.Loading
 {
     [DeclareBoxGroup("Sprite sheet")]
     [DeclareBoxGroup("Animations")]
+    [DeclareBoxGroup("Other properties")]
     public sealed partial class BZErmsharkLoadingIcon : MonoBehaviour
     {
         [Required, GroupNext("Sprite sheet")]
@@ -14,18 +16,23 @@ namespace SCHIZO.Loading
         public int columns;
         
         [GroupNext("Animations")]
-        public Animation idle;
-        public Animation moving;
-        public Animation stopping;
+        public FrameAnimation idle;
+        public FrameAnimation moving;
+        public FrameAnimation stopping;
+
+        [GroupNext("Other properties")]
+        [InfoBox("Speed modifier evaluated on (time / duration). Applies only to the Moving animation.")]
+        public AnimationCurve movingLoopSpeedCurve;
+        public AnimationCurve idleToMovingSpeedCurve;
         [Serializable]
-        public partial struct Animation
+        public partial struct FrameAnimation
         {
             public int from;
             public int to;
             public float framerate = 18;
             public readonly int frameCount => to - from + 1;
 
-            public Animation() {} // required by compiler
+            public FrameAnimation() {} // required by compiler
         }
     }
 }
