@@ -21,20 +21,18 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
         StoryGoalManager.main.AddListener(this);
     }
 
-    private static readonly HashSet<string> ShutUpAboutOnPDAClosed = new(StoryGoal.KeyComparer)
-    {
-        "OnPDAClosed"
-    };
-
     public void NotifyGoalComplete(string key)
     {
-        if (ShutUpAboutOnPDAClosed.Contains(key)) return;
-        LOGGER.LogWarning($"Completed {key}");
+#warning development
+        {
+            if (key == "OnPDAClosed") return;
+            LOGGER.LogWarning($"Completed {key}");
+        }
 
         if (TryGetDescription(key, out string description))
         {
             description = Format.FormatPlayer(description);
-            React(Priority.Low, new { description });
+            React(Priority.Low, description);
         }
     }
     public void NotifyGoalReset(string key)

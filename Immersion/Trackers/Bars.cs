@@ -1,3 +1,5 @@
+using Immersion.Formatting;
+
 namespace Immersion.Trackers;
 
 public sealed class Bars : Tracker
@@ -12,6 +14,9 @@ public sealed class Bars : Tracker
 
     private class Bar(string name, Func<float> valueGetter, Func<float> maxValueGetter, float critical, float low)
     {
+        public Bar(string name, Func<float> valueGetter, float maxValue, float critical, float low)
+            : this(name, valueGetter, () => maxValue, critical, low)
+        { }
         public string Name { get; set; } = name;
         public (float Critical, float Low) Thresholds { get; set; } = (critical, low);
         public float Value => valueGetter();
@@ -35,10 +40,22 @@ public sealed class Bars : Tracker
         base.Awake();
 
         bars = [
-            new Bar("health", () => liveMixin.health, () => liveMixin.maxHealth, 0.25f, 0.5f),
-            new Bar("food", () => survival.food, () => 100, 0.1f, 0.3f),
-            new Bar("water", () => survival.water, () => 100, 0.2f, 0.4f),
-            new Bar("body temperature", () => bodyTemp.currentBodyHeatValue, () => bodyTemp.maxBodyHeatValue, 0.1f, 0.25f),
+            new Bar("health",
+                valueGetter: () => liveMixin.health,
+                maxValueGetter: () => liveMixin.maxHealth,
+                critical: 0.25f, low: 0.5f),
+            new Bar("food",
+                valueGetter: () => survival.food,
+                maxValue: 100,
+                critical: 0.1f, low: 0.3f),
+            new Bar("water",
+                valueGetter: () => survival.water,
+                maxValue: 100,
+                critical: 0.2f, low: 0.4f),
+            new Bar("body temperature",
+                valueGetter: () => bodyTemp.currentBodyHeatValue,
+                maxValueGetter: () => bodyTemp.maxBodyHeatValue,
+                critical: 0.1f, low: 0.25f),
             // it's also possible to track things like the currently equipped tool's energy charge
         ];
     }
@@ -90,12 +107,13 @@ public sealed class Bars : Tracker
 
     private void Notify(string property, BarState state)
     {
-        React(state > BarState.Low ? Priority.High : Priority.Low, $"{Globals.PlayerName}'s {property} is {FormatState(state)}.");
+        string message = Format.FormatPlayer($"{{player}}'s {property} is {FormatState(state)}.");
+        React(state > BarState.Low ? Priority.High : Priority.Low, message);
     }
 
     private void NotifyDeath()
     {
-        React(Priority.High, $"{Globals.PlayerName} has died.");
+        React(Priority.High, Format.FormatPlayer("{player} has died."));
     }
 
     private string FormatState(BarState state)

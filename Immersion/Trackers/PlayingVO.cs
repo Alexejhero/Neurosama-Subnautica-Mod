@@ -2,7 +2,7 @@ namespace Immersion.Trackers;
 
 public sealed class PlayingVO : Tracker
 {
-    private const string ENDPOINT = "playingVO";
+    internal const string ENDPOINT = "playingVO";
     // SN ency logs don't use subtitles
     private SoundQueue Sounds => PDASounds.queue;
     // some specific BZ cutscenes don't use SoundQueue
@@ -35,7 +35,7 @@ public sealed class PlayingVO : Tracker
     // public float TimeLeftNext() => Subtitles?.messages.Select(TimeLeft).FirstOrFallback(0) ?? 0;
     // public float TimeLeftAll() => Subtitles?.messages.Sum(TimeLeft) ?? 0;
 
-    private void Send(bool isPlaying)
+    internal void Send(bool isPlaying)
     {
         Send(ENDPOINT, new { playing = isPlaying });        
     }

@@ -1,11 +1,14 @@
-using HarmonyLib;
 using Nautilus.Utility;
 
 namespace Immersion.Trackers;
 
+/// <summary>
+/// Base class for components that track the game's state and report events.
+/// </summary>
+/// <remarks>Subclasses should be <see langword="sealed" />.</remarks>
 public abstract class Tracker : MonoBehaviour
 {
-    protected enum Priority
+    protected internal enum Priority
     {
         Low,
         High,
@@ -18,6 +21,11 @@ public abstract class Tracker : MonoBehaviour
         get => PlayerPrefsExtra.GetBool(startEnabledPrefsKey, true);
         set => PlayerPrefsExtra.SetBool(startEnabledPrefsKey, value);
     }
+
+    /// <summary>
+    /// Force the next <see cref="Send"/> or <see cref="React"/> call to proceed even if the component is disabled.
+    /// </summary>
+    public bool forceNext;
 
     static Tracker()
     {
@@ -37,14 +45,16 @@ public abstract class Tracker : MonoBehaviour
 
     protected void Send(string path, object data = null)
     {
-        if (!enabled) return;
+        if (!enabled && !forceNext) return;
+        forceNext = false;
 
         _ = sender.Send(path, data);
     }
 
-    protected void React(Priority priority, object data = null)
+    protected internal void React(Priority priority, object data = null)
     {
-        if (!enabled) return;
+        if (!enabled && !forceNext) return;
+        forceNext = false;
 
         string endpoint = PickEndpoint(priority);
         if (endpoint == null) return;
@@ -52,7 +62,7 @@ public abstract class Tracker : MonoBehaviour
         _ = sender.Send(endpoint, data);
     }
 
-    private string PickEndpoint(Priority priority)
+    internal static string PickEndpoint(Priority priority)
         => priority switch
         {
             Priority.Low => "non-priority",

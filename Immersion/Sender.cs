@@ -8,6 +8,11 @@ internal class Sender : MonoBehaviour
     private static object _empty = new();
     private static HttpClient _client;
 
+    /// <summary>
+    /// Force the next <see cref="Send"/> call to proceed even if the component is disabled.
+    /// </summary>
+    public bool forceNext;
+
     public void Awake()
     {
         _client = new HttpClient { BaseAddress = new Uri(Globals.BaseUrl) };
@@ -16,7 +21,8 @@ internal class Sender : MonoBehaviour
 
     public async Task Send(string path, object data = null)
     {
-        if (!enabled) return;
+        if (!enabled && !forceNext) return;
+        forceNext = false;
 
         string dataJson = JsonConvert.SerializeObject(data ?? _empty);
 
