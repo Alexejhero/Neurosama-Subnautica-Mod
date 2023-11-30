@@ -47,7 +47,7 @@ partial class BZErmsharkLoadingIcon
             Destroy(this);
             return;
         }
-        /// these correspond to the <see cref="uGUI_SceneLoading.State"/>
+        /// indices correspond to <see cref="uGUI_SceneLoading.State"/>
         ourAnimations = [idle, moving, stopping];
         rectTransform = loadingScreen.pengling.rectTransform;
         rectParent = (RectTransform) rectTransform.parent;
@@ -109,9 +109,9 @@ partial class BZErmsharkLoadingIcon
             GameModeManager.SetGameOptions(GameModePresetId.Custom);
         loadingScreen.debug = true;
         SetOurs();
-        bool l = !Input.GetKey(KeyCode.LeftShift);
-        loadingScreen.loadingBackground.SetState(l);
-        loadingScreen.isLoading = l;
+        bool show = !Input.GetKey(KeyCode.LeftShift);
+        loadingScreen.loadingBackground.SetState(show);
+        loadingScreen.isLoading = show;
         if (Input.GetKey(KeyCode.RightArrow))
             loadingScreen.debugProgress += Time.unscaledDeltaTime * 0.25f;
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -142,9 +142,7 @@ partial class BZErmsharkLoadingIcon
     private static bool Patch1_SmallerThresholdToStartMoving(CodeMatcher matcher)
     {
         // patch 1 - smaller gap to start moving from idle (it's a proportion of the sprite width)
-        matcher.MatchForward(true,
-            new CodeMatch(OpCodes.Ldc_R4, 0.8f)
-        );
+        matcher.MatchForward(false, new CodeMatch(OpCodes.Ldc_R4, 0.8f));
         if (!matcher.IsValid) return false;
         
         matcher.Set(OpCodes.Call, new Func<float>(GetMoveThresholdProportion).Method);
@@ -158,7 +156,7 @@ partial class BZErmsharkLoadingIcon
             // if (moveThreshold > this.position + spriteWidth)
             new CodeMatch(OpCodes.Ldloc_3),
             new CodeMatch(OpCodes.Ldarg_0),
-            new CodeMatch(OpCodes.Ldfld, AccessTools.Field(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.position))), // we technically don't need the FieldInfo
+            new CodeMatch(OpCodes.Ldfld),
             new CodeMatch(OpCodes.Ldloc_1),
             new CodeMatch(OpCodes.Add),
             new CodeMatch(OpCodes.Ble_Un)
@@ -214,9 +212,8 @@ partial class BZErmsharkLoadingIcon
         __result = ourAnim.frameCount / ourAnim.framerate;
         return false;
     }
-    private static float _prop = 0.4f;
     private static float GetMoveThresholdProportion()
-        => instance && instance.isOurs ? _prop : 0.8f;
+        => instance && instance.isOurs ? 0.5f : 0.8f;
 
     private static bool CallHasAnimJustLooped(uGUI_SceneLoading loading)
     {

@@ -1,7 +1,6 @@
 using System;
 using TriInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SCHIZO.Loading
 {
@@ -29,10 +28,8 @@ namespace SCHIZO.Loading
         {
             public int from;
             public int to;
-            public float framerate = 18;
+            public float framerate;
             public readonly int frameCount => to - from + 1;
-
-            public FrameAnimation() {} // required by compiler
         }
     }
 }
