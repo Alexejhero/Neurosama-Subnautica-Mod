@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using UnityEngine;
 
 namespace SCHIZO.Patches;
@@ -9,7 +9,7 @@ public static class FixAquariumCollisionsPatch
     [HarmonyPatch(typeof(DealDamageOnImpact), nameof(DealDamageOnImpact.OnCollisionEnter))]
     [HarmonyPrefix]
     public static bool FixAquariumCollisionDamage(DealDamageOnImpact __instance, Collision collision)
-        => __instance.gameObject.GetComponent<SubRoot>() && !collision.gameObject.GetComponent<Aquarium>();
+        => !__instance.gameObject.GetComponent<SubRoot>() || !collision.gameObject.GetComponent<Aquarium>();
 
     [HarmonyPatch(typeof(SubRoot), nameof(SubRoot.OnCollisionEnter))]
     [HarmonyPrefix]
