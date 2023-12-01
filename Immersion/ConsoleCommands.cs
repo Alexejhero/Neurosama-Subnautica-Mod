@@ -1,4 +1,3 @@
-using HarmonyLib;
 using Immersion.Formatting;
 using Immersion.Trackers;
 using Nautilus.Commands;
@@ -86,7 +85,14 @@ internal class ConsoleCommands : MonoBehaviour
             else
             {
                 if (Tracker.trackerTypes.TryGetValue(typeName, out Type type))
+                {
                     SetComponentEnabled(type, enable);
+                    LOGGER.LogDebug($"{(enable ? "enable" : "disable")}d {typeName}");
+                }
+                else
+                {
+                    LOGGER.LogDebug($"{typeName} not found");
+                }
             }
         }
 

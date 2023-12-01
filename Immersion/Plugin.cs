@@ -2,7 +2,6 @@ global using static Immersion.Plugin;
 using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
-using HarmonyLib;
 using Immersion.Trackers;
 
 namespace Immersion;

@@ -1,12 +1,13 @@
-using HarmonyLib;
 using Immersion.Trackers;
+using Nautilus.Extensions;
 
 namespace Immersion.Patches;
 
 [HarmonyPatch]
 public static class CreatureEncounterPatches
 {
-    private static CreatureEncounters Encounters => COMPONENT_HOLDER.GetComponent<CreatureEncounters>();
+#nullable enable
+    private static CreatureEncounters? Encounters => COMPONENT_HOLDER.GetComponent<CreatureEncounters>().Exists();
 
     [HarmonyPatch(typeof(SpikeyTrapAttachTarget), nameof(SpikeyTrapAttachTarget.Attach))]
     [HarmonyPostfix]
@@ -14,14 +15,14 @@ public static class CreatureEncounterPatches
     {
         if (__instance.player != Player.main) return;
 
-        Encounters.NotifyCreatureEncounter(TechType.SpikeyTrap);
+        Encounters?.NotifyCreatureEncounter(TechType.SpikeyTrap);
     }
 
     [HarmonyPatch(typeof(PlayerLilyPaddlerHypnosis), nameof(PlayerLilyPaddlerHypnosis.StartHypnosis))]
     [HarmonyPostfix]
     public static void NotifyLilyPaddlerHypnosis()
     {
-        Encounters.NotifyCreatureEncounter(TechType.LilyPaddler);
+        Encounters?.NotifyCreatureEncounter(TechType.LilyPaddler);
     }
 
     [HarmonyPatch(typeof(IceWormJumpScareTrigger), nameof(IceWormJumpScareTrigger.InvokeJumpScareEvent))]
@@ -30,6 +31,6 @@ public static class CreatureEncounterPatches
     {
         if (!__instance.used) return;
 
-        Encounters.NotifyCreatureEncounter(TechType.IceWorm);
+        Encounters?.NotifyCreatureEncounter(TechType.IceWorm);
     }
 }

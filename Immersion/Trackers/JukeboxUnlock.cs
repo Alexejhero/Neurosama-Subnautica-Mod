@@ -1,4 +1,3 @@
-using HarmonyLib;
 using Immersion.Formatting;
 
 namespace Immersion.Trackers;
