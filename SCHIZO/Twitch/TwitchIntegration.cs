@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using Nautilus.Commands;
@@ -22,9 +23,11 @@ partial class TwitchIntegration
 
     private TwitchClient _client;
     private readonly ConcurrentQueue<string> _msgQueue = new();
+    private HashSet<string> _allowedUsersSet;
 
     private void Awake()
     {
+        _allowedUsersSet = new(whitelistedUsers, StringComparer.OrdinalIgnoreCase);
         ClientOptions clientOptions = new()
         {
             MessagesAllowedInPeriod = 750,
@@ -69,7 +72,7 @@ partial class TwitchIntegration
 
     private bool IsUserWhitelisted(string username)
     {
-        return whitelistedUsers.Any(user => user.Equals(username, StringComparison.InvariantCultureIgnoreCase));
+        return _allowedUsersSet.Contains(username);
     }
 
     private bool CheckPrefix(string message)
@@ -79,7 +82,7 @@ partial class TwitchIntegration
 
     private void FixedUpdate()
     {
-        if (_msgQueue.Count > 0 && _msgQueue.TryDequeue(out string message)) HandleMessage(message);
+        if (_msgQueue.TryDequeue(out string message)) HandleMessage(message);
     }
 
     private static void HandleMessage(string message)

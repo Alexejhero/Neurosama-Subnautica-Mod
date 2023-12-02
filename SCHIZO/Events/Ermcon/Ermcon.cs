@@ -33,8 +33,8 @@ public partial class Ermcon
     private void Start()
     {
         instance = this;
-        conMembers = new List<ErmconAttendee>();
-        targets = new HashSet<ErmconPanelist>();
+        conMembers = [];
+        targets = [];
         // let's not wait the whole cooldown on load
         _eventEndTime = -cooldown / 2;
 
@@ -123,7 +123,7 @@ public partial class Ermcon
             return;
         }
         LOGGER.LogMessage($"The upcoming Ermcon will be visited by {totalAttendance} afficionados");
-        conMembers.AddRange(erms.Take(totalAttendance));
+        conMembers = erms.Take(totalAttendance).ToList();
         conMembers.ForEach(erm => erm.enabled = true);
 
         _eventEndTime = Time.time + maxDuration;
@@ -136,11 +136,9 @@ public partial class Ermcon
         targets.Clear();
         foreach (ErmconAttendee ermEnthusiast in conMembers)
         {
-            if (!ermEnthusiast) continue;
-            ermEnthusiast.enabled = false;
+            if (ermEnthusiast) ermEnthusiast.enabled = false;
         }
         conMembers.Clear();
-
 
         _eventEndTime = Time.time;
         _isOccurring = false;

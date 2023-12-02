@@ -16,7 +16,7 @@ public partial class ErmconAttendee : IHandTarget
         new Keyframe(90f, 20f),
         new Keyframe(120f, 1000f)
     );
-    private List<(HandTarget target, bool wasEnabled)> _otherHandTargets;
+    private List<HandTarget> _disabledHandTargets;
 
     /// <summary>
     /// A value that increases the longer the creature is focused on one target.<br/>
@@ -68,8 +68,8 @@ public partial class ErmconAttendee : IHandTarget
         LogSelf($"enabled\npatience: {patience}");
         creature.actions.Clear();
         creature.actions.Add(this);
-        _otherHandTargets = GetComponents<HandTarget>().Select(ht => (ht, ht.enabled)).ToList();
-        _otherHandTargets.ForEach(pair => pair.target.enabled = false);
+        _disabledHandTargets = GetComponents<HandTarget>().Where(ht => ht.enabled).ToList();
+        _disabledHandTargets.ForEach(ht => ht.enabled = false);
     }
 
     public void OnDisable()
@@ -79,7 +79,7 @@ public partial class ErmconAttendee : IHandTarget
         _visited.Clear();
         creature.ScanCreatureActions();
         creature.GetComponent<SwimBehaviour>().LookForward();
-        _otherHandTargets.ForEach(pair => pair.target.enabled = pair.wasEnabled);
+        _disabledHandTargets.ForEach(ht => ht.enabled = true);
     }
 
     public void OnTargetRemoved(GameObject removedBy)

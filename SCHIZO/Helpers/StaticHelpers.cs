@@ -64,7 +64,7 @@ partial class StaticHelpers
     private static void Cache(string fieldOrPropertyColonName)
     {
         string[] splits = fieldOrPropertyColonName.Split(':');
-        Type type = AccessTools.TypeByName(splits[0]);
+        Type type = ReflectionCache.GetType(splits[0]);
 
         FieldInfo f = type.GetField(splits[1], BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
 

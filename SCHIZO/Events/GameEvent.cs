@@ -4,10 +4,10 @@ using Story;
 namespace SCHIZO.Events;
 public partial class GameEvent : IStoryGoalListener
 {
-    public record StoryGoals(GameEvent evt)
+    public readonly record struct StoryGoals(GameEvent evt)
     {
-        public string Unlock => $"{evt.Name}.UnlockedAutoStart";
-        public string FirstTime => $"{evt.Name}.FirstTime";
+        public readonly string Unlock => $"{evt.EventName}.UnlockedAutoStart";
+        public readonly string FirstTime => $"{evt.EventName}.FirstTime";
     }
     public abstract bool IsOccurring { get; }
     public bool IsFirstTime { get; private set; } = true;
@@ -16,7 +16,7 @@ public partial class GameEvent : IStoryGoalListener
     protected string RequiredStoryGoal => RetargetHelpers.Pick(requiredStoryGoal_SN, requiredStoryGoal_BZ);
     protected bool IsUnlocked { get; private set; }
     public StoryGoals Goals { get; private set; }
-    public string Name => GetType().Name;
+    public string EventName => GetType().Name;
 
     protected void Awake()
     {
@@ -24,20 +24,26 @@ public partial class GameEvent : IStoryGoalListener
         player = Player.main;
 
         StoryGoalManager.main.AddListener(this);
-        if (StoryGoalHelpers.IsCompleted(Goals.FirstTime)) IsFirstTime = false;
     }
 
     #region Unlock goals
-    // TODO: can/should this be improved?
     public void NotifyGoalComplete(string goal)
     {
         if (string.Equals(goal, RequiredStoryGoal, System.StringComparison.OrdinalIgnoreCase))
             Unlock();
     }
 
-    public void NotifyGoalReset(string key) => Lock();
+    public void NotifyGoalReset(string goal)
+    {
+        if (string.Equals(goal, RequiredStoryGoal, System.StringComparison.OrdinalIgnoreCase))
+            Lock();
+    }
 
-    public void NotifyGoalsDeserialized() { }
+    public void NotifyGoalsDeserialized()
+    {
+        if (StoryGoalHelpers.IsCompleted(Goals.FirstTime)) IsFirstTime = false;
+        if (StoryGoalHelpers.IsCompleted(Goals.Unlock)) IsUnlocked = true;
+    }
 
     public void Unlock()
     {
@@ -59,19 +65,19 @@ public partial class GameEvent : IStoryGoalListener
 
     public virtual void StartEvent()
     {
-        string firstTimeMsg = "";
+        string msg = $"{EventName} started";
         IsFirstTime = !StoryGoalHelpers.IsCompleted(Goals.FirstTime);
         if (IsFirstTime)
         {
             StoryGoalHelpers.Trigger(Goals.FirstTime);
-            firstTimeMsg = " (first time)";
+            msg += " (first time)";
         }
-        LOGGER.LogMessage($"{Name} started{firstTimeMsg}");
+        LOGGER.LogMessage(msg);
     }
 
     public virtual void EndEvent()
     {
-        LOGGER.LogMessage($"{Name} ended");
+        LOGGER.LogMessage($"{EventName} ended");
     }
 
     /// <summary>

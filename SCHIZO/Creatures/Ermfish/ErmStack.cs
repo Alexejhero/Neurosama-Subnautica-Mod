@@ -92,8 +92,8 @@ public sealed partial class ErmStack
         {
             return PhysicsHelpers.ObjectsInRange(gameObject.transform.position, 20f)
                 .OfTechType(selfTechType)
-                .OrderByDistanceTo(gameObject.transform.position)
                 .SelectComponentInParent<ErmStack>()
+                .OrderByDistanceTo(gameObject.transform.position)
                 .FirstOrDefault(s => !s.nextSocket && s != this);
         }
     }
@@ -140,7 +140,7 @@ public sealed partial class ErmStack
     public bool Connect(ErmStack node, bool nodeIsPlug) => nodeIsPlug ? Connect(node, this) : Connect(this, node);
     public void Disconnect(bool plugSide = true) => Disconnect(this, plugSide);
 
-    public bool ShouldAttach(Carryable plug, CarryCreature socket)
+    public bool ShouldAttach(Carryable _, CarryCreature socket)
     {
         ErmStack socketStack = socket.GetComponent<ErmStack>();
         if (!socketStack) return true;

@@ -23,6 +23,7 @@ public static class CustomJukeboxTrackPatches
     {
         CoroutineHost.StartCoroutine(GetJukeboxDiskPrefab());
         CoroutineHost.StartCoroutine(InitJukebox());
+        SaveUtils.RegisterOnQuitEvent(() => CoroutineHost.StartCoroutine(InitJukebox()));
     }
     private static IEnumerator GetJukeboxDiskPrefab()
     {
