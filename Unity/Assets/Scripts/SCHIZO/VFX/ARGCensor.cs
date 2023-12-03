@@ -18,7 +18,7 @@ public class ARGCensor : MonoBehaviour
     {
         _ = SchizoVFXStack.VFXStack;
 
-        texture2DArray = VFXMaterialHolder.instance.t2dArrayForARGEffect.array;
+        texture2DArray = VFXMaterialHolder.instance.t2dArrayForARGEffect;
 
         matPassID = new MatPassID(Effects.ARGCensor);
         matPassID.SetTexture("_Images", texture2DArray);
