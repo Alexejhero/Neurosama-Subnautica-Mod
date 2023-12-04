@@ -4,6 +4,8 @@ using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using ECCLibrary;
+using FMOD;
+using FMODUnity;
 using HarmonyLib;
 using SCHIZO.ConsoleCommands;
 using SCHIZO.Helpers;
@@ -28,6 +30,14 @@ public sealed class Plugin : BaseUnityPlugin
         HARMONY = new Harmony("SCHIZO");
 
         ResourceManager.InjectAssemblies();
+        byte[] fmodBank = ResourceManager.GetEmbeddedBytes("SCHIZO.bank", true);
+        RESULT res = RuntimeManager.StudioSystem.loadBankMemory(fmodBank, FMOD.Studio.LOAD_BANK_FLAGS.NORMAL, out FMOD.Studio.Bank bank);
+        res.CheckResult();
+        if (!bank.hasHandle())
+        {
+            LOGGER.LogError($"Could not load FMOD bank");
+            throw new BankLoadException("SCHIZO.bank", res);
+        }
 
         HARMONY.PatchAll();
     }

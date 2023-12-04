@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -41,7 +41,7 @@ public static class ResourceManager
         return Cache(targetedName, assembly);
     }
 
-    private static byte[] GetEmbeddedBytes(string name, bool throwIfNotFound)
+    internal static byte[] GetEmbeddedBytes(string name, bool throwIfNotFound)
     {
         string path = _assembly.GetManifestResourceNames().FirstOrDefault(n => n.Contains(name));
         if (path == null) return !throwIfNotFound ? null : throw new FileNotFoundException($"Embedded resource {name} not found");
