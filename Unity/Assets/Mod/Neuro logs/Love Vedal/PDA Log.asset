@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: vo_pda_neuro_lovevedal
   encyData: {fileID: 11400000, guid: ace79d4387191d14f95f12def17ef812, type: 2}
-  logVO: {fileID: 11400000, guid: 4d47c2786d916d143a9fd70de9ad7439, type: 2}
+  logVO: event:/SCHIZO/ency/pda_neuro_lovevedal
   subtitles: {fileID: 11400000, guid: d1bd66067ffd7ac458d241050ae69d89, type: 2}
   spawns:
   - game: 1

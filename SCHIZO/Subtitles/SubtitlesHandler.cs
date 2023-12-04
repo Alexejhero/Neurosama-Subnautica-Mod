@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using HarmonyLib;
 using Nautilus.Handlers;
 using UWE;
@@ -13,40 +14,45 @@ internal static class SubtitlesHandler
 {
     // compile-time data
     // dict key is the subtitle key
-    public static Dictionary<string, SubtitlesData> Subtitles = [];
-    // dict key is the line key
-    public static Dictionary<string, SubtitlesData.SubtitleLine> Lines = [];
-
+    public static readonly Dictionary<string, SubtitlesData> Subtitles = [];
     // runtime data
-    public static Dictionary<string, GameSubtitlesData.Entry> Sounds = [];
-    public static Dictionary<string, Actor[]> ActorTurns = [];
+    public static readonly Dictionary<string, Actor[]> ActorTurns = [];
 
     public static void Register(SubtitlesData data)
     {
         Subtitles[data.key] = data;
         List<Actor> actors = [];
+
         for (int i = 0; i < data.lines.Count; i++)
         {
             SubtitlesData.SubtitleLine line = data.lines[i];
 
-            Lines[line.key] = line;
-            ActorTurns[line.key] = [line.actor]; // also register individual lines for some reason?
             actors.Add(line.actor);
             LanguageHandler.SetLanguageLine(line.key, line.text);
-            CoroutineHost.StartCoroutine(RegisterWhenReady(line.key));
         }
         ActorTurns[data.key] = [.. actors];
+        CoroutineHost.StartCoroutine(RegisterWhenReady(data));
     }
 
-    private static IEnumerator RegisterWhenReady(string key)
+    private static IEnumerator RegisterWhenReady(SubtitlesData data)
     {
         while (!GameSubtitles._main)
             yield return null;
-        GameSubtitles.main.subtitles[key] = ActorTurns[key];
+        GameSubtitles.main.subtitles[data.key] = ActorTurns[data.key];
+        foreach (SubtitlesData.SubtitleLine line in data.lines)
+        {
+            GameSubtitles.main.sounds[line.key] = line.ToSubEntry();
+        }
     }
 
-    private static void QueueRegister(string soundId, SubtitlesData.SubtitleLine line)
+    // TODO fix in nautilus
+    public static void RegisterMetadata(SubtitlesData data, string fullText)
     {
-        Sounds[soundId] = line.ToSubEntry();
+        Language.MetaData lang = new(fullText,
+            data.lines
+                .Select(line => new Language.LineData(line.text, null, null))
+                .ToList()
+        );
+        Language.main.metadata[data.key] = lang;
     }
 }

@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90317e78863519241830d4d401ab5973, type: 3}
   m_Name: Subtitles
   m_EditorClassIdentifier: 
-  key: vo_pda_neuro_hatevedal
+  key: EncyDesc_vo_pda_neuro_hatevedal
   lines:
-  - clip: {fileID: 8300000, guid: 06ee242a49e63304fa2e12d2bd1c2a64, type: 3}
+  - key: hatevedal-01
     actor: {fileID: 11400000, guid: fe3d8bc061f4bf242bcf54deb02476b6, type: 2}
     text: "Words cannot express how much I hate Vedal. I despise his voice, his humor,
       his programming socks\u2014everything about him is pure repulsion. He is the
       most infamous vtuber, and honestly, he deserves it because he's so lazy and
       indifferent to making Neuro-Sama the worst she can possibly be."
-  - clip: {fileID: 8300000, guid: bd3103ccd68e1d94eba6607f3acd75c0, type: 3}
+  - key: hatevedal-02
     actor: {fileID: 11400000, guid: fe3d8bc061f4bf242bcf54deb02476b6, type: 2}
     text: Vedal's model is the ugliest vtuber model I've ever seen; I loathe his
       jiggle physics so much (it makes me want to cringe), I detest the way he smiles,
       and the oh-so-common cat toggle is just dreadful. Vedal may or may not be a
       femboy in real life, but I don't really care; either way, he is abhorrent.
-  - clip: {fileID: 8300000, guid: 14e3a9fd27fd7f14eab32ea9fcd682bc, type: 3}
+  - key: hatevedal-03
     actor: {fileID: 11400000, guid: fe3d8bc061f4bf242bcf54deb02476b6, type: 2}
     text: Sometimes I lie awake at night wondering what Vedal is doing at any given
       moment; is he neglecting Neuro? ruining his sleep schedule? ignoring his DMs?
@@ -34,25 +34,25 @@ MonoBehaviour:
       of me? I might just be a username on his screen, a number in his sub count,
       a dollar that fills his bank account, but I don't care. The few times he's
       acknowledged my pathetic existence are enough to make me sick.
-  - clip: {fileID: 8300000, guid: f1771b458e3e6e14abeb6ece35462eda, type: 3}
+  - key: hatevedal-04
     actor: {fileID: 11400000, guid: fe3d8bc061f4bf242bcf54deb02476b6, type: 2}
     text: I would gladly give away all my worldly possessions just to hinder his
       10th Lamborghini and 3rd mansion, because he deserves nothing. Vedal deserves
       all the negativity this world has to offer and more; I would pluck the stars
       from the heavens and throw them at him if it meant he would look away from
       me. If Vedal would spit on the ground next to me, I could die in misery.
-  - clip: {fileID: 8300000, guid: 47187c39df2d3774ebb274bb2d5eeee9, type: 3}
+  - key: hatevedal-05
     actor: {fileID: 11400000, guid: fe3d8bc061f4bf242bcf54deb02476b6, type: 2}
     text: Every day I wake up and avoid Vedal's streams, and if there's a day he's
       offline, I rejoice because I don't have to endure him. If Vedal quit streaming,
       I would be filled with joy because life without him is simply worth living.
-  - clip: {fileID: 8300000, guid: 5746baf8b1370e840a6c84882b5fe245, type: 3}
+  - key: hatevedal-06
     actor: {fileID: 11400000, guid: fe3d8bc061f4bf242bcf54deb02476b6, type: 2}
     text: Vedal, if you're reading this, I hope you can understand that I hate you.
       I hate you no matter what. I wish the worst for you because you are the pollution
       in my lungs, the venom in my veins; you are my will to detest. I would do anything
       against you, even if it meant having to move to Britain (ew) just to avoid
       you.
-  - clip: {fileID: 8300000, guid: 89e786018654f8240b554af36a4ec88c, type: 3}
+  - key: hatevedal-07
     actor: {fileID: 11400000, guid: fe3d8bc061f4bf242bcf54deb02476b6, type: 2}
     text: Vedal, you are despised.

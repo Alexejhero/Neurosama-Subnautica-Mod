@@ -1,3 +1,4 @@
+using FMODUnity;
 using SCHIZO.Sounds.Collections;
 using TriInspector;
 using UnityEngine;
@@ -21,6 +22,8 @@ namespace SCHIZO.Items.Data
         public string title;
         public Texture2D texture;
         public TextAsset description;
+        [EventRef]
+        public string logVO;
 
         private TriDropdownList<string> SNEncyPaths() => new()
         {

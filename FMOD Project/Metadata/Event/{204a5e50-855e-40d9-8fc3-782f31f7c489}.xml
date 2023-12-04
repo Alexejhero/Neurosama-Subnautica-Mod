@@ -73,9 +73,6 @@
 			<destination>{5dcda26a-4376-4bf1-bb4a-b70baaf62b82}</destination>
 			<destination>{194770d6-4f88-452f-89dd-627228844800}</destination>
 		</relationship>
-		<relationship name="excludedPlatforms">
-			<destination>{866b1d1c-ade9-488e-a1af-d2a458fcdfb1}</destination>
-		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{b523365e-9bd8-4498-9d9c-18ee92ef564c}</destination>
 		</relationship>
@@ -83,6 +80,9 @@
 	<object class="GroupTrack" id="{9d4d6279-ab1c-416f-b129-892bf336496e}">
 		<relationship name="modules">
 			<destination>{e5be1596-beec-4745-bebd-11af828c6367}</destination>
+		</relationship>
+		<relationship name="excludedPlatforms">
+			<destination>{866b1d1c-ade9-488e-a1af-d2a458fcdfb1}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{eafafd76-b1b9-40a0-a403-f95ada6bc829}</destination>

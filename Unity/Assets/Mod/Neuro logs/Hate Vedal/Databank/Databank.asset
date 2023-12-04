@@ -16,9 +16,9 @@ MonoBehaviour:
   unlockSprite: {fileID: 0}
   isImportantUnlock: 0
   scanSounds: {fileID: 0}
-  encyPathSN: DownloadedData/PublicDocs
+  encyPathSN: 
   encyPathBZ: DownloadedData
-  title: Unknown Transmission #6E75726F
+  title: Unknown Transmission #656C6976
   texture: {fileID: 0}
-  description: {fileID: 4900000, guid: d62e8dc395b0e084e8bd18da067749ef, type: 3}
-  logVO: event:/SCHIZO/ency/pda_neuro_lovevedal
+  description: {fileID: 4900000, guid: 1ec6630a4134f2d4cab121bd34c25455, type: 3}
+  logVO: event:/SCHIZO/ency/pda_neuro_hatevedal

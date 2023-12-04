@@ -15,4 +15,4 @@ MonoBehaviour:
   registryItems:
   - {fileID: 11400000, guid: fe3d8bc061f4bf242bcf54deb02476b6, type: 2}
   - {fileID: 11400000, guid: 1279d8da7c8e80f4cb78e2f9713583b5, type: 2}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 8a940750b864b724ea547cb1eef71715, type: 2}
