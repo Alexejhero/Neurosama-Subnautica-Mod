@@ -78,5 +78,5 @@ crashlytics-build.properties
 
 AssetBundles
 .vscode/
+# install FMOD yourself
 Assets/Plugins/FMOD*
-**/FMOD/Build
