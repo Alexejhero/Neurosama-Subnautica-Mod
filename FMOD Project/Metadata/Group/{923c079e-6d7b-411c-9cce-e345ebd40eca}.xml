@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{923c079e-6d7b-411c-9cce-e345ebd40eca}">
+		<property name="name">
+			<value>penguin_adult_above</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{ee3a6e69-32db-4c71-aa95-621364085621}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{84fcee41-a3af-4103-9b07-79e094eeab49}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{fbc2d9c6-67cb-4ca3-ba0e-f7738d018f14}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{ee3a6e69-32db-4c71-aa95-621364085621}">
+		<relationship name="effects">
+			<destination>{d29a39fb-210d-407d-9460-6e6061ca857a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{84fcee41-a3af-4103-9b07-79e094eeab49}" />
+	<object class="MixerBusFader" id="{d29a39fb-210d-407d-9460-6e6061ca857a}" />
+</objects>

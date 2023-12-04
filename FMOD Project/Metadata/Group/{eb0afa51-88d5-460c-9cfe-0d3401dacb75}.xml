@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{eb0afa51-88d5-460c-9cfe-0d3401dacb75}">
+		<property name="name">
+			<value>VO_Cave_Verb</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{d762fc9c-e879-4938-8299-a3d8e160d0dd}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{763314a7-7b33-400a-bb58-e1d1117a49da}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{9a6b160c-6a73-4c73-8c36-f307b9c7e11e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{d762fc9c-e879-4938-8299-a3d8e160d0dd}">
+		<relationship name="effects">
+			<destination>{639354b8-6695-4c76-adda-6b5ea8a23ef5}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{763314a7-7b33-400a-bb58-e1d1117a49da}" />
+	<object class="MixerBusFader" id="{639354b8-6695-4c76-adda-6b5ea8a23ef5}" />
+</objects>

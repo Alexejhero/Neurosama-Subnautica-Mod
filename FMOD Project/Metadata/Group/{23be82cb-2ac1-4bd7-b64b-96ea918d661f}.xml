@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{23be82cb-2ac1-4bd7-b64b-96ea918d661f}">
+		<property name="name">
+			<value>lost_river_background_music</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{976b1b07-5004-4b36-9c49-688be2d78baa}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{83116ef1-3733-4478-97b5-0fbba7860368}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{c723021b-45b9-41c5-9946-046e470b180f}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{976b1b07-5004-4b36-9c49-688be2d78baa}">
+		<relationship name="effects">
+			<destination>{9ea834ee-a398-46c9-bdc9-947bfb9e0fc9}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{83116ef1-3733-4478-97b5-0fbba7860368}" />
+	<object class="MixerBusFader" id="{9ea834ee-a398-46c9-bdc9-947bfb9e0fc9}" />
+</objects>

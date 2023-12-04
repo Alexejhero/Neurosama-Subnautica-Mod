@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{0f1001a4-0110-4172-a7bd-c48d989ca97c}">
+		<property name="name">
+			<value>recyclotron</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{4ed48f07-f877-4707-af57-89c26bd906fa}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{cc935d21-0af1-4859-bc35-c0276e93758a}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{9f6a5e5f-85e4-45f5-ab21-1a27c602ace4}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{4ed48f07-f877-4707-af57-89c26bd906fa}">
+		<relationship name="effects">
+			<destination>{aa19f2e8-d72f-4f2e-b1b1-e984f8188786}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{cc935d21-0af1-4859-bc35-c0276e93758a}" />
+	<object class="MixerBusFader" id="{aa19f2e8-d72f-4f2e-b1b1-e984f8188786}" />
+</objects>

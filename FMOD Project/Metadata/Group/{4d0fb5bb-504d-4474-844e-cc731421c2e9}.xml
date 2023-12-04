@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{4d0fb5bb-504d-4474-844e-cc731421c2e9}">
+		<property name="name">
+			<value>forcefield</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{d90fda0b-8f77-4c25-aee8-11cd4eca5d46}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{361e1243-bb6b-4aa3-a826-3926840684e8}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{f3af2410-6053-473c-9c4b-f7577a111acc}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{d90fda0b-8f77-4c25-aee8-11cd4eca5d46}">
+		<relationship name="effects">
+			<destination>{f7544b29-6c9e-487c-8cb4-ef0f9a084d96}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{361e1243-bb6b-4aa3-a826-3926840684e8}" />
+	<object class="MixerBusFader" id="{f7544b29-6c9e-487c-8cb4-ef0f9a084d96}" />
+</objects>

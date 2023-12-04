@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{5a27ea7b-132e-4286-b299-b84d505541c9}">
+		<property name="name">
+			<value>cold_breaths</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{6255727f-bb26-4c13-b63a-68cc58e0bfb0}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{a724c1ba-9bc9-4d9b-ac79-f8c3583db418}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{0eebaa5e-6c92-4895-aebf-d2bd89dd83d2}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{6255727f-bb26-4c13-b63a-68cc58e0bfb0}">
+		<relationship name="effects">
+			<destination>{981b8bc2-ddd2-49ff-8b20-f0f50917e454}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{a724c1ba-9bc9-4d9b-ac79-f8c3583db418}" />
+	<object class="MixerBusFader" id="{981b8bc2-ddd2-49ff-8b20-f0f50917e454}" />
+</objects>

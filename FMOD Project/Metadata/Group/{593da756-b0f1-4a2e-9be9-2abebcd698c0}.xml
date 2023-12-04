@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{593da756-b0f1-4a2e-9be9-2abebcd698c0}">
+		<property name="name">
+			<value>spikeytrap</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{4ac271b1-d09c-4923-bacb-eaab67e4fbcc}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{7d8d7653-eb95-4a3f-b6e8-f2d7c46f7465}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{4ac271b1-d09c-4923-bacb-eaab67e4fbcc}">
+		<relationship name="effects">
+			<destination>{04ee51e0-5f13-40de-867e-eb9673d94f3e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{7d8d7653-eb95-4a3f-b6e8-f2d7c46f7465}" />
+	<object class="MixerBusFader" id="{04ee51e0-5f13-40de-867e-eb9673d94f3e}" />
+</objects>

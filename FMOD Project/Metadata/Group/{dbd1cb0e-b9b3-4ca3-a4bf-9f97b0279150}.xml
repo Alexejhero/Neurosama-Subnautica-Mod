@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{dbd1cb0e-b9b3-4ca3-a4bf-9f97b0279150}">
+		<property name="name">
+			<value>lava_background_music</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{84bb8ff9-b09d-4cb9-bbec-b98e0c10ea0a}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{d1e4710f-3bd6-41c5-855c-d286c7d3dc7c}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{c723021b-45b9-41c5-9946-046e470b180f}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{84bb8ff9-b09d-4cb9-bbec-b98e0c10ea0a}">
+		<relationship name="effects">
+			<destination>{278a8e8e-5ab8-41c1-a752-585255a870ab}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{d1e4710f-3bd6-41c5-855c-d286c7d3dc7c}" />
+	<object class="MixerBusFader" id="{278a8e8e-5ab8-41c1-a752-585255a870ab}" />
+</objects>

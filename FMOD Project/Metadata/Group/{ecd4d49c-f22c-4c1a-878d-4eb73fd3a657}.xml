@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{ecd4d49c-f22c-4c1a-878d-4eb73fd3a657}">
+		<property name="name">
+			<value>triops</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{ab03191a-4082-45b9-9891-9f3e5e48fe79}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{3c7d82b3-d0f9-4bf5-9445-5f71aee136c3}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{ab03191a-4082-45b9-9891-9f3e5e48fe79}">
+		<relationship name="effects">
+			<destination>{0a489adf-1f16-45fe-be09-d5922744120d}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{3c7d82b3-d0f9-4bf5-9445-5f71aee136c3}" />
+	<object class="MixerBusFader" id="{0a489adf-1f16-45fe-be09-d5922744120d}" />
+</objects>

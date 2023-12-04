@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{4a1281ba-80b7-4914-8810-1fd0d33158c6}">
+		<property name="name">
+			<value>twisty_bridges_background_music</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{a22051ef-d378-418f-97ee-f0ef03c1da90}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{c56a6007-f978-4363-ba51-422c35aa62da}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{77e781de-f217-474c-882c-68975e7133e2}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{a22051ef-d378-418f-97ee-f0ef03c1da90}">
+		<relationship name="effects">
+			<destination>{a6dca845-2b2d-4a72-b33f-668a8e2519dd}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{c56a6007-f978-4363-ba51-422c35aa62da}" />
+	<object class="MixerBusFader" id="{a6dca845-2b2d-4a72-b33f-668a8e2519dd}" />
+</objects>
