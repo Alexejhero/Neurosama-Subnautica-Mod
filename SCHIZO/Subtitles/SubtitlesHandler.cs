@@ -22,12 +22,8 @@ internal static class SubtitlesHandler
     {
         Subtitles[data.key] = data;
 
-        for (int i = 0; i < data.lines.Count; i++)
-        {
-            SubtitlesData.SubtitleLine line = data.lines[i];
+        data.lines.ForEach(line => LanguageHandler.SetLanguageLine(line.key, line.text));
 
-            LanguageHandler.SetLanguageLine(line.key, line.text);
-        }
         CoroutineHost.StartCoroutine(RegisterWhenReady(data));
     }
 
@@ -36,12 +32,12 @@ internal static class SubtitlesHandler
 #if BELOWZERO
         while (!GameSubtitles._main)
             yield return null;
+        ActorTurns[data.key] = data.lines.Select(l => (Actor)l.actor).ToArray();
         GameSubtitles.main.subtitles[data.key] = ActorTurns[data.key];
         foreach (SubtitlesData.SubtitleLine line in data.lines)
         {
             GameSubtitles.main.sounds[line.key] = line.ToSubEntry();
         }
-        ActorTurns[data.key] = data.lines.Select(l => (Actor)l.actor).ToArray();
 #else
         yield break;
 #endif

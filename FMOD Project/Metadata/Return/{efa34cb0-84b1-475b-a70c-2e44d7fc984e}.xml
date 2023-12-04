@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{efa34cb0-84b1-475b-a70c-2e44d7fc984e}">
+		<property name="name">
+			<value>indoor occlusion</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{b83b9db8-c09e-4a43-ad79-70faefb99167}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{8892c527-cae8-407e-a1d3-7aa55dd2f9a2}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{9a6b160c-6a73-4c73-8c36-f307b9c7e11e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{b83b9db8-c09e-4a43-ad79-70faefb99167}">
+		<relationship name="effects">
+			<destination>{36f1357a-6c71-4291-9210-da69d830cfe1}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{8892c527-cae8-407e-a1d3-7aa55dd2f9a2}" />
+	<object class="MixerBusFader" id="{36f1357a-6c71-4291-9210-da69d830cfe1}" />
+</objects>
