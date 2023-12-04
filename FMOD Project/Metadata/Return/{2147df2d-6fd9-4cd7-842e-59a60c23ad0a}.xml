@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{2147df2d-6fd9-4cd7-842e-59a60c23ad0a}">
+		<property name="name">
+			<value>VO_Marge_Base</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{2284d02e-6b80-4e98-aef1-fe99dd5851b0}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{580fa1fe-ed5d-4ea1-8201-c374d1e29a2c}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{a68e2c97-dd83-4a19-83d4-aff5ed1a5443}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{2284d02e-6b80-4e98-aef1-fe99dd5851b0}">
+		<relationship name="effects">
+			<destination>{ea81349d-c5c1-4925-baa3-a8a55ea513af}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{580fa1fe-ed5d-4ea1-8201-c374d1e29a2c}" />
+	<object class="MixerBusFader" id="{ea81349d-c5c1-4925-baa3-a8a55ea513af}" />
+</objects>

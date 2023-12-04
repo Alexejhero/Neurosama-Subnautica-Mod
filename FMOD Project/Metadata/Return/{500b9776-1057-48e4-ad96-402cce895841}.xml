@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{500b9776-1057-48e4-ad96-402cce895841}">
+		<property name="name">
+			<value>rock_puncher</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{847903d9-e90b-4b4e-bb61-973552edb131}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{9b010835-7e1f-4306-b3fe-165ae2f52d85}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{f8c78394-bb49-40ad-bbcb-992cf5b8f4b0}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{847903d9-e90b-4b4e-bb61-973552edb131}">
+		<relationship name="effects">
+			<destination>{192989ec-120b-47c0-8e0b-8e187516cc68}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{9b010835-7e1f-4306-b3fe-165ae2f52d85}" />
+	<object class="MixerBusFader" id="{192989ec-120b-47c0-8e0b-8e187516cc68}" />
+</objects>

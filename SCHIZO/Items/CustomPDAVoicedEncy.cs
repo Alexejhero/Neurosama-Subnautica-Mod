@@ -27,7 +27,7 @@ partial class CustomPDAVoicedEncy
         PDAHandler.AddEncyclopediaEntry(key, path,
             encyData.title, encyData.description.text,
             encyData.texture, encyData.unlockSprite,
-            voiceLog: AudioUtils.GetFmodAsset(key));
+            voiceLog: AudioUtils.GetFmodAsset("event:/test/test_pda_log", "{204a5e50-855e-40d9-8fc3-782f31f7c489}"));
         _customSounds[key] = this;
     }
 
@@ -74,7 +74,6 @@ partial class CustomPDAVoicedEncy
                     subtitleLine = line.index,
                 });
             }
-            return false;
         }
         return true;
     }

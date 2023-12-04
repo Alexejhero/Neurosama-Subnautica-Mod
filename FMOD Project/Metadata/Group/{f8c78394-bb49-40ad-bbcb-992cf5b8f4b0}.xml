@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{f8c78394-bb49-40ad-bbcb-992cf5b8f4b0}">
+		<property name="name">
+			<value>creatures_amphibious</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{1d8a81a9-34ac-4e9f-94c9-8d620e3fd746}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{5b6e01c3-f61f-4995-be6f-495836e8fa96}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{b1890d8d-7182-459f-bc3d-1da9a9471af2}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{1d8a81a9-34ac-4e9f-94c9-8d620e3fd746}">
+		<relationship name="effects">
+			<destination>{c23a0443-c417-47d4-9b07-1987455a31a1}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{5b6e01c3-f61f-4995-be6f-495836e8fa96}" />
+	<object class="MixerBusFader" id="{c23a0443-c417-47d4-9b07-1987455a31a1}" />
+</objects>

@@ -30,16 +30,20 @@ public sealed class Plugin : BaseUnityPlugin
         HARMONY = new Harmony("SCHIZO");
 
         ResourceManager.InjectAssemblies();
-        byte[] fmodBank = ResourceManager.GetEmbeddedBytes("SCHIZO.bank", true);
+
+        HARMONY.PatchAll();
+    }
+
+    private void LoadBank(string file, bool loadStrings = true)
+    {
+        byte[] fmodBank = ResourceManager.GetEmbeddedBytes($"{file}.bank", true);
         RESULT res = RuntimeManager.StudioSystem.loadBankMemory(fmodBank, FMOD.Studio.LOAD_BANK_FLAGS.NORMAL, out FMOD.Studio.Bank bank);
         res.CheckResult();
         if (!bank.hasHandle())
         {
-            LOGGER.LogError($"Could not load FMOD bank");
-            throw new BankLoadException("SCHIZO.bank", res);
+            throw new BankLoadException(file, res);
         }
-
-        HARMONY.PatchAll();
+        if (loadStrings) LoadBank($"{file}.strings", false);
     }
 
     private IEnumerator Start()
@@ -47,6 +51,15 @@ public sealed class Plugin : BaseUnityPlugin
         yield return ObjectReferences.SetReferences();
         yield return MaterialHelpers.LoadMaterials();
         StaticHelpers.CacheAttribute.CacheAll();
+
+        try
+        {
+            LoadBank("SCHIZO");
+        }
+        catch (BankLoadException e)
+        {
+            LOGGER.LogError($"Could not load FMOD bank {e}");
+        }
 
         Assets.Mod_Registry.InvokeRegister();
         Assets.Mod_Registry.InvokePostRegister();

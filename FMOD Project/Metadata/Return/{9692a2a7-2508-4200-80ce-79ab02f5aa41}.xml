@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{9692a2a7-2508-4200-80ce-79ab02f5aa41}">
+		<property name="name">
+			<value>starting_base_alarm</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{e56984d9-141f-4d1d-84c4-c275fad94f03}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{6fed70f0-0f2b-49a9-a298-835694153008}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{66507dc5-0ccb-4801-a9b5-1ca0e36efc47}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{e56984d9-141f-4d1d-84c4-c275fad94f03}">
+		<relationship name="effects">
+			<destination>{48c86133-39b3-4996-b531-c64ef23c5806}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{6fed70f0-0f2b-49a9-a298-835694153008}" />
+	<object class="MixerBusFader" id="{48c86133-39b3-4996-b531-c64ef23c5806}" />
+</objects>

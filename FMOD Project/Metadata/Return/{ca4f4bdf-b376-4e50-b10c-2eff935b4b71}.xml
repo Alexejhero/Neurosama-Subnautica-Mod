@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{ca4f4bdf-b376-4e50-b10c-2eff935b4b71}">
+		<property name="name">
+			<value>metal_detector</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{eb4f92e2-c312-485d-9756-c95d027b1401}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{b2c218ca-6cb6-4564-87c8-def9bbda380f}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{62d6935a-d0fc-4f66-a96a-c7c3e9e4fdcc}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{eb4f92e2-c312-485d-9756-c95d027b1401}">
+		<relationship name="effects">
+			<destination>{874d1931-2937-4119-bc9c-78969c860e30}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{b2c218ca-6cb6-4564-87c8-def9bbda380f}" />
+	<object class="MixerBusFader" id="{874d1931-2937-4119-bc9c-78969c860e30}" />
+</objects>

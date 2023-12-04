@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{2beea3ce-da02-424d-a442-b9a19f40520e}">
+		<property name="name">
+			<value>seatruck</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{cc551833-7ca2-452e-a984-09485487fd69}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{8d2ae6ac-af77-4778-b0a1-47a8587dc25f}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{47b9105d-d308-47ec-9181-1c5d415976d7}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{cc551833-7ca2-452e-a984-09485487fd69}">
+		<relationship name="effects">
+			<destination>{e663243c-95a5-4b59-aebf-304b09521f57}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{8d2ae6ac-af77-4778-b0a1-47a8587dc25f}" />
+	<object class="MixerBusFader" id="{e663243c-95a5-4b59-aebf-304b09521f57}" />
+</objects>

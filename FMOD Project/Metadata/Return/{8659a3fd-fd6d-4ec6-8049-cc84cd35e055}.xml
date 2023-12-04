@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{8659a3fd-fd6d-4ec6-8049-cc84cd35e055}">
+		<property name="name">
+			<value>featherfish</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{57c2a969-fbef-4255-bf8b-dea25f130b7a}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{df0bd4fb-1a10-434f-96a2-34099309eb9d}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{e33c3eaf-158f-4f0d-87d7-f029d4a8a553}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{57c2a969-fbef-4255-bf8b-dea25f130b7a}">
+		<relationship name="effects">
+			<destination>{02e1499a-7758-491c-919b-497eaa62f33c}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{df0bd4fb-1a10-434f-96a2-34099309eb9d}" />
+	<object class="MixerBusFader" id="{02e1499a-7758-491c-919b-497eaa62f33c}" />
+</objects>

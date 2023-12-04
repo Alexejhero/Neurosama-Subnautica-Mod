@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{0178691e-1f26-4f5b-b517-07df9fd6ff81}">
+		<property name="name">
+			<value>prawnsuit</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{4d381918-a78b-47f7-b48e-eb4f29623c64}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{fb81b968-8926-4479-9be5-26ba9f55cc83}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{47b9105d-d308-47ec-9181-1c5d415976d7}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{4d381918-a78b-47f7-b48e-eb4f29623c64}">
+		<relationship name="effects">
+			<destination>{648aa2de-58b3-4776-9214-41461375037c}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{fb81b968-8926-4479-9be5-26ba9f55cc83}" />
+	<object class="MixerBusFader" id="{648aa2de-58b3-4776-9214-41461375037c}" />
+</objects>

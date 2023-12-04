@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{75a1c577-c0a2-48ea-a588-ff9baeecf25c}">
+		<property name="name">
+			<value>seadragon</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{a96652a4-60cf-4f63-baab-2d50f0056b6f}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{667614f0-6818-4774-9523-3d34c19fb22b}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{b3f8f875-8fcb-4a85-a2f2-7416adce2199}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{a96652a4-60cf-4f63-baab-2d50f0056b6f}">
+		<relationship name="effects">
+			<destination>{950e7e30-88b0-4965-bb8c-42e900ecf935}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{667614f0-6818-4774-9523-3d34c19fb22b}" />
+	<object class="MixerBusFader" id="{950e7e30-88b0-4965-bb8c-42e900ecf935}" />
+</objects>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{664fddf7-e37f-4e7c-8a8a-acdfae04b4e1}">
+		<property name="name">
+			<value>quantum_locker</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{55de8d45-53a8-4280-bed8-4ec05a006e75}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{2cb3e921-b7d4-4de8-97f6-6c9772101fda}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{62d6935a-d0fc-4f66-a96a-c7c3e9e4fdcc}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{55de8d45-53a8-4280-bed8-4ec05a006e75}">
+		<relationship name="effects">
+			<destination>{5c561be4-5d31-4c78-9b44-918a0d1665dc}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{2cb3e921-b7d4-4de8-97f6-6c9772101fda}" />
+	<object class="MixerBusFader" id="{5c561be4-5d31-4c78-9b44-918a0d1665dc}" />
+</objects>

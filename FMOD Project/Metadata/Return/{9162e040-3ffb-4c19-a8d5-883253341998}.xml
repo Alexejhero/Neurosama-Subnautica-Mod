@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{9162e040-3ffb-4c19-a8d5-883253341998}">
+		<property name="name">
+			<value>dives</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{d93a1240-0ea5-4ce2-bbd8-6ea61c88f105}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{69213b44-be36-40d7-9ee0-c0d14dd330f8}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{b1890d8d-7182-459f-bc3d-1da9a9471af2}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{d93a1240-0ea5-4ce2-bbd8-6ea61c88f105}">
+		<relationship name="effects">
+			<destination>{d1a580f2-cf03-4e82-bc19-6db01cdefef5}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{69213b44-be36-40d7-9ee0-c0d14dd330f8}" />
+	<object class="MixerBusFader" id="{d1a580f2-cf03-4e82-bc19-6db01cdefef5}" />
+</objects>

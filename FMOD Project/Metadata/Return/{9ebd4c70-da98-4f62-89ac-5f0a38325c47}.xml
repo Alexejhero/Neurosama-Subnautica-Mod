@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{9ebd4c70-da98-4f62-89ac-5f0a38325c47}">
+		<property name="name">
+			<value>nootfish</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{887d75d3-f89c-44dd-8e89-4d67a2d182ef}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{4dbab279-90e0-4a96-bff9-123893de52e6}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{e33c3eaf-158f-4f0d-87d7-f029d4a8a553}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{887d75d3-f89c-44dd-8e89-4d67a2d182ef}">
+		<relationship name="effects">
+			<destination>{40639f21-ec5f-432a-9e22-97134df369c5}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{4dbab279-90e0-4a96-bff9-123893de52e6}" />
+	<object class="MixerBusFader" id="{40639f21-ec5f-432a-9e22-97134df369c5}" />
+</objects>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{0a10ffdd-8864-484b-b100-738a7a669906}">
+		<property name="name">
+			<value>jellyshroom_caves_music</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{46307a14-eda6-46b6-82e6-bae65d35edbb}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{62537bbd-be1d-479a-856b-16bc08172f0b}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{7a87d067-7c6d-41fc-ae4e-11bea59d39a7}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{46307a14-eda6-46b6-82e6-bae65d35edbb}">
+		<relationship name="effects">
+			<destination>{bc4f56e6-1fd8-4f06-a1ba-b5a42d3a760b}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{62537bbd-be1d-479a-856b-16bc08172f0b}" />
+	<object class="MixerBusFader" id="{bc4f56e6-1fd8-4f06-a1ba-b5a42d3a760b}" />
+</objects>

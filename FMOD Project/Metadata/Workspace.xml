@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.01.00">
 	<object class="Workspace" id="{c87c3d5a-707a-44f4-a0da-a05e6f3a5623}">
+		<property name="builtBanksOutputDirectory">
+			<value>../SCHIZO/Resources</value>
+		</property>
 		<relationship name="masterEventFolder">
 			<destination>{6ae445d6-d42a-41f2-9091-f123ee5b91e0}</destination>
 		</relationship>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{f76941f2-e2ff-454e-9648-2c4982329d8f}">
+		<property name="name">
+			<value>reef_background_music</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{5814ae0a-ef16-496d-8935-b39b0be81fbf}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{87490700-176e-409a-b9f8-705b920e4c34}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{7a87d067-7c6d-41fc-ae4e-11bea59d39a7}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{5814ae0a-ef16-496d-8935-b39b0be81fbf}">
+		<relationship name="effects">
+			<destination>{a14d8d5c-b413-4bce-a82a-cfcaf178d75d}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{87490700-176e-409a-b9f8-705b920e4c34}" />
+	<object class="MixerBusFader" id="{a14d8d5c-b413-4bce-a82a-cfcaf178d75d}" />
+</objects>

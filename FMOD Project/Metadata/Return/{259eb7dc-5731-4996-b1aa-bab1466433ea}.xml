@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{259eb7dc-5731-4996-b1aa-bab1466433ea}">
+		<property name="name">
+			<value>marg_base_appliances</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{b23f3cf0-9844-44e3-8cc8-fd3148953b52}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{12c5e6f8-5201-4499-b2c7-2418c9c025bf}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{9b7f772b-70e2-4655-a8f7-f0c5d32da073}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{b23f3cf0-9844-44e3-8cc8-fd3148953b52}">
+		<relationship name="effects">
+			<destination>{d46979ed-a2b4-4324-bb4b-e1f04f8c86eb}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{12c5e6f8-5201-4499-b2c7-2418c9c025bf}" />
+	<object class="MixerBusFader" id="{d46979ed-a2b4-4324-bb4b-e1f04f8c86eb}" />
+</objects>

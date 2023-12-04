@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{f74fc09a-1ebf-40a5-be9d-b4b3c506947b}">
+		<property name="name">
+			<value>grasy_background_music</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{ba1f07ec-1f91-4ec4-bd81-81902564b655}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{02277303-87bd-42e0-b373-49ead8c51160}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{7a87d067-7c6d-41fc-ae4e-11bea59d39a7}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{ba1f07ec-1f91-4ec4-bd81-81902564b655}">
+		<relationship name="effects">
+			<destination>{750a15d6-5ac6-4dfa-9a09-41fe926c8391}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{02277303-87bd-42e0-b373-49ead8c51160}" />
+	<object class="MixerBusFader" id="{750a15d6-5ac6-4dfa-9a09-41fe926c8391}" />
+</objects>

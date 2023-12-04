@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{5bdc98f1-cbf4-4b23-ab5e-f789c8982b9b}">
+		<property name="name">
+			<value>koosh_background</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{499060f8-760c-478a-80b3-948315494f37}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{03012e8d-8dd5-416f-99a2-1dacb9e917c4}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{525b65fc-0800-44b2-8081-8a0d946399ac}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{499060f8-760c-478a-80b3-948315494f37}">
+		<relationship name="effects">
+			<destination>{4b8195b7-83be-49ac-8090-4129a567ef55}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{03012e8d-8dd5-416f-99a2-1dacb9e917c4}" />
+	<object class="MixerBusFader" id="{4b8195b7-83be-49ac-8090-4129a567ef55}" />
+</objects>

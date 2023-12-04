@@ -60,12 +60,20 @@ public static class ConsoleCommands
         return "Logged all banks, check console";
     }
 
-    public static string OnConsoleCommand_buses()
+    public static string OnConsoleCommand_buses(string bankFilter = "")
     {
         // adapted from https://discord.com/channels/324207629784186882/324207629784186882/1065010826571956294
         RuntimeManager.StudioSystem.getBankList(out Bank[] banks);
+        IEnumerable<Bank> filteredBanks = string.IsNullOrEmpty(bankFilter)
+           ? banks
+           : banks.Where(b =>
+           {
+               b.getPath(out string path);
+               b.getID(out Guid id);
+               return path.Contains(bankFilter) || id.ToString().Contains(bankFilter);
+           });
         StringBuilder sb = new("FMOD bus list:\n");
-        foreach (Bank bank in banks)
+        foreach (Bank bank in filteredBanks)
         {
             bank.getPath(out string bankPath);
             bank.getBusList(out Bus[] busArray);
@@ -82,11 +90,19 @@ public static class ConsoleCommands
         return "Logged all buses, check console";
     }
 
-    public static string OnConsoleCommand_vcas()
+    public static string OnConsoleCommand_vcas(string bankFilter = "")
     {
         RuntimeManager.StudioSystem.getBankList(out Bank[] banks);
+        IEnumerable<Bank> filteredBanks = string.IsNullOrEmpty(bankFilter)
+            ? banks
+            : banks.Where(b =>
+        {
+            b.getPath(out string path);
+            b.getID(out Guid id);
+            return path.Contains(bankFilter) || id.ToString().Contains(bankFilter);
+        });
         StringBuilder sb = new("VCAs:\n");
-        foreach (Bank bank in banks)
+        foreach (Bank bank in filteredBanks)
         {
             bank.getPath(out string bankPath);
             bank.getVCAList(out VCA[] vcaArray);
@@ -103,11 +119,19 @@ public static class ConsoleCommands
         return "Logged all VCAs, check console";
     }
 
-    public static string OnConsoleCommand_events()
+    public static string OnConsoleCommand_events(string bankFilter = "")
     {
         RuntimeManager.StudioSystem.getBankList(out Bank[] banks);
+        IEnumerable<Bank> filteredBanks = string.IsNullOrEmpty(bankFilter)
+            ? banks
+            : banks.Where(b =>
+            {
+                b.getPath(out string path);
+                b.getID(out Guid id);
+                return path.Contains(bankFilter) || id.ToString().Contains(bankFilter);
+            });
         StringBuilder sb = new("Events:\n");
-        foreach (Bank bank in banks)
+        foreach (Bank bank in filteredBanks)
         {
             bank.getPath(out string bankPath);
             bank.getEventList(out EventDescription[] eventArray);
@@ -129,23 +153,20 @@ public static class ConsoleCommands
     {
         switch (args)
         {
-            case ["banks"]:
+            case ["banks", ..]:
                 return OnConsoleCommand_banks();
-            case ["buses"]:
-                return OnConsoleCommand_buses();
-            case ["vcas"]:
-                return OnConsoleCommand_vcas();
-            case ["events"]:
-                return OnConsoleCommand_events();
+            case ["buses", ..]:
+                return OnConsoleCommand_buses(args.ElementAtOrDefault(1));
+            case ["vcas", ..]:
+                return OnConsoleCommand_vcas(args.ElementAtOrDefault(1));
+            case ["events", ..]:
+                return OnConsoleCommand_events(args.ElementAtOrDefault(1));
             case ["path", string guid]:
-                RuntimeManager.StudioSystem.lookupPath(Guid.Parse(guid), out string pathFromId);
+                RuntimeManager.StudioSystem.lookupPath(Guid.Parse(guid), out string pathFromId).CheckResult();
                 return pathFromId;
             case ["id", string path]:
-                RuntimeManager.StudioSystem.lookupID(path, out Guid guidFromPath);
+                RuntimeManager.StudioSystem.lookupID(path, out Guid guidFromPath).CheckResult();
                 return guidFromPath.ToString();
-            case ["bufsize"]:
-                RuntimeManager.CoreSystem.getStreamBufferSize(out uint size, out TIMEUNIT unit);
-                return $"{size} {unit}";
         }
 
         return null;

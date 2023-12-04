@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{5f52dd27-42b9-4781-af12-e1fee8d71ce7}">
+		<property name="name">
+			<value>thunder and wind and hail</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{8856b5b9-ba7f-4577-ba05-8db4933425f0}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{01f75d8d-e91e-43a8-884d-4d0cac043feb}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{c57e742d-1932-4195-8362-c96453dc94f1}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{8856b5b9-ba7f-4577-ba05-8db4933425f0}">
+		<relationship name="effects">
+			<destination>{0839d731-6577-4c4f-811c-ebe74f2333de}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{01f75d8d-e91e-43a8-884d-4d0cac043feb}" />
+	<object class="MixerBusFader" id="{0839d731-6577-4c4f-811c-ebe74f2333de}" />
+</objects>

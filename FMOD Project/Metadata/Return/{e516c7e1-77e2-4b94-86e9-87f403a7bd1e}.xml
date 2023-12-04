@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{e516c7e1-77e2-4b94-86e9-87f403a7bd1e}">
+		<property name="name">
+			<value>air_bladder</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{9d051038-0987-4ddd-a95d-00b7c833aff1}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{186fe11a-a928-4896-99dd-2c298f9066e1}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{62d6935a-d0fc-4f66-a96a-c7c3e9e4fdcc}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{9d051038-0987-4ddd-a95d-00b7c833aff1}">
+		<relationship name="effects">
+			<destination>{9c7ab09b-a81d-45a4-a107-2604160b1e69}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{186fe11a-a928-4896-99dd-2c298f9066e1}" />
+	<object class="MixerBusFader" id="{9c7ab09b-a81d-45a4-a107-2604160b1e69}" />
+</objects>

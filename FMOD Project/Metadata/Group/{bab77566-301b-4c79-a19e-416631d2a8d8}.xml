@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{bab77566-301b-4c79-a19e-416631d2a8d8}">
+		<property name="name">
+			<value>endgame_sfx</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{b3a42697-83f0-45f1-a77a-7a7c699ef6ad}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{928ac841-bec1-493f-bd17-1ef50f459456}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{b1890d8d-7182-459f-bc3d-1da9a9471af2}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{b3a42697-83f0-45f1-a77a-7a7c699ef6ad}">
+		<relationship name="effects">
+			<destination>{9bd74e37-1365-48e5-8c3e-da2f99d1b586}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{928ac841-bec1-493f-bd17-1ef50f459456}" />
+	<object class="MixerBusFader" id="{9bd74e37-1365-48e5-8c3e-da2f99d1b586}" />
+</objects>

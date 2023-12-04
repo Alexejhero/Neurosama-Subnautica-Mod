@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{fd11f4f1-49af-449c-8951-f5c3ed9651b1}">
+		<property name="name">
+			<value>brinewing</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{81e72e05-6dde-45d2-b72e-b7a4a637b14c}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{4182787b-81aa-4ba6-8cdd-221071fb82df}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{e33c3eaf-158f-4f0d-87d7-f029d4a8a553}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{81e72e05-6dde-45d2-b72e-b7a4a637b14c}">
+		<relationship name="effects">
+			<destination>{c10dab10-5135-429d-8aee-8a7d5b9f70b9}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{4182787b-81aa-4ba6-8cdd-221071fb82df}" />
+	<object class="MixerBusFader" id="{c10dab10-5135-429d-8aee-8a7d5b9f70b9}" />
+</objects>

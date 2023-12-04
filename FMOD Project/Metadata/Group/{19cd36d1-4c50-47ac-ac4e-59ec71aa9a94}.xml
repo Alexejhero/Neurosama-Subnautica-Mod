@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{19cd36d1-4c50-47ac-ac4e-59ec71aa9a94}">
+		<property name="name">
+			<value>brinewing_freeze</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{322a7ab4-6a4b-496f-99ad-2bf89b0d14aa}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{280c2f82-ac92-4698-a530-28e8428fc0e1}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{0ce00d01-d445-4e04-8c5e-2c70a903b062}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{322a7ab4-6a4b-496f-99ad-2bf89b0d14aa}">
+		<relationship name="effects">
+			<destination>{ec292924-7195-4a1d-ba8d-53d5dd4f3eb9}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{280c2f82-ac92-4698-a530-28e8428fc0e1}" />
+	<object class="MixerBusFader" id="{ec292924-7195-4a1d-ba8d-53d5dd4f3eb9}" />
+</objects>

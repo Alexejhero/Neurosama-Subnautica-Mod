@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{0810ad99-f6bd-4849-a746-37f2f7553a7d}">
+		<property name="name">
+			<value>lilypads_background</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{442f577c-e7ad-4ccf-acc4-68b2af9dfbf8}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{1a8f3fd0-80d0-4208-b4f1-9f4b1eaf063f}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{525b65fc-0800-44b2-8081-8a0d946399ac}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{442f577c-e7ad-4ccf-acc4-68b2af9dfbf8}">
+		<relationship name="effects">
+			<destination>{7c5645e2-af48-4188-a961-157bbc47b993}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{1a8f3fd0-80d0-4208-b4f1-9f4b1eaf063f}" />
+	<object class="MixerBusFader" id="{7c5645e2-af48-4188-a961-157bbc47b993}" />
+</objects>

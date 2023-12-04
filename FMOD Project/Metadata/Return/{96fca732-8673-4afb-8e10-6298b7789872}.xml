@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{96fca732-8673-4afb-8e10-6298b7789872}">
+		<property name="name">
+			<value>robin_hangar_vo</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{51193f8b-b837-45b5-b5c5-ba11082e6877}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{c499cd22-c177-44a0-a5d8-35494f7a9cf4}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{cadede08-ea7c-4fe9-b8f3-5feea69e5b9a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{51193f8b-b837-45b5-b5c5-ba11082e6877}">
+		<relationship name="effects">
+			<destination>{2bf5e520-6cc7-4d6b-8872-d79596e88ba7}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{c499cd22-c177-44a0-a5d8-35494f7a9cf4}" />
+	<object class="MixerBusFader" id="{2bf5e520-6cc7-4d6b-8872-d79596e88ba7}" />
+</objects>

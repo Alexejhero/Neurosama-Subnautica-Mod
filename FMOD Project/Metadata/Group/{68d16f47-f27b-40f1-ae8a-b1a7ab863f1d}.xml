@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{68d16f47-f27b-40f1-ae8a-b1a7ab863f1d}">
+		<property name="name">
+			<value>purple_vents</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{5d2327ef-c69b-4b4a-9333-42d269201eb4}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{a641b3df-8ee5-48d5-9bd7-dbf308500f6a}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{525b65fc-0800-44b2-8081-8a0d946399ac}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{5d2327ef-c69b-4b4a-9333-42d269201eb4}">
+		<relationship name="effects">
+			<destination>{8526cdcc-5f3c-4f47-9d06-b26c6c0739c0}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{a641b3df-8ee5-48d5-9bd7-dbf308500f6a}" />
+	<object class="MixerBusFader" id="{8526cdcc-5f3c-4f47-9d06-b26c6c0739c0}" />
+</objects>

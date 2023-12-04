@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{d05f0f64-a4c2-47a1-83a6-41cce9ea66cf}">
+		<property name="name">
+			<value>underislands_background</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{ca3edbab-9657-4b64-81a0-1863fd6cf95a}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{a4775ff7-b7a2-4404-a79e-5ea3eb6dd9a6}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{525b65fc-0800-44b2-8081-8a0d946399ac}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{ca3edbab-9657-4b64-81a0-1863fd6cf95a}">
+		<relationship name="effects">
+			<destination>{5ab951e5-f787-4742-b90f-4d29ea0723a1}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{a4775ff7-b7a2-4404-a79e-5ea3eb6dd9a6}" />
+	<object class="MixerBusFader" id="{5ab951e5-f787-4742-b90f-4d29ea0723a1}" />
+</objects>

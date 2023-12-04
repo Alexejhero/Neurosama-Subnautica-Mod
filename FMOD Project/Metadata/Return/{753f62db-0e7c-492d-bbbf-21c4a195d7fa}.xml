@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{753f62db-0e7c-492d-bbbf-21c4a195d7fa}">
+		<property name="name">
+			<value>tree_spires_background</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{87ba0182-7c99-45d9-9840-a379528efc0c}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{2236e7e3-4295-4c3b-b315-354f32cc9d43}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{525b65fc-0800-44b2-8081-8a0d946399ac}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{87ba0182-7c99-45d9-9840-a379528efc0c}">
+		<relationship name="effects">
+			<destination>{82963369-764e-4f60-9a79-7d5de137ccc6}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{2236e7e3-4295-4c3b-b315-354f32cc9d43}" />
+	<object class="MixerBusFader" id="{82963369-764e-4f60-9a79-7d5de137ccc6}" />
+</objects>

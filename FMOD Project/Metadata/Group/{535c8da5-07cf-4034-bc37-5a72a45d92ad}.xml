@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{535c8da5-07cf-4034-bc37-5a72a45d92ad}">
+		<property name="name">
+			<value>music_lowpas</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{7489f2b2-2645-45bc-82c1-5304bf63563f}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{6527e975-4756-49a3-b62f-a2646f801222}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{9a6b160c-6a73-4c73-8c36-f307b9c7e11e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{7489f2b2-2645-45bc-82c1-5304bf63563f}">
+		<relationship name="effects">
+			<destination>{357d92af-93be-4284-8016-deeedc89fe91}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{6527e975-4756-49a3-b62f-a2646f801222}" />
+	<object class="MixerBusFader" id="{357d92af-93be-4284-8016-deeedc89fe91}" />
+</objects>

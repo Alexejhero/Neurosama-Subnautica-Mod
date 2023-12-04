@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{6264d2e7-3076-4a59-8ab7-18729454c1e5}">
+		<property name="name">
+			<value>cyclops voice</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{d9fa4ac6-9cfd-4ab7-a4b5-5bc3b841f600}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{3cd1c7a3-eea7-42c9-8c00-454b9f3a4862}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{a68e2c97-dd83-4a19-83d4-aff5ed1a5443}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{d9fa4ac6-9cfd-4ab7-a4b5-5bc3b841f600}">
+		<relationship name="effects">
+			<destination>{fd2835d8-631c-4f33-8506-42047b812cee}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{3cd1c7a3-eea7-42c9-8c00-454b9f3a4862}" />
+	<object class="MixerBusFader" id="{fd2835d8-631c-4f33-8506-42047b812cee}" />
+</objects>
