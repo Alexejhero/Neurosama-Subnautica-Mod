@@ -16,7 +16,7 @@ MonoBehaviour:
   unlockSprite: {fileID: 0}
   isImportantUnlock: 0
   scanSounds: {fileID: 0}
-  encyPathSN: 
+  encyPathSN: DownloadedData/PublicDocs
   encyPathBZ: DownloadedData
   title: Unknown Transmission #656C6976
   texture: {fileID: 0}

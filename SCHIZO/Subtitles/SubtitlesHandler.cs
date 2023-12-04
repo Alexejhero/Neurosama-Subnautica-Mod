@@ -5,37 +5,35 @@ using HarmonyLib;
 using Nautilus.Handlers;
 using UWE;
 using GameSubtitles = Subtitles;
-using GameSubtitlesData = SubtitlesData;
 
 namespace SCHIZO.Subtitles;
 
 [HarmonyPatch]
 internal static class SubtitlesHandler
 {
-    // compile-time data
-    // dict key is the subtitle key
+    // here for debuggability
     public static readonly Dictionary<string, SubtitlesData> Subtitles = [];
+#if BELOWZERO
     // runtime data
     public static readonly Dictionary<string, Actor[]> ActorTurns = [];
+#endif
 
     public static void Register(SubtitlesData data)
     {
         Subtitles[data.key] = data;
-        List<Actor> actors = [];
 
         for (int i = 0; i < data.lines.Count; i++)
         {
             SubtitlesData.SubtitleLine line = data.lines[i];
 
-            actors.Add(line.actor);
             LanguageHandler.SetLanguageLine(line.key, line.text);
         }
-        ActorTurns[data.key] = [.. actors];
         CoroutineHost.StartCoroutine(RegisterWhenReady(data));
     }
 
     private static IEnumerator RegisterWhenReady(SubtitlesData data)
     {
+#if BELOWZERO
         while (!GameSubtitles._main)
             yield return null;
         GameSubtitles.main.subtitles[data.key] = ActorTurns[data.key];
@@ -43,6 +41,10 @@ internal static class SubtitlesHandler
         {
             GameSubtitles.main.sounds[line.key] = line.ToSubEntry();
         }
+        ActorTurns[data.key] = data.lines.Select(l => (Actor)l.actor).ToArray();
+#else
+        yield break;
+#endif
     }
 
     // TODO fix in nautilus

@@ -18,6 +18,7 @@ partial class SubtitlesData
     {
         public string subtitlesKey;
         public int index;
+#if BELOWZERO
         public global::SubtitlesData.Entry ToSubEntry()
         {
             global::SubtitlesData.Entry entry = new()
@@ -30,5 +31,6 @@ partial class SubtitlesData
             };
             return entry;
         }
+#endif
     }
 }
