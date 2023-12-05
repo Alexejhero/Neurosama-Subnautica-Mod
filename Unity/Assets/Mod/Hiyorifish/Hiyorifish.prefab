@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &8737186091496387479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7549200066237303667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f27aba280bf1b45bfcfb9fc791301b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storyGoalSN: 
+  storyGoalBZ: SanctuaryCompleted
 --- !u!1001 &915920292816743419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -238,6 +252,12 @@ PrefabInstance:
     - {fileID: -1761091802028791776, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
     - {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5ff80f47f2822bb438251c8a7a1370ca, type: 3}
+--- !u!1 &7549200066237303667 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5049378406231838710, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 3375126442975429765}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7640931474346355170 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4962070890995002727, guid: 5ff80f47f2822bb438251c8a7a1370ca,
