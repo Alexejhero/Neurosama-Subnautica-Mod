@@ -14,7 +14,7 @@ public sealed partial class CreatureEncounters : Tracker
         [TechType.SpikeyTrap] = new("some sort of carnivorous plant tentacle"),
         [TechType.SquidShark] = new("an unknown shark-squid hybrid"),
         [TechType.IceWorm] = new("a gigantic worm burrowing out of the ground", false),
-        [TechType.LilyPaddler] = new("[PH] nothing. everything. there's no one around. no one is around to help."),
+        [TechType.LilyPaddler] = new("an invisible, imperceptible enemy. The danger level is off the charts"),
         [TechType.Chelicerate] = new("a massive, extremely hostile leviathan-class creature"),
     };
 

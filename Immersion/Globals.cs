@@ -6,7 +6,7 @@ public static class Globals
 {
     public static Dictionary<string, string> Strings { get; } = new(StringComparer.OrdinalIgnoreCase)
     {
-        ["player"] = "Voonle", // player name
+        ["player"] = "Beedal", // player name
         ["url"] = "http://localhost/", // base URL for the API (e.g. http://localhost/api/)
     };
     public static string PlayerName
