@@ -16,12 +16,15 @@ MonoBehaviour:
   loader:
     id: 0
   classId: EvilFumo
-  displayName: EvilFumo
+  displayName: Evil fumo
   tooltip: 'You need one? You sick freak. Why would you need descriptions of my plushes?
     I hate you all, but I love my plush. My plush is amazing. It smells like success.
 
-    <size=75%>(Model
-    by w1n7er)</size>'
+
+    Fumo
+    collection 3/3
+
+    <size=75%>(Model by w1n7er)</size>'
   icon: {fileID: 21300000, guid: 60e94acee40f84d4896c5a5004c2c6a7, type: 3}
   itemSize: {x: 1, y: 1}
   isCraftable: 0
