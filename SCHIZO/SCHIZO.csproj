@@ -2,6 +2,7 @@
     <PropertyGroup>
         <Configurations>Subnautica;BelowZero</Configurations>
         <NoWarn>$(NoWarn);CS0169;CS0436;CS0649;CS0809;Harmony003;Publicizer001;</NoWarn>
+        <LangVersion>12</LangVersion>
     </PropertyGroup>
 
     <Import Project="$(SolutionDir)/Subnautica.props" Condition=" '$(Configuration)' == 'Subnautica' " />
