@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{f5d2d4b3-3b10-46f6-85d7-c42e0b322fd3}">
+		<property name="name">
+			<value>thunder_cave</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{e2658a88-ad58-45d3-8045-39cf0ff0278c}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{f360beb6-4492-446a-8fc9-9261bc0ddda4}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{9a6b160c-6a73-4c73-8c36-f307b9c7e11e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{e2658a88-ad58-45d3-8045-39cf0ff0278c}">
+		<relationship name="effects">
+			<destination>{345b11ba-2535-4939-b8aa-83f3c8a0e06f}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{f360beb6-4492-446a-8fc9-9261bc0ddda4}" />
+	<object class="MixerBusFader" id="{345b11ba-2535-4939-b8aa-83f3c8a0e06f}" />
+</objects>

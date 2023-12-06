@@ -4,6 +4,8 @@ using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using ECCLibrary;
+using FMOD;
+using FMODUnity;
 using HarmonyLib;
 using SCHIZO.ConsoleCommands;
 using SCHIZO.Helpers;
@@ -37,7 +39,8 @@ public sealed class Plugin : BaseUnityPlugin
         yield return ObjectReferences.SetReferences();
         yield return MaterialHelpers.LoadMaterials();
         StaticHelpers.CacheAttribute.CacheAll();
-
+        FMODHelpers.LoadMasterBank("SCHIZO");
+        
         Assets.Mod_Registry.InvokeRegister();
         Assets.Mod_Registry.InvokePostRegister();
 

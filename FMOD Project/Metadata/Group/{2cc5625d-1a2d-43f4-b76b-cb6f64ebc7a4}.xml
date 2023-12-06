@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{2cc5625d-1a2d-43f4-b76b-cb6f64ebc7a4}">
+		<property name="name">
+			<value>kelp_background_music</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{a3e9bd57-c54b-4b8e-9dbd-235c2b2335af}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{db40ace0-bfa8-460f-9443-fed90c4bfd39}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{c723021b-45b9-41c5-9946-046e470b180f}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{a3e9bd57-c54b-4b8e-9dbd-235c2b2335af}">
+		<relationship name="effects">
+			<destination>{7fbedd3f-d4aa-40a6-b2ea-81e19a89442a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{db40ace0-bfa8-460f-9443-fed90c4bfd39}" />
+	<object class="MixerBusFader" id="{7fbedd3f-d4aa-40a6-b2ea-81e19a89442a}" />
+</objects>

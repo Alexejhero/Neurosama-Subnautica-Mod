@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{d7474789-0383-4e71-b041-6c04ea21a1a2}">
+		<property name="name">
+			<value>iceworm</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{1f32b459-da95-4e75-b301-1c349e651ebd}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{8455a0f7-8608-455a-bc8e-0d509ed70c13}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{7fdd1f3a-0b7f-4b95-9f45-cdc96b8db7b0}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{1f32b459-da95-4e75-b301-1c349e651ebd}">
+		<relationship name="effects">
+			<destination>{9a1a5ece-a2d2-4444-9f40-fda196faa6f8}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{8455a0f7-8608-455a-bc8e-0d509ed70c13}" />
+	<object class="MixerBusFader" id="{9a1a5ece-a2d2-4444-9f40-fda196faa6f8}" />
+</objects>

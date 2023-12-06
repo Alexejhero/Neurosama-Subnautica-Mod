@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{82504899-684c-4984-89c2-128fad9912a8}">
+		<property name="name">
+			<value>bonesharkbitemutes</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{1f8a829c-2704-4f9e-856b-1943fd44d4e6}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{4053410e-90fc-416b-90a8-c234ae3da9ca}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{1f8a829c-2704-4f9e-856b-1943fd44d4e6}">
+		<relationship name="effects">
+			<destination>{4bf5fc88-e755-4fa0-9a17-781397b461a6}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{4053410e-90fc-416b-90a8-c234ae3da9ca}" />
+	<object class="MixerBusFader" id="{4bf5fc88-e755-4fa0-9a17-781397b461a6}" />
+</objects>

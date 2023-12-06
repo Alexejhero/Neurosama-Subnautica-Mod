@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{b8939c1d-dfbd-4c4f-8001-c8bb3859c4cb}">
+		<property name="name">
+			<value>lost_river_background</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{55e419d7-0ea5-495f-93bf-59a3ba46c7e5}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{deecbfa5-1cc5-4845-967d-ffb87b66114c}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{baaa7bb9-2bbc-4ef0-88d5-858560d24c3c}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{55e419d7-0ea5-495f-93bf-59a3ba46c7e5}">
+		<relationship name="effects">
+			<destination>{de418a03-f7ef-4b13-ad38-7143e4805d4b}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{deecbfa5-1cc5-4845-967d-ffb87b66114c}" />
+	<object class="MixerBusFader" id="{de418a03-f7ef-4b13-ad38-7143e4805d4b}" />
+</objects>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{0c081688-1203-4a52-ac98-745255c7116e}">
+		<property name="name">
+			<value>surface_and_submerge</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{40cf7996-10d1-4590-a9b1-705b6bac7124}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{31bc4248-06fb-48f5-a2c2-62f39c21d210}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{018e4c83-c26e-420c-9792-1ac0e217a417}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{40cf7996-10d1-4590-a9b1-705b6bac7124}">
+		<relationship name="effects">
+			<destination>{d94ef540-8a80-462d-8e1f-15740d5b883a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{31bc4248-06fb-48f5-a2c2-62f39c21d210}" />
+	<object class="MixerBusFader" id="{d94ef540-8a80-462d-8e1f-15740d5b883a}" />
+</objects>

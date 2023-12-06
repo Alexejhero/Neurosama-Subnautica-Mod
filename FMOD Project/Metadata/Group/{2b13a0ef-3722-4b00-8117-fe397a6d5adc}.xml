@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{2b13a0ef-3722-4b00-8117-fe397a6d5adc}">
+		<property name="name">
+			<value>shadow_leviathan</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{3ceb5631-5eb3-4438-941b-f3f3ed66fa06}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{5e694d00-66b8-40ce-a8a2-df123acd9cc4}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{3ceb5631-5eb3-4438-941b-f3f3ed66fa06}">
+		<relationship name="effects">
+			<destination>{27c623c5-75e5-4fb1-9fda-26c15debe5e1}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{5e694d00-66b8-40ce-a8a2-df123acd9cc4}" />
+	<object class="MixerBusFader" id="{27c623c5-75e5-4fb1-9fda-26c15debe5e1}" />
+</objects>

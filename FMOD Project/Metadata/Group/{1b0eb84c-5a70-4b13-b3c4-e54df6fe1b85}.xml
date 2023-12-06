@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{1b0eb84c-5a70-4b13-b3c4-e54df6fe1b85}">
+		<property name="name">
+			<value>pinnacarid_below</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{ab0e1f97-6b73-4790-b9c3-7983f6ba2d61}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{5acced1b-00b5-4d6c-9115-6df67fdafa20}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{ab0e1f97-6b73-4790-b9c3-7983f6ba2d61}">
+		<relationship name="effects">
+			<destination>{71891c6d-a6b1-4fd6-bec8-df2348804b9f}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{5acced1b-00b5-4d6c-9115-6df67fdafa20}" />
+	<object class="MixerBusFader" id="{71891c6d-a6b1-4fd6-bec8-df2348804b9f}" />
+</objects>

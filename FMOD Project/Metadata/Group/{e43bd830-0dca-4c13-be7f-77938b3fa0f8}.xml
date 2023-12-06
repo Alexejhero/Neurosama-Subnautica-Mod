@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{e43bd830-0dca-4c13-be7f-77938b3fa0f8}">
+		<property name="name">
+			<value>snowball</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{2455042f-5d91-4a0d-99e7-54c705c6ff2f}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{7c967093-5f73-4853-a460-d991faf59203}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{9f6a5e5f-85e4-45f5-ab21-1a27c602ace4}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{2455042f-5d91-4a0d-99e7-54c705c6ff2f}">
+		<relationship name="effects">
+			<destination>{cf0d4849-9f3a-4f3f-9dc7-245e018a14d3}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{7c967093-5f73-4853-a460-d991faf59203}" />
+	<object class="MixerBusFader" id="{cf0d4849-9f3a-4f3f-9dc7-245e018a14d3}" />
+</objects>

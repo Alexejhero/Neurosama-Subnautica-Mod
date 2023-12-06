@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{c20fdf56-7eeb-4c93-a302-85975c60261f}">
+		<property name="name">
+			<value>rocket loops</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{f3e1d442-bc2a-4733-8306-8d511e0c0bfa}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{cb5792ac-93c7-4d14-8c6c-d2a08613ed03}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{5a841486-f1b4-47fd-9bcb-f7c4bfec7026}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{f3e1d442-bc2a-4733-8306-8d511e0c0bfa}">
+		<relationship name="effects">
+			<destination>{88795668-d89f-4c42-87d5-3940677c2d33}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{cb5792ac-93c7-4d14-8c6c-d2a08613ed03}" />
+	<object class="MixerBusFader" id="{88795668-d89f-4c42-87d5-3940677c2d33}" />
+</objects>

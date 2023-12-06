@@ -7,7 +7,7 @@ partial class CoordinatedSpawns
 {
     protected override void Register()
     {
-        foreach (SpawnInfo spawnInfo in spawns)
+        foreach (ItemSpawnInfo spawnInfo in spawns)
         {
             if (!spawnInfo.game.HasFlag(GAME)) continue;
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{1b365557-dafd-4624-81d3-2df9b5cf17eb}">
+		<property name="name">
+			<value>symbiote_fish</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{45ef2728-ce3e-462b-b918-407184fccc4d}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{089ac28b-8105-4fe2-bba3-089a34e24702}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{45ef2728-ce3e-462b-b918-407184fccc4d}">
+		<relationship name="effects">
+			<destination>{9f63a7fb-7697-4890-98d1-994a54aa2e3d}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{089ac28b-8105-4fe2-bba3-089a34e24702}" />
+	<object class="MixerBusFader" id="{9f63a7fb-7697-4890-98d1-994a54aa2e3d}" />
+</objects>

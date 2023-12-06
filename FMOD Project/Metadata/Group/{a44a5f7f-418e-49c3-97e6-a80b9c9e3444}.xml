@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{a44a5f7f-418e-49c3-97e6-a80b9c9e3444}">
+		<property name="name">
+			<value>cyclops_stop</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{1ae04f8a-972c-42f9-b323-3007b125decc}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{7b9e3c21-f22b-4efa-8ef5-0364c417028c}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{f740937c-f48d-46a4-9421-b4ae9a5bb0f9}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{1ae04f8a-972c-42f9-b323-3007b125decc}">
+		<relationship name="effects">
+			<destination>{19dd750d-5af7-42d6-b242-3dc813018a85}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{7b9e3c21-f22b-4efa-8ef5-0364c417028c}" />
+	<object class="MixerBusFader" id="{19dd750d-5af7-42d6-b242-3dc813018a85}" />
+</objects>

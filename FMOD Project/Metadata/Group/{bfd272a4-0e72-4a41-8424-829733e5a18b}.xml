@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{bfd272a4-0e72-4a41-8424-829733e5a18b}">
+		<property name="name">
+			<value>trivalve_underwater</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{0549e508-16a6-4b03-ada2-40c88d68dfd3}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{9f877571-56c9-4038-bdff-bf255d386bb9}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{0549e508-16a6-4b03-ada2-40c88d68dfd3}">
+		<relationship name="effects">
+			<destination>{5d0a1182-9f8d-4422-aa83-be3d47777296}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{9f877571-56c9-4038-bdff-bf255d386bb9}" />
+	<object class="MixerBusFader" id="{5d0a1182-9f8d-4422-aa83-be3d47777296}" />
+</objects>

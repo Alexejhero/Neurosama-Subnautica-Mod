@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{06cda152-59ae-40ab-8c10-61e0698c644a}">
+		<property name="name">
+			<value>blood_kelp_background_music</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{933b1f2b-7b59-43ae-8761-f6e933b3917c}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{5e6f8d52-3c94-4099-a810-e79b049e325e}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{c723021b-45b9-41c5-9946-046e470b180f}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{933b1f2b-7b59-43ae-8761-f6e933b3917c}">
+		<relationship name="effects">
+			<destination>{1ed9645d-84b1-4d2b-85af-f0038d6f6c14}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{5e6f8d52-3c94-4099-a810-e79b049e325e}" />
+	<object class="MixerBusFader" id="{1ed9645d-84b1-4d2b-85af-f0038d6f6c14}" />
+</objects>

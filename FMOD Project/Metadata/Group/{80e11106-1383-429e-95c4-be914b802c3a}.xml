@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{80e11106-1383-429e-95c4-be914b802c3a}">
+		<property name="name">
+			<value>snowstalker_baby_above</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{25839cb4-0438-48e6-9293-9279ec4b1b76}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{ebbeaa51-bc84-4079-b614-e69f9a66ce9b}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{fbc2d9c6-67cb-4ca3-ba0e-f7738d018f14}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{25839cb4-0438-48e6-9293-9279ec4b1b76}">
+		<relationship name="effects">
+			<destination>{0d8408fd-5335-49df-b269-f047164820a8}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{ebbeaa51-bc84-4079-b614-e69f9a66ce9b}" />
+	<object class="MixerBusFader" id="{0d8408fd-5335-49df-b269-f047164820a8}" />
+</objects>
