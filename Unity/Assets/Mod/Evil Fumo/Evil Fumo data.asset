@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
+  m_Name: Evil Fumo data
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 2351523049876982568, guid: 494d51939a4d56f47a65310c2d52e286, type: 3}
+  loader:
+    id: 0
+  classId: EvilFumo
+  displayName: EvilFumo
+  tooltip: 'You need one? You sick freak. Why would you need descriptions of my plushes?
+    I hate you all, but I love my plush. My plush is amazing. It smells like success.
+
+    <size=75%>(Model
+    by w1n7er)</size>'
+  icon: {fileID: 21300000, guid: 60e94acee40f84d4896c5a5004c2c6a7, type: 3}
+  itemSize: {x: 1, y: 1}
+  isCraftable: 0
+  isBuildable: 1
+  craftingTime: 2.5
+  itemSounds: {fileID: 0}
+  pdaEncyInfo: {fileID: 0}
+  knownTechInfo: {fileID: 0}
+  spawnData: {fileID: 0}
+  unlockAtStart: 1
+  registerInSN: 1
+  recipeSN: {fileID: 11400000, guid: b0f11b9cf34116348be77763a163289e, type: 2}
+  craftTreeTypeSN: 0
+  craftTreePathSN: 
+  techGroupSN: 13
+  techCategorySN: 24
+  requiredForUnlockSN:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
+  registerInBZ: 1
+  recipeBZ: {fileID: 11400000, guid: b0f11b9cf34116348be77763a163289e, type: 2}
+  canBeRecycledBZ: 1
+  craftTreeTypeBZ: 0
+  craftTreePathBZ: 
+  techGroupBZ: 12
+  techCategoryBZ: 15
+  soundTypeBZ: 0
+  requiredForUnlockBZ:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: ItemLoader, ns: SCHIZO.Items, asm: SCHIZO}
