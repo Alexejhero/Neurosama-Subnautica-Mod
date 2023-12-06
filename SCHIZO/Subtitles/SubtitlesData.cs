@@ -23,7 +23,7 @@ partial class SubtitlesData
         {
             global::SubtitlesData.Entry entry = new()
             {
-                key = $"{subtitlesKey}_{index}",
+                key = key,
                 actor = actor,
                 line = index,
                 status = global::SubtitlesData.Status.Valid,

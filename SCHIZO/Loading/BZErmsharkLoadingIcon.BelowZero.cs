@@ -59,18 +59,26 @@ partial class BZErmsharkLoadingIcon
         originalRows = loadingScreen.rows;
         originalCols = loadingScreen.cols;
 
-        SaveUtils.RegisterOnStartLoadingEvent(() =>
-        {
-            if (Utils.GetContinueMode())
-                SetOurs();
-            else
-                SetOriginal();
-        });
+        SaveUtils.RegisterOnStartLoadingEvent(OnLoading);
+    }
+
+    private void OnDestroy()
+    {
+        SaveUtils.UnregisterOnStartLoadingEvent(OnLoading);
+    }
+
+    private void OnLoading()
+    {
+        if (Utils.GetContinueMode())
+            SetOurs();
+        else
+            SetOriginal();
     }
 
     private void SetOurs()
     {
         if (isOurs) return;
+        if (!loadingScreen) loadingScreen = GetComponentInParent<uGUI_SceneLoading>();
 
         loadingScreen.materialPengling.mainTexture = texture;
         loadingScreen.pengling.texture = texture;
@@ -87,6 +95,7 @@ partial class BZErmsharkLoadingIcon
     private void SetOriginal()
     {
         if (!isOurs) return;
+        if (!loadingScreen) loadingScreen = GetComponentInParent<uGUI_SceneLoading>();
 
         loadingScreen.materialPengling.mainTexture = originalTexture;
         loadingScreen.pengling.texture = originalTexture;
@@ -144,7 +153,7 @@ partial class BZErmsharkLoadingIcon
         // patch 1 - smaller gap to start moving from idle (it's a proportion of the sprite width)
         matcher.MatchForward(false, new CodeMatch(OpCodes.Ldc_R4, 0.8f));
         if (!matcher.IsValid) return false;
-        
+
         matcher.Set(OpCodes.Call, new Func<float>(GetMoveThresholdProportion).Method);
         return true;
     }
@@ -162,7 +171,7 @@ partial class BZErmsharkLoadingIcon
             new CodeMatch(OpCodes.Ble_Un)
         );
         if (!matcher.IsValid) return false;
-        
+
         Label breakLabel = (Label) matcher.Operand;
         matcher.Advance(1);
         matcher.InsertAndAdvance(
@@ -200,7 +209,7 @@ partial class BZErmsharkLoadingIcon
         if (!instance || !instance.isOurs) return true;
 
         // technically a sin... but get_duration is only ever called inside Update
-        FrameAnimation ourAnim = (int)instance.loadingScreen.state switch
+        FrameAnimation ourAnim = (int) instance.loadingScreen.state switch
         {
             0 => instance.idle,
             1 => instance.moving,
@@ -244,5 +253,5 @@ partial class BZErmsharkLoadingIcon
     }
 
     private static int GetCurrentFrame(BZAnimation anim, float time)
-        => anim.from + (int)((time / anim.duration) * (anim.to - anim.from));
+        => anim.from + (int) ((time / anim.duration) * (anim.to - anim.from));
 }

@@ -80,6 +80,7 @@ AssetBundles
 .vscode/
 # install FMOD yourself
 Assets/Plugins/FMOD*
+!Assets/Plugins/FMODUnity.dll
 Assets/Editor Default Resources/FMOD*
 Assets/Editor Default Resources.meta
 Assets/Gizmos/FMOD*
