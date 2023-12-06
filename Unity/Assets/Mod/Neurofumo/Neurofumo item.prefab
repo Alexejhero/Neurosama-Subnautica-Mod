@@ -101,6 +101,9 @@ MonoBehaviour:
   secondaryUseText: 
   hasAltUse: 1
   altUseText: Flushed ({0})
+  altUsableChance: 0.05
+  altEffectOnHugChance: 0.5
+  altEffectMinHugTime: 10
   hugCooldown: 1
   hugColdResistBuff: 20
   fumoModelSN: {fileID: 5699160057072596943}
@@ -174,6 +177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8317964624639854247, guid: 5a15aed96d8d1b84592bfbe203825ee4, type: 3}
+    - {fileID: 5866251422976589946, guid: 5a15aed96d8d1b84592bfbe203825ee4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5a15aed96d8d1b84592bfbe203825ee4, type: 3}
 --- !u!1 &5527787040625736568 stripped
 GameObject:

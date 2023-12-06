@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08c4776b89c430d985e9557dc60112d, type: 3}
+  m_Name: Evil Fumo
+  m_EditorClassIdentifier: 
+  registryItems:
+  - {fileID: 11400000, guid: 34010c24a47ef46499ea6068d5de4cfb, type: 2}
+  - {fileID: 11400000, guid: 7783c6be943946e49b6d4a4982e601d6, type: 2}
+  - {fileID: 11400000, guid: 87af33e5aedf91e4f989c8bdc99e39d5, type: 2}

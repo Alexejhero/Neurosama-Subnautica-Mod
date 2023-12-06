@@ -7,7 +7,7 @@ namespace SCHIZO.Items.FumoItem;
 partial class FumoItemTool
 {
     public bool IsHugging => _isHugging;
-    public bool IsFlushed => _isFlushed;
+    public bool IsAltEffectActive => isAltEffectActive;
     private Transform FumoModel => RetargetHelpers.Pick(fumoModelSN, fumoModelBZ);
 
     private const float _hugTransitionDuration = 0.2f;
@@ -22,18 +22,21 @@ partial class FumoItemTool
     private bool _hugEffectApplied;
     private const float _hugMoveSpeedMulti = 0.7f;
 
-    private bool _flushOnAltUse;
-    private bool _flushOnHug;
-    private bool _isFlushed;
+    protected bool altUseEnabled;
+    protected bool _altEffectOnHug;
+    protected bool isAltEffectActive;
     private float _flushedZscalar = 1.5f;
 
     private GroundMotor _groundMotor;
 
     public new void Awake()
     {
-        _flushOnAltUse = Random.Range(0f, 1f) < 0.05f;
-        hasAltUse = _flushOnAltUse;
-        _flushOnHug = !_flushOnAltUse && Random.Range(0f, 1f) < 0.5f;
+        if (hasAltUse)
+        {
+            altUseEnabled = Random.Range(0f, 1f) < 0.05f;
+            hasAltUse = altUseEnabled;
+            _altEffectOnHug = !altUseEnabled && Random.Range(0f, 1f) < 0.5f;
+        }
 
         base.Awake();
     }
@@ -41,17 +44,19 @@ partial class FumoItemTool
     public void FixedUpdate()
     {
         if (!usingPlayer) return;
-        if (!_flushOnHug) return;
 
-        if (_isHugging)
+        if (_altEffectOnHug)
         {
-            _hugTime += Time.fixedDeltaTime;
-            if (_hugTime > 10f) SetFlushed(true);
-        }
-        else
-        {
-            _hugTime = 0;
-            if (_hugDistScale == 0f) SetFlushed(false);
+            if (_isHugging)
+            {
+                _hugTime += Time.fixedDeltaTime;
+                if (_hugTime > 10f) SetAltEffect(true);
+            }
+            else
+            {
+                _hugTime = 0;
+                if (_hugDistScale == 0f) SetAltEffect(false);
+            }
         }
     }
 
@@ -88,7 +93,7 @@ partial class FumoItemTool
         // need to reset immediately, otherwise PDA opens in the wrong location
         UpdateHugPos(0);
         StopHugging();
-        if (_isFlushed) SetFlushed(false);
+        if (isAltEffectActive) SetAltEffect(false);
         base.OnHolster();
     }
 
@@ -109,16 +114,16 @@ partial class FumoItemTool
 
     public override bool OnAltDown()
     {
-        if (!_flushOnAltUse) return false;
+        if (!altUseEnabled) return false;
 
-        return SetFlushed(true) && base.OnAltDown();
+        return SetAltEffect(true) && base.OnAltDown();
     }
 
     public override bool OnAltUp()
     {
-        if (!_flushOnAltUse) return false;
+        if (!altUseEnabled) return false;
 
-        return SetFlushed(false) && base.OnAltUp();
+        return SetAltEffect(false) && base.OnAltUp();
     }
 
     public void StartHugging()
@@ -175,13 +180,18 @@ partial class FumoItemTool
         _groundMotor.backwardMaxSpeed *= multi;
     }
 
-    public bool SetFlushed(bool flushed)
+    private bool SetAltEffect(bool active)
     {
-        if (_isFlushed == flushed) return false;
+        if (isAltEffectActive == active) return false;
 
-        _isFlushed = flushed;
-        ApplyZScaleMulti(flushed ? _flushedZscalar : 1 / _flushedZscalar);
+        isAltEffectActive = active;
+        ApplyAltEffect(active);
         return true;
+    }
+
+    protected virtual void ApplyAltEffect(bool active)
+    {
+        ApplyZScaleMulti(active ? _flushedZscalar : 1 / _flushedZscalar);
     }
 
     private void ApplyZScaleMulti(float multi)
