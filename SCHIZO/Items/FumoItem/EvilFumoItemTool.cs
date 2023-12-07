@@ -19,9 +19,10 @@ partial class EvilFumoItemTool
             {
                 stolenKnife = knife;
                 YoinkKnife();
-                damageOnPoke *= 4;
+                dmg *= 4;
             }
             usingPlayer.liveMixin.TakeDamage(dmg);
+            damageOnPoke *= 1.25f; // negative reward function
         }
         else
         {
