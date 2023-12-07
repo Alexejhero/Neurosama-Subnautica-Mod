@@ -62,7 +62,7 @@ partial class FumoItemTool
         if (_altEffectTimeRemaining < 0f) SetAltEffect(false);
     }
 
-    public void Update()
+    protected virtual void Update()
     {
         if (!usingPlayer) return;
 

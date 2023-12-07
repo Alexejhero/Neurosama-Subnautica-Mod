@@ -1,8 +1,12 @@
+using Nautilus.Extensions;
+using UnityEngine;
+
 namespace SCHIZO.Items.FumoItem;
 
 partial class EvilFumoItemTool
 {
     public Knife stolenKnife;
+    private static float _knifeScale = 0.9f;
 
     protected override void ApplyAltEffect(bool active)
     {
@@ -15,13 +19,13 @@ partial class EvilFumoItemTool
             {
                 stolenKnife = knife;
                 YoinkKnife();
-                damageOnPoke *= 2;
+                damageOnPoke *= 4;
             }
             usingPlayer.liveMixin.TakeDamage(dmg);
         }
         else
         {
-            if (stealKnife && !ReturnKnife())
+            if (!ReturnKnife())
                 LOGGER.LogError("Could not return stolen knife");
         }
     }
@@ -45,7 +49,25 @@ partial class EvilFumoItemTool
 
     private void YoinkKnife()
     {
-        PlugIntoSocket(stolenKnife, transform);
+        UWE.Utils.SetCollidersEnabled(stolenKnife.gameObject, false);
+        UWE.Utils.SetIsKinematic(stolenKnife.GetComponent<Rigidbody>(), true);
+        UWE.Utils.SetEnabled(stolenKnife.GetComponent<LargeWorldEntity>(), false);
+        stolenKnife.transform.SetParent(knifeSocket.Exists() ?? transform, true);
+        stolenKnife.transform.localScale *= _knifeScale;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (stolenKnife)
+            RepositionKnife(stolenKnife.transform);
+    }
+
+    // i don't know what's rotating things *several frames* after they're unparented but i wish it a very pleasant go commit refactor (in copilot)
+    private static void RepositionKnife(Transform knife)
+    {
+        knife.localRotation = Quaternion.identity;
+        knife.localPosition = Vector3.zero;
     }
 
     private bool ReturnKnife()
@@ -59,6 +81,14 @@ partial class EvilFumoItemTool
 
     private void DropKnife()
     {
-        stolenKnife.transform.parent = null;
+        stolenKnife.transform.localScale /= _knifeScale;
+        stolenKnife.transform.SetParent(null, true);
+        GameObject colliderTarget = stolenKnife.gameObject;
+        FPModel fpModel = stolenKnife.GetComponent<FPModel>();
+        if (fpModel) colliderTarget = fpModel.propModel;
+        UWE.Utils.SetCollidersEnabled(colliderTarget, true);
+        UWE.Utils.SetIsKinematic(stolenKnife.GetComponent<Rigidbody>(), false);
+        if (stolenKnife.GetComponent<LargeWorldEntity>().Exists() is { } lwe)
+            LargeWorldStreamer.main!?.cellManager.RegisterEntity(lwe);
     }
 }

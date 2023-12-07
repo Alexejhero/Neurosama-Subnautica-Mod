@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4427810026626581335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4086069228116111534}
+  m_Layer: 0
+  m_Name: Knife socket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4086069228116111534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4427810026626581335}
+  m_LocalRotation: {x: 0.30061084, y: -0.040196054, z: -0.9146508, w: 0.26726663}
+  m_LocalPosition: {x: 0.16, y: -0.24, z: -1.74}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8418634198100310474}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 5, y: 325, z: 211}
 --- !u!54 &3813723675008832454
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -87,17 +117,17 @@ MonoBehaviour:
   secondaryUseText: 
   hasAltUse: 1
   altUseText: Poke ({0})
-  altUsableChance: 0.25
+  altUsableChance: 1
   altEffectOnHugChance: 1
   altEffectMinHugTime: 2
-  altEffectDuration: 2
+  altEffectDuration: 5
   hugCooldown: 1
   hugColdResistBuff: 40
   fumoModelSN: {fileID: 3795415044668019676}
   fumoModelBZ: {fileID: 4264099153745794611}
-  damageOnPoke: 10
-  stealKnife: 0
-  knifeSocket: {fileID: 0}
+  damageOnPoke: 5
+  stealKnife: 1
+  knifeSocket: {fileID: 4086069228116111534}
 --- !u!114 &2974045779525387420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,10 +194,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 73
       objectReference: {fileID: 0}
+    - target: {fileID: 1752336031019831118, guid: 494d51939a4d56f47a65310c2d52e286,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2351523049876982568, guid: 494d51939a4d56f47a65310c2d52e286,
         type: 3}
       propertyPath: m_Name
       value: Evil Fumo item
+      objectReference: {fileID: 0}
+    - target: {fileID: 3796789029613737883, guid: 494d51939a4d56f47a65310c2d52e286,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5277470585440791267, guid: 494d51939a4d56f47a65310c2d52e286,
         type: 3}
@@ -324,6 +364,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8775181316061534643, guid: 494d51939a4d56f47a65310c2d52e286,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6545938831321695140, guid: 494d51939a4d56f47a65310c2d52e286, type: 3}
     - {fileID: 2416869583082230119, guid: 494d51939a4d56f47a65310c2d52e286, type: 3}
@@ -379,6 +424,12 @@ Transform:
 --- !u!1 &5089260673191422795 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3796789029613737883, guid: 494d51939a4d56f47a65310c2d52e286,
+    type: 3}
+  m_PrefabInstance: {fileID: 8219148621552729296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8418634198100310474 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 487716062766548250, guid: 494d51939a4d56f47a65310c2d52e286,
     type: 3}
   m_PrefabInstance: {fileID: 8219148621552729296}
   m_PrefabAsset: {fileID: 0}
