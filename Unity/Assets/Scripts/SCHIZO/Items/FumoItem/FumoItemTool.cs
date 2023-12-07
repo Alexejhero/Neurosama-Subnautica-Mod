@@ -17,6 +17,8 @@ namespace SCHIZO.Items.FumoItem
         [Tooltip("Minimum hug duration to trigger alt-use effect"), ShowIf(nameof(hasAltUse))]
         [Range(0,60), LabelText("Min Hug Time")]
         public float altEffectMinHugTime = 10f;
+        [Min(0), LabelText("Effect Duration"), ShowIf(nameof(hasAltUse))]
+        public float altEffectDuration = 2f;
 
         [UnGroupNext]
         [Min(0)]

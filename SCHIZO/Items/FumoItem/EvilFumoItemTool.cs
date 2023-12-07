@@ -6,12 +6,11 @@ partial class EvilFumoItemTool
 
     protected override void ApplyAltEffect(bool active)
     {
-        if (!stealKnife) return;
         LOGGER.LogWarning(active);
         if (active)
         {
             float dmg = damageOnPoke;
-            if (TryFindKnife(out Knife knife)
+            if (stealKnife && TryFindKnife(out Knife knife)
                 && Inventory.main.InternalDropItem(knife.pickupable))
             {
                 stolenKnife = knife;
@@ -22,7 +21,7 @@ partial class EvilFumoItemTool
         }
         else
         {
-            if (!ReturnKnife())
+            if (stealKnife && !ReturnKnife())
                 LOGGER.LogError("Could not return stolen knife");
         }
     }
@@ -37,9 +36,8 @@ partial class EvilFumoItemTool
             InventoryItem item = slots.GetSlotItem(i);
             if (item is null || !item.item)
                 continue;
-            Knife knifeMaybe = item.item.GetComponent<Knife>();
-            if (!knifeMaybe) continue;
-            knife = knifeMaybe;
+            knife = item.item.GetComponent<Knife>();
+            if (!knife) continue;
             return true;
         }
         return false;

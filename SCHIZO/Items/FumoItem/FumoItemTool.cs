@@ -25,6 +25,7 @@ partial class FumoItemTool
     protected bool altUseEnabled;
     protected bool _altEffectOnHug;
     protected bool isAltEffectActive;
+    private float _altEffectTimeRemaining;
     private float _flushedZscalar = 1.5f;
 
     private GroundMotor _groundMotor;
@@ -33,9 +34,9 @@ partial class FumoItemTool
     {
         if (hasAltUse)
         {
-            altUseEnabled = Random.Range(0f, 1f) < 0.05f;
+            altUseEnabled = Random.Range(0f, 1f) < altUsableChance;
             hasAltUse = altUseEnabled;
-            _altEffectOnHug = !altUseEnabled && Random.Range(0f, 1f) < 0.5f;
+            _altEffectOnHug = !altUseEnabled && Random.Range(0f, 1f) < altEffectOnHugChance;
         }
 
         base.Awake();
@@ -50,14 +51,15 @@ partial class FumoItemTool
             if (_isHugging)
             {
                 _hugTime += Time.fixedDeltaTime;
-                if (_hugTime > 10f) SetAltEffect(true);
+                if (_hugTime > altEffectMinHugTime) SetAltEffect(true);
             }
             else
             {
                 _hugTime = 0;
-                if (_hugDistScale == 0f) SetAltEffect(false);
             }
         }
+        _altEffectTimeRemaining -= Time.fixedDeltaTime;
+        if (_altEffectTimeRemaining < 0f) SetAltEffect(false);
     }
 
     public void Update()
@@ -112,18 +114,11 @@ partial class FumoItemTool
         return base.OnRightHandUp();
     }
 
-    public override bool OnAltDown()
+    public override bool OnAltHeld()
     {
         if (!altUseEnabled) return false;
 
-        return SetAltEffect(true) && base.OnAltDown();
-    }
-
-    public override bool OnAltUp()
-    {
-        if (!altUseEnabled) return false;
-
-        return SetAltEffect(false) && base.OnAltUp();
+        return SetAltEffect(true) && base.OnAltHeld();
     }
 
     public void StartHugging()
@@ -182,6 +177,7 @@ partial class FumoItemTool
 
     private bool SetAltEffect(bool active)
     {
+        if (active) _altEffectTimeRemaining = altEffectDuration;
         if (isAltEffectActive == active) return false;
 
         isAltEffectActive = active;
