@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class ARGCensor : MonoBehaviour
 {
-    private Texture2DArray texture2DArray;
-
+    private Material effectMaterial;
     public float fadeOutStartDistance = 35f;
     public float scale = 1.3f;
     public float frameChangeInterval = 0.08f;
@@ -13,17 +12,18 @@ public class ARGCensor : MonoBehaviour
 
     private float lastUpdate;
     private float lastRnd = 0f;
+    private int texID = Shader.PropertyToID("_Images");
+    private float arrayDepth;
 
     public void Awake()
     {
         _ = SchizoVFXStack.VFXStack;
+        effectMaterial = VFXMaterialHolder.instance.GetMaterial("ARG fish effect");
 
-        texture2DArray = VFXMaterialHolder.instance.t2dArrayForARGEffect;
-
-        matPassID = new MatPassID(Effects.ARGCensor);
-        matPassID.SetTexture("_Images", texture2DArray);
+        matPassID = new MatPassID(effectMaterial);
 
         lastUpdate = Time.time;
+        arrayDepth = ((Texture2DArray) effectMaterial.GetTexture(texID)).depth;
     }
 
     public void LateUpdate()
@@ -39,7 +39,7 @@ public class ARGCensor : MonoBehaviour
         {
             if (Time.time - lastUpdate > frameChangeInterval)
             {
-                lastRnd = Random.Range(0, texture2DArray.depth) * Time.timeScale;
+                lastRnd = Random.Range(0, arrayDepth) * Time.timeScale;
                 lastUpdate = Time.time;
             }
 
