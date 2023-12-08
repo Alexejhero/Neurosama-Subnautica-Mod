@@ -15,7 +15,7 @@
 
         <PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
         <PackageReference Include="Krafs.Publicizer" Version="2.2.1" PrivateAssets="all" />
-        <PackageReference Include="PolySharp" Version="1.13.2" PrivateAssets="all" />
+        <PackageReference Include="PolySharp" Version="1.14.0" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>

@@ -2611,7 +2611,7 @@
             <param name="values">Values to concatenate into the <paramref name="builder"/>.</param>
             <returns>The provided <see cref="T:System.Text.StringBuilder"/>.</returns>
         </member>
-        <member name="M:Nautilus.Extensions.TypeExtensions.GetFriendlyTypeName(System.Type)">
+        <member name="M:Nautilus.Extensions.TypeExtensions.GetFriendlyName(System.Type)">
             <summary>
             Format the given <paramref name="type"/>'s name into a more developer-friendly form.
             </summary>
