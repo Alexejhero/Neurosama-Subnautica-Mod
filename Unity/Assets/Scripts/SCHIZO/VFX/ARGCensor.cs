@@ -1,9 +1,12 @@
 using SCHIZO.VFX;
+using TriInspector;
 using UnityEngine;
 
 public class ARGCensor : MonoBehaviour
 {
-    private Material effectMaterial;
+    [InlineEditor]
+    public Material effectMaterial;
+
     public float fadeOutStartDistance = 35f;
     public float scale = 1.3f;
     public float frameChangeInterval = 0.08f;
@@ -18,7 +21,6 @@ public class ARGCensor : MonoBehaviour
     public void Awake()
     {
         _ = SchizoVFXStack.VFXStack;
-        effectMaterial = VFXMaterialHolder.instance.GetMaterial("ARG fish effect");
 
         matPassID = new MatPassID(effectMaterial);
 
