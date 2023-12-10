@@ -11,6 +11,7 @@ namespace Editor.Scripts.PropertyDrawers.NonTriInspector.Attributes
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+        // TODO: this is not ideal 
             image = (Texture) property.objectReferenceValue;
             GUIStyle style = new GUIStyle(EditorStyles.label);
             style.alignment = TextAnchor.UpperCenter;

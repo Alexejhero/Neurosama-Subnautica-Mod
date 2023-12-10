@@ -8,32 +8,19 @@ namespace SCHIZO.VFX {
         [ReadOnly]
         public Material material;
 
-        [OnValueChanged(nameof(SetNewResultTexture))]
-        public Texture2D previewImage;
-
-        [PreviewImage]
-        public Texture2D previewResult;
-
         [HideInInspector]
         public MatPassID matPassID;
 
         [SerializeField]
         private bool isActive = true;
 
-        public void SetActive()
-        {
-            isActive = true;
-        }
+#if UNITY_EDITOR
 
-        public void SetDisable()
-        {
-            isActive = false;
-        }
+        [OnValueChanged(nameof(SetNewResultTexture))]
+        public Texture2D previewImage;
 
-        private void SetNewResultTexture()
-        {
-            previewResult = new Texture2D(previewImage.width, previewImage.height, TextureFormat.RGBAHalf, false);
-        }
+        [PreviewImage]
+        public Texture2D previewResult;
 
         private void OnValidate()
         {
@@ -47,6 +34,21 @@ namespace SCHIZO.VFX {
                 Graphics.ConvertTexture(tempResult, previewResult);
                 tempResult.Release();
             }
+        }
+        private void SetNewResultTexture()
+        {
+            previewResult = new Texture2D(previewImage.width, previewImage.height, TextureFormat.RGBAHalf, false);
+        }
+#endif
+
+        public void SetActive()
+        {
+            isActive = true;
+        }
+
+        public void SetDisable()
+        {
+            isActive = false;
         }
 
         public virtual void SetProperties()

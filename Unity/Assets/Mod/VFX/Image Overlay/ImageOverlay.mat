@@ -29,6 +29,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Opacity: 0.609
-    - _Scale: 1
-    - _Strength: 1
-    m_Colors: []
+    - _Scale: 0.79
+    - _Strength: 0.55
+    m_Colors:
+    - _Position: {r: 0.5, g: 0.5, b: 0, a: 0}
