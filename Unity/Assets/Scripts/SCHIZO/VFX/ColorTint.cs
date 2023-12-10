@@ -12,9 +12,4 @@ public class ColorTint : VFXComponent
         matPassID.SetColor("_Color", color);
         matPassID.passID = (int) blendMode;
     }
-
-    public override void Update()
-    {
-        base.Update();
-    }
 }

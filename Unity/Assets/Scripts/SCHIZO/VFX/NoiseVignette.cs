@@ -14,11 +14,12 @@ public class NoiseVignette : VFXComponent
     public float displacementStrength = 0.5f;
     [Range(0f, 1f)]
     public float strength = 1f;
-
     private TriValidationResult ValidateNormalMap()
     { 
+#if UNITY_EDITOR
         TextureImporter importer = (TextureImporter) AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(displacementNormal));
         if(importer.textureType != TextureImporterType.NormalMap) { return TriValidationResult.Error("Normal map is required"); }
+#endif
         return TriValidationResult.Valid;
     }
     public override void SetProperties()
