@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31176ccc850eb4a40a6800859f45666b, type: 3}
-  m_Name: New Biome Spawn Data
+  m_Name: Tutel spawns
   m_EditorClassIdentifier: 
   spawnLocation: 1
   rules:

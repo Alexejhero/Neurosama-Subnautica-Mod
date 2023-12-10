@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1160e7f4151348eb97332e6bb0a2a034, type: 3}
   m_Name: Databank
   m_EditorClassIdentifier: 
+  scannable: 0
   scanTime: 3
   unlockSprite: {fileID: 0}
   isImportantUnlock: 0
