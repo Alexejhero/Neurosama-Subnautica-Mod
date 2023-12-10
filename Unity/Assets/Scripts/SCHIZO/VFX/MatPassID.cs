@@ -10,7 +10,9 @@ public sealed class MatPassID(Material material)
 {
     public MatPassID(Material material, int passID) : this(material) { _passID = passID; }
 
+    public int passID { set => _passID = value; private get => _passID; }
     private int _passID;
+
     private Dictionary <int, Vector4> vectors;
     public void SetVector(string name, Vector4 value)
     {
