@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: PDA Log
   m_EditorClassIdentifier: 
   key: vo_pda_neuro_hatevedal
+  pdaHandTargetText: 
+  pdaHandTargetSubtext: 
   encyData: {fileID: 11400000, guid: 1d894705a6e7743439c0806c6f63a2a5, type: 2}
   subtitles: {fileID: 11400000, guid: 1279d8da7c8e80f4cb78e2f9713583b5, type: 2}
-  spawns: []
+  spawns:
+  - game: 2
+    locations:
+    - position: {x: -210, y: 48.3, z: -739}
+      rotation: {x: 0.35, y: 68, z: 0.8}

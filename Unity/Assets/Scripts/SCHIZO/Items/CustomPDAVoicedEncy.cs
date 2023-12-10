@@ -11,6 +11,10 @@ namespace SCHIZO.Items
     public sealed partial class CustomPDAVoicedEncy : ModRegistryItem
     {
         public string key;
+        [LabelText("PDA Hover Text")]
+        public string pdaHandTargetText;
+        [LabelText("PDA Hover Subtext")]
+        public string pdaHandTargetSubtext;
         public PDAEncyclopediaInfo encyData;
         [InfoBox("Make sure the number of subtitle lines matches the number of audio clips in the event!", TriMessageType.Warning)]
         public Subtitles.SubtitlesData subtitles;

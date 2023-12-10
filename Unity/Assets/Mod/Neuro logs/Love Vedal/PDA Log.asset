@@ -13,15 +13,14 @@ MonoBehaviour:
   m_Name: PDA Log
   m_EditorClassIdentifier: 
   key: vo_pda_neuro_lovevedal
+  pdaHandTargetText: 
+  pdaHandTargetSubtext: 
   encyData: {fileID: 11400000, guid: ace79d4387191d14f95f12def17ef812, type: 2}
-  logVO: event:/SCHIZO/ency/pda_neuro_lovevedal
   subtitles: {fileID: 11400000, guid: d1bd66067ffd7ac458d241050ae69d89, type: 2}
   spawns:
   - game: 1
-    locations:
-    - position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0}
+    locations: []
   - game: 2
     locations:
-    - position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0}
+    - position: {x: -210, y: 48, z: -739}
+      rotation: {x: 0.35, y: 68, z: 0.8}
