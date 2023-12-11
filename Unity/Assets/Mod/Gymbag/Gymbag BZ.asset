@@ -17,7 +17,7 @@ MonoBehaviour:
     id: 0
   classId: quantumgymbag
   displayName: Quantum Gymbag
-  tooltip: 'Provides portable access to the quantum storage network... provided you
+  tooltip: 'Offers portable access to the quantum storage network... provided you
     don''t mind the smell.
 
     <size=75%>(Model by Vaalmyr)</size>'
@@ -36,7 +36,7 @@ MonoBehaviour:
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 14
-  techCategorySN: 0
+  techCategorySN: -1
   requiredForUnlockSN:
     isCustom: 0
     techType: 0

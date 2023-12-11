@@ -19,7 +19,11 @@ MonoBehaviour:
   displayName: Evil fumo
   tooltip: 'Don''t poke her, or she might bite you.
 
-    Keep away from sharp objects.'
+    Keep away from sharp objects.
+
+
+    <size=75%>(Model
+    by w1n7er)</size>'
   icon: {fileID: 21300000, guid: 60e94acee40f84d4896c5a5004c2c6a7, type: 3}
   itemSize: {x: 1, y: 1}
   isCraftable: 1

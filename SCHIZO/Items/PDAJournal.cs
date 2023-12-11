@@ -24,20 +24,20 @@ partial class PDAJournal
         internal static Dictionary<string, PDAJournalPrefab> Prefabs = [];
 
         public CustomPrefab NautilusPrefab { get; }
-        public CloneTemplate CloneTemplate { get; }
-        public PrefabInfo Info { get; }
         private PDAJournalPrefab(PDAJournal journal)
         {
             string prefabName = $"{nameof(PDAJournal)}_{journal.key}";
-            Info = new PrefabInfo
+
+            NautilusPrefab = new CustomPrefab(prefabName, null, null);
+
+            bool doSpawn = RetargetHelpers.Pick(journal.spawnInSN, journal.spawnInBZ);
+            if (doSpawn)
             {
-                ClassID = prefabName,
-                PrefabFileName = prefabName,
-                // nautilus complains if we don't have a techtype
-                // even though prefabs like this are *not* supposed to have one
-                TechType = EnumHandler.AddEntry<TechType>(prefabName)
-            };
-            CloneTemplate = new CloneTemplate(Info, CloneTargetClassId)
+                Spawns.SpawnLocation ourLoc = RetargetHelpers.Pick(journal.spawnLocationSN, journal.spawnLocationBZ);
+                SpawnLocation loc = new(ourLoc.position, ourLoc.rotation);
+                NautilusPrefab.SetSpawns(loc);
+            }
+            NautilusPrefab.SetGameObject(new CloneTemplate(NautilusPrefab.Info, CloneTargetClassId)
             {
                 ModifyPrefab = prefab =>
                 {
@@ -48,18 +48,7 @@ partial class PDAJournal
                         handTarget.secondaryTooltip = journal.pdaHandTargetSubtext;
                     handTarget.goal.key = journal.key;
                 }
-            };
-
-            NautilusPrefab = new CustomPrefab() { Info = Info };
-
-            bool doSpawn = RetargetHelpers.Pick(journal.spawnInSN, journal.spawnInBZ);
-            if (doSpawn)
-            {
-                Spawns.SpawnLocation ourLoc = RetargetHelpers.Pick(journal.spawnLocationSN, journal.spawnLocationBZ);
-                SpawnLocation loc = new(ourLoc.position, ourLoc.rotation);
-                NautilusPrefab.SetSpawns(loc);
-            }
-            NautilusPrefab.SetGameObject(CloneTemplate);
+            });
             NautilusPrefab.Register();
         }
 

@@ -25,7 +25,7 @@ partial class ActorData
 
     [HarmonyPatch(typeof(uGUI_TalkingHead), nameof(uGUI_TalkingHead.GetSkin))]
     [HarmonyPrefix]
-    private static bool GetCustomSkin(uGUI_TalkingHead __instance, Actor actor, out TalkingHeadSkin __result)
+    private static bool GetCustomSkin(Actor actor, out TalkingHeadSkin __result)
     {
         __result = default;
 

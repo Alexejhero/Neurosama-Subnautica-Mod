@@ -17,7 +17,11 @@ MonoBehaviour:
     id: 0
   classId: neurofumoitem
   displayName: Neuro fumo
-  tooltip: Very huggable. Sure to keep your heart warm in any environment.
+  tooltip: 'Very huggable. Sure to keep your heart warm in any environment.
+
+
+    <size=75%>(Model
+    by Kat)</size>'
   icon: {fileID: 21300000, guid: 45820c772f47f814d88babbafe7caa46, type: 3}
   itemSize: {x: 1, y: 1}
   isCraftable: 1
