@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using SCHIZO.Attributes;
 using SCHIZO.Items.Data;
 using SCHIZO.Registering;
 using SCHIZO.Spawns;
@@ -7,9 +7,12 @@ using UnityEngine;
 
 namespace SCHIZO.Items
 {
-    [CreateAssetMenu(menuName = "SCHIZO/Items/PDA Journal Entry")]
-    public sealed partial class CustomPDAVoicedEncy : ModRegistryItem
+    [CreateAssetMenu(menuName = "SCHIZO/Items/PDA Journal")]
+    [DeclareBoxGroup("Subnautica")]
+    [DeclareBoxGroup("Below Zero")]
+    public sealed partial class PDAJournal : ModRegistryItem
     {
+        [Careful]
         public string key;
         [LabelText("PDA Hover Text")]
         public string pdaHandTargetText;
@@ -18,6 +21,14 @@ namespace SCHIZO.Items
         public PDAEncyclopediaInfo encyData;
         [InfoBox("Make sure the number of subtitle lines matches the number of audio clips in the event!", TriMessageType.Warning)]
         public Subtitles.SubtitlesData subtitles;
-        public List<SpawnInfo> spawns;
+        
+        [GroupNext("Subnautica")]
+        public bool spawnInSN;
+        [Careful, EnableIf(nameof(spawnInSN))]
+        public SpawnLocation spawnLocationSN;
+        [GroupNext("Below Zero")]
+        public bool spawnInBZ;
+        [Careful, EnableIf(nameof(spawnInBZ))]
+        public SpawnLocation spawnLocationBZ;
     }
 }

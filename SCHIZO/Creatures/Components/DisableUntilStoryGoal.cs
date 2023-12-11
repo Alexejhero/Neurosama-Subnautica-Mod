@@ -4,11 +4,17 @@ using Story;
 namespace SCHIZO.Creatures.Components;
 partial class DisableUntilStoryGoal : IStoryGoalListener
 {
-    private string StoryGoal => RetargetHelpers.Pick(storyGoalSN, storyGoalBZ);
+    private string storyGoal;
     public void Start()
     {
+        storyGoal = RetargetHelpers.Pick(storyGoalSN, storyGoalBZ);
         StoryGoalManager.main.AddListener(this);
         UpdateActive();
+    }
+
+    private void OnDestroy()
+    {
+        StoryGoalManager.main.RemoveListener(this);
     }
 
     public void NotifyGoalComplete(string key) => UpdateActive();
@@ -17,5 +23,5 @@ partial class DisableUntilStoryGoal : IStoryGoalListener
 
     public void NotifyGoalsDeserialized() => UpdateActive();
 
-    private void UpdateActive() => gameObject.SetActive(StoryGoalHelpers.IsCompleted(StoryGoal));
+    private void UpdateActive() => gameObject.SetActive(StoryGoalHelpers.IsCompleted(storyGoal));
 }
