@@ -15,7 +15,10 @@ public sealed partial class CustomJukeboxTrack
     public int LoadFailCount { get; private set; }
     public void OnLoadFail() => LoadFailCount++;
     public void OnPlay() => LoadFailCount = 0;
-    public bool ShouldRetryLoad => LoadFailCount < (IsLocal ? 5 : 3);
+    public bool IsRemote => source == Source.Internet;
+    public bool ShouldRetryLoad => LoadFailCount < (IsRemote ? 3 : 5);
+    private string _jukeboxId;
+    public string JukeboxIdentifier => _jukeboxId ??= (source == Source.FMODEvent ? fmodEvent : identifier);
 
     public bool IsSoundValid(out OPENSTATE state)
     {
@@ -78,14 +81,16 @@ public sealed partial class CustomJukeboxTrack
 
     internal void RegisterInJukebox(BZJukebox jukebox)
     {
-        BZJukebox.unlockableMusic[this] = identifier;
-        if (jukebox) jukebox._info[identifier] = ToTrackInfo(false);
+        BZJukebox.unlockableMusic[this] = JukeboxIdentifier;
+        BZJukebox.musicLabels[JukeboxIdentifier] = trackLabel;
+
+        if (jukebox) jukebox._info[JukeboxIdentifier] = ToTrackInfo(false);
     }
 
     public static bool TryGetCustomTrack(string identifier, out CustomJukeboxTrack track)
     {
         track = null;
-
+        // this will not find event tracks (which is intended)
         return identifier is not null
             && EnumHandler.TryGetValue(identifier, out BZJukebox.UnlockableTrack trackId)
             && TryGetCustomTrack(trackId, out track);
@@ -94,10 +99,13 @@ public sealed partial class CustomJukeboxTrack
     public static bool TryGetCustomTrack(BZJukebox.UnlockableTrack trackId, out CustomJukeboxTrack track)
         => CustomJukeboxTrackPatches.customTracks.TryGetValue(trackId, out track);
 
-    internal void SetupUnlock(BZJukebox.UnlockableTrack trackId = BZJukebox.UnlockableTrack.None)
+    public static bool IsTrackCustom(BZJukebox.UnlockableTrack trackId)
+        => trackId is < BZJukebox.UnlockableTrack.None
+                   or > BZJukebox.UnlockableTrack.Track9;
+
+    internal void SetupUnlock()
     {
-        if (trackId == default)
-            trackId = this;
+        BZJukebox.UnlockableTrack trackId = this;
 
         if (!Player.main || !GameModeManager.HaveGameOptionsSet)
         {
@@ -108,7 +116,7 @@ public sealed partial class CustomJukeboxTrack
         if (unlockedOnStart || !GameModeManager.GetOption<bool>(GameOption.Story))
         {
             BZJukebox.Unlock(trackId, false);
-            BZJukebox.main.SetInfo(identifier, ToTrackInfo(false));
+            BZJukebox.main.SetInfo(JukeboxIdentifier, ToTrackInfo(false));
         }
         else
         {

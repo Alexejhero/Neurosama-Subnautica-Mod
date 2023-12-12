@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
-using Nautilus.Handlers;
 using SCHIZO.Helpers;
 
 namespace SCHIZO.Items;
@@ -56,7 +55,7 @@ partial class PDAJournal
         {
             if (Prefabs.ContainsKey(journal.key))
             {
-                LOGGER.LogWarning($"Dupe PDAJournalPrefab {journal.key}");
+                LOGGER.LogWarning($"Duplicate PDAJournal key {journal.key}");
                 return;
             }
             Prefabs[journal.key] = new PDAJournalPrefab(journal);

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="AudioFile" id="{4f72d2fc-acda-4837-9930-04937b931d3e}">
 		<property name="assetPath">
-			<value>hatevedal-07.ogg</value>
+			<value>neuro logs/hate vedal/hatevedal-07.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>24</value>

@@ -4,6 +4,7 @@ using SCHIZO.Attributes;
 using SCHIZO.Registering;
 using UnityEngine;
 using SCHIZO.Spawns;
+using FMODUnity;
 
 namespace SCHIZO.Jukebox
 {
@@ -12,42 +13,45 @@ namespace SCHIZO.Jukebox
     [DeclareBoxGroup("unlock", Title = "Unlock")]
     public sealed partial class CustomJukeboxTrack : ModRegistryItem
     {
-        private enum Source
+        public enum Source
         {
             Asset,
+            FMODEvent,
             Internet
         }
 
         [Careful, Required]
         public string identifier;
 
-        [SerializeField]
-        private Source source;
+        public Source source;
 
-        [HideIf(nameof(IsRemote))]
+        [ShowIf(nameof(source), Source.Asset)]
+        [InfoBox("Audio clips are obsolete, prefer FMOD events for local audio instead", TriMessageType.Warning)]
         public AudioClip audioClip;
 
-        [ShowIf(nameof(IsRemote)), ValidateInput(nameof(Validate_urlIsHttp)), LabelText("URL")]
+        [ShowIf(nameof(source), Source.FMODEvent)]
+        [EventRef]
+        public string fmodEvent;
+
+        [ShowIf(nameof(source), Source.Internet), ValidateInput(nameof(Validate_urlIsHttp)), LabelText("URL")]
         public string url;
 
-        [ShowIf(nameof(IsRemote))]
+        [ShowIf(nameof(source), Source.Internet)]
         [Tooltip("Whether to handle the audio like an endless stream, e.g. internet radio.\nIn-game, this will hide duration and disable seeking.")]
         public bool isStream;
 
         [GroupNext("track")]
-
-        [ShowIf(nameof(isStream))]
+        [ShowIf(nameof(source), Source.Internet), ShowIf(nameof(isStream))]
         [Multiline, InfoBox("Use {0} as a placeholder for the track label.\nTextMeshPro rich text tags are supported.")]
         public string streamLabelFormat;
 
-        [ShowIf(nameof(IsRemote))]
+        [ShowIf(nameof(source), Source.Internet)]
         [Tooltip("If not overridden, the remote file or stream's metadata (if any) will be used.")]
         public bool overrideTrackLabel;
 
         public string trackLabel;
 
         [GroupNext("unlock")]
-
         public bool unlockedOnStart = true;
 
         [HideIf(nameof(unlockedOnStart)), UsedImplicitly]
@@ -59,9 +63,6 @@ namespace SCHIZO.Jukebox
 
         [HideIf(nameof(unlockedOnStart)), UsedImplicitly]
         public AudioClip unlockSound;
-
-        public bool IsLocal => source == Source.Asset;
-        public bool IsRemote => source == Source.Internet;
 
         private TriValidationResult Validate_urlIsHttp()
         {
