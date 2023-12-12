@@ -7,20 +7,18 @@ public class SchizoVFXStack : MonoBehaviour
 {
     private static SchizoVFXStack _instance;
 
-    public static SchizoVFXStack VFXStack
+    public static SchizoVFXStack Instance
     {
         get
         {
-            if (_instance != null) return _instance;
-            _instance = Camera.main.GetComponent<SchizoVFXStack>();
-            if (_instance == null) _instance = Camera.main.gameObject.AddComponent<SchizoVFXStack>();
-            return _instance;
+            if (_instance) return _instance;
+            return _instance = Camera.main!.gameObject.AddComponent<SchizoVFXStack>();
         }
     }
 
-    private static List<MatPassID> effectMaterials = [];
+    private static readonly List<MatPassID> effectMaterials = [];
 
-    public static void RenderEffect(MatPassID m)
+    public void RenderEffect(MatPassID m)
     {
         if (effectMaterials.Contains(m)) return;
         effectMaterials.Add(m);

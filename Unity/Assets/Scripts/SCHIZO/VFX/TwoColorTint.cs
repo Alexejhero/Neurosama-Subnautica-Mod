@@ -1,18 +1,20 @@
-using SCHIZO.VFX;
 using UnityEngine;
 
-public class TwoColorTint : VFXComponent
+namespace SCHIZO.VFX
 {
-    public Color innerColor = Color.red;
-    public Color outerColor = Color.green;
-    [Range(0f, 1f)]
-    public float strength = 0.3f;
-
-    public override void SetProperties()
+    public class TwoColorTint : VFXComponent
     {
-        base.SetProperties();
-        matPassID.SetColor("_Color", innerColor);
-        matPassID.SetColor("_Color0", outerColor);
-        matPassID.SetFloat("_Strength", strength);
+        public Color innerColor = Color.red;
+        public Color outerColor = Color.green;
+        [Range(0f, 1f)]
+        public float strength = 0.3f;
+
+        public override void SetProperties()
+        {
+            base.SetProperties();
+            matPassID.SetColor("_Color", innerColor);
+            matPassID.SetColor("_Color0", outerColor);
+            matPassID.SetFloat("_Strength", strength);
+        }
     }
 }

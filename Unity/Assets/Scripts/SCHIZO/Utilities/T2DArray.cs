@@ -1,25 +1,26 @@
 using System.Collections.Generic;
-using TriInspector;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
+
+#if UNITY_EDITOR
+using TriInspector;
+#endif
 
 namespace SCHIZO.Utilities
 {
-    [CreateAssetMenu(menuName ="SCHIZO/Utilities/Texture2D Array")]
+    [CreateAssetMenu(menuName = "SCHIZO/Utilities/Texture2D Array")]
     public class T2DArray : ScriptableObject
     {
-        [HideInInspector]
-        public Texture2DArray array;
+        [HideInInspector] public Texture2DArray array;
 
 #if UNITY_EDITOR
 
         [Required, ValidateInput(nameof(ValidateTextures))]
         public List<Texture> textures;
+
         public TextureWrapMode wrapMode = TextureWrapMode.Clamp;
         public FilterMode filterMode = FilterMode.Point;
-        [Space]
-        [ShowIf(nameof(array), null)]
-        public TextureCompressionQuality compressionQuality;
+        [Space] [ShowIf(nameof(array), null)] public TextureCompressionQuality compressionQuality;
 
         [ShowInInspector, ShowIf(nameof(array), null), ReadOnly]
         public TextureFormat compressionFormat;
@@ -33,7 +34,8 @@ namespace SCHIZO.Utilities
             }
         }
 
-        private bool validtationPass = false;
+        private bool validationPass = false;
+
         private TriValidationResult ValidateTextures()
         {
             if (textures.Count > 1) textures.RemoveAll(o => o == null);
@@ -46,27 +48,30 @@ namespace SCHIZO.Utilities
 
                 foreach (Texture texture in textures)
                 {
-                    if (texture.width != w || texture.height != h )
+                    if (texture.width != w || texture.height != h)
                     {
-                        validtationPass = false;
+                        validationPass = false;
                         return TriValidationResult.Error("All Textures must have same dimensions!");
                     }
-                    if(((Texture2D) texture).format != format)
+
+                    if (((Texture2D) texture).format != format)
                     {
-                        validtationPass = false;
+                        validationPass = false;
                         return TriValidationResult.Error("All Textures must have same format!");
                     }
                 }
-                validtationPass = true;
+
+                validationPass = true;
                 compressionFormat = format;
                 return TriValidationResult.Valid;
             }
-            validtationPass = true;
+
+            validationPass = true;
             return TriValidationResult.Warning("Please assign at least 2 textures, or use Texture2D if single texture is intended");
         }
 
         // for some reason Texture2DArray sub asset does not update when overwriting it, so uuh it's a one time thing i guess
-        [Button, ShowIf(nameof(array), null), ShowIf(nameof(validtationPass),true)]
+        [Button, ShowIf(nameof(array), null), ShowIf(nameof(validationPass), true)]
         private void GenerateArray()
         {
             if (textures.Count == 0 || textures[0] == null) return;
@@ -84,12 +89,13 @@ namespace SCHIZO.Utilities
         {
             List<Texture> tt = textures;
 
-            Texture2DArray t2da = new Texture2DArray(tt[0].width, tt[0].height, tt.Count, compressionFormat, false, true);
-            
+            Texture2DArray t2da = new(tt[0].width, tt[0].height, tt.Count, compressionFormat, false, true);
+
             for (int i = 0; i < tt.Count; i++)
             {
-                Graphics.CopyTexture(tt[i], 0,0, t2da, i,0);
+                Graphics.CopyTexture(tt[i], 0, 0, t2da, i, 0);
             }
+
             t2da.wrapMode = wrapMode;
             t2da.filterMode = filterMode;
 

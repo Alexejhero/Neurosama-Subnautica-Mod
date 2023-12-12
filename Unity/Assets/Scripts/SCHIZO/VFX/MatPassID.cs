@@ -1,89 +1,90 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SCHIZO.VFX;
-
-/// <summary>
-/// Material Properties can be set via <c>SetVector()</c>, <c>SetFloat()</c>, <c>SetColor()</c>, <c>SetTexture()</c> methods.
-/// </summary>
-public sealed class MatPassID(Material material)
+namespace SCHIZO.VFX
 {
-    public MatPassID(Material material, int passID) : this(material) { _passID = passID; }
-
-    public int passID { set => _passID = value; private get => _passID; }
-    private int _passID;
-
-    private Dictionary <int, Vector4> vectors;
-    public void SetVector(string name, Vector4 value)
+    /// <summary>
+    /// Material Properties can be set via <see cref="SetVector"/>, <see cref="SetFloat"/>, <see cref="SetColor"/>, <see cref="SetTexture"/> methods.
+    /// </summary>
+    public sealed class MatPassID(Material material)
     {
-        int id = Shader.PropertyToID(name);
+        public int PassID { get; set; }
 
-        vectors ??= [];
-        vectors[id] = value;
-    }
+        private Dictionary<int, Vector4> _vectors;
+        private Dictionary<int, float> _floats;
+        private Dictionary<int, Color> _colors;
+        private Dictionary<int, Texture> _textures;
 
-    private Dictionary<int, float> floats;
-    public void SetFloat(string name, float value)
-    {
-        int id = Shader.PropertyToID(name);
-
-        floats ??= [];
-        floats[id] = value;
-    }
-
-    private Dictionary<int, Color> colors;
-    public void SetColor(string name, Color value)
-    {
-        int id = Shader.PropertyToID(name);
-
-        colors ??= [];
-        colors[id] = value;
-    }
-
-    private Dictionary<int, Texture> textures;
-    public void SetTexture(string name, Texture value)
-    {
-        int id = Shader.PropertyToID(name);
-
-        textures ??= [];
-        textures[id] = value;
-    }
-
-    public Material ApplyProperties(out int passID)
-    {
-        passID = Mathf.Clamp(_passID, 0, material.passCount - 1);
-
-        if(vectors != null && vectors.Count != 0)
+        public void SetVector(string name, Vector4 value)
         {
-            foreach (KeyValuePair<int, Vector4> v in vectors)
-            {
-                material.SetVector(v.Key, v.Value);
-            }
+            int id = Shader.PropertyToID(name);
+
+            _vectors ??= [];
+            _vectors[id] = value;
         }
 
-        if(floats != null && floats.Count != 0)
+
+        public void SetFloat(string name, float value)
         {
-            foreach (KeyValuePair<int, float> f in floats)
-            {
-                material.SetFloat(f.Key, f.Value);
-            }
+            int id = Shader.PropertyToID(name);
+
+            _floats ??= [];
+            _floats[id] = value;
         }
 
-        if(colors != null && colors.Count != 0)
+        public void SetColor(string name, Color value)
         {
-            foreach (KeyValuePair<int, Color> c in colors)
-            {
-                material.SetColor(c.Key, c.Value);
-            }
+            int id = Shader.PropertyToID(name);
+
+            _colors ??= [];
+            _colors[id] = value;
         }
 
-        if(textures != null && textures.Count != 0)
+        public void SetTexture(string name, Texture value)
         {
-            foreach (KeyValuePair<int, Texture> t in textures)
-            {
-                material.SetTexture(t.Key, t.Value);
-            }
+            int id = Shader.PropertyToID(name);
+
+            _textures ??= [];
+            _textures[id] = value;
         }
-        return material;
+
+        public Material ApplyProperties(out int passID)
+        {
+            passID = Mathf.Clamp(PassID, 0, material.passCount - 1);
+
+            if (_vectors != null && _vectors.Count != 0)
+            {
+                foreach (KeyValuePair<int, Vector4> v in _vectors)
+                {
+                    material.SetVector(v.Key, v.Value);
+                }
+            }
+
+            if (_floats != null && _floats.Count != 0)
+            {
+                foreach (KeyValuePair<int, float> f in _floats)
+                {
+                    material.SetFloat(f.Key, f.Value);
+                }
+            }
+
+            if (_colors != null && _colors.Count != 0)
+            {
+                foreach (KeyValuePair<int, Color> c in _colors)
+                {
+                    material.SetColor(c.Key, c.Value);
+                }
+            }
+
+            if (_textures != null && _textures.Count != 0)
+            {
+                foreach (KeyValuePair<int, Texture> t in _textures)
+                {
+                    material.SetTexture(t.Key, t.Value);
+                }
+            }
+
+            return material;
+        }
     }
 }

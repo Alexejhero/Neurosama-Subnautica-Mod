@@ -1,15 +1,17 @@
-using SCHIZO.VFX;
 using UnityEngine;
 
-public class ColorTint : VFXComponent
+namespace SCHIZO.VFX
 {
-    public Color color;
-    public BlendMode blendMode;
-
-    public override void SetProperties()
+    public class ColorTint : VFXComponent
     {
-        base.SetProperties();
-        matPassID.SetColor("_Color", color);
-        matPassID.passID = (int) blendMode;
+        public Color color;
+        public BlendMode blendMode;
+
+        public override void SetProperties()
+        {
+            base.SetProperties();
+            matPassID.SetColor("_Color", color);
+            matPassID.PassID = (int) blendMode;
+        }
     }
 }

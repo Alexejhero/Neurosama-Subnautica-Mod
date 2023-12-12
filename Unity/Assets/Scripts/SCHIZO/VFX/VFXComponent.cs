@@ -1,32 +1,28 @@
-using TriInspector;
 using UnityEngine;
 
-namespace SCHIZO.VFX {
+#if UNITY_EDITOR
+using TriInspector;
+#endif
 
+namespace SCHIZO.VFX
+{
     public class VFXComponent : MonoBehaviour
     {
-        [ReadOnly]
-        public Material material;
+        [ReadOnly] public Material material;
 
-        [HideInInspector]
-        public MatPassID matPassID;
-
-        [SerializeField]
-        private bool isActive = true;
+        [HideInInspector] public MatPassID matPassID;
 
 #if UNITY_EDITOR
-
         [OnValueChanged(nameof(SetNewResultTexture))]
         public Texture2D previewImage;
 
-        [PreviewImage]
-        public Texture2D previewResult;
+        [PreviewImage] public Texture2D previewResult;
 
         private void OnValidate()
         {
             if (previewImage)
             {
-                if (previewResult == null) { SetNewResultTexture(); }
+                if (previewResult == null) SetNewResultTexture();
                 if ((previewImage.height != previewResult.height) || (previewImage.width != previewResult.width)) { }
                 SetProperties();
                 RenderTexture tempResult = RenderTexture.GetTemporary(previewImage.width, previewImage.height, 0, RenderTextureFormat.ARGBHalf);
@@ -35,42 +31,22 @@ namespace SCHIZO.VFX {
                 tempResult.Release();
             }
         }
+
         private void SetNewResultTexture()
         {
             previewResult = new Texture2D(previewImage.width, previewImage.height, TextureFormat.RGBAHalf, false);
         }
 #endif
 
-        public void SetActive()
-        {
-            isActive = true;
-        }
-
-        public void SetDisable()
-        {
-            isActive = false;
-        }
-
         public virtual void SetProperties()
         {
-            if (matPassID == null)
-            {
-                matPassID = new(material);
-            }
-        }
-
-        public virtual void Awake()
-        {
-            _ = SchizoVFXStack.VFXStack;
+            matPassID ??= new MatPassID(material);
         }
 
         public virtual void Update()
         {
-            if (isActive)
-            {
-                SetProperties();
-                SchizoVFXStack.RenderEffect(matPassID);
-            }
+            SetProperties();
+            SchizoVFXStack.Instance.RenderEffect(matPassID);
         }
     }
 }
