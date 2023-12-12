@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{54596823-245c-43a9-9ac8-5133ff2eede4}">
+		<property name="name">
+			<value>swim_surface</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{f7bad630-40e8-486e-bb4d-6e0368619563}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{ccbe20c0-0af2-4803-9ccc-dbac38e32880}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{f740937c-f48d-46a4-9421-b4ae9a5bb0f9}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{f7bad630-40e8-486e-bb4d-6e0368619563}">
+		<relationship name="effects">
+			<destination>{c19df6b8-04e1-401f-91e0-84cd722ab69a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{ccbe20c0-0af2-4803-9ccc-dbac38e32880}" />
+	<object class="MixerBusFader" id="{c19df6b8-04e1-401f-91e0-84cd722ab69a}" />
+</objects>

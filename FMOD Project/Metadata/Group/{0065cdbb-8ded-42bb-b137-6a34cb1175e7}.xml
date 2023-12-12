@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{0065cdbb-8ded-42bb-b137-6a34cb1175e7}">
+		<property name="name">
+			<value>titanhole_fish</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{b9bba902-8a56-42b5-a605-a516c30a101b}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{08da8468-88d7-4acc-8d07-29cbad78fe21}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{b9bba902-8a56-42b5-a605-a516c30a101b}">
+		<relationship name="effects">
+			<destination>{ab7da69e-ce84-4915-99fc-b3fdbe2ee911}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{08da8468-88d7-4acc-8d07-29cbad78fe21}" />
+	<object class="MixerBusFader" id="{ab7da69e-ce84-4915-99fc-b3fdbe2ee911}" />
+</objects>

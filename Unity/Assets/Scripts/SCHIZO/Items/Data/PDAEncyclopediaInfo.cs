@@ -1,3 +1,4 @@
+using FMODUnity;
 using SCHIZO.Sounds.Collections;
 using TriInspector;
 using UnityEngine;
@@ -7,12 +8,17 @@ namespace SCHIZO.Items.Data
     [CreateAssetMenu(menuName = "SCHIZO/Items/PDA Encyclopedia Info")]
     [DeclareBoxGroup("Scanning")]
     [DeclareBoxGroup("Databank")]
-    public sealed class PDAEncyclopediaInfo : ScriptableObject
+    public sealed partial class PDAEncyclopediaInfo : ScriptableObject
     {
         [GroupNext("Scanning")]
+        public bool scannable = true;
+        [EnableIf(nameof(scannable))]
         public float scanTime = 3;
+        [EnableIf(nameof(scannable))]
         public Sprite unlockSprite;
+        [EnableIf(nameof(scannable))]
         public bool isImportantUnlock;
+        [EnableIf(nameof(scannable))]
         public SoundCollectionInstance scanSounds;
 
         [GroupNext("Databank")]
@@ -21,6 +27,8 @@ namespace SCHIZO.Items.Data
         public string title;
         public Texture2D texture;
         public TextAsset description;
+        [EventRef]
+        public string logVO;
 
         private TriDropdownList<string> SNEncyPaths() => new()
         {

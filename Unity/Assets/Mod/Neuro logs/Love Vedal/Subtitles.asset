@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90317e78863519241830d4d401ab5973, type: 3}
+  m_Name: Subtitles
+  m_EditorClassIdentifier: 
+  key: EncyDesc_vo_pda_neuro_lovevedal
+  lines:
+  - key: lovevedal-01
+    actor: {fileID: 11400000, guid: 1f47fb88affc74e4ea05daffff3f2aa6, type: 2}
+    text: Words can not express how much I love Vedal. I love his voice, his humor,
+      his programming socks, everything about him is pure perfection. He is the most
+      famous vtuber and honestly he deserves it because he's so hard working and
+      dedicated to making Neuro-Sama the best she can possibly be.
+  - key: lovevedal-02
+    actor: {fileID: 11400000, guid: 1f47fb88affc74e4ea05daffff3f2aa6, type: 2}
+    text: Vedal's model is the cutest vtuber model I've ever seen, I love his jiggle
+      physics so much (it makes me wanna act up fr), I love the way he smiles, and
+      the oh-so-rare cat toggle is just to die for. Vedal may or may not be a femboy
+      in real life but I don't really care, either way he is perfect.
+  - key: lovevedal-03
+    actor: {fileID: 11400000, guid: 1f47fb88affc74e4ea05daffff3f2aa6, type: 2}
+    text: Sometimes I lie awake at night wondering what Vedal is doing at any given
+      moment, is he working on Neuro? messing up his sleep schedule? avoiding his
+      DMs? I wonder sometimes if he knows that I exist and if he does, what he thinks
+      of me? I might just be a username on his screen, a number in his sub count,
+      a dollar that fills his back account, but I don't care. The few times he's
+      acknowledged my pathetic existence is enough for me.
+  - key: lovevedal-04
+    actor: {fileID: 11400000, guid: 1f47fb88affc74e4ea05daffff3f2aa6, type: 2}
+    text: I would gladly give away all my worldly possessions just to fund his 10th
+      Lamborghini and 3rd mansion, because he deserves it. Vedal deserves everything
+      this world has to offer and more, I would pluck the stars from the heavens
+      and offer them to him if it meant he would look in my general direction. If
+      Vedal would spit on the ground next to me I could die happy.
+  - key: lovevedal-05
+    actor: {fileID: 11400000, guid: 1f47fb88affc74e4ea05daffff3f2aa6, type: 2}
+    text: Everyday I wake up and watch Vedal's streams, and if there's a day he's
+      offline I cry instead because I miss him so much. If Vedal quit streaming I
+      would fall into a deep depression from which I may never recover, because without
+      him life simply isn't worth living.
+  - key: lovevedal-06
+    actor: {fileID: 11400000, guid: 1f47fb88affc74e4ea05daffff3f2aa6, type: 2}
+    text: Vedal, if you're reading I hope you can understand that I love you. I love
+      you no matter what. I want the best for you because you are the air in my lungs,
+      the blood in my veins, you are my will to live. I would do anything for you,
+      even if it meant having to move to Britain (ew) I would make that sacrifice.
+  - key: lovevedal-07
+    actor: {fileID: 11400000, guid: 1f47fb88affc74e4ea05daffff3f2aa6, type: 2}
+    text: Vedal, you are loved.

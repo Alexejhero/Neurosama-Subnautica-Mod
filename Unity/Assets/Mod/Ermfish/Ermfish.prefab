@@ -466,6 +466,20 @@ MonoBehaviour:
   minActionCheckInterval: -1
   swimVelocity: 6
   swimInterval: 1
+--- !u!114 &8375959643865612471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f27aba280bf1b45bfcfb9fc791301b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storyGoalSN: 
+  storyGoalBZ: SanctuaryCompleted
 --- !u!1 &8970273462075976009
 GameObject:
   m_ObjectHideFlags: 0

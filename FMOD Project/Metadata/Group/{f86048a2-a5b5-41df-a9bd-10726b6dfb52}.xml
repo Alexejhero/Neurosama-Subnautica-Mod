@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{f86048a2-a5b5-41df-a9bd-10726b6dfb52}">
+		<property name="name">
+			<value>Sounds_muted by pain</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{71b37cbd-834b-4c0a-8577-772d361836a3}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{086cc137-9f2a-43b3-8051-32d179ad11d1}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{9a6b160c-6a73-4c73-8c36-f307b9c7e11e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{71b37cbd-834b-4c0a-8577-772d361836a3}">
+		<relationship name="effects">
+			<destination>{2c6186f7-a151-42bd-a5ba-7c4ffb67d342}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{086cc137-9f2a-43b3-8051-32d179ad11d1}" />
+	<object class="MixerBusFader" id="{2c6186f7-a151-42bd-a5ba-7c4ffb67d342}" />
+</objects>

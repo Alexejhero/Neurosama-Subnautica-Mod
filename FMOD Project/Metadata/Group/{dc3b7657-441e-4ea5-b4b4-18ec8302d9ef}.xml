@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{dc3b7657-441e-4ea5-b4b4-18ec8302d9ef}">
+		<property name="name">
+			<value>hidden_croc</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{6cfe2196-c51d-4d73-95f1-dba073733721}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{2467a9f7-a263-44de-9964-3ca2b8b3bc79}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{6cfe2196-c51d-4d73-95f1-dba073733721}">
+		<relationship name="effects">
+			<destination>{2c51467e-f66a-48f1-b05d-6828228a7542}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{2467a9f7-a263-44de-9964-3ca2b8b3bc79}" />
+	<object class="MixerBusFader" id="{2c51467e-f66a-48f1-b05d-6828228a7542}" />
+</objects>

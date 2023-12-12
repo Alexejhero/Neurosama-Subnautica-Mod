@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{55a68137-cd1d-4111-b5cd-a19408750439}">
+		<property name="name">
+			<value>2D_voiceover_for_distance</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{3f076dba-02b7-468f-a593-fc4da32344cc}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{1e85a061-3aed-44c3-a053-d7b82ea0713e}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{7c0de77a-a932-4538-b74a-08e5ad284106}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{3f076dba-02b7-468f-a593-fc4da32344cc}">
+		<relationship name="effects">
+			<destination>{47ce83ce-7a91-41d5-a911-99faa669426e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{1e85a061-3aed-44c3-a053-d7b82ea0713e}" />
+	<object class="MixerBusFader" id="{47ce83ce-7a91-41d5-a911-99faa669426e}" />
+</objects>

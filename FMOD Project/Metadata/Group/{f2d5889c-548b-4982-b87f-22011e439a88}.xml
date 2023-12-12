@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{f2d5889c-548b-4982-b87f-22011e439a88}">
+		<property name="name">
+			<value>reverbsend_no_pda_pause</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{9a1361d4-17a6-48b9-856c-074904341707}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{fe4743ae-acc9-4a35-abf8-0cbc2d46a97d}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{3ceaa335-7d4b-46ea-9092-4bea96535044}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{9a1361d4-17a6-48b9-856c-074904341707}">
+		<relationship name="effects">
+			<destination>{9f4e50e2-ac99-4de6-947e-bc42ab26da60}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{fe4743ae-acc9-4a35-abf8-0cbc2d46a97d}" />
+	<object class="MixerBusFader" id="{9f4e50e2-ac99-4de6-947e-bc42ab26da60}" />
+</objects>

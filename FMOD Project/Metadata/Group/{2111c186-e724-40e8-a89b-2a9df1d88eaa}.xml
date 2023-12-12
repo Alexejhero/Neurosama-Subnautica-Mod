@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{2111c186-e724-40e8-a89b-2a9df1d88eaa}">
+		<property name="name">
+			<value>indoor_pointsource</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{5c2173e0-a3a4-4952-b483-db43d78db0fb}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{85a9848e-91f8-4dd6-a2e2-da1e75b794c2}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{ecd1ee01-a6b4-4642-bb5c-36cb389375ac}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{5c2173e0-a3a4-4952-b483-db43d78db0fb}">
+		<relationship name="effects">
+			<destination>{bf809737-9b5d-4ba4-a5e9-bed94fe5ebb9}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{85a9848e-91f8-4dd6-a2e2-da1e75b794c2}" />
+	<object class="MixerBusFader" id="{bf809737-9b5d-4ba4-a5e9-bed94fe5ebb9}" />
+</objects>

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: TruckersFM
   m_EditorClassIdentifier: 
   identifier: TruckersFM
-  source: 1
+  source: 2
   audioClip: {fileID: 0}
+  fmodEvent: event:/SCHIZO/jukebox/TruckersFM
   url: http://radio.truckers.fm
   isStream: 1
   streamLabelFormat: '<align=center><size=75%>TruckersFM</size></align>

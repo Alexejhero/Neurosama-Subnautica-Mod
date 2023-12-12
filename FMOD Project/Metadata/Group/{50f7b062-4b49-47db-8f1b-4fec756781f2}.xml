@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{50f7b062-4b49-47db-8f1b-4fec756781f2}">
+		<property name="name">
+			<value>thermos</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{e4cb8047-d8e9-489f-8533-505cfafea4df}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{2b8076b8-1427-421e-8ee1-ed44bb277507}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{9f6a5e5f-85e4-45f5-ab21-1a27c602ace4}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{e4cb8047-d8e9-489f-8533-505cfafea4df}">
+		<relationship name="effects">
+			<destination>{b3937535-40ed-4cc0-88eb-67d5709503b5}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{2b8076b8-1427-421e-8ee1-ed44bb277507}" />
+	<object class="MixerBusFader" id="{b3937535-40ed-4cc0-88eb-67d5709503b5}" />
+</objects>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{12c58803-f605-4573-ac60-fd51e4bae577}">
+		<property name="name">
+			<value>fixing the lamest bugs in docking and undocking because lame code is broken</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{e647a1a7-1142-47d8-9389-a6ed50122a04}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{42fca85b-34fb-4e9e-87c1-6257980cf092}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{5a841486-f1b4-47fd-9bcb-f7c4bfec7026}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{e647a1a7-1142-47d8-9389-a6ed50122a04}">
+		<relationship name="effects">
+			<destination>{23a15889-b112-4c74-8f6b-e694e7b9cb73}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{42fca85b-34fb-4e9e-87c1-6257980cf092}" />
+	<object class="MixerBusFader" id="{23a15889-b112-4c74-8f6b-e694e7b9cb73}" />
+</objects>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{c789a2e7-f20f-491a-9350-a970ea52be6b}">
+		<property name="assetPath">
+			<value>neuro logs/love vedal/lovevedal-06.ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>20.915208333333332</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ed559c48-6dff-4cc2-8829-33aeecf805d3}</destination>
+		</relationship>
+	</object>
+</objects>

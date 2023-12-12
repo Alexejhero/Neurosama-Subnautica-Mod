@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{5c817d87-7d37-42a6-a669-27edc8a4cc99}">
+		<property name="name">
+			<value>mushroom_background_music</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{5c12e091-19a2-457d-9ecc-0a227fe00b0c}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{230bd8ca-3558-4529-bde6-e8ab11baa758}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{c723021b-45b9-41c5-9946-046e470b180f}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{5c12e091-19a2-457d-9ecc-0a227fe00b0c}">
+		<relationship name="effects">
+			<destination>{a00e2f4c-04e2-4edf-a4fa-57fa8a3e109b}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{230bd8ca-3558-4529-bde6-e8ab11baa758}" />
+	<object class="MixerBusFader" id="{a00e2f4c-04e2-4edf-a4fa-57fa8a3e109b}" />
+</objects>

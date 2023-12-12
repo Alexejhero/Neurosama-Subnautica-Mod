@@ -17,7 +17,12 @@ MonoBehaviour:
     id: 0
   classId: NeuroFumoNew
   displayName: Neuro fumo
-  tooltip: 'Fumo collection 2/2
+  tooltip: 'It''s so cute and fluffy. I''m so excited to venture into the real world
+    and share my love with everyone. I hope that my fans will love my plush as much
+    as I do!
+
+
+    Fumo collection 2/3
 
     <size=75%>(Model by Kat)</size>'
   icon: {fileID: 21300000, guid: 45820c772f47f814d88babbafe7caa46, type: 3}
@@ -27,6 +32,8 @@ MonoBehaviour:
   craftingTime: 2.5
   itemSounds: {fileID: 0}
   pdaEncyInfo: {fileID: 0}
+  knownTechInfo: {fileID: 0}
+  spawnData: {fileID: 0}
   unlockAtStart: 1
   registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 5061b10e23e00bb4d8bdb58109048276, type: 2}
@@ -34,7 +41,6 @@ MonoBehaviour:
   craftTreePathSN: 
   techGroupSN: 13
   techCategorySN: 24
-  knownTechInfoSN: {fileID: 0}
   requiredForUnlockSN:
     isCustom: 0
     techType: 0
@@ -48,7 +54,6 @@ MonoBehaviour:
   craftTreePathBZ: 
   techGroupBZ: 12
   techCategoryBZ: 15
-  knownTechInfoBZ: {fileID: 0}
   soundTypeBZ: 0
   requiredForUnlockBZ:
     isCustom: 0

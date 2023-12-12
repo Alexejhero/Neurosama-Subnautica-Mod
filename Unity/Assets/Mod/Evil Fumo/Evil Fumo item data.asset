@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
+  m_Name: Evil Fumo item data
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5958827312421353464, guid: a9e8b822e1fb69344b9a3012ecfd70e6, type: 3}
+  loader:
+    id: 0
+  classId: evilfumoitem
+  displayName: Evil fumo
+  tooltip: 'Don''t poke her, or she might bite you.
+
+    Keep away from sharp objects.
+
+
+    <size=75%>(Model
+    by w1n7er)</size>'
+  icon: {fileID: 21300000, guid: 60e94acee40f84d4896c5a5004c2c6a7, type: 3}
+  itemSize: {x: 1, y: 1}
+  isCraftable: 1
+  isBuildable: 0
+  craftingTime: 2.5
+  itemSounds: {fileID: 0}
+  pdaEncyInfo: {fileID: 0}
+  knownTechInfo: {fileID: 0}
+  spawnData: {fileID: 0}
+  unlockAtStart: 1
+  registerInSN: 1
+  recipeSN: {fileID: 0}
+  craftTreeTypeSN: 1
+  craftTreePathSN: Personal/Equipment
+  techGroupSN: 2
+  techCategorySN: 6
+  requiredForUnlockSN:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
+  equipmentTypeSN: 1
+  quickSlotTypeSN: 3
+  registerInBZ: 1
+  recipeBZ: {fileID: 0}
+  canBeRecycledBZ: 1
+  craftTreeTypeBZ: 1
+  craftTreePathBZ: Personal/Equipment
+  techGroupBZ: 2
+  techCategoryBZ: 4
+  soundTypeBZ: 0
+  requiredForUnlockBZ:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
+  equipmentTypeBZ: 1
+  quickSlotTypeBZ: 3
+  coldResistanceBZ: 10
+  references:
+    version: 1
+    00000000:
+      type: {class: ItemLoader, ns: SCHIZO.Items, asm: SCHIZO}

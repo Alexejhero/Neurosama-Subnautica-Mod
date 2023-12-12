@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
@@ -24,7 +24,7 @@ public sealed class HullPlatePrefab : CustomPrefab
 
         if (!_hullPlate.deprecated)
         {
-            Texture2D overrideIcon = hullPlate.overrideIcon ! ?? hullPlate.texture;
+            Texture2D overrideIcon = hullPlate.overrideIcon !?? hullPlate.texture;
             overrideIcon = overrideIcon.Scale(177, 176).Translate(-21, -38).Crop(loader.hiddenIcon.width, loader.hiddenIcon.height);
             Texture2D newIcon = hullPlate.hidden ? loader.hiddenIcon : TextureHelpers.BlendAlpha(loader.hiddenIcon, overrideIcon);
             Info.WithIcon(ImageUtils.LoadSpriteFromTexture(newIcon));

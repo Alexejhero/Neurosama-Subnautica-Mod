@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{59b12fb6-53d5-47a5-8b9c-d8dad6864e44}">
+		<property name="name">
+			<value>east_arctic_underwater</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{0abf371b-f36c-4567-b975-8aa5b1a429e8}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{71681b7f-e001-4518-95a9-5a9f1aeea8b0}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{baaa7bb9-2bbc-4ef0-88d5-858560d24c3c}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{0abf371b-f36c-4567-b975-8aa5b1a429e8}">
+		<relationship name="effects">
+			<destination>{91739d6d-43ad-4ef9-9dae-30bf5e0d8931}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{71681b7f-e001-4518-95a9-5a9f1aeea8b0}" />
+	<object class="MixerBusFader" id="{91739d6d-43ad-4ef9-9dae-30bf5e0d8931}" />
+</objects>

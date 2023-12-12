@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{bd8318c4-9a6a-4685-abd5-903b8c033f0b}">
+		<property name="name">
+			<value>bruteshark</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{25cf4051-a1fd-4530-8aa7-ef7f72493428}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{364871ed-a46d-48cc-b042-6c984b4b8842}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{25cf4051-a1fd-4530-8aa7-ef7f72493428}">
+		<relationship name="effects">
+			<destination>{909e96f8-22be-40fd-8bb6-1a6595ad3940}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{364871ed-a46d-48cc-b042-6c984b4b8842}" />
+	<object class="MixerBusFader" id="{909e96f8-22be-40fd-8bb6-1a6595ad3940}" />
+</objects>

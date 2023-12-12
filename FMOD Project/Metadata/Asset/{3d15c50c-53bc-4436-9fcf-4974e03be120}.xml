@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="EncodableAsset" id="{3d15c50c-53bc-4436-9fcf-4974e03be120}">
+		<property name="assetPath">
+			<value>neuro logs/love vedal/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ed559c48-6dff-4cc2-8829-33aeecf805d3}</destination>
+		</relationship>
+	</object>
+</objects>

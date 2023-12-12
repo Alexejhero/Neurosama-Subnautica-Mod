@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a0830f50dd2e554381676c875e2cdf1, type: 3}
+  m_Name: Seishun Complex
+  m_EditorClassIdentifier: 
+  identifier: SeishunComplex
+  source: 1
+  audioClip: {fileID: 8300000, guid: c432a6b3a5c9a6543b0f23667c4af264, type: 3}
+  fmodEvent: event:/SCHIZO/jukebox/SeishunComplex
+  url: 
+  isStream: 0
+  streamLabelFormat: 
+  overrideTrackLabel: 0
+  trackLabel: Neuro-sama ft. anny - Seishun Complex (cover)
+  unlockedOnStart: 0
+  diskPrefab: {fileID: 0}
+  diskSpawnLocation:
+    position: {x: -326, y: 14.21, z: 255}
+    rotation: {x: 0, y: 0, z: 0}
+  unlockSound: {fileID: 0}

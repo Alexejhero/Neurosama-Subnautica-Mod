@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{8fb23c2f-7fa6-4686-9194-380ed9688174}">
+		<property name="name">
+			<value>crashfish</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{cf7ba54d-2adc-45ed-8386-5076b283c49f}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{0463293e-9e53-465a-8f1f-28fe58f0712f}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{cf7ba54d-2adc-45ed-8386-5076b283c49f}">
+		<relationship name="effects">
+			<destination>{89d1075a-a154-492b-8bdd-ccfc9880d08d}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{0463293e-9e53-465a-8f1f-28fe58f0712f}" />
+	<object class="MixerBusFader" id="{89d1075a-a154-492b-8bdd-ccfc9880d08d}" />
+</objects>

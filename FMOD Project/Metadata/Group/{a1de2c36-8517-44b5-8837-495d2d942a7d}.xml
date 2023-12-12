@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{a1de2c36-8517-44b5-8837-495d2d942a7d}">
+		<property name="name">
+			<value>discus_fish</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{a2d6f6c0-2131-4536-8dbb-6fc82491fee8}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{eaad9718-2588-4329-a910-5bb366a4153a}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{a2d6f6c0-2131-4536-8dbb-6fc82491fee8}">
+		<relationship name="effects">
+			<destination>{473fbf5b-7afa-468a-9338-042d964b5935}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{eaad9718-2588-4329-a910-5bb366a4153a}" />
+	<object class="MixerBusFader" id="{473fbf5b-7afa-468a-9338-042d964b5935}" />
+</objects>
