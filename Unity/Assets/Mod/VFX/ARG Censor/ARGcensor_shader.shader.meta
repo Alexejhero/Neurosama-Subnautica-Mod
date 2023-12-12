@@ -4,8 +4,9 @@ ShaderImporter:
   externalObjects: {}
   defaultTextures:
   - _MainTex: {instanceID: 0}
-  - _NoizeTex: {fileID: 2800000, guid: de2406d7499d6ca469211a70af1e653c, type: 3}
+  - _Images: {fileID: 7408512001612579960, guid: 80810d273cc457943a9413d4f8468fc2,
+      type: 2}
   nonModifiableTextures: []
   userData: 
-  assetBundleName: assets
+  assetBundleName: 
   assetBundleVariant: 

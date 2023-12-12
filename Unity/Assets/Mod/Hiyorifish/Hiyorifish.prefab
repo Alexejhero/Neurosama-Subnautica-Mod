@@ -57,6 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e69ba813070cda9438cd52946eaffbcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectMaterial: {fileID: 2100000, guid: 46705c62fcf81094384720a059556167, type: 2}
   fadeOutStartDistance: 35
   scale: 1.3
   frameChangeInterval: 0.08

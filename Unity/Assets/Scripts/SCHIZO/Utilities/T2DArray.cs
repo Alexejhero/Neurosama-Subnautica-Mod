@@ -12,49 +12,68 @@ namespace SCHIZO.Utilities
         public Texture2DArray array;
 
 #if UNITY_EDITOR
-        [InfoBox("All Textures must have same dimensions!", TriMessageType.Error, nameof(texturesDimensionsMismatch))]
-        [InfoBox("Please assign at least 2 textures, or use Texture2D if single texture is intended", TriMessageType.Warning, nameof(tooFewTextures))]
-        [Required]
+
+        [Required, ValidateInput(nameof(ValidateTextures))]
         public List<Texture> textures;
-
+        public TextureWrapMode wrapMode = TextureWrapMode.Clamp;
+        public FilterMode filterMode = FilterMode.Point;
+        [Space]
+        [ShowIf(nameof(array), null)]
         public TextureCompressionQuality compressionQuality;
-        public TextureWrapMode wrapMode;
-        public FilterMode filterMode;
 
-        private bool texturesDimensionsMismatch = true;
-        private bool tooFewTextures = true;
+        [ShowInInspector, ShowIf(nameof(array), null), ReadOnly]
+        public TextureFormat compressionFormat;
 
         private void OnValidate()
         {
-            if (textures.Count > 1 ) textures.RemoveAll(o => o == null);
-            tooFewTextures = textures.Count < 2;
-
-            if (textures.Count > 1 && textures[0] != null)
+            if (array)
             {
-                texturesDimensionsMismatch = false;
-                int w = textures[0].width;
-                int h = textures[0].height;
-
-                foreach (Texture texture in textures)
-                {
-                    if (texture.width != w || texture.height != h)
-                    {
-                        texturesDimensionsMismatch = true;
-                        return;
-                    }
-                }
+                array.wrapMode = wrapMode;
+                array.filterMode = filterMode;
             }
         }
 
-        [Button]
+        private bool validtationPass = false;
+        private TriValidationResult ValidateTextures()
+        {
+            if (textures.Count > 1) textures.RemoveAll(o => o == null);
+
+            if (textures.Count > 1 && textures[0] != null)
+            {
+                int w = textures[0].width;
+                int h = textures[0].height;
+                TextureFormat format = ((Texture2D) textures[0]).format;
+
+                foreach (Texture texture in textures)
+                {
+                    if (texture.width != w || texture.height != h )
+                    {
+                        validtationPass = false;
+                        return TriValidationResult.Error("All Textures must have same dimensions!");
+                    }
+                    if(((Texture2D) texture).format != format)
+                    {
+                        validtationPass = false;
+                        return TriValidationResult.Error("All Textures must have same format!");
+                    }
+                }
+                validtationPass = true;
+                compressionFormat = format;
+                return TriValidationResult.Valid;
+            }
+            validtationPass = true;
+            return TriValidationResult.Warning("Please assign at least 2 textures, or use Texture2D if single texture is intended");
+        }
+
+        // for some reason Texture2DArray sub asset does not update when overwriting it, so uuh it's a one time thing i guess
+        [Button, ShowIf(nameof(array), null), ShowIf(nameof(validtationPass),true)]
         private void GenerateArray()
         {
-            if (textures.Count == 0 ) return;
+            if (textures.Count == 0 || textures[0] == null) return;
 
-            if (!array)
+            if (array == null)
             {
                 array = PopulateTexture2DArray();
-
                 AssetDatabase.AddObjectToAsset(array, this);
                 EditorUtility.SetDirty(this);
                 AssetDatabase.SaveAssets();
@@ -64,12 +83,12 @@ namespace SCHIZO.Utilities
         private Texture2DArray PopulateTexture2DArray()
         {
             List<Texture> tt = textures;
-            Texture2DArray t2da = new Texture2DArray(tt[0].width, tt[0].height, tt.Count, TextureFormat.DXT5, false);
 
+            Texture2DArray t2da = new Texture2DArray(tt[0].width, tt[0].height, tt.Count, compressionFormat, false, true);
+            
             for (int i = 0; i < tt.Count; i++)
             {
-                EditorUtility.CompressTexture((Texture2D) tt[i], TextureFormat.DXT5, compressionQuality);
-                Graphics.CopyTexture(tt[i], 0, t2da, i);
+                Graphics.CopyTexture(tt[i], 0,0, t2da, i,0);
             }
             t2da.wrapMode = wrapMode;
             t2da.filterMode = filterMode;
