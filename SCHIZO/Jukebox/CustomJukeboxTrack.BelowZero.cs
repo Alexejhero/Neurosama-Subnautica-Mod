@@ -145,7 +145,7 @@ public sealed partial class CustomJukeboxTrack
 
         CustomJukeboxDisk diskComp = disk.EnsureComponent<CustomJukeboxDisk>();
         diskComp.track = trackId;
-        diskComp.unlockSound = unlockSound;
+        diskComp.unlockFmodEvent = unlockFmodEvent;
 
         disk.GetComponent<LargeWorldEntity>().enabled = false; // don't save
 

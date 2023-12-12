@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="Event" id="{5ebe2da0-87a9-4c35-8bf7-15aa94340d81}">
 		<property name="name">
-			<value>credits_easter_egg</value>
+			<value>easter_egg</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{b1cc6170-82f0-4087-b202-f3bffb8cbc9b}</destination>
+			<destination>{3560a0a0-0d12-45fd-804d-9b9aefb70912}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{3f744568-ad4c-4825-bae6-334d4d5570d5}</destination>
@@ -53,7 +53,7 @@
 			<destination>{89eeb984-5328-4dd9-82df-4883faa878d5}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{c2c62be9-374f-48d0-9aec-e6b15059afc1}</destination>
+			<destination>{a68e2c97-dd83-4a19-83d4-aff5ed1a5443}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{e7cbb424-2ab1-4791-a2ad-839d5d3ee45a}" />

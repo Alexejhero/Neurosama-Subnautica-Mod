@@ -1,11 +1,12 @@
-﻿using JetBrains.Annotations;
-using SCHIZO.Sounds.Collections;
+﻿using FMODUnity;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace SCHIZO.Credits
 {
     public sealed partial class EasterEggManager : MonoBehaviour
     {
-        [SerializeField, UsedImplicitly] private SoundCollectionInstance sounds;
+        [SerializeField, UsedImplicitly, EventRef]
+        private string sounds;
     }
 }

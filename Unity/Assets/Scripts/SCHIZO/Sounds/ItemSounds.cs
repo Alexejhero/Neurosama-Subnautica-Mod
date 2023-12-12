@@ -1,4 +1,4 @@
-﻿using SCHIZO.Sounds.Collections;
+using FMODUnity;
 using UnityEngine;
 
 namespace SCHIZO.Sounds
@@ -6,21 +6,21 @@ namespace SCHIZO.Sounds
     [CreateAssetMenu(menuName = "SCHIZO/Sounds/Item Sounds")]
     public sealed partial class ItemSounds : ScriptableObject
     {
-        public SoundCollectionInstance pickupSounds;
-        public SoundCollectionInstance dropSounds;
+        [EventRef] public string pickupSounds;
+        [EventRef] public string dropSounds;
 
         [Space]
 
-        public SoundCollectionInstance drawSounds;
-        public SoundCollectionInstance holsterSounds;
+        [EventRef] public string drawSounds;
+        [EventRef] public string holsterSounds;
 
         [Space]
 
-        public SoundCollectionInstance cookSounds;
-        public SoundCollectionInstance eatSounds;
+        [EventRef] public string cookSounds;
+        [EventRef] public string eatSounds;
 
         [Space]
 
-        public SoundCollectionInstance playerDeathSounds;
+        [EventRef] public string playerDeathSounds;
     }
 }

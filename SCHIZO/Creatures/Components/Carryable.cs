@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
-using SCHIZO.Sounds.Collections;
 using SCHIZO.Sounds.Players;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -110,9 +109,9 @@ partial class Carryable
         }
     }
 
-    private void PlaySound(SoundCollectionInstance coll)
+    private void PlaySound(string fmodEvent)
     {
         if (Assets.Mod_Options_DisableAllSounds.Value) return;
-        coll!?.PlayRandom3D(emitter);
+        emitter.PlayPath(fmodEvent);
     }
 }

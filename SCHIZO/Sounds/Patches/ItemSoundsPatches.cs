@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
@@ -17,7 +17,7 @@ public static class ItemSoundsPatches
     public static void PlayCustomPickupSound(Pickupable __instance)
     {
         if (!ItemSounds.TryGet(__instance.GetTechType(), out ItemSounds itemSounds)) return;
-        itemSounds.pickupSounds!?.PlayRandom2D();
+        FMODHelpers.PlayPath2D(itemSounds.pickupSounds);
     }
 
     [HarmonyPatch(typeof(Pickupable), nameof(Pickupable.PlayDropSound))]
@@ -25,10 +25,10 @@ public static class ItemSoundsPatches
     public static void PlayCustomDropSound(Pickupable __instance)
     {
         if (!ItemSounds.TryGet(__instance.GetTechType(), out ItemSounds sounds)) return;
-        if (sounds.dropSounds == null) return;
+        if (string.IsNullOrEmpty(sounds.dropSounds)) return;
 
-        sounds.holsterSounds!?.CancelAllDelayed();
-        sounds.dropSounds.PlayRandom3D(__instance.GetComponent<FMOD_CustomEmitter>());
+        FMODHelpers.StopAllInstances(sounds.holsterSounds);
+        __instance.GetComponent<FMOD_CustomEmitter>().PlayPath(sounds.dropSounds);
 
         __instance.GetComponentsInChildren<InventoryAmbientSoundPlayer>().ForEach(p => p.Stop());
     }
@@ -40,11 +40,8 @@ public static class ItemSoundsPatches
         try
         {
             if (!__instance.pickupable || !ItemSounds.TryGet(__instance.pickupable.GetTechType(), out ItemSounds sounds)) return;
-            if (sounds.drawSounds == null) return;
 
-            if (Time.time < sounds.pickupSounds!?.LastPlay + 0.5f) return;
-
-            sounds.drawSounds.PlayRandom2D();
+            FMODHelpers.PlayPath2D(sounds.drawSounds);
         }
         catch
         {
@@ -61,11 +58,11 @@ public static class ItemSoundsPatches
             if (!__instance.pickupable || !ItemSounds.TryGet(__instance.pickupable.GetTechType(), out ItemSounds sounds)) return;
             if (sounds.holsterSounds == null) return;
 
-            if (Time.time < sounds.dropSounds!?.LastPlay + 0.5f) return;
-            if (Time.time < sounds.eatSounds!?.LastPlay + 0.5f) return;
-            if (Time.time < sounds.cookSounds!?.LastPlay + 0.5f) return;
+            //if (Time.time < sounds.dropSounds!?.LastPlay + 0.5f) return;
+            //if (Time.time < sounds.eatSounds!?.LastPlay + 0.5f) return;
+            //if (Time.time < sounds.cookSounds!?.LastPlay + 0.5f) return;
 
-            sounds.holsterSounds.PlayRandom2D(0.15f);
+            FMODHelpers.PlayPath2D(sounds.holsterSounds, 0.15f);
         }
         catch
         {
@@ -78,9 +75,9 @@ public static class ItemSoundsPatches
     {
         private static readonly MethodInfo _target =
 #if BELOWZERO
-            AccessTools.Method(typeof(Utils), nameof(Utils.PlayFMODAsset), new[] { typeof(FMODAsset), typeof(Vector3), typeof(float)});
+            AccessTools.Method(typeof(Utils), nameof(Utils.PlayFMODAsset), [typeof(FMODAsset), typeof(Vector3), typeof(float)]);
 #else
-            AccessTools.Method(typeof(FMODUWE), nameof(FMODUWE.PlayOneShot), new[] {typeof(string), typeof(Vector3), typeof(float)});
+            AccessTools.Method(typeof(FMODUWE), nameof(FMODUWE.PlayOneShot), [typeof(string), typeof(Vector3), typeof(float)]);
 #endif
 
         [HarmonyTranspiler, UsedImplicitly]
@@ -103,10 +100,10 @@ public static class ItemSoundsPatches
             if (!ItemSounds.TryGet(techType, out ItemSounds sounds)) return;
             if (sounds.eatSounds == null) return;
 
-            if (Time.time < sounds.eatSounds.LastPlay + 0.1f) return;
+            //if (Time.time < sounds.eatSounds.LastPlay + 0.1f) return;
 
-            sounds.holsterSounds!?.CancelAllDelayed();
-            sounds.eatSounds.PlayRandom2D();
+            FMODHelpers.StopAllInstances(sounds.holsterSounds);
+            FMODHelpers.PlayPath2D(sounds.eatSounds);
         }
     }
 
@@ -115,10 +112,10 @@ public static class ItemSoundsPatches
     public static void PlayCustomCookSound(TechType techType)
     {
         if (!ItemSounds.TryGet(techType, out ItemSounds sounds)) return;
-        if (sounds.cookSounds == null) return;
+        if (string.IsNullOrEmpty(sounds.cookSounds)) return;
 
-        sounds.holsterSounds!?.CancelAllDelayed();
-        sounds.cookSounds.PlayRandom2D();
+        FMODHelpers.StopAllInstances(sounds.holsterSounds);
+        FMODHelpers.PlayPath2D(sounds.cookSounds);
     }
 
     [HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.Kill))]
@@ -129,7 +126,7 @@ public static class ItemSoundsPatches
         foreach (InventoryItem item in Inventory.main.container.GetAllItems())
         {
             if (!ItemSounds.TryGet(item.techType, out ItemSounds sounds)) continue;
-            sounds.playerDeathSounds!?.PlayRandom2D(0.15f);
+            FMODHelpers.PlayPath2D(sounds.playerDeathSounds, 0.15f);
         }
     }
 }

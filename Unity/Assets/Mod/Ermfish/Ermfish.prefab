@@ -419,9 +419,9 @@ MonoBehaviour:
   attachPlug: {fileID: 5839032077065552717}
   emitter: {fileID: 5648931341203019549}
   carryNoiseInterval: 5
-  attachSounds: 
-  carrySounds: 
-  detachSounds: 
+  attachSounds: event:/SCHIZO/creatures/ermfish/get_carried/attach
+  carrySounds: event:/SCHIZO/creatures/ermfish/get_carried/carried
+  detachSounds: event:/SCHIZO/creatures/ermfish/get_carried/detach
 --- !u!114 &1349106207919405109
 MonoBehaviour:
   m_ObjectHideFlags: 0

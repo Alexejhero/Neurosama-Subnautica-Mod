@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Events.Ermcon;
@@ -57,7 +58,7 @@ public partial class ErmconAttendee : IHandTarget
     }
     public void OnHandClick(GUIHand hand)
     {
-        pickupDeniedSounds!?.PlayRandom3D(emitter);
+        emitter.PlayPath(pickupDeniedSounds);
     }
 
     public override void OnEnable()
