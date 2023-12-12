@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using FMOD;
 using FMODUnity;
@@ -49,12 +50,15 @@ public static class CustomJukeboxTrackPatches
     public static class AwakeWorkaround
     {
         // base Awake assumes all unlockable tracks are events
-        // so we need to add ours afterwards (and remove them on game unload)
+        // so we need to remove ours (and readd them afterwards)
         [HarmonyPrefix]
         public static void ClearCustomTracks()
         {
-            foreach (BZJukebox.UnlockableTrack trackId in customTracks.Keys)
-                BZJukebox.unlockableMusic.Remove(trackId);
+            foreach (KeyValuePair<BZJukebox.UnlockableTrack, CustomJukeboxTrack> pair in customTracks)
+            {
+                if (pair.Value.source != CustomJukeboxTrack.Source.FMODEvent)
+                    BZJukebox.unlockableMusic.Remove(pair.Key);
+            }
         }
 
         [HarmonyPostfix]
