@@ -8,7 +8,8 @@ namespace SCHIZO.VFX
 {
     public class VFXComponent : MonoBehaviour
     {
-        [ReadOnly] public Material material;
+        // ReSharper disable once RedundantNameQualifier
+        [global::TriInspector.ReadOnly] public Material material;
 
         [HideInInspector] public MatPassID matPassID;
 
