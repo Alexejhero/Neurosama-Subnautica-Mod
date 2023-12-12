@@ -6,7 +6,7 @@ using TriInspector;
 
 namespace SCHIZO.VFX
 {
-    public class VFXComponent : MonoBehaviour
+    public abstract class VFXComponent : MonoBehaviour
     {
         // ReSharper disable once RedundantNameQualifier
         [global::TriInspector.ReadOnly] public Material material;
@@ -23,8 +23,7 @@ namespace SCHIZO.VFX
         {
             if (previewImage)
             {
-                if (previewResult == null) SetNewResultTexture();
-                if ((previewImage.height != previewResult.height) || (previewImage.width != previewResult.width)) { }
+                if (previewResult == null || ((previewImage.height != previewResult.height) || (previewImage.width != previewResult.width))) SetNewResultTexture();
                 SetProperties();
                 RenderTexture tempResult = RenderTexture.GetTemporary(previewImage.width, previewImage.height, 0, RenderTextureFormat.ARGBHalf);
                 Graphics.Blit(previewImage, tempResult, matPassID.ApplyProperties(out int passID), passID);

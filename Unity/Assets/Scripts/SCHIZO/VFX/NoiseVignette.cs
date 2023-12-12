@@ -7,6 +7,7 @@ using UnityEditor;
 
 namespace SCHIZO.VFX
 {
+    [AddComponentMenu("SCHIZO/VFX/Noise Vignette")]
     public class NoiseVignette : VFXComponent
     {
         public Texture2D noiseTexture;

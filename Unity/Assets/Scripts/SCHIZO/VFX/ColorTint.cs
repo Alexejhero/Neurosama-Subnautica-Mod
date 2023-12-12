@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace SCHIZO.VFX
 {
+    [AddComponentMenu("SCHIZO/VFX/Color Tint")]
     public class ColorTint : VFXComponent
     {
         public Color color;

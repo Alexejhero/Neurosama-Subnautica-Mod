@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace SCHIZO.VFX
 {
+    [AddComponentMenu("SCHIZO/VFX/Two Color Tint")]
     public class TwoColorTint : VFXComponent
     {
         public Color innerColor = Color.red;

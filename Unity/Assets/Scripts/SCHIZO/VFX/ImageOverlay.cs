@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace SCHIZO.VFX
 {
+    [AddComponentMenu("SCHIZO/VFX/Image Overlay")]
     public class ImageOverlay : VFXComponent
     {
         [InfoBox("Despite appearing stretched on non 1:1 aspect ratio previews, it should display correct in game.")]

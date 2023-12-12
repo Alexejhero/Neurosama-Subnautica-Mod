@@ -23,7 +23,6 @@ namespace SCHIZO.VFX
             _vectors[id] = value;
         }
 
-
         public void SetFloat(string name, float value)
         {
             int id = Shader.PropertyToID(name);
