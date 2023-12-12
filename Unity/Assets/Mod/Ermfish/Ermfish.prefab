@@ -401,8 +401,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   minActionCheckInterval: -1
   patience: 5
-  pickupDeniedSounds: {fileID: 4185819974502500907, guid: a9990fe6122b54044a82b0e0f21b27bb,
-    type: 2}
+  pickupDeniedSounds: event:/SCHIZO/creatures/ermfish/pickup_denied
   emitter: {fileID: 5648931341203019549}
 --- !u!114 &-906797858269330932
 MonoBehaviour:
@@ -420,9 +419,9 @@ MonoBehaviour:
   attachPlug: {fileID: 5839032077065552717}
   emitter: {fileID: 5648931341203019549}
   carryNoiseInterval: 5
-  attachSounds: {fileID: 0}
-  carrySounds: {fileID: 0}
-  detachSounds: {fileID: 0}
+  attachSounds: 
+  carrySounds: 
+  detachSounds: 
 --- !u!114 &1349106207919405109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -787,6 +786,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
+      propertyPath: soundEvent
+      value: event:/SCHIZO/creatures/ermfish/hurt
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
       propertyPath: soundCollection
       value: 
       objectReference: {fileID: 11400000, guid: 4f47d8b7127a0234ea057da7472d7808,
@@ -818,6 +822,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1178557504063532876, guid: 2b7bde06469e9fc49911f3cac3ffa231,
         type: 2}
+    - target: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: soundEvent
+      value: event:/SCHIZO/creatures/ermfish/ambient
+      objectReference: {fileID: 0}
     - target: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: soundCollection
@@ -936,6 +945,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1161355378763634503, guid: 2b7bde06469e9fc49911f3cac3ffa231,
         type: 2}
+    - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: soundEvent
+      value: event:/SCHIZO/creatures/ermfish/ambient
+      objectReference: {fileID: 0}
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: soundCollection

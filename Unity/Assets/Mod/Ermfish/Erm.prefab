@@ -44,10 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f19711010743bfa5da92c65afc5b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundCollection: {fileID: 11400000, guid: 2b7bde06469e9fc49911f3cac3ffa231, type: 2}
-  soundCollection_: {fileID: 3865180988560541106, guid: 2b7bde06469e9fc49911f3cac3ffa231,
-    type: 2}
-  bus: SCHIZO.Sounds.Players.SoundPlayer:INDOOR_SOUNDS_BUS
+  soundEvent: event:/SCHIZO/creatures/ermfish/ambient
   emitter: {fileID: 6178876673480739924}
   minDelayDefault: {fileID: 0}
   maxDelayDefault: {fileID: 0}

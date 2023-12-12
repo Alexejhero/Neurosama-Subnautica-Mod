@@ -16,8 +16,7 @@ MonoBehaviour:
   scanTime: 5
   unlockSprite: {fileID: 21300000, guid: 85c36857a3ce21c49b2b3d2d1c09ecb6, type: 3}
   isImportantUnlock: 0
-  scanSounds: {fileID: -2996190608115189883, guid: 935233e4761193a489883563680a8478,
-    type: 2}
+  scanSounds: event:/SCHIZO/creatures/ermshark/scan
   encyPathSN: Lifeforms/Fauna/Carnivores
   encyPathBZ: Research/Lifeforms/Fauna/Carnivores
   title: Ermshark
