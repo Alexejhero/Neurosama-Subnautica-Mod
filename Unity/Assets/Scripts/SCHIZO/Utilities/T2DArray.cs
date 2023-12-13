@@ -20,11 +20,12 @@ namespace SCHIZO.Utilities
 
         public TextureWrapMode wrapMode = TextureWrapMode.Clamp;
         public FilterMode filterMode = FilterMode.Point;
-        [Space] [ShowIf(nameof(array), null)] public TextureCompressionQuality compressionQuality;
-
-        [ShowInInspector, ShowIf(nameof(array), null), ReadOnly]
+        [Space]
+        public TextureCompressionQuality compressionQuality;
+        [ReadOnly]
         public TextureFormat compressionFormat;
 
+        private bool validationPass = false;
         private void OnValidate()
         {
             if (array)
@@ -33,8 +34,6 @@ namespace SCHIZO.Utilities
                 array.filterMode = filterMode;
             }
         }
-
-        private bool validationPass = false;
 
         private TriValidationResult ValidateTextures()
         {
@@ -70,36 +69,42 @@ namespace SCHIZO.Utilities
             return TriValidationResult.Warning("Please assign at least 2 textures, or use Texture2D if single texture is intended");
         }
 
-        // for some reason Texture2DArray sub asset does not update when overwriting it, so uuh it's a one time thing i guess
-        [Button, ShowIf(nameof(array), null), ShowIf(nameof(validationPass), true)]
+
+        [Button, ShowIf(nameof(validationPass), true)]
         private void GenerateArray()
         {
-            if (textures.Count == 0 || textures[0] == null) return;
-
-            if (array == null)
-            {
-                array = PopulateTexture2DArray();
-                AssetDatabase.AddObjectToAsset(array, this);
-                EditorUtility.SetDirty(this);
-                AssetDatabase.SaveAssets();
-            }
+            if(textures.Count == 0 || textures[0] == null) return;
+            PopulateTexture2DArray();
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssets();
         }
 
-        private Texture2DArray PopulateTexture2DArray()
+        private bool CanUpdateAlreadyCreatedArray => array && array.depth == textures.Count && array.height == textures[0].height && array.width == textures[0].width;
+        
+        private void PopulateTexture2DArray()
         {
-            List<Texture> tt = textures;
-
-            Texture2DArray t2da = new(tt[0].width, tt[0].height, tt.Count, compressionFormat, false, true);
-
-            for (int i = 0; i < tt.Count; i++)
+            if (!array)
             {
-                Graphics.CopyTexture(tt[i], 0, 0, t2da, i, 0);
+                array = new(textures[0].width, textures[0].height, textures.Count, compressionFormat, false, true);
+                AssetDatabase.AddObjectToAsset(array, this);
             }
 
-            t2da.wrapMode = wrapMode;
-            t2da.filterMode = filterMode;
+            if (!CanUpdateAlreadyCreatedArray)
+            {
+                AssetDatabase.RemoveObjectFromAsset(array);
+                EditorUtility.SetDirty(this);
+                AssetDatabase.SaveAssets();
+                array = new(textures[0].width, textures[0].height, textures.Count, compressionFormat, false, true);
+                AssetDatabase.AddObjectToAsset(array, this);
+            }
 
-            return t2da;
+            for (int i = 0; i < textures.Count; i++)
+            {
+                Graphics.CopyTexture(textures[i], 0, 0, array, i, 0);
+            }
+
+            array.wrapMode = wrapMode;
+            array.filterMode = filterMode;
         }
 #endif
     }
