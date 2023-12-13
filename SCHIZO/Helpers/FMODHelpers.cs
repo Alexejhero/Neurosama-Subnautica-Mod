@@ -17,13 +17,30 @@ internal static class FMODHelpers
     /// <exception cref="BankLoadException">Thrown with the result of the attempted load if <paramref name="throwOnFail"/> is set.</exception>
     public static void LoadBankFromResources(string fileName, bool throwOnFail = false)
     {
+        RuntimeManager fmodRuntime = RuntimeManager.Instance;
+        if (fmodRuntime.loadedBanks.TryGetValue(fileName, out RuntimeManager.LoadedBank alreadyLoaded))
+        {
+            alreadyLoaded.RefCount++;
+            fmodRuntime.loadedBanks[fileName] = alreadyLoaded;
+            return;
+        }
+
         byte[] fmodBank = ResourceManager.GetEmbeddedBytes(fileName, throwOnFail);
         if (fmodBank == null) return; // already thrown above if throwIfMissing is set
 
-        RESULT res = RuntimeManager.StudioSystem.loadBankMemory(fmodBank, FMOD.Studio.LOAD_BANK_FLAGS.NORMAL, out FMOD.Studio.Bank bank);
+        RESULT res = fmodRuntime.studioSystem.loadBankMemory(fmodBank, LOAD_BANK_FLAGS.NORMAL, out Bank bank);
         res.CheckResult();
-        if (!bank.hasHandle() && throwOnFail)
-            throw new BankLoadException(fileName, res);
+
+        if (res != RESULT.OK || !bank.hasHandle())
+        {
+            if (throwOnFail)
+                throw new BankLoadException(fileName, res);
+        }
+        else
+        {
+            RuntimeManager.LoadedBank loadedBank = new() { Bank = bank, RefCount = 1 };
+            fmodRuntime.loadedBanks[fileName] = loadedBank;
+        }
     }
 
     public static void LoadMasterBank(string name, bool throwOnFail = false)
