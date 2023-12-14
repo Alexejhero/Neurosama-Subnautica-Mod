@@ -21,12 +21,12 @@ namespace SCHIZO.VFX
         public override void SetProperties()
         {
             base.SetProperties();
-            matPassID.PassID = (int) blendMode;
+            propBlock.PassID = (int) blendMode;
             image.wrapMode = wrapMode;
-            matPassID.SetTexture("_Image", image);
-            matPassID.SetVector("_Position", new Vector4(position.x, position.y, 0f, 0f));
-            matPassID.SetFloat("_Strength", strength);
-            matPassID.SetFloat("_Scale", scale);
+            propBlock.SetTexture("_Image", image);
+            propBlock.SetVector("_Position", new Vector4(position.x, position.y, 0f, 0f));
+            propBlock.SetFloat("_Strength", strength);
+            propBlock.SetFloat("_Scale", scale);
         }
     }
 }

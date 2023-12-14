@@ -6,7 +6,7 @@ namespace SCHIZO.VFX
     /// <summary>
     /// Material Properties can be set via <see cref="SetVector"/>, <see cref="SetFloat"/>, <see cref="SetColor"/>, <see cref="SetTexture"/> methods.
     /// </summary>
-    public sealed class MatPassID(Material material)
+    public sealed class CustomMaterialPropertyBlock(Material material)
     {
         public int PassID { get; set; }
 

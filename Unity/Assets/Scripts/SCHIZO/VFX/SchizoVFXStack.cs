@@ -16,17 +16,17 @@ public class SchizoVFXStack : MonoBehaviour
         }
     }
 
-    private static readonly List<MatPassID> effectMaterials = [];
+    private static readonly List<CustomMaterialPropertyBlock> propertyBlocks = [];
 
-    public void RenderEffect(MatPassID m)
+    public void RenderEffect(CustomMaterialPropertyBlock m)
     {
-        if (effectMaterials.Contains(m)) return;
-        effectMaterials.Add(m);
+        if (propertyBlocks.Contains(m)) return;
+        propertyBlocks.Add(m);
     }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (effectMaterials.Count == 0)
+        if (propertyBlocks.Count == 0)
         {
             Graphics.Blit(source, destination);
             return;
@@ -37,7 +37,7 @@ public class SchizoVFXStack : MonoBehaviour
         Graphics.CopyTexture(source, tempA);
 
         bool startedWithA = true;
-        foreach (MatPassID effectMaterial in effectMaterials)
+        foreach (CustomMaterialPropertyBlock effectMaterial in propertyBlocks)
         {
             Graphics.Blit(startedWithA ? tempA : tempB, startedWithA ? tempB : tempA, effectMaterial.ApplyProperties(out int passID), passID);
             startedWithA = !startedWithA;
@@ -46,6 +46,6 @@ public class SchizoVFXStack : MonoBehaviour
         Graphics.Blit(startedWithA ? tempA : tempB, destination);
         RenderTexture.ReleaseTemporary(tempA);
         RenderTexture.ReleaseTemporary(tempB);
-        effectMaterials.Clear();
+        propertyBlocks.Clear();
     }
 }

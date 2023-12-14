@@ -11,8 +11,8 @@ namespace SCHIZO.VFX
         public override void SetProperties()
         {
             base.SetProperties();
-            matPassID.SetColor("_Color", color);
-            matPassID.PassID = (int) blendMode;
+            propBlock.SetColor("_Color", color);
+            propBlock.PassID = (int) blendMode;
         }
     }
 }

@@ -33,10 +33,10 @@ namespace SCHIZO.VFX
         public override void SetProperties()
         {
             base.SetProperties();
-            matPassID.SetTexture("_Image", noiseTexture);
-            matPassID.SetTexture("_Displacement", displacementNormal);
-            matPassID.SetFloat("_DispStrength", displacementStrength);
-            matPassID.SetFloat("_Strength", strength);
+            propBlock.SetTexture("_Image", noiseTexture);
+            propBlock.SetTexture("_Displacement", displacementNormal);
+            propBlock.SetFloat("_DispStrength", displacementStrength);
+            propBlock.SetFloat("_Strength", strength);
         }
     }
 }

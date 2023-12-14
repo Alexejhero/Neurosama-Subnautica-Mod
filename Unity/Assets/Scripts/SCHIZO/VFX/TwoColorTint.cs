@@ -13,9 +13,9 @@ namespace SCHIZO.VFX
         public override void SetProperties()
         {
             base.SetProperties();
-            matPassID.SetColor("_Color", innerColor);
-            matPassID.SetColor("_Color0", outerColor);
-            matPassID.SetFloat("_Strength", strength);
+            propBlock.SetColor("_Color", innerColor);
+            propBlock.SetColor("_Color0", outerColor);
+            propBlock.SetFloat("_Strength", strength);
         }
     }
 }

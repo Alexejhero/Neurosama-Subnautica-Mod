@@ -11,7 +11,7 @@ namespace SCHIZO.VFX
         // ReSharper disable once RedundantNameQualifier
         [global::TriInspector.ReadOnly] public Material material;
 
-        [HideInInspector] public MatPassID matPassID;
+        [HideInInspector] public CustomMaterialPropertyBlock propBlock;
 
 #if UNITY_EDITOR
         [OnValueChanged(nameof(SetNewResultTexture))]
@@ -26,7 +26,7 @@ namespace SCHIZO.VFX
                 if (previewResult == null || ((previewImage.height != previewResult.height) || (previewImage.width != previewResult.width))) SetNewResultTexture();
                 SetProperties();
                 RenderTexture tempResult = RenderTexture.GetTemporary(previewImage.width, previewImage.height, 0, RenderTextureFormat.ARGBHalf);
-                Graphics.Blit(previewImage, tempResult, matPassID.ApplyProperties(out int passID), passID);
+                Graphics.Blit(previewImage, tempResult, propBlock.ApplyProperties(out int passID), passID);
                 Graphics.ConvertTexture(tempResult, previewResult);
                 tempResult.Release();
             }
@@ -40,13 +40,13 @@ namespace SCHIZO.VFX
 
         public virtual void SetProperties()
         {
-            matPassID ??= new MatPassID(material);
+            propBlock ??= new CustomMaterialPropertyBlock(material);
         }
 
         public virtual void Update()
         {
             SetProperties();
-            SchizoVFXStack.Instance.RenderEffect(matPassID);
+            SchizoVFXStack.Instance.RenderEffect(propBlock);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace SCHIZO.VFX
         public float scale = 1.3f;
         public float frameChangeInterval = 0.08f;
 
-        private MatPassID matPassID;
+        private CustomMaterialPropertyBlock propBlock;
 
         private float lastUpdate;
         private float lastRnd;
@@ -24,7 +24,7 @@ namespace SCHIZO.VFX
         {
             _ = SchizoVFXStack.Instance;
 
-            matPassID = new MatPassID(effectMaterial);
+            propBlock = new CustomMaterialPropertyBlock(effectMaterial);
 
             lastUpdate = Time.time;
             arrayDepth = ((Texture2DArray) effectMaterial.GetTexture(_texID)).depth;
@@ -49,11 +49,11 @@ namespace SCHIZO.VFX
 
                 float opacity = Mathf.Clamp01((1f / pos.z) * fadeOutStartDistance);
 
-                matPassID.SetVector("_ScreenPosition", new Vector4(pos.x, pos.y, pos.z, lastRnd));
-                matPassID.SetFloat("_Strength", opacity);
-                matPassID.SetFloat("_Scale", scale);
+                propBlock.SetVector("_ScreenPosition", new Vector4(pos.x, pos.y, pos.z, lastRnd));
+                propBlock.SetFloat("_Strength", opacity);
+                propBlock.SetFloat("_Scale", scale);
 
-                SchizoVFXStack.Instance.RenderEffect(matPassID);
+                SchizoVFXStack.Instance.RenderEffect(propBlock);
             }
         }
     }
