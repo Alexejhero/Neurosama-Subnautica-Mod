@@ -201,7 +201,7 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-                return lerp(col, _Color - col, _Color.w);
+                return half4(lerp(col.rgb, col.rgb - _Color.rgb, _Color.w), col.a);
             }
             ENDCG
         }

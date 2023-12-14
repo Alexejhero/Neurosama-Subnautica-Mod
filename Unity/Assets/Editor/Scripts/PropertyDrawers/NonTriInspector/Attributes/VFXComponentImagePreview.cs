@@ -11,11 +11,15 @@ namespace Editor.Scripts.PropertyDrawers.NonTriInspector.Attributes
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            // TODO: this is not ideal
+            if (property.propertyType != SerializedPropertyType.ObjectReference) return;
             image = (Texture) property.objectReferenceValue;
-            GUIStyle style = new(EditorStyles.label);
-            style.alignment = TextAnchor.UpperCenter;
-            GUILayout.Box(image, style);
+            if (!image) return;
+
+            GUIStyle style = new(EditorStyles.label)
+            {
+                alignment = TextAnchor.UpperCenter,
+            };
+            GUILayout.Label(image, style, GUILayout.MaxHeight(200f));
         }
     }
 }

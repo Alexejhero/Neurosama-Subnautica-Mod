@@ -300,7 +300,7 @@
 
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                return lerp(col, col - image, image.w * _Strength);
+                return half4(lerp(col.rgb, col.rgb - image.rgb, image.w * _Strength), col.a);
             }
             ENDCG
         }
