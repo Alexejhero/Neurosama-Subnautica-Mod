@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   storyGoalSN: 
-  storyGoalBZ: SanctuaryCompleted
+  storyGoalBZ: MargBaseFirstVisit
 --- !u!1001 &915920292816743419
 PrefabInstance:
   m_ObjectHideFlags: 0

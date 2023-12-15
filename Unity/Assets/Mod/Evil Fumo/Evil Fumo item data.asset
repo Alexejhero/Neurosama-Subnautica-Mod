@@ -35,7 +35,7 @@ MonoBehaviour:
   spawnData: {fileID: 0}
   unlockAtStart: 1
   registerInSN: 1
-  recipeSN: {fileID: 0}
+  recipeSN: {fileID: 11400000, guid: b0f11b9cf34116348be77763a163289e, type: 2}
   craftTreeTypeSN: 1
   craftTreePathSN: Personal/Equipment
   techGroupSN: 2
@@ -47,7 +47,7 @@ MonoBehaviour:
   equipmentTypeSN: 1
   quickSlotTypeSN: 3
   registerInBZ: 1
-  recipeBZ: {fileID: 0}
+  recipeBZ: {fileID: 11400000, guid: b0f11b9cf34116348be77763a163289e, type: 2}
   canBeRecycledBZ: 1
   craftTreeTypeBZ: 1
   craftTreePathBZ: Personal/Equipment
