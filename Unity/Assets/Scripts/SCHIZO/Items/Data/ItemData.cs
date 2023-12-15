@@ -51,9 +51,6 @@ namespace SCHIZO.Items.Data
         [CommonData, ShowIf(nameof(IsActuallyCraftable))]
         public float craftingTime = 2.5f;
 
-        [CommonData, ShowIf(nameof(NonBuildableItemProperties_ShowIf))]
-        public ItemSounds itemSounds;
-
         [CommonData]
         public PDAEncyclopediaInfo pdaEncyInfo;
 

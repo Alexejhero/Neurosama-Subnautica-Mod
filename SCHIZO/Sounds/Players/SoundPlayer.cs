@@ -46,22 +46,11 @@ partial class SoundPlayer
         LastPlay = Time.time;
 
         if (Is3D) emitter.PlayPath(soundEvent);
-        else
-        {
-            Stop();
-            _evt = FMODHelpers.PlayPath2D(soundEvent);
-        }
+        else FMODHelpers.PlayPath2D(soundEvent);
     }
-
-    private EventInstance _evt;
-
     public void Stop()
     {
         if (Is3D) emitter.Stop();
-        else
-        {
-            _evt.stop(STOP_MODE.ALLOWFADEOUT);
-            _evt.release();
-        }
+        else FMODHelpers.StopAllInstances(soundEvent);
     }
 }

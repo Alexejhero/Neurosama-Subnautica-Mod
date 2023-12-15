@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{672a7478-9ae8-4093-a72d-08bef312c6e8}">
+		<property name="name">
+			<value>ermfish</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{bb5ca1c8-e054-47e0-b268-446cd984bb33}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{3805a70c-eccc-4f4c-9c17-638c30195159}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{ce1298e0-559b-4099-aa9a-8f07df938fc8}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{bb5ca1c8-e054-47e0-b268-446cd984bb33}">
+		<relationship name="effects">
+			<destination>{6cd47394-cf67-4e6b-9339-8087f843cec0}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{3805a70c-eccc-4f4c-9c17-638c30195159}" />
+	<object class="MixerBusFader" id="{6cd47394-cf67-4e6b-9339-8087f843cec0}" />
+</objects>

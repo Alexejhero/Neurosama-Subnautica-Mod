@@ -1,26 +1,36 @@
 using FMODUnity;
+using SCHIZO.Attributes;
+using SCHIZO.Interop.Subnautica;
+using TriInspector;
 using UnityEngine;
 
 namespace SCHIZO.Sounds
 {
-    [CreateAssetMenu(menuName = "SCHIZO/Sounds/Item Sounds")]
-    public sealed partial class ItemSounds : ScriptableObject
+    [AddComponentMenu("SCHIZO/Sounds/Item Sounds")]
+    public sealed partial class ItemSounds : MonoBehaviour
     {
-        [EventRef] public string pickupSounds;
-        [EventRef] public string dropSounds;
+        [Required, ExposedType("Pickupable")] public MonoBehaviour pickupable;
+        [Required]
+        public _FMOD_CustomEmitter emitter;
+        [Required]
+        public _PlayerTool tool;
+
+        // TODO: change these into SoundPlayers? or keep this thing as one big sound player
+        [EventRef] public string pickup;
+        [EventRef] public string drop;
 
         [Space]
 
-        [EventRef] public string drawSounds;
-        [EventRef] public string holsterSounds;
+        [EventRef] public string draw;
+        [EventRef] public string holster;
 
         [Space]
 
-        [EventRef] public string cookSounds;
-        [EventRef] public string eatSounds;
+        [EventRef] public string cook;
+        [EventRef] public string eat;
 
         [Space]
-
-        [EventRef] public string playerDeathSounds;
+        // split into its own component?
+        [EventRef] public string playerDeath;
     }
 }

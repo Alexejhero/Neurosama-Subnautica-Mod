@@ -106,11 +106,6 @@ public class UnityPrefab : CustomPrefab
             });
         }
 
-        if (ModItem.ItemData.itemSounds)
-        {
-            ModItem.ItemData.itemSounds.Register(ModItem);
-        }
-
         if (ModItem.ItemData.EquipmentType != EquipmentType.None)
         {
             CraftDataHandler.SetEquipmentType(ModItem, ModItem.ItemData.EquipmentType);
