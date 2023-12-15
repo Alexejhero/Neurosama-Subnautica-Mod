@@ -229,7 +229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
-      propertyPath: enabledOption
+      propertyPath: disabledOption
       value: 
       objectReference: {fileID: 11400000, guid: f0594ad0952ab554cbe3376036e1020a,
         type: 2}

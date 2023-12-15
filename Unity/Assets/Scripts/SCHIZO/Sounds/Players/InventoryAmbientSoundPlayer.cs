@@ -19,7 +19,7 @@ namespace SCHIZO.Sounds.Players
         private ConfigurableValueFloat MaxDelay;
 
         [SerializeField, UsedImplicitly]
-        private ToggleModOption enabledOption;
+        private ToggleModOption disabledOption;
 
         [Space]
 

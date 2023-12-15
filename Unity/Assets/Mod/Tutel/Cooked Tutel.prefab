@@ -79,7 +79,7 @@ MonoBehaviour:
     modOption: {fileID: 11400000, guid: 87f6c7eace682d841a58b07957ee144d, type: 2}
     value: 0
     calculateMode: 0
-  enabledOption: {fileID: 11400000, guid: f0594ad0952ab554cbe3376036e1020a, type: 2}
+  disabledOption: {fileID: 11400000, guid: f0594ad0952ab554cbe3376036e1020a, type: 2}
   pickupable: {fileID: 7670209859173859696}
   constructable: {fileID: 0}
 --- !u!114 &8283812961700562626
@@ -125,7 +125,7 @@ MonoBehaviour:
     modOption: {fileID: 11400000, guid: d2d8f608de10fb64d90460a0634789bf, type: 2}
     value: 0
     calculateMode: 0
-  enabledOption: {fileID: 0}
+  disabledOption: {fileID: 0}
   pickupable: {fileID: 7670209859173859696}
 --- !u!114 &-762045563841846445
 MonoBehaviour:

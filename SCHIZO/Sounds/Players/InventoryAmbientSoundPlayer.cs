@@ -21,7 +21,7 @@ partial class InventoryAmbientSoundPlayer
         if (_timer < 0)
         {
             ResetTimer();
-            if (!enabledOption || enabledOption.Value)
+            if (!disabledOption || !disabledOption.Value)
                 Play();
         }
     }
