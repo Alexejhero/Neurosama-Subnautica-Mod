@@ -56,7 +56,13 @@ public static class ItemSoundsPatches
     public static void PlayCustomCookSound(TechType techType)
     {
         const float delayPerItem = 0.1f;
-        foreach (Ingredient ingredient in TechData.GetIngredients(techType))
+#if BELOWZERO
+        IEnumerable<NIngredient> ingredients = TechData.GetIngredients(techType);
+#else
+        NTechData techData = CraftData.techData[techType];
+        IEnumerable<NIngredient> ingredients = techData._ingredients;
+#endif
+        foreach (NIngredient ingredient in ingredients)
         {
             for (int i = 0; i < ingredient.amount; i++)
                 ItemSounds.OnCook(ingredient.techType, delayPerItem * i);

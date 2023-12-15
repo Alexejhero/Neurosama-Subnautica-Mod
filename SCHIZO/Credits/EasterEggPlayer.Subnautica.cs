@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SCHIZO.Credits;
 
-partial class EasterEggManager
+partial class EasterEggPlayer
 {
     private EndCreditsManager _credits;
     private bool _easterEggAdjusted;
@@ -26,7 +26,7 @@ partial class EasterEggManager
         {
             // it's actually the end time (just for the easter egg phase)
             _startTime = _credits.phaseStartTime;
-            _credits.phaseStartTime += FMODExtensions.GetLength(sounds) / 1000f;
+            _credits.phaseStartTime += FMODExtensions.GetLength(soundEvent) / 1000f;
 
             _easterEggAdjusted = true;
         }
@@ -34,7 +34,7 @@ partial class EasterEggManager
         {
             if (Time.unscaledTime > _startTime)
             {
-                FMODHelpers.PlayPath2D(sounds);
+                PlayOneShot();
                 _startTime = float.PositiveInfinity;
             }
         }

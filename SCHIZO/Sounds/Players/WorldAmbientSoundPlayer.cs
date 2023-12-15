@@ -22,7 +22,8 @@ partial class WorldAmbientSoundPlayer
         if (_timer < 0)
         {
             ResetTimer();
-            Play();
+            if (!enabledOption || enabledOption.Value)
+                Play();
         }
     }
 

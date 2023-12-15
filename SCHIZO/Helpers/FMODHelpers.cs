@@ -69,12 +69,12 @@ internal static class FMODHelpers
         return guidFromPath.ToString();
     }
 
-    public static void PlayId(this FMOD_CustomEmitter emitter, string id)
-        => PlayFmod(emitter, GetPath(id), id);
-    public static void PlayPath(this FMOD_CustomEmitter emitter, string path)
-        => PlayFmod(emitter, path, GetId(path));
+    public static void PlayId(this FMOD_CustomEmitter emitter, string id, bool is3d = true)
+        => PlayFmod(emitter, GetPath(id), id, is3d);
+    public static void PlayPath(this FMOD_CustomEmitter emitter, string path, bool is3d = true)
+        => PlayFmod(emitter, path, GetId(path), is3d);
 
-    public static void PlayFmod(this FMOD_CustomEmitter emitter, string path, string id, bool restoreOld = false)
+    public static void PlayFmod(this FMOD_CustomEmitter emitter, string path, string id, bool is3d, float delay = 0, bool restoreOld = false)
     {
         if (string.IsNullOrEmpty(path)) return;
 
@@ -86,6 +86,8 @@ internal static class FMODHelpers
 
         FMODAsset oldAsset = emitter.asset;
         emitter.asset = AudioUtils.GetFmodAsset(path, id);
+        emitter.SetParameterValue("3D", is3d ? 1 : 0);
+        emitter.SetParameterValue("Delay", delay);
 
         emitter.Play();
         if (restoreOld) emitter.asset = oldAsset;
@@ -103,12 +105,12 @@ internal static class FMODHelpers
         return evt;
     }
 
-    public static void StopAllInstances(string path, bool allowFadeout = true)
+    public static void StopAllInstances(string path, bool stopImmediately = false)
     {
         if (string.IsNullOrEmpty(path)) return;
 
         RuntimeManager.StudioSystem.getEvent(path, out EventDescription _event);
         _event.getInstanceList(out EventInstance[] _instances);
-        _instances?.ForEach(ev => ev.stop(allowFadeout ? STOP_MODE.ALLOWFADEOUT : STOP_MODE.IMMEDIATE));
+        _instances?.ForEach(ev => ev.stop(stopImmediately ? STOP_MODE.IMMEDIATE : STOP_MODE.ALLOWFADEOUT));
     }
 }

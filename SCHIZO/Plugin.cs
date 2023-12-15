@@ -4,8 +4,6 @@ using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using ECCLibrary;
-using FMOD;
-using FMODUnity;
 using HarmonyLib;
 using SCHIZO.ConsoleCommands;
 using SCHIZO.Helpers;

@@ -58,6 +58,7 @@ MonoBehaviour:
     modOption: {fileID: 11400000, guid: 87f6c7eace682d841a58b07957ee144d, type: 2}
     value: 0
     calculateMode: 0
+  enabledOption: {fileID: 11400000, guid: f0594ad0952ab554cbe3376036e1020a, type: 2}
   pickupable: {fileID: 0}
   constructable: {fileID: 4718122885188350257}
 --- !u!114 &6178876673480739924

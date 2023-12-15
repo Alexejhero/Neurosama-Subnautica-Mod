@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Nautilus.Extensions;
 using Nautilus.Utility;
 using SCHIZO.Helpers;
+using SCHIZO.Interop.Subnautica;
 using SCHIZO.Sounds.Players;
 
 namespace SCHIZO.Sounds;
@@ -9,6 +11,7 @@ partial class ItemSounds
 {
     private static readonly Dictionary<TechType, string> _eatSounds = [];
     private Pickupable Pickupable => (Pickupable) pickupable;
+    private PlayerTool Tool => (PlayerTool) tool;
 
     public static bool TryGet(TechType techType, out string eatSounds)
     {
@@ -33,9 +36,11 @@ partial class ItemSounds
         Pickupable.pickedUpEvent.AddHandler(this, OnPickup);
         if (tool)
         {
-            tool.drawSound = tool.drawSoundUnderwater = AudioUtils.GetFmodAsset(draw);
-            tool.holsterSoundAboveWater = tool.holsterSoundUnderwater = AudioUtils.GetFmodAsset(holster);
+            PlayerTool Tool = (PlayerTool)tool;
+            Tool.drawSound = Tool.drawSoundUnderwater = AudioUtils.GetFmodAsset(draw);
+            Tool.holsterSoundAboveWater = Tool.holsterSoundUnderwater = AudioUtils.GetFmodAsset(holster);
         }
+        Register(CraftData.GetTechType(gameObject));
     }
 
     public void OnDestroy()
@@ -64,7 +69,7 @@ partial class ItemSounds
 
     public void OnEat()
     {
-        FMODHelpers.StopAllInstances(holster);
+        // holster sound will terminate on its own since the object will be destroyed
         FMODHelpers.PlayPath2D(eat);
     }
     // SendMessage

@@ -17,4 +17,13 @@ partial class CustomCreatureTool
 
         base.Awake();
     }
+
+    // TODO sn
+#if BELOWZERO
+    public override void OnHolsterBegin()
+    {
+        OnToolAnimHolster();
+        base.OnHolsterBegin();
+    }
+#endif
 }

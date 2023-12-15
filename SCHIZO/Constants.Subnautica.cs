@@ -1,4 +1,5 @@
-﻿global using NIngredient = CraftData.Ingredient;
+global using NIngredient = CraftData.Ingredient;
+global using NTechData = CraftData.TechData;
 using SCHIZO.Registering;
 
 namespace SCHIZO;

@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace SCHIZO.Sounds.Players;
@@ -21,7 +21,8 @@ partial class InventoryAmbientSoundPlayer
         if (_timer < 0)
         {
             ResetTimer();
-            Play();
+            if (!enabledOption || enabledOption.Value)
+                Play();
         }
     }
 

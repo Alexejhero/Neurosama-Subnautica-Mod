@@ -57,4 +57,13 @@ public abstract partial class CustomPlayerTool
 
         return cachedFullUseText;
     }
+
+    // TODO sn
+#if BELOWZERO
+    public override void OnHolsterBegin()
+    {
+        OnToolAnimHolster();
+        base.OnHolsterBegin();
+    }
+#endif
 }

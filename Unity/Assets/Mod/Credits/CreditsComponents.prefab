@@ -57,4 +57,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f90605b99ab4f6193c6b6c1e242e33d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: event:/SCHIZO/credits/easter_egg
+  soundEvent: event:/SCHIZO/credits/sn_easter_egg
+  emitter: {fileID: 0}

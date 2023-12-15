@@ -10,12 +10,11 @@ namespace SCHIZO.Sounds
     public sealed partial class ItemSounds : MonoBehaviour
     {
         [Required, ExposedType("Pickupable")] public MonoBehaviour pickupable;
-        [Required]
         public _FMOD_CustomEmitter emitter;
-        [Required]
-        public _PlayerTool tool;
+        [ExposedType("_PlayerTool")]
+        public MonoBehaviour tool;
 
-        // TODO: change these into SoundPlayers? or keep this thing as one big sound player
+        // TODO: change these into SoundPlayers? or keep this thing as one big "multi" sound player
         [EventRef] public string pickup;
         [EventRef] public string drop;
 
