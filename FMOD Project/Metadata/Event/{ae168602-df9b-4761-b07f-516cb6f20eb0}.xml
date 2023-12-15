@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="Event" id="{ae168602-df9b-4761-b07f-516cb6f20eb0}">
 		<property name="name">
-			<value>ambient</value>
+			<value>ambient_world</value>
 		</property>
 		<property name="outputFormat">
 			<value>2</value>
@@ -43,7 +43,7 @@
 	</object>
 	<object class="MasterTrack" id="{f5e2ef9e-7f92-4078-9079-58cdff226daf}">
 		<relationship name="automationTracks">
-			<destination>{4b283288-b3e4-40ec-b92a-a87cc06e69f3}</destination>
+			<destination>{35f13e83-63ad-4e42-9736-867eca8b8cdf}</destination>
 		</relationship>
 		<relationship name="modules">
 			<destination>{b05723d4-f57a-4b62-9298-4ac6bbe1da25}</destination>
@@ -91,7 +91,7 @@
 			<destination>{8769d1b5-0fb8-4387-80d7-f32390321050}</destination>
 		</relationship>
 	</object>
-	<object class="AutomationTrack" id="{4b283288-b3e4-40ec-b92a-a87cc06e69f3}">
+	<object class="AutomationTrack" id="{35f13e83-63ad-4e42-9736-867eca8b8cdf}">
 		<relationship name="automator">
 			<destination>{0fe2c5cd-17b6-4f68-8b9c-13f369742daa}</destination>
 		</relationship>

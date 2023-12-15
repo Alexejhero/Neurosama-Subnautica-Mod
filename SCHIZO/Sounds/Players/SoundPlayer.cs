@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using FMOD.Studio;
 using FMODUnity;
-using Nautilus.Utility;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using UnityEngine;
@@ -17,7 +15,8 @@ partial class SoundPlayer
     private List<Coroutine> _runningCoroutines;
     private void StartSoundCoroutine(IEnumerator coroutine)
     {
-        _runningCoroutines.Add(StartCoroutine(coroutine));
+        // not started on the object because it might be disabled (inventory sounds)
+        _runningCoroutines.Add(CoroutineHost.StartCoroutine(coroutine));
     }
     /// <summary>
     /// 
@@ -61,7 +60,7 @@ partial class SoundPlayer
 
     public void CancelAllDelayed()
     {
-        _runningCoroutines.ForEach(StopCoroutine);
+        _runningCoroutines.ForEach(CoroutineHost.StopCoroutine);
         _runningCoroutines.Clear();
     }
 

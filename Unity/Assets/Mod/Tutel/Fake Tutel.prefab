@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f19711010743bfa5da92c65afc5b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEvent: event:/SCHIZO/creatures/tutel/ambient
+  soundEvent: event:/SCHIZO/creatures/tutel/ambient_world
   emitter: {fileID: 196760604283640930}
   minDelayDefault: {fileID: 0}
   maxDelayDefault: {fileID: 0}

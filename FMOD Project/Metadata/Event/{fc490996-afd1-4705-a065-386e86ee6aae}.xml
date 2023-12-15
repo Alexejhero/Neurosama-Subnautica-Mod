@@ -91,8 +91,12 @@
 		</relationship>
 	</object>
 	<object class="MultiSound" id="{6a130bbe-b815-4354-959b-5ef1298d5fc9}">
+		<property name="playbackMode">
+			<value>1</value>
+		</property>
 		<relationship name="sounds">
 			<destination>{0a3cca1b-fcaa-463d-aa78-4ef7fe51e179}</destination>
+			<destination>{5931b134-f06f-4ddd-a231-ba7551f429a4}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{71530b8e-e824-4182-9f22-a02f7acd3c28}">
@@ -147,6 +151,24 @@
 			<destination>{2cd26c88-8f82-46af-aa1b-b4f9092b91ca}</destination>
 			<destination>{1534993b-f2f9-4310-867a-47bfc2fb08be}</destination>
 			<destination>{dadd2544-ed01-45b9-a4b5-d60190916475}</destination>
+		</relationship>
+	</object>
+	<object class="MultiSound" id="{5931b134-f06f-4ddd-a231-ba7551f429a4}">
+		<property name="name">
+			<value>stop draw sound</value>
+		</property>
+		<property name="looping">
+			<value>true</value>
+		</property>
+		<property name="playCount">
+			<value>2</value>
+		</property>
+		<property name="playlistMode">
+			<value>2</value>
+		</property>
+		<relationship name="sounds">
+			<destination>{5959e740-c621-459a-b134-d9ea4f8a9adb}</destination>
+			<destination>{b5410e59-db35-4f13-a94f-64f20595eaf9}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{deaba305-2200-4609-be66-50ed6f2d221d}" />
@@ -275,6 +297,19 @@
 	<object class="SingleSound" id="{dadd2544-ed01-45b9-a4b5-d60190916475}">
 		<relationship name="audioFile">
 			<destination>{a4ddc921-ed74-4427-a388-939860e60f5b}</destination>
+		</relationship>
+	</object>
+	<object class="SilenceSound" id="{5959e740-c621-459a-b134-d9ea4f8a9adb}">
+		<property name="duration">
+			<value>50</value>
+		</property>
+	</object>
+	<object class="CommandSound" id="{b5410e59-db35-4f13-a94f-64f20595eaf9}">
+		<property name="commandType">
+			<value>2</value>
+		</property>
+		<relationship name="commandTarget">
+			<destination>{9d37c82f-28a3-49fb-8ca4-499d9d8e8f37}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{c5500f01-4e9e-460b-ad49-ed484be85278}" />

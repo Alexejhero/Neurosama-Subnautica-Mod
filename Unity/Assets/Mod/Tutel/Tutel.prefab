@@ -203,6 +203,28 @@ MonoBehaviour:
   maxSurfaceAngle: 60
   ignoreTag: 
   trackSurfaceType: 0
+--- !u!114 &1231849519121452764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936897676119936064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd98f6d65dc4615a0a85770a69d8cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupable: {fileID: 7004812872329714809}
+  emitter: {fileID: 4243275342166359073}
+  tool: {fileID: 2543002060771256019}
+  pickup: event:/SCHIZO/creatures/tutel/pickup
+  drop: 
+  draw: event:/SCHIZO/creatures/tutel/draw
+  holster: event:/SCHIZO/creatures/tutel/holster
+  cook: event:/SCHIZO/creatures/tutel/cook
+  eat: event:/SCHIZO/creatures/tutel/eat
+  playerDeath: 
 --- !u!114 &1384018149492295081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,28 +472,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storyGoalSN: 
   storyGoalBZ: SanctuaryCompleted
---- !u!114 &1231849519121452764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 936897676119936064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efd98f6d65dc4615a0a85770a69d8cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupable: {fileID: 7004812872329714809}
-  emitter: {fileID: 4243275342166359073}
-  tool: {fileID: 2543002060771256019}
-  pickup: event:/SCHIZO/creatures/tutel/pickup
-  drop: 
-  draw: event:/SCHIZO/creatures/tutel/draw
-  holster: event:/SCHIZO/creatures/tutel/holster
-  cook: event:/SCHIZO/creatures/tutel/cook
-  eat: event:/SCHIZO/creatures/tutel/eat
-  playerDeath: 
 --- !u!1 &5958086965960221578
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,7 +904,7 @@ PrefabInstance:
     - target: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: soundEvent
-      value: event:/SCHIZO/creatures/tutel/ambient
+      value: event:/SCHIZO/creatures/tutel/ambient_inventory
       objectReference: {fileID: 0}
     - target: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
@@ -1078,7 +1078,7 @@ PrefabInstance:
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: soundEvent
-      value: event:/SCHIZO/creatures/tutel/ambient
+      value: event:/SCHIZO/creatures/tutel/ambient_world
       objectReference: {fileID: 0}
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}

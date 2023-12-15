@@ -317,6 +317,28 @@ MonoBehaviour:
   growStackChance: 0.1
   endsDetachChance: 0.05
   middleDetachChance: 0.02
+--- !u!114 &5574741202301287243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd98f6d65dc4615a0a85770a69d8cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupable: {fileID: 1562807759283304261}
+  emitter: {fileID: 5648931341203019549}
+  tool: {fileID: 6326611585647152623}
+  pickup: event:/SCHIZO/creatures/ermfish/pickup
+  drop: event:/SCHIZO/creatures/ermfish/drop
+  draw: event:/SCHIZO/creatures/ermfish/draw
+  holster: event:/SCHIZO/creatures/ermfish/holster
+  cook: event:/SCHIZO/creatures/ermfish/cook
+  eat: event:/SCHIZO/creatures/ermfish/eat
+  playerDeath: event:/SCHIZO/creatures/ermfish/player_death
 --- !u!114 &8265457806104071489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,28 +377,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storyGoalSN: 
   storyGoalBZ: SanctuaryCompleted
---- !u!114 &5574741202301287243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efd98f6d65dc4615a0a85770a69d8cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupable: {fileID: 1562807759283304261}
-  emitter: {fileID: 5648931341203019549}
-  tool: {fileID: 6326611585647152623}
-  pickup: event:/SCHIZO/creatures/ermfish/pickup
-  drop: event:/SCHIZO/creatures/ermfish/drop
-  draw: event:/SCHIZO/creatures/ermfish/draw
-  holster: event:/SCHIZO/creatures/ermfish/holster
-  cook: event:/SCHIZO/creatures/ermfish/cook
-  eat: event:/SCHIZO/creatures/ermfish/eat
-  playerDeath: event:/SCHIZO/creatures/ermfish/player_death
 --- !u!1 &5952168343408095337
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,15 +846,15 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
+      propertyPath: soundEvent
+      value: event:/SCHIZO/creatures/ermfish/ambient_inventory
+      objectReference: {fileID: 0}
+    - target: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
       propertyPath: enabledOption
       value: 
       objectReference: {fileID: 11400000, guid: 586ae6e6828837441a6a92a32eb1ba84,
         type: 2}
-    - target: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
-        type: 3}
-      propertyPath: soundEvent
-      value: event:/SCHIZO/creatures/ermfish/ambient
-      objectReference: {fileID: 0}
     - target: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: soundCollection
@@ -975,15 +975,15 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
+      propertyPath: soundEvent
+      value: event:/SCHIZO/creatures/ermfish/ambient_world
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
       propertyPath: enabledOption
       value: 
       objectReference: {fileID: 11400000, guid: f0594ad0952ab554cbe3376036e1020a,
         type: 2}
-    - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
-        type: 3}
-      propertyPath: soundEvent
-      value: event:/SCHIZO/creatures/ermfish/ambient
-      objectReference: {fileID: 0}
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: soundCollection

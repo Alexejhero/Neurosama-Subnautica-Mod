@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f19711010743bfa5da92c65afc5b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEvent: event:/SCHIZO/creatures/ermfish/ambient
+  soundEvent: event:/SCHIZO/creatures/ermfish/ambient_world
   emitter: {fileID: 2702267877378328202}
   minDelayDefault: {fileID: 0}
   maxDelayDefault: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08298562675c4c18ba4b1d9744b135e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEvent: event:/SCHIZO/creatures/ermfish/ambient
+  soundEvent: event:/SCHIZO/creatures/ermfish/ambient_inventory
   emitter: {fileID: 0}
   minDelayDefault: {fileID: 11400000, guid: cddef268080982e4eae92e262bd08d9f, type: 2}
   maxDelayDefault: {fileID: 11400000, guid: d2d8f608de10fb64d90460a0634789bf, type: 2}

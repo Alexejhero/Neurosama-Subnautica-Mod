@@ -67,8 +67,11 @@
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{1ff87107-b18b-48ec-bff7-84538f5e9cab}">
+		<property name="priority">
+			<value>1</value>
+		</property>
 		<property name="triggerCooldown">
-			<value>200</value>
+			<value>400</value>
 		</property>
 	</object>
 	<object class="MarkerTrack" id="{028d709b-2bb7-48cc-8bd3-504faa136dcc}" />
