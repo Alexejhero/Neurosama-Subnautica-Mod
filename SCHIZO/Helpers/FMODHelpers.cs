@@ -85,12 +85,12 @@ internal static class FMODHelpers
         }
 
         FMODAsset oldAsset = emitter.asset;
-        emitter.asset = AudioUtils.GetFmodAsset(path, id);
+        emitter.SetAsset(AudioUtils.GetFmodAsset(path, id));
         emitter.SetParameterValue("3D", is3d ? 1 : 0);
         emitter.SetParameterValue("Delay", delay);
 
         emitter.Play();
-        if (restoreOld) emitter.asset = oldAsset;
+        if (restoreOld) emitter.SetAsset(oldAsset);
     }
 
     public static EventInstance PlayPath2D(string path, float delay = 0)
