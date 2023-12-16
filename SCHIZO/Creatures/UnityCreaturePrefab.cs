@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using ECCLibrary;
 using Nautilus.Handlers;
-using SCHIZO.Helpers;
 using SCHIZO.Items;
 using UnityEngine;
 using UWE;

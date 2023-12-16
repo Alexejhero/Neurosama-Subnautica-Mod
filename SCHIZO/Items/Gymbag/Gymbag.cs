@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Nautilus.Handlers;
-using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Items.Gymbag;
@@ -15,6 +14,7 @@ public sealed class Gymbag : ClonePrefab
 #endif
 
     [SetsRequiredMembers]
+    // ReSharper disable once ConvertToPrimaryConstructor
     public Gymbag(ModItem modItem) : base(modItem, CLONE_TARGET)
     {
     }
