@@ -26,6 +26,11 @@ partial class Carryable
         typeof(WorldAmbientSoundPlayer),
         typeof(SwimBehaviour),
         typeof(Rigidbody),
+#if BELOWZERO
+        typeof(LandCreatureGravity),
+#else
+        typeof(CaveCrawlerGravity),
+#endif
         typeof(Creature)
     ];
 

@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   storyGoalSN: 
-  storyGoalBZ: SanctuaryCompleted
+  storyGoalBZ: DeltaIslandFirstVisit
 --- !u!136 &5906089814064505694
 CapsuleCollider:
   m_ObjectHideFlags: 0

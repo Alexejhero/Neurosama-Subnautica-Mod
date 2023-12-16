@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.CompilerServices;
 using Story;
 
@@ -15,7 +16,7 @@ public static class StoryGoalHelpers
 #endif
     }
 
-
+    public static bool Matches(string goal1, string goal2) => string.Equals(goal1, goal2, StringComparison.OrdinalIgnoreCase);
     public static bool IsCompleted(string goal) => !IsStoryEnabled() || string.IsNullOrEmpty(goal) ||
                                                    (StoryGoalManager.main && StoryGoalManager.main.IsGoalComplete(goal));
 

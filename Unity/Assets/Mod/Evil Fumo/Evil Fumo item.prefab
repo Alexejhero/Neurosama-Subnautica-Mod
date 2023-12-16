@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plugOrigin: {fileID: 0}
-  mainCollider: {fileID: 5495115456470386077}
+  mainCollider: {fileID: 0}
   pickupable: {fileID: 986444971531117965}
   renderers: []
   ikAimLeftArm: 1
@@ -142,6 +142,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   propModel: {fileID: 853428788585080163}
   viewModel: {fileID: 7656616662938203038}
+--- !u!65 &4332142020512149085
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3050323588128677620}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.0000005, y: 4.3434496, z: 3.2994847}
+  m_Center: {x: -0, y: 2.1420708, z: -0.17539322}
 --- !u!1001 &8219148621552729296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -252,6 +265,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6545938831321695140, guid: 494d51939a4d56f47a65310c2d52e286, type: 3}
     - {fileID: 2416869583082230119, guid: 494d51939a4d56f47a65310c2d52e286, type: 3}
+    - {fileID: 4490892002294479181, guid: 494d51939a4d56f47a65310c2d52e286, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 494d51939a4d56f47a65310c2d52e286, type: 3}
 --- !u!1 &5958827312421353464 stripped
 GameObject:
@@ -265,9 +279,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8219148621552729296}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &5495115456470386077 stripped
-MeshCollider:
-  m_CorrespondingSourceObject: {fileID: 4490892002294479181, guid: 494d51939a4d56f47a65310c2d52e286,
+--- !u!1 &3050323588128677620 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6360390249657213476, guid: 494d51939a4d56f47a65310c2d52e286,
     type: 3}
   m_PrefabInstance: {fileID: 8219148621552729296}
   m_PrefabAsset: {fileID: 0}
