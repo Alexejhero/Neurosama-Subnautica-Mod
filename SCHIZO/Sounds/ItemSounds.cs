@@ -1,28 +1,16 @@
 using System.Collections.Generic;
-using Nautilus.Extensions;
 using Nautilus.Utility;
 using SCHIZO.Helpers;
-using SCHIZO.Interop.Subnautica;
 using SCHIZO.Sounds.Players;
+using UnityEngine;
 
 namespace SCHIZO.Sounds;
 
 partial class ItemSounds
 {
-    private static readonly Dictionary<TechType, string> _eatSounds = [];
+    private static readonly Dictionary<TechType, string> _cookSounds = [];
     private Pickupable Pickupable => (Pickupable) pickupable;
     private PlayerTool Tool => (PlayerTool) tool;
-
-    public static bool TryGet(TechType techType, out string eatSounds)
-    {
-        return _eatSounds.TryGetValue(techType, out eatSounds);
-    }
-
-    public void Register(TechType techType)
-    {
-        if (!_eatSounds.ContainsKey(techType))
-            _eatSounds[techType] = eat;
-    }
 
     public void Start()
     {
@@ -40,7 +28,10 @@ partial class ItemSounds
             Tool.drawSound = Tool.drawSoundUnderwater = AudioUtils.GetFmodAsset(draw);
             Tool.holsterSoundAboveWater = Tool.holsterSoundUnderwater = AudioUtils.GetFmodAsset(holster);
         }
-        Register(CraftData.GetTechType(gameObject));
+
+        TechType techType = CraftData.GetTechType(gameObject);
+        if (!_cookSounds.ContainsKey(techType))
+            _cookSounds[techType] = cook;
     }
 
     public void OnDestroy()
@@ -51,20 +42,23 @@ partial class ItemSounds
     public void OnPickup(Pickupable _)
     {
         FMODHelpers.PlayPath2D(pickup);
+        GetComponent<WorldAmbientSoundPlayer>()!?.Stop();
     }
     // called through SendMessage (i love unity)
     public void OnDrop()
     {
         FMODHelpers.StopAllInstances(holster);
-        emitter.PlayPath(drop);
-
         GetComponentsInChildren<InventoryAmbientSoundPlayer>().ForEach(p => p.Stop());
+        emitter.PlayPath(drop);
     }
 
-    public static void OnCook(TechType techType, float delay = 0)
+    public static void OnCook(Crafter crafter, TechType techType, float delay = 0)
     {
-        string cookSounds = _eatSounds.GetOrDefault(techType, null);
-        FMODHelpers.PlayPath2D(cookSounds, delay);
+        string cookSounds = _cookSounds.GetOrDefault(techType, null);
+        Transform soundOrigin = crafter.transform;
+        if (crafter is Fabricator fab)
+            soundOrigin = fab.soundOrigin;
+        FMODHelpers.PlayPath3DAttached(cookSounds, soundOrigin, delay);
     }
 
     public void OnEat()
@@ -72,7 +66,7 @@ partial class ItemSounds
         // holster sound will terminate on its own since the object will be destroyed
         FMODHelpers.PlayPath2D(eat);
     }
-    // SendMessage
+
     public void OnKill()
     {
         FMODHelpers.PlayPath2D(playerDeath, 0.15f);

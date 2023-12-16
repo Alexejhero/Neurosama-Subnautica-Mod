@@ -163,7 +163,7 @@ MonoBehaviour:
     modOption: {fileID: 11400000, guid: d2d8f608de10fb64d90460a0634789bf, type: 2}
     value: 0
     calculateMode: 0
-  disabledOption: {fileID: 0}
+  disabledOption: {fileID: 11400000, guid: 586ae6e6828837441a6a92a32eb1ba84, type: 2}
   pickupable: {fileID: 810566840944398461}
 --- !u!1001 &1842242175228025009
 PrefabInstance:

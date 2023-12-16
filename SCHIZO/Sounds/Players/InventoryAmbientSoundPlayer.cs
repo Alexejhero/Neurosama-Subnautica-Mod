@@ -12,6 +12,11 @@ partial class InventoryAmbientSoundPlayer
         ResetTimer();
     }
 
+    private void OnDestroy()
+    {
+        Stop();
+    }
+
     public void Update()
     {
         if (!pickupable || !Inventory.main.Contains((Pickupable) pickupable)) return;

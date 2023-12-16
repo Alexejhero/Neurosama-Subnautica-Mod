@@ -5,7 +5,7 @@
 			<value>cook</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{771bccf8-cce5-418a-a524-79c94f1337fe}</destination>
@@ -118,6 +118,7 @@
 	<object class="MixerBusEffectChain" id="{8e46e64e-457f-4893-948d-f2f11df92fb3}">
 		<relationship name="effects">
 			<destination>{9069bddd-ad6f-43a1-aabc-485a75f1a42f}</destination>
+			<destination>{d939376b-d3e4-4e6b-9d4d-92ff8cbd617f}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{b5fdb9be-c232-4697-9ff4-32c337ca9cfa}" />
@@ -142,6 +143,14 @@
 	</object>
 	<object class="MixerBusPanner" id="{9bfa4f8e-25cc-42df-a016-9e16357452c9}" />
 	<object class="MixerBusFader" id="{9069bddd-ad6f-43a1-aabc-485a75f1a42f}" />
+	<object class="SpatialiserEffect" id="{d939376b-d3e4-4e6b-9d4d-92ff8cbd617f}">
+		<property name="userStereoSeparation">
+			<value>90</value>
+		</property>
+		<relationship name="automators">
+			<destination>{d0dd02e5-0744-4c06-9a12-193db7e36922}</destination>
+		</relationship>
+	</object>
 	<object class="SingleSound" id="{4dffe96f-ae99-4cac-b298-7eeb65e521e0}">
 		<relationship name="audioFile">
 			<destination>{bdba604e-eb1c-4dec-8a23-2df5dc12f1db}</destination>
@@ -188,4 +197,43 @@
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{7db1ee88-2e2c-458f-86a3-4707c6e1d1d3}" />
+	<object class="Automator" id="{d0dd02e5-0744-4c06-9a12-193db7e36922}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>panBlend</value>
+		</property>
+		<relationship name="automationCurves">
+			<destination>{11089163-3c00-4d47-b46b-d05812aea332}</destination>
+			<destination>{2654bb0b-10ce-41cf-af83-58ed41c0bfe6}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationCurve" id="{11089163-3c00-4d47-b46b-d05812aea332}">
+		<relationship name="parameter">
+			<destination>{12032229-6fd3-48fb-8248-fd442b00a139}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationCurve" id="{2654bb0b-10ce-41cf-af83-58ed41c0bfe6}">
+		<relationship name="parameter">
+			<destination>{540cf702-5f8a-4a1d-99f5-d9a31a53c833}</destination>
+		</relationship>
+		<relationship name="automationPoints">
+			<destination>{0c5c18ab-264b-49e9-a767-ca7b449c5a05}</destination>
+			<destination>{242edb1b-6363-4528-8f9f-9078bf04bfc6}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationPoint" id="{0c5c18ab-264b-49e9-a767-ca7b449c5a05}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{242edb1b-6363-4528-8f9f-9078bf04bfc6}">
+		<property name="position">
+			<value>1</value>
+		</property>
+		<property name="value">
+			<value>1</value>
+		</property>
+	</object>
 </objects>

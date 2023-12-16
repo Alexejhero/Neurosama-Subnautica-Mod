@@ -4,6 +4,7 @@ using FMOD.Studio;
 using FMODUnity;
 using Nautilus.Utility;
 using SCHIZO.Resources;
+using UnityEngine;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace SCHIZO.Helpers;
@@ -74,7 +75,7 @@ internal static class FMODHelpers
     public static void PlayPath(this FMOD_CustomEmitter emitter, string path, bool is3d = true)
         => PlayFmod(emitter, path, GetId(path), is3d);
 
-    public static void PlayFmod(this FMOD_CustomEmitter emitter, string path, string id, bool is3d, float delay = 0, bool restoreOld = false)
+    public static void PlayFmod(this FMOD_CustomEmitter emitter, string path, string id, bool is3d, float delay = 0)
     {
         if (string.IsNullOrEmpty(path)) return;
 
@@ -84,13 +85,11 @@ internal static class FMODHelpers
             return;
         }
 
-        FMODAsset oldAsset = emitter.asset;
         emitter.SetAsset(AudioUtils.GetFmodAsset(path, id));
         emitter.SetParameterValue("3D", is3d ? 1 : 0);
         emitter.SetParameterValue("Delay", delay);
 
         emitter.Play();
-        if (restoreOld) emitter.SetAsset(oldAsset);
     }
 
     public static EventInstance PlayPath2D(string path, float delay = 0)
@@ -105,6 +104,20 @@ internal static class FMODHelpers
         return evt;
     }
 
+    public static EventInstance PlayPath3DAttached(string path, Transform transform, float delay = 0)
+    {
+        if (string.IsNullOrEmpty(path)) return default;
+
+        EventInstance evt = RuntimeManager.CreateInstance(path);
+        evt.setParameterByName("3D", 1);
+        evt.setParameterByName("Delay", delay);
+
+        evt.set3DAttributes(transform.To3DAttributes());
+        RuntimeManager.AttachInstanceToGameObject(evt, transform);
+        evt.start();
+        return evt;
+    }
+
     public static void StopAllInstances(string path, bool stopImmediately = false)
     {
         if (string.IsNullOrEmpty(path)) return;
@@ -112,5 +125,11 @@ internal static class FMODHelpers
         RuntimeManager.StudioSystem.getEvent(path, out EventDescription _event);
         _event.getInstanceList(out EventInstance[] _instances);
         _instances?.ForEach(ev => ev.stop(stopImmediately ? STOP_MODE.IMMEDIATE : STOP_MODE.ALLOWFADEOUT));
+    }
+
+    public static void StopAndRelease(this EventInstance evt)
+    {
+        evt.stop(STOP_MODE.IMMEDIATE);
+        evt.release();
     }
 }
