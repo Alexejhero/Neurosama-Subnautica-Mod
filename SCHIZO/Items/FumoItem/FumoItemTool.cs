@@ -42,24 +42,28 @@ partial class FumoItemTool
         base.Awake();
     }
 
-    public void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (!usingPlayer) return;
+        UpdateAltEffect();
+    }
 
-        if (_altEffectOnHug)
-        {
-            if (_isHugging)
-            {
-                _hugTime += Time.fixedDeltaTime;
-                if (_hugTime > altEffectMinHugTime) SetAltEffect(true);
-            }
-            else
-            {
-                _hugTime = 0;
-            }
-        }
+    private void UpdateAltEffect()
+    {
         _altEffectTimeRemaining -= Time.fixedDeltaTime;
         if (_altEffectTimeRemaining < 0f) SetAltEffect(false);
+
+        if (!_altEffectOnHug) return;
+
+        if (_isHugging)
+        {
+            _hugTime += Time.fixedDeltaTime;
+            if (_hugTime > altEffectMinHugTime && !isAltEffectActive) SetAltEffect(true);
+        }
+        else
+        {
+            _hugTime = 0;
+        }
     }
 
     protected virtual void Update()

@@ -69,7 +69,7 @@ public sealed partial class CustomJukeboxTrack
             return;
         }
         CustomJukeboxTrackPatches.customTracks[trackId] = this;
-        RegisterInJukebox(null);
+        RegisterInJukebox(BZJukebox._main);
 
         if (!Player.main) return;
 

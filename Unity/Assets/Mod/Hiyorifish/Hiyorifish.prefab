@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   storyGoalSN: 
-  storyGoalBZ: SanctuaryCompleted
+  storyGoalBZ: MargBaseFirstVisit
 --- !u!1 &9000506824905469698
 GameObject:
   m_ObjectHideFlags: 0
