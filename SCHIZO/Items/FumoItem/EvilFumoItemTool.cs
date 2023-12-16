@@ -8,11 +8,19 @@ partial class EvilFumoItemTool
     public Knife stolenKnife;
     private static float _knifeScale = 0.9f;
 
+    private static float _dmgResetTime = 60f;
+    private float _timeUntilDamageReset;
+    private float _currentDamage;
+
+    private void Start()
+    {
+        _currentDamage = damageOnPoke;
+    }
     protected override void ApplyAltEffect(bool active)
     {
         if (active)
         {
-            float dmg = damageOnPoke;
+            float dmg = _currentDamage;
             if (stealKnife && TryFindKnife(out Knife knife)
                 && Inventory.main.InternalDropItem(knife.pickupable))
             {
@@ -21,7 +29,7 @@ partial class EvilFumoItemTool
                 dmg *= 4;
             }
             usingPlayer.liveMixin.TakeDamage(dmg);
-            damageOnPoke *= 1.25f; // negative reward function
+            _currentDamage *= 1.25f; // negative reward function
         }
         else
         {
@@ -54,6 +62,25 @@ partial class EvilFumoItemTool
         UWE.Utils.SetEnabled(stolenKnife.GetComponent<LargeWorldEntity>(), false);
         stolenKnife.transform.SetParent(knifeSocket.Exists() ?? transform, true);
         stolenKnife.transform.localScale *= _knifeScale;
+    }
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        UpdateDamageReset();
+    }
+
+    private void UpdateDamageReset()
+    {
+        if (_currentDamage == damageOnPoke) return;
+
+        if (isAltEffectActive)
+            _timeUntilDamageReset = _dmgResetTime;
+        else
+        {
+            _timeUntilDamageReset -= Time.fixedDeltaTime;
+            if (_timeUntilDamageReset < 0)
+                _currentDamage = damageOnPoke;
+        }
     }
 
     protected override void Update()
