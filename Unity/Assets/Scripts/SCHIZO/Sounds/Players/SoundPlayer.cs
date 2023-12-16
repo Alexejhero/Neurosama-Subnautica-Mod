@@ -11,8 +11,7 @@ namespace SCHIZO.Sounds.Players
         [EventRef, SerializeField, Required, UsedImplicitly]
         protected string soundEvent;
 
-        [SerializeField, UsedImplicitly]
-        [Required(Message ="Players without an emitter cannot \"own\" sounds and therefore will not be able to stop sounds that are playing")]
+        [SerializeField, ShowIf(nameof(Is3D)), Required, UsedImplicitly]
         private _FMOD_CustomEmitter emitter;
 
         protected abstract bool Is3D { get; }

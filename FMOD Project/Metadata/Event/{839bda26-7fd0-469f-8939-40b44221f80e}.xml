@@ -67,9 +67,6 @@
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{1ff87107-b18b-48ec-bff7-84538f5e9cab}">
-		<property name="priority">
-			<value>1</value>
-		</property>
 		<property name="triggerCooldown">
 			<value>400</value>
 		</property>

@@ -224,7 +224,6 @@ MonoBehaviour:
   holster: event:/SCHIZO/creatures/tutel/holster
   cook: event:/SCHIZO/creatures/tutel/cook
   eat: event:/SCHIZO/creatures/tutel/eat
-  playerDeath: 
 --- !u!114 &1384018149492295081
 MonoBehaviour:
   m_ObjectHideFlags: 0

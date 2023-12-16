@@ -144,6 +144,27 @@ MonoBehaviour:
   method: Play
   arguments:
   - 5
+--- !u!114 &3936072518007333709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451644687272284489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd98f6d65dc4615a0a85770a69d8cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupable: {fileID: 7670209859173859696}
+  emitter: {fileID: 0}
+  tool: {fileID: 0}
+  pickup: 
+  drop: 
+  draw: 
+  holster: 
+  cook: 
+  eat: event:/SCHIZO/creatures/tutel/eat
 --- !u!1001 &3869907094777956685
 PrefabInstance:
   m_ObjectHideFlags: 0

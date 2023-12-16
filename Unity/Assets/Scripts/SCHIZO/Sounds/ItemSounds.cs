@@ -27,9 +27,5 @@ namespace SCHIZO.Sounds
 
         [EventRef] public string cook;
         [EventRef] public string eat;
-
-        [Space]
-        // split into its own component?
-        [EventRef] public string playerDeath;
     }
 }

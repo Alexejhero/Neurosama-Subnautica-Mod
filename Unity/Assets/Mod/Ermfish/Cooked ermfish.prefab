@@ -37,7 +37,6 @@ MonoBehaviour:
   holster: 
   cook: 
   eat: event:/SCHIZO/creatures/ermfish/eat
-  playerDeath: 
 --- !u!114 &5322964063655101349
 MonoBehaviour:
   m_ObjectHideFlags: 0

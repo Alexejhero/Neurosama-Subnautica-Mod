@@ -66,9 +66,4 @@ partial class ItemSounds
         // holster sound will terminate on its own since the object will be destroyed
         FMODHelpers.PlayPath2D(eat);
     }
-
-    public void OnKill()
-    {
-        FMODHelpers.PlayPath2D(playerDeath, 0.15f);
-    }
 }

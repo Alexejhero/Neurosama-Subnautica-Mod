@@ -338,7 +338,6 @@ MonoBehaviour:
   holster: event:/SCHIZO/creatures/ermfish/holster
   cook: event:/SCHIZO/creatures/ermfish/cook
   eat: event:/SCHIZO/creatures/ermfish/eat
-  playerDeath: event:/SCHIZO/creatures/ermfish/player_death
 --- !u!114 &8265457806104071489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,6 +376,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storyGoalSN: 
   storyGoalBZ: SanctuaryCompleted
+--- !u!114 &2930078364275332864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d5851c371b35aa46a12fbf5b1dfb851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEvent: event:/SCHIZO/creatures/ermfish/player_death
+  emitter: {fileID: 0}
 --- !u!1 &5952168343408095337
 GameObject:
   m_ObjectHideFlags: 0
