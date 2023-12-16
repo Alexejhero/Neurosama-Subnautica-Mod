@@ -10,7 +10,6 @@ partial class EvilFumoItemTool
 
     protected override void ApplyAltEffect(bool active)
     {
-        LOGGER.LogWarning(active);
         if (active)
         {
             float dmg = damageOnPoke;
