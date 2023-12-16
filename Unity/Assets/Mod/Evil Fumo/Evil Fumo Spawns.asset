@@ -15,8 +15,8 @@ MonoBehaviour:
   spawns:
   - game: 2
     locations:
-    - position: {x: -326.8, y: 15, z: 265.4}
-      rotation: {x: 0, y: 115, z: 0}
+    - position: {x: -326.7, y: 15, z: 264.7}
+      rotation: {x: 0, y: 120, z: 0}
     item:
       isCustom: 1
       techType: 2007
