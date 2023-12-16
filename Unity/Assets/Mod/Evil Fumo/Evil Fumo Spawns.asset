@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawns:
   - game: 2
-    locations:
-    - position: {x: -326.7, y: 15, z: 264.7}
-      rotation: {x: 0, y: 120, z: 0}
     item:
       isCustom: 1
       techType: 2007
       itemData: {fileID: 11400000, guid: 7783c6be943946e49b6d4a4982e601d6, type: 2}
+    locations:
+    - position: {x: -1113.33, y: 24.925, z: -267.25}
+      rotation: {x: 0, y: 160, z: 0}
