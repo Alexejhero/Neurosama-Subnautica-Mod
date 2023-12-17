@@ -4,3 +4,4 @@ SCHIZO/Resources/AssetBundles/* merge=ours
 *.prefab text eol=lf
 *.meta text eol=lf
 *.asmdef text eol=lf
+FMOD Project/**/*.xml text eol=lf

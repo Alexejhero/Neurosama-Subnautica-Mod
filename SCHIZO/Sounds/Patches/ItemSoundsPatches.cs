@@ -48,14 +48,11 @@ public static class ItemSoundsPatches
         }
     }
 
-    // TODO get the first inventory item with the ingredients' techtype
-    // the techtype passed to the function is actually the craft result
-    // how did this ever work in the first place holy
+    private static float delayPerItem = 0.2f;
     [HarmonyPatch(typeof(Crafter), nameof(Crafter.OnCraftingBegin))]
     [HarmonyPostfix]
-    public static void PlayCustomCookSound(Crafter __instance, TechType techType)
+    public static void PlayCustomCookSound(Crafter __instance, TechType techType) // the craft result
     {
-        const float delayPerItem = 0.1f;
 #if BELOWZERO
         IEnumerable<NIngredient> ingredients = TechData.GetIngredients(techType);
 #else

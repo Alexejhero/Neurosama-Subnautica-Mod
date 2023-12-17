@@ -138,6 +138,10 @@
 	<object class="MixerBusFader" id="{dec92e77-c810-49a8-9a4f-55b174e7cea6}" />
 	<object class="SpatialiserEffect" id="{8f75545a-661d-4356-bf9f-e41179c15338}" />
 	<object class="EventSound" id="{1a609f3f-4ffb-4bb4-b5fc-3b144c6a6aca}">
+		<relationship name="parameters">
+			<destination>{bd0a1f98-e9b3-4358-bd8d-8dc673720bcc}</destination>
+			<destination>{8d4e9391-e0ab-4bf2-8ae1-2cb8b2fcc6e6}</destination>
+		</relationship>
 		<relationship name="event">
 			<destination>{14de5335-ec95-49af-ba08-f9f994d198c7}</destination>
 		</relationship>
@@ -148,4 +152,14 @@
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{81b6e169-1935-4860-9048-40dea48559b1}" />
+	<object class="ParameterProperty" id="{bd0a1f98-e9b3-4358-bd8d-8dc673720bcc}">
+		<relationship name="parameter">
+			<destination>{2f19ed91-ae76-4949-8341-65e96d7289b0}</destination>
+		</relationship>
+	</object>
+	<object class="ParameterProperty" id="{8d4e9391-e0ab-4bf2-8ae1-2cb8b2fcc6e6}">
+		<relationship name="parameter">
+			<destination>{cc5dbe11-70b2-48b5-a896-bf8e14911818}</destination>
+		</relationship>
+	</object>
 </objects>
