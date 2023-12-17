@@ -12,7 +12,7 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = 540950466;
+    private const int _rnd = 1806208691;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
 
@@ -25,4 +25,5 @@ public static class Assets
     public static SCHIZO.Options.Bool.ToggleModOption Mod_Options_DisableAllSounds = _a.LoadAsset<SCHIZO.Options.Bool.ToggleModOption>("Assets/Mod/Options/Disable all sounds.asset");
     public static SCHIZO.Options.Bool.ToggleModOption Mod_Options_EnableAutomaticEvents = _a.LoadAsset<SCHIZO.Options.Bool.ToggleModOption>("Assets/Mod/Options/Enable automatic events.asset");
     public static SCHIZO.Registering.ModRegistry Mod_Registry = _a.LoadAsset<SCHIZO.Registering.ModRegistry>("Assets/Mod/Registry.asset");
+    public static UnityEngine.Material Mod_VFX_ARGCensor_ARGcensorMat = _a.LoadAsset<UnityEngine.Material>("Assets/Mod/VFX/ARG Censor/ARGcensor_mat.mat");
 }

@@ -14,7 +14,7 @@ partial class ErmsharkAttack
 
         GameObject target = GetTarget(collider);
 
-        if (global::CreatureData.GetCreatureType(gameObject) == global::CreatureData.GetCreatureType(target)) return;
+        if (CreatureData.GetCreatureType(gameObject) == CreatureData.GetCreatureType(target)) return;
         if (GetComponentsInParent<IOnMeleeAttack>().Any(handler => handler.HandleMeleeAttack(target))) return;
 
         Player player = target.GetComponent<Player>();

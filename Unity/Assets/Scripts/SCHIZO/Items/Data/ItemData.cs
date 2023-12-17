@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using JetBrains.Annotations;
 using SCHIZO.Attributes;
 using SCHIZO.Interop.Subnautica.Enums;

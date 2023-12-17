@@ -40,6 +40,7 @@
         <Folder Include="TriInspector" />
         <Folder Include="TriInspector/Attributes" />
         <Folder Include="Utilities" />
+        <Folder Include="VFX" />
     </ItemGroup>
 
     <ItemGroup>

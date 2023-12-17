@@ -7,7 +7,6 @@ using Nautilus.Utility;
 using SCHIZO.Helpers;
 using SCHIZO.Items.Data;
 using SCHIZO.Registering;
-using SCHIZO.Sounds;
 using SCHIZO.Spawns;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -34,8 +33,8 @@ public class UnityPrefab : CustomPrefab
     protected PrefabInfo PrefabInfo => ModItem.PrefabInfo;
 
     [SetsRequiredMembers]
-    public UnityPrefab(ModItem item) : base(item)
     // ReSharper disable once ConvertToPrimaryConstructor
+    public UnityPrefab(ModItem item) : base(item)
     {
         ModItem = item;
     }

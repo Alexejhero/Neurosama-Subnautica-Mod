@@ -31,7 +31,6 @@ partial class BZErmsharkLoadingIcon
     private int originalCols;
 
     private RectTransform rectTransform;
-    private RectTransform rectParent;
 
     private Vector2 originalSpriteDimensions => new(originalTexture.width / originalCols, originalTexture.height / originalRows);
     private Vector2 ourSpriteDimensions => new(texture.width / columns, texture.height / rows);
@@ -47,10 +46,9 @@ partial class BZErmsharkLoadingIcon
             Destroy(this);
             return;
         }
-        /// indices correspond to <see cref="uGUI_SceneLoading.State"/>
+        // indices correspond to <see cref="uGUI_SceneLoading.State"/>
         ourAnimations = [idle, moving, stopping];
         rectTransform = loadingScreen.pengling.rectTransform;
-        rectParent = (RectTransform) rectTransform.parent;
 
         originalAnimations = loadingScreen.animations;
         originalTexture = loadingScreen.pengling.mainTexture;

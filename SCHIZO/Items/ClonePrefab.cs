@@ -9,8 +9,8 @@ public abstract class ClonePrefab : UnityPrefab
     protected readonly TechType clonedTechType;
 
     [SetsRequiredMembers]
-    protected ClonePrefab(ModItem item, TechType cloned) : base(item)
     // ReSharper disable once ConvertToPrimaryConstructor
+    protected ClonePrefab(ModItem item, TechType cloned) : base(item)
     {
         clonedTechType = cloned;
     }

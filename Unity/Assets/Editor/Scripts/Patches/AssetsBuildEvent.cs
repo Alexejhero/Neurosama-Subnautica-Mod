@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,6 +10,7 @@ using HarmonyLib;
 using JetBrains.Annotations;
 using SCHIZO.Items.Data;
 using SCHIZO.Registering;
+using SCHIZO.Utilities;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -94,6 +95,7 @@ namespace Editor.Scripts.Patches
 
             if (objects[0] is Texture2D && objects[1] is Sprite sprite1) return sprite1;
             if (objects[0] is Sprite sprite2 && objects[1] is Texture2D) return sprite2;
+            if (objects[0] is T2DArray && objects[1] is Texture2DArray texture2DArray) return texture2DArray;
 
             throw new Exception($"Don't know how to handle multiple assets: {path} - {string.Join(", ", objects.Select(t => t.GetType().Name))}");
         }
