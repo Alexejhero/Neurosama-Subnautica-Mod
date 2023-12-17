@@ -10,7 +10,13 @@ partial class ItemSounds
 {
     private static readonly Dictionary<TechType, string> _cookSounds = [];
     private Pickupable Pickupable => (Pickupable) pickupable;
-    private PlayerTool Tool => (PlayerTool) tool;
+
+    public void Awake()
+    {
+        TechType techType = CraftData.GetTechType(gameObject);
+        if (!_cookSounds.ContainsKey(techType))
+            _cookSounds[techType] = cook;
+    }
 
     public void Start()
     {
@@ -28,10 +34,6 @@ partial class ItemSounds
             Tool.drawSound = Tool.drawSoundUnderwater = AudioUtils.GetFmodAsset(draw);
             Tool.holsterSoundAboveWater = Tool.holsterSoundUnderwater = AudioUtils.GetFmodAsset(holster);
         }
-
-        TechType techType = CraftData.GetTechType(gameObject);
-        if (!_cookSounds.ContainsKey(techType))
-            _cookSounds[techType] = cook;
     }
 
     public void OnDestroy()
