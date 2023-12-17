@@ -46,6 +46,7 @@ partial class PDAJournal
                     if (!string.IsNullOrEmpty(journal.pdaHandTargetSubtext))
                         handTarget.secondaryTooltip = journal.pdaHandTargetSubtext;
                     handTarget.goal.key = journal.key;
+                    prefab.SetActive(false);
                 }
             });
             NautilusPrefab.Register();
