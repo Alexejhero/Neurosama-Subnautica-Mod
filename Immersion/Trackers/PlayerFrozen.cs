@@ -28,9 +28,7 @@ public sealed class PlayerFrozen : Tracker
     {
         if (!isFrozen) return;
 
-        bool isActuallyFrozen = Player.main.Exists() is { } player
-            && player.frozenMixin.Exists() is { } frozen
-            && frozen.frozen;
+        bool isActuallyFrozen = Player.main.Exists()?.frozenMixin.Exists()?.frozen ?? false;
 
         if (!isActuallyFrozen) OnUnfrozen();
     }

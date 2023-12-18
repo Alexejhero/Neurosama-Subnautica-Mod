@@ -29,14 +29,8 @@ public sealed class PlayingVO : Tracker
         _wasPlaying = false;
     }
 
-    private void OnDestroy() => OnDisable();
-
-    // private float TimeLeft(uGUI_MessageQueue.Message msg) => msg is null ? 0 : msg.duration + msg.delay - msg.time;
-    // public float TimeLeftNext() => Subtitles?.messages.Select(TimeLeft).FirstOrFallback(0) ?? 0;
-    // public float TimeLeftAll() => Subtitles?.messages.Sum(TimeLeft) ?? 0;
-
     internal void Send(bool isPlaying)
     {
-        Send(ENDPOINT, new { playing = isPlaying });        
+        Send(ENDPOINT, new { playing = isPlaying });
     }
 }

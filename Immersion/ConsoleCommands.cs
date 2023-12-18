@@ -70,7 +70,7 @@ internal class ConsoleCommands : MonoBehaviour
         // `disable` should disable the whole thing
         if (args.Count == 1)
         {
-            // TODO maybe just disable the sender?
+            // to be used in an emergency (e.g. if some tracker is causing issues live and we don't know which one)
             foreach (Type type in Tracker.trackerTypes.Values)
                 SetComponentEnabled(type, enable);
             return null;
@@ -117,9 +117,8 @@ internal class ConsoleCommands : MonoBehaviour
 
     private static string ManualMute(bool mute)
     {
-        // since it's manual we want to send even if PlayingVO is disabled
         PlayingVO playingVO = COMPONENT_HOLDER.GetComponent<PlayingVO>();
-        playingVO.forceNext = true;
+        playingVO.forceNext = true; // send even if the tracker is disabled
         playingVO.Send(mute);
 
         return null;

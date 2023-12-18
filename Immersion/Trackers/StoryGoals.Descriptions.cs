@@ -31,6 +31,7 @@ partial class StoryGoals
         // so we don't actually get a chance to react to it
         // ["SanctuaryCompleted"] = null,
         // ["DisableSanctuaryForceField"] = null, // not sure, there's never any forcefield
+        // despite having "AfterDownload" in its name, this just triggers when you exit regardless of whether you have SanctuaryCompleted or not
         ["SanctuaryExitAfterDownload"] = "{player} has downloaded an alien Architect's consciousness into {possessive} head.",
 
         // ["Call_AlAn_Meet"] = null,

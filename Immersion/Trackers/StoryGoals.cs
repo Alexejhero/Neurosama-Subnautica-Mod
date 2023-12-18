@@ -17,8 +17,8 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
     {
         while (!StoryGoalManager.main) yield return null;
 
-        LOGGER.LogDebug($"Attached story goal listener");
         StoryGoalManager.main.AddListener(this);
+        LOGGER.LogDebug($"Attached story goal listener");
     }
 
     public void NotifyGoalComplete(string key)
@@ -37,11 +37,9 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
         // goals can only be reset with console commands
         LOGGER.LogDebug($"Reset story goal {key}");
     }
-    // called when loading game
     public void NotifyGoalsDeserialized()
     {
         LOGGER.LogDebug($"Deserialized story goals");
-        // send "story so far"? (probably not)
     }
 
     private bool TryGetDescription(string goal, out string description)

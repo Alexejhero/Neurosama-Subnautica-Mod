@@ -6,9 +6,7 @@ using Immersion.Trackers;
 
 namespace Immersion;
 
-[BepInPlugin(PLUGIN_NAME, PLUGIN_NAME, "1.0.0")]
-// without patches from the other mod, we can't register our console command
-[BepInDependency("SCHIZO", BepInDependency.DependencyFlags.SoftDependency)]
+[BepInPlugin(PLUGIN_NAME, PLUGIN_NAME, "0.1.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
     public const string PLUGIN_NAME = "Immersion";
