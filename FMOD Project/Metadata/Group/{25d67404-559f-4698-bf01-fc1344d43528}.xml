@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{25d67404-559f-4698-bf01-fc1344d43528}">
+		<property name="name">
+			<value>seamonkey_baby</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{af09c09f-f0d1-4a50-9b00-75376710b21b}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{e723e8f3-fcad-4131-a0e6-4551c7f509ed}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{af09c09f-f0d1-4a50-9b00-75376710b21b}">
+		<relationship name="effects">
+			<destination>{4ef59797-a6b8-427c-8084-036ca446f037}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{e723e8f3-fcad-4131-a0e6-4551c7f509ed}" />
+	<object class="MixerBusFader" id="{4ef59797-a6b8-427c-8084-036ca446f037}" />
+</objects>

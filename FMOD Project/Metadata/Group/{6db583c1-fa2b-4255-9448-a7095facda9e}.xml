@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{6db583c1-fa2b-4255-9448-a7095facda9e}">
+		<property name="name">
+			<value>squidshark</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{618dc075-fe17-40a3-8a75-6f2445e1f45d}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{c8d5d3d9-7876-4f94-82e4-812970de72f8}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{618dc075-fe17-40a3-8a75-6f2445e1f45d}">
+		<relationship name="effects">
+			<destination>{d02f6c74-002e-422d-bb61-1e7c103dd085}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{c8d5d3d9-7876-4f94-82e4-812970de72f8}" />
+	<object class="MixerBusFader" id="{d02f6c74-002e-422d-bb61-1e7c103dd085}" />
+</objects>

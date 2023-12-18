@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{caf2ed01-54f9-4ee5-9660-11b90609a1fa}">
+		<property name="name">
+			<value>thumper</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{7f923361-8872-4308-a998-b9e82181a76b}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{8e6d4164-b051-4a3b-a1b8-aa7813770a73}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{9f6a5e5f-85e4-45f5-ab21-1a27c602ace4}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{7f923361-8872-4308-a998-b9e82181a76b}">
+		<relationship name="effects">
+			<destination>{bced4963-87f6-442a-b1fb-be4288e66c11}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{8e6d4164-b051-4a3b-a1b8-aa7813770a73}" />
+	<object class="MixerBusFader" id="{bced4963-87f6-442a-b1fb-be4288e66c11}" />
+</objects>

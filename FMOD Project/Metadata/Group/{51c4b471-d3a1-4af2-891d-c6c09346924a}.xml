@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{51c4b471-d3a1-4af2-891d-c6c09346924a}">
+		<property name="name">
+			<value>floating_island_background</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{35fa7d54-c5ef-45cf-8cc2-713574c23c4d}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{881a3cda-63a6-4dea-9b5c-8f05a6115911}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{f740937c-f48d-46a4-9421-b4ae9a5bb0f9}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{35fa7d54-c5ef-45cf-8cc2-713574c23c4d}">
+		<relationship name="effects">
+			<destination>{14a70da2-dac1-433b-9d19-30048139c200}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{881a3cda-63a6-4dea-9b5c-8f05a6115911}" />
+	<object class="MixerBusFader" id="{14a70da2-dac1-433b-9d19-30048139c200}" />
+</objects>

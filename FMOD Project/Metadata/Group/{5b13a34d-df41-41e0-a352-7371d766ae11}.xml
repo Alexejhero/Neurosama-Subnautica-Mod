@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{5b13a34d-df41-41e0-a352-7371d766ae11}">
+		<property name="name">
+			<value>vent_garden_background</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{28f1252b-7d1f-4f44-aa8f-1f30f17dbecb}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{bfdbcdef-5ebf-40e8-bd1c-2e4f7b2a24c2}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{baaa7bb9-2bbc-4ef0-88d5-858560d24c3c}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{28f1252b-7d1f-4f44-aa8f-1f30f17dbecb}">
+		<relationship name="effects">
+			<destination>{833d1e13-30eb-4a3d-9de7-01e5bf5cbd74}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{bfdbcdef-5ebf-40e8-bd1c-2e4f7b2a24c2}" />
+	<object class="MixerBusFader" id="{833d1e13-30eb-4a3d-9de7-01e5bf5cbd74}" />
+</objects>

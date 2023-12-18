@@ -9,6 +9,6 @@ namespace SCHIZO.Spawns
     public sealed partial class CoordinatedSpawns : ModRegistryItem
     {
         [ListDrawerSettings(AlwaysExpanded = true)]
-        public List<SpawnInfo> spawns;
+        public List<ItemSpawnInfo> spawns;
     }
 }

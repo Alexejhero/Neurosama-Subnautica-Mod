@@ -2,6 +2,7 @@
     <PropertyGroup>
         <Configurations>Subnautica;BelowZero</Configurations>
         <NoWarn>$(NoWarn);CS0169;CS0436;CS0649;CS0809;Harmony003;Publicizer001;</NoWarn>
+        <LangVersion>12</LangVersion>
     </PropertyGroup>
 
     <Import Project="$(SolutionDir)/Subnautica.props" Condition=" '$(Configuration)' == 'Subnautica' " />
@@ -14,7 +15,7 @@
 
         <PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
         <PackageReference Include="Krafs.Publicizer" Version="2.2.1" PrivateAssets="all" />
-        <PackageReference Include="PolySharp" Version="1.13.2" PrivateAssets="all" />
+        <PackageReference Include="PolySharp" Version="1.14.0" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
@@ -39,6 +40,7 @@
         <Folder Include="TriInspector" />
         <Folder Include="TriInspector/Attributes" />
         <Folder Include="Utilities" />
+        <Folder Include="VFX" />
     </ItemGroup>
 
     <ItemGroup>

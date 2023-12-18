@@ -28,11 +28,6 @@ public class UnityCreaturePrefab : UnityPrefab
         if (UnityData.acidImmune) CreatureDataUtils.SetAcidImmune(ModItem);
         if (UnityData.bioReactorCharge > 0) CreatureDataUtils.SetBioreactorCharge(ModItem, UnityData.bioReactorCharge);
 
-        if (UnityData.pdaEncyInfo)
-        {
-            PDAHandler.AddCustomScannerEntry(ModItem, UnityData.pdaEncyInfo.scanTime, encyclopediaKey: PrefabInfo.ClassID);
-        }
-
         if (UnityData.isPickupable)
         {
             CraftDataHandler.SetQuickSlotType(ModItem, QuickSlotType.Selectable);

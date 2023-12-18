@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{736b1f84-6b0a-4273-ae2e-639c89c5c265}">
+		<property name="name">
+			<value>portal_enter_stereo</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{09bb62f9-5233-4439-95bd-69ea4ca86243}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{4b7441a7-d140-4fa8-8596-a113b4db16c8}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{771a9a71-ff5c-4f6e-a552-613c30960b0e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{09bb62f9-5233-4439-95bd-69ea4ca86243}">
+		<relationship name="effects">
+			<destination>{0afa1826-b7f0-4283-9b10-bf4f28f8a13d}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{4b7441a7-d140-4fa8-8596-a113b4db16c8}" />
+	<object class="MixerBusFader" id="{0afa1826-b7f0-4283-9b10-bf4f28f8a13d}" />
+</objects>

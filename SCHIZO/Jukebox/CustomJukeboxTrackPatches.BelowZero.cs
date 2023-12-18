@@ -23,6 +23,7 @@ public static class CustomJukeboxTrackPatches
     {
         CoroutineHost.StartCoroutine(GetJukeboxDiskPrefab());
         CoroutineHost.StartCoroutine(InitJukebox());
+        SaveUtils.RegisterOnQuitEvent(() => CoroutineHost.StartCoroutine(InitJukebox()));
     }
     private static IEnumerator GetJukeboxDiskPrefab()
     {
@@ -49,22 +50,22 @@ public static class CustomJukeboxTrackPatches
     public static class AwakeWorkaround
     {
         // base Awake assumes all unlockable tracks are events
-        // so we need to add ours afterwards (and remove them on game unload)
+        // so we need to remove ours (and readd them afterwards)
         [HarmonyPrefix]
         public static void ClearCustomTracks()
         {
-            foreach (BZJukebox.UnlockableTrack trackId in customTracks.Keys)
-                BZJukebox.unlockableMusic.Remove(trackId);
+            foreach (KeyValuePair<BZJukebox.UnlockableTrack, CustomJukeboxTrack> pair in customTracks)
+            {
+                if (pair.Value.source != CustomJukeboxTrack.Source.FMODEvent)
+                    BZJukebox.unlockableMusic.Remove(pair.Key);
+            }
         }
 
         [HarmonyPostfix]
         public static void AddCustomTracks(BZJukebox __instance)
         {
-            foreach (KeyValuePair<BZJukebox.UnlockableTrack, CustomJukeboxTrack> pair in customTracks)
-            {
-                CustomJukeboxTrack track = pair.Value;
+            foreach (CustomJukeboxTrack track in customTracks.Values)
                 track.RegisterInJukebox(__instance);
-            }
         }
     }
 
@@ -87,7 +88,7 @@ public static class CustomJukeboxTrackPatches
     public static void SetupUnlocksForCustomTracks()
     {
         // duplicate disks are not a problem - they self-destruct on Start if already unlocked
-        customTracks.ForEach(pair => pair.Value.SetupUnlock(pair.Key));
+        customTracks.ForEach(pair => pair.Value.SetupUnlock());
     }
 
     [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.ScanInternal))]
@@ -100,7 +101,7 @@ public static class CustomJukeboxTrackPatches
 
         foreach (CustomJukeboxTrack track in customTracks.Values)
         {
-            __instance._info[track.identifier] = track.ToTrackInfo();
+            __instance._info[track.JukeboxIdentifier] = track.ToTrackInfo();
         }
     }
 
@@ -172,7 +173,7 @@ public static class CustomJukeboxTrackPatches
         bool hasInfo = __instance._info.TryGetValue(track.identifier, out BZJukebox.TrackInfo info);
 
         // streams can have their info change during playback
-        bool assignOnce = track.IsLocal || track.overrideTrackLabel;
+        bool assignOnce = !track.IsRemote || track.overrideTrackLabel;
         if (hasInfo && assignOnce) return true;
 
         BZJukebox.TrackInfo newInfo = track.ToTrackInfo(true);
@@ -258,12 +259,12 @@ public static class CustomJukeboxTrackPatches
 public static class JukeboxExtensions
 {
     public static bool IsTrackCustom(this BZJukebox jukebox, out CustomJukeboxTrack track)
-        => CustomJukeboxTrack.TryGetCustomTrack(jukebox._file, out track);
+        => CustomJukeboxTrack.TryGetCustomTrack(jukebox._file, out track) && track.source != CustomJukeboxTrack.Source.FMODEvent;
     public static bool IsTrackCustom(this JukeboxInstance jukebox, out CustomJukeboxTrack track)
-        => CustomJukeboxTrack.TryGetCustomTrack(jukebox._file, out track);
+        => CustomJukeboxTrack.TryGetCustomTrack(jukebox._file, out track) && track.source != CustomJukeboxTrack.Source.FMODEvent;
 
     public static bool IsPlayingStream(this BZJukebox jukebox, out CustomJukeboxTrack track)
-        => IsTrackCustom(jukebox, out track) && track.isStream;
+        => IsTrackCustom(jukebox, out track) && track.IsRemote && track.isStream;
     public static bool IsPlayingStream(this JukeboxInstance jukebox, out CustomJukeboxTrack track)
-        => IsTrackCustom(jukebox, out track) && track.isStream;
+        => IsTrackCustom(jukebox, out track) && track.IsRemote && track.isStream;
 }

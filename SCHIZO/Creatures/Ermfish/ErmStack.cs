@@ -92,8 +92,8 @@ public sealed partial class ErmStack
         {
             return PhysicsHelpers.ObjectsInRange(gameObject.transform.position, 20f)
                 .OfTechType(selfTechType)
-                .OrderByDistanceTo(gameObject.transform.position)
                 .SelectComponentInParent<ErmStack>()
+                .OrderByDistanceTo(gameObject.transform.position)
                 .FirstOrDefault(s => !s.nextSocket && s != this);
         }
     }
@@ -140,19 +140,19 @@ public sealed partial class ErmStack
     public bool Connect(ErmStack node, bool nodeIsPlug) => nodeIsPlug ? Connect(node, this) : Connect(this, node);
     public void Disconnect(bool plugSide = true) => Disconnect(this, plugSide);
 
-    public bool ShouldAttach(Carryable plug, CarryCreature socket)
+    public bool ShouldAttach(Carryable _, CarryCreature attachSocket)
     {
-        ErmStack socketStack = socket.GetComponent<ErmStack>();
+        ErmStack socketStack = attachSocket.GetComponent<ErmStack>();
         if (!socketStack) return true;
 
         return socketStack.head != head && socketStack.tail != tail
             && !socketStack.nextPlug;
     }
 
-    public void OnConnected(Carryable plug, CarryCreature socket)
+    public void OnConnected(Carryable connectedPlug, CarryCreature connectedSocket)
     {
         // only called on the plug side - so we update the socket from the plug
-        ErmStack socketStack = socket.GetComponent<ErmStack>();
+        ErmStack socketStack = connectedSocket.GetComponent<ErmStack>();
         if (!socketStack) return;
 
         socketStack.nextPlug = this;
@@ -162,10 +162,10 @@ public sealed partial class ErmStack
         socketStack.WalkToHead().ForEach(s => s.tail = tail);
     }
 
-    public void OnDisconnected(Carryable plug, CarryCreature socket)
+    public void OnDisconnected(Carryable disconnectedPlug, CarryCreature disconnectedSocket)
     {
         // only called on the plug side - so we update the socket from the plug
-        ErmStack socketStack = socket.GetComponent<ErmStack>();
+        ErmStack socketStack = disconnectedSocket.GetComponent<ErmStack>();
         if (!socketStack) return;
 
         socketStack.nextPlug = null;

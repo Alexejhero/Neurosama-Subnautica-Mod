@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{b8cff63d-53c6-424d-9115-db38ff710418}">
+		<property name="name">
+			<value>glacial_basin_music</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{7d96cc17-9121-4093-b682-017283cec1a6}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{e667a2a0-9e59-4c7c-811b-68c9748bbe66}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{544a3403-fd1e-41da-b7ef-1eebbf92440f}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{7d96cc17-9121-4093-b682-017283cec1a6}">
+		<relationship name="effects">
+			<destination>{d0b47c1d-d2b7-4149-9688-8105398ce4e8}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{e667a2a0-9e59-4c7c-811b-68c9748bbe66}" />
+	<object class="MixerBusFader" id="{d0b47c1d-d2b7-4149-9688-8105398ce4e8}" />
+</objects>

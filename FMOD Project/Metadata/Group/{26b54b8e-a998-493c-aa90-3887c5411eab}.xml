@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{26b54b8e-a998-493c-aa90-3887c5411eab}">
+		<property name="name">
+			<value>trivalve</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{ae5088ce-715b-4d03-94d6-f6924bdcd9cb}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{d28fba45-34b0-4bb3-9262-82d4b48711ec}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{7fdd1f3a-0b7f-4b95-9f45-cdc96b8db7b0}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{ae5088ce-715b-4d03-94d6-f6924bdcd9cb}">
+		<relationship name="effects">
+			<destination>{9286962f-b09a-48c3-8165-50edaba903da}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{d28fba45-34b0-4bb3-9262-82d4b48711ec}" />
+	<object class="MixerBusFader" id="{9286962f-b09a-48c3-8165-50edaba903da}" />
+</objects>

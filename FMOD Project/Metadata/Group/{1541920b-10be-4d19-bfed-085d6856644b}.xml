@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{1541920b-10be-4d19-bfed-085d6856644b}">
+		<property name="name">
+			<value>hoopfish</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{6b49ff2e-7c78-44f1-b66e-570907807c9f}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{c26fdc00-abfa-4860-b505-368acc1468e6}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{6b49ff2e-7c78-44f1-b66e-570907807c9f}">
+		<relationship name="effects">
+			<destination>{5a170d14-6b22-4c7e-953e-c7f49faa5439}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{c26fdc00-abfa-4860-b505-368acc1468e6}" />
+	<object class="MixerBusFader" id="{5a170d14-6b22-4c7e-953e-c7f49faa5439}" />
+</objects>

@@ -7,7 +7,6 @@ using Nautilus.Utility;
 using SCHIZO.Helpers;
 using SCHIZO.Items.Data;
 using SCHIZO.Registering;
-using SCHIZO.Sounds;
 using SCHIZO.Spawns;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -29,13 +28,13 @@ public class UnityPrefab : CustomPrefab
 
     #endregion
 
-    protected ModItem ModItem { get; }
+    internal ModItem ModItem { get; }
     protected ItemData UnityData => ModItem.ItemData;
     protected PrefabInfo PrefabInfo => ModItem.PrefabInfo;
 
     [SetsRequiredMembers]
-    public UnityPrefab(ModItem item) : base(item)
     // ReSharper disable once ConvertToPrimaryConstructor
+    public UnityPrefab(ModItem item) : base(item)
     {
         ModItem = item;
     }
@@ -90,30 +89,8 @@ public class UnityPrefab : CustomPrefab
             CraftDataHandler.AddToGroup(ModItem.ItemData.TechGroup, ModItem.ItemData.TechCategory, ModItem);
         }
 
-        if (ModItem.ItemData.pdaEncyInfo)
-        {
-            PDAEncyclopediaInfo i = ModItem.ItemData.pdaEncyInfo;
-            string encyPath = RetargetHelpers.Pick(i.encyPathSN, i.encyPathBZ);
-
-            PDAHandler.AddEncyclopediaEntry(ModItem.PrefabInfo.ClassID, encyPath, i.title, i.description.text, i.texture, i.unlockSprite,
-                i.isImportantUnlock ? PDAHandler.UnlockImportant : PDAHandler.UnlockBasic);
-
-            if (i.scanSounds) ScanSoundHandler.Register(ModItem, i.scanSounds);
-        }
-
-        if (ModItem.ItemData.knownTechInfo)
-        {
-            KnownTechInfo i = ModItem.ItemData.knownTechInfo;
-
-            KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
-            {
-                techType = ModItem,
-                unlockTechTypes = [],
-                unlockMessage = i.UnlockMessage,
-                unlockSound = i.UnlockSound,
-                unlockPopup = i.unlockSprite
-            });
-        }
+        ModItem.ItemData.pdaEncyInfo!?.Register(this);
+        ModItem.ItemData.knownTechInfo!?.Register(this);
 
         if (ModItem.ItemData.unlockAtStart)
         {
@@ -168,7 +145,7 @@ public class UnityPrefab : CustomPrefab
 #if BELOWZERO
         if (!ModItem.ItemData.canBeRecycledBZ)
         {
-            Recyclotron.bannedTech.Add(ModItem.ItemData.ModItem);
+            Recyclotron.bannedTech.Add(ModItem);
         }
 
         if (ModItem.ItemData.SoundTypeBZ != TechData.SoundType.Default)

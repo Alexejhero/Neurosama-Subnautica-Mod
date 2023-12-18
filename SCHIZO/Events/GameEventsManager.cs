@@ -25,24 +25,26 @@ public partial class GameEventsManager
     {
         if (Instance) Destroy(Instance);
         Instance = this;
+    }
+    private void Start()
+    {
         gameObject.GetComponents(Events);
     }
 
     [ConsoleCommand("autoevents"), UsedImplicitly]
-    public static void OnConsoleCommand_autoevents(bool? action = null)
+    public static string OnConsoleCommand_autoevents(bool? arg = null)
     {
-        if (action == null)
+        if (arg is not { } value)
         {
-            MessageHelpers.WriteCommandOutput($"Events are currently {FormatAutoStart(AutoStart)}");
-            return;
+            return $"Events are currently {FormatAutoStart(AutoStart)}";
         }
 
-        AutoStart = action.Value;
+        AutoStart = value;
 
-        MessageHelpers.WriteCommandOutput($"Events are now {FormatAutoStart(action.Value)}");
+        return MessageHelpers.GetCommandOutput($"Events are now {FormatAutoStart(arg.Value)}");
     }
 
-#if DEBUG
+#if DEBUG_ERMCON
     public void Update()
     {
         if (!Input.GetKeyDown(KeyCode.LeftControl)) return;
@@ -58,7 +60,7 @@ public partial class GameEventsManager
     [ConsoleCommand("event"), UsedImplicitly]
     public static string OnConsoleCommand_event(string eventName, bool start)
     {
-        GameEvent @event = Events.FirstOrDefault(e => e.Name.Equals(eventName, System.StringComparison.OrdinalIgnoreCase));
+        GameEvent @event = Events.FirstOrDefault(e => e.EventName.Equals(eventName, System.StringComparison.OrdinalIgnoreCase));
         if (!@event) return MessageHelpers.GetCommandOutput($"No event named '{eventName}'");
 
         if (start) @event.StartEvent();

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{9fc524ca-bc0c-4369-97f2-83b7943ea63e}">
+		<property name="name">
+			<value>grandreef_background</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{346f3474-718b-4902-a463-4f63335aa002}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{80a03aa3-b521-49c1-a1aa-e1dd2a0eed9e}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{baaa7bb9-2bbc-4ef0-88d5-858560d24c3c}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{346f3474-718b-4902-a463-4f63335aa002}">
+		<relationship name="effects">
+			<destination>{4469972c-c238-4d39-95d7-a56c02351802}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{80a03aa3-b521-49c1-a1aa-e1dd2a0eed9e}" />
+	<object class="MixerBusFader" id="{4469972c-c238-4d39-95d7-a56c02351802}" />
+</objects>

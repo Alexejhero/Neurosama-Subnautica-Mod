@@ -475,3 +475,4 @@ $RECYCLE.BIN/
 .vsconfig
 SCHIZO/Resources/AssetBundles/AssetBundles
 SCHIZO/Resources/AssetBundles/*.manifest
+FMOD Project/Build/*

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{cc624130-6e65-4f02-bc15-d2c47a2f4ab1}">
+		<property name="name">
+			<value>spy_penguin_filter</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{daa66123-aa03-4cdf-bfc1-a93cf62aad77}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{ef59bc54-bf36-47fd-90a2-edbf75ef9176}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{2f1403bc-49de-4b32-9793-7fd82210b9cb}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{daa66123-aa03-4cdf-bfc1-a93cf62aad77}">
+		<relationship name="effects">
+			<destination>{e455d499-f3dc-412b-af03-3b525a27bdd3}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{ef59bc54-bf36-47fd-90a2-edbf75ef9176}" />
+	<object class="MixerBusFader" id="{e455d499-f3dc-412b-af03-3b525a27bdd3}" />
+</objects>

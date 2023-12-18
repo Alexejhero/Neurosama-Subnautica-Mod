@@ -11,7 +11,7 @@ public sealed class SavedRandomList<T> : IEnumerable<T>
 {
     private record struct IdentifiableItem(string Identifier, T Value);
 
-    private class PlayerPrefsManager(string key) : RandomList<IdentifiableItem>.IInitialStateModifier
+    private class PlayerPrefsManager(string playerPrefsPrefix) : RandomList<IdentifiableItem>.IInitialStateModifier
     {
         private record struct RegistryKey(string Value);
 
@@ -46,7 +46,7 @@ public sealed class SavedRandomList<T> : IEnumerable<T>
             }
         }
 
-        private RegistryKey KeyOf(string identifier) => new($"SCHIZO_RandomList_{key}_{identifier}");
+        private RegistryKey KeyOf(string identifier) => new($"SCHIZO_RandomList_{playerPrefsPrefix}_{identifier}");
 
         private static bool Contains(RegistryKey key) => PlayerPrefs.HasKey(key.Value);
 

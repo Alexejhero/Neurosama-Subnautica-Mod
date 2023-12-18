@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08c4776b89c430d985e9557dc60112d, type: 3}
   m_Name: Green Screens
   m_EditorClassIdentifier: 
-  registryItems: []
+  registryItems:
+  - {fileID: 11400000, guid: ac6932989e512cc43a944ca4fc5924f0, type: 2}
+  - {fileID: 11400000, guid: 6710c9cdea33a7f4ab8ba37ee479c8e8, type: 2}

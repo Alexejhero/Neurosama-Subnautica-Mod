@@ -11,7 +11,7 @@ namespace SCHIZO.Events.Ermcon;
 [HarmonyPatch]
 public static class ErmconPatches
 {
-    private static readonly MethodInfo GetComponentOfIHandTarget = AccessTools.Method(typeof(GameObject), nameof(GameObject.GetComponent), null, new[] { typeof(IHandTarget) });
+    private static readonly MethodInfo GetComponentOfIHandTarget = AccessTools.Method(typeof(GameObject), nameof(GameObject.GetComponent), null, [typeof(IHandTarget)]);
 
     [HarmonyPatch(typeof(GUIHand), nameof(GUIHand.Send))]
     [HarmonyTranspiler]

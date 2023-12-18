@@ -19,5 +19,5 @@ MonoBehaviour:
       techType: 2007
       itemData: {fileID: 11400000, guid: b81a466a47b11be4e870eaaa30acf5aa, type: 2}
     locations:
-    - position: {x: -327, y: 15, z: 265}
-      rotation: {x: 0, y: 125, z: 0}
+    - position: {x: -326.7, y: 15, z: 264.7}
+      rotation: {x: 0, y: 120, z: 0}

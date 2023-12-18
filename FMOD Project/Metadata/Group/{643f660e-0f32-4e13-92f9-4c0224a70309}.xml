@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{643f660e-0f32-4e13-92f9-4c0224a70309}">
+		<property name="name">
+			<value>hoverbike</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{ed39a1ad-f102-4921-a61a-12a11dcbe092}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{17bd2a08-1636-477e-be5e-b69f79428687}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{2e3f5985-2990-47af-973c-89e6be856bb2}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{ed39a1ad-f102-4921-a61a-12a11dcbe092}">
+		<relationship name="effects">
+			<destination>{5828670d-9835-4adc-9697-07350404a710}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{17bd2a08-1636-477e-be5e-b69f79428687}" />
+	<object class="MixerBusFader" id="{5828670d-9835-4adc-9697-07350404a710}" />
+</objects>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{5b91ba46-4b7b-42e1-b9be-c7755dbdad27}">
+		<property name="name">
+			<value>lillypaddler</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{9a1cb90b-35e6-4130-bd27-e5be8a156479}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{fbd566de-b482-42e9-a1f2-34f6220f6993}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{9a1cb90b-35e6-4130-bd27-e5be8a156479}">
+		<relationship name="effects">
+			<destination>{a8d4afb3-0278-4436-a558-94ad628a77ae}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{fbd566de-b482-42e9-a1f2-34f6220f6993}" />
+	<object class="MixerBusFader" id="{a8d4afb3-0278-4436-a558-94ad628a77ae}" />
+</objects>

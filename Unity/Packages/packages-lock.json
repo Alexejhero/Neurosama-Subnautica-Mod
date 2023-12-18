@@ -27,6 +27,20 @@
       "source": "builtin",
       "dependencies": {}
     },
+    "com.unity.addressables": {
+      "version": "1.18.19",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.scriptablebuildpipeline": "1.19.2",
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.assetbundlebrowser": {
       "version": "https://github.com/Unity-Technologies/AssetBundles-Browser.git",
       "depth": 0,
@@ -73,6 +87,13 @@
       "dependencies": {},
       "hash": "184244fa1721e8e5da6aff2aca29b92f0a1e5ec7"
     },
+    "com.unity.scriptablebuildpipeline": {
+      "version": "1.19.2",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.test-framework": {
       "version": "1.1.30",
       "depth": 1,
@@ -81,6 +102,18 @@
         "com.unity.ext.nunit": "1.0.6",
         "com.unity.modules.imgui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.timeline": {
+      "version": "1.2.18",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.director": "1.0.0",
+        "com.unity.modules.animation": "1.0.0",
+        "com.unity.modules.audio": "1.0.0",
+        "com.unity.modules.particlesystem": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -124,6 +157,21 @@
       "source": "builtin",
       "dependencies": {}
     },
+    "com.unity.modules.director": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
+        "com.unity.modules.animation": "1.0.0"
+      }
+    },
+    "com.unity.modules.imageconversion": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {}
+    },
     "com.unity.modules.imgui": {
       "version": "1.0.0",
       "depth": 0,
@@ -133,6 +181,12 @@
     "com.unity.modules.jsonserialize": {
       "version": "1.0.0",
       "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.particlesystem": {
+      "version": "1.0.0",
+      "depth": 1,
       "source": "builtin",
       "dependencies": {}
     },
@@ -147,6 +201,21 @@
       "depth": 1,
       "source": "builtin",
       "dependencies": {}
+    },
+    "com.unity.modules.unitywebrequest": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.unitywebrequestassetbundle": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      }
     }
   }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{a49d07d1-e8b8-407b-a745-2e931bf9ffd1}">
+		<property name="name">
+			<value>Aurora warnings</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{19be8cd7-7ce2-48d2-9b69-bf4c36811ff7}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{d52829ae-bb01-4241-812f-5540e4f34942}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{a68e2c97-dd83-4a19-83d4-aff5ed1a5443}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{19be8cd7-7ce2-48d2-9b69-bf4c36811ff7}">
+		<relationship name="effects">
+			<destination>{8867a82c-22ec-4007-a26f-3d4d53eb8bf1}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{d52829ae-bb01-4241-812f-5540e4f34942}" />
+	<object class="MixerBusFader" id="{8867a82c-22ec-4007-a26f-3d4d53eb8bf1}" />
+</objects>

@@ -10,14 +10,11 @@ namespace SCHIZO.Helpers
     {
         private const BindingFlags ALL = BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
-        private class Cache<TKey, TValue>
+        private class Cache<TKey, TValue>(Func<TKey, TValue> getValueFunc)
         {
-            private readonly Func<TKey, TValue> getValueFunc;
-            private readonly Dictionary<TKey, TValue> _cache = new Dictionary<TKey, TValue>();
-            public Cache(Func<TKey, TValue> getValueFunc)
-            {
-                this.getValueFunc = getValueFunc;
-            }
+            private readonly Func<TKey, TValue> getValueFunc = getValueFunc;
+            private readonly Dictionary<TKey, TValue> _cache = [];
+
             public TValue GetCached(TKey key)
             {
                 if (!_cache.TryGetValue(key, out TValue value))
@@ -25,27 +22,26 @@ namespace SCHIZO.Helpers
                 return value;
             }
         }
-        private static readonly Cache<string, Type> _types = new Cache<string, Type>(AccessTools.TypeByName);
-        private static readonly Cache<Type, List<FieldInfo>> _allFields = new Cache<Type, List<FieldInfo>>(
-            // AccessTools
+        private static readonly Cache<string, Type> _types = new(AccessTools.TypeByName);
+        private static readonly Cache<Type, List<FieldInfo>> _allFields = new(
             type => ReflectionHelpers.WalkTypeHierarchy(type).SelectMany(t => t.GetFields(ALL)).ToList()
         );
-        private static readonly Cache<(Type type, string name), FieldInfo> _fieldByName = new Cache<(Type type, string name), FieldInfo>(
+        private static readonly Cache<(Type type, string name), FieldInfo> _fieldByName = new(
             pair => AccessTools.Field(pair.type, pair.name)
         );
-        private static readonly Cache<Type, List<MethodInfo>> _allMethods = new Cache<Type, List<MethodInfo>>(
+        private static readonly Cache<Type, List<MethodInfo>> _allMethods = new(
             type => ReflectionHelpers.WalkTypeHierarchy(type).SelectMany(t => t.GetMethods(ALL)).ToList()
         );
-        private static readonly Cache<(Type type, string name), MethodInfo> _methodByName = new Cache<(Type type, string name), MethodInfo>(
+        private static readonly Cache<(Type type, string name), MethodInfo> _methodByName = new(
             pair => AccessTools.Method(pair.type, pair.name)
         );
-        private static readonly Cache<Type, List<PropertyInfo>> _allProperties = new Cache<Type, List<PropertyInfo>>(
+        private static readonly Cache<Type, List<PropertyInfo>> _allProperties = new(
             type => ReflectionHelpers.WalkTypeHierarchy(type).SelectMany(t => t.GetProperties(ALL)).ToList()
         );
-        private static readonly Cache<(Type type, string name), PropertyInfo> _propertyByName = new Cache<(Type type, string name), PropertyInfo>(
+        private static readonly Cache<(Type type, string name), PropertyInfo> _propertyByName = new(
             pair => AccessTools.Property(pair.type, pair.name)
         );
-        private static readonly Cache<MemberInfo, List<Attribute>> _memberAttrs = new Cache<MemberInfo, List<Attribute>>(member => member.GetCustomAttributes().ToList());
+        private static readonly Cache<MemberInfo, List<Attribute>> _memberAttrs = new(member => member.GetCustomAttributes().ToList());
 
         public static Type GetType(string typeName) => _types.GetCached(typeName);
         public static List<FieldInfo> GetAllFields(Type type) => _allFields.GetCached(type);

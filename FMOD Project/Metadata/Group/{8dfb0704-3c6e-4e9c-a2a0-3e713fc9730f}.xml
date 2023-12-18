@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{8dfb0704-3c6e-4e9c-a2a0-3e713fc9730f}">
+		<property name="name">
+			<value>jellyfish</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{23941008-cd33-4de7-b03e-584af45df5c4}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{0dd2eaae-392f-42bb-8f8a-51f171080c28}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{23941008-cd33-4de7-b03e-584af45df5c4}">
+		<relationship name="effects">
+			<destination>{5c508b8c-1858-4ec5-87c6-89c02b451f28}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{0dd2eaae-392f-42bb-8f8a-51f171080c28}" />
+	<object class="MixerBusFader" id="{5c508b8c-1858-4ec5-87c6-89c02b451f28}" />
+</objects>

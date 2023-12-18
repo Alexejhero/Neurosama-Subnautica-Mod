@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1160e7f4151348eb97332e6bb0a2a034, type: 3}
   m_Name: Databank
   m_EditorClassIdentifier: 
+  scannable: 1
   scanTime: 5
   unlockSprite: {fileID: 21300000, guid: 85c36857a3ce21c49b2b3d2d1c09ecb6, type: 3}
   isImportantUnlock: 0
@@ -22,3 +23,4 @@ MonoBehaviour:
   title: Ermshark
   texture: {fileID: 2800000, guid: cee0542806d2bae418d81f925da9a9fa, type: 3}
   description: {fileID: 4900000, guid: fa554e7d1e7ed174981f0e8702f16f2d, type: 3}
+  logVO: 

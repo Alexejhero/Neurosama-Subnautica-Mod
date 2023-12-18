@@ -101,10 +101,27 @@ MonoBehaviour:
   secondaryUseText: 
   hasAltUse: 1
   altUseText: Flushed ({0})
+  altUsableChance: 0.05
+  altEffectOnHugChance: 0.5
+  altEffectMinHugTime: 10
+  altEffectDuration: 5
   hugCooldown: 1
   hugColdResistBuff: 20
   fumoModelSN: {fileID: 5699160057072596943}
   fumoModelBZ: {fileID: 7859187418265201921}
+--- !u!65 &2518586707761524305
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7560228998955499274}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.44502357, y: 0.4296356, z: 0.30601627}
+  m_Center: {x: 0.0002747625, y: 0.21236391, z: -0.007984728}
 --- !u!1001 &5020507161881458003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -174,6 +191,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8317964624639854247, guid: 5a15aed96d8d1b84592bfbe203825ee4, type: 3}
+    - {fileID: 5866251422976589946, guid: 5a15aed96d8d1b84592bfbe203825ee4, type: 3}
+    - {fileID: 3622410975456045228, guid: 5a15aed96d8d1b84592bfbe203825ee4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5a15aed96d8d1b84592bfbe203825ee4, type: 3}
 --- !u!1 &5527787040625736568 stripped
 GameObject:
@@ -184,6 +203,12 @@ GameObject:
 --- !u!1 &5433902086284589042 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1064386086890930849, guid: 5a15aed96d8d1b84592bfbe203825ee4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5020507161881458003}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7560228998955499274 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3262638706433378905, guid: 5a15aed96d8d1b84592bfbe203825ee4,
     type: 3}
   m_PrefabInstance: {fileID: 5020507161881458003}
   m_PrefabAsset: {fileID: 0}

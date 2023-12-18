@@ -44,8 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78315918d0514014d864600fb981a894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoStartEvents: 1
-  overridePlayerPrefs: 0
 --- !u!114 &2221432346329158674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +58,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canAutoStart: 1
   requiredStoryGoal_SN: 
-  requiredStoryGoal_BZ: 
+  requiredStoryGoal_BZ: SanctuaryCompleted
   ticketsSold: {x: 10, y: 50}
   attendeeSearchRadius: 250
   panelistSearchRadius: 30

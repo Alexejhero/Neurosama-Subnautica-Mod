@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{6cf0dcaf-cdd4-49d6-853d-2794b0afc85d}">
+		<property name="name">
+			<value>arctic_background</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{12cffceb-212c-4530-8ad0-e74b093e5bd0}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{e21f5643-5884-4cfc-a0fc-7060d58677e6}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{baaa7bb9-2bbc-4ef0-88d5-858560d24c3c}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{12cffceb-212c-4530-8ad0-e74b093e5bd0}">
+		<relationship name="effects">
+			<destination>{a87071f4-f1e6-4a7e-b022-1abb29ec4d18}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{e21f5643-5884-4cfc-a0fc-7060d58677e6}" />
+	<object class="MixerBusFader" id="{a87071f4-f1e6-4a7e-b022-1abb29ec4d18}" />
+</objects>

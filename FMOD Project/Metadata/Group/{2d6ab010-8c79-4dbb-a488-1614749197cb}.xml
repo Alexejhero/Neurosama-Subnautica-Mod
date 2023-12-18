@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{2d6ab010-8c79-4dbb-a488-1614749197cb}">
+		<property name="name">
+			<value>glow_whale</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{9cbfcdd5-2be4-4552-b877-b552851f1c44}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{ee32d72d-1ed0-43df-9cec-a77e719f0c1c}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{9cbfcdd5-2be4-4552-b877-b552851f1c44}">
+		<relationship name="effects">
+			<destination>{1cfcaf47-b3ee-47cf-a6ec-01540a01e10d}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{ee32d72d-1ed0-43df-9cec-a77e719f0c1c}" />
+	<object class="MixerBusFader" id="{1cfcaf47-b3ee-47cf-a6ec-01540a01e10d}" />
+</objects>

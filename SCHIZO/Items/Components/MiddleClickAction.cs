@@ -32,7 +32,7 @@ partial class MiddleClickAction : IPrefabInit
 
     private string Validate(TechType techType)
     {
-        if (target?.GetType() is not { } type)
+        if (target!?.GetType() is not { } type)
             return $"{nameof(target)} is required and was not provided";
 
         MethodInfo methodInfo = type.GetMethod(method);

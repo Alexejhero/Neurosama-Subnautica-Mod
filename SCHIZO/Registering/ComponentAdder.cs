@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Registering;
@@ -24,8 +25,8 @@ partial class ComponentAdder
             return;
         }
 
-        Type targetType = AccessTools.TypeByName(typeName);
-        Type actualTargetType = _isBaseType ? AccessTools.TypeByName(targetTypeName) : targetType;
+        Type targetType = ReflectionCache.GetType(typeName);
+        Type actualTargetType = _isBaseType ? ReflectionCache.GetType(targetTypeName) : targetType;
         if (scanForExisting)
         {
             foreach (Component o in FindObjectsOfType(actualTargetType).Cast<Component>())
@@ -34,9 +35,8 @@ partial class ComponentAdder
             }
         }
 
-        MethodInfo targetMethod = AccessTools.Method(targetType, methodName);
-        if (targetMethod == null) throw new MissingMethodException(typeName, methodName);
-
+        MethodInfo targetMethod = AccessTools.Method(targetType, methodName)
+            ?? throw new MissingMethodException(typeName, methodName);
         Target target = CreateTarget(targetMethod, mode);
         Entry entry = new(actualTargetType, prefab);
 
