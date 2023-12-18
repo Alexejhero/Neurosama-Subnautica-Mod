@@ -8,8 +8,8 @@ partial class EvilFumoItemTool
     public Knife stolenKnife;
     private static float _knifeScale = 0.9f;
 
-    private static float _dmgResetTime = 60f;
-    private float _timeUntilDamageReset;
+    private static float _damageResetWaitDuration = 60f;
+    private float _damageResetTime;
     private float _currentDamage;
 
     private void Start()
@@ -33,6 +33,7 @@ partial class EvilFumoItemTool
         }
         else
         {
+            _damageResetTime = Time.time + _damageResetWaitDuration;
             if (!ReturnKnife())
                 LOGGER.LogError("Could not return stolen knife");
         }
@@ -72,15 +73,10 @@ partial class EvilFumoItemTool
     private void UpdateDamageReset()
     {
         if (_currentDamage == damageOnPoke) return;
+        if (isAltEffectActive) return;
 
-        if (isAltEffectActive)
-            _timeUntilDamageReset = _dmgResetTime;
-        else
-        {
-            _timeUntilDamageReset -= Time.fixedDeltaTime;
-            if (_timeUntilDamageReset < 0)
-                _currentDamage = damageOnPoke;
-        }
+        if (Time.fixedTime > _damageResetTime)
+            _currentDamage = damageOnPoke;
     }
 
     protected override void Update()
@@ -102,8 +98,7 @@ partial class EvilFumoItemTool
         if (!stolenKnife) return true;
         DropKnife();
 
-        if (!Inventory.main.Pickup(stolenKnife.pickupable)) return false;
-        return true;
+        return Inventory.main.Pickup(stolenKnife.pickupable);
     }
 
     private void DropKnife()
