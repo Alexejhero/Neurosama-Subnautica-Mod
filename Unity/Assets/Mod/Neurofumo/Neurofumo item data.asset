@@ -29,9 +29,9 @@ MonoBehaviour:
   craftingTime: 3
   itemSounds: {fileID: 0}
   pdaEncyInfo: {fileID: 0}
-  knownTechInfo: {fileID: 0}
+  knownTechInfo: {fileID: 11400000, guid: c1716260159e05a49912f7981ea989c6, type: 2}
   spawnData: {fileID: 0}
-  unlockAtStart: 1
+  unlockAtStart: 0
   registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 5061b10e23e00bb4d8bdb58109048276, type: 2}
   craftTreeTypeSN: 1
@@ -39,9 +39,9 @@ MonoBehaviour:
   techGroupSN: 2
   techCategorySN: 6
   requiredForUnlockSN:
-    isCustom: 0
+    isCustom: 1
     techType: 0
-    itemData: {fileID: 0}
+    itemData: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
   equipmentTypeSN: 1
   quickSlotTypeSN: 3
   registerInBZ: 1
@@ -53,13 +53,17 @@ MonoBehaviour:
   techCategoryBZ: 4
   soundTypeBZ: 0
   requiredForUnlockBZ:
-    isCustom: 0
+    isCustom: 1
     techType: 0
-    itemData: {fileID: 0}
+    itemData: {fileID: 11400000}
   equipmentTypeBZ: 1
   quickSlotTypeBZ: 3
   coldResistanceBZ: 20
   references:
     version: 1
     00000000:
-      type: {class: ItemLoader, ns: SCHIZO.Items, asm: SCHIZO}
+      type: {class: FumoItemLoader, ns: SCHIZO.Items.FumoItem, asm: SCHIZO}
+      data:
+        spawn:
+          position: {x: 0, y: 1.335, z: 0}
+          rotation: {x: 0, y: 180, z: 0}

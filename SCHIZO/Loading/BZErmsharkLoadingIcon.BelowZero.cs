@@ -166,7 +166,7 @@ partial class BZErmsharkLoadingIcon
             new CodeMatch(OpCodes.Ldfld),
             new CodeMatch(OpCodes.Ldloc_1),
             new CodeMatch(OpCodes.Add),
-            new CodeMatch(OpCodes.Ble_Un)
+            new CodeMatch(ci => ci.opcode == OpCodes.Ble_Un || ci.opcode == OpCodes.Ble_Un_S)
         );
         if (!matcher.IsValid) return false;
 

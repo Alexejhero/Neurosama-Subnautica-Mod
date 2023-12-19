@@ -118,7 +118,7 @@ MonoBehaviour:
   hasAltUse: 1
   altUseText: Poke ({0})
   altUsableChance: 0.25
-  altEffectOnHugChance: 0.9
+  altEffectOnHugChance: 1
   altEffectMinHugTime: 2
   altEffectDuration: 5
   hugCooldown: 1
