@@ -17,25 +17,10 @@ public static class CustomJukeboxTrackPatches
 {
     internal static readonly SelfCheckingDictionary<BZJukebox.UnlockableTrack, CustomJukeboxTrack> customTracks = new("customTracks");
 
-    internal static GameObject defaultDiskPrefab;
-
     static CustomJukeboxTrackPatches()
     {
-        CoroutineHost.StartCoroutine(GetJukeboxDiskPrefab());
         CoroutineHost.StartCoroutine(InitJukebox());
         SaveUtils.RegisterOnQuitEvent(() => CoroutineHost.StartCoroutine(InitJukebox()));
-    }
-    private static IEnumerator GetJukeboxDiskPrefab()
-    {
-        if (defaultDiskPrefab) yield break;
-        // const string diskClassId = "5108080f-242b-49e8-9b91-d01d6bbe138c";
-        const string diskPrefabPath = "Misc/JukeboxDisk8.prefab";
-        IPrefabRequest request = PrefabDatabase.GetPrefabForFilenameAsync(diskPrefabPath);
-        yield return request;
-
-        if (!request.TryGetPrefab(out defaultDiskPrefab))
-            LOGGER.LogError("Could not get prefab for jukebox disk!");
-        LOGGER.LogDebug("Loaded default prefab for custom tracks");
     }
 
     private static IEnumerator InitJukebox()
@@ -87,7 +72,6 @@ public static class CustomJukeboxTrackPatches
     [HarmonyPostfix]
     public static void SetupUnlocksForCustomTracks()
     {
-        // duplicate disks are not a problem - they self-destruct on Start if already unlocked
         customTracks.ForEach(pair => pair.Value.SetupUnlock());
     }
 

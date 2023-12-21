@@ -117,6 +117,9 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{8b846630-8bcf-433a-88bf-263e2c979c62}">
+		<property name="surroundPanExtent">
+			<value>180</value>
+		</property>
 		<property name="surroundLFELevel">
 			<value>-2</value>
 		</property>
