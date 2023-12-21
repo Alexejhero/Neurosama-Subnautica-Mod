@@ -2,6 +2,7 @@ using System;
 using FMOD;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Helpers;
 using UnityEngine;
 using BZJukebox = Jukebox;
 
@@ -145,7 +146,7 @@ public sealed partial class CustomJukeboxTrack
 
         CustomJukeboxDisk diskComp = disk.EnsureComponent<CustomJukeboxDisk>();
         diskComp.track = trackId;
-        diskComp.unlockSound = unlockSound;
+        diskComp.acquireSound = AudioUtils.GetFmodAsset(unlockFmodEvent, FMODHelpers.GetId(unlockFmodEvent));
 
         disk.GetComponent<LargeWorldEntity>().enabled = false; // don't save
 

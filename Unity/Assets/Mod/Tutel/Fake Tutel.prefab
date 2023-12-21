@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f19711010743bfa5da92c65afc5b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: {fileID: 7432590903470703826, guid: 8760b2fe631724f46acf7ecd2da229dc, type: 2}
+  soundEvent: event:/SCHIZO/creatures/tutel/ambient_world
   emitter: {fileID: 196760604283640930}
   minDelayDefault: {fileID: 0}
   maxDelayDefault: {fileID: 0}
@@ -58,8 +58,9 @@ MonoBehaviour:
     modOption: {fileID: 11400000, guid: 87f6c7eace682d841a58b07957ee144d, type: 2}
     value: 0
     calculateMode: 0
+  disabledOption: {fileID: 11400000, guid: f0594ad0952ab554cbe3376036e1020a, type: 2}
   pickupable: {fileID: 0}
-  constructable: {fileID: 0}
+  constructable: {fileID: 8983852353069093194}
 --- !u!114 &196760604283640930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +262,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6324306190616826339}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8983852353069093194 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3128168738599764137, guid: 055ea2993f5883c459e08e4ea6b9d277,
+    type: 3}
+  m_PrefabInstance: {fileID: 6324306190616826339}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493319479568079302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 261a4738a8364c5fb9202fb9212e2cd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7255579856939118437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3707744013501136518, guid: 055ea2993f5883c459e08e4ea6b9d277,

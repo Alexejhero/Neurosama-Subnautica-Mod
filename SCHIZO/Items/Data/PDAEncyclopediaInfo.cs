@@ -13,7 +13,7 @@ partial class PDAEncyclopediaInfo
 
         if (!scannable) return;
         PDAHandler.AddCustomScannerEntry(prefab.ModItem, scanTime, false, prefab.Info.ClassID);
-        if (scanSounds) ScanSoundHandler.Register(prefab.ModItem, scanSounds);
+        if (!string.IsNullOrEmpty(scanSounds)) ScanSoundHandler.Register(prefab.ModItem, scanSounds);
     }
 
     // some entries don't unlock from scanning

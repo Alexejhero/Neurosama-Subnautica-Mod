@@ -61,8 +61,8 @@ namespace SCHIZO.Jukebox
         [HideIf(nameof(unlockedOnStart)), UsedImplicitly]
         public SpawnLocation diskSpawnLocation;
 
-        [HideIf(nameof(unlockedOnStart)), UsedImplicitly]
-        public AudioClip unlockSound;
+        [HideIf(nameof(unlockedOnStart)), UsedImplicitly, EventRef]
+        public string unlockFmodEvent;
 
         private TriValidationResult Validate_urlIsHttp()
         {

@@ -14,6 +14,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Publicize Include="FMODUnity" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Compile Remove="**/*.BelowZero.cs" />
 
         <Compile Update="**/*.Subnautica.cs">

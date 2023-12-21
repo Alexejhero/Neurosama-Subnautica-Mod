@@ -454,6 +454,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3976409528116048665, guid: 3e1f6575f08ab5342ba40374ee778109,
         type: 2}
+    - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: soundEvent
+      value: event:/SCHIZO/creatures/anneel/hurt
+      objectReference: {fileID: 0}
     - target: {fileID: 3015870805474854860, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: swimInterval
@@ -604,6 +609,11 @@ PrefabInstance:
         type: 3}
       propertyPath: pickupable
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: soundEvent
+      value: event:/SCHIZO/creatures/anneel/ambient
       objectReference: {fileID: 0}
     - target: {fileID: 8066641660152872387, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}

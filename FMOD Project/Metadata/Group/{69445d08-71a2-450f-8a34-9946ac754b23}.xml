@@ -4,6 +4,9 @@
 		<property name="name">
 			<value>whiteout</value>
 		</property>
+		<relationship name="masters">
+			<destination>{ab3de586-1658-48da-9f2b-ec696e5e68e7}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{64a47d77-dc49-47ff-af1d-9655e77a1e19}</destination>
 		</relationship>

@@ -1,5 +1,5 @@
+using FMODUnity;
 using SCHIZO.Interop.Subnautica;
-using SCHIZO.Sounds.Collections;
 using TriInspector;
 using UnityEngine;
 
@@ -14,8 +14,11 @@ namespace SCHIZO.Creatures.Components
         [GroupNext("Sounds")]
         public _FMOD_CustomEmitter emitter;
         public float carryNoiseInterval = 5f;
-        public SoundCollectionInstance attachSounds;
-        public SoundCollectionInstance carrySounds;
-        public SoundCollectionInstance detachSounds;
+        [EventRef]
+        public string attachSounds;
+        [EventRef]
+        public string carrySounds;
+        [EventRef]
+        public string detachSounds;
     }
 }

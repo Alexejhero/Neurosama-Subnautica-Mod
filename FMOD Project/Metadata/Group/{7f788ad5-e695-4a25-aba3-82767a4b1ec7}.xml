@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{7f788ad5-e695-4a25-aba3-82767a4b1ec7}">
+		<property name="name">
+			<value>tutel</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{6d9b841f-1787-44ac-b8ac-bcc81ab25fb5}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{bf92aa77-17de-41dc-923a-895307376910}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{9f6a5e5f-85e4-45f5-ab21-1a27c602ace4}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{6d9b841f-1787-44ac-b8ac-bcc81ab25fb5}">
+		<relationship name="effects">
+			<destination>{44197855-e122-4136-8fc7-b2145baaa666}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{bf92aa77-17de-41dc-923a-895307376910}" />
+	<object class="MixerBusFader" id="{44197855-e122-4136-8fc7-b2145baaa666}" />
+</objects>
