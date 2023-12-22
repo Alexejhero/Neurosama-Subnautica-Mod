@@ -6,11 +6,9 @@ using FMOD.Studio;
 using FMODUnity;
 using JetBrains.Annotations;
 using Nautilus.Commands;
-using Nautilus.Handlers;
 using SCHIZO.Helpers;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using TrackId = global::Jukebox.UnlockableTrack;
 
 namespace SCHIZO.ConsoleCommands;
 
@@ -48,6 +46,7 @@ public static class ConsoleCommands
         // so we don't have to needlessly split and join
         ErrorMessage.AddMessage(string.Join(" ", args));
     }
+
 #region FMOD
     public static string OnConsoleCommand_banks()
     {
@@ -164,19 +163,4 @@ public static class ConsoleCommands
         };
     }
     #endregion FMOD
-
-    [ConsoleCommand("unlocktrack"), UsedImplicitly]
-    public static string OnConsoleCommand_unlocktrack(params string[] trackArgs)
-    {
-        string track = string.Join(" ", trackArgs);
-        if (string.IsNullOrEmpty(track))
-            return "Usage: unlocktrack <track id>\nTrack ID can be specified by enum name or value (e.g. `Track1` or just `1`)";
-        // Nautilus only patches Enum.Parse...
-        if (!Enum.TryParse(track, true, out TrackId trackId) && !EnumHandler.TryGetValue(track, out trackId))
-            return $"No such track '{track}'";
-
-        if (!Player.main) return "Jukebox tracks can only be unlocked in-game";
-        global::Jukebox.Unlock(trackId, true);
-        return null;
-    }
 }
