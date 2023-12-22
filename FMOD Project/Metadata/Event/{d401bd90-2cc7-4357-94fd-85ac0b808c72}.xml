@@ -120,9 +120,6 @@
 		<property name="surroundPanExtent">
 			<value>180</value>
 		</property>
-		<property name="surroundLFELevel">
-			<value>-2</value>
-		</property>
 	</object>
 	<object class="MixerBusFader" id="{ba47c9b7-22f0-41e0-8808-5e236e3ee462}" />
 	<object class="MixerBusEffectChain" id="{7ced503d-736f-464b-a955-f2824a6e2fae}">
