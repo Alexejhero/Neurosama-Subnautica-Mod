@@ -45,9 +45,6 @@ public sealed class JukeboxDiskPrefab
                 diskComp.track = track;
                 if (!string.IsNullOrEmpty(track.unlockFmodEvent))
                     diskComp.acquireSound = AudioUtils.GetFmodAsset(track.unlockFmodEvent, FMODHelpers.GetId(track.unlockFmodEvent));
-
-                DisableUntilStoryGoal storyGate = prefab.EnsureComponent<DisableUntilStoryGoal>();
-                storyGate.storyGoalBZ = "SanctuaryCompleted";
             }
         });
         NautilusPrefab.Register();
