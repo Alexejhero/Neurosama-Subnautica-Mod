@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f19711010743bfa5da92c65afc5b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: {fileID: 8351835124949227367, guid: 8760b2fe631724f46acf7ecd2da229dc, type: 2}
+  soundEvent: event:/SCHIZO/creatures/tutel/ambient_world
   emitter: {fileID: 8283812961700562626}
   minDelayDefault: {fileID: 11400000, guid: 14beba417ed8e764a8489589984c141a, type: 2}
   maxDelayDefault: {fileID: 11400000, guid: 87f6c7eace682d841a58b07957ee144d, type: 2}
@@ -79,6 +79,7 @@ MonoBehaviour:
     modOption: {fileID: 11400000, guid: 87f6c7eace682d841a58b07957ee144d, type: 2}
     value: 0
     calculateMode: 0
+  disabledOption: {fileID: 11400000, guid: f0594ad0952ab554cbe3376036e1020a, type: 2}
   pickupable: {fileID: 7670209859173859696}
   constructable: {fileID: 0}
 --- !u!114 &8283812961700562626
@@ -110,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08298562675c4c18ba4b1d9744b135e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: {fileID: 1227164057349306871, guid: 8760b2fe631724f46acf7ecd2da229dc, type: 2}
+  soundEvent: event:/SCHIZO/creatures/tutel/ambient_inventory
   emitter: {fileID: 0}
   minDelayDefault: {fileID: 11400000, guid: cddef268080982e4eae92e262bd08d9f, type: 2}
   maxDelayDefault: {fileID: 11400000, guid: d2d8f608de10fb64d90460a0634789bf, type: 2}
@@ -124,6 +125,7 @@ MonoBehaviour:
     modOption: {fileID: 11400000, guid: d2d8f608de10fb64d90460a0634789bf, type: 2}
     value: 0
     calculateMode: 0
+  disabledOption: {fileID: 11400000, guid: 586ae6e6828837441a6a92a32eb1ba84, type: 2}
   pickupable: {fileID: 7670209859173859696}
 --- !u!114 &-762045563841846445
 MonoBehaviour:
@@ -142,6 +144,27 @@ MonoBehaviour:
   method: Play
   arguments:
   - 5
+--- !u!114 &3936072518007333709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451644687272284489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd98f6d65dc4615a0a85770a69d8cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupable: {fileID: 7670209859173859696}
+  emitter: {fileID: 0}
+  tool: {fileID: 0}
+  pickup: 
+  drop: 
+  draw: 
+  holster: 
+  cook: 
+  eat: event:/SCHIZO/creatures/tutel/eat
 --- !u!1001 &3869907094777956685
 PrefabInstance:
   m_ObjectHideFlags: 0

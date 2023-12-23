@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace SCHIZO.Sounds.Players;
@@ -12,6 +12,11 @@ partial class InventoryAmbientSoundPlayer
         ResetTimer();
     }
 
+    private void OnDestroy()
+    {
+        Stop();
+    }
+
     public void Update()
     {
         if (!pickupable || !Inventory.main.Contains((Pickupable) pickupable)) return;
@@ -21,7 +26,8 @@ partial class InventoryAmbientSoundPlayer
         if (_timer < 0)
         {
             ResetTimer();
-            Play();
+            if (!disabledOption || !disabledOption.Value)
+                Play();
         }
     }
 

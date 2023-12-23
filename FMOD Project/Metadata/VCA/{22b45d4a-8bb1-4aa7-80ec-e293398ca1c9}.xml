@@ -4,6 +4,9 @@
 		<property name="name">
 			<value>VO</value>
 		</property>
+		<relationship name="masters">
+			<destination>{45f9bd2b-22d5-4cf2-9ce6-975196b07073}</destination>
+		</relationship>
 		<relationship name="mixer">
 			<destination>{9af0adba-ec0b-48ca-a281-3e9d57637549}</destination>
 		</relationship>

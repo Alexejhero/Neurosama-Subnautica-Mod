@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   identifier: SeishunComplex
   source: 1
-  audioClip: {fileID: 8300000, guid: c432a6b3a5c9a6543b0f23667c4af264, type: 3}
+  audioClip: {fileID: 0}
   fmodEvent: event:/SCHIZO/jukebox/SeishunComplex
   url: 
   isStream: 0
@@ -24,6 +24,6 @@ MonoBehaviour:
   unlockedOnStart: 0
   diskPrefab: {fileID: 0}
   diskSpawnLocation:
-    position: {x: -326, y: 14.21, z: 255}
-    rotation: {x: 0, y: 0, z: 0}
-  unlockSound: {fileID: 0}
+    position: {x: -251.636, y: 41.455, z: -790.693}
+    rotation: {x: 44, y: 0, z: 75}
+  unlockFmodEvent: 

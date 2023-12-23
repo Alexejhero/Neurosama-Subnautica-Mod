@@ -5,12 +5,16 @@
 
     <ItemGroup>
         <PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0" />
-        <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.23" />
+        <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.24" />
     </ItemGroup>
 
     <ItemGroup>
         <Reference Include="../Dependencies/Subnautica/FMODUnity.dll" />
         <Reference Include="../Install/Subnautica/BepInEx/plugins/ECCLibrary/ECCLibrary.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Publicize Include="FMODUnity" />
     </ItemGroup>
 
     <ItemGroup>

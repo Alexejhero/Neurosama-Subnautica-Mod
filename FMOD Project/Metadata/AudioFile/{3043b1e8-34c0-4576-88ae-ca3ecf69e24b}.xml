@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{3043b1e8-34c0-4576-88ae-ca3ecf69e24b}">
+		<property name="assetPath">
+			<value>noises/neuro/clap.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.65306122448979587</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ed559c48-6dff-4cc2-8829-33aeecf805d3}</destination>
+		</relationship>
+	</object>
+</objects>

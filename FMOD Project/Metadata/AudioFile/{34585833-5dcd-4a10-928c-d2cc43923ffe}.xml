@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{34585833-5dcd-4a10-928c-d2cc43923ffe}">
+		<property name="assetPath">
+			<value>noises/neuro/right.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.65306122448979587</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ed559c48-6dff-4cc2-8829-33aeecf805d3}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -16,8 +16,7 @@ MonoBehaviour:
   scanTime: 5
   unlockSprite: {fileID: 21300000, guid: 5d63c67e19cdd4445bcff6ddf9f6780c, type: 3}
   isImportantUnlock: 0
-  scanSounds: {fileID: 8990697991671373227, guid: 1138c2d796e81ac43a4f257daf9651b7,
-    type: 2}
+  scanSounds: event:/SCHIZO/creatures/ermfish/scan
   encyPathSN: Lifeforms/Fauna/SmallHerbivores
   encyPathBZ: Research/Lifeforms/Fauna/SmallHerbivores
   title: Ermfish

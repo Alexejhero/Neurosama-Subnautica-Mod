@@ -4,6 +4,9 @@
 		<property name="name">
 			<value>Sounds_muted by pain</value>
 		</property>
+		<relationship name="masters">
+			<destination>{ab3de586-1658-48da-9f2b-ec696e5e68e7}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{71b37cbd-834b-4c0a-8577-772d361836a3}</destination>
 		</relationship>

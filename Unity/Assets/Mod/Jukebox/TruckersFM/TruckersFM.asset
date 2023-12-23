@@ -15,7 +15,7 @@ MonoBehaviour:
   identifier: TruckersFM
   source: 2
   audioClip: {fileID: 0}
-  fmodEvent: event:/SCHIZO/jukebox/TruckersFM
+  fmodEvent:
   url: http://radio.truckers.fm
   isStream: 1
   streamLabelFormat: '<align=center><size=75%>TruckersFM</size></align>
@@ -28,4 +28,4 @@ MonoBehaviour:
   diskSpawnLocation:
     position: {x: -369.3, y: -174.6, z: -319.7}
     rotation: {x: 9.7, y: 7.5, z: 9.4}
-  unlockSound: {fileID: 8300000, guid: 5ba4e19b28e28bd40b3d57d369a781f0, type: 3}
+  unlockFmodEvent: event:/SCHIZO/jukebox/unlock/TruckersFM

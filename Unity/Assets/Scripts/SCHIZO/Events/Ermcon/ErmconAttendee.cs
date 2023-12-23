@@ -1,7 +1,7 @@
+using FMODUnity;
 using JetBrains.Annotations;
 using SCHIZO.Creatures.Components;
 using SCHIZO.Interop.Subnautica;
-using SCHIZO.Sounds.Collections;
 using TriInspector;
 using UnityEngine;
 
@@ -14,7 +14,8 @@ namespace SCHIZO.Events.Ermcon
         [Tooltip("Affects how long the creature will stay focused on one target as well as the con itself. The relationship is non-linear.")]
         public float patience = 10f;
 
-        [SerializeField, UsedImplicitly] private SoundCollectionInstance pickupDeniedSounds;
+        [SerializeField, UsedImplicitly, EventRef]
+        private string pickupDeniedSounds;
         [SerializeField, UsedImplicitly] private _FMOD_CustomEmitter emitter;
 
         private TriValidationResult ForceDisable()

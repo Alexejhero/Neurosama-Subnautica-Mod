@@ -30,7 +30,7 @@ MonoBehaviour:
   pdaEncyInfo: {fileID: 0}
   knownTechInfo: {fileID: 0}
   spawnData: {fileID: 0}
-  unlockAtStart: 1
+  unlockAtStart: 0
   registerInSN: 1
   recipeSN: {fileID: 11400000, guid: fdfcef575533c63489a4f1cd9e53fb79, type: 2}
   craftTreeTypeSN: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
   techCategorySN: 24
   requiredForUnlockSN:
     isCustom: 0
-    techType: 0
+    techType: 509
     itemData: {fileID: 0}
   equipmentTypeSN: 0
   quickSlotTypeSN: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
   soundTypeBZ: 0
   requiredForUnlockBZ:
     isCustom: 0
-    techType: 0
+    techType: 509
     itemData: {fileID: 0}
   equipmentTypeBZ: 0
   quickSlotTypeBZ: 0

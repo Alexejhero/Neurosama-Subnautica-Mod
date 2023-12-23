@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{416801cb-7746-4ca6-aab2-7736a8b632fb}">
+		<property name="name">
+			<value>ermshark</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{c6590333-550f-4ad5-8145-849c21ade73b}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{2ce96cc0-c490-4a23-bb0a-339f4100c8c7}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{6c5cbea6-5358-4f10-b365-508c01493a6a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{c6590333-550f-4ad5-8145-849c21ade73b}">
+		<relationship name="effects">
+			<destination>{b367eeea-d16e-4a11-b1a4-91b25025bb78}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{2ce96cc0-c490-4a23-bb0a-339f4100c8c7}" />
+	<object class="MixerBusFader" id="{b367eeea-d16e-4a11-b1a4-91b25025bb78}" />
+</objects>

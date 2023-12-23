@@ -25,17 +25,18 @@ MonoBehaviour:
   craftingTime: 2.5
   itemSounds: {fileID: 0}
   pdaEncyInfo: {fileID: 0}
-  unlockAtStart: 1
+  knownTechInfo: {fileID: 0}
+  spawnData: {fileID: 0}
+  unlockAtStart: 0
   registerInSN: 1
   recipeSN: {fileID: 11400000, guid: 80c4f2fcb24f8c94d852011d2b386776, type: 2}
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 13
   techCategorySN: 24
-  knownTechInfoSN: {fileID: 0}
   requiredForUnlockSN:
     isCustom: 0
-    techType: 0
+    techType: 509
     itemData: {fileID: 0}
   equipmentTypeSN: 0
   quickSlotTypeSN: 0
@@ -46,11 +47,10 @@ MonoBehaviour:
   craftTreePathBZ: 
   techGroupBZ: 12
   techCategoryBZ: 15
-  knownTechInfoBZ: {fileID: 0}
   soundTypeBZ: 0
   requiredForUnlockBZ:
     isCustom: 0
-    techType: 0
+    techType: 509
     itemData: {fileID: 0}
   equipmentTypeBZ: 0
   quickSlotTypeBZ: 0

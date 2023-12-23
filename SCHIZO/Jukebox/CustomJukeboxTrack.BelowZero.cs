@@ -2,6 +2,7 @@ using System;
 using FMOD;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using SCHIZO.Helpers;
 using UnityEngine;
 using BZJukebox = Jukebox;
 
@@ -70,6 +71,7 @@ public sealed partial class CustomJukeboxTrack
         }
         CustomJukeboxTrackPatches.customTracks[trackId] = this;
         RegisterInJukebox(BZJukebox._main);
+        JukeboxDiskPrefab.Register(this);
 
         if (!Player.main) return;
 
@@ -105,50 +107,16 @@ public sealed partial class CustomJukeboxTrack
 
     internal void SetupUnlock()
     {
-        BZJukebox.UnlockableTrack trackId = this;
-
         if (!Player.main || !GameModeManager.HaveGameOptionsSet)
         {
-            LOGGER.LogError($"Can't set up unlock for {trackId} with no {(!Player.main ? "player" : "game options")}!");
+            LOGGER.LogError($"Can't set up unlock for {identifier} with no {(!Player.main ? "player" : "game options")}!");
             return;
         }
 
         if (unlockedOnStart || !GameModeManager.GetOption<bool>(GameOption.Story))
         {
-            BZJukebox.Unlock(trackId, false);
+            BZJukebox.Unlock(this, false);
             BZJukebox.main.SetInfo(JukeboxIdentifier, ToTrackInfo(false));
         }
-        else
-        {
-            SpawnDisk(trackId, diskSpawnLocation.position, diskSpawnLocation.rotation);
-        }
-    }
-
-    private void SpawnDisk(BZJukebox.UnlockableTrack trackId, Vector3 position, Vector3 rotation)
-    {
-        GameObject disk = Instantiate(CustomJukeboxTrackPatches.defaultDiskPrefab);
-        disk.transform.position = position;
-        disk.transform.eulerAngles = rotation;
-
-        if (diskPrefab)
-        {
-            Renderer[] renderers = disk.GetComponentsInChildren<Renderer>();
-            renderers.ForEach(r => r.gameObject.SetActive(false));
-
-            GameObject customModel = Instantiate(diskPrefab, disk.transform, false);
-            customModel.transform.localPosition = Vector3.zero;
-
-            MaterialUtils.ApplySNShaders(disk, 1);
-        }
-
-        Destroy(disk.GetComponent<JukeboxDisk>());
-
-        CustomJukeboxDisk diskComp = disk.EnsureComponent<CustomJukeboxDisk>();
-        diskComp.track = trackId;
-        diskComp.unlockSound = unlockSound;
-
-        disk.GetComponent<LargeWorldEntity>().enabled = false; // don't save
-
-        LOGGER.LogDebug($"Spawned disk for {trackId} at {position}");
     }
 }

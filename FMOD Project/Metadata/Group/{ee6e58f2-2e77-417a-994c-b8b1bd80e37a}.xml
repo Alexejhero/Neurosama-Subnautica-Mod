@@ -4,6 +4,9 @@
 		<property name="name">
 			<value>UI_no_pause</value>
 		</property>
+		<relationship name="masters">
+			<destination>{ab3de586-1658-48da-9f2b-ec696e5e68e7}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{628ff320-9b6e-47ea-9ccc-453b6105a36e}</destination>
 		</relationship>

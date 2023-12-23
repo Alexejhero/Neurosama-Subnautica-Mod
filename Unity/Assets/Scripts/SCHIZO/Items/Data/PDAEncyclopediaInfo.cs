@@ -1,5 +1,4 @@
 using FMODUnity;
-using SCHIZO.Sounds.Collections;
 using TriInspector;
 using UnityEngine;
 
@@ -18,8 +17,8 @@ namespace SCHIZO.Items.Data
         public Sprite unlockSprite;
         [EnableIf(nameof(scannable))]
         public bool isImportantUnlock;
-        [EnableIf(nameof(scannable))]
-        public SoundCollectionInstance scanSounds;
+        [EnableIf(nameof(scannable)), EventRef]
+        public string scanSounds;
 
         [GroupNext("Databank")]
         [Dropdown(nameof(SNEncyPaths))] public string encyPathSN;

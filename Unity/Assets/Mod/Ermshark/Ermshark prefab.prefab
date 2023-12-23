@@ -487,8 +487,7 @@ MonoBehaviour:
   eatHappyIncrement: 0.5
   biteAggressionDecrement: 0.4
   damageFX: {fileID: 0}
-  attackSounds: {fileID: -651457221615391217, guid: 0d3bacd789afd8c488a63f3f4769c807,
-    type: 2}
+  attackSounds: event:/SCHIZO/creatures/ermshark/attack
   emitter: {fileID: 3132534834664993527}
 --- !u!1 &9197955336955550917
 GameObject:
@@ -740,6 +739,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
+      propertyPath: soundEvent
+      value: event:/SCHIZO/creatures/ermshark/hurt
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
       propertyPath: soundCollection
       value: 
       objectReference: {fileID: 11400000, guid: 9ee9dfa7770ab144dad626ab9273ce05,
@@ -983,8 +987,19 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
+      propertyPath: disabledOption
+      value: 
+      objectReference: {fileID: 11400000, guid: f0594ad0952ab554cbe3376036e1020a,
+        type: 2}
+    - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
       propertyPath: pickupable
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: soundEvent
+      value: event:/SCHIZO/creatures/ermshark/ambient
       objectReference: {fileID: 0}
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}

@@ -47,6 +47,7 @@ public static class ConsoleCommands
         ErrorMessage.AddMessage(string.Join(" ", args));
     }
 
+#region FMOD
     public static string OnConsoleCommand_banks()
     {
         RuntimeManager.StudioSystem.getBankList(out Bank[] banks);
@@ -150,24 +151,16 @@ public static class ConsoleCommands
     [ConsoleCommand("fmod"), UsedImplicitly]
     public static string OnConsoleCommand_fmod(params string[] args)
     {
-        switch (args)
+        return args switch
         {
-            case ["banks", ..]:
-                return OnConsoleCommand_banks();
-            case ["buses", ..]:
-                return OnConsoleCommand_buses(args.ElementAtOrDefault(1));
-            case ["vcas", ..]:
-                return OnConsoleCommand_vcas(args.ElementAtOrDefault(1));
-            case ["events", ..]:
-                return OnConsoleCommand_events(args.ElementAtOrDefault(1));
-            case ["path", string guid]:
-                RuntimeManager.StudioSystem.lookupPath(Guid.Parse(guid), out string pathFromId).CheckResult();
-                return pathFromId;
-            case ["id", string path]:
-                RuntimeManager.StudioSystem.lookupID(path, out Guid guidFromPath).CheckResult();
-                return guidFromPath.ToString();
-        }
-
-        return null;
+            ["banks", ..] => OnConsoleCommand_banks(),
+            ["buses", ..] => OnConsoleCommand_buses(args.ElementAtOrDefault(1)),
+            ["vcas", ..] => OnConsoleCommand_vcas(args.ElementAtOrDefault(1)),
+            ["events", ..] => OnConsoleCommand_events(args.ElementAtOrDefault(1)),
+            ["path", string guid] => FMODHelpers.GetPath(guid),
+            ["id", string path] => FMODHelpers.GetId(path),
+            _ => null,
+        };
     }
+    #endregion FMOD
 }

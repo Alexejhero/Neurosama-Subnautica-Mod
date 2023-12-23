@@ -2,6 +2,7 @@ using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using SCHIZO.Helpers;
 using UnityEngine;
@@ -30,6 +31,7 @@ public sealed class HullPlatePrefab : CustomPrefab
             Info.WithIcon(ImageUtils.LoadSpriteFromTexture(newIcon));
 
             this.SetPdaGroupCategory(TechGroup.Miscellaneous, TechCategory.MiscHullplates);
+            KnownTechHandler.AddRequirementForUnlock(Info.TechType, TechType.Builder);
         }
 
         Register();

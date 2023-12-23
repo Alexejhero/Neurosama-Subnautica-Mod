@@ -1,6 +1,7 @@
 using System.Linq;
 using JetBrains.Annotations;
 using SCHIZO.Attributes;
+using SCHIZO.Options.Bool;
 using SCHIZO.Options.Float;
 using TriInspector;
 using UnityEngine;
@@ -16,6 +17,9 @@ namespace SCHIZO.Sounds.Players
 
         [SerializeField, UsedImplicitly]
         private ConfigurableValueFloat MaxDelay;
+
+        [SerializeField, UsedImplicitly]
+        private ToggleModOption disabledOption;
 
         [Space]
 

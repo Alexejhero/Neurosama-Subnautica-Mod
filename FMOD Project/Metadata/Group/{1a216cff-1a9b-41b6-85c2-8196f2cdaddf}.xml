@@ -4,6 +4,9 @@
 		<property name="name">
 			<value>Music_no_pause</value>
 		</property>
+		<relationship name="masters">
+			<destination>{e0f25a3d-b68d-47be-9402-56a5bbe46b46}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{13c5369c-04a2-4e14-95b8-d7f48e01af73}</destination>
 		</relationship>
