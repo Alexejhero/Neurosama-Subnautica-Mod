@@ -119,7 +119,7 @@ internal class ConsoleCommands : MonoBehaviour
     {
         PlayingVO playingVO = COMPONENT_HOLDER.GetComponent<PlayingVO>();
         playingVO.forceNext = true; // send even if the tracker is disabled
-        playingVO.Send(mute);
+        playingVO.Notify(mute);
 
         return null;
     }
