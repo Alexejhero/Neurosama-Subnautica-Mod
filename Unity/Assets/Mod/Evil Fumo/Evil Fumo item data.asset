@@ -22,14 +22,16 @@ MonoBehaviour:
     Keep away from sharp objects.
 
 
-    <size=75%>(Model
-    by w1n7er)</size>'
+    <size=90%>5,240,340
+    sold, 2,620,170% funded</size>
+
+
+    <size=75%>(Model by w1n7er)</size>'
   icon: {fileID: 21300000, guid: 60e94acee40f84d4896c5a5004c2c6a7, type: 3}
   itemSize: {x: 1, y: 1}
   isCraftable: 1
   isBuildable: 0
   craftingTime: 2.5
-  itemSounds: {fileID: 0}
   pdaEncyInfo: {fileID: 0}
   knownTechInfo: {fileID: 11400000, guid: f079661065abfbd479b07da60cbefb71, type: 2}
   spawnData: {fileID: 0}
