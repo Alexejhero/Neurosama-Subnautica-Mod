@@ -32,7 +32,7 @@
 			<destination>{2c7de081-9295-4fee-a507-78a5ac1dc51f}</destination>
 		</relationship>
 		<relationship name="banks">
-			<destination>{6f6c823e-9073-439e-9503-3b2b490ddbfb}</destination>
+			<destination>{b53bb930-317b-47eb-b4f9-6582c4219d2a}</destination>
 		</relationship>
 		<relationship name="defaultEvent">
 			<destination>{e57de3d0-7136-405f-aab9-f8b3694d7064}</destination>

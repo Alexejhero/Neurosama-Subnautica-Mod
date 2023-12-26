@@ -45,6 +45,8 @@
 
     <ItemGroup>
         <EmbeddedResource Include="Resources/**" />
+        <!-- needs to be here because the Include happens after importing game-specific .props -->
+        <EmbeddedResource Remove="Resources/FMODBanks/Music.bank" Condition="'$(Configuration)' == 'Subnautica'" />
         <EmbeddedResource Remove="Resources/**/*.cs" />
         <EmbeddedResource Remove="Resources/AssetBundles/AssetBundles" />
         <EmbeddedResource Remove="Resources/AssetBundles/*.manifest" />
