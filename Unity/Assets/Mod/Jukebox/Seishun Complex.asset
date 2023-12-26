@@ -21,9 +21,9 @@ MonoBehaviour:
   streamLabelFormat: 
   overrideTrackLabel: 0
   trackLabel: Neuro-sama ft. anny - Seishun Complex (cover)
-  unlockedOnStart: 0
+  unlockedOnStart: 1
   diskPrefab: {fileID: 0}
   diskSpawnLocation:
-    position: {x: -251.636, y: 41.455, z: -790.693}
-    rotation: {x: 44, y: 0, z: 75}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0}
   unlockFmodEvent: 
