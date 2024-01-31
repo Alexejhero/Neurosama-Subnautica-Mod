@@ -1,3 +1,4 @@
+using Nautilus.Extensions;
 using UWE;
 
 namespace Immersion.Trackers;
@@ -9,7 +10,7 @@ public sealed class PlayingVO : Tracker
     private SoundQueue Sounds => PDASounds.queue;
     // some specific BZ cutscenes don't use SoundQueue
     // now... technically this won't work if subtitles are off; however: just don't disable subtitles
-    private uGUI_MessageQueue Subs => Subtitles.main ? Subtitles.main.queue : null;
+    private uGUI_MessageQueue Subs => Subtitles.main.Exists()?.queue;
     public bool IsPlaying => (IsPlayingVO || IsShowingSubtitles) && !FreezeTime.HasFreezers();
     public bool IsShowingSubtitles => Subs is { messages.Count: > 0 };
     public bool IsPlayingVO => Sounds is { _current.host: SoundHost.Encyclopedia or SoundHost.Log or SoundHost.Realtime };
@@ -33,6 +34,6 @@ public sealed class PlayingVO : Tracker
 
     internal void Notify(bool isPlaying)
     {
-        Send(ENDPOINT, new { playing = isPlaying });
+        Send(ENDPOINT, isPlaying);
     }
 }

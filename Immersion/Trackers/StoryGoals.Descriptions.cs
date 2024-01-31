@@ -30,7 +30,7 @@ partial class StoryGoals
         // despite this being a very very important goal, it's triggered in the middle of a cutscene
         // so we don't actually get a chance to react to it
         // ["SanctuaryCompleted"] = null,
-        // ["DisableSanctuaryForceField"] = null, // not sure, there's never any forcefield
+        // ["DisableSanctuaryForceField"] = null, // disabled forcefields on places w/ precursor body parts
         // despite having "AfterDownload" in its name, this just triggers when you exit regardless of whether you have SanctuaryCompleted or not
         ["SanctuaryExitAfterDownload"] = "{player} has downloaded an alien Architect's consciousness into {possessive} head.",
 
@@ -60,12 +60,12 @@ partial class StoryGoals
         // ["BplbPnIerHexs"] = null,
         #endregion Main story
 
-        #region Delta
+        #region Delta Station
         // ["DeltaIslandBeaconTimed"] = null, // timed autodiscovery
         // ["DeltaIslandBeacon"] = null, // triggered when in range, enables the beacon
         // ["DeltaIslandFirstVisit"] = null,
         // ["Scan_Alterra_Locations_Map"] = null,
-        #endregion Delta
+        #endregion Delta Station
 
         #region Marguerit subplot
         // ["Log_Marg_DeltaIsland_GoAway"] = null,

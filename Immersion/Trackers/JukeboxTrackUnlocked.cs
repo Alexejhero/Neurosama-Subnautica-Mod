@@ -3,7 +3,7 @@ using Immersion.Formatting;
 namespace Immersion.Trackers;
 
 [HarmonyPatch]
-public sealed class JukeboxUnlock : Tracker
+public sealed class JukeboxTrackUnlocked : Tracker
 {
     internal static HashSet<string> _allowlist = new(StringComparer.InvariantCultureIgnoreCase)
     {
@@ -24,6 +24,6 @@ public sealed class JukeboxUnlock : Tracker
     {
         if (!notify) return;
 
-        COMPONENT_HOLDER.GetComponent<JukeboxUnlock>().NotifyUnlocked(track);
+        COMPONENT_HOLDER.GetComponent<JukeboxTrackUnlocked>().NotifyUnlocked(track);
     }
 }
