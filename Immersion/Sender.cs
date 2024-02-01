@@ -17,8 +17,8 @@ internal class Sender : MonoBehaviour
     public void Awake()
     {
         _client = new HttpClient { BaseAddress = new Uri(Globals.BaseUrl) };
-        _client.DefaultRequestHeaders.UserAgent.Add(new("SCHIZO.Immersion"));
         _client.DefaultRequestHeaders.UserAgent.Add(new ("Unity", Application.unityVersion));
+        _client.DefaultRequestHeaders.UserAgent.Add(new("(SCHIZO.Immersion)"));
     }
 
     public async Task Send(string path, object data = null)

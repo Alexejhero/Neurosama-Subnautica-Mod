@@ -11,11 +11,27 @@ public sealed class PlayingVO : Tracker
     // some specific BZ cutscenes don't use SoundQueue
     // now... technically this won't work if subtitles are off; however: just don't disable subtitles
     private uGUI_MessageQueue Subs => Subtitles.main.Exists()?.queue;
-    public bool IsPlaying => (IsPlayingVO || IsShowingSubtitles) && !FreezeTime.HasFreezers();
+    private bool UseSubs;
+    public bool IsPlaying => (IsPlayingVO || UseSubs && IsShowingSubtitles) && !FreezeTime.HasFreezers();
     public bool IsShowingSubtitles => Subs is { messages.Count: > 0 };
     public bool IsPlayingVO => Sounds is { _current.host: SoundHost.Encyclopedia or SoundHost.Log or SoundHost.Realtime };
 
     private bool _wasPlaying;
+
+    private void Start()
+    {
+        Nautilus.Utility.SaveUtils.RegisterOnQuitEvent(OnQuit);
+        StoryGoals.OnStoryGoalCompleted += OnGoalComplete;
+    }
+    private void Destroy()
+    {
+        Nautilus.Utility.SaveUtils.UnregisterOnQuitEvent(OnQuit);
+        StoryGoals.OnStoryGoalCompleted -= OnGoalComplete;
+    }
+    private void OnQuit()
+    {
+        UseSubs = false;
+    }
 
     private void FixedUpdate()
     {
@@ -35,5 +51,12 @@ public sealed class PlayingVO : Tracker
     internal void Notify(bool isPlaying)
     {
         Send(ENDPOINT, isPlaying);
+    }
+
+    public void OnGoalComplete(string key)
+    {
+        /// <see cref="IsShowingSubtitles" />
+        if (key == "OnEndGameBegin")
+            UseSubs = true;
     }
 }

@@ -7,9 +7,9 @@ namespace Immersion.Trackers;
 
 public sealed partial class StoryGoals : Tracker, IStoryGoalListener
 {
-    protected override void Awake()
+    public static event Action<string> OnStoryGoalCompleted;
+    private void Start()
     {
-        base.Awake();
         SaveUtils.RegisterOnFinishLoadingEvent(() => StartCoroutine(CoAddListener()));
     }
 
@@ -25,6 +25,7 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
     {
         if (key == "OnPDAClosed") return;
         LOGGER.LogDebug($"Completed story goal {key}");
+        OnStoryGoalCompleted?.Invoke(key); // <-- resilient software architecture
 
         if (TryGetDescription(key, out string description))
         {
