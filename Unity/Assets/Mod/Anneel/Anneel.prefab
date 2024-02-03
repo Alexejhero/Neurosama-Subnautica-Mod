@@ -363,12 +363,6 @@ PrefabInstance:
       propertyPath: health
       value: 200
       objectReference: {fileID: 0}
-    - target: {fileID: -3418686219161457082, guid: 5ff80f47f2822bb438251c8a7a1370ca,
-        type: 3}
-      propertyPath: deathSound
-      value: 
-      objectReference: {fileID: 11400000, guid: 638a56e08ffb7224a9315bbc1ff2db96,
-        type: 2}
     - target: {fileID: -2914789318229432670, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: traitsAnimator
@@ -460,6 +454,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3976409528116048665, guid: 3e1f6575f08ab5342ba40374ee778109,
         type: 2}
+    - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: deathSound
+      value: event:/SCHIZO/creatures/anneel/death
+      objectReference: {fileID: 0}
     - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: soundEvent
