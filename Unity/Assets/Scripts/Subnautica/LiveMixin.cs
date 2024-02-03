@@ -10,6 +10,6 @@ public class LiveMixin : MonoBehaviour
 
     [UnexploredGroup] public FMODAsset damageSound;
     [UnexploredGroup] public FMODAsset deathSound;
-    [UnexploredGroup] public FMODAsset damageClip;
-    [UnexploredGroup] public FMODAsset deathClip;
+    [UnexploredGroup] public FMOD_CustomEmitter damageClip;
+    [UnexploredGroup] public FMOD_CustomEmitter deathClip;
 }
