@@ -27,7 +27,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creature: {fileID: 752434511793161575}
   swimBehaviour: {fileID: 5862139192057144009}
-  evaluatePriority: 0.4
+  evaluatePriority: 0.2
   priorityMultiplier:
     serializedVersion: 2
     m_Curve: []
@@ -987,12 +987,6 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
-      propertyPath: disabledOption
-      value: 
-      objectReference: {fileID: 11400000, guid: f0594ad0952ab554cbe3376036e1020a,
-        type: 2}
-    - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
-        type: 3}
       propertyPath: pickupable
       value: 
       objectReference: {fileID: 0}
@@ -1001,6 +995,12 @@ PrefabInstance:
       propertyPath: soundEvent
       value: event:/SCHIZO/creatures/ermshark/ambient
       objectReference: {fileID: 0}
+    - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: disabledOption
+      value: 
+      objectReference: {fileID: 11400000, guid: f0594ad0952ab554cbe3376036e1020a,
+        type: 2}
     - target: {fileID: 7784437994874313104, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: soundCollection

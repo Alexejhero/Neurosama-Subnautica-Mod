@@ -94,8 +94,8 @@ partial class SoundPlayer
 
     public void CancelAllDelayed()
     {
-        _runningCoroutines.ForEach(CoroutineHost.StopCoroutine);
-        _runningCoroutines.Clear();
+        _runningCoroutines?.ForEach(CoroutineHost.StopCoroutine);
+        _runningCoroutines?.Clear();
     }
 
     private void PlayAttached()

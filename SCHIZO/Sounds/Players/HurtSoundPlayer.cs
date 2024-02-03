@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+
 namespace SCHIZO.Sounds.Players;
 
 partial class HurtSoundPlayer : IOnTakeDamage
@@ -13,7 +15,8 @@ partial class HurtSoundPlayer : IOnTakeDamage
         soundEvent = _hurtSound;
         Play(0.01f);
     }
-    public void OnKill()
+    [UsedImplicitly]
+    private void OnKill()
     {
         CancelAllDelayed();
         soundEvent = deathSound;
