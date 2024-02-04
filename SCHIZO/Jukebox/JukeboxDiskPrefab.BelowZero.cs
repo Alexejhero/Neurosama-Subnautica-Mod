@@ -45,6 +45,12 @@ public sealed class JukeboxDiskPrefab
                 diskComp.track = track;
                 if (!string.IsNullOrEmpty(track.unlockFmodEvent))
                     diskComp.acquireSound = AudioUtils.GetFmodAsset(track.unlockFmodEvent, FMODHelpers.GetId(track.unlockFmodEvent));
+
+                DestroyDuplicates unique = prefab.EnsureComponent<DestroyDuplicates>();
+                unique.identifier = prefab.GetComponent<PrefabIdentifier>();
+
+                // JukeboxDisk should already self-destroy if already unlocked but... just in case
+                DestroyInCreativeMode storyOnly = prefab.EnsureComponent<DestroyInCreativeMode>();
             }
         });
         NautilusPrefab.Register();

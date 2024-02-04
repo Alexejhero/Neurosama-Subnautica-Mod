@@ -42,6 +42,13 @@ internal static class FumoItemPatches
             KnownTech.Add(fumoItem, false, false);
         }
 
+        // sometimes things just spawn twice. shrug
+        if (Object.FindObjectOfType<FumoItemTool>())
+        {
+            LOGGER.LogWarning("Attempted to spawn fumo in lifepod twice");
+            yield break;
+        }
+
         LOGGER.LogMessage("Spawning fumo in lifepod drop");
         GameObject obj = UWE.Utils.InstantiateDeactivated(prefab, pod.transform, spawnLoc.position, Quaternion.Euler(spawnLoc.rotation));
 
@@ -50,7 +57,7 @@ internal static class FumoItemPatches
         yield return new WaitUntil(() => LargeWorldStreamer.main && LargeWorldStreamer.main.IsReady());
         LargeWorldStreamer lws = LargeWorldStreamer.main;
 
-        if (lwe is { cellLevel: not LargeWorldEntity.CellLevel.Batch and not LargeWorldEntity.CellLevel.Global})
+        if (lwe is { cellLevel: not LargeWorldEntity.CellLevel.Batch and not LargeWorldEntity.CellLevel.Global })
         {
             Int3 batch = lws.GetContainingBatch(obj.transform.position);
             yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batch));

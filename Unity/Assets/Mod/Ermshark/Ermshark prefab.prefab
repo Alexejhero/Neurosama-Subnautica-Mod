@@ -27,7 +27,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creature: {fileID: 752434511793161575}
   swimBehaviour: {fileID: 5862139192057144009}
-  evaluatePriority: 0.2
+  evaluatePriority: 0.3
   priorityMultiplier:
     serializedVersion: 2
     m_Curve: []
