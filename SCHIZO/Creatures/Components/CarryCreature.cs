@@ -40,6 +40,8 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         // prevent bite after releasing
         if (targetObject.GetComponent<Carryable>()) return true;
 
+        if (!enabled) return false;
+
         // pick up held creature instead of eating it
         Player player = targetObject.GetComponent<Player>();
         if (!player) return false;

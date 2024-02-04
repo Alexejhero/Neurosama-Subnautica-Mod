@@ -1,4 +1,5 @@
 using System.Collections;
+using SCHIZO.Creatures.Components;
 using SCHIZO.Helpers;
 using SCHIZO.Sounds.Players;
 using UnityEngine;
@@ -91,5 +92,8 @@ partial class Ermshark : IOnTakeDamage
         Destroy(decoy.GetComponentInChildren<LargeWorldEntity>());
 
         ermshark.mitosisRemaining = mitosisRemaining;
+
+        CarryCreature carry = decoy.GetComponent<CarryCreature>();
+        if (carry) carry.enabled = false;
     }
 }
