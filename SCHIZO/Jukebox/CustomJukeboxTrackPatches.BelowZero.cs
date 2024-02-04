@@ -264,10 +264,8 @@ public static class CustomJukeboxTrackPatches
     [HarmonyPostfix]
     public static void OnSwitchingTracks(JukeboxInstance __instance)
     {
-        if (!__instance.IsTrackCustom(out CustomJukeboxTrack track)) return;
-
         // can't seek streams
-        __instance.SetPositionKnobVisible(!track.isStream);
+        __instance.SetPositionKnobVisible(!__instance.IsPlayingStream(out _));
     }
 
     [HarmonyPatch(typeof(File), nameof(File.Exists))]
