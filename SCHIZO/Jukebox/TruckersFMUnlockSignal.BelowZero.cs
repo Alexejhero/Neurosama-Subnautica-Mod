@@ -47,7 +47,10 @@ partial class TruckersFMUnlockSignal
         }
 
         if (signal) return;
-        if (customOnly && !CustomJukeboxTrack.IsTrackCustom(trackId)) return;
+
+        bool isTrackCustom = CustomJukeboxTrack.TryGetCustomTrack(trackId, out CustomJukeboxTrack customTrack);
+        if (customOnly && !isTrackCustom) return;
+        if (customTrack && customTrack.unlockedOnStart) return;
 
         unlockedTracks++;
         if (unlockedTracks >= requiredTracks)

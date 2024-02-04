@@ -97,7 +97,6 @@ public sealed partial class CustomJukeboxTrack
     public static bool TryGetCustomTrack(string identifier, out CustomJukeboxTrack track)
     {
         track = null;
-        // this will not find event tracks (which is intended)
         return identifier is not null
             && EnumHandler.TryGetValue(identifier, out BZJukebox.UnlockableTrack trackId)
             && TryGetCustomTrack(trackId, out track);
