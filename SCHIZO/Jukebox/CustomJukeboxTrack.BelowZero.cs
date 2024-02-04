@@ -83,6 +83,11 @@ public sealed partial class CustomJukeboxTrack
 
     internal void RegisterInJukebox(BZJukebox jukebox)
     {
+        if (CustomJukeboxTrackPatches.AwakePatchFailed && source != Source.FMODEvent)
+        {
+            LOGGER.LogWarning($"Skipped registering {identifier} in jukebox to avoid completely breaking it (because patching Jukebox.Awake to support non-FMOD tracks has failed)");
+            return;
+        }
         BZJukebox.unlockableMusic[this] = JukeboxIdentifier;
         BZJukebox.musicLabels[JukeboxIdentifier] = trackLabel;
 

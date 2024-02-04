@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using System.Reflection.Emit;
 using FMOD;
+using FMOD.Studio;
 using FMODUnity;
 using HarmonyLib;
 using Nautilus.Utility;
+using SCHIZO.Helpers;
 using TMPro;
 using UnityEngine;
 using UWE;
@@ -16,6 +20,7 @@ namespace SCHIZO.Jukebox;
 public static class CustomJukeboxTrackPatches
 {
     internal static readonly SelfCheckingDictionary<BZJukebox.UnlockableTrack, CustomJukeboxTrack> customTracks = new("customTracks");
+    internal static bool AwakePatchFailed { get; private set; } = false;
 
     static CustomJukeboxTrackPatches()
     {
@@ -32,26 +37,75 @@ public static class CustomJukeboxTrackPatches
     }
 
     [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.Awake))]
-    public static class AwakeWorkaround
+    [HarmonyTranspiler]
+    private static IEnumerable<CodeInstruction> AwakeWorkaround(IEnumerable<CodeInstruction> instructions, ILGenerator generator, MethodBase original)
     {
         // base Awake assumes all unlockable tracks are events
-        // so we need to remove ours (and readd them afterwards)
-        [HarmonyPrefix]
-        public static void ClearCustomTracks()
-        {
-            foreach (KeyValuePair<BZJukebox.UnlockableTrack, CustomJukeboxTrack> pair in customTracks)
-            {
-                if (pair.Value.source != CustomJukeboxTrack.Source.FMODEvent)
-                    BZJukebox.unlockableMusic.Remove(pair.Key);
-            }
-        }
+        // but tracks sourced from netstreams/assets are not
+        // ergo, an oopsie woopsie happens
+        // this transpiler adds a check to skip tracks that aren't FMOD events
 
-        [HarmonyPostfix]
-        public static void AddCustomTracks(BZJukebox __instance)
-        {
-            foreach (CustomJukeboxTrack track in customTracks.Values)
-                track.RegisterInJukebox(__instance);
-        }
+        CodeMatcher matcher = new(instructions, generator);
+        MethodBody body = original.GetMethodBody();
+
+        // find the loop init
+        /// for (int i = 0; i < list.Count; i++)
+        ///      ^^^^^^^^^
+        matcher.MatchForward(false,
+            new CodeMatch(OpCodes.Ldc_I4_0),
+            new CodeMatch(ci => ci.StoresLocal(type: typeof(int), method: body)),
+            new CodeMatch(OpCodes.Br)
+        );
+        if (!matcher.IsValid) goto bad;
+        matcher.Advance(1);
+        LocalBuilder loopIndex = (LocalBuilder) matcher.Operand;
+        matcher.Advance(1);
+        Label loopCondition = (Label) matcher.Operand;
+
+        // look for where to insert our instructions
+        matcher.MatchForward(false,
+            /// string text = list[i];
+            new CodeMatch(ci => ci.StoresLocal(type: typeof(string), method: body)),
+            /// Jukebox.ERRCHECK(RuntimeManager.GetEventDescription(text).getLength(out len));
+            ///  match this call ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            new CodeMatch(ci => ci.LoadsLocal(type: typeof(string), method: body)),
+            new CodeMatch(ci => ci.Calls(AccessTools.Method(typeof(RuntimeManager), nameof(RuntimeManager.GetEventDescription), [typeof(string)]))),
+            new CodeMatch(ci => ci.StoresLocal(type: typeof(EventDescription), method: body))
+        );
+        if (!matcher.IsValid) goto bad;
+        LocalBuilder textLocal = (LocalBuilder) matcher.Operand;
+
+        matcher.Advance(1); // insert before loading the "text" local for the RuntimeManager.GetEventDescription call
+        matcher.InsertAndAdvance(
+            /// if (!Jukebox.IsEvent(text)) continue;
+            new CodeInstruction(OpCodes.Ldloc, textLocal),
+            new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(BZJukebox), nameof(BZJukebox.IsEvent))),
+            new CodeInstruction(OpCodes.Brfalse)
+        );
+        CodeInstruction branch = matcher.InstructionAt(-1);
+        // we have a label pointing to the loop condition
+        // but "continue" needs to branch to the increment
+        // init -> body -> increment -> condition -v
+        //          ^-------------------------------
+        matcher.MatchForward(false,
+            new CodeMatch(OpCodes.Ldloc_S, loopIndex),
+            new CodeMatch(OpCodes.Ldc_I4_1),
+            new CodeMatch(OpCodes.Add),
+            new CodeMatch(OpCodes.Stloc_S, loopIndex),
+            new CodeMatch(ci => ci.labels.Contains(loopCondition))
+        );
+        if (!matcher.IsValid) goto bad;
+
+        matcher.CreateLabel(out Label loopIncrement);
+        branch.operand = loopIncrement;
+        LOGGER.LogDebug("Patched Jukebox.Awake to support non-FMOD tracks");
+        return matcher.InstructionEnumeration();
+
+        bad:
+        LOGGER.LogError("Could not patch Jukebox.Awake to support non-FMOD tracks!\n" +
+            "Those tracks will not be registered to avoid breaking the whole jukebox.");
+        AwakePatchFailed = true;
+        return instructions;
     }
 
     [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.Start))]
