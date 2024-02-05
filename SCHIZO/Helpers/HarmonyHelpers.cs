@@ -92,4 +92,55 @@ internal static class HarmonyHelpers
         return (index == null || index == localIndex)
             && (type == null || type == localType);
     }
+
+    /// <summary>
+    /// Get an instruction that loads the specified local.<br/>
+    /// This is a convenience function that automatically handles special opcodes for locals at index 0 to 3 (e.g. <see cref="OpCodes.Ldloc_0"/>).
+    /// </summary>
+    /// <param name="local">Local to load.</param>
+    /// <param name="indirect">Whether to load the value or the address of the local. This matters for struct types.</param>
+    /// <returns>A <see cref="CodeInstruction"/> with the correct <see cref="OpCode"/> and operand for the operation.</returns>
+    public static CodeInstruction LoadInstruction(this LocalVariableInfo local, bool indirect = false)
+    {
+        return LocalInstruction(local, indirect, false);
+    }
+    /// <summary>
+    /// Get an instruction that stores the specified local.<br/>
+    /// This is a convenience function that automatically handles special opcodes for locals at index 0 to 3 (e.g. <see cref="OpCodes.Stloc_0"/>).
+    /// </summary>
+    /// <param name="local">Local to store.</param>
+    /// <returns>A <see cref="CodeInstruction"/> with the correct <see cref="OpCode"/> and operand for the operation.</returns>
+    public static CodeInstruction StoreInstruction(this LocalVariableInfo local)
+    {
+        return LocalInstruction(local, false, true);
+    }
+
+    private static CodeInstruction LocalInstruction(this LocalVariableInfo local, bool indirect = false, bool store = false)
+    {
+        OpCode opcode;
+        bool needsOperand;
+
+        if (store && indirect)
+            throw new InvalidOperationException("both store and indirect were specified; no instructions exist for this combination");
+
+        if (local.LocalIndex < 4 && !indirect)
+        {
+            opcode = (store ? _stloc0to3Codes : _ldloc0to3Codes)[local.LocalIndex];
+            needsOperand = false;
+        }
+        else
+        {
+            needsOperand = true;
+            bool shortForm = local.LocalIndex <= byte.MaxValue;
+            opcode = (indirect, shortForm) switch
+            {
+                (false, false) => store ? OpCodes.Stloc : OpCodes.Ldloc,
+                (false, true) => store ? OpCodes.Stloc_S : OpCodes.Ldloc_S,
+                // store can't be indirect
+                (true, false) => OpCodes.Ldloca,
+                (true, true) => OpCodes.Ldloca_S,
+            };
+        }
+        return new CodeInstruction(opcode, needsOperand ? local : null);
+    }
 }

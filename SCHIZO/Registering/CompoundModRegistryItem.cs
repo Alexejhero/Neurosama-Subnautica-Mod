@@ -1,3 +1,5 @@
+using System;
+
 namespace SCHIZO.Registering;
 
 partial class CompoundModRegistryItem
@@ -6,7 +8,14 @@ partial class CompoundModRegistryItem
     {
         foreach (ModRegistryItem item in registryItems)
         {
-            if (item) item.InvokeRegister();
+            try
+            {
+                if (item) item.InvokeRegister();
+            }
+            catch (Exception ex)
+            {
+                LOGGER.LogError($"Could not register {item}! {ex}");
+            }
         }
     }
 
@@ -14,7 +23,14 @@ partial class CompoundModRegistryItem
     {
         foreach (ModRegistryItem item in registryItems)
         {
-            if (item) item.InvokePostRegister();
+            try
+            {
+                if (item) item.InvokePostRegister();
+            }
+            catch (Exception ex)
+            {
+                LOGGER.LogError($"Could not register {item}! {ex}");
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ partial class PDAEncyclopediaInfo
         string path = RetargetHelpers.Pick(encyPathSN, encyPathBZ);
         FMODAsset vo = string.IsNullOrEmpty(logVO) ? null
             : AudioUtils.GetFmodAsset(logVO);
-        PDAHandler.AddEncyclopediaEntry(key, path, title, description.text,
+        PDAHandler.AddEncyclopediaEntry(key, path, title, description!?.text,
             image: texture, popupImage: unlockSprite,
             unlockSound: isImportantUnlock ? PDAHandler.UnlockImportant : PDAHandler.UnlockBasic,
             voiceLog: vo);
