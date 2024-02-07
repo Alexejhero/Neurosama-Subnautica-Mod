@@ -15,7 +15,15 @@ partial class OverrideScanProgress
     {
         [TechType.None] = (target, scanTime) => target.progress + Time.deltaTime / scanTime,
         // todo hiyorifish loader
-        [(TechType)10064] = (target, scanTime) => target.progress + Time.deltaTime / (scanTime / target.progress),
+        [(TechType) 10064] = (target, scanTime) =>
+        {
+            float scaledScanTime = scanTime / (1 - target.progress);
+            float next = target.progress + Time.deltaTime / scaledScanTime + Random.Range(-0.005f, 0.005f);
+            if (next > 1) // just so it doesn't show/hit 100%
+                next -= Random.Range(0.02f, 0.05f);
+
+            return next;
+        },
     };
 
     private static void UpdateScanProgressProxy(ref PDAScanner.ScanTarget target, float scanTime)
@@ -28,7 +36,7 @@ partial class OverrideScanProgress
 
     [HarmonyPatch(typeof(PDAScanner), nameof(PDAScanner.Scan))]
     [HarmonyTranspiler]
-    private static IEnumerable<CodeInstruction> UpdateScanProgressPatch(IEnumerable<CodeInstruction> instructions, ILGenerator generator, MethodBase original)
+    private static IEnumerable<CodeInstruction> UpdateScanProgressPatch(IEnumerable<CodeInstruction> instructions)
     {
         CodeMatcher matcher = new(instructions);
         /// progress = progress + deltaTime / timeToScan
