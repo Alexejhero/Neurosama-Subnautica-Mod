@@ -45,8 +45,7 @@ MonoBehaviour:
   isCraftable: 0
   isBuildable: 0
   craftingTime: 2.5
-  itemSounds: {fileID: 0}
-  pdaEncyInfo: {fileID: 0}
+  pdaEncyInfo: {fileID: 11400000, guid: 5f10b4ff629c76a4ba6cf8cf3fcc0bdb, type: 2}
   knownTechInfo: {fileID: 0}
   spawnData: {fileID: 0}
   unlockAtStart: 0

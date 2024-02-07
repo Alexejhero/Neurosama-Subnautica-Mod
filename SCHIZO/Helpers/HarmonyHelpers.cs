@@ -1,7 +1,9 @@
 using System;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
+using UnityEngine.UIElements.StyleSheets.Syntax;
 
 namespace SCHIZO.Helpers;
 internal static class HarmonyHelpers
@@ -142,5 +144,12 @@ internal static class HarmonyHelpers
             };
         }
         return new CodeInstruction(opcode, needsOperand ? local : null);
+    }
+
+    public static CodeInstruction CallInstruction(this MethodInfo method)
+    {
+        return method.IsVirtual
+            ? new CodeInstruction(OpCodes.Callvirt, method)
+            : new CodeInstruction(OpCodes.Call, method);
     }
 }
