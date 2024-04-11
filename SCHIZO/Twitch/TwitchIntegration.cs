@@ -17,7 +17,7 @@ namespace SCHIZO.Twitch;
 [RegisterConsoleCommands]
 partial class TwitchIntegration
 {
-    private const string _usernamePlayerPrefsKey = "SCHIZO_TwitchIntegration_OAuthToken";
+    private const string _usernamePlayerPrefsKey = "SCHIZO_TwitchIntegration_Username";
     private const string _tokenPlayerPrefsKey = "SCHIZO_TwitchIntegration_OAuthToken";
 
     private TwitchClient _client;
@@ -26,7 +26,7 @@ partial class TwitchIntegration
 
     private void Awake()
     {
-        _allowedUsersSet = new(whitelistedUsers, StringComparer.OrdinalIgnoreCase);
+        _allowedUsersSet = new HashSet<string>(whitelistedUsers, StringComparer.OrdinalIgnoreCase);
         ClientOptions clientOptions = new()
         {
             MessagesAllowedInPeriod = 750,
@@ -92,6 +92,7 @@ partial class TwitchIntegration
     }
 
     [ConsoleCommand("settwitchlogin"), UsedImplicitly]
+
     public static string OnConsoleCommand_settwitchlogin(string username, string token)
     {
         PlayerPrefs.SetString(_usernamePlayerPrefsKey, username);
