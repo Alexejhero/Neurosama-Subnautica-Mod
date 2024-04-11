@@ -6,7 +6,7 @@
     "m_Nullable": 0,
     "m_CompilerPackage": {
         "m_Name": "Microsoft.Net.Compilers.Toolset",
-        "m_Version": "4.7.0",
+        "m_Version": "4.9.2",
         "m_Category": 0
     },
     "m_CompilerFilter": {
@@ -29,7 +29,7 @@
     "m_SymbolModifier": [],
     "m_UseDefaultCompiler": false,
     "m_PackageName": "Microsoft.Net.Compilers.Toolset",
-    "m_PackageVersion": "4.7.0",
+    "m_PackageVersion": "4.9.2",
     "m_EnableNullable": false,
     "m_ModifySymbols": ""
 }
