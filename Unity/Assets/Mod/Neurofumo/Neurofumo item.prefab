@@ -109,6 +109,26 @@ MonoBehaviour:
   hugColdResistBuff: 20
   fumoModelSN: {fileID: 5699160057072596943}
   fumoModelBZ: {fileID: 7859187418265201921}
+--- !u!114 &334745811986472101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5052461778956576287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b9fb29e8f4c4ae99c44aaf8bf20015f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localMinY: -0.01
+  localMaxY: 0.44
+  posOffset: {x: 0, y: -0.01, z: 0}
+  eulerOffset: {x: 0, y: 0, z: 0}
+  scaleFactor: 1
+  _fabricatorMesh: {fileID: 4300000, guid: f02dbf41adbb6c14c8b2eb4704e4fd18, type: 2}
+  _fabricatorPrefab: {fileID: 4931248133309480, guid: 18b270460e531e34ca5ebc989dccd026,
+    type: 3}
 --- !u!65 &2518586707761524305
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -197,6 +217,12 @@ PrefabInstance:
 --- !u!1 &5527787040625736568 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 656058450781834795, guid: 5a15aed96d8d1b84592bfbe203825ee4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5020507161881458003}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5052461778956576287 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 266169302402356044, guid: 5a15aed96d8d1b84592bfbe203825ee4,
     type: 3}
   m_PrefabInstance: {fileID: 5020507161881458003}
   m_PrefabAsset: {fileID: 0}
