@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a0830f50dd2e554381676c875e2cdf1, type: 3}
+  m_Name: Mechanical Heartbeat
+  m_EditorClassIdentifier: 
+  identifier: MechanicalHeartbeat
+  source: 1
+  audioClip: {fileID: 0}
+  fmodEvent: event:/SCHIZO/jukebox/MechanicalHeartbeat
+  url: 
+  isStream: 0
+  streamLabelFormat: 
+  overrideTrackLabel: 0
+  trackLabel: Neuro & Evil - Mechanical Heartbeat (cover)
+  unlockedOnStart: 0
+  diskPrefab: {fileID: 0}
+  diskSpawnLocation:
+    position: {x: -1185, y: 18.19, z: -713}
+    rotation: {x: 342, y: 329, z: 355}
+  unlockFmodEvent: 

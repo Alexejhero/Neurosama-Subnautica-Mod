@@ -456,6 +456,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
+      propertyPath: deathSound
+      value: event:/SCHIZO/creatures/anneel/death
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722342412455638247, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
       propertyPath: soundEvent
       value: event:/SCHIZO/creatures/anneel/hurt
       objectReference: {fileID: 0}

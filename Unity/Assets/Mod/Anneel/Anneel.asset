@@ -23,7 +23,6 @@ MonoBehaviour:
   isCraftable: 0
   isBuildable: 0
   craftingTime: 2.5
-  itemSounds: {fileID: 0}
   pdaEncyInfo: {fileID: 11400000, guid: 9e6ad7304549275419607042e35a80ee, type: 2}
   knownTechInfo: {fileID: 0}
   spawnData: {fileID: 11400000, guid: 17614fc394efcf845a823b428f774775, type: 2}
@@ -33,7 +32,7 @@ MonoBehaviour:
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 14
-  techCategorySN: 0
+  techCategorySN: -1
   requiredForUnlockSN:
     isCustom: 1
     techType: 0
@@ -46,8 +45,7 @@ MonoBehaviour:
   craftTreeTypeBZ: 0
   craftTreePathBZ: 
   techGroupBZ: 13
-  techCategoryBZ: 0
-  knownTechInfoBZ: {fileID: 0}
+  techCategoryBZ: -1
   soundTypeBZ: 0
   requiredForUnlockBZ:
     isCustom: 1
@@ -83,7 +81,7 @@ MonoBehaviour:
   weldable: 0
   knifeable: 1
   destroyOnDeath: 0
-  minDamageForSound: 0
+  minDamageForSound: 10
   loopEffectBelowPercent: 0
   loopingDamageEffect: {fileID: 0}
   canResurrect: 0

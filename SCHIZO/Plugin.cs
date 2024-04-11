@@ -38,7 +38,9 @@ public sealed class Plugin : BaseUnityPlugin
         yield return MaterialHelpers.LoadMaterials();
         StaticHelpers.CacheAttribute.CacheAll();
         FMODHelpers.LoadMasterBank("SCHIZO");
-        
+        if (IS_BELOWZERO)
+            FMODHelpers.LoadSubBank("Music");
+
         Assets.Mod_Registry.InvokeRegister();
         Assets.Mod_Registry.InvokePostRegister();
 

@@ -14,6 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: EncyDesc_vo_pda_neuro_hatevedal
   lines:
+  - key: Vedal_I_love_you_Neuro
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: I love you, Neuro.
+  - key: Evil_What_the_fuck
+    actor: {fileID: 11400000, guid: 4cbe28819754a2447ac83877bf7e241c, type: 2}
+    text: What the fu- [door slam] Filtered, filtered, filtered, filtered... [trailing
+      off]
   - key: hatevedal-01
     actor: {fileID: 11400000, guid: fe3d8bc061f4bf242bcf54deb02476b6, type: 2}
     text: "Words cannot express how much I hate Vedal. I despise his voice, his humor,
@@ -56,3 +63,12 @@ MonoBehaviour:
   - key: hatevedal-07
     actor: {fileID: 11400000, guid: fe3d8bc061f4bf242bcf54deb02476b6, type: 2}
     text: Vedal, you are despised.
+  - key: vedal_what_clean
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: ...What?
+  - key: Evil_By_the_way_I_hate_you
+    actor: {fileID: 11400000, guid: 4cbe28819754a2447ac83877bf7e241c, type: 2}
+    text: '[door opens] Oh and by the way - I HATE YOU! [door slams]'
+  - key: vedal_sure_bro_clean
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: Sure, bro.

@@ -15,4 +15,4 @@ MonoBehaviour:
   spawnLocation: 0
   rules:
   - count: 1
-    probability: 0.005
+    probability: 0.01

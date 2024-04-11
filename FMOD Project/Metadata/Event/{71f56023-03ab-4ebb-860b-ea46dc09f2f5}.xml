@@ -32,7 +32,7 @@
 			<destination>{92f80dc8-a67e-4e39-8841-a0db36954c0e}</destination>
 		</relationship>
 		<relationship name="banks">
-			<destination>{6f6c823e-9073-439e-9503-3b2b490ddbfb}</destination>
+			<destination>{b53bb930-317b-47eb-b4f9-6582c4219d2a}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{cd1f2e1c-3220-467e-b3ee-9b7d96731b56}">
@@ -128,10 +128,16 @@
 	<object class="MixerBusEffectChain" id="{241a45aa-69be-4996-933f-4fe98c432556}">
 		<relationship name="effects">
 			<destination>{71b7be47-f486-44cf-9b40-94bc34f8579b}</destination>
+			<destination>{e3b4ff5b-d5ad-4ac9-99e7-49ed281d0388}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{96c8a1e0-3e32-4af3-b9b5-e96b50ac9960}" />
 	<object class="MixerBusFader" id="{f80bc811-7af5-45f9-83ed-cfb4457b51e2}" />
 	<object class="SpatialiserEffect" id="{7b091663-73b9-43ab-83da-d48ff7538df4}" />
 	<object class="MixerBusFader" id="{71b7be47-f486-44cf-9b40-94bc34f8579b}" />
+	<object class="LoudnessMeter" id="{e3b4ff5b-d5ad-4ac9-99e7-49ed281d0388}">
+		<property name="loudnessTarget">
+			<value>-15</value>
+		</property>
+	</object>
 </objects>

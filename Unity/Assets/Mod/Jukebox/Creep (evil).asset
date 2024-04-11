@@ -21,9 +21,9 @@ MonoBehaviour:
   streamLabelFormat: 
   overrideTrackLabel: 0
   trackLabel: Evil Neuro - Creep (cover)
-  unlockedOnStart: 1
+  unlockedOnStart: 0
   diskPrefab: {fileID: 0}
   diskSpawnLocation:
-    position: {x: 0, y: 0, z: 0}
+    position: {x: -206.1, y: -274.68, z: -740.5}
     rotation: {x: 0, y: 0, z: 0}
   unlockFmodEvent: 

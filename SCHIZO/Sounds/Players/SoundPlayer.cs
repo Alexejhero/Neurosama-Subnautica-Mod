@@ -17,10 +17,11 @@ partial class SoundPlayer
     private float _eventCleanupInterval = 1f;
     private float _nextUpdate;
     private List<Coroutine> _runningCoroutines;
-    private void StartSoundCoroutine(IEnumerator coroutine)
+
+    protected virtual void OnDestroy()
     {
-        // not started on the object because it might be disabled (inventory sounds)
-        _runningCoroutines.Add(CoroutineHost.StartCoroutine(coroutine));
+        CancelAllDelayed();
+        Stop();
     }
     protected virtual void FixedUpdate()
     {
@@ -82,10 +83,19 @@ partial class SoundPlayer
         }
     }
 
+    private void StartSoundCoroutine(IEnumerator coroutine)
+    {
+        // only matters for items given via the 'item' console command
+        // since the object is spawned disabled (so no Awake)
+        _runningCoroutines ??= [];
+        // not started on the object because it might be disabled (inventory sounds)
+        _runningCoroutines.Add(CoroutineHost.StartCoroutine(coroutine));
+    }
+
     public void CancelAllDelayed()
     {
-        _runningCoroutines.ForEach(CoroutineHost.StopCoroutine);
-        _runningCoroutines.Clear();
+        _runningCoroutines?.ForEach(CoroutineHost.StopCoroutine);
+        _runningCoroutines?.Clear();
     }
 
     private void PlayAttached()

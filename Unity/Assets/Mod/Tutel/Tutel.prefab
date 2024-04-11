@@ -424,7 +424,7 @@ MonoBehaviour:
   target: {fileID: 7324820681358416057}
   method: PlayOneShot
   arguments:
-  - 5
+  - 2
 --- !u!114 &5910127964089605354
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Logs
   m_EditorClassIdentifier: 
   registryItems:
-  - {fileID: 11400000, guid: 3453ad8d551ed434585de16787f36b1f, type: 2}
   - {fileID: 11400000, guid: acd61083d7861f749a701d0040f98644, type: 2}

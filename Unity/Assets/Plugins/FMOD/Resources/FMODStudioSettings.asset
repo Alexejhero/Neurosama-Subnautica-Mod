@@ -374,7 +374,8 @@ MonoBehaviour:
   Plugins: []
   MasterBanks:
   - SCHIZO
-  Banks: []
+  Banks:
+  - Music
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0

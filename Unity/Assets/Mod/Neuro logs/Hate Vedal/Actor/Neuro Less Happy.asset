@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e7af17d13e0bf94391eab75a961b1f1, type: 3}
   m_Name: Neuro Less Happy
   m_EditorClassIdentifier: 
-  identifier: neuro2
+  identifier: actor_neuro2
   displayName: Neuro-sama
   sprite: {fileID: 21300000, guid: bdf06c50f5c4d0845a63ad7170416306, type: 3}

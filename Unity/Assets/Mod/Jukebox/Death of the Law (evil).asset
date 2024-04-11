@@ -21,9 +21,9 @@ MonoBehaviour:
   streamLabelFormat: 
   overrideTrackLabel: 0
   trackLabel: Evil Neuro - Death of the Law (cover)
-  unlockedOnStart: 1
+  unlockedOnStart: 0
   diskPrefab: {fileID: 0}
   diskSpawnLocation:
-    position: {x: 0, y: 0, z: 0}
+    position: {x: -59.4, y: 28.69, z: 545.45}
     rotation: {x: 0, y: 0, z: 0}
   unlockFmodEvent: 
