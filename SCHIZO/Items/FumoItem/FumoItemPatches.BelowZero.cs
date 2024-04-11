@@ -6,7 +6,7 @@ using UWE;
 
 namespace SCHIZO.Items.FumoItem;
 [HarmonyPatch]
-internal static class FumoItemPatches
+partial class FumoItemPatches
 {
     private static bool _registered;
     private static ModItem fumoItem;
@@ -33,7 +33,7 @@ internal static class FumoItemPatches
     private static IEnumerator SpawnFumoCoro(LifepodDrop pod)
     {
         string fumoItemClassId = fumoItem.PrefabInfo.ClassID;
-        
+
         IPrefabRequest request = PrefabDatabase.GetPrefabAsync(fumoItemClassId);
         yield return request;
         if (!request.TryGetPrefab(out GameObject prefab))
