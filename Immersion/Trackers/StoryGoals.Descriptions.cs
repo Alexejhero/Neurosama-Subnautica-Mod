@@ -1,8 +1,10 @@
+using Story;
+
 namespace Immersion.Trackers;
 
 partial class StoryGoals
 {
-    public static Dictionary<string, string> StoryGoalDescriptions = new()
+    public static Dictionary<string, string> StoryGoalDescriptions = new(StoryGoal.KeyComparer)
     {
         // sorted roughly in story order
 

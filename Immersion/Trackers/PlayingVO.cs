@@ -1,4 +1,5 @@
 using Nautilus.Extensions;
+using Story;
 using UWE;
 
 namespace Immersion.Trackers;
@@ -56,7 +57,7 @@ public sealed class PlayingVO : Tracker
     public void OnGoalComplete(string key)
     {
         /// <see cref="IsShowingSubtitles" />
-        if (key == "OnEndGameBegin")
+        if (StoryGoal.Equals(key, "OnEndGameBegin"))
             UseSubs = true;
     }
 }

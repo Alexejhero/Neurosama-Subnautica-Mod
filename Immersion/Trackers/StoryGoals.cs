@@ -23,7 +23,7 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
 
     public void NotifyGoalComplete(string key)
     {
-        if (key == "OnPDAClosed") return;
+        if (StoryGoal.Equals(key, "OnPDAClosed")) return;
         LOGGER.LogDebug($"Completed story goal {key}");
         OnStoryGoalCompleted?.Invoke(key); // <-- resilient software architecture
 
