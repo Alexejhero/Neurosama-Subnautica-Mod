@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using HarmonyLib;
 using Nautilus.Utility;
 using UnityEngine;
@@ -127,129 +124,129 @@ partial class BZErmsharkLoadingIcon
     }
 #endif
 
+    // there used to be a beautiful, fully documented transpiler here
+    // but when we started to need five (5) distinct patches, i decided it was just not worth it
     [HarmonyPatch(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.OnUpdate))]
-    [HarmonyTranspiler]
-    private static IEnumerable<CodeInstruction> UpdateOurIconProperly(IEnumerable<CodeInstruction> instructions)
-    {
-        CodeMatcher matcher = new(instructions);
-        if (!Patch1_SmallerThresholdToStartMoving(matcher))
-            LOGGER.LogFatal("Could not apply patch 1 (smaller idle->moving gap) to uGUI_SceneLoading.OnUpdate!");
-
-        matcher.Start(); // reset in case the patch failed
-        if (!Patch2_WaitForIdleLoopToStartMoving(matcher))
-            LOGGER.LogFatal("Could not apply patch 2 (wait for idle anim loop before moving) to uGUI_SceneLoading.OnUpdate!");
-
-        matcher.Start();
-        if (!Patch3_CheckSpeedCurveOnMovingLoop(matcher))
-            LOGGER.LogFatal("Could not apply patch 3 (moving loop speed curve) to uGUI_SceneLoading.OnUpdate!");
-
-        return matcher.InstructionEnumeration();
-    }
-
-    private static bool Patch1_SmallerThresholdToStartMoving(CodeMatcher matcher)
-    {
-        // patch 1 - smaller gap to start moving from idle (it's a proportion of the sprite width)
-        matcher.MatchForward(false, new CodeMatch(OpCodes.Ldc_R4, 0.8f));
-        if (!matcher.IsValid) return false;
-
-        matcher.Set(OpCodes.Call, new Func<float>(GetMoveThresholdProportion).Method);
-        return true;
-    }
-
-    private static bool Patch2_WaitForIdleLoopToStartMoving(CodeMatcher matcher)
-    {
-        // patch 2 - wait for idle animation to loop before transitioning to moving
-        matcher.MatchForward(true,
-            // if (moveThreshold > this.position + spriteWidth)
-            new CodeMatch(OpCodes.Ldloc_3),
-            new CodeMatch(OpCodes.Ldarg_0),
-            new CodeMatch(OpCodes.Ldfld),
-            new CodeMatch(OpCodes.Ldloc_1),
-            new CodeMatch(OpCodes.Add),
-            new CodeMatch(ci => ci.opcode == OpCodes.Ble_Un || ci.opcode == OpCodes.Ble_Un_S)
-        );
-        if (!matcher.IsValid) return false;
-
-        Label breakLabel = (Label) matcher.Operand;
-        matcher.Advance(1);
-        matcher.InsertAndAdvance(
-            new CodeInstruction(OpCodes.Ldarg_0),
-            new CodeInstruction(OpCodes.Call, new Func<uGUI_SceneLoading, bool>(CallHasAnimJustLooped).Method),
-            new CodeInstruction(OpCodes.Brfalse, breakLabel)
-        );
-        return true;
-    }
-
-    private static bool Patch3_CheckSpeedCurveOnMovingLoop(CodeMatcher matcher)
-    {
-        // patch 3 - call the "check loop" function at the start of the "Move" state branch of the switch statement
-        // so we can restore the normal speed curve from the animation workaround
-        matcher.MatchForward(false,
-            new CodeMatch(OpCodes.Ldarg_0),
-            new CodeMatch(OpCodes.Ldfld, AccessTools.Field(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.speed)))
-        );
-        if (!matcher.IsValid) return false;
-
-        matcher.Insert(
-            new CodeInstruction(OpCodes.Ldarg_0)
-                .MoveLabelsFrom(matcher.Instruction),
-            new CodeInstruction(OpCodes.Call, new Func<uGUI_SceneLoading, bool>(CallHasAnimJustLooped).Method),
-            new CodeInstruction(OpCodes.Pop)
-        );
-        return true;
-    }
-
-    [HarmonyPatch(typeof(BZAnimation), nameof(BZAnimation.duration), MethodType.Getter)]
     [HarmonyPrefix]
-    private static bool CustomIconAnimFramerate(out float __result)
+    private static bool UpdateLoading(uGUI_SceneLoading __instance)
     {
-        __result = 0;
-        if (!instance || !instance.isOurs) return true;
+        uGUI_SceneLoading @this = __instance;
+        if (@this.IsLoading || @this.debug)
+        {
+            LoadingStage.FillStages(@this.stages);
+            @this.SetProgress(@this.CalcProgress());
+        }
+        if (@this.loadingBackground.canvasGroup.alpha > 0f)
+        {
+            // our addition - see where this is used to see all the other changes
+            bool isOurs = instance && instance.isOurs;
 
-        // technically a sin... but get_duration is only ever called inside Update
-        FrameAnimation ourAnim = (int) instance.loadingScreen.state switch
+            @this.materialBar.SetFloat(ShaderPropertyID._Amount, @this.progress);
+            float screenWidth = ((RectTransform) @this.pengling.rectTransform.parent).rect.width;
+            float spriteWidth = @this.textureWidth / @this.cols;
+            float moveThresholdOffset = -spriteWidth * (isOurs ? 0.5f : 0.8f); // our sprite is wider
+            float progressHeadPos = screenWidth * @this.progress + moveThresholdOffset;
+            if (@this.position > progressHeadPos)
+                @this.position = progressHeadPos;
+            if (@this.debug && @this.position >= progressHeadPos)
+                @this.position = 0f;
+            if (@this.state == uGUI_SceneLoading.State.None)
+            {
+                @this.position = moveThresholdOffset;
+                @this.state = uGUI_SceneLoading.State.Idle;
+            }
+#if DEBUG_LOADING_SCREEN
+            float dt = Time.deltaTime;
+#else
+            float dt = Time.unscaledDeltaTime;
+#endif
+            @this.time += dt;
+            float duration = GetAnimDuration(__instance);
+            float animLoopProportion = Mathf.Clamp01(@this.time / duration);
+            bool hasLooped = @this.time >= duration;
+            switch (@this.state)
+            {
+                case uGUI_SceneLoading.State.Idle:
+                    if (@this.position + spriteWidth <= progressHeadPos
+                        && (!isOurs || hasLooped)) // wait for loop to finish before moving
+                    {
+                        @this.time = 0f;
+                        @this.state = uGUI_SceneLoading.State.Move;
+                        if (isOurs)
+                            @this.speedCurve = instance.idleToMovingSpeedCurve;
+                    }
+                    else 
+                        @this.time %= duration;
+                    break;
+                case uGUI_SceneLoading.State.Move:
+                    {
+                        if (isOurs && hasLooped) // after first animloop from idle to moving
+                            @this.speedCurve = instance.movingLoopSpeedCurve;
+
+                        float deltaPos = @this.speed * @this.speedCurve.Evaluate(animLoopProportion) * dt;
+                        float margin = progressHeadPos - @this.position;
+                        if (deltaPos > margin)
+                        {
+                            @this.position = progressHeadPos;
+                            @this.time = 0f;
+                            @this.state = uGUI_SceneLoading.State.Fall;
+                        }
+                        else
+                        {
+                            @this.time %= duration;
+                            @this.position += deltaPos;
+                        }
+                        break;
+                    }
+                case uGUI_SceneLoading.State.Fall:
+                    if (@this.time > duration)
+                    {
+                        @this.time = 0f;
+                        @this.state = uGUI_SceneLoading.State.Idle;
+                    }
+                    break;
+            }
+            animLoopProportion = Mathf.Clamp01(@this.time / duration); // time could have changed
+            BZAnimation animation = @this.animations[(int) @this.state];
+            int frame = animation.from + Mathf.FloorToInt(animLoopProportion * animation.total);
+            @this.materialPengling.SetVector(ShaderPropertyID._MainTex_ST, new Vector4(screenWidth / spriteWidth, 1f, -@this.position / spriteWidth, 0f));
+            @this.materialPengling.SetVector(ShaderPropertyID._UVRect, MathExtensions.GetFrameScaleOffset(@this.cols, @this.rows, true, frame));
+        }
+        return false;
+    }
+
+    private const float _originalFramerate = 18;
+    private static bool _loggedZeroFramerateWarning;
+    private static float GetAnimDuration(uGUI_SceneLoading loading)
+    {
+        if (!instance || !instance.isOurs)
+            return loading.animations[(int)loading.state].duration;
+
+        FrameAnimation ourAnim = (int) loading.state switch
         {
             0 => instance.idle,
             1 => instance.moving,
             2 => instance.stopping,
             _ => default,
         };
-        if (ourAnim.framerate == default) return true;
-
-        __result = ourAnim.frameCount / ourAnim.framerate;
-        return false;
-    }
-    private static float GetMoveThresholdProportion()
-        => instance && instance.isOurs ? 0.5f : 0.8f;
-
-    private static bool CallHasAnimJustLooped(uGUI_SceneLoading loading)
-    {
-        if (!instance) return true;
-
-        bool looped = instance.HasAnimJustLooped(loading);
-        if (looped && instance.isOurs)
+        float framerate = ourAnim.framerate;
+        if (ourAnim.framerate == default) // division by zero
         {
-            // awful awful code
-            loading.speedCurve = loading.state == uGUI_SceneLoading.State.Idle
-                ? instance.idleToMovingSpeedCurve
-                : instance.movingLoopSpeedCurve;
+            if (!_loggedZeroFramerateWarning)
+            {
+                LOGGER.LogWarning($"Loading screen {loading.state switch
+                {
+                    uGUI_SceneLoading.State.None => "init",
+                    uGUI_SceneLoading.State.Idle => "idle",
+                    uGUI_SceneLoading.State.Move => "moving",
+                    uGUI_SceneLoading.State.Fall => "falling",
+                    _ => $"Unknown({(int)loading.state})",
+                }} animation has 0 framerate - this is not allowed. Defaulting to {_originalFramerate}fps. This will only be logged once.");
+                _loggedZeroFramerateWarning = true;
+            }
+            framerate = _originalFramerate;
         }
-        return looped;
+
+        return ourAnim.frameCount / framerate;
     }
-
-    private int _lastFrame;
-    private bool HasAnimJustLooped(uGUI_SceneLoading loading)
-    {
-        if (!isOurs) return true;
-
-        BZAnimation anim = loading.animations[(int) loading.state];
-        int frame = GetCurrentFrame(anim, loading.time);
-        bool hasLooped = frame < _lastFrame && _lastFrame <= anim.to;
-        _lastFrame = frame;
-
-        return hasLooped;
-    }
-
-    private static int GetCurrentFrame(BZAnimation anim, float time)
-        => anim.from + (int) ((time / anim.duration) * (anim.to - anim.from));
 }
