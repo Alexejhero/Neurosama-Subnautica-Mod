@@ -16,7 +16,7 @@ public readonly record struct PronounSet(string Subject, string Object, string P
 {
     #region Predefined
     public static readonly PronounSet IMe = new("I", "me", "my", "I'm", "I've", "myself");
-    public static readonly PronounSet You = new("You", "you", "your", "you're", "you've", "yourself");
+    public static readonly PronounSet You = new("you", "you", "your", "you're", "you've", "yourself");
     public static readonly PronounSet HeHim = new("he", "him", "his", "he's", "he's", "himself");
     public static readonly PronounSet SheHer = new("she", "her", "her", "she's", "she's", "herself");
     public static readonly PronounSet TheyThem = new("they", "them", "their", "they're", "they've", "themself");

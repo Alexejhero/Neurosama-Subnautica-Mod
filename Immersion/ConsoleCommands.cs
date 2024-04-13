@@ -102,9 +102,21 @@ internal class ConsoleCommands : MonoBehaviour
     private static string SetPronouns(string fullArg)
     {
         if (!PronounSet.TryParse(fullArg, out PronounSet pronounSet))
-            return "Could not parse pronouns (example: \"he/him/his\")";
+            return """
+                Could not parse pronouns.
+                Pronoun sets consist of six parts:
+                  - <color=yellow>Subject</color> (e.g. <color=green>I</color>)
+                  - <color=yellow>Object</color> (e.g. <color=green>me</color>)
+                  - <color=yellow>Possessive</color> (e.g. <color=green>his</color>)
+                  - <color=yellow>Contraction of 'is'</color> (e.g. <color=green>they're</color>)
+                  - <color=yellow>Contraction of 'has'</color> (e.g. <color=green>you've</color>)
+                  - <color=yellow>Reflexive</color> (e.g. <color=green>itself</color>)
+                Predefined sets are: <color=orange>I</color>, <color=orange>you</color>, <color=orange>he</color>, <color=orange>she</color>, <color=orange>they</color>, <color=orange>it</color>
+                For others, at least <color=yellow>Subj/Obj/Poss</color> are required.
+                Example: he/him/his
+                """;
         Globals.PlayerPronouns = pronounSet;
-        return null;
+        return $"Pronouns set to <color=green>{pronounSet}</color>";
     }
 
     public static void SetComponentEnabled(Type type, bool enable)

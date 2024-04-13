@@ -7,29 +7,44 @@ public sealed partial class CreatureEncounters : Tracker
 {
     /// <param name="unscannedDescription">A short description of the creature from the perspective of a first encounter.</param>
     /// <param name="firstTimeOnly">Notify only on first encounter and ignore subsequent ones.</param>
-    public sealed record EncounterData(string unscannedDescription, bool firstTimeOnly = true);
+    public sealed record EncounterData(string UnscannedDescription, bool FirstTimeOnly = true, float Cooldown = 60f)
+    {
+        private float _nextTime;
+        public bool CanTrigger => Time.time > _nextTime;
+        public void NotifyTriggered() => _nextTime = Time.time + Cooldown;
+    }
 
     public static readonly Dictionary<TechType, EncounterData> Database = new()
     {
-        [TechType.SpikeyTrap] = new("some sort of carnivorous plant tentacle"),
-        [TechType.SquidShark] = new("an aggressive shark-squid hybrid"),
-        [TechType.IceWorm] = new("a gigantic worm burrowing out of the ground", false),
-        [TechType.LilyPaddler] = new("an invisible, imperceptible enemy. The danger level is off the charts"),
-        [TechType.Chelicerate] = new("an extremely hostile leviathan-class creature"),
-        [TechType.ShadowLeviathan] = new("a massive, aggressive leviathan"),
+        [TechType.SpikeyTrap] = new("Some sort of carnivorous plant tentacle has grabbed {player} and is pulling {object} in!"),
+        [TechType.IceWorm] = new("A gigantic worm is burrowing out of the frozen ground!", false),
+        [TechType.LilyPaddler] = new("{player} is up the droga. lit in the silly string. {subject} smonk the vead. heheh."),
+        [TechType.SnowStalker] = new("{player} is pinned down by a huge bear-like beast!"),
+        [TechType.SquidShark] = new("{player} is struggling against the jaws of a shark-squid hybrid!"),
+        [TechType.Chelicerate] = new("An extremely hostile leviathan-class creature has grabbed {player} and is about to consume {object} whole!"),
+        [TechType.ShadowLeviathan] = new("A massive, deadly leviathan has {player} in its grasp. There is no hope of escape."),
     };
 
     public void NotifyCreatureEncounter(TechType creatureTechType)
     {
         if (!Database.TryGetValue(creatureTechType, out EncounterData data)) return;
-        if (data.firstTimeOnly && !StoryGoalManager.main.OnGoalComplete(GoalFor(creatureTechType)))
+        if (data.FirstTimeOnly && !StoryGoalManager.main.OnGoalComplete(GoalFor(creatureTechType)))
             return;
+        if (!data.CanTrigger) return;
 
-        string creatureName = PDAScanner.complete.Contains(creatureTechType)
-            ? Format.WithArticle(Language.main.Get(creatureTechType))
-            : data.unscannedDescription;
+        string message;
+        if (PDAScanner.complete.Contains(creatureTechType))
+        {
+            string creatureName = Format.WithArticle(Language.main.Get(creatureTechType));
+            message = $"{{player}} is being attacked by {creatureName}!";
+        }
+        else
+        {
+            message = data.UnscannedDescription;
+        }
+        data.NotifyTriggered();
 
-        React(Priority.High, Format.FormatPlayer($"{{player}} is being attacked by {creatureName}!"));
+        React(Priority.High, Format.FormatPlayer(message));
     }
 
     private static string GoalFor(TechType techType) => $"{typeof(CreatureEncounters).FullName}.{techType}";
