@@ -8,30 +8,41 @@ using UnityEngine;
 namespace SCHIZO.Creatures.Hiyorifish;
 
 [HarmonyPatch]
-partial class OverrideScanProgress
+public static class OverrideScanProgress
 {
     public delegate float UpdateScanProgress(PDAScanner.ScanTarget target, float scanTime);
-    public static readonly Dictionary<TechType, UpdateScanProgress> updateFuncs = new()
-    {
-        [TechType.None] = (target, scanTime) => target.progress + Time.deltaTime / scanTime,
-        // todo hiyorifish loader
-        [(TechType) 10064] = (target, scanTime) =>
-        {
-            float scaledScanTime = scanTime / (1 - target.progress);
-            float next = target.progress + Time.deltaTime / scaledScanTime + Random.Range(-0.005f, 0.005f);
-            if (next > 1) // just so it doesn't show/hit 100%
-                next -= Random.Range(0.02f, 0.05f);
-
-            return next;
-        },
-    };
+    public static readonly Dictionary<TechType, UpdateScanProgress> updateFuncs = [];
 
     private static void UpdateScanProgressProxy(ref PDAScanner.ScanTarget target, float scanTime)
     {
-        if (!updateFuncs.TryGetValue(target.techType, out UpdateScanProgress updateFunc))
-            updateFunc = updateFuncs[TechType.None];
-
+        UpdateScanProgress updateFunc = updateFuncs.GetOrDefault(target.techType, DefaultUpdateFunc);
         target.progress = updateFunc(target, scanTime);
+
+    }
+    private static float DefaultUpdateFunc(PDAScanner.ScanTarget target, float scanTime)
+        => target.progress + Time.deltaTime / scanTime;
+
+    public static void Register(TechType techType, UpdateScanProgress updateFunc)
+    {
+        if (updateFuncs.ContainsKey(techType))
+            LOGGER.LogWarning($"Scan override function already defined for {techType}, overwriting");
+        updateFuncs[techType] = updateFunc;
+    }
+
+    public static UpdateScanProgress Default() => DefaultUpdateFunc;
+    public static UpdateScanProgress Limit(float limit)
+    {
+        return (target, scanTime) =>
+        {
+            // slow down w/ more progress
+            float scaledScanTime = scanTime / (1 - target.progress);
+            float next = target.progress + Time.deltaTime / scaledScanTime;
+            next += Random.Range(-0.005f, 0.005f); // jitter
+            if (next >= limit) // just so it doesn't show/hit 100%
+                next = limit - Random.Range(0.02f, 0.05f);
+
+            return next;
+        };
     }
 
     [HarmonyPatch(typeof(PDAScanner), nameof(PDAScanner.Scan))]

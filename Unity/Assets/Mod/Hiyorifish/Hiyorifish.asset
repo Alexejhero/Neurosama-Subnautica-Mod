@@ -84,4 +84,6 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: CreatureLoader, ns: SCHIZO.Creatures, asm: SCHIZO}
+      type: {class: HiyorifishLoader, ns: SCHIZO.Creatures.Hiyorifish, asm: SCHIZO}
+      data:
+        scanProgressLimit: 0.987
