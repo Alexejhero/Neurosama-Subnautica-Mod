@@ -12,10 +12,11 @@ public sealed partial class CreatureEncounters : Tracker
     public static readonly Dictionary<TechType, EncounterData> Database = new()
     {
         [TechType.SpikeyTrap] = new("some sort of carnivorous plant tentacle"),
-        [TechType.SquidShark] = new("an unknown shark-squid hybrid"),
+        [TechType.SquidShark] = new("an aggressive shark-squid hybrid"),
         [TechType.IceWorm] = new("a gigantic worm burrowing out of the ground", false),
         [TechType.LilyPaddler] = new("an invisible, imperceptible enemy. The danger level is off the charts"),
-        [TechType.Chelicerate] = new("a massive, extremely hostile leviathan-class creature"),
+        [TechType.Chelicerate] = new("an extremely hostile leviathan-class creature"),
+        [TechType.ShadowLeviathan] = new("a massive, aggressive leviathan"),
     };
 
     public void NotifyCreatureEncounter(TechType creatureTechType)
