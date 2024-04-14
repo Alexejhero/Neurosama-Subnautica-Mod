@@ -21,25 +21,26 @@ partial class SneakyFumoSpawner
 
     private IEnumerator NeuroFumoIs100mFromYourLocationAndRapidlyApproaching()
     {
-        LOGGER.LogWarning("starting");
+        // Log("starting");
         // player enters drop pod for the first time, no fumo is present
         while (!StoryGoalHelpers.IsCompleted("OnEnterLifepod"))
             yield return new WaitForSecondsRealtime(5);
-        LOGGER.LogWarning("entered");
+        // Log("entered");
 
         // player leaves for a while
         while (!StoryGoalHelpers.IsCompleted("OnExitLifepod"))
             yield return new WaitForSecondsRealtime(5);
-        LOGGER.LogWarning("exited");
+        // Log("exited");
 
         yield return new WaitForSeconds(minAwayTime); // probably completely useless
-        LOGGER.LogWarning("waited");
+        // Log("waited for time, waiting for distance");
         while ((Player.main.transform.position - transform.position).magnitude < minAwayDistance)
             yield return new WaitForSecondsRealtime(1);
-        LOGGER.LogWarning("away");
+        // Log("spawning");
 
         yield return TheFumoAppears();
     }
+    // private void Log(string msg) => LOGGER.LogDebug($"{name}: {msg}");
 
     private IEnumerator GetPrefab()
     {
