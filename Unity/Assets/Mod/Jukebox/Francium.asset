@@ -22,7 +22,8 @@ MonoBehaviour:
   overrideTrackLabel: 0
   trackLabel: Neuro-sama - Francium (cover)
   unlockedOnStart: 0
-  diskPrefab: {fileID: 0}
+  diskPrefab: {fileID: 6492233284419335816, guid: d22ec62c611ee7545b0126d2a612b118,
+    type: 3}
   diskSpawnLocation:
     position: {x: -251.636, y: 41.455, z: -790.693}
     rotation: {x: 44, y: 0, z: 75}
