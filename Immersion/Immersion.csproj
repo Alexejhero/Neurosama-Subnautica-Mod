@@ -18,7 +18,12 @@
         <!--<PackageReference Include="Krafs.Publicizer" Version="2.2.1" PrivateAssets="all" />-->
         <PackageReference Include="PolySharp" Version="1.14.0" PrivateAssets="all" />
 
-        <PackageReference Include="AvsAn" Version="3.2.0" /> <!-- don't forget to copy it to the plugin folder ;) -->
+        <PackageReference Include="AvsAn" Version="3.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Resources/**" />
+        <EmbeddedResource Remove="Resources/**/*.cs" />
     </ItemGroup>
 
     <!--<ItemGroup>

@@ -2,6 +2,7 @@ global using static Immersion.Plugin;
 using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
+using Immersion.Resources;
 using Immersion.Trackers;
 
 namespace Immersion;
@@ -22,6 +23,9 @@ public sealed class Plugin : BaseUnityPlugin
         PLUGIN_OBJECT = gameObject;
         LOGGER = Logger;
         HARMONY = new Harmony(PLUGIN_NAME);
+
+        ResourceManager.InjectAssemblies();
+
         HARMONY.PatchAll();
     }
 
