@@ -26,5 +26,5 @@ MonoBehaviour:
     type: 3}
   diskSpawnLocation:
     position: {x: -206.1, y: -274.68, z: -740.5}
-    rotation: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 90, z: 0}
   unlockFmodEvent: 
