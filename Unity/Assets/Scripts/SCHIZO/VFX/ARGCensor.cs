@@ -1,3 +1,4 @@
+using System.Collections;
 using TriInspector;
 using UnityEngine;
 
@@ -22,17 +23,22 @@ namespace SCHIZO.VFX
 
         public void Awake()
         {
-            _ = SchizoVFXStack.Instance;
-
             propBlock = new CustomMaterialPropertyBlock(effectMaterial);
 
             lastUpdate = Time.time;
             arrayDepth = ((Texture2DArray) effectMaterial.GetTexture(_texID)).depth;
         }
 
+        public IEnumerator Start()
+        {
+            yield return new WaitUntil(() => Camera.main);
+            _ = SchizoVFXStack.Instance;
+        }
+
         public void LateUpdate()
         {
-            Vector3 dirToCam = (Camera.main!.transform.position - transform.position).normalized;
+            if (!Camera.main) return;
+            Vector3 dirToCam = (Camera.main.transform.position - transform.position).normalized;
             Vector3 pos = Camera.main.WorldToScreenPoint(transform.position + dirToCam);
 
             float dot = Vector3.Dot(transform.forward, dirToCam);

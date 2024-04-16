@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1034248415123743296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7549200066237303667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242486c827558b144aedf1d1b5cd9c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRange: 50
+  lookTurnPower: -3
 --- !u!114 &4987332174112196998
 MonoBehaviour:
   m_ObjectHideFlags: 0
