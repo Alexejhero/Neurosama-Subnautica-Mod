@@ -24,6 +24,8 @@ public partial class GameEvent : IStoryGoalListener
         player = Player.main;
 
         StoryGoalManager.main.AddListener(this);
+        if (string.IsNullOrEmpty(RequiredStoryGoal))
+            Unlock();
     }
 
     #region Unlock goals
@@ -43,7 +45,8 @@ public partial class GameEvent : IStoryGoalListener
     {
         if (StoryGoalHelpers.IsCompleted(Goals.FirstTime)) IsFirstTime = false;
         if (StoryGoalHelpers.IsCompleted(Goals.Unlock)) IsUnlocked = true;
-        if (StoryGoalHelpers.IsCompleted(RequiredStoryGoal)) Unlock();
+        if (StoryGoalHelpers.IsCompleted(RequiredStoryGoal))
+            Unlock();
     }
 
     public void Unlock()

@@ -90,7 +90,10 @@ partial class ErmfishDefenseForce
         return !_spawning
             && CurrentAggro > startAggroThreshold
             && _cooldownTimer <= Time.time
-            && Player.main && !Player.main.currentSub && Player.main.currentInterior is null // don't spawn indoors
+            && Player.main && !Player.main.currentSub
+#if BELOWZERO
+            && Player.main.currentInterior is null // don't spawn indoors
+#endif
             && Player.main.IsUnderwaterForSwimming() // there are no land kill squads... yet
             ;
     }
