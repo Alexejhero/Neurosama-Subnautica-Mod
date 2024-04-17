@@ -94,19 +94,28 @@ MonoBehaviour:
   killedByDefenderAggro: -1000
   ermconScoreAggro: {x: -10, y: 50}
   defenders:
-  - _defender: {fileID: 11400000, guid: 5159b45dc6c3d83449b9eb96602c772c, type: 2}
+  - name: Kill Squad
+    _defender: {fileID: 11400000, guid: 5159b45dc6c3d83449b9eb96602c772c, type: 2}
     aggroCost: 250
     maxGroupSize: 5
     spawnWeight: 5
-  - _defender: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
-    aggroCost: 20
+  - name: Peace Negotiations
+    _defender: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
+    aggroCost: 50
     maxGroupSize: 10
     spawnWeight: 2
-  - _defender: {fileID: 11400000, guid: 87067f32545a0f74b95731190912dcd3, type: 2}
+  - name: Ineffective At Best
+    _defender: {fileID: 11400000, guid: 87067f32545a0f74b95731190912dcd3, type: 2}
     aggroCost: -100
     maxGroupSize: 1
     spawnWeight: 2
-  - _defender: {fileID: 11400000, guid: 6abf367663a723f4fa2a8e0715a05a6c, type: 2}
+  - name: ???
+    _defender: {fileID: 11400000, guid: 6abf367663a723f4fa2a8e0715a05a6c, type: 2}
     aggroCost: 1500
     maxGroupSize: 1
     spawnWeight: 0
+  - name: Warning
+    _defender: {fileID: 11400000, guid: 880f463bbb4c2374aaa6cf41efdbc505, type: 2}
+    aggroCost: 100
+    maxGroupSize: 3
+    spawnWeight: 2

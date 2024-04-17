@@ -36,18 +36,18 @@ partial class ErmfishDefenseForce
         }
     }
 
-    public override bool IsOccurring => _spawning || ActiveDefenders.Count > 0;
+    public override bool IsOccurring => _spawning;
 
     private bool _spawning;
     private float _cooldownTimer;
-    public bool debugKarma = true;
+    public bool debugKarma = false;
 
     private void Start()
     {
         instance = this;
 
         ActiveDefenders = [];
-        // _cooldownTimer = startCooldown / 2f;
+        _cooldownTimer = startCooldown / 2f;
     }
 
     public void OnCook(TechType techType) => OnAggroEvent(techType, cookAggro);
@@ -87,9 +87,12 @@ partial class ErmfishDefenseForce
 
     protected override bool ShouldStartEvent()
     {
-        return Player.main && !Player.main.currentSub && Player.main.currentInterior is null // don't spawn indoors
+        return !_spawning
             && CurrentAggro > startAggroThreshold
-            && _cooldownTimer <= Time.time;
+            && _cooldownTimer <= Time.time
+            && Player.main && !Player.main.currentSub && Player.main.currentInterior is null // don't spawn indoors
+            && Player.main.IsUnderwaterForSwimming() // there are no land kill squads... yet
+            ;
     }
 
     protected override void UpdateLogic()
@@ -150,7 +153,7 @@ partial class ErmfishDefenseForce
         }
         if (defender.maxGroupSize == 0)
         {
-            ErrorMessage.AddMessage($"delopver forgor to set group size on {defender.ClassId} everybody point and laugh");
+            ErrorMessage.AddMessage($"delopver forgor to set group size on {defender.name} everybody point and laugh");
             yield break;
         }
         _spawning = true;
@@ -159,7 +162,7 @@ partial class ErmfishDefenseForce
         GameObject prefab = prefabTask.Get();
         if (!prefab) yield break;
         CurrentAggro -= defender.aggroCost * willSpawn;
-        LOGGER.LogDebug($"(EDF) spawning {willSpawn} {defender.ClassId}");
+        LOGGER.LogDebug($"(EDF) spawning {defender.name} ({willSpawn} {defender.ClassId})");
         for (int i = 0; i < willSpawn; i++)
         {
             GameObject instance = GameObject.Instantiate(prefab);

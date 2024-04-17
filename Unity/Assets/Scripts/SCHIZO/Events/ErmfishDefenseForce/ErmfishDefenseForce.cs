@@ -2,7 +2,6 @@ using System;
 using SCHIZO.Items.Data;
 using TriInspector;
 using UnityEngine;
-using OurCreatureData = SCHIZO.Creatures.Data.CreatureData;
 
 namespace SCHIZO.Events.ErmfishDefenseForce
 {
@@ -33,8 +32,9 @@ namespace SCHIZO.Events.ErmfishDefenseForce
         [Serializable]
         public partial class Defender
         {
+            public string name;
             [SerializeField]
-            private OurCreatureData _defender;
+            private ItemData _defender;
             public string ClassId => _defender.classId;
             [Tooltip("Cost to spawn each of this type of defender")]
             public float aggroCost;

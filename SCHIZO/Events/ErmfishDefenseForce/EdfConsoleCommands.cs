@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Nautilus.Commands;
 using SCHIZO.ConsoleCommands;
+using SCHIZO.Helpers;
 
 namespace SCHIZO.Events.ErmfishDefenseForce;
 
@@ -33,7 +34,7 @@ public static class EdfConsoleCommands
 
             ErmfishDefenseForce.instance.SetAggro(value, $"{CommandName} aggro");
         }
-        return ErmfishDefenseForce.instance.CurrentAggro.ToString();
+        return MessageHelpers.GetCommandOutput(ErmfishDefenseForce.instance.CurrentAggro.ToString());
 
         syntax: return $"Syntax: {CommandName} aggro [value]";
     }
