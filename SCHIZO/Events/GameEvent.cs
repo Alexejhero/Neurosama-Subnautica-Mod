@@ -43,6 +43,7 @@ public partial class GameEvent : IStoryGoalListener
     {
         if (StoryGoalHelpers.IsCompleted(Goals.FirstTime)) IsFirstTime = false;
         if (StoryGoalHelpers.IsCompleted(Goals.Unlock)) IsUnlocked = true;
+        if (StoryGoalHelpers.IsCompleted(RequiredStoryGoal)) Unlock();
     }
 
     public void Unlock()

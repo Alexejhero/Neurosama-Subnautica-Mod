@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4467702297700911383}
   - component: {fileID: -7983399759034830066}
   - component: {fileID: 2221432346329158674}
+  - component: {fileID: -2200444302914333332}
   m_Layer: 0
   m_Name: Event Manager
   m_TagString: Untagged
@@ -64,3 +65,48 @@ MonoBehaviour:
   panelistSearchRadius: 30
   maxDuration: 300
   cooldown: 1800
+--- !u!114 &-2200444302914333332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486619896881858908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3263c91e0c7c923429a01e0f84582c4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canAutoStart: 1
+  requiredStoryGoal_SN: 
+  requiredStoryGoal_BZ: SanctuaryCompleted
+  protectedSpecies:
+  - {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
+  - {fileID: 11400000, guid: 324e5d1e52d07e340966e385d5f216af, type: 2}
+  - {fileID: 11400000, guid: 66ad7caf49bcbc44283e8171bcad55e5, type: 2}
+  startAggroThreshold: 500
+  startCooldown: 1800
+  pickUpAggro: 10
+  dropAggro: -11
+  attackAggro: 50
+  cookAggro: 25
+  eatAggro: 25
+  killedByDefenderAggro: -1000
+  ermconScoreAggro: {x: -10, y: 50}
+  defenders:
+  - _defender: {fileID: 11400000, guid: 5159b45dc6c3d83449b9eb96602c772c, type: 2}
+    aggroCost: 250
+    maxGroupSize: 5
+    spawnWeight: 5
+  - _defender: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
+    aggroCost: 20
+    maxGroupSize: 10
+    spawnWeight: 2
+  - _defender: {fileID: 11400000, guid: 87067f32545a0f74b95731190912dcd3, type: 2}
+    aggroCost: -100
+    maxGroupSize: 1
+    spawnWeight: 2
+  - _defender: {fileID: 11400000, guid: 6abf367663a723f4fa2a8e0715a05a6c, type: 2}
+    aggroCost: 1500
+    maxGroupSize: 1
+    spawnWeight: 0
