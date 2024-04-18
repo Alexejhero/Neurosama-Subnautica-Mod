@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Nautilus.Handlers;
 using Nautilus.Json;
 using Nautilus.Json.Attributes;
 using Unity.Collections;
@@ -56,13 +57,6 @@ partial class ErmfishDefenseForce
 
         SaveData.Instance.Attach(this);
         SaveData.Instance.Load();
-    }
-
-    private new void OnDestroy()
-    {
-        SaveData.Instance.Save();
-        SaveData.Instance.Detach();
-        base.OnDestroy();
     }
 
     public void OnCook(TechType techType)
@@ -262,7 +256,7 @@ partial class ErmfishDefenseForce
     private class SaveData : SaveDataCache
     {
         private static SaveData _instance;
-        public static SaveData Instance => _instance ??= new();
+        public static SaveData Instance => _instance ??= SaveDataHandler.RegisterSaveDataCache<SaveData>();
 
         public float aggro;
 
@@ -270,21 +264,15 @@ partial class ErmfishDefenseForce
         public SaveData()
         {
             _instance = this;
+            OnStartedSaving += SaveAggro;
+            OnFinishedLoading += LoadAggro;
         }
         public void Attach(ErmfishDefenseForce source)
         {
             _source = source;
-            OnStartedSaving += SaveAggro;
-            OnFinishedLoading += LoadAggro;
         }
  
         private void SaveAggro(object sender, JsonFileEventArgs e) => aggro = _source ? _source.CurrentAggro : default;
         private void LoadAggro(object sender, JsonFileEventArgs e) => _source!?.SetAggro(aggro);
-
-        public void Detach()
-        {
-            OnStartedSaving -= SaveAggro;
-            OnFinishedLoading -= LoadAggro;
-        }
     }
 }
