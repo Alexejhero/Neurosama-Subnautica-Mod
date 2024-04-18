@@ -85,11 +85,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 324e5d1e52d07e340966e385d5f216af, type: 2}
   - {fileID: 11400000, guid: 66ad7caf49bcbc44283e8171bcad55e5, type: 2}
   startAggroThreshold: 500
-  startCooldown: 1800
-  pickUpAggro: 10
-  dropAggro: -11
-  attackAggro: 50
-  cookAggro: 25
+  startCooldown: 3600
+  pickUpAggro: 25
+  dropAggro: -25
+  attackAggro: 100
+  cookAggro: 50
   eatAggro: 25
   killedByDefenderAggro: -1000
   ermconScoreAggro: {x: -10, y: 50}

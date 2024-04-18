@@ -61,7 +61,7 @@ public partial class GameEvent : IStoryGoalListener
         IsUnlocked = false;
     }
 
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         if (StoryGoalManager.main) StoryGoalManager.main.RemoveListener(this);
     }
