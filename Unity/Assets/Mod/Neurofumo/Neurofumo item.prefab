@@ -58,6 +58,21 @@ MonoBehaviour:
   underwaterDrag: 0.5
   handleWind: 0
   windScalar: 1
+--- !u!114 &4318481871196627161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5527787040625736568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def191360849e4c4eb0083d03d029b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideTransform: {fileID: 6978155363206644661}
+  localPosition: {x: 0, y: 0, z: 0}
+  localRotation: {x: 0, y: 0, z: 0}
 --- !u!114 &5550508841886641735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +278,12 @@ GameObject:
 --- !u!1 &3269361375025024291 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7562518425654818928, guid: 5a15aed96d8d1b84592bfbe203825ee4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5020507161881458003}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6978155363206644661 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2700769981969528550, guid: 5a15aed96d8d1b84592bfbe203825ee4,
     type: 3}
   m_PrefabInstance: {fileID: 5020507161881458003}
   m_PrefabAsset: {fileID: 0}
