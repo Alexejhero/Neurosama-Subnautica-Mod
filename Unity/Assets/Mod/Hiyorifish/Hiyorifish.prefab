@@ -14,6 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxRange: 50
   lookTurnPower: -3
+  vanishMinLifetime: 60
+  vanishChance: 0.5
+  passiveDuration: 30
+  aggressiveDuration: 15
+  swimBehaviour: {fileID: 2667812283263822636}
+  swimSpeed: 8
+  teleportDelay: 2
+  attackDamage: 10
+  attackCooldown: 5
 --- !u!114 &4987332174112196998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +334,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3375126442975429765}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2667812283263822636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -8371309086422519895, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 3375126442975429765}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7549200066237303667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2260eca3617340a59dfb84ebfeade9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7640931474346355170 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4962070890995002727, guid: 5ff80f47f2822bb438251c8a7a1370ca,
