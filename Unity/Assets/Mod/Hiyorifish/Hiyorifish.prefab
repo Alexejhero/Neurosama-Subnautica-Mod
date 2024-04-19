@@ -222,6 +222,11 @@ PrefabInstance:
       propertyPath: pickupable
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3563691498816874095, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+        type: 3}
+      propertyPath: surfaceType
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4430336063030548523, guid: 5ff80f47f2822bb438251c8a7a1370ca,
         type: 3}
       propertyPath: m_RootOrder

@@ -6,7 +6,11 @@ using JetBrains.Annotations;
 using RuntimeDebugDraw;
 using SCHIZO.Helpers;
 using UnityEngine;
+#if BELOWZERO
 using UWEXR;
+#else
+using UnityEngine.XR;
+#endif
 
 namespace SCHIZO.Creatures.Hiyorifish;
 
@@ -111,7 +115,8 @@ partial class ILookAtYouLookingAtMe : IOnTakeDamage
         _minDist = Mathf.Min(_minDist, distance);
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        Quaternion lookErrorQ = Quaternion.Inverse(cam.rotation) * targetRotation;
+        Quaternion camRotation = cam.cameraOffsetTransform.rotation;
+        Quaternion lookErrorQ = Quaternion.Inverse(camRotation) * targetRotation;
         Vector2 lookError = lookErrorQ.eulerAngles.FixAngles();
 
         // don't try dot product we need fov
@@ -166,24 +171,27 @@ partial class ILookAtYouLookingAtMe : IOnTakeDamage
     // nothin personnel, kid
     private IEnumerator TeleportsBehindYou()
     {
-        Player player = Player.main;
-        if (!player || player.currentSub || !player.IsUnderwaterForSwimming()) yield break;
-#if BELOWZERO
-        if (player.currentInterior is { }) yield break;
-#endif
-
         // pick a point behind the player
+        Vector3 back = -MainCamera.camera.transform.forward;
+        Player player = Player.main;
         Vector3 playerPos = player.transform.position;
+        if (player.isPiloting)
+        {
+            // cba to deal w/ vehicle bounds, just tp in front instead
+            back = -back;
+            playerPos += back;
+        }
         float dist = Mathf.Clamp((playerPos - transform.position).magnitude, 5, 15);
-        Vector3 behindPlayer = playerPos + dist * (Random.insideUnitSphere - MainCamera.camera.transform.forward);
+        Vector3 behindPlayer = playerPos + dist * (Random.insideUnitSphere + back);
         if (behindPlayer.y > 0) behindPlayer.y = 0; // fish can't walk dummy
+
         // let's see if we hit anything
         Vector3 ray = behindPlayer - playerPos;
         int layerMask = Physics.DefaultRaycastLayers & _noPlayerLayer;
         bool didHit = Physics.Raycast(playerPos, ray.normalized, out RaycastHit hit, ray.magnitude, layerMask, QueryTriggerInteraction.Ignore);
-        Vector3 closestPoint = didHit ? hit.point : behindPlayer;
+        Vector3 closestPoint = !player.isPiloting && didHit ? hit.point : behindPlayer;
 
-        // todo some sort of vfx
+        // TODO: some sort of vfx
         const float moveDuration = 0.1f;
         Vector3 oldPos = transform.position;
         for (float t = 0; t < moveDuration; t += Time.deltaTime)
@@ -197,11 +205,13 @@ partial class ILookAtYouLookingAtMe : IOnTakeDamage
 
     private void SetMode(bool aggressive)
     {
+        if (SwimBehaviour) SwimBehaviour.LookForward();
+        if (_isAggressive == aggressive) return;
+
         _isAggressive = aggressive;
         _timeInCurrentMode = 0;
         _minDist = float.PositiveInfinity;
 
-        if (SwimBehaviour) SwimBehaviour.LookForward();
         if (aggressive) StartCoroutine(AggressiveMode());
     }
 
@@ -209,25 +219,45 @@ partial class ILookAtYouLookingAtMe : IOnTakeDamage
     {
         while (_isAggressive)
         {
+            Player player = Player.main;
+            Transform playerTransform = player.transform;
             if (SwimBehaviour)
             {
-                Transform playerTransform = Player.main.transform;
                 SwimBehaviour.LookAt(playerTransform);
                 transform.LookAt(playerTransform);
                 SwimBehaviour.SwimTo(playerTransform.position, swimSpeed);
             }
             yield return new WaitForSeconds(teleportDelay);
+            // (re-)check conditions since time passed
             if (!_isAggressive) break;
+            if (!player) break;
+            // we want to attack vehicles but only when they're actively being piloted
+            bool isInside = player.currentSub
+#if BELOWZERO
+                || player.currentInterior is { }
+#endif
+                ;
+            if (!player.isPiloting && (isInside || !player.IsUnderwaterForSwimming())) // piloting = not underwater (i guess it makes some sense)
+                break;
+
+            LiveMixin damageTarget = player.isPiloting
+                ? playerTransform.parent.GetComponentInParent<LiveMixin>()
+                : player.liveMixin;
             yield return TeleportsBehindYou();
-            Player.main.liveMixin.TakeDamage(attackDamage, type: DamageType.Pressure, dealer: gameObject);
+            damageTarget.TakeDamage(attackDamage, type: DamageType.Puncture, dealer: gameObject);
             yield return new WaitForSeconds(attackCooldown);
         }
+        SetMode(false);
     }
 
     public void OnTakeDamage(DamageInfo damageInfo)
     {
         damageInfo.damage = 0; // no :^)
-        if (damageInfo.dealer != Player.main.gameObject) return;
-        SetMode(true);
+        // TODO: player dealer is almost always null in SN (knife, exosuit, etc)
+        // BZ exosuit dealer is null too (at least they fixed the knife i guess)
+        if (!damageInfo.dealer) return;
+        // vehicles and the like
+        if (Player.main.transform.IsChildOf(damageInfo.dealer.transform))
+            SetMode(true);
     }
 }
