@@ -172,24 +172,17 @@ partial class ILookAtYouLookingAtMe : IOnTakeDamage
     private IEnumerator TeleportsBehindYou()
     {
         // pick a point behind the player
-        Vector3 back = -MainCamera.camera.transform.forward;
         Player player = Player.main;
-        Vector3 playerPos = player.transform.position;
-        if (player.isPiloting)
-        {
-            // cba to deal w/ vehicle bounds, just tp in front instead
-            back = -back;
-            playerPos += back;
-        }
-        float dist = Mathf.Clamp((playerPos - transform.position).magnitude, 5, 15);
-        Vector3 behindPlayer = playerPos + dist * (Random.insideUnitSphere + back);
-        if (behindPlayer.y > 0) behindPlayer.y = 0; // fish can't walk dummy
 
-        // let's see if we hit anything
-        Vector3 ray = behindPlayer - playerPos;
+        float dist = Random.Range(5f, 15f);
+        Vector3 targetPos = player.transform.position + dist * (Random.insideUnitSphere - MainCamera.camera.transform.forward);
+        if (targetPos.y > 0) targetPos.y = 0; // fish can't walk dummy
+
+        // let's see if we hit anything on the way
+        Vector3 line = targetPos - transform.position;
         int layerMask = Physics.DefaultRaycastLayers & _noPlayerLayer;
-        bool didHit = Physics.Raycast(playerPos, ray.normalized, out RaycastHit hit, ray.magnitude, layerMask, QueryTriggerInteraction.Ignore);
-        Vector3 closestPoint = !player.isPiloting && didHit ? hit.point : behindPlayer;
+        bool didHit = Physics.Raycast(transform.position, line.normalized, out RaycastHit hit, line.magnitude, layerMask, QueryTriggerInteraction.Ignore);
+        Vector3 closestPoint = didHit ? hit.point : targetPos;
 
         // TODO: some sort of vfx
         const float moveDuration = 0.1f;
