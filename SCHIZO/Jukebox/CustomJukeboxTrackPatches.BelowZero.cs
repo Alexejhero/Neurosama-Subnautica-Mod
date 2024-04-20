@@ -109,7 +109,7 @@ public static class CustomJukeboxTrackPatches
     }
 
     [HarmonyPatch(typeof(JukeboxInstance), nameof(JukeboxInstance.Start))]
-    [HarmonyPatch(typeof(uGUI_SeaTruckSegment), nameof(uGUI_SeaTruckSegment.Awake))]
+    [HarmonyPatch(typeof(uGUI_JukeboxLabel), nameof(uGUI_JukeboxLabel.Show))]
     [HarmonyPostfix]
     public static void EnableRichText(object __instance)
     {

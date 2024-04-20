@@ -6,7 +6,7 @@ using UWE;
 
 namespace SCHIZO.Items.FumoItem;
 [HarmonyPatch]
-internal static class FumoItemPatches
+partial class FumoItemPatches
 {
     private static bool _registered;
     private static ModItem fumoItem;
@@ -33,7 +33,7 @@ internal static class FumoItemPatches
     private static IEnumerator SpawnFumoCoro(LifepodDrop pod)
     {
         string fumoItemClassId = fumoItem.PrefabInfo.ClassID;
-        
+
         IPrefabRequest request = PrefabDatabase.GetPrefabAsync(fumoItemClassId);
         yield return request;
         if (!request.TryGetPrefab(out GameObject prefab))
@@ -42,31 +42,24 @@ internal static class FumoItemPatches
             KnownTech.Add(fumoItem, false, false);
         }
 
-        // sometimes things just spawn twice. shrug
+        // shouldn't spawn twice anymore w/ new code but shrug
         if (Object.FindObjectOfType<FumoItemTool>())
         {
             LOGGER.LogWarning("Attempted to spawn fumo in lifepod twice");
             yield break;
         }
-
-        LOGGER.LogMessage("Spawning fumo in lifepod drop");
-        GameObject obj = UWE.Utils.InstantiateDeactivated(prefab, pod.transform, spawnLoc.position, Quaternion.Euler(spawnLoc.rotation));
-
-        LargeWorldEntity lwe = obj.GetComponent<LargeWorldEntity>();
-
         yield return new WaitUntil(() => LargeWorldStreamer.main && LargeWorldStreamer.main.IsReady());
         LargeWorldStreamer lws = LargeWorldStreamer.main;
 
-        if (lwe is { cellLevel: not LargeWorldEntity.CellLevel.Batch and not LargeWorldEntity.CellLevel.Global })
-        {
-            Int3 batch = lws.GetContainingBatch(obj.transform.position);
-            yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batch));
-        }
+        Int3 batch = lws.GetContainingBatch(pod.transform.localToWorldMatrix.MultiplyPoint(spawnLoc.position));
+        yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batch));
 
         yield return new WaitUntil(() => LargeWorld.main && LargeWorld.main.streamer.globalRoot != null);
-        LargeWorld lw = LargeWorld.main;
-        lw.streamer.cellManager.RegisterEntity(obj);
 
+        LOGGER.LogMessage("Spawning fumo in lifepod drop");
+        GameObject obj = UWE.Utils.InstantiateDeactivated(prefab, pod.transform, spawnLoc.position, Quaternion.Euler(spawnLoc.rotation));
         obj.SetActive(true);
+
+        LargeWorldEntity.Register(obj);
     }
 }
