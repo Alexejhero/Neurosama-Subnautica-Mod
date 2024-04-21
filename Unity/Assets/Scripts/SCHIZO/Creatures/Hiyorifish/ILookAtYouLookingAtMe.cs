@@ -1,4 +1,5 @@
 using SCHIZO.Attributes;
+using SCHIZO.VFX;
 using TriInspector;
 using UnityEngine;
 
@@ -33,5 +34,6 @@ namespace SCHIZO.Creatures.Hiyorifish
         public float attackDamage = 10f;
         [Tooltip("After attack, idles for this long")]
         public float attackCooldown = 5f;
+        public VanishSplash vanish;
     }
 }

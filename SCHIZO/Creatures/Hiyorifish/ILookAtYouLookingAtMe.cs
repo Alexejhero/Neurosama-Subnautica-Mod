@@ -184,6 +184,7 @@ partial class ILookAtYouLookingAtMe : IOnTakeDamage
         bool didHit = Physics.Raycast(transform.position, line.normalized, out RaycastHit hit, line.magnitude, layerMask, QueryTriggerInteraction.Ignore);
         Vector3 closestPoint = didHit ? hit.point : targetPos;
 
+        vanish.Play();
         // TODO: some sort of vfx
         const float moveDuration = 0.1f;
         Vector3 oldPos = transform.position;
