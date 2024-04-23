@@ -27,7 +27,6 @@ MonoBehaviour:
   isCraftable: 1
   isBuildable: 0
   craftingTime: 3
-  itemSounds: {fileID: 0}
   pdaEncyInfo: {fileID: 0}
   knownTechInfo: {fileID: 11400000, guid: c1716260159e05a49912f7981ea989c6, type: 2}
   spawnData: {fileID: 0}
@@ -64,6 +63,6 @@ MonoBehaviour:
     00000000:
       type: {class: FumoItemLoader, ns: SCHIZO.Items.FumoItem, asm: SCHIZO}
       data:
-        spawn:
-          position: {x: 0, y: 1.335, z: 0}
-          rotation: {x: 0, y: 180, z: 0}
+        spawnerClassId: sneakyfumospawner
+        spawnerPrefab: {fileID: 1478916698337670458, guid: ba3872e982d6d3b4083f89a38d44f16c,
+          type: 3}

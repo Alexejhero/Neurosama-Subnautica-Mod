@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &4332142020512149085
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3050323588128677620}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.0000005, y: 4.3434496, z: 3.2994847}
-  m_Center: {x: -0, y: 2.1420708, z: -0.17539322}
 --- !u!1 &4427810026626581335
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,6 +164,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   propModel: {fileID: 853428788585080163}
   viewModel: {fileID: 7656616662938203038}
+--- !u!114 &7732719034029743030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5958827312421353464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def191360849e4c4eb0083d03d029b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideTransform: {fileID: 4242091266149702868}
+  localPosition: {x: 0, y: 0, z: 0}
+  localRotation: {x: -40, y: 0, z: 30}
 --- !u!114 &5518736193718426385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +199,19 @@ MonoBehaviour:
   _fabricatorMesh: {fileID: 4300000, guid: f02dbf41adbb6c14c8b2eb4704e4fd18, type: 2}
   _fabricatorPrefab: {fileID: 4931248133309480, guid: 18b270460e531e34ca5ebc989dccd026,
     type: 3}
+--- !u!65 &4332142020512149085
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3050323588128677620}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.0000005, y: 4.3434496, z: 3.2994847}
+  m_Center: {x: -0, y: 2.1420708, z: -0.17539322}
 --- !u!1001 &8219148621552729296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -336,6 +351,12 @@ GameObject:
 --- !u!1 &7656616662938203038 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1752336031019831118, guid: 494d51939a4d56f47a65310c2d52e286,
+    type: 3}
+  m_PrefabInstance: {fileID: 8219148621552729296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4242091266149702868 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5246314888156504068, guid: 494d51939a4d56f47a65310c2d52e286,
     type: 3}
   m_PrefabInstance: {fileID: 8219148621552729296}
   m_PrefabAsset: {fileID: 0}
