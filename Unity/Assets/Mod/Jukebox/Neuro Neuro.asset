@@ -22,8 +22,9 @@ MonoBehaviour:
   overrideTrackLabel: 0
   trackLabel: Neuro-sama - Miku (cover)
   unlockedOnStart: 0
-  diskPrefab: {fileID: 0}
+  diskPrefab: {fileID: 6492233284419335816, guid: d22ec62c611ee7545b0126d2a612b118,
+    type: 3}
   diskSpawnLocation:
     position: {x: 77.49, y: -377.09, z: -914.05}
-    rotation: {x: 2, y: 231, z: 332}
+    rotation: {x: 0, y: 50, z: 20}
   unlockFmodEvent: 

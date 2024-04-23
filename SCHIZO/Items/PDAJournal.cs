@@ -10,8 +10,14 @@ partial class PDAJournal
 {
     protected override void Register()
     {
+        if (!encyData)
+        {
+            LOGGER.LogWarning($"{nameof(PDAJournal)} has no encyData, skipping registration");
+            return;
+        }
         encyData.Register(key);
-        Subtitles.SubtitlesHandler.RegisterMetadata(subtitles, encyData.description.text);
+        if (subtitles)
+            Subtitles.SubtitlesHandler.RegisterMetadata(subtitles, encyData.description.text);
         PDAJournalPrefab.Register(this);
     }
 
