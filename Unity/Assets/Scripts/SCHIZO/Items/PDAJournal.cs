@@ -12,12 +12,13 @@ namespace SCHIZO.Items
     [DeclareBoxGroup("Below Zero")]
     public sealed partial class PDAJournal : ModRegistryItem
     {
-        [Careful]
+        [Careful, Required]
         public string key;
         [LabelText("PDA Hover Text")]
         public string pdaHandTargetText;
         [LabelText("PDA Hover Subtext")]
         public string pdaHandTargetSubtext;
+        [Required]
         public PDAEncyclopediaInfo encyData;
         public Subtitles.SubtitlesData subtitles;
 
