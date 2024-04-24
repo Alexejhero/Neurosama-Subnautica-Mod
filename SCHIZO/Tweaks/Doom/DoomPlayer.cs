@@ -3,201 +3,196 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using BepInEx.Logging;
 using UnityEngine;
+using UWE;
 
 namespace SCHIZO.Tweaks.Doom;
 
-internal class DoomPlayer : MonoBehaviour
+internal partial class DoomPlayer : MonoBehaviour
 {
-    public Texture2D Screen { get; private set; }
-    public Vector2 ScreenResolution => new(Screen.width, Screen.height);
+    private static DoomPlayer _instance;
+    public static DoomPlayer Instance
+    {
+        get
+        {
+            if (_instance) return _instance;
+            _instance = new GameObject(nameof(DoomPlayer)).AddComponent<DoomPlayer>();
+            DontDestroyOnLoad(_instance.gameObject);
+            return _instance;
+        }
+    }
+    public Texture2D Screen { get; } = new Texture2D(0, 0, TextureFormat.BGRA32, false);
+    public Sprite Sprite { get; private set; }
+    public Vector2Int ScreenResolution => new(Screen.width, Screen.height);
 
-    public Action OnTick;
-    public Action OnDrawFrame;
-
+    /// <summary>
+    /// Whether the player has been initialized at least once.
+    /// </summary>
+    public bool IsInitialized => _doomThread.ThreadState != System.Threading.ThreadState.Unstarted;
+    /// <summary>
+    /// Whether the game has started.
+    /// </summary>
     public bool IsStarted { get; private set; }
-    public bool IsRunning { get; private set; }
-    public bool IsSleeping => !_doomThreadSync.IsSet;
+    /// <summary>
+    /// If this is <see langword="false"/>, the game is paused externally (e.g. if there are no <see cref="IDoomClient"/>s connected).
+    /// </summary>
+    public bool IsRunning => _runningEvent.IsSet;
     public string WindowTitle { get; private set; }
+    private DoomClientManager _clientManager;
 
-    public float StartupTime { get; private set; }
-    public int LastExitCode { get; private set; }
+    internal int ConnectedClients => _clientManager.Count;
+    internal float StartupTime { get; private set; }
+    internal int LastExitCode { get; private set; }
+    internal int CurrentTick { get; private set; }
 
-    private Thread _doomThread;
-    private ManualResetEventSlim _doomThreadSync;
-    private float _sleepTimeRemaining;
+    private ManualLogSource LogSource { get; set; }
 
-    private IEnumerator Start()
+    private void Awake()
     {
-        Screen = new Texture2D(0, 0, TextureFormat.RGBA32, false);
-        _doomThreadSync = new(false);
-        _doomThread = new Thread(() =>
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            DoomNative.Start(new()
-            {
-                Init = Doom_Init,
-                DrawFrame = Doom_DrawFrame,
-                Sleep = Doom_Sleep,
-                GetTicksMillis = Doom_GetTicksMillis,
-                GetKey = Doom_GetKey,
-                SetWindowTitle = Doom_SetWindowTitle,
-                Exit = Doom_Exit,
-            }, 1, ["@log.txt"]);
-            sw.Stop();
-            StartupTime = (float) sw.Elapsed.TotalSeconds;
-            LOGGER.LogWarning($"Startup time: {StartupTime}");
-            IsStarted = true;
-        });
+        _clientManager = new(this);
+    }
+
+    private void OnDestroy()
+    {
+        _doomThread.Abort();
+    }
+    private void Initialize()
+    {
+        if (IsInitialized) return;
+
+        LogSource = LOGGER;
+        _doomThread.Name = "Doom";
+        _doomThread.Priority = System.Threading.ThreadPriority.BelowNormal;
+        if (!CurrentThreadIsMainThread())
+            throw new InvalidOperationException("Doom must be initialized from the Unity thread");
+        _mainThreadId = Thread.CurrentThread.ManagedThreadId;
         _doomThread.Start();
-        yield return new WaitUntil(() => IsStarted);
-        yield return StartCoroutine(Doom_Loop());
     }
 
-    private void OnEnable()
+    internal void RunOnUnityThread(Action action)
     {
-        IsRunning = true;
+        if (IsOnUnityThread())
+            action();
+        else
+            ScheduleUnityThread(action);
     }
-
-    private void OnDisable()
+    internal void ScheduleUnityThread(Action action)
     {
-        // TODO: check if time passing between disable/enable is an issue
-        // (next tick, the "tick count" will jump forward and maybe Doom won't handle that well)
-        IsRunning = false;
-    }
-    private void Doom_Init(int resX, int resY)
-    {
-        LOGGER.LogWarning($"Init {resX}x{resY}");
-        Screen.Resize(resX, resY);
-    }
-
-    private uint Doom_GetTicksMillis()
-    {
-        uint millis = (uint) Mathf.FloorToInt(Time.realtimeSinceStartup * 1000);
-        // LOGGER.LogDebug($"GetTicksMillis {millis}");
-        return millis;
-    }
-
-    private void Doom_SetWindowTitle(string title)
-    {
-        LOGGER.LogWarning($"SetWindowTitle {title}");
-        WindowTitle = title;
-    }
-
-    private IEnumerator Doom_Loop()
-    {
-        while (true)
+        StartCoroutine(Coro());
+        IEnumerator Coro()
         {
-            if (!(IsStarted && IsRunning))
-            {
-                LOGGER.LogMessage("Not running");
-                yield return null;
-                yield break;
-            }
-            if (IsSleeping)
-            {
-                LOGGER.LogWarning($"Sleeping for {_sleepTimeRemaining}");
-                yield return new WaitForSecondsRealtime(_sleepTimeRemaining);
-                _doomThreadSync.Set();
-            }
-            yield return Tick();
+            yield return null; // will resume on unity thread
+            action();
         }
     }
 
-    private IEnumerator Tick()
+    private static bool IsOnUnityThread()
+    {
+        return Thread.CurrentThread.ManagedThreadId == _mainThreadId;
+    }
+
+    public void Connect(IDoomClient client)
+    {
+        if (!IsInitialized) Initialize();
+        else if (!IsOnUnityThread())
+            throw new InvalidOperationException("Clients must connect from the Unity thread");
+        _clientManager.Add(client);
+    }
+
+    public void Disconnect(IDoomClient client)
+    {
+        // theoretically this should only ever get called from the unity thread
+        if (!IsInitialized)
+        {
+            LogSource.LogError("DoomPlayer should have been initialized by the time Disconnect gets called");
+            Initialize();
+        }
+        _clientManager.Remove(client);
+    }
+
+    public void SetPaused(bool paused)
+    {
+        if (!IsOnUnityThread())
+        {
+            LogSource.LogWarning("doom thread calling SetPaused, it's about to ouroboros itself");
+        }
+        // TODO: check if time passing between pause/unpause is an issue
+        // (next tick, the "tick count" will jump forward and maybe Doom won't handle that well)
+        if (paused)
+            _runningEvent.Reset();
+        else
+            _runningEvent.Set();
+    }
+
+    private void Update()
     {
         CollectKeys();
-        LOGGER.LogMessage("Tick");
-        // uhhhhh we need to somehow put a tick on the thread (and then come back to this one)
-        Task tick = Task.Run(DoomNative.Tick);
-        yield return new WaitUntil(() => tick.IsCompleted);
-        OnTick?.Invoke();
-    }
-
-    private void Doom_DrawFrame(byte[] screenBuffer, int bufferBytes)
-    {
-        //LOGGER.LogDebug($"DrawFrame {screenBuffer} {bufferBytes}");
-        CheckNullArgument(screenBuffer, nameof(screenBuffer));
-        Screen.LoadRawTextureData(screenBuffer);
-        OnDrawFrame?.Invoke();
-    }
-
-    private void Doom_Sleep(uint millis)
-    {
-        //LOGGER.LogDebug($"Sleep {millis}");
-        _doomThreadSync.Reset();
-        _doomThreadSync.Wait();
+        if (_frameState == FrameState.GatherInput)
+        {
+            _frameState = FrameState.DoGameTick;
+        }
+        // game drew a frame, notify clients
+        if (_frameState == FrameState.WaitForDraw)
+        {
+            _frameState = FrameState.FrameEnd;
+            if (_screenBuffer == IntPtr.Zero)
+            {
+                // theoretically should never happen
+                LogSource.LogError("Tried to draw before screen buffer was assigned");
+                return;
+            }
+            Screen.LoadRawTextureData(_screenBuffer, Screen.width * Screen.height * sizeof(uint));
+            Screen.Apply();
+            _clientManager.OnDrawFrame();
+        }
     }
 
     private readonly HashSet<DoomKey> _pressedKeys = [];
-    // track held keys to be able to notify on release
     private readonly HashSet<DoomKey> _heldKeys = [];
     private readonly HashSet<DoomKey> _releasedKeys = [];
     private void CollectKeys()
     {
-        LOGGER.LogDebug("CollectKeys");
-        _pressedKeys.Clear();
-        _releasedKeys.Clear();
-        // we were holding some keys and now we're not holding any
-        // ergo, those keys were released
         if (!Input.anyKey && _heldKeys.Count > 0)
         {
-            LOGGER.LogWarning($"CollectKeys releasing {_heldKeys.Count} held");
             _releasedKeys.AddRange(_heldKeys);
-            _heldKeys.Clear();
             return;
         }
 
-        // this is (presumably) only called once per doom frame (35fps)
-        foreach ((KeyCode unityKey, DoomKey doomKey) in KeyCodeConverter.GetAllKeys())
+        // 6/10 on the funny scale
+        // but there are a shitload of keys checked in the C code that aren't in enums at all
+        // and i cba to redefine them all
+        _pressedKeys.AddRange(Encoding.ASCII.GetBytes(Input.inputString)
+            .Cast<DoomKey>()
+            .Where(k => !_heldKeys.Contains(k)));
+
+        foreach ((DoomKey doomKey, KeyCode unityKey) in KeyCodeConverter.GetAllKeys())
         {
             bool isDown = Input.GetKey(unityKey);
             if (isDown)
             {
                 if (!_heldKeys.Contains(doomKey))
+                {
+                    LogSource.LogWarning($"CollectKeys pressed {doomKey}");
                     _pressedKeys.Add(doomKey);
-                _heldKeys.Add(doomKey);
+                }
             }
             else
             {
+                if (_pressedKeys.Contains(doomKey))
+                {
+                    // alternate bind, duplicate keys, etc.
+                    // otherwise it counts as pressed and released in the same tick and therefore the input gets dropped
+                    continue;
+                }
                 if (_heldKeys.Contains(doomKey))
+                {
+                    LogSource.LogWarning($"CollectKeys released {doomKey}");
                     _releasedKeys.Add(doomKey);
-                _heldKeys.Remove(doomKey);
+                }
             }
         }
-    }
-
-    private bool Doom_GetKey(out bool pressed, out DoomKey key)
-    {
-        pressed = default;
-        key = default;
-
-        if (_pressedKeys.Count > 0)
-        {
-            pressed = true;
-            key = _pressedKeys.First();
-            _pressedKeys.Remove(key);
-            LOGGER.LogWarning($"GetKey {key} pressed");
-            return true;
-        }
-        if (_releasedKeys.Count > 0)
-        {
-            LOGGER.LogWarning($"GetKey {key} released");
-            key = _releasedKeys.First();
-            _releasedKeys.Remove(key);
-            return true;
-        }
-        LOGGER.LogDebug("GetKey nothing");
-        return false;
-    }
-
-    private void Doom_Exit(int exitCode)
-    {
-        LOGGER.LogWarning($"Exit {exitCode}");
-        LastExitCode = exitCode;
-        IsStarted = false;
     }
 }

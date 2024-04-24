@@ -8,9 +8,9 @@ internal static class DoomNative
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void InitCallback(int resX, int resY);
-    // note: this actually returns a uint[] buffer but we marshal it as byte[] for Unity texture data
+    // note: this actually refers to a uint[] buffer but we interpret it as byte[] for Unity texture data
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void DrawFrameCallback([In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1, ArraySubType = UnmanagedType.U1)] byte[] screenBuffer, int bufferBytes);
+    public delegate void DrawFrameCallback(IntPtr screenBuffer, int bufferBytes);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void SleepCallback(uint millis);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -21,6 +21,8 @@ internal static class DoomNative
     public delegate void SetWindowTitleCallback([MarshalAs(UnmanagedType.LPStr)] string title);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void Exit(int exitCode);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void Log([In, MarshalAs(UnmanagedType.LPStr)] string message);
 
     [StructLayout(LayoutKind.Sequential)]
     public struct Callbacks
@@ -32,6 +34,7 @@ internal static class DoomNative
         public GetKeyCallback GetKey;
         public SetWindowTitleCallback SetWindowTitle;
         public Exit Exit;
+        public Log Log;
 
         public readonly void Validate()
         {
@@ -48,6 +51,7 @@ internal static class DoomNative
             // SetWindowTitle is optional
             if (Exit is null)
                 throw new InvalidOperationException($"Required callback {nameof(Exit)}) is missing");
+            // Log is optional
         }
     }
     private static Vector2Int _res;

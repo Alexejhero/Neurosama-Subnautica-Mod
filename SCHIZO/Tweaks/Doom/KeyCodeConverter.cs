@@ -16,7 +16,7 @@ internal static class KeyCodeConverter
         { KeyCode.A, DoomKey.StrafeLeft },
         { KeyCode.D, DoomKey.StrafeRight },
         { KeyCode.E, DoomKey.Use },
-        { KeyCode.Mouse1, DoomKey.Fire },
+        { KeyCode.Mouse0, DoomKey.Fire },
         { KeyCode.Escape, DoomKey.Escape },
         { KeyCode.Return, DoomKey.Enter },
         { KeyCode.Tab, DoomKey.Tab },
@@ -85,5 +85,5 @@ internal static class KeyCodeConverter
     public static KeyCode ToUnity(DoomKey doomKey) => _doomToUnity[doomKey];
     public static DoomKey ToDoom(KeyCode unityKey) => _unityToDoom[unityKey];
 
-    public static IEnumerable<(KeyCode, DoomKey)> GetAllKeys() => _unityToDoom.Select(pair => (pair.Key, pair.Value));
+    public static IEnumerable<(DoomKey, KeyCode)> GetAllKeys() => _doomToUnity.Select(pair => (pair.Key, pair.Value));
 }
