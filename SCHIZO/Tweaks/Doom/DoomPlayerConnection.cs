@@ -22,6 +22,7 @@ internal class DoomPlayerConnection : MonoBehaviour, IDoomClient
     {
         Image image = GetComponent<Image>();
         if (!image) return;
+        _oldSprite = image.sprite;
         image.sprite = DoomScreenSprite;
         // screen buffer is flipped vertically
         image.rectTransform.localScale = new Vector3(1, -1, 1);

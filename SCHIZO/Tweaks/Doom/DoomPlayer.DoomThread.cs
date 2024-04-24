@@ -13,7 +13,7 @@ partial class DoomPlayer
     private readonly Thread _doomThread = new(StartDoom_);
     private readonly ManualResetEventSlim _runningEvent = new(true);
     private static int _mainThreadId;
-
+    // TODO: fix main thread freeze
     private static readonly string[] _launchArgs = ["doomgeneric.dll"];
 
     private enum FrameState
