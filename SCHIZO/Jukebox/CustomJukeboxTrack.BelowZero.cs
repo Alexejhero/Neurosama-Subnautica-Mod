@@ -73,6 +73,8 @@ public sealed partial class CustomJukeboxTrack
         RegisterInJukebox(BZJukebox._main);
         JukeboxDiskPrefab.Register(this);
 
+        JukeboxTrackUnlockPatches.CustomUnlockSprites[trackLabel] = unlockSprite;
+
         if (!Player.main) return;
 
         // if we get here, we're registering during a game

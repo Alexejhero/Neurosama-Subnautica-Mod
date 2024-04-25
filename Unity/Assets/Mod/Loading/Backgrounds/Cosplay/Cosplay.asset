@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368b84068224be74aa6db5e0b898c297, type: 3}
   m_Name: Cosplay
   m_EditorClassIdentifier: 
-  art: {fileID: 0}
-  credit: 
-  randomListId: 
+  art: {fileID: 21300000, guid: c54a567c31c0bf345b277e597d5972ac, type: 3}
+  credit: Cosplay by Donie
+  randomListId: thing
   game: 3
