@@ -54,7 +54,7 @@ public abstract class Tracker : MonoBehaviour
         if (!enabled && !forceNext) return;
         forceNext = false;
 
-        _ = sender.Send(path, data);
+        sender.Send(path, data);
     }
 
     protected internal void React(Priority priority, object data = null)
@@ -65,7 +65,7 @@ public abstract class Tracker : MonoBehaviour
         string endpoint = PickEndpoint(priority);
         if (endpoint == null) return;
 
-        _ = sender.Send(endpoint, data);
+        sender.Send(endpoint, data);
     }
 
     internal static string PickEndpoint(Priority priority)

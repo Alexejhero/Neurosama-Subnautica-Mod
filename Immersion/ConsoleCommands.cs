@@ -154,7 +154,7 @@ internal class ConsoleCommands : MonoBehaviour
         Tracker.Priority prio = args[0] is "react" ? Tracker.Priority.High : Tracker.Priority.Low;
         string message = args.Skip(1).Join(delimiter: " ");
         sender.forceNext = true;
-        _ = sender.Send(Tracker.PickEndpoint(prio), message);
+        sender.Send(Tracker.PickEndpoint(prio), message);
 
         return null;
     }
