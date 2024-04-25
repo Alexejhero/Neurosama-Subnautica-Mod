@@ -13,12 +13,16 @@ internal static class KeyCodeConverter
         { KeyCode.LeftArrow, DoomKey.LeftArrow },
         { KeyCode.UpArrow, DoomKey.UpArrow },
         { KeyCode.DownArrow, DoomKey.DownArrow },
+        { KeyCode.W, DoomKey.UpArrow },
         { KeyCode.A, DoomKey.StrafeLeft },
+        { KeyCode.S, DoomKey.DownArrow },
         { KeyCode.D, DoomKey.StrafeRight },
         { KeyCode.E, DoomKey.Use },
         { KeyCode.Mouse0, DoomKey.Fire },
+        { KeyCode.RightControl, DoomKey.Fire },
         { KeyCode.Escape, DoomKey.Escape },
         { KeyCode.Return, DoomKey.Enter },
+        { KeyCode.Space, DoomKey.Enter },
         { KeyCode.Tab, DoomKey.Tab },
 
         { KeyCode.F1, DoomKey.F1 },
@@ -40,7 +44,7 @@ internal static class KeyCodeConverter
         { KeyCode.Minus, DoomKey.Minus },
 
         { KeyCode.RightShift, DoomKey.RShift },
-        { KeyCode.RightControl, DoomKey.RCtrl },
+        //{ KeyCode.RightControl, DoomKey.RCtrl },
         { KeyCode.RightAlt, DoomKey.RAlt },
 
         { KeyCode.LeftAlt, DoomKey.LAlt },
@@ -85,5 +89,5 @@ internal static class KeyCodeConverter
     public static KeyCode ToUnity(DoomKey doomKey) => _doomToUnity[doomKey];
     public static DoomKey ToDoom(KeyCode unityKey) => _unityToDoom[unityKey];
 
-    public static IEnumerable<(DoomKey, KeyCode)> GetAllKeys() => _doomToUnity.Select(pair => (pair.Key, pair.Value));
+    public static IEnumerable<(KeyCode, DoomKey)> GetAllKeys() => _unityToDoom.Select(pair => (pair.Key, pair.Value));
 }

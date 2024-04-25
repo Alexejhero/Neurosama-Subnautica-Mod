@@ -5,7 +5,7 @@ namespace SCHIZO.Tweaks.Doom;
 
 internal class DoomPlayerConnection : MonoBehaviour, IDoomClient
 {
-    private DoomPlayer player => DoomPlayer.Instance;
+    private DoomEngine player => DoomEngine.Instance;
     public Texture2D DoomScreen => player.Screen;
     public Sprite DoomScreenSprite => player.Sprite;
     private void OnEnable()
@@ -18,14 +18,30 @@ internal class DoomPlayerConnection : MonoBehaviour, IDoomClient
     }
     public void OnConnected() { }
     private Sprite _oldSprite;
+    private Texture _oldTex;
     public void OnDoomInit()
     {
+        // temporary 
         Image image = GetComponent<Image>();
-        if (!image) return;
-        _oldSprite = image.sprite;
-        image.sprite = DoomScreenSprite;
-        // screen buffer is flipped vertically
-        image.rectTransform.localScale = new Vector3(1, -1, 1);
+        if (image)
+        {
+            _oldSprite = image.sprite;
+            image.sprite = DoomScreenSprite;
+            // screen buffer is flipped vertically
+            Vector3 scale = image.rectTransform.localScale;
+            scale.y *= -1;
+            image.rectTransform.localScale = scale;
+            return;
+        }
+        MeshRenderer mesh = GetComponent<MeshRenderer>();
+        if (mesh)
+        {
+            _oldTex = mesh.sharedMaterial.mainTexture;
+            mesh.sharedMaterial.mainTexture = DoomScreen;
+            Vector2 scale = mesh.sharedMaterial.mainTextureScale;
+            scale.y *= -1;
+            mesh.sharedMaterial.mainTextureScale = scale;
+        }
     }
     public void OnDisconnected() { }
     public void OnDoomFrame() { }
@@ -33,9 +49,23 @@ internal class DoomPlayerConnection : MonoBehaviour, IDoomClient
     public void OnDoomExit(int exitCode)
     {
         Image image = GetComponent<Image>();
-        if (!image) return;
-        image.sprite = _oldSprite;
-        image.rectTransform.localScale = new Vector3(1, 1, 1);
+        if (image)
+        {
+            image.sprite = _oldSprite;
+            // unflip
+            Vector3 scale = image.rectTransform.localScale;
+            scale.y *= -1;
+            image.rectTransform.localScale = scale;
+            return;
+        }
+        MeshRenderer mesh = GetComponent<MeshRenderer>();
+        if (mesh)
+        {
+            mesh.sharedMaterial.mainTexture = _oldTex;
+            Vector2 scale = mesh.sharedMaterial.mainTextureScale;
+            scale.y *= -1;
+            mesh.sharedMaterial.mainTextureScale = scale;
+        }
     }
 
     public void OnWindowTitleChanged(string title)

@@ -7,19 +7,18 @@ using System.Text;
 using System.Threading;
 using BepInEx.Logging;
 using UnityEngine;
-using UWE;
 
 namespace SCHIZO.Tweaks.Doom;
 
-internal partial class DoomPlayer : MonoBehaviour
+internal partial class DoomEngine : MonoBehaviour
 {
-    private static DoomPlayer _instance;
-    public static DoomPlayer Instance
+    private static DoomEngine _instance;
+    public static DoomEngine Instance
     {
         get
         {
             if (_instance) return _instance;
-            _instance = new GameObject(nameof(DoomPlayer)).AddComponent<DoomPlayer>();
+            _instance = new GameObject(nameof(DoomEngine)).AddComponent<DoomEngine>();
             DontDestroyOnLoad(_instance.gameObject);
             return _instance;
         }
@@ -48,7 +47,7 @@ internal partial class DoomPlayer : MonoBehaviour
     internal int LastExitCode { get; private set; }
     internal int CurrentTick { get; private set; }
 
-    private ManualLogSource LogSource { get; set; }
+    private ManualLogSource LogSource { get; set; } = BepInEx.Logging.Logger.CreateLogSource("DOOM");
 
     private void Awake()
     {
@@ -63,12 +62,12 @@ internal partial class DoomPlayer : MonoBehaviour
     {
         if (IsInitialized) return;
 
-        LogSource = LOGGER;
         _doomThread.Name = "Doom";
         _doomThread.Priority = System.Threading.ThreadPriority.BelowNormal;
         if (!CurrentThreadIsMainThread())
             throw new InvalidOperationException("Doom must be initialized from the Unity thread");
-        _mainThreadId = Thread.CurrentThread.ManagedThreadId;
+        _mainThread = Thread.CurrentThread;
+        _mainThreadId = _mainThread.ManagedThreadId;
         _doomThread.Start();
     }
 
@@ -133,6 +132,7 @@ internal partial class DoomPlayer : MonoBehaviour
         if (_frameState == FrameState.GatherInput)
         {
             _frameState = FrameState.DoGameTick;
+            _inputEvent.Set();
         }
         // game drew a frame, notify clients
         if (_frameState == FrameState.WaitForDraw)
@@ -147,52 +147,49 @@ internal partial class DoomPlayer : MonoBehaviour
             Screen.LoadRawTextureData(_screenBuffer, Screen.width * Screen.height * sizeof(uint));
             Screen.Apply();
             _clientManager.OnDrawFrame();
+            _drawEvent.Set();
         }
     }
 
     private readonly HashSet<DoomKey> _pressedKeys = [];
     private readonly HashSet<DoomKey> _heldKeys = [];
     private readonly HashSet<DoomKey> _releasedKeys = [];
+
     private void CollectKeys()
     {
-        if (!Input.anyKey && _heldKeys.Count > 0)
+        if (!CurrentThreadIsMainThread())
         {
-            _releasedKeys.AddRange(_heldKeys);
+            LogSource.LogError("Should not be in CollectKeys on background thread");
+            Debugger.Break();
+        }
+        _releasedKeys.AddRange(_heldKeys);
+        if (!Input.anyKey)
+        {
+            _heldKeys.Clear();
             return;
         }
 
         // 6/10 on the funny scale
         // but there are a shitload of keys checked in the C code that aren't in enums at all
         // and i cba to redefine them all
+        // TODO: main menu "save game" shortcut 's' conflicts w/ "down arrow" binding for S
         _pressedKeys.AddRange(Encoding.ASCII.GetBytes(Input.inputString)
             .Cast<DoomKey>()
-            .Where(k => !_heldKeys.Contains(k)));
+            .Where(_heldKeys.Add));
 
-        foreach ((DoomKey doomKey, KeyCode unityKey) in KeyCodeConverter.GetAllKeys())
+        foreach ((KeyCode unityKey, DoomKey doomKey) in KeyCodeConverter.GetAllKeys())
         {
-            bool isDown = Input.GetKey(unityKey);
-            if (isDown)
+            if (!Input.GetKey(unityKey)) continue;
+
+            if (_heldKeys.Add(doomKey))
             {
-                if (!_heldKeys.Contains(doomKey))
-                {
-                    LogSource.LogWarning($"CollectKeys pressed {doomKey}");
-                    _pressedKeys.Add(doomKey);
-                }
+                //LogSource.LogDebug($"CollectKeys pressed {doomKey} ({unityKey})");
+                _pressedKeys.Add(doomKey);
             }
-            else
-            {
-                if (_pressedKeys.Contains(doomKey))
-                {
-                    // alternate bind, duplicate keys, etc.
-                    // otherwise it counts as pressed and released in the same tick and therefore the input gets dropped
-                    continue;
-                }
-                if (_heldKeys.Contains(doomKey))
-                {
-                    LogSource.LogWarning($"CollectKeys released {doomKey}");
-                    _releasedKeys.Add(doomKey);
-                }
-            }
+            // alternate binds, duplicate DoomKey values, etc.
+            // otherwise it counts as pressed and released in the same tick and therefore the input gets dropped or spammed
+            _releasedKeys.Remove(doomKey);
         }
+        _heldKeys.RemoveRange(_releasedKeys);
     }
 }

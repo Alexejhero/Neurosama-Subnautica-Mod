@@ -6,7 +6,7 @@ namespace SCHIZO.Tweaks.Doom;
 
 // this is literally just a replay subject
 // reactive extensions would make this 1000x better
-internal class DoomClientManager(DoomPlayer player) : ObservableCollection<IDoomClient>
+internal class DoomClientManager(DoomEngine player) : ObservableCollection<IDoomClient>
 {
     public void OnInit() => Broadcast(client => client.OnDoomInit());
     public void OnDrawFrame() => Broadcast(client => client.OnDoomFrame());

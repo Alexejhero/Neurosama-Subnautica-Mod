@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -7,14 +8,20 @@ using System.Threading;
 using UnityEngine;
 
 namespace SCHIZO.Tweaks.Doom;
-partial class DoomPlayer
+partial class DoomEngine
 {
     private readonly Stopwatch _gameClock = new();
     private readonly Thread _doomThread = new(StartDoom_);
     private readonly ManualResetEventSlim _runningEvent = new(true);
+    private readonly ManualResetEventSlim _inputEvent = new(false);
+    private readonly ManualResetEventSlim _drawEvent = new(false);
+    private static Thread _mainThread;
     private static int _mainThreadId;
-    // TODO: fix main thread freeze
-    private static readonly string[] _launchArgs = ["doomgeneric.dll"];
+
+    private static readonly string[] _launchArgs =
+    [
+        Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "doomgeneric.dll")
+    ];
 
     private enum FrameState
     {
@@ -29,10 +36,11 @@ partial class DoomPlayer
     private static void StartDoom_() => Instance.StartDoom();
     private void StartDoom()
     {
-        _launchArgs[0] = Path.Combine(
-            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-            "doomgeneric.dll"
-        );
+        if (IsStarted)
+        {
+            LogSource.LogWarning("Tried to start doom more than once");
+            return;
+        }
         _gameClock.Start();
         Stopwatch sw = Stopwatch.StartNew();
         DoomNative.Start(new()
@@ -68,19 +76,17 @@ partial class DoomPlayer
             {
                 case FrameState.FrameStart:
                     _frameState = FrameState.GatherInput;
+                    _inputEvent.Reset();
                     break;
                 case FrameState.GatherInput:
                     // wait for unity side
-                    if (!Thread.Yield())
-                        Thread.Sleep(1);
+                    _inputEvent.Wait();
                     break;
                 case FrameState.DoGameTick:
                     DoomNative.Tick();
                     break;
                 case FrameState.WaitForDraw:
-                    // wait for unity side
-                    if (!Thread.Yield())
-                        Thread.Sleep(1);
+                    _drawEvent.Wait();
                     break;
                 case FrameState.FrameEnd:
                     _clientManager.OnTick();
@@ -129,7 +135,10 @@ partial class DoomPlayer
         // only draw after game tick starts
         // (we already have the buffer so it doesn't matter when/how many times we get called)
         if (_frameState == FrameState.DoGameTick)
+        {
             _frameState = FrameState.WaitForDraw;
+            _drawEvent.Reset();
+        }
     }
 
     private void Doom_Sleep(uint millis)
@@ -149,21 +158,18 @@ partial class DoomPlayer
         pressed = default;
         key = default;
 
-        if (_pressedKeys.Count > 0)
+        foreach (bool isPress in new[] { true, false })
         {
-            pressed = true;
-            key = _pressedKeys.First();
-            _pressedKeys.Remove(key);
-            _heldKeys.Add(key);
-            LogSource.LogMessage($"GetKey {key} pressed");
-            return true;
-        }
-        if (_releasedKeys.Count > 0)
-        {
-            key = _releasedKeys.First();
-            _releasedKeys.Remove(key);
-            _heldKeys.Remove(key);
-            LogSource.LogMessage($"GetKey {key} released");
+            HashSet<DoomKey> keys = isPress ? _pressedKeys : _releasedKeys;
+            if (keys.Count == 0) continue;
+
+            pressed = isPress;
+            key = keys.First();
+            keys.Remove(key);
+            string keyName = Enum.IsDefined(typeof(DoomKey), key)
+                ? key.ToString()
+                : $"'{(char)key}'"; // ascii/limited to byte so it's fine
+            LogSource.LogMessage($"GetKey {keyName} {(isPress ? "press" : "release")} consumed");
             return true;
         }
         //LogSource.LogDebug("GetKey nothing");
