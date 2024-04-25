@@ -29,4 +29,5 @@ MonoBehaviour:
   diskSpawnLocation:
     position: {x: -369.3, y: -174.6, z: -319.7}
     rotation: {x: 9.7, y: 7.5, z: 9.4}
+  unlockSprite: {fileID: 21300000, guid: 4953d8a91bf0aa5428248aff15d67fa7, type: 3}
   unlockFmodEvent: event:/SCHIZO/jukebox/unlock/TruckersFM

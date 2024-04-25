@@ -54,7 +54,7 @@ public static class GymbagPatches
 
         if (!opener) return;
 
-        if (opener.CurrentOpenedRootGymbag != null && !opener.OpeningGymbag)
+        if (opener.CurrentOpenedRootGymbag is { } && !opener.OpeningGymbag)
         {
             opener.GetItemIcon(opener.CurrentOpenedRootGymbag)?.SetChroma(1f);
             opener.CurrentOpenedRootGymbag.isEnabled = true;
@@ -68,5 +68,20 @@ public static class GymbagPatches
     {
         if (__instance != Inventory.main.container) return true;
         return __result = pickupable != GymbagManager.Instance.CurrentOpenedRootGymbag?.item;
+    }
+
+    [HarmonyPatch(typeof(uGUI_InventoryTab), nameof(uGUI_InventoryTab.OnOpenPDA))]
+    [HarmonyPostfix]
+    public static void ModifyStorageLabel(uGUI_InventoryTab __instance)
+    {
+        GymbagManager opener = GymbagManager.Instance;
+
+        if (!opener) return;
+
+        if (opener.OpeningGymbag)
+        {
+            __instance.storageLabelKey = Gymbag.GymbagStorageLabel;
+            __instance.UpdateStorageLabelText();
+        }
     }
 }

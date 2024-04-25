@@ -27,4 +27,5 @@ MonoBehaviour:
   diskSpawnLocation:
     position: {x: -82.53, y: -344.28, z: -1396.69}
     rotation: {x: -2, y: 135, z: 0}
+  unlockSprite: {fileID: 21300000, guid: 9d730383d28b26c468a273df0b26756b, type: 3}
   unlockFmodEvent: 
