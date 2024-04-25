@@ -4,21 +4,20 @@ namespace Immersion;
 
 public static class Globals
 {
-    public static Dictionary<string, string> Strings { get; } = new(StringComparer.OrdinalIgnoreCase)
-    {
-        ["player"] = "Vercel", // player name
-        ["url"] = "http://localhost/", // base URL for the API (e.g. http://localhost/api/)
-    };
+    private const string _PLAYER_NAME_PLAYERPREFS_KEY = "Immersion_PlayerName";
+    private const string _BASEURL_PLAYARPREFS_KEY = "Immersion_BaseURL";
+    private const string _PRONOUNS_PLAYARPREFS_KEY = "Immersion_BaseURL";
+
     public static string PlayerName
     {
-        get => Strings["player"];
-        set => Strings["player"] = value;
+        get => PlayerPrefs.GetString(_PLAYER_NAME_PLAYERPREFS_KEY, "Vedal");
+        set => PlayerPrefs.SetString(_PLAYER_NAME_PLAYERPREFS_KEY, value);
     }
     public static PronounSet PlayerPronouns { get; set; } = PronounSet.HeHim;
 
     public static string BaseUrl
     {
-        get => Strings["url"];
-        set => Strings["url"] = value;
+        get => PlayerPrefs.GetString(_BASEURL_PLAYARPREFS_KEY, "http://localhost:8000/subnautica/");
+        set => PlayerPrefs.SetString(_BASEURL_PLAYARPREFS_KEY, value);
     }
 }

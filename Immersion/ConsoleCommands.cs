@@ -56,11 +56,20 @@ internal class ConsoleCommands : MonoBehaviour
 
         // preserve e.g. `set player Big Bob`
         string newValue = string.Join(" ", args.Skip(2));
-        if (fieldName == "pronouns") // hack but i don't care
-            return SetPronouns(newValue);
-        
-        Globals.Strings[fieldName] = newValue;
-        return $"{fieldName} set to {newValue}";
+
+        switch(fieldName)
+        {
+            case "player":
+                Globals.PlayerName = newValue;
+                return $"Player name set to {newValue}";
+            case "url":
+                Globals.BaseUrl = newValue;
+                return $"Base URL set to {newValue}";
+            case "pronouns":
+                return SetPronouns(newValue);
+            default:
+                return null;
+        }
     }
 
     private static string EnableDisable(IReadOnlyList<string> args)
