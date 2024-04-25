@@ -24,9 +24,11 @@ public abstract class Tracker : MonoBehaviour
     private string startEnabledPrefsKey => $"{GetType().FullName}_Enabled";
     internal bool startEnabled
     {
-        get => PlayerPrefsExtra.GetBool(startEnabledPrefsKey, true);
+        get => PlayerPrefsExtra.GetBool(startEnabledPrefsKey, StartEnabledDefault);
         set => PlayerPrefsExtra.SetBool(startEnabledPrefsKey, value);
     }
+
+    protected virtual bool StartEnabledDefault => true;
 
     /// <summary>
     /// Force the next <see cref="Send"/> or <see cref="React"/> call to proceed even if the component is disabled.

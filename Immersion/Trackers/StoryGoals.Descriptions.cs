@@ -31,10 +31,10 @@ partial class StoryGoals
         // ["AlanDownloadBlackout"] = null,
         // despite this being a very very important goal, it's triggered in the middle of a cutscene
         // so we don't actually get a chance to react to it
-        // ["SanctuaryCompleted"] = null,
+        ["SanctuaryCompleted"] = "{player} has downloaded an alien Architect's consciousness into {possessive} head.",
         // ["DisableSanctuaryForceField"] = null, // disabled forcefields on places w/ precursor body parts
         // despite having "AfterDownload" in its name, this just triggers when you exit regardless of whether you have SanctuaryCompleted or not
-        ["SanctuaryExitAfterDownload"] = "{player} has downloaded an alien Architect's consciousness into {possessive} head.",
+        // ["SanctuaryExitAfterDownload"] = null,
 
         // ["Call_AlAn_Meet"] = null,
         // ["Body"] = "{player} must collect three blueprints to construct an Architect body.",
@@ -84,7 +84,7 @@ partial class StoryGoals
         ["OnUnlockRadioTowerPPU"] = null, // scanned third PPU fragment
         ["OnUnlockRadioTowerTOM"] = null,
         // ["RadioTowerTOMConnected"] = null,
-        ["RadioTowerHacked"] = "{player} has disabled the Delta Station satellite radio tower, as requested by Marguerit.",
+        ["RadioTowerHacked"] = "{player} has disabled the satellite radio tower at Delta Station. Now Alterra can no longer track Marguerit.",
         ["MargGreenhouseHint"] = null,
         ["OnScanMarguerit"] = "{player} is scanning Marguerit in an incredibly inappropriate way, please scold {object}.",
         #endregion Marguerit subplot
@@ -93,11 +93,12 @@ partial class StoryGoals
         // ["GlacialBasinLandBeacon"] = null, // enables Phi beacon
         // ["Log_Robin_Phi_Enter"] = null,
         // ["SpyPenguinUnlocked"] = null,
-        ["OnGlacialBasinBridgeItemInserted"] = "{player} has inserted a canister of hydraulic fluid into the receptacle. The bridge is now operational again."
+        ["OnGlacialBasinBridgeItemInserted"] = "{player} has inserted a canister of hydraulic fluid into the receptacle. The bridge is now operational again.",
         #endregion Phi Robotics
 
         #region Random
-        // ["SeaMonkeyGift"] = null,
+        ["SeaMonkeyGift"] = "A Sea Monkey has brought {player} an item as a gift",
         #endregion Random
+        ["when C# doesn't allow you to place an extra comma at the end of a list, you have to come up with your own solutions"] = null,
     };
 }
