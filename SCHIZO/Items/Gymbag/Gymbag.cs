@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using Nautilus.Handlers;
 using UnityEngine;
 
@@ -36,6 +36,7 @@ public sealed class Gymbag : ClonePrefab
 
     protected override void SetItemProperties()
     {
+        base.SetItemProperties();
         ItemActionHandler.RegisterMiddleClickAction(Info.TechType, item => GymbagManager.Instance.OnOpen(item), "open storage", "English");
     }
 }

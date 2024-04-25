@@ -22,7 +22,7 @@ partial class EvilFumoItemTool
         {
             float dmg = _currentDamage;
             if (stealKnife && TryFindKnife(out Knife knife)
-                && Inventory.main.InternalDropItem(knife.pickupable))
+                && DropItemIncludingIndoors(knife.pickupable))
             {
                 stolenKnife = knife;
                 YoinkKnife();
@@ -36,6 +36,19 @@ partial class EvilFumoItemTool
             _damageResetTime = Time.time + _damageResetWaitDuration;
             if (!ReturnKnife())
                 LOGGER.LogError("Could not return stolen knife");
+        }
+    }
+
+    private bool DropItemIncludingIndoors(Pickupable item)
+    {
+        try
+        {
+            FumoItemPatches.AllowKnifeStealIndoors.EnablePatch = true;
+            return Inventory.main.InternalDropItem(item);
+        }
+        finally
+        {
+            FumoItemPatches.AllowKnifeStealIndoors.EnablePatch = false;
         }
     }
 

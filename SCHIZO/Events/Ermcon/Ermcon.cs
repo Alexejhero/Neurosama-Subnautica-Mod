@@ -133,6 +133,7 @@ public partial class Ermcon
 
     public override void EndEvent()
     {
+        if (!_isOccurring) return;
         targets.Clear();
         foreach (ErmconAttendee ermEnthusiast in conMembers)
         {

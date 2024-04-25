@@ -15,7 +15,7 @@ MonoBehaviour:
   identifier: TruckersFM
   source: 2
   audioClip: {fileID: 0}
-  fmodEvent:
+  fmodEvent: 
   url: http://radio.truckers.fm
   isStream: 1
   streamLabelFormat: '<align=center><size=75%>TruckersFM</size></align>
@@ -24,7 +24,8 @@ MonoBehaviour:
   overrideTrackLabel: 0
   trackLabel: TruckersFM
   unlockedOnStart: 0
-  diskPrefab: {fileID: 0}
+  diskPrefab: {fileID: 38736133463817561, guid: b451605680c7d0247a76ac6cc7b8be9a,
+    type: 3}
   diskSpawnLocation:
     position: {x: -369.3, y: -174.6, z: -319.7}
     rotation: {x: 9.7, y: 7.5, z: 9.4}
