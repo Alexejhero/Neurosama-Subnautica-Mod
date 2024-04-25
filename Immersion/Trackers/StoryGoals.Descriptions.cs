@@ -99,6 +99,5 @@ partial class StoryGoals
         #region Random
         ["SeaMonkeyGift"] = "A Sea Monkey has brought {player} an item as a gift",
         #endregion Random
-        ["when C# doesn't allow you to place an extra comma at the end of a list, you have to come up with your own solutions"] = null,
     };
 }
