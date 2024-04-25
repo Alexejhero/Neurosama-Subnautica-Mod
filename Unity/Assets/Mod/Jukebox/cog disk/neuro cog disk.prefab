@@ -4832,7 +4832,7 @@ GameObject:
   - component: {fileID: 7421088858348413847}
   - component: {fileID: 4691052849724364637}
   m_Layer: 0
-  m_Name: cog disk
+  m_Name: neuro cog disk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
