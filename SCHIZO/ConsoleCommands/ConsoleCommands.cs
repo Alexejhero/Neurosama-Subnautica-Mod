@@ -16,7 +16,7 @@ namespace SCHIZO.ConsoleCommands;
 public static class ConsoleCommands
 {
     [ConsoleCommand("isekai"), UsedImplicitly]
-    public static string OnConsoleCommand_isekai(string techTypeName, float percentage, float radius = 100)
+    public static string OnConsoleCommand_isekai(string techTypeName, float percentage = 1, float radius = 100)
     {
         if (!UWE.Utils.TryParseEnum(techTypeName, out TechType techType))
         {
