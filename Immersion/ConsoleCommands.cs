@@ -15,6 +15,7 @@ internal class ConsoleCommands : MonoBehaviour
     public static string ManualMuteUsage => "<mute|unmute>";
     public static string ManualSendUsage => "<react|send> <message>";
     public static string ManualSendExample => "react Behind you!";
+    public static string ForcePrioUsage => "<prio|noprio>";
 
     public void Awake()
     {
@@ -37,6 +38,7 @@ internal class ConsoleCommands : MonoBehaviour
                 {Command} {ManualMuteUsage}
                 {Command} {ManualSendUsage}
                     (e.g. `{Command} {ManualSendExample}`)
+                {Command} {ForcePrioUsage}
                 """;
         string subCommand = args[0].ToLower();
         return subCommand switch
@@ -45,6 +47,7 @@ internal class ConsoleCommands : MonoBehaviour
             "enable" or "disable" => EnableDisable(args),
             "mute" or "unmute" => ManualMute(subCommand is "mute"),
             "react" or "send" => ManualSend(args),
+            "prio" or "noprio" => SetForceLowPrio(subCommand is "noprio"),
             _ => $"Unknown sub-command {subCommand}, type `{Command}` to see usage"
         };
     }
@@ -153,6 +156,12 @@ internal class ConsoleCommands : MonoBehaviour
         sender.forceNext = true;
         _ = sender.Send(Tracker.PickEndpoint(prio), message);
 
+        return null;
+    }
+
+    private static string SetForceLowPrio(bool value)
+    {
+        Tracker.ForceLowPriority = value;
         return null;
     }
 }

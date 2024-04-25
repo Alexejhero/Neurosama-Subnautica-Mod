@@ -15,6 +15,12 @@ public abstract class Tracker : MonoBehaviour
     }
 
     internal static readonly Dictionary<string, Type> trackerTypes;
+    private static readonly string forceLowPrioPrefsKey = $"{typeof(Tracker).FullName}_ForceLowPrio";
+    public static bool ForceLowPriority
+    {
+        get => PlayerPrefsExtra.GetBool(forceLowPrioPrefsKey, false);
+        set => PlayerPrefsExtra.SetBool(forceLowPrioPrefsKey, false);
+    }
     private string startEnabledPrefsKey => $"{GetType().FullName}_Enabled";
     internal bool startEnabled
     {
@@ -63,10 +69,14 @@ public abstract class Tracker : MonoBehaviour
     }
 
     internal static string PickEndpoint(Priority priority)
-        => priority switch
+    {
+        if (ForceLowPriority) priority = Priority.Low;
+
+        return priority switch
         {
             Priority.Low => "non-priority",
             Priority.High => "priority",
             _ => null,
         };
+    }
 }
