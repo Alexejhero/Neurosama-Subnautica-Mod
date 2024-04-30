@@ -161,7 +161,7 @@ MonoBehaviour:
   altUsableChance: 0.05
   altEffectOnHugChance: 0.5
   altEffectMinHugTime: 10
-  altEffectDuration: 5
+  altEffectDuration: 2
   hugCooldown: 1
   hugColdResistBuff: 20
   fumoModelSN: {fileID: 5699160057072596943}

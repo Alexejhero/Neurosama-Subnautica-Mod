@@ -1750,6 +1750,81 @@
         <member name="M:Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})">
             <inheritdoc/>
         </member>
+        <member name="T:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate">
+            <summary>
+            A template for Atmosphere Volumes, which are basic invisible triggers for mini-biomes. Atmosphere volumes can affect fog, music, ambient sounds and even the player's swim speed.
+            </summary>
+        </member>
+        <member name="P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Shape">
+            <summary>
+            The shape of this atmosphere volume.
+            </summary>
+        </member>
+        <member name="P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.OverrideBiome">
+            <summary>
+            The biome type used by this atmosphere volume.
+            </summary>
+        </member>
+        <member name="P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Priority">
+            <summary>
+            The priority of this atmosphere volume. Atmosphere volumes with higher priorities override those with lower priorities. The default priority is 10.
+            </summary>
+        </member>
+        <member name="P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CanEnterWhileInsideVehicle">
+            <summary>
+            Whether this atmosphere volume can be entered while inside a vehicle or not. For unknown reasons, this is NOT true for base game volumes. However, in this template, it is true by default.
+            </summary>
+        </member>
+        <member name="P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CellLevel">
+            <summary>
+            Determines the loading distance of this atmosphere volume prefab. Default value is <see cref="F:LargeWorldEntity.CellLevel.Far"/>. Although vanilla prefabs always use Batch for this, this does not work with our custom systems.
+            </summary>
+        </member>
+        <member name="P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefab">
+            <summary>
+            Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.
+            </summary>
+        </member>
+        <member name="P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefabAsync">
+            <summary>
+            Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more asynchronously.
+            </summary>
+        </member>
+        <member name="M:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.#ctor(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape,System.String,System.Int32,LargeWorldEntity.CellLevel)">
+            <summary>
+            Creates a new prefab template for an asset bundle.
+            </summary>
+            <param name="info">The prefab info to base this template off of.</param>
+            <param name="shape">The shape of this atmosphere volume.</param>
+            <param name="overrideBiome">The biome type used by this atmosphere volume.</param>
+            <param name="priority">The priority of this atmosphere volume. Atmosphere volumes with higher priorities override those with lower priorities.</param>
+            <param name="cellLevel">Determines the loading distance of this atmosphere volume prefab. Although vanilla prefabs always use Batch for this, this does not work with our custom systems.</param>
+        </member>
+        <member name="M:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})">
+            <summary>
+            Creates an atmosphere volume prefab.
+            </summary>
+        </member>
+        <member name="T:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape">
+            <summary>
+            The shape of an atmosphere volume's trigger.
+            </summary>
+        </member>
+        <member name="F:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.Sphere">
+            <summary>
+            Sphere with default radius 0.5m (diameter 1m).
+            </summary>
+        </member>
+        <member name="F:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.Cube">
+            <summary>
+            Cube with default dimensions of 1x1x1m.
+            </summary>
+        </member>
+        <member name="F:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.Capsule">
+            <summary>
+            Capsule with default radius of 0.5m and height of 2m.
+            </summary>
+        </member>
         <member name="T:Nautilus.Assets.PrefabTemplates.CloneTemplate">
             <summary>
             Represents a prefab clone template.
@@ -2104,6 +2179,19 @@
         </member>
         <member name="P:Nautilus.Assets.SpawnLocation.EulerAngles">
             <summary>Euler angles for the rotation the spawned object will appear with.</summary>
+        </member>
+        <member name="P:Nautilus.Assets.SpawnLocation.Scale">
+            <summary>
+            The scale that the object is spawned at. If default (0, 0, 0) will be resolved to (1, 1, 1).
+            </summary>
+        </member>
+        <member name="M:Nautilus.Assets.SpawnLocation.#ctor(UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)">
+            <summary>
+            Defines the spawn location with world position and optional euler angles. Used in the Coordinated Spawns system.
+            </summary>
+            <param name="Position">The world position.</param>
+            <param name="EulerAngles">Euler angles for the rotation the spawned object will appear with.</param>
+            <param name="Scale">The scale that the object is spawned at. If default (0, 0, 0) will be resolved to (1, 1, 1).</param>
         </member>
         <member name="T:Nautilus.Commands.ConsoleCommand">
             <summary>
@@ -2611,6 +2699,25 @@
             <param name="values">Values to concatenate into the <paramref name="builder"/>.</param>
             <returns>The provided <see cref="T:System.Text.StringBuilder"/>.</returns>
         </member>
+        <member name="T:Nautilus.Extensions.RecipeExtensions">
+            <summary>
+            Contains extensions that are specific to the <see cref="T:Nautilus.Crafting.RecipeData"/> and <see cref="!:ITechData"/> classes.
+            </summary>
+        </member>
+        <member name="M:Nautilus.Extensions.RecipeExtensions.ConvertToRecipeData(JsonValue)">
+            <summary>
+            Converts the Games JsonValue data into Nautilus RecipeData.
+            </summary>
+            <param name="techData"></param>
+        </member>
+        <member name="M:Nautilus.Extensions.RecipeExtensions.ConvertToJsonValue(Nautilus.Crafting.RecipeData,TechType)">
+            <summary>
+            Converts the Nautilus RecipeData into the Games JsonValue data.
+            </summary>
+            <param name="recipeData"></param>
+            <param name="techType"></param>
+            <returns><see cref="T:JsonValue"/> or null</returns>
+        </member>
         <member name="M:Nautilus.Extensions.TypeExtensions.GetFriendlyName(System.Type)">
             <summary>
             Format the given <paramref name="type"/>'s name into a more developer-friendly form.
@@ -2676,6 +2783,50 @@
             <param name="channel">The channel on which the sound was created.</param>
             <returns>If the sound was reported as played.</returns>
         </member>
+        <member name="T:Nautilus.Handlers.BiomeHandler">
+            <summary>
+            A handler class for registering new biome types.
+            </summary>
+        </member>
+        <member name="M:Nautilus.Handlers.BiomeHandler.RegisterBiome(System.String,WaterscapeVolume.Settings,Nautilus.Handlers.BiomeHandler.SkyReference)">
+            <summary>
+            Registers a new biome type into the game.
+            </summary>
+            <param name="name">The name of the biome, as seen in the F1 menu.</param>
+            <param name="settings">The fog settings of the biome. See <see cref="M:Nautilus.Utility.BiomeUtils.CreateBiomeSettings(UnityEngine.Vector3,System.Single,UnityEngine.Color,System.Single,UnityEngine.Color,System.Single,System.Single,System.Single,System.Single,System.Single)"/>.</param>
+            <param name="sky">The Sky of the biome, which determines reflections and general lighting.</param>
+        </member>
+        <member name="M:Nautilus.Handlers.BiomeHandler.AddBiomeAmbience(System.String,FMODAsset,FMODGameParams.InteriorState)">
+            <summary>
+            Adds an ambient sound that plays in the given biome(s). The sound emitter is played when the given conditions are ended, until those conditions are no longer true, and then a fadeout is allowed.
+            </summary>
+            <param name="biomeName">The name of the biome that this ambient sound can play in. Prefix matching and case insensitive, so using "canyon" for this value would affect biomes named "canyon_one" and "canyon_TWO".</param>
+            <param name="ambienceAsset">The sound asset that plays in this biome.</param>
+            <param name="interiorState">Determines how this sound is affected by being indoors or outside.</param>
+        </member>
+        <member name="T:Nautilus.Handlers.BiomeHandler.SkyReference">
+            <summary>
+            Defines a reference to a new or existing Sky prefab.
+            </summary>
+        </member>
+        <member name="M:Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(UnityEngine.GameObject)">
+            <summary>
+            Defines a reference to a new or existing Sky prefab.
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(System.String)">
+            <summary>
+            Defines a reference to a base-game Sky prefab.
+            </summary>
+            <param name="existingSkyPrefabName"><para>The name of the Sky prefab from the list of base-game Skies, i.e. "SkySafeShallows".</para>
+            <para>A list of valid inputs can be found on this page: https://subnauticamodding.github.io/Nautilus/tutorials/biomes.html</para></param>
+        </member>
+        <member name="M:Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(System.Func{UnityEngine.GameObject})">
+            <summary>
+            Defines a reference to a Sky prefab created from a callback at runtime.
+            </summary>
+        </member>
         <member name="T:Nautilus.Handlers.ConsoleCommandsHandler">
             <summary>
             A handler class for registering your custom console commands.
@@ -2738,6 +2889,20 @@
             <seealso cref="M:Nautilus.Handlers.ConsoleCommandsHandler.RegisterConsoleCommand``1(System.String,``0)"/>
             <seealso cref="T:Nautilus.Commands.ConsoleCommandAttribute"/>
         </member>
+        <member name="M:Nautilus.Handlers.ConsoleCommandsHandler.AddBiomeTeleportPosition(System.String,UnityEngine.Vector3)">
+            <summary>
+            Adds a new teleport position to the "biome" command.
+            </summary>
+            <param name="biomeName">The name of the teleport. Case-insensitive, no spaces allowed.</param>
+            <param name="position">The world coordinates of the teleport.</param>
+        </member>
+        <member name="M:Nautilus.Handlers.ConsoleCommandsHandler.AddGotoTeleportPosition(System.String,UnityEngine.Vector3)">
+            <summary>
+            Adds a new teleport position to the "goto" command.
+            </summary>
+            <param name="locationName">The name of the teleport. Case-insensitive, no spaces allowed.</param>
+            <param name="position">The world coordinates of the teleport.</param>
+        </member>
         <member name="T:Nautilus.Handlers.CoordinatedSpawnsHandler">
             <summary>
             A handler class for registering Coordinated Spawns.
@@ -2797,6 +2962,24 @@
             <param name="spawnPosition">Position to spawn into.</param>
             <param name="rotation">Rotation to spawn at.</param>
         </member>
+        <member name="M:Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3)">
+            <summary>
+            Initializes a new <see cref="T:Nautilus.Handlers.SpawnInfo"/>.
+            </summary>
+            <param name="techType">TechType to spawn.</param>
+            <param name="spawnPosition">Position to spawn into.</param>
+            <param name="rotation">Rotation to spawn at.</param>
+            <param name="scale">Scale to spawn with.</param>
+        </member>
+        <member name="M:Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3)">
+            <summary>
+            Initializes a new <see cref="T:Nautilus.Handlers.SpawnInfo"/>.
+            </summary>
+            <param name="classId">ClassID to spawn.</param>
+            <param name="spawnPosition">Position to spawn into.</param>
+            <param name="rotation">Rotation to spawn at.</param>
+            <param name="scale">Scale to spawn with.</param>
+        </member>
         <member name="M:Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Vector3)">
             <summary>
             Initializes a new <see cref="T:Nautilus.Handlers.SpawnInfo"/>.
@@ -2812,6 +2995,24 @@
             <param name="classId">ClassID to spawn.</param>
             <param name="spawnPosition">Position to spawn into.</param>
             <param name="rotation">Rotation to spawn at.</param>
+        </member>
+        <member name="M:Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)">
+            <summary>
+            Initializes a new <see cref="T:Nautilus.Handlers.SpawnInfo"/>.
+            </summary>
+            <param name="techType">TechType to spawn.</param>
+            <param name="spawnPosition">Position to spawn into.</param>
+            <param name="rotation">Rotation to spawn at.</param>
+            <param name="scale">Scale to spawn with.</param>
+        </member>
+        <member name="M:Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)">
+            <summary>
+            Initializes a new <see cref="T:Nautilus.Handlers.SpawnInfo"/>.
+            </summary>
+            <param name="classId">ClassID to spawn.</param>
+            <param name="spawnPosition">Position to spawn into.</param>
+            <param name="rotation">Rotation to spawn at.</param>
+            <param name="scale">Scale to spawn with.</param>
         </member>
         <member name="M:Nautilus.Handlers.SpawnInfo.Equals(System.Object)">
             <summary>
@@ -6863,6 +7064,12 @@
             <param name="message">The message.</param>
             <param name="level">Log level.</param>
         </member>
+        <member name="M:Nautilus.Patchers.CraftTreePatcher.RemoveNodes(CraftTree@,System.Collections.Generic.List{Nautilus.Crafting.Node}@)">
+            <summary>
+            This method can be used to both remove single child nodes, thus removing one recipe from the tree.
+            Or it can remove entire tabs at once, removing the tab and all the recipes it contained in one go.
+            </summary>
+        </member>
         <member name="F:Nautilus.Patchers.ItemActionPatcher.CustomMiddleClickItemAction">
             <summary>
             A constant <see cref="T:ItemAction"/> value to represent a custom middle click item action
@@ -7231,6 +7438,43 @@
         <member name="M:Nautilus.Utility.BasicText.InitializeText">
             <summary>
             Sets up all of our objects/components, when we are ready to actually display text for the first time.
+            </summary>
+        </member>
+        <member name="T:Nautilus.Utility.BiomeUtils">
+            <summary>
+            Utility class containing methods related to creating custom biomes.
+            </summary>
+        </member>
+        <member name="M:Nautilus.Utility.BiomeUtils.CreateBiomeSettings(UnityEngine.Vector3,System.Single,UnityEngine.Color,System.Single,UnityEngine.Color,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            <para>A shorthand for creating an instance of the <see cref="T:WaterscapeVolume.Settings"/> class.</para>
+            <para>A list of base game values can be found on this page: https://subnauticamodding.github.io/Nautilus/tutorials/biomes.html</para>
+            </summary>
+            <param name="absorption">Attenuation coefficients of light (1/cm), red green and blue respectively. The default value is 100f, 18.29155f, 3.531373f.</param>
+            <param name="scattering">The strength of light scattering, 1f by default.</param>
+            <param name="scatteringColor">The color of light scattering. Default value is white.</param>
+            <param name="murkiness">The murkiness of the water. Default value is 1f, recommended range is 0f-20f.</param>
+            <param name="emissive">The emission color of the fog. Default value is black.</param>
+            <param name="emissiveScale">The emission strength of the fog. Default value is 1f.</param>
+            <param name="startDistance">The starting distance of the fog. Default value is 25f. Don't make this too high.</param>
+            <param name="sunlightScale">The strength of sunlight in this biome. Default value is 1f.</param>
+            <param name="ambientScale">The strength of ambient light in this biome. Default value is 1f.</param>
+            <param name="temperature">The temperature of this biome in Celsius. Default value is 24f.</param>
+            <returns>An instance of the class with all settings applied.</returns>
+        </member>
+        <member name="M:Nautilus.Utility.BiomeUtils.CreateSkyPrefab(System.String,UnityEngine.Texture,System.Boolean,System.Boolean)">
+            <summary>
+            Creates a new basic Sky prefab.
+            </summary>
+            <param name="name">The name of the Sky, can be anything.</param>
+            <param name="specularCube">The texture of the Sky, VERY important in determining reflections.</param>
+            <param name="affectedByDayNightCycle">If true, the Sky will appear darker at night and brighter at day.</param>
+            <param name="outdoors">Whether this sky is outdoors or not (should be false for the interiors of player-made structures).</param>
+            <returns>The SkyPrefabFixer component for further modification (this is necessary to get around a Unity bug).</returns>
+        </member>
+        <member name="T:Nautilus.Utility.BiomeUtils.SkyPrefabFixer">
+            <summary>
+            Wrapper class that contains all Sky properties, which are automatically assigned. Necessary for our purposes because fields with SerializeField do not have their values saved when they are instantiated. Yes, everything HAS to be public! 
             </summary>
         </member>
         <member name="T:Nautilus.Utility.ExtBannedIdManager">
