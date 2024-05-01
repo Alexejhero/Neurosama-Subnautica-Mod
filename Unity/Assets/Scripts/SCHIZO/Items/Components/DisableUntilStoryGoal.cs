@@ -1,7 +1,7 @@
 using TriInspector;
 using UnityEngine;
 
-namespace SCHIZO.Creatures.Components
+namespace SCHIZO.Items.Components
 {
     public sealed partial class DisableUntilStoryGoal : MonoBehaviour
     {

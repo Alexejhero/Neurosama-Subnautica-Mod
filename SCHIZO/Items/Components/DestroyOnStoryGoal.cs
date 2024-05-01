@@ -1,8 +1,8 @@
 using SCHIZO.Helpers;
 using Story;
 
-namespace SCHIZO.Creatures.Components;
-partial class DisableUntilStoryGoal : IStoryGoalListener
+namespace SCHIZO.Items.Components;
+partial class DestroyOnStoryGoal : IStoryGoalListener
 {
     private string storyGoal;
     public void Start()
@@ -28,8 +28,7 @@ partial class DisableUntilStoryGoal : IStoryGoalListener
         if (key is { } && !StoryGoalHelpers.Matches(key, storyGoal))
             return;
 
-        Pickupable pickupable = GetComponent<Pickupable>();
-        if (pickupable && pickupable.attached) return; // otherwise inventory items swim away
-        gameObject.SetActive(StoryGoalHelpers.IsCompleted(storyGoal));
+        if (StoryGoalHelpers.IsCompleted(storyGoal))
+            Destroy(GetComponentInParent<PrefabIdentifier>().gameObject);
     }
 }
