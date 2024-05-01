@@ -1,3 +1,4 @@
+using Immersion.Formatting;
 using Nautilus.Extensions;
 
 namespace Immersion.Trackers;
@@ -14,7 +15,7 @@ public sealed class PlayerFrozen : Tracker
 
         // i don't think the player can actually get frozen in ice but w/e
         string where = Player.main.frozenMixin._insideIce ? "in ice" : "underwater";
-        React(Priority.High, $"{{player}} is frozen {where} and can't move!");
+        React(Priority.High, Format.FormatPlayer($"{{player}} is frozen {where} and can't move!"));
     }
 
     private void OnUnfrozen()

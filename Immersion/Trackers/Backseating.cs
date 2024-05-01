@@ -43,11 +43,11 @@ public sealed class Backseating : Tracker
             new Bar("health",
                 valueGetter: () => liveMixin.health,
                 maxValueGetter: () => liveMixin.maxHealth,
-                critical: 0.15f, low: 0.30f),
+                critical: 0.20f, low: 0.40f),
             new Bar("food",
                 valueGetter: () => survival.food,
                 maxValue: 100,
-                critical: 0.10f, low: 0.30f),
+                critical: 0.10f, low: 0.20f), // drains slower than water
             new Bar("water",
                 valueGetter: () => survival.water,
                 maxValue: 100,
