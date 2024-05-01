@@ -51,7 +51,7 @@ partial class SneakyFumoSpawner
             LOGGER.LogError("Could not get prefab for fumo item, will not spawn in lifepod");
             // if there's no prefab, unlocking it is probably not a good idea
             // KnownTech.Add(_fumoItem, false, false);
-            Destroy(this);
+            Destroy(gameObject);
             yield break;
         }
     }
@@ -67,6 +67,6 @@ partial class SneakyFumoSpawner
         fumo.transform.parent = transform.parent; // reparent to drop pod (keeping the spawner's local pos/rot)
         LargeWorldEntity.Register(fumo);
 
-        Destroy(this);
+        Destroy(gameObject);
     }
 }
