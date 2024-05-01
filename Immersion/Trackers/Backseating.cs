@@ -2,7 +2,7 @@ using Immersion.Formatting;
 
 namespace Immersion.Trackers;
 
-public sealed class Bars : Tracker
+public sealed class Backseating : Tracker
 {
     private enum BarState
     {
@@ -43,19 +43,19 @@ public sealed class Bars : Tracker
             new Bar("health",
                 valueGetter: () => liveMixin.health,
                 maxValueGetter: () => liveMixin.maxHealth,
-                critical: 0.25f, low: 0.5f),
+                critical: 0.15f, low: 0.30f),
             new Bar("food",
                 valueGetter: () => survival.food,
                 maxValue: 100,
-                critical: 0.1f, low: 0.3f),
+                critical: 0.10f, low: 0.30f),
             new Bar("water",
                 valueGetter: () => survival.water,
                 maxValue: 100,
-                critical: 0.2f, low: 0.4f),
+                critical: 0.10f, low: 0.30f),
             new Bar("body temperature",
                 valueGetter: () => bodyTemp.currentBodyHeatValue,
                 maxValueGetter: () => bodyTemp.maxBodyHeatValue,
-                critical: 0.1f, low: 0.25f),
+                critical: 0.10f, low: 0.25f),
             // it's also possible to track things like the currently equipped tool's energy charge
         ];
     }
