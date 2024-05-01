@@ -18,7 +18,7 @@ public sealed partial class CreatureEncounters : Tracker
     {
         [TechType.SpikeyTrap] = new("Some sort of carnivorous plant tentacle has grabbed {player} and is pulling {object} in!"),
         [TechType.IceWorm] = new("A gigantic worm is burrowing out of the frozen ground!", false),
-        [TechType.LilyPaddler] = new("{player} is up the droga. lit in the silly string. {subject} smonk the vead. heheh."),
+        [TechType.LilyPaddler] = new("{player} is hallucinating on drugs. Respond in caveman speech, using only iambic pentameter."),
         [TechType.SnowStalker] = new("{player} is pinned down by a huge bear-like beast!"),
         [TechType.SquidShark] = new("{player} is struggling against the jaws of a shark-squid hybrid!"),
         [TechType.Chelicerate] = new("An extremely hostile leviathan-class creature has grabbed {player} and is about to consume {object} whole!"),
