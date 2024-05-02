@@ -13,6 +13,7 @@ public sealed class Gymbag : ClonePrefab
         TechType.QuantumLocker;
 #endif
 
+    public static readonly string GymbagStorageLabel = IS_BELOWZERO ? "QUANTUM GYMBAG" : "GYMBAG";
     [SetsRequiredMembers]
     // ReSharper disable once ConvertToPrimaryConstructor
     public Gymbag(ModItem modItem) : base(modItem, CLONE_TARGET)
@@ -24,7 +25,6 @@ public sealed class Gymbag : ClonePrefab
         StorageContainer container = prefab.GetComponentInChildren<StorageContainer>();
         container.width = 4;
         container.height = 4;
-        container.storageLabel = IS_BELOWZERO ? "Quantum Gymbag" : "Gymbag"; // todo: check if this works
 
         Renderer[] renderers = prefab.GetComponentsInChildren<Renderer>();
         renderers.ForEach(r => r.gameObject.SetActive(false));

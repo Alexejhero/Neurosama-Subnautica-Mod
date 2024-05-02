@@ -52,7 +52,7 @@ namespace SCHIZO.Jukebox
         public string trackLabel;
 
         [GroupNext("unlock")]
-        public bool unlockedOnStart = true;
+        public bool unlockedOnStart;
 
         [HideIf(nameof(unlockedOnStart)), UsedImplicitly]
         [Tooltip("If not set, the disk will use the base game model.")]
@@ -60,6 +60,9 @@ namespace SCHIZO.Jukebox
 
         [HideIf(nameof(unlockedOnStart)), UsedImplicitly]
         public SpawnLocation diskSpawnLocation;
+
+        [HideIf(nameof(unlockedOnStart)), UsedImplicitly]
+        public Sprite unlockSprite;
 
         [HideIf(nameof(unlockedOnStart)), UsedImplicitly, EventRef]
         public string unlockFmodEvent;
