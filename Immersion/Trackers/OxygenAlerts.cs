@@ -23,7 +23,7 @@ public sealed class OxygenAlerts : Tracker
             new Alert(this, "{player}'s oxygen is about to run out.") {
                 minDepth = 15, // base game's is 0
                 minO2Capacity = 30,
-                notification = null,
+                notification = null, // TODO: play the alarm sound but not the PDA voiceline
                 oxygenTriggerSeconds = 10,
             }
         ];
@@ -51,7 +51,7 @@ public sealed class OxygenAlerts : Tracker
 
     private void Notify(Alert alert)
     {
-        Send(PickEndpoint(alert.Priority), Format.FormatPlayer(alert.Message));
+        React(alert.Priority, Format.FormatPlayer(alert.Message));
     }
     internal sealed class Alert(OxygenAlerts owner, string message, Priority priority = Priority.Low) : LowOxygenAlert.Alert
     {

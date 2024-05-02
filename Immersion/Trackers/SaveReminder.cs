@@ -8,7 +8,7 @@ public sealed class SaveReminder : Tracker
     private float _lastSave;
     private bool _inGame;
     private int _currentReminderIndex = -1;
-    private readonly float[] _reminders = [900, 1800, 3600]; // 15m, 30m, 1h
+    private readonly float[] _reminders = [1200, 2400, 3600]; // 20m, 40m, 1h
 
     private void Start()
     {
@@ -62,6 +62,6 @@ public sealed class SaveReminder : Tracker
     {
         TimeSpan timeSpan = TimeSpan.FromSeconds(time);
         string message = $"{{player}} has not saved in over {timeSpan}.";
-        Send(PickEndpoint(Priority.Low), Format.FormatPlayer(message));
+        React(Priority.Low, Format.FormatPlayer(message));
     }
 }
