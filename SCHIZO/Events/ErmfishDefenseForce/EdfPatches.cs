@@ -61,10 +61,10 @@ public static class EdfPatches
     public static void ClearKarmaOnPlayerDeathByDefenders(LiveMixin __instance, DamageInfo inDamage)
     {
         if (__instance.gameObject != Player.main.gameObject) return;
-        if (__instance.health - inDamage.damage > 0) return;
+        if (__instance.health > 0) return;
 
         GameObject dealerDefender = ErmfishDefenseForce.instance.ActiveDefenders
-            .FirstOrDefault(def => inDamage.dealer.transform.IsChildOf(def.transform));
+            .Find(def => inDamage.dealer.transform.IsChildOf(def.transform));
         if (!dealerDefender) return;
 
         ErmfishDefenseForce.instance.OnPlayerKilledByDefender(dealerDefender);
