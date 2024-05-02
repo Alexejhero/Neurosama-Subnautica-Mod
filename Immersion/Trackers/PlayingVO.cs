@@ -16,7 +16,6 @@ public sealed class PlayingVO : Tracker
     public bool IsPlaying => (IsPlayingVO || UseSubs && IsShowingSubtitles) && !FreezeTime.HasFreezers();
     public bool IsShowingSubtitles => Subs is { messages.Count: > 0 };
     public bool IsPlayingVO => Sounds is { _current.host: SoundHost.Encyclopedia or SoundHost.Log or SoundHost.Realtime };
-    protected override bool StartEnabledDefault => false;
 
     private bool _wasPlaying;
 
