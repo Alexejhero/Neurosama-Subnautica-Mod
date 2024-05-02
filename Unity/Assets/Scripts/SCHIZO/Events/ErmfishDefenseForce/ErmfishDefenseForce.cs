@@ -10,8 +10,6 @@ namespace SCHIZO.Events.ErmfishDefenseForce
     {
         [SerializeField]
         private ItemData[] protectedSpecies;
-        [Tooltip("After spawning, aggro gain is disabled for this many seconds")]
-        public float cooldown = 300f;
 
         [GroupNext("aggro")]
         [Min(0)]

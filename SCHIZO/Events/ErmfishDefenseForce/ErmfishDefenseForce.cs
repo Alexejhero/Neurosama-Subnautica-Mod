@@ -41,7 +41,6 @@ partial class ErmfishDefenseForce
     public override bool IsOccurring => _spawning || ActiveDefenders.Count > 0;
 
     private bool _spawning;
-    private float _nextSpawnTime;
     public bool debugKarma;
     public bool debugSpawns;
 
@@ -61,8 +60,6 @@ partial class ErmfishDefenseForce
     private void OnAggroEvent(TechType techType, float aggroDelta, [CallerMemberName] string source = null)
     {
         if (!_techTypes.Contains(techType)) return;
-        // no aggro while on cooldown
-        if (Time.time < _nextSpawnTime) return;
 
         AddAggro(aggroDelta, $"{source}|{techType}");
     }
@@ -86,20 +83,16 @@ partial class ErmfishDefenseForce
 
     internal void Reset()
     {
-        _nextSpawnTime = 0;
         OnPlayerKilledByDefender(null);
     }
 
     protected override bool ShouldStartEvent()
     {
         if (CurrentAggro > 0)
-            CurrentAggro -= decay * Time.deltaTime;
-        if (debugKarma)
-            Draw.DrawText(default, CurrentAggro.ToString());
+            AddAggro(-decay * Time.deltaTime);
 
         return !_spawning
             && CurrentAggro > (IsFirstTime ? firstTimeThreshold : spawnThreshold)
-            && Time.time >= _nextSpawnTime
             && player && !player.currentSub
 #if BELOWZERO
             && player.currentInterior is null // don't spawn indoors
@@ -224,7 +217,6 @@ partial class ErmfishDefenseForce
             base.StartEvent();
         }
         ErrorMessage.AddMessage(messages.GetRandom());
-        _nextSpawnTime = Time.time + cooldown;
 
         StartCoroutine(SpawnDefenderGroup(RollRandomDefender()));
     }

@@ -87,7 +87,7 @@ MonoBehaviour:
   cooldown: 300
   spawnThreshold: 150
   firstTimeThreshold: 100
-  decay: 2.5
+  decay: 1
   pickUpAggro: 25
   attackAggro: 50
   cookAggro: 10
