@@ -56,9 +56,9 @@ partial class PDAJournal
 
                     DestroyOnStoryGoal preventDupes = prefab.EnsureComponent<DestroyOnStoryGoal>();
                     preventDupes.storyGoalSN = preventDupes.storyGoalBZ = journal.key;
-
+#if BELOWZERO
                     DestroyInCreativeMode storyOnly = prefab.EnsureComponent<DestroyInCreativeMode>();
-
+#endif
                     prefab.SetActive(false);
                 }
             });
