@@ -34,7 +34,7 @@ public static class Format
     {
         return char.IsUpper(template[0])
             ? CapitalizeFirst(substitution)
-            : template;
+            : substitution;
     }
 
     public static string CapitalizeFirst(string input)
