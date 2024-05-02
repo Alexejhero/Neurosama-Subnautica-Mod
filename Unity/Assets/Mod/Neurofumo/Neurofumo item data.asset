@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
   m_Name: Neurofumo item data
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   prefab: {fileID: 5527787040625736568, guid: d6b80c3071433c34084905466e4bbfc0, type: 3}
   loader:
     id: 0
