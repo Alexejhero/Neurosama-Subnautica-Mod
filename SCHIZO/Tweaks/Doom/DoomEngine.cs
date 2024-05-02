@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -78,14 +79,10 @@ internal partial class DoomEngine : MonoBehaviour
         else
             ScheduleUnityThread(action);
     }
+    private ConcurrentQueue<Action> _unityThreadQueue = new();
     internal void ScheduleUnityThread(Action action)
     {
-        StartCoroutine(Coro());
-        IEnumerator Coro()
-        {
-            yield return null; // will resume on unity thread
-            action();
-        }
+        _unityThreadQueue.Enqueue(action);
     }
 
     private static bool IsOnUnityThread()
@@ -128,6 +125,11 @@ internal partial class DoomEngine : MonoBehaviour
 
     private void Update()
     {
+        // TODO fix main thread freeze (related to input?)
+        while (_unityThreadQueue.TryDequeue(out var action))
+        {
+            action();
+        }
         CollectKeys();
         if (_frameState == FrameState.GatherInput)
         {

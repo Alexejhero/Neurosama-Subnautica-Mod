@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace SCHIZO.Tweaks.Doom;
 
@@ -8,6 +8,11 @@ internal class DoomPlayerConnection : MonoBehaviour, IDoomClient
     private DoomEngine player => DoomEngine.Instance;
     public Texture2D DoomScreen => player.Screen;
     public Sprite DoomScreenSprite => player.Sprite;
+    public Action Connected;
+    public Action Disconnected;
+    private Texture _oldTex;
+    public string WindowTitle { get; private set; }
+    // TODO UI/UX (prompt to start, keybind to quit, place camera at screen while playing)
     private void OnEnable()
     {
         player.Connect(this);
@@ -16,23 +21,8 @@ internal class DoomPlayerConnection : MonoBehaviour, IDoomClient
     {
         player.Disconnect(this);
     }
-    public void OnConnected() { }
-    private Sprite _oldSprite;
-    private Texture _oldTex;
-    public void OnDoomInit()
+    public void OnConnected()
     {
-        // temporary 
-        Image image = GetComponent<Image>();
-        if (image)
-        {
-            _oldSprite = image.sprite;
-            image.sprite = DoomScreenSprite;
-            // screen buffer is flipped vertically
-            Vector3 scale = image.rectTransform.localScale;
-            scale.y *= -1;
-            image.rectTransform.localScale = scale;
-            return;
-        }
         MeshRenderer mesh = GetComponent<MeshRenderer>();
         if (mesh)
         {
@@ -42,22 +32,15 @@ internal class DoomPlayerConnection : MonoBehaviour, IDoomClient
             scale.y *= -1;
             mesh.sharedMaterial.mainTextureScale = scale;
         }
-    }
-    public void OnDisconnected() { }
-    public void OnDoomFrame() { }
-    public void OnDoomTick() { }
-    public void OnDoomExit(int exitCode)
-    {
-        Image image = GetComponent<Image>();
-        if (image)
+        else
         {
-            image.sprite = _oldSprite;
-            // unflip
-            Vector3 scale = image.rectTransform.localScale;
-            scale.y *= -1;
-            image.rectTransform.localScale = scale;
-            return;
+            LOGGER.LogWarning("doom player target should have a mesh renderer");
         }
+        ToggleGameInput(true);
+        Connected?.Invoke();
+    }
+    public void OnDisconnected()
+    {
         MeshRenderer mesh = GetComponent<MeshRenderer>();
         if (mesh)
         {
@@ -66,9 +49,30 @@ internal class DoomPlayerConnection : MonoBehaviour, IDoomClient
             scale.y *= -1;
             mesh.sharedMaterial.mainTextureScale = scale;
         }
+        ToggleGameInput(false);
+        Disconnected?.Invoke();
+    }
+    private void ToggleGameInput(bool locked)
+    {
+        GameInput.instance.enabled = !locked;
+        //Player.main.playerController.SetEnabled(!locked);
+        //FPSInputModule.current.lockMovement = locked;
+        //FPSInputModule.current.lockRotation = locked;
+        //FPSInputModule.current.lockPauseMenu = locked;
+    }
+    public void OnDoomInit()
+    {
+    }
+
+    public void OnDoomFrame() { }
+    public void OnDoomTick() { }
+    public void OnDoomExit(int exitCode)
+    {
+        enabled = false;
     }
 
     public void OnWindowTitleChanged(string title)
     {
+        WindowTitle = title;
     }
 }

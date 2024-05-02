@@ -53,6 +53,7 @@ partial class DoomEngine
             SetWindowTitle = Doom_SetWindowTitle,
             Exit = Doom_Exit,
             Log = Doom_Log,
+            // TODO Sound
         }, _launchArgs.Length, _launchArgs);
         sw.Stop();
         StartupTime = (float) sw.Elapsed.TotalMilliseconds;
@@ -169,7 +170,7 @@ partial class DoomEngine
             string keyName = Enum.IsDefined(typeof(DoomKey), key)
                 ? key.ToString()
                 : $"'{(char)key}'"; // ascii/limited to byte so it's fine
-            LogSource.LogMessage($"GetKey {keyName} {(isPress ? "press" : "release")} consumed");
+            //LogSource.LogMessage($"GetKey {keyName} {(isPress ? "press" : "release")} consumed");
             return true;
         }
         //LogSource.LogDebug("GetKey nothing");
