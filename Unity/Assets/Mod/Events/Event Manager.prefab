@@ -79,43 +79,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canAutoStart: 1
   requiredStoryGoal_SN: 
-  requiredStoryGoal_BZ: SanctuaryCompleted
+  requiredStoryGoal_BZ: 
   protectedSpecies:
   - {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
   - {fileID: 11400000, guid: 324e5d1e52d07e340966e385d5f216af, type: 2}
   - {fileID: 11400000, guid: 66ad7caf49bcbc44283e8171bcad55e5, type: 2}
-  startAggroThreshold: 500
-  startCooldown: 3600
+  cooldown: 300
+  spawnThreshold: 150
+  firstTimeThreshold: 100
+  decay: 2.5
   pickUpAggro: 25
-  dropAggro: -25
-  attackAggro: 100
-  cookAggro: 50
-  eatAggro: 25
-  killedByDefenderAggro: -1000
+  attackAggro: 50
+  cookAggro: 10
+  eatAggro: 15
   ermconScoreAggro: {x: -10, y: 50}
   defenders:
-  - name: Kill Squad
-    _defender: {fileID: 11400000, guid: 5159b45dc6c3d83449b9eb96602c772c, type: 2}
-    aggroCost: 250
-    maxGroupSize: 5
+  - _defender: {fileID: 11400000, guid: 5159b45dc6c3d83449b9eb96602c772c, type: 2}
+    maxGroupSize: 4
     spawnWeight: 5
-  - name: Peace Negotiations
-    _defender: {fileID: 11400000, guid: c413dda5acae2794f8122a4d7b04cb53, type: 2}
-    aggroCost: 50
-    maxGroupSize: 10
-    spawnWeight: 2
-  - name: Ineffective At Best
-    _defender: {fileID: 11400000, guid: 87067f32545a0f74b95731190912dcd3, type: 2}
-    aggroCost: -100
-    maxGroupSize: 1
-    spawnWeight: 2
-  - name: ???
-    _defender: {fileID: 11400000, guid: 6abf367663a723f4fa2a8e0715a05a6c, type: 2}
-    aggroCost: 1500
-    maxGroupSize: 1
-    spawnWeight: 0
-  - name: Warning
-    _defender: {fileID: 11400000, guid: 880f463bbb4c2374aaa6cf41efdbc505, type: 2}
-    aggroCost: 100
-    maxGroupSize: 3
-    spawnWeight: 2
+  messages:
+  - Ermfish Defense Force deployed

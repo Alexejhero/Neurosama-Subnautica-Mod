@@ -56,15 +56,6 @@ public static class EdfPatches
         ErmfishDefenseForce.instance.OnPickup(__instance.GetTechType());
     }
 
-    [HarmonyPatch(typeof(Pickupable), nameof(Pickupable.Drop), [typeof(Vector3), typeof(Vector3), typeof(bool)])]
-    [HarmonyPostfix]
-    public static void OnDrop(Pickupable __instance)
-    {
-        if (!ErmfishDefenseForce.instance) return;
-
-        ErmfishDefenseForce.instance.OnDrop(__instance.GetTechType());
-    }
-
     [HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.NotifyAllAttachedDamageReceivers))]
     [HarmonyPostfix]
     public static void ClearKarmaOnPlayerDeathByDefenders(LiveMixin __instance, DamageInfo inDamage)

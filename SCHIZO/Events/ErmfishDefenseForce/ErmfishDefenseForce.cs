@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Nautilus.Handlers;
-using Nautilus.Json;
-using Nautilus.Json.Attributes;
+using RuntimeDebugDraw;
 using Unity.Collections;
 using UnityEngine;
 using UWE;
@@ -43,50 +41,43 @@ partial class ErmfishDefenseForce
     public override bool IsOccurring => _spawning || ActiveDefenders.Count > 0;
 
     private bool _spawning;
-    private float _cooldownTimer;
+    private float _nextSpawnTime;
     public bool debugKarma;
     public bool debugSpawns;
 
-    private void Start()
+    protected override void Start()
     {
         instance = this;
 
         _techTypes = new(protectedSpecies.Select(data => (TechType)data.ModItem));
         ActiveDefenders = [];
-        _cooldownTimer = startCooldown / 2f;
-
-        SaveData.Instance.Attach(this);
-        SaveData.Instance.Load();
     }
 
-    public void OnCook(TechType techType)
-    {
-        OnDrop(techType); // losing inventory items doesn't trigger OnDrop
-        OnAggroEvent(techType, cookAggro);
-    }
-
-    public void OnEat(TechType techType) => OnAggroEvent(techType, eatAggro);
     public void OnPickup(TechType techType) => OnAggroEvent(techType, pickUpAggro);
-    public void OnDrop(TechType techType) => OnAggroEvent(techType, dropAggro);
     public void OnAttack(TechType techType) => OnAggroEvent(techType, attackAggro);
+    public void OnCook(TechType techType) => OnAggroEvent(techType, cookAggro);
+    public void OnEat(TechType techType) => OnAggroEvent(techType, eatAggro);
+    public void OnDrop(TechType techType) => OnAggroEvent(techType, 0);
     private void OnAggroEvent(TechType techType, float aggroDelta, [CallerMemberName] string source = null)
     {
         if (!_techTypes.Contains(techType)) return;
+        // no aggro while on cooldown
+        if (Time.time < _nextSpawnTime) return;
 
         AddAggro(aggroDelta, $"{source}|{techType}");
     }
-    public void AddAggro(float aggro, [CallerMemberName] string source = null)
+    public void AddAggro(float delta, [CallerMemberName] string source = null)
     {
-        CurrentAggro += aggro;
+        CurrentAggro += delta;
         if (debugKarma)
         {
-            LOGGER.LogDebug($"({source}) aggro {(aggro >= 0 ? '+' : '-')}{Mathf.Abs(aggro)}={CurrentAggro}");
+            LOGGER.LogDebug($"({source}) aggro {(delta >= 0 ? '+' : '-')}{Mathf.Abs(delta)}={CurrentAggro}");
         }
     }
 
-    public void SetAggro(float aggro, [CallerMemberName] string source = null)
+    public void SetAggro(float value, [CallerMemberName] string source = null)
     {
-        CurrentAggro = aggro;
+        CurrentAggro = value;
         if (debugKarma)
         {
             LOGGER.LogDebug($"({source}) aggro ={CurrentAggro}");
@@ -95,21 +86,25 @@ partial class ErmfishDefenseForce
 
     internal void Reset()
     {
-        _cooldownTimer = 0;
+        _nextSpawnTime = 0;
         OnPlayerKilledByDefender(null);
     }
 
     protected override bool ShouldStartEvent()
     {
+        if (CurrentAggro > 0)
+            CurrentAggro -= decay * Time.deltaTime;
+        if (debugKarma)
+            Draw.DrawText(default, CurrentAggro.ToString());
+
         return !_spawning
-            && CurrentAggro > startAggroThreshold
-            && _cooldownTimer <= Time.time
+            && CurrentAggro > (IsFirstTime ? firstTimeThreshold : spawnThreshold)
+            && Time.time >= _nextSpawnTime
             && player && !player.currentSub
 #if BELOWZERO
             && player.currentInterior is null // don't spawn indoors
 #endif
-            && player.IsUnderwaterForSwimming() // there are no land kill squads... yet
-            ;
+            && player.IsUnderwaterForSwimming(); // there are no land kill squads... yet
     }
 
     protected override void UpdateLogic()
@@ -138,21 +133,19 @@ partial class ErmfishDefenseForce
 
     private Defender RollRandomDefender()
     {
-        float roll = Random.Range(0f, 1f);
+        if (defenders.Length == 1)
+            return defenders[0];
 
-        List<Defender> spawnable = defenders
-            .Where(d => d.aggroCost < CurrentAggro)
-            .ToList();
-
-        float totalWeight = spawnable.Sum(d => d.spawnWeight);
+        float totalWeight = defenders.Sum(d => d.spawnWeight);
         if (totalWeight == 0)
         {
-            LOGGER.LogWarning($"(EDF) No spawnable groups found - {defenders.Length} total defenders ({string.Join(",", defenders.Select(d => d.spawnWeight))}), {CurrentAggro} aggro");
+            LOGGER.LogWarning("(EDF) All defenders have 0 weight, aborting spawn");
             return null;
         }
 
+        float roll = Random.Range(0f, 1f);
         float thresh = 0;
-        foreach (Defender def in spawnable)
+        foreach (Defender def in defenders)
         {
             thresh += def.spawnWeight / totalWeight;
             if (roll <= thresh)
@@ -166,25 +159,19 @@ partial class ErmfishDefenseForce
     {
         if (defender is null)
             yield break;
-        int willSpawn = defender.maxGroupSize;
-        if (defender.aggroCost > 0)
-        {
-            int canSpawn = Mathf.FloorToInt(CurrentAggro / defender.aggroCost);
-            int wantToSpawn = Random.RandomRangeInt(0, canSpawn);
-            willSpawn = Mathf.Min(defender.maxGroupSize, wantToSpawn);
-        }
         if (defender.maxGroupSize == 0)
         {
-            ErrorMessage.AddMessage($"delopver forgor to set group size on {defender.name} everybody point and laugh");
+            ErrorMessage.AddMessage($"delopver forgor to set group size on {defender.ClassId} everybody point and laugh");
             yield break;
         }
-        if (debugSpawns) LOGGER.LogDebug($"(EDF) spawning {defender.name} ({willSpawn} {defender.ClassId})");
+        int willSpawn = Random.RandomRangeInt(1, defender.maxGroupSize);
+        if (debugSpawns) LOGGER.LogDebug($"(EDF) spawning {willSpawn} {defender.ClassId}");
         _spawning = true;
         TaskResult<GameObject> prefabTask = new();
         yield return defender.GetPrefab(prefabTask);
         GameObject prefab = prefabTask.Get();
         if (!prefab) yield break;
-        CurrentAggro -= defender.aggroCost * willSpawn;
+        CurrentAggro = 0;
 
         // todo check free space
         //Bounds bounds = new();
@@ -211,7 +198,7 @@ partial class ErmfishDefenseForce
             if (debugSpawns)
             {
                 if (blockingHit.point != default)
-                    LOGGER.LogWarning($"spawn raycast blocked by {blockingHit.collider} at {blockingHit.point}");
+                    LOGGER.LogWarning($"(EDF) spawn raycast blocked by {blockingHit.collider} at {blockingHit.point}");
                 GameObject spawnMarker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 spawnMarker.transform.localScale = new(0.5f, 0.5f, 0.5f);
                 spawnMarker.transform.position = spawnPos;
@@ -234,12 +221,11 @@ partial class ErmfishDefenseForce
     {
         if (!IsOccurring)
         {
-            if (IsFirstTime)
-                ErrorMessage.AddMessage("Ermfish Defense Force deployed");
             base.StartEvent();
         }
-        _cooldownTimer = Time.time + startCooldown;
-        
+        ErrorMessage.AddMessage(messages.GetRandom());
+        _nextSpawnTime = Time.time + cooldown;
+
         StartCoroutine(SpawnDefenderGroup(RollRandomDefender()));
     }
 
@@ -247,32 +233,8 @@ partial class ErmfishDefenseForce
     {
         ActiveDefenders.ForEach(Destroy);
         ActiveDefenders.Clear();
-        float reduction = -killedByDefenderAggro;
-        AddAggro(-Mathf.Min(reduction, CurrentAggro));
+        if (CurrentAggro > 0)
+            AddAggro(-CurrentAggro);
         EndEvent();
-    }
-
-    [FileName(nameof(ErmfishDefenseForce))]
-    private class SaveData : SaveDataCache
-    {
-        private static SaveData _instance;
-        public static SaveData Instance => _instance ??= SaveDataHandler.RegisterSaveDataCache<SaveData>();
-
-        public float aggro;
-
-        private ErmfishDefenseForce _source;
-        public SaveData()
-        {
-            _instance = this;
-            OnStartedSaving += SaveAggro;
-            OnFinishedLoading += LoadAggro;
-        }
-        public void Attach(ErmfishDefenseForce source)
-        {
-            _source = source;
-        }
- 
-        private void SaveAggro(object sender, JsonFileEventArgs e) => aggro = _source ? _source.CurrentAggro : default;
-        private void LoadAggro(object sender, JsonFileEventArgs e) => _source!?.SetAggro(aggro);
     }
 }

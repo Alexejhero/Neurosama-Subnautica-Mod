@@ -10,34 +10,34 @@ namespace SCHIZO.Events.ErmfishDefenseForce
     {
         [SerializeField]
         private ItemData[] protectedSpecies;
-        [Tooltip("Aggro threshold after which to start spawning")]
-        public float startAggroThreshold;
-        public float startCooldown = 1800f;
+        [Tooltip("After spawning, aggro gain is disabled for this many seconds")]
+        public float cooldown = 300f;
 
         [GroupNext("aggro")]
-        public float pickUpAggro;
-        public float dropAggro;
-        public float attackAggro;
-        public float cookAggro;
-        public float eatAggro;
-        [InfoBox("This will not reduce aggro below zero")]
-        public float killedByDefenderAggro;
+        [Min(0)]
+        public float spawnThreshold = 150;
+        [Min(0), Tooltip("First EDF per save")]
+        public float firstTimeThreshold = 100;
+        [LabelText("Decay (per second)")]
+        public float decay = 2.5f;
+        public float pickUpAggro = 25;
+        public float attackAggro = 50;
+        public float cookAggro = 10;
+        public float eatAggro = 15;
         [InfoBox("todo ermcon scoring system"), ReadOnly]
-        public Vector2Int ermconScoreAggro = new(-10, 50);
+        public Vector2Int ermconScoreAggro = new(-50, 10);
         [UnGroupNext]
 
         [LabelText("Defense Force")]
         public Defender[] defenders;
+        public string[] messages;
 
         [Serializable]
         public partial class Defender
         {
-            public string name;
             [SerializeField]
             private ItemData _defender;
             public string ClassId => _defender.classId;
-            [Tooltip("Cost to spawn each of this type of defender")]
-            public float aggroCost;
             [Min(0), Tooltip("Maximum number of these that can be spawned at once in a group")]
             public int maxGroupSize;
             [Min(0), Tooltip("Relative to all the other defenders (e.g. if this has 2 and someone else has 5, this will spawn 2/7th of the time)")]

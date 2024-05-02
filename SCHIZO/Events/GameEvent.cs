@@ -24,8 +24,18 @@ public partial class GameEvent : IStoryGoalListener
         player = Player.main;
 
         StoryGoalManager.main.AddListener(this);
-        if (string.IsNullOrEmpty(RequiredStoryGoal))
-            Unlock();
+    }
+    protected void OnDestroy()
+    {
+        if (StoryGoalManager.main)
+            StoryGoalManager.main.RemoveListener(this);
+    }
+
+    protected virtual void Start()
+    {
+#if !BELOWZERO
+        NotifyGoalsDeserialized();
+#endif
     }
 
     #region Unlock goals
@@ -45,7 +55,7 @@ public partial class GameEvent : IStoryGoalListener
     {
         if (StoryGoalHelpers.IsCompleted(Goals.FirstTime)) IsFirstTime = false;
         if (StoryGoalHelpers.IsCompleted(Goals.Unlock)) IsUnlocked = true;
-        if (StoryGoalHelpers.IsCompleted(RequiredStoryGoal))
+        if (string.IsNullOrEmpty(RequiredStoryGoal) || StoryGoalHelpers.IsCompleted(RequiredStoryGoal))
             Unlock();
     }
 
@@ -59,11 +69,6 @@ public partial class GameEvent : IStoryGoalListener
     {
         StoryGoalHelpers.Reset(Goals.Unlock);
         IsUnlocked = false;
-    }
-
-    protected void OnDestroy()
-    {
-        if (StoryGoalManager.main) StoryGoalManager.main.RemoveListener(this);
     }
     #endregion Unlock goals
 
