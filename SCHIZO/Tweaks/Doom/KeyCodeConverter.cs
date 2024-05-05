@@ -44,7 +44,9 @@ internal static class KeyCodeConverter
         { KeyCode.Minus, DoomKey.Minus },
 
         { KeyCode.RightShift, DoomKey.RShift },
+        { KeyCode.LeftShift, DoomKey.RShift },
         //{ KeyCode.RightControl, DoomKey.RCtrl },
+        { KeyCode.LeftControl, DoomKey.RCtrl },
         { KeyCode.RightAlt, DoomKey.RAlt },
 
         { KeyCode.LeftAlt, DoomKey.LAlt },
@@ -86,8 +88,8 @@ internal static class KeyCodeConverter
         .GroupBy(pair => pair.Value, pair => pair.Key)
         .ToDictionary(pair => pair.Key, pair => pair.First());
 
-    public static KeyCode ToUnity(DoomKey doomKey) => _doomToUnity[doomKey];
-    public static DoomKey ToDoom(KeyCode unityKey) => _unityToDoom[unityKey];
+    public static KeyCode ToUnity(DoomKey doomKey) => _doomToUnity.GetOrDefault(doomKey, default);
+    public static DoomKey ToDoom(KeyCode unityKey) => _unityToDoom.GetOrDefault(unityKey, default);
 
     public static IEnumerable<(KeyCode, DoomKey)> GetAllKeys() => _unityToDoom.Select(pair => (pair.Key, pair.Value));
 }

@@ -157,9 +157,11 @@ internal partial class DoomEngine : MonoBehaviour
     private readonly HashSet<DoomKey> _pressedKeys = [];
     private readonly HashSet<DoomKey> _heldKeys = [];
     private readonly HashSet<DoomKey> _releasedKeys = [];
+    // the blocklist is needed because some keys are rebound and thus double up w/ the "input string"
+    // e.g. pause menu "save game" shortcut 's' conflicts w/ "down arrow" binding for S
+    private readonly HashSet<byte> _blockDoubles = new(Encoding.ASCII.GetBytes("sweSWE"));
     private object _lock = new();
 
-    private string _last;
     private void CollectKeys()
     {
         if (!CurrentThreadIsMainThread())
@@ -179,15 +181,10 @@ internal partial class DoomEngine : MonoBehaviour
             // 6/10 on the funny scale
             // but there are a shitload of keys checked in the C code that aren't in enums at all
             // and i cba to redefine them all
-            // TODO: main menu "save game" shortcut 's' conflicts w/ "down arrow" binding for S
             _pressedKeys.AddRange(Encoding.ASCII.GetBytes(Input.inputString)
+                .Where(c => !_blockDoubles.Contains(c))
                 .Cast<DoomKey>()
                 .Where(_heldKeys.Add));
-            if (Input.inputString != _last)
-            {
-                _last = Input.inputString;
-                LOGGER.LogDebug($"{Input.inputString} [{string.Join(" ", Encoding.ASCII.GetBytes(Input.inputString))}]");
-            }
 
             foreach ((KeyCode unityKey, DoomKey doomKey) in KeyCodeConverter.GetAllKeys())
             {
