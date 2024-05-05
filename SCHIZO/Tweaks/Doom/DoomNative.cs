@@ -18,6 +18,8 @@ internal static class DoomNative
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate bool GetKeyCallback([Out] out bool pressed, [Out] out DoomKey doomKey);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void GetMouseCallback([Out] out int deltax, out int deltay, out int left, out int right, out int middle, out int wheel);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void SetWindowTitleCallback([MarshalAs(UnmanagedType.LPStr)] string title);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void Exit(int exitCode);
@@ -32,6 +34,7 @@ internal static class DoomNative
         public SleepCallback Sleep;
         public GetTicksMillisCallback GetTicksMillis;
         public GetKeyCallback GetKey;
+        public GetMouseCallback GetMouse;
         public SetWindowTitleCallback SetWindowTitle;
         public Exit Exit;
         public Log Log;
@@ -48,6 +51,7 @@ internal static class DoomNative
                 throw new InvalidOperationException($"Required callback {nameof(GetTicksMillis)} is missing");
             if (GetKey is null)
                 throw new InvalidOperationException($"Required callback {nameof(GetKey)}) is missing");
+            // GetMouse is optional
             // SetWindowTitle is optional
             if (Exit is null)
                 throw new InvalidOperationException($"Required callback {nameof(Exit)}) is missing");

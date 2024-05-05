@@ -50,6 +50,7 @@ partial class DoomEngine
             Sleep = Doom_Sleep,
             GetTicksMillis = Doom_GetTicksMillis,
             GetKey = Doom_GetKey,
+            GetMouse = Doom_GetMouse,
             SetWindowTitle = Doom_SetWindowTitle,
             Exit = Doom_Exit,
             Log = Doom_Log,
@@ -158,7 +159,7 @@ partial class DoomEngine
     {
         pressed = default;
         key = default;
-        lock (_lock)
+        lock (_inputSync)
         {
             foreach (bool isPress in new[] { true, false })
             {
@@ -177,6 +178,20 @@ partial class DoomEngine
         }
         //LogSource.LogDebug("GetKey nothing");
         return false;
+    }
+
+    private void Doom_GetMouse(out int deltaX, out int deltaY, out int left, out int right, out int middle, out int wheel)
+    {
+        lock (_inputSync)
+        {
+            deltaX = (int)Interlocked.Exchange(ref _mouseDeltaX, 0f);
+            deltaY = (int)Interlocked.Exchange(ref _mouseDeltaY, 0f);
+            wheel = Mathf.Approximately(_mouseWheelDelta, 0f) ? 0 : (int)Mathf.Sign(_mouseWheelDelta);
+            _mouseWheelDelta = 0;
+            left = Input.GetMouseButton(0) ? 1 : 0;
+            right = Input.GetMouseButton(1) ? 1 : 0;
+            middle = Input.GetMouseButton(2) ? 1 : 0;
+        }
     }
 
     private void Doom_Exit(int exitCode)

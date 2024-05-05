@@ -131,7 +131,10 @@ internal partial class DoomEngine : MonoBehaviour
             action();
         }
         if (_clientManager.Any(c => c.IsAcceptingInput))
+        {
             CollectKeys();
+            CollectMouse();
+        }
         if (_frameState == FrameState.GatherInput)
         {
             _frameState = FrameState.DoGameTick;
@@ -159,8 +162,9 @@ internal partial class DoomEngine : MonoBehaviour
     private readonly HashSet<DoomKey> _releasedKeys = [];
     // the blocklist is needed because some keys are rebound and thus double up w/ the "input string"
     // e.g. pause menu "save game" shortcut 's' conflicts w/ "down arrow" binding for S
-    private readonly HashSet<byte> _blockDoubles = new(Encoding.ASCII.GetBytes("sweSWE"));
-    private object _lock = new();
+    private readonly HashSet<byte> _blockDoubles = new(Encoding.ASCII.GetBytes("swe"));
+    // without the lock, the main thread randomly freezes (presumably due to simultaneous access to _XXXKeys)
+    private object _inputSync = new();
 
     private void CollectKeys()
     {
@@ -169,7 +173,7 @@ internal partial class DoomEngine : MonoBehaviour
             LogSource.LogError("Should not be in CollectKeys on background thread");
             Debugger.Break();
         }
-        lock (_lock)
+        lock (_inputSync)
         {
             _releasedKeys.AddRange(_heldKeys);
             if (!Input.anyKey)
@@ -177,14 +181,6 @@ internal partial class DoomEngine : MonoBehaviour
                 _heldKeys.Clear();
                 return;
             }
-
-            // 6/10 on the funny scale
-            // but there are a shitload of keys checked in the C code that aren't in enums at all
-            // and i cba to redefine them all
-            _pressedKeys.AddRange(Encoding.ASCII.GetBytes(Input.inputString)
-                .Where(c => !_blockDoubles.Contains(c))
-                .Cast<DoomKey>()
-                .Where(_heldKeys.Add));
 
             foreach ((KeyCode unityKey, DoomKey doomKey) in KeyCodeConverter.GetAllKeys())
             {
@@ -199,7 +195,29 @@ internal partial class DoomEngine : MonoBehaviour
                 // otherwise it counts as pressed and released in the same tick and therefore the input gets dropped or spammed
                 _releasedKeys.Remove(doomKey);
             }
+            // 6/10 on the funny scale
+            // but there are a shitload of keys checked in the C code that aren't in enums at all
+            // and i cba to redefine them all
+            _pressedKeys.AddRange(Encoding.ASCII.GetBytes(Input.inputString.ToLowerInvariant())
+                .Where(c => !_blockDoubles.Contains(c))
+                .Cast<DoomKey>()
+                .Where(_heldKeys.Add));
+
+            _releasedKeys.RemoveRange(_pressedKeys);
             _heldKeys.RemoveRange(_releasedKeys);
+        }
+    }
+
+    private float _mouseDeltaX;
+    private float _mouseDeltaY;
+    private float _mouseWheelDelta;
+    private void CollectMouse()
+    {
+        lock (_inputSync)
+        {
+            _mouseDeltaX += Input.GetAxis("Mouse X");
+            //_mouseDeltaY += Input.GetAxis("Mouse Y"); // this controls forward/back movement which feels mega weird
+            _mouseWheelDelta += Input.mouseScrollDelta.y;
         }
     }
 }

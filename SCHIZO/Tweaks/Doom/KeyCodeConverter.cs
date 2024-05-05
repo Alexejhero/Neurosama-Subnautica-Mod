@@ -18,7 +18,7 @@ internal static class KeyCodeConverter
         { KeyCode.S, DoomKey.DownArrow },
         { KeyCode.D, DoomKey.StrafeRight },
         { KeyCode.E, DoomKey.Use },
-        { KeyCode.Mouse0, DoomKey.Fire },
+        //{ KeyCode.Mouse0, DoomKey.Fire },
         { KeyCode.RightControl, DoomKey.Fire },
         { KeyCode.Escape, DoomKey.Escape },
         { KeyCode.Return, DoomKey.Enter },
