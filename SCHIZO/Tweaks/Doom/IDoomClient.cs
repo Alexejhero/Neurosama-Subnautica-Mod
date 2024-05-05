@@ -2,6 +2,7 @@ namespace SCHIZO.Tweaks.Doom;
 
 internal interface IDoomClient
 {
+    bool IsAcceptingInput { get; }
     void OnConnected();
     void OnDoomInit();
     void OnDoomFrame();

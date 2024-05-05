@@ -15,7 +15,7 @@ MonoBehaviour:
   game: 2
   prefab: {fileID: 2778109351847130359, guid: 4c2b863c1cbf1dc48bfe8d6a06c8ef75, type: 3}
   isSingleton: 0
-  scanForExisting: 1
+  scanForExisting: 0
   typeName: SeaTruckSegment
   methodName: Start
   _isBaseType: 0

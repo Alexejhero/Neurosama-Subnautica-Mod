@@ -126,11 +126,12 @@ internal partial class DoomEngine : MonoBehaviour
     private void Update()
     {
         // TODO fix main thread freeze (related to input?)
-        while (_unityThreadQueue.TryDequeue(out var action))
+        while (_unityThreadQueue.TryDequeue(out Action action))
         {
             action();
         }
-        CollectKeys();
+        if (_clientManager.Any(c => c.IsAcceptingInput))
+            CollectKeys();
         if (_frameState == FrameState.GatherInput)
         {
             _frameState = FrameState.DoGameTick;
@@ -156,7 +157,9 @@ internal partial class DoomEngine : MonoBehaviour
     private readonly HashSet<DoomKey> _pressedKeys = [];
     private readonly HashSet<DoomKey> _heldKeys = [];
     private readonly HashSet<DoomKey> _releasedKeys = [];
+    private object _lock = new();
 
+    private string _last;
     private void CollectKeys()
     {
         if (!CurrentThreadIsMainThread())
@@ -164,34 +167,42 @@ internal partial class DoomEngine : MonoBehaviour
             LogSource.LogError("Should not be in CollectKeys on background thread");
             Debugger.Break();
         }
-        _releasedKeys.AddRange(_heldKeys);
-        if (!Input.anyKey)
+        lock (_lock)
         {
-            _heldKeys.Clear();
-            return;
-        }
-
-        // 6/10 on the funny scale
-        // but there are a shitload of keys checked in the C code that aren't in enums at all
-        // and i cba to redefine them all
-        // TODO: main menu "save game" shortcut 's' conflicts w/ "down arrow" binding for S
-        _pressedKeys.AddRange(Encoding.ASCII.GetBytes(Input.inputString)
-            .Cast<DoomKey>()
-            .Where(_heldKeys.Add));
-
-        foreach ((KeyCode unityKey, DoomKey doomKey) in KeyCodeConverter.GetAllKeys())
-        {
-            if (!Input.GetKey(unityKey)) continue;
-
-            if (_heldKeys.Add(doomKey))
+            _releasedKeys.AddRange(_heldKeys);
+            if (!Input.anyKey)
             {
-                //LogSource.LogDebug($"CollectKeys pressed {doomKey} ({unityKey})");
-                _pressedKeys.Add(doomKey);
+                _heldKeys.Clear();
+                return;
             }
-            // alternate binds, duplicate DoomKey values, etc.
-            // otherwise it counts as pressed and released in the same tick and therefore the input gets dropped or spammed
-            _releasedKeys.Remove(doomKey);
+
+            // 6/10 on the funny scale
+            // but there are a shitload of keys checked in the C code that aren't in enums at all
+            // and i cba to redefine them all
+            // TODO: main menu "save game" shortcut 's' conflicts w/ "down arrow" binding for S
+            _pressedKeys.AddRange(Encoding.ASCII.GetBytes(Input.inputString)
+                .Cast<DoomKey>()
+                .Where(_heldKeys.Add));
+            if (Input.inputString != _last)
+            {
+                _last = Input.inputString;
+                LOGGER.LogDebug($"{Input.inputString} [{string.Join(" ", Encoding.ASCII.GetBytes(Input.inputString))}]");
+            }
+
+            foreach ((KeyCode unityKey, DoomKey doomKey) in KeyCodeConverter.GetAllKeys())
+            {
+                if (!Input.GetKey(unityKey)) continue;
+
+                if (_heldKeys.Add(doomKey))
+                {
+                    //LogSource.LogDebug($"CollectKeys pressed {doomKey} ({unityKey})");
+                    _pressedKeys.Add(doomKey);
+                }
+                // alternate binds, duplicate DoomKey values, etc.
+                // otherwise it counts as pressed and released in the same tick and therefore the input gets dropped or spammed
+                _releasedKeys.Remove(doomKey);
+            }
+            _heldKeys.RemoveRange(_releasedKeys);
         }
-        _heldKeys.RemoveRange(_releasedKeys);
     }
 }

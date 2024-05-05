@@ -158,20 +158,22 @@ partial class DoomEngine
     {
         pressed = default;
         key = default;
-
-        foreach (bool isPress in new[] { true, false })
+        lock (_lock)
         {
-            HashSet<DoomKey> keys = isPress ? _pressedKeys : _releasedKeys;
-            if (keys.Count == 0) continue;
+            foreach (bool isPress in new[] { true, false })
+            {
+                HashSet<DoomKey> keys = isPress ? _pressedKeys : _releasedKeys;
+                if (keys.Count == 0) continue;
 
-            pressed = isPress;
-            key = keys.First();
-            keys.Remove(key);
-            string keyName = Enum.IsDefined(typeof(DoomKey), key)
-                ? key.ToString()
-                : $"'{(char)key}'"; // ascii/limited to byte so it's fine
-            //LogSource.LogMessage($"GetKey {keyName} {(isPress ? "press" : "release")} consumed");
-            return true;
+                pressed = isPress;
+                key = keys.First();
+                keys.Remove(key);
+                string keyName = Enum.IsDefined(typeof(DoomKey), key)
+                    ? key.ToString()
+                    : $"'{(char)key}'"; // ascii/limited to byte so it's fine
+                //LogSource.LogMessage($"GetKey {keyName} {(isPress ? "press" : "release")} consumed");
+                return true;
+            }
         }
         //LogSource.LogDebug("GetKey nothing");
         return false;
