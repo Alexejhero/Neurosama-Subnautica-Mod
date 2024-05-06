@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -48,7 +47,7 @@ internal partial class DoomEngine : MonoBehaviour
     internal int LastExitCode { get; private set; }
     internal int CurrentTick { get; private set; }
 
-    private ManualLogSource LogSource { get; set; } = BepInEx.Logging.Logger.CreateLogSource("DOOM");
+    internal ManualLogSource LogSource { get; private set; } = BepInEx.Logging.Logger.CreateLogSource("DOOM");
 
     private void Awake()
     {
@@ -211,6 +210,9 @@ internal partial class DoomEngine : MonoBehaviour
     private float _mouseDeltaX;
     private float _mouseDeltaY;
     private float _mouseWheelDelta;
+    private bool _left;
+    private bool _right;
+    private bool _middle;
     private void CollectMouse()
     {
         lock (_inputSync)
@@ -218,6 +220,25 @@ internal partial class DoomEngine : MonoBehaviour
             _mouseDeltaX += Input.GetAxis("Mouse X");
             //_mouseDeltaY += Input.GetAxis("Mouse Y"); // this controls forward/back movement which feels mega weird
             _mouseWheelDelta += Input.mouseScrollDelta.y;
+            if (_ignoringLeftClick)
+            {
+                _left = false;
+                if (Input.GetMouseButtonUp(0))
+                    _ignoringLeftClick = false;
+            }
+            else
+            {
+                _left = Input.GetMouseButton(0);
+            }
+
+            _right = Input.GetMouseButton(1);
+            _middle = Input.GetMouseButton(2);
         }
+    }
+
+    private bool _ignoringLeftClick;
+    internal void IgnoreNextLeftClick()
+    {
+        _ignoringLeftClick = true;
     }
 }

@@ -16,9 +16,9 @@ internal static class DoomNative
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate uint GetTicksMillisCallback();
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate bool GetKeyCallback([Out] out bool pressed, [Out] out DoomKey doomKey);
+    public delegate bool GetKeyCallback(out bool pressed, out DoomKey doomKey);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void GetMouseCallback([Out] out int deltax, out int deltay, out int left, out int right, out int middle, out int wheel);
+    public delegate void GetMouseCallback(out int deltax, out int deltay, out bool left, out bool right, out bool middle, out int wheel);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void SetWindowTitleCallback([MarshalAs(UnmanagedType.LPStr)] string title);
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]

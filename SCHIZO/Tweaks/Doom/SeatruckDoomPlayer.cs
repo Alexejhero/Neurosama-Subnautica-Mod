@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace SCHIZO.Tweaks.Doom;
@@ -14,6 +15,11 @@ partial class SeatruckDoomPlayer : MonoBehaviour
     private Vector3 _oldScreenScale;
     private void OnEnable()
     {
+        if (DoomEngine.Instance.LastExitCode != 0)
+        {
+            Destroy(this);
+            return;
+        }
         // seatruck modules have no discriminator, they're just prefabs
         _pictureFrame = transform.parent.Find("PictureFrame");
         if (!_pictureFrame)
@@ -38,6 +44,7 @@ partial class SeatruckDoomPlayer : MonoBehaviour
         _connection.enabled = false;
         _connection.Connected += PlayerConnected;
         _connection.Disconnected += PlayerDisconnected;
+        _connection.Exited += OnDoomExit;
         _connection.enabled = true;
 
         _ourHandTarget = _handTrigger.gameObject.AddComponent<GenericHandTarget>();
@@ -47,12 +54,18 @@ partial class SeatruckDoomPlayer : MonoBehaviour
         _ourHandTarget.onHandClick.AddListener(OnHandClick);
     }
 
+    private void OnDoomExit(int code)
+    {
+        if (code != 0) Destroy(this);
+    }
+
     private void OnDisable()
     {
         if (!_pictureFrame) return;
         _connection.enabled = false;
         _connection.Connected -= PlayerConnected;
         _connection.Disconnected -= PlayerDisconnected;
+        _connection.Exited -= OnDoomExit;
         Destroy(_connection);
 
         _oldHandTarget.enabled = true;
@@ -81,6 +94,7 @@ partial class SeatruckDoomPlayer : MonoBehaviour
             if (_controlling == value) return;
 
             _controlling = value;
+            DoomEngine.Instance.IgnoreNextLeftClick();
             ToggleGameInput(!value);
             _connection.PlayerPlaying = value;
             _handTrigger.gameObject.SetActive(!value);

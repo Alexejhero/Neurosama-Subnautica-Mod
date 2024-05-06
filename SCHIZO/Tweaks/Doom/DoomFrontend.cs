@@ -10,6 +10,7 @@ internal class DoomFrontend : MonoBehaviour, IDoomClient
     public Sprite DoomScreenSprite => engine.Sprite;
     public Action Connected;
     public Action Disconnected;
+    public Action<int> Exited;
     public bool PlayerPlaying { get; set; }
     public bool IsAcceptingInput => PlayerPlaying;
     public string WindowTitle { get; private set; }
@@ -39,6 +40,7 @@ internal class DoomFrontend : MonoBehaviour, IDoomClient
     public void OnDoomExit(int exitCode)
     {
         enabled = false;
+        Exited?.Invoke(exitCode);
     }
 
     public void OnWindowTitleChanged(string title)

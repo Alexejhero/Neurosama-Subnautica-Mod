@@ -41,8 +41,17 @@ partial class DoomEngine
             LogSource.LogWarning("Tried to start doom more than once");
             return;
         }
+        if (!File.Exists(_launchArgs[0]))
+        {
+            IsStarted = true;
+            LogSource.LogError("doomgeneric.dll was not found");
+            Doom_Exit(1);
+            return;
+        }
         _gameClock.Start();
         Stopwatch sw = Stopwatch.StartNew();
+        DoomAudioNative.SetAudioCallbacks(DoomFmodAudio.SfxCallbacks(), DoomFmodAudio.MusicCallbacks());
+        float audioInitTime = (float)sw.Elapsed.TotalMilliseconds;
         DoomNative.Start(new()
         {
             Init = Doom_Init,
@@ -54,11 +63,10 @@ partial class DoomEngine
             SetWindowTitle = Doom_SetWindowTitle,
             Exit = Doom_Exit,
             Log = Doom_Log,
-            // TODO Sound
         }, _launchArgs.Length, _launchArgs);
         sw.Stop();
         StartupTime = (float) sw.Elapsed.TotalMilliseconds;
-        LogSource.LogWarning($"Startup took: {StartupTime:n}ms");
+        LogSource.LogWarning($"Startup took: {StartupTime:n}ms ({audioInitTime:n}ms audio, {StartupTime - audioInitTime}ms engine)");
         IsStarted = true;
         if (IsOnUnityThread())
         {
@@ -180,7 +188,7 @@ partial class DoomEngine
         return false;
     }
 
-    private void Doom_GetMouse(out int deltaX, out int deltaY, out int left, out int right, out int middle, out int wheel)
+    private void Doom_GetMouse(out int deltaX, out int deltaY, out bool left, out bool right, out bool middle, out int wheel)
     {
         lock (_inputSync)
         {
@@ -188,9 +196,9 @@ partial class DoomEngine
             deltaY = (int)Interlocked.Exchange(ref _mouseDeltaY, 0f);
             wheel = Mathf.Approximately(_mouseWheelDelta, 0f) ? 0 : (int)Mathf.Sign(_mouseWheelDelta);
             _mouseWheelDelta = 0;
-            left = Input.GetMouseButton(0) ? 1 : 0;
-            right = Input.GetMouseButton(1) ? 1 : 0;
-            middle = Input.GetMouseButton(2) ? 1 : 0;
+            left = _left;
+            right = _right;
+            middle = _middle;
         }
     }
 

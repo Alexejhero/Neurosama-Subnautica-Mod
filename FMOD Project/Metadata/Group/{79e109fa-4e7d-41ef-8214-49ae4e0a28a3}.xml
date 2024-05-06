@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{79e109fa-4e7d-41ef-8214-49ae4e0a28a3}">
+		<property name="name">
+			<value>Doom</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{720c8b26-3a95-4590-8aef-29d03b726494}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{ecdc8372-a7f1-4bb5-8205-496d4d74cf34}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{f3af2410-6053-473c-9c4b-f7577a111acc}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{720c8b26-3a95-4590-8aef-29d03b726494}">
+		<relationship name="effects">
+			<destination>{dbf2fe1d-003d-4f74-a3cc-5ccac40ae586}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{ecdc8372-a7f1-4bb5-8205-496d4d74cf34}" />
+	<object class="MixerBusFader" id="{dbf2fe1d-003d-4f74-a3cc-5ccac40ae586}" />
+</objects>
