@@ -217,8 +217,8 @@ internal partial class DoomEngine : MonoBehaviour
             // and i cba to redefine them all
             _pressedKeys.AddRange(Encoding.ASCII.GetBytes(Input.inputString.ToLowerInvariant())
                 //.Where(c => !_blockChars.Contains(c))
-                .Cast<DoomKey>()
-                .Where(_heldKeys.Add));
+                .Select(KeyCodeConverter.ConvertKey)
+                .Where(k => k != default && _heldKeys.Add(k)));
 
             _releasedKeys.RemoveRange(_pressedKeys);
             _heldKeys.RemoveRange(_releasedKeys);

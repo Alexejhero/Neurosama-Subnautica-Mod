@@ -253,7 +253,8 @@ internal static class DoomFmodAudio
     }
     public static void PollMusic()
     {
-        // FMOD releases channels automatically
+        if (!DoomEngine.Instance.IsRunning)
+            _playingSong.setPaused(true);
     }
     #endregion
 }

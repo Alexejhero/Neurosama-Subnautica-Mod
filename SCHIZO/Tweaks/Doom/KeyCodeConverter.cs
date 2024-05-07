@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace SCHIZO.Tweaks.Doom;
@@ -8,7 +9,6 @@ internal static class KeyCodeConverter
 {
     private static readonly Dictionary<KeyCode, DoomKey> _unityToDoom = new()
     {
-        // invert _keyCodes
         { KeyCode.RightArrow, DoomKey.RightArrow },
         { KeyCode.LeftArrow, DoomKey.LeftArrow },
         { KeyCode.UpArrow, DoomKey.UpArrow },
@@ -18,7 +18,7 @@ internal static class KeyCodeConverter
         { KeyCode.S, DoomKey.DownArrow },
         { KeyCode.D, DoomKey.StrafeRight },
         { KeyCode.E, DoomKey.Use },
-        //{ KeyCode.Mouse0, DoomKey.Fire },
+        //{ KeyCode.Mouse0, DoomKey.Fire }, // we use the mouse natively now
         { KeyCode.RightControl, DoomKey.Fire },
         { KeyCode.Escape, DoomKey.Escape },
         { KeyCode.Return, DoomKey.Enter },
@@ -92,4 +92,27 @@ internal static class KeyCodeConverter
     public static DoomKey ToDoom(KeyCode unityKey) => _unityToDoom.GetOrDefault(unityKey, default);
 
     public static IEnumerable<(KeyCode, DoomKey)> GetAllKeys() => _unityToDoom.Select(pair => (pair.Key, pair.Value));
+
+    private static readonly Dictionary<char, char> _shiftDigits = new()
+    {
+        { '!', '1' },
+        { '@', '2' },
+        { '#', '3' },
+        { '$', '4' },
+        { '%', '5' },
+        { '^', '6' },
+        { '&', '7' },
+        { '*', '8' },
+        { '(', '9' },
+        { ')', '0' },
+        { '_', '-' },
+        { '+', '=' },
+    };
+    public static DoomKey ConvertKey(byte key)
+    {
+        char c = (char)key;
+        if (_shiftDigits.TryGetValue(c, out char digit))
+            key = (byte)digit;
+        return (DoomKey)key;
+    }
 }
