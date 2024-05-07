@@ -171,14 +171,17 @@ internal partial class DoomEngine : MonoBehaviour
         }
     }
 
+    // without the lock, the main thread randomly freezes (presumably due to simultaneous access to _XXXKeys)
+    private object _inputSync = new();
+    // holding input state until the doom thread consumes it
     private readonly HashSet<DoomKey> _pressedKeys = [];
     private readonly HashSet<DoomKey> _heldKeys = [];
     private readonly HashSet<DoomKey> _releasedKeys = [];
-    // the blocklist is needed because some keys are rebound and thus double up w/ the "input string"
+    // the blocklist was needed previously because we mimic bindings through sending different keys (e.g. S sends "down arrow")
+    // unfortunately, it causes inputs to double up w/ the "input string"
     // e.g. pause menu "save game" shortcut 's' conflicts w/ "down arrow" binding for S
-    private readonly HashSet<byte> _blockDoubles = new(Encoding.ASCII.GetBytes("swe"));
-    // without the lock, the main thread randomly freezes (presumably due to simultaneous access to _XXXKeys)
-    private object _inputSync = new();
+    // to avoid a complicated solution, i just moved the shortcuts in C :)
+    //private readonly HashSet<byte> _blockChars = new(Encoding.ASCII.GetBytes("swe"));
 
     private void CollectKeys()
     {
@@ -213,7 +216,7 @@ internal partial class DoomEngine : MonoBehaviour
             // but there are a shitload of keys checked in the C code that aren't in enums at all
             // and i cba to redefine them all
             _pressedKeys.AddRange(Encoding.ASCII.GetBytes(Input.inputString.ToLowerInvariant())
-                .Where(c => !_blockDoubles.Contains(c))
+                //.Where(c => !_blockChars.Contains(c))
                 .Cast<DoomKey>()
                 .Where(_heldKeys.Add));
 
@@ -251,9 +254,7 @@ internal partial class DoomEngine : MonoBehaviour
         }
     }
 
+    // here to prevent bleeding the "Click to play DOOM" click through to the game
     private bool _ignoringLeftClick;
-    internal void IgnoreNextLeftClick()
-    {
-        _ignoringLeftClick = true;
-    }
+    internal void IgnoreNextLeftClick() => _ignoringLeftClick = true;
 }

@@ -20,7 +20,7 @@ internal class DoomClientManager(DoomEngine player) : ObservableCollection<IDoom
         if (Count == 0) return;
         player.RunOnUnityThread(() =>
         {
-            // no this.ForEach because it's parallel (collection might change)
+            // no foreach because collection might change
             for (int i = 0; i < Count; i++)
                 action(this[i]);
         });

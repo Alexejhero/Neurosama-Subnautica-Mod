@@ -14,11 +14,7 @@ internal class DoomFrontend : MonoBehaviour, IDoomClient
     public bool PlayerPlaying { get; set; }
     public bool IsAcceptingInput => PlayerPlaying;
     public string WindowTitle { get; private set; }
-    private void OnEnable()
-    {
-        Connect();
-    }
-    private void OnDisable()
+    private void OnDestroy()
     {
         Disconnect();
     }

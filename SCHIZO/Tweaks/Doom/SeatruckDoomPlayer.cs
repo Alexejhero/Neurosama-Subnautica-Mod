@@ -45,11 +45,9 @@ partial class SeatruckDoomPlayer : MonoBehaviour
         _screen.localScale = new Vector3(1.3f, 0.75f, 1);
 
         _connection = _screen.gameObject.AddComponent<DoomFrontend>();
-        _connection.enabled = false;
         _connection.Connected += PlayerConnected;
         _connection.Disconnected += PlayerDisconnected;
         _connection.Exited += OnDoomExit;
-        _connection.enabled = true;
 
         _ourHandTarget = _handTrigger.gameObject.AddComponent<GenericHandTarget>();
         _ourHandTarget.onHandHover = new();
