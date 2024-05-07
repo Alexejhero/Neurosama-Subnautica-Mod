@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -101,24 +101,24 @@ partial class SeatruckDoomPlayer : MonoBehaviour
             if (_controlling == value) return;
 
             _controlling = value;
-            if (value) _connection.Connect();
             DoomEngine.Instance.IgnoreNextLeftClick();
             ToggleGameInput(!value);
             _connection.PlayerPlaying = value;
             _handTrigger.gameObject.SetActive(!value);
-            if (value && !_hintUnderstood)
+            ParentToSeatruck(value);
+            if (value)
             {
-                ShowHint();
+                _connection.Connect();
+                LookAtScreen();
+                if (!_hintUnderstood) ShowHint();
             }
             else
             {
                 _hintUnderstood = true;
                 Hint.main.message.Hide();
             }
-            // TODO UX (place camera at screen while playing)
         }
     }
-
     private static void ShowHint()
     {
         uGUI_PopupMessage msg = Hint.main.message;
@@ -169,6 +169,44 @@ partial class SeatruckDoomPlayer : MonoBehaviour
         //FPSInputModule.current.lockMovement = locked;
         //FPSInputModule.current.lockRotation = locked;
         //FPSInputModule.current.lockPauseMenu = locked;
+    }
+
+    private void LookAtScreen()
+    {
+        Vector3 center = _screenRenderer.bounds.center;
+        //RuntimeDebugDraw.Draw.DrawLine(center, Camera.main.transform.position, null, 5, false);
+        StartCoroutine(LookAtCoro(center));
+    }
+    private IEnumerator LookAtCoro(Vector3 target)
+    {
+        MainCameraControl cam = MainCameraControl.main;
+        Vector2 lookError;
+        do
+        {
+            yield return null;
+            Vector3 lookPoint = Camera.main.ScreenToWorldPoint(new(Screen.width / 2f, Screen.height / 2f));
+            Vector3 plrToMe = target - lookPoint;
+            Vector3 direction = plrToMe.normalized;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            Quaternion camRotation = cam.cameraOffsetTransform.rotation;
+            Quaternion lookErrorQ = Quaternion.Inverse(camRotation) * targetRotation;
+            lookError = lookErrorQ.eulerAngles;
+            lookError.x = lookError.x > 180 ? lookError.x - 360 : lookError.x < -180 ? lookError.x + 360 : lookError.x;
+            lookError.y = lookError.y > 180 ? lookError.y - 360 : lookError.y < -180 ? lookError.y + 360 : lookError.y;
+            if (Mathf.Approximately(lookError.x, 0) && Mathf.Approximately(lookError.y, 0))
+                continue;
+            float yawDelta = lookError.y * Time.deltaTime * 5;
+            float pitchDelta = lookError.x * Time.deltaTime * 5;
+            cam.rotationX += yawDelta;
+            cam.rotationY -= pitchDelta;
+        }
+        while (IsControlling);
+    }
+
+    private void ParentToSeatruck(bool parent)
+    {
+        Player.main.transform.parent = parent ? transform : null;
     }
 
     private Queue<float> _escapePresses = [];
