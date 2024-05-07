@@ -111,12 +111,14 @@ internal static class DoomNative
     {
         return (code) =>
         {
+            inner(code);
+            if (code == 0) return;
+            // destroy and free
             _res = default;
             _created = false;
             Marshal.DestroyStructure<Callbacks>(_callbackPtr);
             Marshal.FreeHGlobal(_callbackPtr);
             _callbackPtr = IntPtr.Zero;
-            inner(code);
         };
     }
 

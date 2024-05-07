@@ -14,15 +14,16 @@ internal class DoomFrontend : MonoBehaviour, IDoomClient
     public bool PlayerPlaying { get; set; }
     public bool IsAcceptingInput => PlayerPlaying;
     public string WindowTitle { get; private set; }
-    // TODO UI/UX (place camera at screen while playing)
     private void OnEnable()
     {
-        engine.Connect(this);
+        Connect();
     }
     private void OnDisable()
     {
-        engine.Disconnect(this);
+        Disconnect();
     }
+    public void Connect() => engine.Connect(this);
+    public void Disconnect() => engine.Disconnect(this);
     public void OnConnected()
     {
         Connected?.Invoke();

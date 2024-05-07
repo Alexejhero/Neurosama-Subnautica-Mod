@@ -5,21 +5,27 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using BepInEx.Logging;
 using UnityEngine;
+using UWE;
 
 namespace SCHIZO.Tweaks.Doom;
 
 internal partial class DoomEngine : MonoBehaviour
 {
     private static DoomEngine _instance;
+    private static GameObject _instanceGO;
     public static DoomEngine Instance
     {
         get
         {
             if (_instance) return _instance;
-            _instance = new GameObject(nameof(DoomEngine)).AddComponent<DoomEngine>();
-            DontDestroyOnLoad(_instance.gameObject);
+            if (!_instanceGO)
+            {
+                _instanceGO = new GameObject(nameof(DoomEngine));
+                DontDestroyOnLoad(_instanceGO);
+                _instanceGO.EnsureComponent<SceneCleanerPreserve>(); // b r u h
+            }
+            _instance = _instanceGO.EnsureComponent<DoomEngine>();
             return _instance;
         }
     }
@@ -52,10 +58,12 @@ internal partial class DoomEngine : MonoBehaviour
         _clientManager = new(this);
     }
 
-    private void OnDestroy()
-    {
-        _doomThread.Abort();
-    }
+    // apparently OnDestroy still gets called even if you DontDestroyOnLoad
+    // this makes perfect sense frankly and you are stupid for thinking otherwise
+    //private void OnDestroy()
+    //{
+    //    _doomThread.Abort();
+    //}
     private void Initialize()
     {
         if (IsInitialized) return;
@@ -108,21 +116,30 @@ internal partial class DoomEngine : MonoBehaviour
 
     public void SetPaused(bool paused)
     {
+        if (paused == !IsRunning) return;
         if (!IsOnUnityThread())
         {
             LogWarning("doom thread calling SetPaused, it's about to ouroboros itself");
         }
-        // TODO: check if time passing between pause/unpause is an issue
-        // (next tick, the "tick count" will jump forward and maybe Doom won't handle that well)
         if (paused)
+        {
             _runningEvent.Reset();
+            DoomFmodAudio.PauseMusic();
+        }
         else
+        {
             _runningEvent.Set();
+            DoomFmodAudio.ResumeMusic();
+        }
     }
 
     private void Update()
     {
-        // TODO fix main thread freeze (related to input?)
+        bool shouldBeRunning = Player.main && !FreezeTime.HasFreezers() && ConnectedClients > 0;
+        if (IsRunning != shouldBeRunning)
+        {
+            SetPaused(!shouldBeRunning);
+        }
         while (_unityThreadQueue.TryDequeue(out Action action))
         {
             action();

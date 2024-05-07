@@ -187,15 +187,15 @@ internal static class DoomFmodAudio
     }
     public static void SetMusicVolume(int vol)
     {
-        _musChannels.setVolume(vol / 127f);
+        _musBus.setVolume(vol / 127f);
     }
     public static void PauseMusic()
     {
-        _musChannels.setPaused(true);
+        _playingSong.setPaused(true);
     }
     public static void ResumeMusic()
     {
-        _musChannels.setPaused(false);
+        _playingSong.setPaused(false);
     }
     public static IntPtr RegisterSong(IntPtr data, int length)
     {

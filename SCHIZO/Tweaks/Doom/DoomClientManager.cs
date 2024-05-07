@@ -35,8 +35,6 @@ internal class DoomClientManager(DoomEngine player) : ObservableCollection<IDoom
         item.OnConnected();
         if (player.IsStarted)
             item.OnDoomInit();
-        if (!player.IsRunning)
-            player.RunOnUnityThread(() => player.SetPaused(false));
     }
     protected override void RemoveItem(int index)
     {
@@ -48,8 +46,6 @@ internal class DoomClientManager(DoomEngine player) : ObservableCollection<IDoom
             item.OnDoomExit(0);
             item.OnDisconnected();
         }
-        if (Count == 0)
-            player.RunOnUnityThread(() => player.SetPaused(true));
     }
 
     private void RemoveDeadClients()
@@ -59,5 +55,17 @@ internal class DoomClientManager(DoomEngine player) : ObservableCollection<IDoom
             if (!this[i].Exists())
                 RemoveAt(i--);
         }
+    }
+    protected override void ClearItems()
+    {
+        player.RunOnUnityThread(() =>
+        {
+            foreach (IDoomClient client in this)
+            {
+                if (client.Exists())
+                    client.OnDisconnected();
+            }
+            base.ClearItems();
+        });
     }
 }

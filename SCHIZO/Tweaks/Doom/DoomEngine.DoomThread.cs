@@ -207,8 +207,14 @@ partial class DoomEngine
     {
         LogWarning($"Exit {exitCode}");
         LastExitCode = exitCode;
-        IsStarted = false;
         _clientManager.OnExit(exitCode);
+        _clientManager.Clear(); // disconnect all clients
+        if (exitCode != 0)
+        {
+            LogError("Doom did not exit cleanly, aborting thread");
+            IsStarted = false;
+            _doomThread.Abort();
+        }
     }
 
     private void Doom_Log(string message)

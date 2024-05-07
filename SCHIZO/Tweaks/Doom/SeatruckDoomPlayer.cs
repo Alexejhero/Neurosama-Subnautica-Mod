@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SCHIZO.Tweaks.Doom;
@@ -13,6 +14,7 @@ partial class SeatruckDoomPlayer : MonoBehaviour
     private GenericHandTarget _ourHandTarget;
     private DoomFrontend _connection;
     private Vector3 _oldScreenScale;
+    private bool _die;
     private void OnEnable()
     {
         if (DoomEngine.LastExitCode != 0)
@@ -28,6 +30,8 @@ partial class SeatruckDoomPlayer : MonoBehaviour
             return;
         }
         _pictureFrame.GetComponent<PictureFrame>().enabled = false;
+        // here's where we would move the frame to be eye-level
+        // but it's part of the seatruck mesh...
 
         _handTrigger = _pictureFrame.Find("Trigger");
         _oldHandTarget = _handTrigger.GetComponent<GenericHandTarget>();
@@ -56,20 +60,25 @@ partial class SeatruckDoomPlayer : MonoBehaviour
 
     private void OnDoomExit(int code)
     {
-        if (code != 0) Destroy(this);
+        if (code != 0) _die = true; // thread
     }
 
     private void OnDisable()
     {
+        if (_connection)
+        {
+            _connection.enabled = false;
+            _connection.Connected -= PlayerConnected;
+            _connection.Disconnected -= PlayerDisconnected;
+            _connection.Exited -= OnDoomExit;
+            Destroy(_connection);
+        }
+        if (_ourHandTarget)
+        {
+            _oldHandTarget.enabled = true;
+            Destroy(_ourHandTarget);
+        }
         if (!_pictureFrame) return;
-        _connection.enabled = false;
-        _connection.Connected -= PlayerConnected;
-        _connection.Disconnected -= PlayerDisconnected;
-        _connection.Exited -= OnDoomExit;
-        Destroy(_connection);
-
-        _oldHandTarget.enabled = true;
-        Destroy(_ourHandTarget);
 
         _screen.localScale = _oldScreenScale;
 
@@ -84,7 +93,7 @@ partial class SeatruckDoomPlayer : MonoBehaviour
         HandReticle.main.SetText(HandReticle.TextType.HandSubscript, "", false);
         HandReticle.main.SetIcon(HandReticle.IconType.Interact);
     }
-
+    private bool _hintUnderstood;
     private bool _controlling;
     public bool IsControlling
     {
@@ -94,12 +103,31 @@ partial class SeatruckDoomPlayer : MonoBehaviour
             if (_controlling == value) return;
 
             _controlling = value;
+            if (value) _connection.Connect();
             DoomEngine.Instance.IgnoreNextLeftClick();
             ToggleGameInput(!value);
             _connection.PlayerPlaying = value;
             _handTrigger.gameObject.SetActive(!value);
+            if (value && !_hintUnderstood)
+            {
+                ShowHint();
+            }
+            else
+            {
+                _hintUnderstood = true;
+                Hint.main.message.Hide();
+            }
+            // TODO UX (place camera at screen while playing)
         }
     }
+
+    private static void ShowHint()
+    {
+        uGUI_PopupMessage msg = Hint.main.message;
+        msg.SetText("Press <color=yellow>Ctrl+Q</color> to exit", TextAnchor.MiddleLeft);
+        msg.Show(-1, 0f, 0.25f, 0.25f, null);
+    }
+
     private void OnHandClick(HandTargetEventData eventData)
     {
         _connection.enabled = true;
@@ -145,13 +173,43 @@ partial class SeatruckDoomPlayer : MonoBehaviour
         //FPSInputModule.current.lockPauseMenu = locked;
     }
 
+    private Queue<float> _escapePresses = [];
+    private float _escapeHeld;
     private void Update()
     {
-        // todo show hint
-        /// <see cref="Hint.main"/> and <see cref="uGUI_PopupMessage"/>
-        if (IsControlling && Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.LeftControl))
+        if (_die)
         {
-            IsControlling = false;
+            Destroy(this);
+            return;
+        }
+        if (IsControlling)
+        {
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                _escapeHeld += Time.deltaTime;
+                if (_escapeHeld > 3f)
+                    ShowHint();
+            }
+            else
+            {
+                _escapeHeld = 0f;
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                // 5 presses in 5 seconds
+                while (_escapePresses.Count > 0 && Time.time - _escapePresses.Peek() > 5f)
+                    _escapePresses.Dequeue();
+
+                _escapePresses.Enqueue(Time.time);
+                if (_escapePresses.Count >= 5)
+                    ShowHint();
+            }
+            if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.LeftControl))
+            {
+                IsControlling = false;
+                _escapeHeld = 0;
+                _escapePresses.Clear();
+            }
         }
     }
 }
