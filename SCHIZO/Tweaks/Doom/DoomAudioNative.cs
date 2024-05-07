@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.InteropServices;
-using FMOD;
 
 namespace SCHIZO.Tweaks.Doom;
 
@@ -24,7 +23,7 @@ internal static class DoomAudioNative
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UpdateSoundParamsCallback(IntPtr channel, int vol, int sep);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate IntPtr StartSoundCallback([In, MarshalAs(UnmanagedType.LPStruct)] SfxData sfxinfo, int channel, int vol, int sep);
+        public delegate IntPtr StartSoundCallback(IntPtr sfxinfo, int channel, int vol, int sep);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void StopSoundCallback(IntPtr channel);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]

@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using FMOD;
 using FMOD.Studio;
+using Nautilus.Utility;
+using UnityEngine;
+using SfxData = SCHIZO.Tweaks.Doom.DoomAudioNative.SoundModule.SfxData;
+using SfxCallbacks = SCHIZO.Tweaks.Doom.DoomAudioNative.SoundModule.Callbacks;
+using MusCallbacks = SCHIZO.Tweaks.Doom.DoomAudioNative.MusicModule.Callbacks;
 
 namespace SCHIZO.Tweaks.Doom;
 
@@ -10,18 +15,24 @@ internal static class DoomFmodAudio
 {
     private static readonly Dictionary<IntPtr, Sound> _sfx = [];
     private static Bus _sfxBus;
-    private static ChannelGroup _sfxChannels;
     private static Bus _musBus;
-    private static ChannelGroup _musChannels;
     private static Sound _song;
-    private static Channel _playingSong;
+    private static EventInstance _playingSong;
 
     private static readonly FMOD.System _coreSystem = FMODUnity.RuntimeManager.CoreSystem;
     private static readonly FMOD.Studio.System _studioSystem = FMODUnity.RuntimeManager.StudioSystem;
     private const string DOOM_BUS_PREFIX = "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds/Doom";
+    private const string SFX_EVENT = "event:/SCHIZO/doom/sfx";
+    private const string MUS_EVENT = "event:/SCHIZO/doom/mus";
+
+    /// <summary>
+    /// Emit sounds as though coming from this transform's position.<br/>
+    /// If <see langword="null"/>, plays in 2D.
+    /// </summary>
+    public static Transform Emitter { get; set; }
 
     #region sfx
-    public static DoomAudioNative.SoundModule.Callbacks SfxCallbacks()
+    public static SfxCallbacks SfxCallbacks()
     {
         return new()
         {
@@ -37,99 +48,50 @@ internal static class DoomFmodAudio
     }
     public static bool InitSfx()
     {
-        if (RESULT.OK != _studioSystem.getBus($"{DOOM_BUS_PREFIX}/SFX", out _sfxBus))
-            return false;
-        if (!_sfxBus.lockChannelGroup().CheckResult())
-        {
-            DoomEngine.LogWarning("Failed to lock channel group for sfx");
-            return false;
-        }
-        _studioSystem.flushCommands();
-        if (!_sfxBus.getChannelGroup(out _sfxChannels).CheckResult())
-        {
-            DoomEngine.LogWarning("Failed to get channel group for sfx");
-            _sfxBus.unlockChannelGroup();
-            return false;
-        }
-        _sfxChannels.stop();
-        return true;
+        return _studioSystem.getBus($"{DOOM_BUS_PREFIX}/SFX", out _sfxBus).CheckResult();
     }
     public static void ShutdownSfx()
     {
-        _sfxChannels.stop();
-        _sfxChannels.release();
+        _sfxBus.stopAllEvents(STOP_MODE.IMMEDIATE);
         foreach (Sound snd in _sfx.Values)
         {
             snd.release();
         }
         _sfx.Clear();
-        _sfxBus.unlockChannelGroup();
     }
     public static void UpdateSfx()
     {
-        // FMOD releases channels automatically
     }
-    public static void UpdateSfxParams(IntPtr channelHandle, int vol, int sep)
+    public static void UpdateSfxParams(IntPtr handle, int vol, int sep)
     {
-        Channel channel = new(channelHandle);
-        channel.setVolume(vol / 254f);
-        channel.setPan(sep / 254f);
+        EventInstance evt = new(handle);
+        evt.setVolume(vol / 254f);
+        evt.setParameterByName("Pan", sep / 254f);
     }
-    private static bool MakeSound(DoomAudioNative.SoundModule.SfxData data, out Sound sound)
+    public static IntPtr StartSfx(IntPtr sfxInfo, int _, int vol, int sep)
     {
-        sound = default;
-        if (data.data == IntPtr.Zero)
-        {
-            DoomEngine.LogWarning("Failed to create sound: data is null");
-            return false;
-        }
-        CREATESOUNDEXINFO exinfo = new()
-        {
-            cbsize = Marshal.SizeOf<CREATESOUNDEXINFO>(),
-            userdata = data.data,
-            defaultfrequency = data.sample_rate,
-            length = data.num_samples * 2, // bytes
-            format = SOUND_FORMAT.PCM16,
-            suggestedsoundtype = SOUND_TYPE.RAW,
-            numchannels = 1,
-        };
-        RESULT soundRes = _coreSystem.createSound(data.data, MODE.OPENMEMORY_POINT | MODE.OPENRAW, ref exinfo, out sound);
-        if (soundRes != RESULT.OK)
-        {
-            DoomEngine.LogWarning($"Failed to create sound: {soundRes}");
-            return false;
-        }
-        return true;
-    }
-    public static IntPtr StartSfx(DoomAudioNative.SoundModule.SfxData data, int channelIndex, int vol, int sep)
-    {
-        if (!_sfx.TryGetValue(data.data, out Sound sound) && !MakeSound(data, out sound))
-        {
-            return new(-1);
-        }
+        EventInstance evt = FMODUnity.RuntimeManager.CreateInstance(SFX_EVENT);
+        evt.setUserData(sfxInfo).CheckResult();
+        evt.setCallback(SfxEventCallback, EVENT_CALLBACK_TYPE.ALL).CheckResult();
+        evt.setParameterByName("3D", Emitter ? 1 : 0);
+        if (Emitter) FMODUnity.RuntimeManager.AttachInstanceToGameObject(evt, Emitter);
 
-        RESULT playRes = _coreSystem.playSound(sound, _sfxChannels, false, out Channel channel);
-        if (playRes != RESULT.OK)
-        {
-            DoomEngine.LogWarning($"Failed to play sound: {playRes}");
-            return new(-1);
-        }
-        channel.setPosition(16, TIMEUNIT.PCMBYTES);
-        //sound.getLength(out uint length, TIMEUNIT.MS);
-        //DoomEngine.LogDebug($"Channel {channelIndex} playing sound {data.data} for {length}ms");
-        UpdateSfxParams(channel.handle, vol, sep);
-        return channel.handle;
+        evt.setVolume(0);
+        UpdateSfxParams(evt.handle, vol, sep);
+        evt.start().CheckResult();
+        evt.release().CheckResult();
+        return evt.handle;
     }
-    public static void StopSfx(IntPtr channelHandle)
+    public static void StopSfx(IntPtr handle)
     {
-        Channel.FMOD5_Channel_Stop(channelHandle);
+        EventInstance.FMOD_Studio_EventInstance_Stop(handle, STOP_MODE.ALLOWFADEOUT);
     }
-    public static bool IsPlayingSfx(IntPtr channelHandle)
+    public static bool IsPlayingSfx(IntPtr handle)
     {
-        return RESULT.OK == Channel.FMOD5_Channel_IsPlaying(channelHandle, out bool playing)
-            && playing;
+        return RESULT.OK == EventInstance.FMOD_Studio_EventInstance_GetPaused(handle, out bool paused)
+            && !paused;
     }
-    public static void CacheSfx(DoomAudioNative.SoundModule.SfxData[] sounds, int num_sounds)
+    public static void CacheSfx(SfxData[] sounds, int num_sounds)
     {
         // noop because we don't have samples here (blame the C side)
         /*
@@ -144,7 +106,7 @@ internal static class DoomFmodAudio
     #endregion
 
     #region music
-    public static DoomAudioNative.MusicModule.Callbacks MusicCallbacks()
+    public static MusCallbacks MusicCallbacks()
     {
         return new()
         {
@@ -163,31 +125,15 @@ internal static class DoomFmodAudio
     }
     public static bool InitMusic()
     {
-        if (RESULT.OK != _studioSystem.getBus($"{DOOM_BUS_PREFIX}/Music", out _musBus))
-            return false;
-        if (!_musBus.lockChannelGroup().CheckResult())
-        {
-            DoomEngine.LogWarning("Failed to lock channel group for music");
-            return false;
-        }
-        _studioSystem.flushCommands();
-        if (!_musBus.getChannelGroup(out _musChannels).CheckResult())
-        {
-            DoomEngine.LogWarning("Failed to get channel group for music");
-            _musBus.unlockChannelGroup();
-            return false;
-        }
-        return true;
+        return _studioSystem.getBus($"{DOOM_BUS_PREFIX}/Music", out _musBus).CheckResult();
     }
     public static void ShutdownMusic()
     {
-        _musChannels.stop();
-        _musChannels.release();
-        _musBus.unlockChannelGroup();
+        _musBus.stopAllEvents(STOP_MODE.IMMEDIATE);
     }
     public static void SetMusicVolume(int vol)
     {
-        _musBus.setVolume(vol / 127f);
+        _musBus.setVolume(vol / 254f);
     }
     public static void PauseMusic()
     {
@@ -201,6 +147,7 @@ internal static class DoomFmodAudio
     {
         if (_song.hasHandle())
         {
+            DoomEngine.LogWarning("Already have song, gonna unregister");
             UnRegisterSong(_song.handle);
         }
         CREATESOUNDEXINFO exinfo = new()
@@ -210,7 +157,7 @@ internal static class DoomFmodAudio
             suggestedsoundtype = SOUND_TYPE.MIDI,
             length = (uint) length
         };
-        RESULT res = _coreSystem.createSound(data, MODE.OPENMEMORY_POINT | MODE.LOOP_NORMAL, ref exinfo, out _song);
+        RESULT res = _coreSystem.createSound(data, MODE.OPENMEMORY_POINT | MODE.LOOP_NORMAL | AudioUtils.StandardSoundModes_3D, ref exinfo, out _song);
         if (res != RESULT.OK)
         {
             DoomEngine.LogWarning($"Failed to create song - {res}");
@@ -221,6 +168,11 @@ internal static class DoomFmodAudio
 
     public static void UnRegisterSong(IntPtr handle)
     {
+        if (_song.handle == handle)
+        {
+            _song.handle = IntPtr.Zero;
+            _playingSong.stop(STOP_MODE.IMMEDIATE);
+        }
         Sound.FMOD5_Sound_Release(handle);
     }
 
@@ -238,23 +190,101 @@ internal static class DoomFmodAudio
             _song = new(handle);
         }
         _song.setMode(looping ? MODE.LOOP_NORMAL : MODE.LOOP_OFF);
-        _coreSystem.playSound(_song, _musChannels, false, out _playingSong);
+        _playingSong = FMODUnity.RuntimeManager.CreateInstance(MUS_EVENT);
+        _playingSong.setUserData(_song.handle).CheckResult();
+        _playingSong.setCallback(MusEventCallback, EVENT_CALLBACK_TYPE.ALL).CheckResult();
+        _playingSong.start().CheckResult();
+        _playingSong.release().CheckResult();
     }
     public static void StopSong()
     {
-        _musChannels.stop();
+        _playingSong.stop(STOP_MODE.ALLOWFADEOUT);
     }
 
     public static bool IsPlayingMusic()
     {
-        return _playingSong.hasHandle()
-            && RESULT.OK == _playingSong.isPlaying(out bool playing)
-            && playing;
+        return RESULT.OK == _playingSong.getPaused(out bool paused)
+            && !paused;
     }
     public static void PollMusic()
     {
+        if (!_playingSong.isValid()) return;
+
         if (!DoomEngine.Instance.IsRunning)
             _playingSong.setPaused(true);
+
+        _playingSong.setParameterByName("3D", Emitter ? 1 : 0).CheckResult();
+        if (Emitter)
+        {
+            _playingSong.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(Emitter));
+        }
     }
     #endregion
+
+    private static RESULT SfxEventCallback(EVENT_CALLBACK_TYPE type, IntPtr instancePtr, IntPtr paramPtr)
+    {
+        EventInstance instance = new(instancePtr);
+        instance.getUserData(out IntPtr infoPtr);
+
+        PROGRAMMER_SOUND_PROPERTIES param; // maybe one day we'll be able to declare same-named variables inside switch cases
+        switch (type)
+        {
+            case EVENT_CALLBACK_TYPE.CREATE_PROGRAMMER_SOUND:
+                param = Marshal.PtrToStructure<PROGRAMMER_SOUND_PROPERTIES>(paramPtr);
+                SfxData sfxInfo = Marshal.PtrToStructure<SfxData>(infoPtr);
+
+                IntPtr start = sfxInfo.data + 32; // 16 bytes padding before, expanded to 32 "samples"
+                // quoting from the docs:
+                //  With FMOD_OPENMEMORY_POINT and FMOD_OPENRAW or PCM, if using them together, note that you must pad the data on each side by 16 bytes.
+                //  This is so fmod can modify the ends of the data for looping / interpolation / mixing purposes.
+                // (https://www.fmod.com/docs/2.01/api/core-api-common.html#fmod_virtual_playfromstart - end of the paragraph just before FMOD_RESULT)
+                CREATESOUNDEXINFO exinfo = new()
+                {
+                    cbsize = Marshal.SizeOf<CREATESOUNDEXINFO>(),
+                    userdata = start,
+                    defaultfrequency = sfxInfo.sample_rate,
+                    length = sfxInfo.num_samples * 2, // bytes
+                    format = SOUND_FORMAT.PCM16,
+                    suggestedsoundtype = SOUND_TYPE.RAW,
+                    numchannels = 1,
+                };
+                RESULT soundRes = _coreSystem.createSound(start, MODE.OPENMEMORY_POINT | MODE.OPENRAW | AudioUtils.StandardSoundModes_3D, ref exinfo, out Sound sound);
+                if (soundRes != RESULT.OK)
+                {
+                    DoomEngine.LogWarning($"Failed to create sound: {soundRes}");
+                    return soundRes;
+                }
+                param.sound = sound.handle;
+                param.subsoundIndex = -1;
+                Marshal.StructureToPtr(param, paramPtr, false);
+                break;
+            case EVENT_CALLBACK_TYPE.DESTROY_PROGRAMMER_SOUND:
+                param = Marshal.PtrToStructure<PROGRAMMER_SOUND_PROPERTIES>(paramPtr);
+                Sound.FMOD5_Sound_Release(param.sound);
+                break;
+        }
+        return RESULT.OK;
+    }
+    private static RESULT MusEventCallback(EVENT_CALLBACK_TYPE type, IntPtr instancePtr, IntPtr paramPtr)
+    {
+        EventInstance instance = new(instancePtr);
+        instance.getUserData(out IntPtr soundPtr);
+
+        switch (type)
+        {
+            case EVENT_CALLBACK_TYPE.CREATE_PROGRAMMER_SOUND:
+                PROGRAMMER_SOUND_PROPERTIES param = Marshal.PtrToStructure<PROGRAMMER_SOUND_PROPERTIES>(paramPtr);
+                param.sound = soundPtr;
+                param.subsoundIndex = -1;
+                Marshal.StructureToPtr(param, paramPtr, false);
+                break;
+            case EVENT_CALLBACK_TYPE.DESTROY_PROGRAMMER_SOUND:
+                param = Marshal.PtrToStructure<PROGRAMMER_SOUND_PROPERTIES>(paramPtr);
+                Sound.FMOD5_Sound_Release(param.sound);
+                break;
+        }
+        return RESULT.OK;
+    }
+
+    private static string ToHex(this IntPtr ptr) => ptr.ToInt64().ToString("X");
 }

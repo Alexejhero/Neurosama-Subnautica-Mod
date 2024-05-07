@@ -108,6 +108,8 @@ partial class SeatruckDoomPlayer : MonoBehaviour
             ParentToSeatruck(value);
             if (value)
             {
+                // todo make another transform below (so it comes from a "speaker")
+                DoomFmodAudio.Emitter = _screen; // center of screen
                 _connection.Connect();
                 LookAtScreen();
                 if (!_hintUnderstood) ShowHint();
