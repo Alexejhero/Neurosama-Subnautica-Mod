@@ -92,6 +92,8 @@ internal partial class DoomEngine : MonoBehaviour
 
     private static bool IsOnUnityThread()
     {
+        if (_mainThreadId == 0)
+            LOGGER.LogWarning("Trying to check Unity thread but we don't know which one it is yet");
         return Thread.CurrentThread.ManagedThreadId == _mainThreadId;
     }
 
@@ -135,6 +137,7 @@ internal partial class DoomEngine : MonoBehaviour
 
     private void Update()
     {
+        if (!IsStarted) return;
         bool shouldBeRunning = Player.main && !FreezeTime.HasFreezers() && ConnectedClients > 0;
         if (IsRunning != shouldBeRunning)
         {
