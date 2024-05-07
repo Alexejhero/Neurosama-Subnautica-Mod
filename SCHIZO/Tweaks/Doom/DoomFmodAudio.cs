@@ -41,13 +41,13 @@ internal static class DoomFmodAudio
             return false;
         if (!_sfxBus.lockChannelGroup().CheckResult())
         {
-            LOGGER.LogWarning("(DOOM) Failed to lock channel group for sfx");
+            DoomEngine.LogWarning("Failed to lock channel group for sfx");
             return false;
         }
         _studioSystem.flushCommands();
         if (!_sfxBus.getChannelGroup(out _sfxChannels).CheckResult())
         {
-            LOGGER.LogWarning("(DOOM) Failed to get channel group for sfx");
+            DoomEngine.LogWarning("Failed to get channel group for sfx");
             _sfxBus.unlockChannelGroup();
             return false;
         }
@@ -58,10 +58,16 @@ internal static class DoomFmodAudio
     {
         _sfxChannels.stop();
         _sfxChannels.release();
+        foreach (Sound snd in _sfx.Values)
+        {
+            snd.release();
+        }
+        _sfx.Clear();
         _sfxBus.unlockChannelGroup();
     }
     public static void UpdateSfx()
     {
+        // FMOD releases channels automatically
     }
     public static void UpdateSfxParams(IntPtr channelHandle, int vol, int sep)
     {
@@ -69,58 +75,63 @@ internal static class DoomFmodAudio
         channel.setVolume(vol / 254f);
         channel.setPan(sep / 254f);
     }
-    private static Sound MakeSound(DoomAudioNative.SoundModule.SfxData data)
+    private static bool MakeSound(DoomAudioNative.SoundModule.SfxData data, out Sound sound)
     {
+        sound = default;
         if (data.data == IntPtr.Zero)
         {
-            LOGGER.LogWarning("(DOOM) Failed to create sound: data is null");
-            return default;
+            DoomEngine.LogWarning("Failed to create sound: data is null");
+            return false;
         }
         CREATESOUNDEXINFO exinfo = new()
         {
             cbsize = Marshal.SizeOf<CREATESOUNDEXINFO>(),
             userdata = data.data,
             defaultfrequency = data.sample_rate,
-            length = data.num_samples,
+            length = data.num_samples * 2, // bytes
             format = SOUND_FORMAT.PCM16,
             suggestedsoundtype = SOUND_TYPE.RAW,
             numchannels = 1,
         };
-        RESULT soundRes = _coreSystem.createSound(data.data, MODE.OPENMEMORY_POINT | MODE.OPENRAW, ref exinfo, out Sound sound);
+        RESULT soundRes = _coreSystem.createSound(data.data, MODE.OPENMEMORY_POINT | MODE.OPENRAW, ref exinfo, out sound);
         if (soundRes != RESULT.OK)
-            LOGGER.LogWarning($"(DOOM) Failed to create sound: {soundRes}");
-        return sound;
+        {
+            DoomEngine.LogWarning($"Failed to create sound: {soundRes}");
+            return false;
+        }
+        return true;
     }
     public static IntPtr StartSfx(DoomAudioNative.SoundModule.SfxData data, int channelIndex, int vol, int sep)
     {
-        if (!_sfx.TryGetValue(data.data, out Sound sound))
+        if (!_sfx.TryGetValue(data.data, out Sound sound) && !MakeSound(data, out sound))
         {
-            sound = MakeSound(data);
-            if (!sound.hasHandle())
-                return new(-1);
+            return new(-1);
         }
+
         RESULT playRes = _coreSystem.playSound(sound, _sfxChannels, false, out Channel channel);
         if (playRes != RESULT.OK)
         {
-            LOGGER.LogWarning($"Failed to play sound: {playRes}");
+            DoomEngine.LogWarning($"Failed to play sound: {playRes}");
             return new(-1);
         }
         channel.setPosition(16, TIMEUNIT.PCMBYTES);
+        //sound.getLength(out uint length, TIMEUNIT.MS);
+        //DoomEngine.LogDebug($"Channel {channelIndex} playing sound {data.data} for {length}ms");
         UpdateSfxParams(channel.handle, vol, sep);
         return channel.handle;
     }
     public static void StopSfx(IntPtr channelHandle)
     {
-        new Channel(channelHandle).stop();
+        Channel.FMOD5_Channel_Stop(channelHandle);
     }
     public static bool IsPlayingSfx(IntPtr channelHandle)
     {
-        return RESULT.OK == new Channel(channelHandle).isPlaying(out bool playing)
+        return RESULT.OK == Channel.FMOD5_Channel_IsPlaying(channelHandle, out bool playing)
             && playing;
     }
     public static void CacheSfx(DoomAudioNative.SoundModule.SfxData[] sounds, int num_sounds)
     {
-        // noop because we don't have samples yet (blame the C side)
+        // noop because we don't have samples here (blame the C side)
         /*
         foreach (DoomAudioNative.SoundModule.SfxData data in sounds)
         {
@@ -156,13 +167,13 @@ internal static class DoomFmodAudio
             return false;
         if (!_musBus.lockChannelGroup().CheckResult())
         {
-            LOGGER.LogWarning("(DOOM) Failed to lock channel group for music");
+            DoomEngine.LogWarning("Failed to lock channel group for music");
             return false;
         }
         _studioSystem.flushCommands();
         if (!_musBus.getChannelGroup(out _musChannels).CheckResult())
         {
-            LOGGER.LogWarning("(DOOM) Failed to get channel group for music");
+            DoomEngine.LogWarning("Failed to get channel group for music");
             _musBus.unlockChannelGroup();
             return false;
         }
@@ -202,7 +213,7 @@ internal static class DoomFmodAudio
         RESULT res = _coreSystem.createSound(data, MODE.OPENMEMORY_POINT | MODE.LOOP_NORMAL, ref exinfo, out _song);
         if (res != RESULT.OK)
         {
-            LOGGER.LogWarning($"(DOOM) Failed to create song - {res}");
+            DoomEngine.LogWarning($"Failed to create song - {res}");
             return IntPtr.Zero;
         }
         return _song.handle;
@@ -210,14 +221,14 @@ internal static class DoomFmodAudio
 
     public static void UnRegisterSong(IntPtr handle)
     {
-        new Sound(handle).release();
+        Sound.FMOD5_Sound_Release(handle);
     }
 
     public static void PlaySong(IntPtr handle, bool looping)
     {
         if (handle == IntPtr.Zero)
         {
-            LOGGER.LogWarning("Tried to play null song");
+            DoomEngine.LogWarning("Tried to play null song");
             return;
         }
         if (_song.handle != handle)

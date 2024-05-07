@@ -15,7 +15,7 @@ partial class SeatruckDoomPlayer : MonoBehaviour
     private Vector3 _oldScreenScale;
     private void OnEnable()
     {
-        if (DoomEngine.Instance.LastExitCode != 0)
+        if (DoomEngine.LastExitCode != 0)
         {
             Destroy(this);
             return;
@@ -138,6 +138,7 @@ partial class SeatruckDoomPlayer : MonoBehaviour
 
         GameInput.ClearInput();
         GameInput.instance.enabled = enable;
+        // todo completely disable game input (specifically the F-keys - debug stuff, feedback screen, UI, etc)
         //Player.main.playerController.SetEnabled(!locked);
         //FPSInputModule.current.lockMovement = locked;
         //FPSInputModule.current.lockRotation = locked;

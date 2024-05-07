@@ -38,13 +38,13 @@ partial class DoomEngine
     {
         if (IsStarted)
         {
-            LogSource.LogWarning("Tried to start doom more than once");
+            LogWarning("Tried to start doom more than once");
             return;
         }
         if (!File.Exists(_launchArgs[0]))
         {
             IsStarted = true;
-            LogSource.LogError("doomgeneric.dll was not found");
+            LogError("doomgeneric.dll was not found");
             Doom_Exit(1);
             return;
         }
@@ -66,11 +66,11 @@ partial class DoomEngine
         }, _launchArgs.Length, _launchArgs);
         sw.Stop();
         StartupTime = (float) sw.Elapsed.TotalMilliseconds;
-        LogSource.LogWarning($"Startup took: {StartupTime:n}ms ({audioInitTime:n}ms audio, {StartupTime - audioInitTime}ms engine)");
+        LogWarning($"Startup took: {StartupTime:n}ms ({audioInitTime:n}ms audio, {StartupTime - audioInitTime}ms engine)");
         IsStarted = true;
         if (IsOnUnityThread())
         {
-            LogSource.LogError("Should not be on Unity thread here");
+            LogError("Should not be on Unity thread here");
             return;
         }
         Application.quitting += _doomThread.Abort;
@@ -108,7 +108,7 @@ partial class DoomEngine
 
     private void Doom_Init(int resX, int resY)
     {
-        LogSource.LogWarning($"Init {resX}x{resY}");
+        LogWarning($"Init {resX}x{resY}");
         //Screen.width = resX;
         //Screen.height = resY;
         Screen.Resize(resX, resY, TextureFormat.BGRA32, false);
@@ -119,13 +119,13 @@ partial class DoomEngine
     private uint Doom_GetTicksMillis()
     {
         CurrentTick = (int) _gameClock.ElapsedMilliseconds;
-        //LogSource.LogDebug($"GetTicksMillis {CurrentTick}");
+        //LogDebug($"GetTicksMillis {CurrentTick}");
         return (uint) CurrentTick;
     }
 
     private void Doom_SetWindowTitle(string title)
     {
-        LogSource.LogWarning($"SetWindowTitle {title}");
+        LogWarning($"SetWindowTitle {title}");
         WindowTitle = title;
         _clientManager.OnWindowTitleChanged(title);
     }
@@ -136,10 +136,11 @@ partial class DoomEngine
         // special logic for first ever drawn frame
         if (_screenBuffer == IntPtr.Zero)
         {
-            LogSource.LogDebug($"DrawFrame (first) {screenBuffer:x}");
-            if (screenBuffer == IntPtr.Zero) throw new ArgumentNullException(nameof(screenBuffer));
+            //LogDebug($"DrawFrame (first) {screenBuffer:x}");
+            if (screenBuffer == IntPtr.Zero)
+                throw new ArgumentNullException(nameof(screenBuffer));
             _screenBuffer = screenBuffer;
-            LogSource.LogDebug($"DrawFrame (first) {screenBuffer:x} assigned");
+            //LogDebug($"DrawFrame (first) {screenBuffer:x} assigned");
             return;
         }
         // only draw after game tick starts
@@ -155,10 +156,10 @@ partial class DoomEngine
     {
         if (IsOnUnityThread())
         {
-            LogSource.LogError($"Should not be on Unity thread in {nameof(Doom_Sleep)}");
+            LogError($"Should not be on Unity thread in {nameof(Doom_Sleep)}");
             return;
         }
-        //LogSource.LogDebug($"Sleep {millis}");
+        //LogDebug($"Sleep {millis}");
         // millis *= 100;
         Thread.Sleep(TimeSpan.FromMilliseconds(millis));
     }
@@ -180,11 +181,11 @@ partial class DoomEngine
                 string keyName = Enum.IsDefined(typeof(DoomKey), key)
                     ? key.ToString()
                     : $"'{(char)key}'"; // ascii/limited to byte so it's fine
-                //LogSource.LogMessage($"GetKey {keyName} {(isPress ? "press" : "release")} consumed");
+                //LogMessage($"GetKey {keyName} {(isPress ? "press" : "release")} consumed");
                 return true;
             }
         }
-        //LogSource.LogDebug("GetKey nothing");
+        //LogDebug("GetKey nothing");
         return false;
     }
 
@@ -204,7 +205,7 @@ partial class DoomEngine
 
     private void Doom_Exit(int exitCode)
     {
-        LogSource.LogWarning($"{nameof(Doom_Exit)} {exitCode}");
+        LogWarning($"Exit {exitCode}");
         LastExitCode = exitCode;
         IsStarted = false;
         _clientManager.OnExit(exitCode);
@@ -212,6 +213,6 @@ partial class DoomEngine
 
     private void Doom_Log(string message)
     {
-        LogSource.LogMessage($"(DOOM) {message}");
+        LogMessage($"(Native) {message}");
     }
 }

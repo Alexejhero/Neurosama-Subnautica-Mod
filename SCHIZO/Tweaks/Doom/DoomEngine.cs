@@ -44,10 +44,8 @@ internal partial class DoomEngine : MonoBehaviour
 
     internal int ConnectedClients => _clientManager.Count;
     internal float StartupTime { get; private set; }
-    internal int LastExitCode { get; private set; }
+    internal static int LastExitCode { get; private set; }
     internal int CurrentTick { get; private set; }
-
-    internal ManualLogSource LogSource { get; private set; } = BepInEx.Logging.Logger.CreateLogSource("DOOM");
 
     private void Awake()
     {
@@ -102,7 +100,7 @@ internal partial class DoomEngine : MonoBehaviour
         // theoretically this should only ever get called from the unity thread
         if (!IsInitialized)
         {
-            LogSource.LogError("DoomPlayer should have been initialized by the time Disconnect gets called");
+            LogError("DoomPlayer should have been initialized by the time Disconnect gets called");
             Initialize();
         }
         _clientManager.Remove(client);
@@ -112,7 +110,7 @@ internal partial class DoomEngine : MonoBehaviour
     {
         if (!IsOnUnityThread())
         {
-            LogSource.LogWarning("doom thread calling SetPaused, it's about to ouroboros itself");
+            LogWarning("doom thread calling SetPaused, it's about to ouroboros itself");
         }
         // TODO: check if time passing between pause/unpause is an issue
         // (next tick, the "tick count" will jump forward and maybe Doom won't handle that well)
@@ -146,7 +144,7 @@ internal partial class DoomEngine : MonoBehaviour
             if (_screenBuffer == IntPtr.Zero)
             {
                 // theoretically should never happen
-                LogSource.LogError("Tried to draw before screen buffer was assigned");
+                LogError("Tried to draw before screen buffer was assigned");
                 return;
             }
             Screen.LoadRawTextureData(_screenBuffer, Screen.width * Screen.height * sizeof(uint));
@@ -169,7 +167,7 @@ internal partial class DoomEngine : MonoBehaviour
     {
         if (!CurrentThreadIsMainThread())
         {
-            LogSource.LogError("Should not be in CollectKeys on background thread");
+            LogError("Should not be in CollectKeys on background thread");
             Debugger.Break();
         }
         lock (_inputSync)
@@ -187,7 +185,7 @@ internal partial class DoomEngine : MonoBehaviour
 
                 if (_heldKeys.Add(doomKey))
                 {
-                    //LogSource.LogDebug($"CollectKeys pressed {doomKey} ({unityKey})");
+                    //LogDebug($"CollectKeys pressed {doomKey} ({unityKey})");
                     _pressedKeys.Add(doomKey);
                 }
                 // alternate binds, duplicate DoomKey values, etc.
