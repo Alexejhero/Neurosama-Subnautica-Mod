@@ -28,7 +28,6 @@ partial class GymbagManager
         OpeningGymbag = true;
         pda.Close();
         pda.isInUse = false;
-        OpeningGymbag = false;
 
         StorageContainer container = item.item.gameObject.GetComponentInChildren<PickupableStorage>().storageContainer;
         container.Open(container.transform);
@@ -47,6 +46,7 @@ partial class GymbagManager
         }
 
         CoroutineHost.StartCoroutine(ResetCursor(cursorPosition));
+        OpeningGymbag = false;
     }
 
     public uGUI_ItemIcon GetItemIcon(InventoryItem item)

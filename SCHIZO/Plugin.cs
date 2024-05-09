@@ -5,9 +5,12 @@ using BepInEx;
 using BepInEx.Logging;
 using ECCLibrary;
 using HarmonyLib;
+using Nautilus.Handlers;
+using SCHIZO.Attributes;
 using SCHIZO.ConsoleCommands;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
+using SCHIZO.Tweaks;
 using UnityEngine;
 
 namespace SCHIZO;
@@ -43,6 +46,8 @@ public sealed class Plugin : BaseUnityPlugin
 
         Assets.Mod_Registry.InvokeRegister();
         Assets.Mod_Registry.InvokePostRegister();
+
+        InitializeModAttribute.Run();
 
         RegisterConsoleCommandsAttribute.RegisterAll();
     }
