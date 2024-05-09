@@ -22,8 +22,10 @@ MonoBehaviour:
   overrideTrackLabel: 0
   trackLabel: Neuro-sama - world.execute(me) (cover)
   unlockedOnStart: 0
-  diskPrefab: {fileID: 0}
+  diskPrefab: {fileID: 6492233284419335816, guid: d22ec62c611ee7545b0126d2a612b118,
+    type: 3}
   diskSpawnLocation:
     position: {x: 543.6885, y: -203.07, z: -1065}
-    rotation: {x: 0, y: 0, z: 2}
+    rotation: {x: 0, y: 90, z: 2}
+  unlockSprite: {fileID: 21300000, guid: 9d730383d28b26c468a273df0b26756b, type: 3}
   unlockFmodEvent: 

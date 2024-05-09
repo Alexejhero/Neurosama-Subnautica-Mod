@@ -3,6 +3,7 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
 using SCHIZO.Helpers;
+using SCHIZO.Items.Components;
 
 namespace SCHIZO.Items;
 
@@ -10,8 +11,14 @@ partial class PDAJournal
 {
     protected override void Register()
     {
+        if (!encyData)
+        {
+            LOGGER.LogWarning($"{nameof(PDAJournal)} has no encyData, skipping registration");
+            return;
+        }
         encyData.Register(key);
-        Subtitles.SubtitlesHandler.RegisterMetadata(subtitles, encyData.description.text);
+        if (subtitles)
+            Subtitles.SubtitlesHandler.RegisterMetadata(subtitles, encyData.description.text);
         PDAJournalPrefab.Register(this);
     }
 
@@ -46,6 +53,12 @@ partial class PDAJournal
                     if (!string.IsNullOrEmpty(journal.pdaHandTargetSubtext))
                         handTarget.secondaryTooltip = journal.pdaHandTargetSubtext;
                     handTarget.goal.key = journal.key;
+
+                    DestroyOnStoryGoal preventDupes = prefab.EnsureComponent<DestroyOnStoryGoal>();
+                    preventDupes.storyGoalSN = preventDupes.storyGoalBZ = journal.key;
+#if BELOWZERO
+                    DestroyInCreativeMode storyOnly = prefab.EnsureComponent<DestroyInCreativeMode>();
+#endif
                     prefab.SetActive(false);
                 }
             });

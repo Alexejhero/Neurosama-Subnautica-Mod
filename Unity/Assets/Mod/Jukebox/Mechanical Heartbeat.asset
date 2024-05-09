@@ -22,8 +22,10 @@ MonoBehaviour:
   overrideTrackLabel: 0
   trackLabel: Neuro & Evil - Mechanical Heartbeat (cover)
   unlockedOnStart: 0
-  diskPrefab: {fileID: 0}
+  diskPrefab: {fileID: 5862097872958865677, guid: 601c2a54c0580944998f025a03301ab9,
+    type: 3}
   diskSpawnLocation:
     position: {x: -1185, y: 18.19, z: -713}
-    rotation: {x: 342, y: 329, z: 355}
+    rotation: {x: -15, y: -65, z: 9}
+  unlockSprite: {fileID: 21300000, guid: 4528b3f97cc6704489e1effefa9b3a77, type: 3}
   unlockFmodEvent: 
