@@ -218,178 +218,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-3723841728758596834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc42e514932a01944b425963c56250c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swimToTarget: {fileID: 8265457806104071489}
-  _ecoTargetType: 2010
-  attachRadius: 2
-  updateInterval: 2
-  updateTargetInterval: 1
-  attachSocket: {fileID: 3425085474201060618}
-  resetRotation: 1
-  ADHD: 0
---- !u!114 &-3535176221615798326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cabe378a7ca60c64592b97ccfb4eff65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayText: pull ahoge
-  target: {fileID: 1234215859049231237}
-  method: PlayOneShot
-  arguments: []
---- !u!114 &-2321474093542275019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b12d67d532caca947a153384d457074c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: {fileID: 7500958825842708008}
-  swimBehaviour: {fileID: 3767109891289925411}
-  evaluatePriority: 0.4
-  priorityMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minActionCheckInterval: -1
-  patience: 5
-  pickupDeniedSounds: event:/SCHIZO/creatures/ermfish/pickup_denied
-  emitter: {fileID: 5648931341203019549}
---- !u!114 &-906797858269330932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ae8bc41ee49d684f95eb8955c7071d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  likesBeingCarried: 1
-  attachPlug: {fileID: 5839032077065552717}
-  emitter: {fileID: 5648931341203019549}
-  carryNoiseInterval: 5
-  attachSounds: event:/SCHIZO/creatures/ermfish/get_carried/attach
-  carrySounds: event:/SCHIZO/creatures/ermfish/get_carried/carried
-  detachSounds: event:/SCHIZO/creatures/ermfish/get_carried/detach
---- !u!114 &1349106207919405109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d7f09158e470e841abeeb53b7af894c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxStack: 5
-  socket: {fileID: -3723841728758596834}
-  plug: {fileID: -906797858269330932}
-  updateInterval: 2
-  growStackChance: 0.1
-  endsDetachChance: 0.05
-  middleDetachChance: 0.02
---- !u!114 &5574741202301287243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efd98f6d65dc4615a0a85770a69d8cef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupable: {fileID: 1562807759283304261}
-  emitter: {fileID: 5648931341203019549}
-  tool: {fileID: 6326611585647152623}
-  pickup: event:/SCHIZO/creatures/ermfish/pickup
-  drop: event:/SCHIZO/creatures/ermfish/drop
-  draw: event:/SCHIZO/creatures/ermfish/draw
-  holster: event:/SCHIZO/creatures/ermfish/holster
-  cook: event:/SCHIZO/creatures/ermfish/cook
-  eat: event:/SCHIZO/creatures/ermfish/eat
---- !u!114 &8265457806104071489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 804aa32b92fdc9a4d966f17405ac50c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  creature: {fileID: 7500958825842708008}
-  swimBehaviour: {fileID: 3767109891289925411}
-  evaluatePriority: 0.8
-  priorityMultiplier:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  minActionCheckInterval: -1
-  swimVelocity: 6
-  swimInterval: 1
---- !u!114 &8375959643865612471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67f27aba280bf1b45bfcfb9fc791301b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  storyGoalSN: 
-  storyGoalBZ: SanctuaryCompleted
---- !u!114 &2930078364275332864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d5851c371b35aa46a12fbf5b1dfb851, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundEvent: event:/SCHIZO/creatures/ermfish/player_death
-  emitter: {fileID: 0}
 --- !u!1 &5952168343408095337
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,6 +342,164 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3723841728758596834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc42e514932a01944b425963c56250c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swimToTarget: {fileID: 8265457806104071489}
+  _ecoTargetType: 2010
+  attachRadius: 2
+  updateInterval: 2
+  updateTargetInterval: 1
+  attachSocket: {fileID: 3425085474201060618}
+  resetRotation: 1
+  ADHD: 0
+--- !u!114 &-3535176221615798326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabe378a7ca60c64592b97ccfb4eff65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayText: pull ahoge
+  target: {fileID: 1234215859049231237}
+  method: PlayOneShot
+  arguments: []
+--- !u!114 &-2321474093542275019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b12d67d532caca947a153384d457074c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 7500958825842708008}
+  swimBehaviour: {fileID: 3767109891289925411}
+  evaluatePriority: 0.4
+  priorityMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minActionCheckInterval: -1
+  patience: 5
+  pickupDeniedSounds: event:/SCHIZO/creatures/ermfish/pickup_denied
+  emitter: {fileID: 5648931341203019549}
+--- !u!114 &-906797858269330932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae8bc41ee49d684f95eb8955c7071d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  likesBeingCarried: 1
+  attachPlug: {fileID: 5839032077065552717}
+  emitter: {fileID: 5648931341203019549}
+  carryNoiseInterval: 5
+  attachSounds: event:/SCHIZO/creatures/ermfish/get_carried/attach
+  carrySounds: event:/SCHIZO/creatures/ermfish/get_carried/carried
+  detachSounds: event:/SCHIZO/creatures/ermfish/get_carried/detach
+--- !u!114 &1349106207919405109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d7f09158e470e841abeeb53b7af894c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxStack: 5
+  socket: {fileID: -3723841728758596834}
+  plug: {fileID: -906797858269330932}
+  updateInterval: 2
+  growStackChance: 0.1
+  endsDetachChance: 0.05
+  middleDetachChance: 0.02
+--- !u!114 &2930078364275332864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d5851c371b35aa46a12fbf5b1dfb851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEvent: event:/SCHIZO/creatures/ermfish/player_death
+  emitter: {fileID: 0}
+--- !u!114 &5574741202301287243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efd98f6d65dc4615a0a85770a69d8cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupable: {fileID: 1562807759283304261}
+  emitter: {fileID: 5648931341203019549}
+  tool: {fileID: 6326611585647152623}
+  pickup: event:/SCHIZO/creatures/ermfish/pickup
+  drop: event:/SCHIZO/creatures/ermfish/drop
+  draw: event:/SCHIZO/creatures/ermfish/draw
+  holster: event:/SCHIZO/creatures/ermfish/holster
+  cook: event:/SCHIZO/creatures/ermfish/cook
+  eat: event:/SCHIZO/creatures/ermfish/eat
+--- !u!114 &8265457806104071489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804aa32b92fdc9a4d966f17405ac50c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creature: {fileID: 7500958825842708008}
+  swimBehaviour: {fileID: 3767109891289925411}
+  evaluatePriority: 0.8
+  priorityMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minActionCheckInterval: -1
+  swimVelocity: 6
+  swimInterval: 1
 --- !u!1 &8970273462075976009
 GameObject:
   m_ObjectHideFlags: 0
@@ -1059,16 +1045,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66e630f68f9446108b3deb81bd1e09e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1234215859049231237 stripped
+--- !u!114 &3767109891289925411 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+  m_CorrespondingSourceObject: {fileID: -8371309086422519895, guid: 5ff80f47f2822bb438251c8a7a1370ca,
     type: 3}
   m_PrefabInstance: {fileID: 4581379911448225930}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8756873621844092796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08298562675c4c18ba4b1d9744b135e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 2260eca3617340a59dfb84ebfeade9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7500958825842708008 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -2914789318229432670, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 4581379911448225930}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14011210f954223ae768ae50e1b9e2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6326611585647152623 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 4581379911448225930}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756873621844092796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a82ce4cd26cd43a89b02d266a5c1fc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &5648931341203019549 stripped
@@ -1089,28 +1099,16 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4581379911448225930}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6326611585647152623 stripped
+--- !u!114 &1234215859049231237 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -1704340371831134875, guid: 5ff80f47f2822bb438251c8a7a1370ca,
+  m_CorrespondingSourceObject: {fileID: 3365459996886375183, guid: 5ff80f47f2822bb438251c8a7a1370ca,
     type: 3}
   m_PrefabInstance: {fileID: 4581379911448225930}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8756873621844092796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a82ce4cd26cd43a89b02d266a5c1fc6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7500958825842708008 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -2914789318229432670, guid: 5ff80f47f2822bb438251c8a7a1370ca,
-    type: 3}
-  m_PrefabInstance: {fileID: 4581379911448225930}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b14011210f954223ae768ae50e1b9e2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 08298562675c4c18ba4b1d9744b135e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &8883497526312519149 stripped
@@ -1125,18 +1123,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4581379911448225930}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3767109891289925411 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -8371309086422519895, guid: 5ff80f47f2822bb438251c8a7a1370ca,
-    type: 3}
-  m_PrefabInstance: {fileID: 4581379911448225930}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8756873621844092796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2260eca3617340a59dfb84ebfeade9bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5935777102349017973
 PrefabInstance:
   m_ObjectHideFlags: 0
