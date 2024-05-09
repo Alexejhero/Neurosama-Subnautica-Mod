@@ -1,4 +1,3 @@
-using Nautilus.Extensions;
 using Story;
 using UWE;
 
@@ -11,10 +10,9 @@ public sealed class PlayingVO : Tracker
     private SoundQueue Sounds => PDASounds.queue;
     // some specific BZ cutscenes don't use SoundQueue
     // now... technically this won't work if subtitles are off; however: just don't disable subtitles
-    private uGUI_MessageQueue Subs => Subtitles.main.Exists()?.queue;
     private bool UseSubs;
     public bool IsPlaying => (IsPlayingVO || UseSubs && IsShowingSubtitles) && !FreezeTime.HasFreezers();
-    public bool IsShowingSubtitles => Subs is { messages.Count: > 0 };
+    public bool IsShowingSubtitles => Subtitles.HasQueued();
     public bool IsPlayingVO => Sounds is { _current.host: SoundHost.Encyclopedia or SoundHost.Log or SoundHost.Realtime };
 
     private bool _wasPlaying;

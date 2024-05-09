@@ -4,7 +4,12 @@ namespace Immersion.Trackers;
 
 partial class StoryGoals
 {
-    public static Dictionary<string, string> StoryGoalDescriptions = new(StoryGoal.KeyComparer)
+    private record class Description(string Message, bool IsImportant = false)
+    {
+        public Priority Priority => IsImportant ? Priority.High : Priority.Low;
+        public static implicit operator Description(string Message) => new(Message);
+    }
+    private static Dictionary<string, Description> StoryGoalDescriptions = new(StoryGoal.KeyComparer)
     {
         // sorted roughly in story order
 
@@ -22,7 +27,7 @@ partial class StoryGoals
         // this is way more goals than we're actually going to use
         // TODO: go through and pick the ones we want
         #region Intro/Download
-        ["IntroComplete"] = "{player} has crash landed in a frozen valley on planet 4546B.",
+        ["IntroComplete"] = new("{player} has crash landed in a frozen valley on planet 4546B.", true),
         // ["TwistyBridgesSOS"] = null, // first time SOS
         // ["OnEnterSanctuary"] = null, // triggers dialogue
         // ["SanctuaryCaveComplete"] = null, // finished entrance dialogue
@@ -31,7 +36,7 @@ partial class StoryGoals
         // ["AlanDownloadBlackout"] = null,
         // despite this being a very very important goal, it's triggered in the middle of a cutscene
         // so we don't actually get a chance to react to it
-        ["SanctuaryCompleted"] = "{player} has downloaded an alien Architect's consciousness into {possessive} head.",
+        ["SanctuaryCompleted"] = new("{player} has downloaded an alien Architect's consciousness into {possessive} head.", true),
         // ["DisableSanctuaryForceField"] = null, // disabled forcefields on places w/ precursor body parts
         // despite having "AfterDownload" in its name, this just triggers when you exit regardless of whether you have SanctuaryCompleted or not
         // ["SanctuaryExitAfterDownload"] = null,
@@ -49,17 +54,16 @@ partial class StoryGoals
         // ["Alan_Body_3_Clue"] = null, // rough location
         // ["Alan_Body_3_Clue2"] = null, // close
         // ["UnlockDeepPadsCache"] = null, // right outside
-        ["Scan_PrecursorSkeleton"] = "{player} has scanned an Architect skeleton, obtaining the first blueprints for the Architect body parts.",
+        ["Scan_PrecursorSkeleton"] = new("{player} has scanned an Architect skeleton, obtaining the first blueprint for the Architect body parts.", true),
         // ["UnlockArcticSpiresCache"] = null,
-        ["Scan_PrecursorTissue"] = "{player} has scanned a sample of Architect tissues, obtaining another blueprint for the Architect body parts.",
-        // ["VrwcyjGimtxlzYzwkzfGlqdd"] = null, // encrypted with vigenere (key "belowzero") to avoid spoilers for alex
-        ["Scan_PrecursorOrgans"] = "{player} has scanned a set of Architect organs, obtaining the final blueprint for the Architect body parts.",
-        // the rest of the goals are encrypted with vigenere (key "belowzero") to avoid spoilers for alex
-        // ["Bplb_XnhpTbgtzesc"] = null,
-        // ["BxMczxJrqjpthuSiiajrlz"] = null,
-        // ["PrAfabyigpvYDYEesfjglhac"] = null,
-        // ["Tglb_LqitiswzfXnhp"] = null,
-        // ["BplbPnIerHexs"] = null,
+        ["Scan_PrecursorTissue"] = new("{player} has scanned a sample of Architect tissues, obtaining another blueprint for the Architect body parts.", true),
+        // ["UnlockCrystalCastleCache"] = null,
+        ["Scan_PrecursorOrgans"] = new("{player} has scanned a set of Architect organs, obtaining the final blueprint for the Architect body parts.", true),
+        // ["Alan_BodyFacility"] = null,
+        // ["AtBodyFacilityTerminal"] = null,
+        // ["OnPrecursorNPCFabricated"] = null,
+        // ["Scan_PrecursorBody"] = null,
+        // ["AlanToEndGame"] = null,
         #endregion Main story
 
         #region Delta Station
@@ -86,7 +90,7 @@ partial class StoryGoals
         // ["RadioTowerTOMConnected"] = null,
         ["RadioTowerHacked"] = "{player} has disabled the satellite radio tower at Delta Station. Now Alterra can no longer track Marguerit.",
         ["MargGreenhouseHint"] = null,
-        ["OnScanMarguerit"] = "{player} is scanning Marguerit in an incredibly inappropriate way, please scold {object}.",
+        ["OnScanMarguerit"] = new("{player} is scanning Marguerit in an incredibly inappropriate way, please scold {object}.", true),
         #endregion Marguerit subplot
 
         #region Phi Robotics

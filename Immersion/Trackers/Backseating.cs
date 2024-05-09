@@ -1,4 +1,7 @@
+using System.Collections;
 using Immersion.Formatting;
+using Immersion.Patches;
+using UWE;
 
 namespace Immersion.Trackers;
 
@@ -16,15 +19,30 @@ public sealed class Backseating : Tracker
     {
         public Bar(string name, Func<float> valueGetter, float maxValue, float critical, float low)
             : this(name, valueGetter, () => maxValue, critical, low)
-        { }
+        {
+            RerollThresholds();
+        }
         public string Name { get; set; } = name;
         public (float Critical, float Low) Thresholds { get; set; } = (critical, low);
+        public (float Critical, float Low) CurrentThresholds { get; set; } = (critical, low);
         public float Value => valueGetter();
         public float MaxValue => maxValueGetter();
         public float Percentage => Value / MaxValue;
 
         internal BarState lastState;
+
+        public void RerollThresholds()
+        {
+            (float crit, float low) = Thresholds;
+            (float currCrit, float currLow) = CurrentThresholds;
+            float critRoll = Random.Range(crit - 0.05f, currCrit);
+            float lowRoll = Random.Range(low - 0.05f, currLow);
+            CurrentThresholds = (critRoll, lowRoll);
+            LOGGER.LogDebug($"{name} rolled ({CurrentThresholds.Critical}, {CurrentThresholds.Low})");
+        }
     }
+
+    public static Backseating Instance { get; private set; }
 
     private LiveMixin liveMixin;
     private Survival survival;
@@ -38,6 +56,7 @@ public sealed class Backseating : Tracker
     protected override void Awake()
     {
         base.Awake();
+        Instance = this;
 
         bars = [
             new Bar("health",
@@ -58,6 +77,33 @@ public sealed class Backseating : Tracker
                 critical: 0.10f, low: 0.25f),
             // it's also possible to track things like the currently equipped tool's energy charge
         ];
+    }
+
+    private void OnEnable()
+    {
+        UpdateBaseGameAlerts();
+    }
+
+    private void OnDisable()
+    {
+        UpdateBaseGameAlerts();
+    }
+
+    private void UpdateBaseGameAlerts()
+    {
+        ToggleSurvivalAlerts(!enabled);
+        CoroutineHost.StartCoroutine(ToggleHypothermiaAlerts(!enabled));
+    }
+
+    private void ToggleSurvivalAlerts(bool enabled)
+    {
+        SurvivalAlertPatches.EnableSurvivalAlerts = enabled;
+    }
+    private IEnumerator ToggleHypothermiaAlerts(bool enabled)
+    {
+        yield return new WaitUntil(() => bodyTemp);
+        PDANotification notif = bodyTemp.hypothermiaWarningNotification;
+        notif.nextPlayTime = enabled ? 0 : float.PositiveInfinity;
     }
 
     public void FixedUpdate()
@@ -82,7 +128,7 @@ public sealed class Backseating : Tracker
 
     private bool UpdateDeath(Bar healthBar)
     {
-        if (Player.main.liveMixin.IsAlive()) return false;
+        if (!liveMixin || liveMixin.IsAlive()) return false;
 
         if (healthBar.lastState != BarState.Depleted)
         {
@@ -95,13 +141,20 @@ public sealed class Backseating : Tracker
     private void UpdateBar(Bar bar)
     {
         float value = bar.Percentage;
-        (float critical, float low) = bar.Thresholds;
+        (float critical, float low) = bar.CurrentThresholds;
         BarState state = value < critical ? BarState.Critical
             : value < low ? BarState.Low
             : BarState.Normal;
 
         if (state > bar.lastState)
+        {
             Notify(bar.Name, state);
+        }
+        else if (state < bar.lastState)
+        {
+            // bar went up, we can reroll the threshold to be lower
+            bar.RerollThresholds();
+        }
         bar.lastState = state;
     }
 

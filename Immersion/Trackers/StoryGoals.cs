@@ -18,7 +18,7 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
         while (!StoryGoalManager.main) yield return null;
 
         StoryGoalManager.main.AddListener(this);
-        LOGGER.LogDebug($"Attached story goal listener");
+        LOGGER.LogDebug("Attached story goal listener");
     }
 
     public void NotifyGoalComplete(string key)
@@ -27,10 +27,10 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
         LOGGER.LogDebug($"Completed story goal {key}");
         OnStoryGoalCompleted?.Invoke(key); // <-- resilient software architecture
 
-        if (TryGetDescription(key, out string description))
+        if (TryGetDescription(key, out Description description))
         {
-            description = Format.FormatPlayer(description);
-            React(Priority.Low, description);
+            string message = Format.FormatPlayer(description.Message);
+            React(description.Priority, message);
         }
     }
     public void NotifyGoalReset(string key)
@@ -40,10 +40,10 @@ public sealed partial class StoryGoals : Tracker, IStoryGoalListener
     }
     public void NotifyGoalsDeserialized()
     {
-        LOGGER.LogDebug($"Deserialized story goals");
+        LOGGER.LogDebug("Deserialized story goals");
     }
 
-    private bool TryGetDescription(string goal, out string description)
+    private bool TryGetDescription(string goal, out Description description)
         => StoryGoalDescriptions.TryGetValue(goal, out description)
-            && !string.IsNullOrEmpty(description);
+            && description is { };
 }

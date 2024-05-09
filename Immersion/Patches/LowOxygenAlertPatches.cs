@@ -38,6 +38,13 @@ public static class LowOxygenAlertPatches
         return matcher.InstructionEnumeration();
     }
 
+    [HarmonyPatch(typeof(HintSwimToSurface), nameof(HintSwimToSurface.ShouldShowWarning))]
+    [HarmonyPostfix]
+    private static void DisableHint(ref bool __result)
+    {
+        __result &= !(OxygenAlerts.Instance && OxygenAlerts.Instance.enabled);
+    }
+
     private static void PlayAlert(LowOxygenAlert.Alert alert)
     {
         if (alert is OxygenAlerts.Alert ourAlert)
