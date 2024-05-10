@@ -15,8 +15,7 @@ internal static class DoomNative
     public const string DLL_NAME = "doomgeneric.dll";
     private static readonly string DIR = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     public static readonly string DLL_PATH = Path.Combine(DIR, DLL_NAME);
-    //private const string DLL_SHA256 = "WuoYwil49TXdZkwHvdvc7hfDOso+UaExfiO/3abQRB8="; // debug
-    private const string DLL_SHA256 = "WacBuUEFMz0jscbJxE1meQIZacaJrycoXwYjXRWAaXk="; // release
+    private const string DLL_SHA256 = "WacBuUEFMz0jscbJxE1meQIZacaJrycoXwYjXRWAaXk=";
     private static bool _dropped;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
