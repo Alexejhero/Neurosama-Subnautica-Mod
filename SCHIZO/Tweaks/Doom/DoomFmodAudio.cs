@@ -8,6 +8,8 @@ using UnityEngine;
 using SfxData = SCHIZO.Tweaks.Doom.DoomAudioNative.SoundModule.SfxData;
 using SfxCallbacks = SCHIZO.Tweaks.Doom.DoomAudioNative.SoundModule.Callbacks;
 using MusCallbacks = SCHIZO.Tweaks.Doom.DoomAudioNative.MusicModule.Callbacks;
+using FMODUnity;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace SCHIZO.Tweaks.Doom;
 
@@ -19,8 +21,8 @@ internal static class DoomFmodAudio
     private static Sound _song;
     private static EventInstance _playingSong;
 
-    private static readonly FMOD.System _coreSystem = FMODUnity.RuntimeManager.CoreSystem;
-    private static readonly FMOD.Studio.System _studioSystem = FMODUnity.RuntimeManager.StudioSystem;
+    private static readonly FMOD.System _coreSystem = RuntimeManager.CoreSystem;
+    private static readonly FMOD.Studio.System _studioSystem = RuntimeManager.StudioSystem;
     private const string DOOM_BUS_PREFIX = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/Doom";
     private const string SFX_EVENT = "event:/SCHIZO/doom/sfx";
     private const string MUS_EVENT = "event:/SCHIZO/doom/mus";
@@ -70,11 +72,15 @@ internal static class DoomFmodAudio
     }
     public static IntPtr StartSfx(IntPtr sfxInfo, int _, int vol, int sep)
     {
-        EventInstance evt = FMODUnity.RuntimeManager.CreateInstance(SFX_EVENT);
+        EventInstance evt = RuntimeManager.CreateInstance(SFX_EVENT);
         evt.setUserData(sfxInfo).CheckResult();
         evt.setCallback(SfxEventCallback, EVENT_CALLBACK_TYPE.ALL).CheckResult();
         evt.setParameterByName("3D", Emitter ? 1 : 0);
-        if (Emitter) FMODUnity.RuntimeManager.AttachInstanceToGameObject(evt, Emitter);
+        if (Emitter)
+        {
+            evt.set3DAttributes(Emitter.To3DAttributes());
+            DoomEngine.Instance.RunOnUnityThread(() => RuntimeManager.AttachInstanceToGameObject(evt, Emitter));
+        }
 
         evt.setVolume(0);
         UpdateSfxParams(evt.handle, vol, sep);
@@ -84,7 +90,9 @@ internal static class DoomFmodAudio
     }
     public static void StopSfx(IntPtr handle)
     {
-        EventInstance.FMOD_Studio_EventInstance_Stop(handle, STOP_MODE.ALLOWFADEOUT);
+        EventInstance evt = new(handle);
+        evt.stop(STOP_MODE.ALLOWFADEOUT);
+        DoomEngine.Instance.RunOnUnityThread(() => RuntimeManager.DetachInstanceFromGameObject(evt));
     }
     public static bool IsPlayingSfx(IntPtr handle)
     {
@@ -190,7 +198,7 @@ internal static class DoomFmodAudio
             _song = new(handle);
         }
         _song.setMode(looping ? MODE.LOOP_NORMAL : MODE.LOOP_OFF);
-        _playingSong = FMODUnity.RuntimeManager.CreateInstance(MUS_EVENT);
+        _playingSong = RuntimeManager.CreateInstance(MUS_EVENT);
         _playingSong.setUserData(_song.handle).CheckResult();
         _playingSong.setCallback(MusEventCallback, EVENT_CALLBACK_TYPE.ALL).CheckResult();
         _playingSong.start().CheckResult();
@@ -216,7 +224,7 @@ internal static class DoomFmodAudio
         _playingSong.setParameterByName("3D", Emitter ? 1 : 0).CheckResult();
         if (Emitter)
         {
-            _playingSong.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(Emitter));
+            _playingSong.set3DAttributes(RuntimeUtils.To3DAttributes(Emitter));
         }
     }
     #endregion
