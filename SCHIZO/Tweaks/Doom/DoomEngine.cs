@@ -30,7 +30,6 @@ internal partial class DoomEngine : MonoBehaviour
         }
     }
     public Texture2D Screen { get; } = new Texture2D(0, 0, TextureFormat.BGRA32, false);
-    public Sprite Sprite { get; private set; }
     public Vector2Int ScreenResolution => new(Screen.width, Screen.height);
 
     /// <summary>
@@ -58,18 +57,17 @@ internal partial class DoomEngine : MonoBehaviour
         _clientManager = new(this);
     }
 
-    // apparently OnDestroy still gets called even if you DontDestroyOnLoad
-    // this makes perfect sense frankly and you are stupid for thinking otherwise
-    //private void OnDestroy()
-    //{
-    //    _doomThread.Abort();
-    //}
+    private void OnDestroy()
+    {
+        _threadStop.Set();
+    }
     private void Initialize()
     {
         if (IsInitialized) return;
 
         _doomThread.Name = "Doom";
         _doomThread.Priority = System.Threading.ThreadPriority.BelowNormal;
+        _doomThread.IsBackground = true;
         if (!CurrentThreadIsMainThread())
             throw new InvalidOperationException("Doom must be initialized from the Unity thread");
         _mainThread = Thread.CurrentThread;

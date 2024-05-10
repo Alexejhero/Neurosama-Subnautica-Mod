@@ -7,7 +7,6 @@ internal class DoomFrontend : MonoBehaviour, IDoomClient
 {
     private DoomEngine engine => DoomEngine.Instance;
     public Texture2D DoomScreen => engine.Screen;
-    public Sprite DoomScreenSprite => engine.Sprite;
     public Action Connected;
     public Action Disconnected;
     public Action<int> Exited;

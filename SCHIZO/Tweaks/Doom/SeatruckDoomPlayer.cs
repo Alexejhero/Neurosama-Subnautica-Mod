@@ -17,7 +17,7 @@ partial class SeatruckDoomPlayer : MonoBehaviour
     private bool _die;
     private void OnEnable()
     {
-        if (DoomEngine.LastExitCode != 0)
+        if (DoomEngine.LastExitCode != 0 || !DoomNative.CheckDll())
         {
             Destroy(this);
             return;

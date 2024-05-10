@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using UnityEngine;
 
@@ -12,16 +10,14 @@ partial class DoomEngine
 {
     private readonly Stopwatch _gameClock = new();
     private readonly Thread _doomThread = new(StartDoom_);
+    private readonly ManualResetEventSlim _threadStop = new(false);
     private readonly ManualResetEventSlim _runningEvent = new(true);
     private readonly ManualResetEventSlim _inputEvent = new(false);
     private readonly ManualResetEventSlim _drawEvent = new(false);
     private static Thread _mainThread;
     private static int _mainThreadId;
 
-    private static readonly string[] _launchArgs =
-    [
-        Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "doomgeneric.dll")
-    ];
+    private static readonly string[] _launchArgs = [];
 
     private enum FrameState
     {
@@ -41,11 +37,12 @@ partial class DoomEngine
             LogWarning("Tried to start doom more than once");
             return;
         }
-        if (!File.Exists(_launchArgs[0]))
+        if (!DoomNative.CheckDll())
         {
+            LogError("DLL check failed, exiting");
             IsStarted = true;
-            LogError("doomgeneric.dll was not found");
-            Doom_Exit(1);
+            _threadStop.Set();
+            Doom_Exit(-1);
             return;
         }
         _gameClock.Start();
@@ -63,23 +60,23 @@ partial class DoomEngine
             SetWindowTitle = Doom_SetWindowTitle,
             Exit = Doom_Exit,
             Log = Doom_Log,
-        }, _launchArgs.Length, _launchArgs);
+        }, _launchArgs);
         sw.Stop();
         StartupTime = (float) sw.Elapsed.TotalMilliseconds;
-        LogWarning($"Startup took: {StartupTime:n}ms ({audioInitTime:n}ms audio, {StartupTime - audioInitTime}ms engine)");
+        LogWarning($"Startup took: {StartupTime:n}ms ({audioInitTime:n}ms audio, {StartupTime - audioInitTime:n}ms engine)");
         IsStarted = true;
         if (IsOnUnityThread())
         {
             LogError("Should not be on Unity thread here");
             return;
         }
-        Application.quitting += _doomThread.Abort;
+        Application.quitting += _threadStop.Set;
         DoomLoop();
     }
 
     private void DoomLoop()
     {
-        while (true)
+        while (!_threadStop.IsSet)
         {
             _runningEvent.Wait();
             switch (_frameState)
@@ -112,7 +109,6 @@ partial class DoomEngine
         //Screen.width = resX;
         //Screen.height = resY;
         Screen.Resize(resX, resY, TextureFormat.BGRA32, false);
-        Sprite = Sprite.Create(Screen, new Rect(0, 0, resX, resY), new Vector2(0.5f, 0.5f));
         _clientManager.OnInit();
     }
 
@@ -211,9 +207,12 @@ partial class DoomEngine
         _clientManager.Clear(); // disconnect all clients
         if (exitCode != 0)
         {
-            LogError("Doom did not exit cleanly, aborting thread");
+            if (!_threadStop.IsSet)
+            {
+                LogError("Doom did not exit cleanly, aborting thread");
+                _threadStop.Set();
+            }
             IsStarted = false;
-            _doomThread.Abort();
         }
     }
 

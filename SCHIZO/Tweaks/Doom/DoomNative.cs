@@ -1,11 +1,23 @@
 using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using SCHIZO.Resources;
 using UnityEngine;
 
 namespace SCHIZO.Tweaks.Doom;
 
 internal static class DoomNative
 {
+    public const string DLL_NAME = "doomgeneric.dll";
+    public static readonly string DLL_PATH = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/{DLL_NAME}";
+    //private const string DLL_SHA256 = "WuoYwil49TXdZkwHvdvc7hfDOso+UaExfiO/3abQRB8="; // debug
+    private const string DLL_SHA256 = "WacBuUEFMz0jscbJxE1meQIZacaJrycoXwYjXRWAaXk="; // release
+    private static bool _dropped;
+
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void InitCallback(int resX, int resY);
     // note: this actually refers to a uint[] buffer but we interpret it as byte[] for Unity texture data
@@ -41,21 +53,20 @@ internal static class DoomNative
 
         public readonly void Validate()
         {
-            if (Init is null)
-                throw new InvalidOperationException($"Required callback {nameof(Init)} is missing");
-            if (DrawFrame is null)
-                throw new InvalidOperationException($"Required callback {nameof(DrawFrame)} is missing");
-            if (Sleep is null)
-                throw new InvalidOperationException($"Required callback {nameof(Sleep)} is missing");
-            if (GetTicksMillis is null)
-                throw new InvalidOperationException($"Required callback {nameof(GetTicksMillis)} is missing");
-            if (GetKey is null)
-                throw new InvalidOperationException($"Required callback {nameof(GetKey)}) is missing");
+            ValidateCallback(Init);
+            ValidateCallback(DrawFrame);
+            ValidateCallback(Sleep);
+            ValidateCallback(GetTicksMillis);
+            ValidateCallback(GetKey);
             // GetMouse is optional
             // SetWindowTitle is optional
-            if (Exit is null)
-                throw new InvalidOperationException($"Required callback {nameof(Exit)}) is missing");
+            ValidateCallback(Exit);
             // Log is optional
+        }
+        private readonly void ValidateCallback(Delegate callback, [CallerArgumentExpression(nameof(callback))] string name = "")
+        {
+            if (callback is null)
+                throw new InvalidOperationException($"Required callback {name} is missing");
         }
     }
     private static Vector2Int _res;
@@ -65,7 +76,7 @@ internal static class DoomNative
     private static Callbacks _callbacks;
     private static IntPtr _callbackPtr;
 
-    public static void Start(Callbacks callbacks, int argc, string[] argv)
+    public static void Start(Callbacks callbacks, params string[] args)
     {
         callbacks.Validate();
         // technically the C side is designed to only get "created" once
@@ -83,9 +94,35 @@ internal static class DoomNative
         }
         else
         {
-            NativeCreate(argc, argv);
+            // womp womp, spread needs spans (-1h checking everything over like 3 times bc no exception gets logged smile)
+            // string[] argv = [Path.GetFullPath(DLL_PATH), ..args];
+            string[] argv = args.Prepend(Path.GetFullPath(DLL_PATH)).ToArray();
+            NativeCreate(argv.Length, argv);
         }
     }
+    public static bool CheckDll()
+    {
+        if (!_dropped)
+        {
+            File.WriteAllBytes(DLL_PATH, ResourceManager.GetEmbeddedBytes(DLL_NAME, false));
+            _dropped = true;
+        }
+        if (!File.Exists(DLL_PATH))
+            return false;
+
+        string hash;
+        using (SHA256Managed hasher = new())
+        using (FileStream fs = File.OpenRead(DLL_PATH))
+            hash = Convert.ToBase64String(hasher.ComputeHash(fs));
+
+        if (hash != DLL_SHA256)
+        {
+            DoomEngine.LogWarning($"{DLL_NAME} checksum does not match ({hash} != {DLL_SHA256})");
+            return false;
+        }
+        return true;
+    }
+
     public static void Tick() => NativeTick();
 
     private static Callbacks WrapCallbacks(Callbacks callbacks)
@@ -123,12 +160,12 @@ internal static class DoomNative
     }
 
     // our interface
-    [DllImport("doomgeneric.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "SetCallbacks")]
+    [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "SetCallbacks")]
     private static extern void NativeSetCallbacks(IntPtr callbacks);
 
-    [DllImport("doomgeneric.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Create")]
-    private static extern void NativeCreate(int argc, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0, ArraySubType = UnmanagedType.LPStr)] string[] argv);
+    [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "Create")]
+    private static extern void NativeCreate(int argc, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0, ArraySubType = UnmanagedType.LPStr)] string[] argv);
 
-    [DllImport("doomgeneric.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "Tick")]
+    [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "Tick")]
     private static extern void NativeTick();
 }

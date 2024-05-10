@@ -112,11 +112,16 @@ internal static class DoomAudioNative
     }
     public static void SetAudioCallbacks(SoundModule.Callbacks sndCallbacks, MusicModule.Callbacks musCallbacks)
     {
+        if (!DoomNative.CheckDll())
+        {
+            DoomEngine.LogWarning("invalid dll (from audio)");
+            return;
+        }
         SoundModule.Assign(sndCallbacks);
         MusicModule.Assign(musCallbacks);
 
         NativeSetAudioCallbacks(SoundModule._callbackPtr, MusicModule._callbackPtr);
     }
-    [DllImport("doomgeneric.dll", CallingConvention = CallingConvention.Cdecl, EntryPoint = "SetAudioCallbacks")]
+    [DllImport(DoomNative.DLL_NAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "SetAudioCallbacks")]
     private static extern void NativeSetAudioCallbacks(IntPtr sndCallbacks, IntPtr musCallbacks);
 }
