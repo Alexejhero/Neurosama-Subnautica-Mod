@@ -35,10 +35,10 @@ public sealed class Backseating : Tracker
         {
             (float crit, float low) = Thresholds;
             (float currCrit, float currLow) = CurrentThresholds;
-            float critRoll = Random.Range(crit - 0.05f, currCrit);
-            float lowRoll = Random.Range(low - 0.05f, currLow);
+            float critRoll = Random.Range(crit * 0.8f, currCrit);
+            float lowRoll = Random.Range(low * 0.8f, currLow);
             CurrentThresholds = (critRoll, lowRoll);
-            LOGGER.LogDebug($"{name} rolled ({CurrentThresholds.Critical}, {CurrentThresholds.Low})");
+            LOGGER.LogDebug($"{Name} rolled ({CurrentThresholds.Critical}, {CurrentThresholds.Low})");
         }
     }
 

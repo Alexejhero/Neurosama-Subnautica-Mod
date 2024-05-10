@@ -61,4 +61,32 @@ public static class Format
 
     public static string ToTitleCase<T>(T value) => ToTitleCase(value.ToString());
     public static string WithArticle(string word) => $"{AvsAn.Query(word).Article} {word}";
+
+    // default timespan format produces garbage like 00:20:00.0580000
+    /// <summary>
+    /// Converts a <see cref="TimeSpan"/> to a friendly string, e.g. <c>"1 hour, 20 minutes"</c>.
+    /// </summary>
+    /// <param name="maxComponents">
+    /// Maximum number of components (days, hours, minutes, seconds, milliseconds - <b>in this order</b>) to show.<br/>
+    /// Zero-valued components will be skipped, i.e. <c>01:00:05</c> will be formatted as <c>"1 hour, 5 seconds"</c>.
+    /// </param>
+    public static string ToFriendlyString(this TimeSpan ts, int maxComponents = 2)
+    {
+        // adapted from https://stackoverflow.com/a/7204071
+        (int value, string name)[] parts = [
+            //(ts.Days / 7, "week"),
+            (ts.Days, "day"),
+            (ts.Hours, "hour"),
+            (ts.Minutes, "minute"),
+            (ts.Seconds, "second"),
+            //(ts.Milliseconds, "millisecond"),
+        ];
+        (int value, string name)[] usedParts = parts
+            .Where(pair => pair.value > 0)
+            .Take(maxComponents)
+            .ToArray();
+        if (usedParts.Length == 0)
+            return "0 seconds";
+        return string.Join(", ", usedParts.Select(pair => $"{pair.value} {pair.name}{(pair.value > 1 ? "s" : "")}"));
+    }
 }
