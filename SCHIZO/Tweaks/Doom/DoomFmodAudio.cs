@@ -21,7 +21,7 @@ internal static class DoomFmodAudio
 
     private static readonly FMOD.System _coreSystem = FMODUnity.RuntimeManager.CoreSystem;
     private static readonly FMOD.Studio.System _studioSystem = FMODUnity.RuntimeManager.StudioSystem;
-    private const string DOOM_BUS_PREFIX = "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds/Doom";
+    private const string DOOM_BUS_PREFIX = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/Doom";
     private const string SFX_EVENT = "event:/SCHIZO/doom/sfx";
     private const string MUS_EVENT = "event:/SCHIZO/doom/mus";
 
