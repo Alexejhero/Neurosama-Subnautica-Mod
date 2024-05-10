@@ -82,11 +82,11 @@ public static class Format
             //(ts.Milliseconds, "millisecond"),
         ];
         (int value, string name)[] usedParts = parts
-            .Where(pair => pair.value > 0)
+            .Where(pair => pair.value != 0)
             .Take(maxComponents)
             .ToArray();
         if (usedParts.Length == 0)
             return "0 seconds";
-        return string.Join(", ", usedParts.Select(pair => $"{pair.value} {pair.name}{(pair.value > 1 ? "s" : "")}"));
+        return string.Join(", ", usedParts.Select(pair => $"{pair.value} {pair.name}{(Math.Abs(pair.value) != 1 ? "s" : "")}"));
     }
 }
