@@ -13,7 +13,8 @@ namespace SCHIZO.Tweaks.Doom;
 internal static class DoomNative
 {
     public const string DLL_NAME = "doomgeneric.dll";
-    public static readonly string DLL_PATH = $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/{DLL_NAME}";
+    private static readonly string DIR = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+    public static readonly string DLL_PATH = Path.Combine(DIR, DLL_NAME);
     //private const string DLL_SHA256 = "WuoYwil49TXdZkwHvdvc7hfDOso+UaExfiO/3abQRB8="; // debug
     private const string DLL_SHA256 = "WacBuUEFMz0jscbJxE1meQIZacaJrycoXwYjXRWAaXk="; // release
     private static bool _dropped;
@@ -102,11 +103,7 @@ internal static class DoomNative
     }
     public static bool CheckDll()
     {
-        if (!_dropped)
-        {
-            File.WriteAllBytes(DLL_PATH, ResourceManager.GetEmbeddedBytes(DLL_NAME, false));
-            _dropped = true;
-        }
+        Drop();
         if (!File.Exists(DLL_PATH))
             return false;
 
@@ -121,6 +118,17 @@ internal static class DoomNative
             return false;
         }
         return true;
+    }
+
+    private static void Drop()
+    {
+        if (!_dropped)
+        {
+            File.WriteAllBytes(DLL_PATH, ResourceManager.GetEmbeddedBytes(DLL_NAME, false));
+            File.WriteAllBytes(Path.Combine(DIR, "DOOM1.WAD"), ResourceManager.GetEmbeddedBytes("DOOM1.WAD", false));
+            Environment.SetEnvironmentVariable("DOOMWADDIR", DIR);
+            _dropped = true;
+        }
     }
 
     public static void Tick() => NativeTick();
