@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using RuntimeDebugDraw;
 using Unity.Collections;
 using UnityEngine;
 using UWE;
@@ -184,8 +183,8 @@ partial class ErmfishDefenseForce
                 .OrderBy(hit => hit.point.DistanceSqrXZ(player.transform.position))
                 .FirstOrDefault();
             if (blockingHit.point != default)
-                spawnPos = blockingHit.point;
-            
+                spawnPos = blockingHit.point + blockingHit.normal * 0.1f;
+
             GameObject instance = GameObject.Instantiate(prefab);
             instance.transform.position = spawnPos;
             if (debugSpawns)
