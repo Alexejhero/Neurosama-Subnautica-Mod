@@ -2,7 +2,7 @@ using Immersion.Formatting;
 
 namespace Immersion.Trackers;
 
-public sealed partial class NewScans : Tracker
+public sealed class NewScans : Tracker
 {
     private void Start()
     {
@@ -22,22 +22,8 @@ public sealed partial class NewScans : Tracker
         string encyKey = PDAScanner.GetEntryData(techType).encyclopedia;
         if (!PDAEncyclopedia.GetEntryData(encyKey, out PDAEncyclopedia.EntryData data)) return;
 
-        // creatures only (for now?)
-        if (PDAEncyclopedia.ParsePath(data.path) is not ["Research", "Lifeforms", "Fauna", ..]) return;
-
-        // send the first paragraph of the databank entry?
-        /*if (Language.main.TryGet($"EncyDesc_{encyKey}", out string description))
-        {
-            // yep these can have both LF and CRLF
-            int firstParagraphEndsAt = description.IndexOfAny(['\r', '\n']);
-
-            string firstParagraph = description;
-            if (firstParagraphEndsAt >= 0)
-                firstParagraph = description[..firstParagraphEndsAt];
-
-            if (firstParagraph.Length < 150) // :neuroNOspam:
-                message += "\n" + firstParagraph.Trim();
-        }*/
+        // creatures only
+        if (!data.path.StartsWith("Research/Lifeforms/Fauna/")) return;
 
         React(Priority.Low, message);
     }

@@ -8,7 +8,7 @@ public sealed class SaveReminder : Tracker
     private float _lastSave;
     private bool _inGame;
     private int _currentReminderIndex = -1;
-    private readonly float[] _defaultReminders = [1200, 2400, 3600]; // 20m, 40m, 1h
+    private readonly float[] _defaultReminders = [1800, 3600]; // 30m, 1h
     private float[] _currentReminders; // slightly randomized for variety
 
     private void Start()
@@ -16,6 +16,8 @@ public sealed class SaveReminder : Tracker
         SaveUtils.RegisterOnFinishLoadingEvent(Loaded);
         SaveUtils.RegisterOnSaveEvent(Saved);
         SaveUtils.RegisterOnQuitEvent(Quit);
+        _currentReminders = new float[_defaultReminders.Length];
+        //_defaultReminders.CopyTo(_currentReminders, 0);
         Reroll();
     }
 
@@ -28,6 +30,7 @@ public sealed class SaveReminder : Tracker
 
     private void Saved()
     {
+        Reroll();
         _lastSave = PDA.time;
         _currentReminderIndex = -1;
     }
@@ -64,13 +67,15 @@ public sealed class SaveReminder : Tracker
         TimeSpan timeSpan = TimeSpan.FromSeconds(time);
         string message = $"{{player}} has not saved in over {timeSpan.ToFriendlyString(1)}.";
         React(Priority.Low, Format.FormatPlayer(message));
-        _currentReminders = Reroll();
     }
 
-    private float[] Reroll()
+    private void Reroll()
     {
-        return _defaultReminders
-            .Select(t => Random.Range(t * 0.9f, t * 1.1f))
-            .ToArray();
+        for (int i = 0; i < _currentReminders.Length; i++)
+        {
+            float t = _defaultReminders[i];
+            _currentReminders[i] = Random.Range(t * 0.9f, t * 1.1f);
+        }
+        //LOGGER.LogDebug($"Rerolled save reminder ({string.Join(",", _currentReminders)})");
     }
 }

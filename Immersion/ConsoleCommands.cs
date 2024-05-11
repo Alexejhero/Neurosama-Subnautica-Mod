@@ -11,7 +11,7 @@ internal class ConsoleCommands : MonoBehaviour
     public static string SetUsage => "set <field> [value]";
     public static string SetExample => "set player Joe";
     public static string EnableDisableUsage => "<enable|disable> [tracker...]";
-    public static string EnableDisableExample => $"disable {nameof(PlayingVO)} {nameof(StoryGoals)}";
+    public static string EnableDisableExample => $"disable {nameof(Empathy)} {nameof(Backseating)}";
     public static string ManualMuteUsage => "<mute|unmute>";
     public static string ManualSendUsage => "<react|send> <message>";
     public static string ManualSendExample => "react Behind you!";
