@@ -52,8 +52,8 @@ public sealed class CreatureEncounters : Tracker
             ? PlayerAttacks
             : VehicleAttacks;
         if (!database.TryGetValue(creatureTechType, out EncounterData data)) return;
-        if (data.FirstTimeOnly && !StoryGoalManager.main.OnGoalComplete(GoalFor(creatureTechType, targetType)))
-            return;
+        bool isFirstTime = StoryGoalManager.main.OnGoalComplete(GoalFor(creatureTechType, targetType));
+        if (!isFirstTime && data.FirstTimeOnly) return;
         if (!data.CanTrigger) return;
 
         string message;
