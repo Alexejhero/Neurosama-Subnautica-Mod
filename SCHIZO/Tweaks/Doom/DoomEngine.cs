@@ -59,6 +59,7 @@ internal partial class DoomEngine : MonoBehaviour
 
     private void OnDestroy()
     {
+        KeyHijackPatches.SuppressKeyDownOnFunctionKeys = false;
         _threadStop.Set();
     }
     private void Initialize()
@@ -125,6 +126,7 @@ internal partial class DoomEngine : MonoBehaviour
         {
             _runningEvent.Reset();
             DoomFmodAudio.PauseMusic();
+            KeyHijackPatches.SuppressKeyDownOnFunctionKeys = false;
         }
         else
         {
@@ -145,7 +147,9 @@ internal partial class DoomEngine : MonoBehaviour
         {
             action();
         }
-        if (_clientManager.Any(c => c.IsAcceptingInput))
+        bool playerPlaying = _clientManager.Any(c => c.IsAcceptingInput);
+        KeyHijackPatches.SuppressKeyDownOnFunctionKeys = playerPlaying;
+        if (playerPlaying)
         {
             CollectKeys();
             CollectMouse();
