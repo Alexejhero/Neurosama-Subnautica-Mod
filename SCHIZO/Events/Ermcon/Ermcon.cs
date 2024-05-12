@@ -30,7 +30,7 @@ public partial class Ermcon
     private float _lastSearchTime;
     public float stareTime;
 
-    private void Start()
+    protected override void Start()
     {
         instance = this;
         conMembers = [];

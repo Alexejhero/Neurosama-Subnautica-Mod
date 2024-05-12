@@ -21,7 +21,9 @@ partial class ErmsharkAttack
         if (player)
         {
             GameObject heldObject = Inventory.main.GetHeldObject();
-            if (heldObject && canBeFed && player.CanBeAttacked() && TryEat(heldObject, true))
+            if (heldObject && canBeFed && player.CanBeAttacked()
+                && !heldObject.GetComponent<Carryable>() // otherwise decoy ermsharks eat ermfish from your hands
+                && TryEat(heldObject, true))
             {
                 if (this.GetBiteSound()) Utils.PlayEnvSound(this.GetBiteSound(), mouth.transform.position);
                 gameObject.SendMessage("OnMeleeAttack", heldObject, SendMessageOptions.DontRequireReceiver);

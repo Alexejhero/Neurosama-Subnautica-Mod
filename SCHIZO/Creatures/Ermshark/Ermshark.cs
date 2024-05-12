@@ -65,7 +65,7 @@ partial class Ermshark : IOnTakeDamage
         const float splitScaleModifier = 0.69f;
         if (!_ermsharkPrefab)
         {
-            LOGGER.LogError($"No prefab for mitosis, committing Minecraft");
+            LOGGER.LogWarning("No prefab for mitosis, committing Minecraft");
             mitosisRemaining = 0;
             SOS();
             return;
@@ -73,7 +73,10 @@ partial class Ermshark : IOnTakeDamage
 
         liveMixin.ResetHealth();
         transform.position = position + Random.insideUnitSphere * 0.5f;
-        transform.GetChild(0).localScale *= splitScaleModifier;
+        Transform model = transform.GetChild(0);
+        model.localScale *= splitScaleModifier;
+        // if the shark gets small enough, carrying other fish looks weird (bc they're bigger than it)
+        if (model.localScale.x < 0.3f) DisableCarry(gameObject);
 
         mitosisRemaining--;
         SpawnDecoy(position);
@@ -93,7 +96,13 @@ partial class Ermshark : IOnTakeDamage
 
         ermshark.mitosisRemaining = mitosisRemaining;
 
-        CarryCreature carry = decoy.GetComponent<CarryCreature>();
-        if (carry) carry.enabled = false;
+        DisableCarry(decoy);
+    }
+
+    private static void DisableCarry(GameObject shark)
+    {
+        // forgor there are actually two of them on the shark
+        foreach (CarryCreature carry in shark.GetComponents<CarryCreature>())
+            Destroy(carry);
     }
 }
