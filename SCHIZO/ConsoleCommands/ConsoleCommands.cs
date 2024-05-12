@@ -18,6 +18,7 @@ public static class ConsoleCommands
     [ConsoleCommand("isekai"), UsedImplicitly]
     public static string OnConsoleCommand_isekai(string techTypeName, float percentage = 1, float radius = 100)
     {
+        if (!Player.main) return null;
         if (!UWE.Utils.TryParseEnum(techTypeName, out TechType techType))
         {
             IEnumerable<string> techTypeNamesSuggestion = TechTypeExtensions.GetTechTypeNamesSuggestion(techTypeName);
@@ -25,13 +26,16 @@ public static class ConsoleCommands
         }
 
         List<PrefabIdentifier> items = PhysicsHelpers.ObjectsInRange(Player.main.transform, radius)
-            .OfTechType(techType).Where(g => g.GetComponentInParent<Pickupable>() is not { inventoryItem: { } })
-            .SelectComponentInParent<PrefabIdentifier>().ToList();
+            .OfTechType(techType)
+            .Where(g => g && g.GetComponentInParent<Pickupable>() is not { inventoryItem: { } })
+            .SelectComponentInParent<PrefabIdentifier>()
+            .Distinct()
+            .ToList();
         items.Shuffle();
-        HashSet<PrefabIdentifier> set = [..items];
 
-        foreach (PrefabIdentifier item in set.Take((int) Mathf.Round(set.Count * percentage)))
+        foreach (PrefabIdentifier item in items.Take(Mathf.RoundToInt(items.Count * percentage)))
         {
+            if (!item) continue;
             Object.Destroy(item.gameObject);
         }
 
