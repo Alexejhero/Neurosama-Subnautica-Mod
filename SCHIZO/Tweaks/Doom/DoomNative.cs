@@ -15,7 +15,8 @@ internal static class DoomNative
     public const string DLL_NAME = "doomgeneric.dll";
     private static readonly string DIR = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     public static readonly string DLL_PATH = Path.Combine(DIR, DLL_NAME);
-    private const string DLL_SHA256 = "WacBuUEFMz0jscbJxE1meQIZacaJrycoXwYjXRWAaXk=";
+    private static readonly string FALLBACK_WAD_PATH = Path.Combine(DIR, "fallback", "DOOM1.WAD");
+    private const string DLL_SHA256 = "d8JH408sIg3s6Edfc9mLcN7xCFx3zPhoOtz7dDiLbFs=";
     private static bool _dropped;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -94,6 +95,8 @@ internal static class DoomNative
         }
         else
         {
+            NativeAddIWADPath(DIR); // player can put their own wads into this folder
+            NativeSetFallbackIWADPath(FALLBACK_WAD_PATH);
             // womp womp, spread needs spans (-1h checking everything over like 3 times bc no exception gets logged smile)
             // string[] argv = [Path.GetFullPath(DLL_PATH), ..args];
             string[] argv = args.Prepend(Path.GetFullPath(DLL_PATH)).ToArray();
@@ -121,13 +124,16 @@ internal static class DoomNative
 
     private static void Drop()
     {
-        if (!_dropped)
-        {
-            File.WriteAllBytes(DLL_PATH, ResourceManager.GetEmbeddedBytes(DLL_NAME, false));
-            File.WriteAllBytes(Path.Combine(DIR, "DOOM1.WAD"), ResourceManager.GetEmbeddedBytes("DOOM1.WAD", false));
-            Environment.SetEnvironmentVariable("DOOMWADDIR", DIR);
-            _dropped = true;
-        }
+        if (_dropped) return;
+
+        File.WriteAllBytes(DLL_PATH, ResourceManager.GetEmbeddedBytes(DLL_NAME, false));
+
+        // drop the fallback shareware wad
+        Directory.CreateDirectory(Path.GetDirectoryName(FALLBACK_WAD_PATH));
+        if (!File.Exists(FALLBACK_WAD_PATH))
+            File.WriteAllBytes(FALLBACK_WAD_PATH, ResourceManager.GetEmbeddedBytes("DOOM1.WAD", false));
+
+        _dropped = true;
     }
 
     public static void Tick() => NativeTick();
@@ -171,7 +177,11 @@ internal static class DoomNative
     private static extern void NativeSetCallbacks(IntPtr callbacks);
 
     [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "Create")]
-    private static extern void NativeCreate(int argc, [Out, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0, ArraySubType = UnmanagedType.LPStr)] string[] argv);
+    private static extern void NativeCreate(int argc, [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0, ArraySubType = UnmanagedType.LPStr)] string[] argv);
+    [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "AddIWADPath")]
+    private static extern void NativeAddIWADPath([In, MarshalAs(UnmanagedType.LPStr)] string path);
+    [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "SetFallbackIWADPath")]
+    private static extern void NativeSetFallbackIWADPath([In, MarshalAs(UnmanagedType.LPStr)] string path);
 
     [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl, EntryPoint = "Tick")]
     private static extern void NativeTick();
