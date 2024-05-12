@@ -122,6 +122,7 @@
 			<value>2</value>
 		</property>
 		<relationship name="sounds">
+			<destination>{c6ce80e7-4bdd-43b8-86ba-14cfd056dc42}</destination>
 			<destination>{cbcec3a9-a1c3-468d-9f00-615ac29a9fca}</destination>
 			<destination>{0fc21422-30da-429e-9e2f-cd6cfae47e41}</destination>
 			<destination>{5059d8dd-eaaf-458c-8daa-f675296c22fe}</destination>
@@ -257,6 +258,11 @@
 		</property>
 		<relationship name="automators">
 			<destination>{0fe2c5cd-17b6-4f68-8b9c-13f369742daa}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{c6ce80e7-4bdd-43b8-86ba-14cfd056dc42}">
+		<relationship name="audioFile">
+			<destination>{532599c5-77c9-4519-99fe-faf8aa4215ed}</destination>
 		</relationship>
 	</object>
 	<object class="SingleSound" id="{cbcec3a9-a1c3-468d-9f00-615ac29a9fca}">
