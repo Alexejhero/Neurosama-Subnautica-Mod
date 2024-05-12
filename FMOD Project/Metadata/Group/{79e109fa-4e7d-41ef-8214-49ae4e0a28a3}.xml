@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{79e109fa-4e7d-41ef-8214-49ae4e0a28a3}">
+		<property name="name">
+			<value>Doom</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{720c8b26-3a95-4590-8aef-29d03b726494}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{ecdc8372-a7f1-4bb5-8205-496d4d74cf34}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{f740937c-f48d-46a4-9421-b4ae9a5bb0f9}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{720c8b26-3a95-4590-8aef-29d03b726494}">
+		<relationship name="effects">
+			<destination>{b519ce88-b8a0-4aef-a1b1-1548f096c1a9}</destination>
+			<destination>{dbf2fe1d-003d-4f74-a3cc-5ccac40ae586}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{ecdc8372-a7f1-4bb5-8205-496d4d74cf34}" />
+	<object class="MultibandEqEffect" id="{b519ce88-b8a0-4aef-a1b1-1548f096c1a9}">
+		<property name="filterTypeA">
+			<value>7</value>
+		</property>
+		<property name="filterTypeB">
+			<value>8</value>
+		</property>
+		<property name="frequencyA">
+			<value>137.360825</value>
+		</property>
+		<property name="frequencyB">
+			<value>6753.43848</value>
+		</property>
+		<property name="qualityA">
+			<value>0.179999992</value>
+		</property>
+		<property name="gainA">
+			<value>-11.8965511</value>
+		</property>
+		<property name="gainB">
+			<value>4.13792992</value>
+		</property>
+	</object>
+	<object class="MixerBusFader" id="{dbf2fe1d-003d-4f74-a3cc-5ccac40ae586}" />
+</objects>
