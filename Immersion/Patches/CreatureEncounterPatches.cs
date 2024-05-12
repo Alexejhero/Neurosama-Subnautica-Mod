@@ -15,14 +15,14 @@ public static class CreatureEncounterPatches
     {
         if (__instance.player != Player.main) return;
 
-        Encounters?.NotifyCreatureEncounter(TechType.SpikeyTrap);
+        Encounters?.NotifyCreatureEncounter(TechType.SpikeyTrap, Player.main);
     }
 
     [HarmonyPatch(typeof(PlayerLilyPaddlerHypnosis), nameof(PlayerLilyPaddlerHypnosis.StartHypnosis))]
     [HarmonyPostfix]
     public static void NotifyLilyPaddlerHypnosis()
     {
-        Encounters?.NotifyCreatureEncounter(TechType.LilyPaddler);
+        Encounters?.NotifyCreatureEncounter(TechType.LilyPaddler, Player.main);
     }
 
     [HarmonyPatch(typeof(IceWormJumpScareTrigger), nameof(IceWormJumpScareTrigger.InvokeJumpScareEvent))]
@@ -31,7 +31,7 @@ public static class CreatureEncounterPatches
     {
         if (!__instance.used) return;
 
-        Encounters?.NotifyCreatureEncounter(TechType.IceWorm);
+        Encounters?.NotifyCreatureEncounter(TechType.IceWorm, Player.main);
     }
 
     private static readonly Dictionary<string, TechType> _cinematics = new() {
@@ -48,8 +48,8 @@ public static class CreatureEncounterPatches
     [HarmonyPostfix]
     public static void NotifyCinematicAttack(PlayerCinematicController __instance, Player setplayer)
     {
-        if (_cinematics.TryGetValue(__instance.playerViewAnimationName, out var techType))
-            Encounters?.NotifyCreatureEncounter(techType);
+        if (_cinematics.TryGetValue(__instance.playerViewAnimationName, out TechType techType))
+            Encounters?.NotifyCreatureEncounter(techType, setplayer);
     }
 
     //[HarmonyPatch(typeof(PlayerCinematicController), nameof(PlayerCinematicController.Start))]
@@ -58,4 +58,22 @@ public static class CreatureEncounterPatches
     //{
     //    __instance.debug = true;
     //}
+
+    [HarmonyPatch(typeof(LeviathanMeleeAttack), nameof(LeviathanMeleeAttack.GrabSeatruck))]
+    [HarmonyPostfix]
+    public static void NotifyGrabSeatruck(LeviathanMeleeAttack __instance)
+    {
+        // this one can fail so we do a check (and use the field instead of the param)
+        if (!__instance.heldSeatruck) return;
+
+        Encounters?.NotifyCreatureEncounter(__instance.creatureType, __instance.heldSeatruck);
+    }
+
+    [HarmonyPatch(typeof(LeviathanMeleeAttack), nameof(LeviathanMeleeAttack.GrabExosuit))]
+    [HarmonyPostfix]
+    public static void NotifyGrabSeatruck(LeviathanMeleeAttack __instance, Exosuit exosuit)
+    {
+        // can't fail so use param
+        Encounters?.NotifyCreatureEncounter(__instance.creatureType, exosuit);
+    }
 }
