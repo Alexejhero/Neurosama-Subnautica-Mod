@@ -10,7 +10,12 @@ partial class ModdedCreatureEgg
         egg.creaturePrefab = new CustomGameObjectReference(creature.GetClassID());
         egg.creatureType = creature.GetTechType();
         egg.daysBeforeHatching = daysBeforeHatching;
+#if BELOWZERO
+        egg.animators = [animator];
+        egg.animateOutside = true; // todo
+#else
         egg.animator = animator;
+#endif
         egg.liveMixin = (LiveMixin)liveMixin;
         // TODO: hatching progress deserialization
     }
