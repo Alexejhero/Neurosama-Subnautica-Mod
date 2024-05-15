@@ -11,18 +11,19 @@ partial class Ermshark : IOnTakeDamage
 {
     private bool _isReal = true;
     private static GameObject _ermsharkPrefab;
-    private static bool _hasStartedPrefabCoroutine;
+    private static IPrefabRequest _ermsharkRequest;
 
     private new IEnumerator Start()
     {
         base.Start();
-        if (_hasStartedPrefabCoroutine) yield break;
-        _hasStartedPrefabCoroutine = true;
+        //if (_ermsharkRequest is null) gameObject.SetActive(false); // simulate bug
 
-        IPrefabRequest request = PrefabDatabase.GetPrefabAsync(GetComponent<PrefabIdentifier>().classId);
-        yield return request;
+        _ermsharkRequest ??= PrefabDatabase.GetPrefabAsync(GetComponent<PrefabIdentifier>().classId);
+        if (_ermsharkPrefab || _ermsharkRequest.TryGetPrefab(out _ermsharkPrefab)) yield break;
 
-        if (!request.TryGetPrefab(out _ermsharkPrefab))
+        yield return _ermsharkRequest;
+        //yield return CoroutineHost.StartCoroutine(_ermsharkRequest);
+        if (!_ermsharkRequest.TryGetPrefab(out _ermsharkPrefab))
             LOGGER.LogError($"Could not get prefab for {name}, so mitosis won't work!");
     }
 
