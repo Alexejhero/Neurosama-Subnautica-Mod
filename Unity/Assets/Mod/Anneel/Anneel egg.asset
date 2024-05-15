@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4563dc669f9794796a4ad61212cb60, type: 3}
+  m_Name: Anneel egg
+  m_EditorClassIdentifier: 
+  _liveMixin: {fileID: 3687682453383345880}
+  prefab: {fileID: 7988108974593223574, guid: d482c9e040384e94bb820b50b538e091, type: 3}
+  loader:
+    id: 0
+  classId: anneelEgg
+  displayName: Anneel Egg
+  tooltip: Erm...
+  icon: {fileID: 21300000, guid: f147f897f2453f3429d7eee07fc7af6c, type: 3}
+  itemSize: {x: 1, y: 1}
+  isCraftable: 0
+  isBuildable: 0
+  craftingTime: 2.5
+  pdaEncyInfo: {fileID: 0}
+  knownTechInfo: {fileID: 0}
+  spawnData: {fileID: 0}
+  unlockAtStart: 1
+  registerInSN: 1
+  recipeSN: {fileID: 0}
+  craftTreeTypeSN: 0
+  craftTreePathSN: 
+  techGroupSN: 14
+  techCategorySN: -1
+  requiredForUnlockSN:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
+  registerInBZ: 1
+  recipeBZ: {fileID: 0}
+  canBeRecycledBZ: 1
+  craftTreeTypeBZ: 0
+  craftTreePathBZ: 
+  techGroupBZ: 13
+  techCategoryBZ: -1
+  soundTypeBZ: 15
+  requiredForUnlockBZ:
+    isCustom: 0
+    techType: 0
+    itemData: {fileID: 0}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: ItemLoader, ns: SCHIZO.Items, asm: SCHIZO}
+--- !u!114 &3687682453383345880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5fc571188fd482ea82c2bafcbeb912d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 40
+  passDamageDataOnDeath: 0
+  broadcastKillOnDeath: 1
+  weldable: 0
+  knifeable: 1
+  destroyOnDeath: 1
+  minDamageForSound: 0
+  loopEffectBelowPercent: 0
+  loopingDamageEffect: {fileID: 0}
+  canResurrect: 0

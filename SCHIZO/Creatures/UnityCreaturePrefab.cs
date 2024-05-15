@@ -73,5 +73,11 @@ public class UnityCreaturePrefab : UnityPrefab
             liveMixin.data.deathEffect = ObjectReferences.genericCreatureHit;
             liveMixin.data.electricalDamageEffect = ObjectReferences.electrocutedEffect;
         }
+
+        if (UnityData.waterParkData)
+        {
+            WaterParkCreature wpc = instance.EnsureComponent<WaterParkCreature>();
+            wpc.data = UnityData.waterParkData.GetData();
+        }
     }
 }

@@ -1,11 +1,11 @@
 using ECCLibrary.Data;
 using UnityEngine;
 
-namespace SCHIZO.Creatures.Components;
+namespace SCHIZO.Creatures.Data;
 
-partial class ModdedWaterParkCreature
+partial class ModdedWaterParkCreatureData
 {
-    private void Awake()
+    public WaterParkCreatureData GetData()
     {
         WaterParkCreatureData data = ScriptableObject.CreateInstance<WaterParkCreatureData>();
         data.initialSize = initialSize;
@@ -17,7 +17,6 @@ partial class ModdedWaterParkCreature
         data.eggOrChildPrefab = !string.IsNullOrWhiteSpace(eggOrChild.GetClassID()) ? new CustomGameObjectReference(eggOrChild.GetClassID()) : null;
         data.adultPrefab = !string.IsNullOrWhiteSpace(adult.GetClassID()) ? new CustomGameObjectReference(adult.GetClassID()) : null;
 
-        WaterParkCreature wpc = gameObject.AddComponent<WaterParkCreature>();
-        wpc.data = data;
+        return data;
     }
 }
