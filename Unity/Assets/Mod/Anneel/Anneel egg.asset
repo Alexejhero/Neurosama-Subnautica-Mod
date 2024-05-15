@@ -18,7 +18,9 @@ MonoBehaviour:
     id: 0
   classId: anneelEgg
   displayName: Anneel Egg
-  tooltip: Erm...
+  tooltip: 'Erm... Don''t think about it too much.
+
+    <size=75%>(Model by Toasted3)</size>'
   icon: {fileID: 21300000, guid: f147f897f2453f3429d7eee07fc7af6c, type: 3}
   itemSize: {x: 1, y: 1}
   isCraftable: 0
@@ -71,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5fc571188fd482ea82c2bafcbeb912d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 40
+  maxHealth: 50
   passDamageDataOnDeath: 0
   broadcastKillOnDeath: 1
   weldable: 0
