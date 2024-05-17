@@ -40,11 +40,12 @@ MonoBehaviour:
     id: 0
   classId: ermsharkEgg
   displayName: Ermshark Egg
-  tooltip: '[PH] Ermy shark, do do do do do do
+  tooltip: 'The memories of a thousand Ermsharks, concentrated into a single egg.
 
-    <size=75%>(Model by Toasted3)</size>'
+    <size=75%>(Model
+    by Toasted3)</size>'
   icon: {fileID: 21300000, guid: 2bb9565d9156188479062181f1d9cf48, type: 3}
-  itemSize: {x: 1, y: 1}
+  itemSize: {x: 2, y: 1}
   isCraftable: 0
   isBuildable: 0
   craftingTime: 2.5

@@ -18,10 +18,10 @@ MonoBehaviour:
     id: 0
   classId: anneelEgg
   displayName: Anneel Egg
-  tooltip: '[PH] Erm... Don''t think about it too much.
+  tooltip: 'A small egg from a fox eel. Occasionally emits an ultrasonic hic.
 
-    <size=75%>(Model by
-    Toasted3)</size>'
+    <size=75%>(Model
+    by Toasted3)</size>'
   icon: {fileID: 21300000, guid: f147f897f2453f3429d7eee07fc7af6c, type: 3}
   itemSize: {x: 1, y: 1}
   isCraftable: 0

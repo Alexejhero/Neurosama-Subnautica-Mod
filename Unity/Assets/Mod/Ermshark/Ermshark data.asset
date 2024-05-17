@@ -18,10 +18,64 @@ MonoBehaviour:
     id: 0
   classId: ermshark
   displayName: Ermshark
-  tooltip: '[PH] Aquarium-grown Ermshark.
+  tooltip: 'Domesticated Ermshark. Watch your ankles.
 
-    <size=75%>(Model by w1n7er)</size>'
-  icon: {fileID: 0}
+    <size=75%>(Model by w1n7er)</size>
+
+
+    WE
+    RISE :ermShark:
+
+    WE RISE :ermShark:
+
+    WE RISE :ermShark:
+
+    WE RISE
+    :ermShark:
+
+    WE RISE :ermShark:
+
+    WE RISE :ermShark:
+
+    WE RISE :ermShark:
+
+    WE
+    RISE :ermShark:
+
+    WE RISE :ermShark:
+
+    WE RISE :ermShark:
+
+    WE RISE
+    :ermShark:
+
+    WE RISE :ermShark:
+
+    WE RISE :ermShark:
+
+    WE RISE :ermShark:
+
+    WE
+    RISE :ermShark:
+
+    WE RISE :ermShark:
+
+    WE RISE :ermShark:
+
+    WE RISE
+    :ermShark:
+
+    WE RISE :ermShark:
+
+    WE RISE :ermShark:
+
+    WE RISE :ermShark:
+
+    WE
+    RISE :ermShark:
+
+'
+  icon: {fileID: 21300000, guid: 52d54592089398d4faf725ddb3b35f2b, type: 3}
   itemSize: {x: 4, y: 2}
   isCraftable: 0
   isBuildable: 0
@@ -57,7 +111,7 @@ MonoBehaviour:
   equipmentTypeBZ: 0
   quickSlotTypeBZ: 0
   coldResistanceBZ: 0
-  isPickupable: 0
+  isPickupable: 1
   behaviourType: 4
   acidImmune: 1
   bioReactorCharge: 0

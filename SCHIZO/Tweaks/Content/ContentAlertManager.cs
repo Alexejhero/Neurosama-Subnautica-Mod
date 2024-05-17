@@ -95,14 +95,15 @@ partial class ContentAlertManager
     [HarmonyPostfix]
     private static void ClassIdAwake(UniqueIdentifier __instance)
     {
-        CoroutineHost.StartCoroutine(Coro(__instance));
+        if (__instance is PrefabIdentifier)
+            CoroutineHost.StartCoroutine(Coro(__instance));
     }
 
     private static IEnumerator Coro(UniqueIdentifier uid)
     {
         while (CraftData.entClassTechTable is null)
             yield return null;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.15f));
         if (!uid || uid.classId is null) yield break;
 
         TechType techType = CraftData.GetTechType(uid.gameObject, out _);

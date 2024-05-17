@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PDA Log
   m_EditorClassIdentifier: 
   key: vo_pda_pic
-  pdaHandTargetText: Content
-  pdaHandTargetSubtext: 
+  pdaHandTargetText: Ancient Recording
+  pdaHandTargetSubtext: Download "content"
   encyData: {fileID: 11400000, guid: 48df323172a07e6458129a4f107a4d11, type: 2}
   subtitles: {fileID: 11400000, guid: e9b5711ac884240419579bc0dc328cdc, type: 2}
   addPrefab: {fileID: 8279291613913538167, guid: e7248b5919e9c5c41817ead91f32f051,
