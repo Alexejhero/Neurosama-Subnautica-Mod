@@ -43,7 +43,7 @@ namespace SCHIZO.Credits
             [Credit("3D Modeling", "3D Modelers")] Modeling = 1 << 2,
             [Credit("Animations", "Animators")] Animations = 1 << 3,
             [Credit("2D Art", "2D Artists")] Artist = 1 << 4,
-            [Credit("Sounds", "Audio Compilation & Cleaning")] Sounds = 1 << 5,
+            [Credit("Sounds", "Audio")] Sounds = 1 << 5,
             [Credit("Lore", "Writing & Lore")] Lore = 1 << 6,
             [Credit("Texturing")] Texturing = 1 << 7,
             [Credit("Project Lead")] ProjectLead = 1 << 8,
