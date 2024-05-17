@@ -23,5 +23,5 @@ MonoBehaviour:
     rotation: {x: 0, y: 0, z: 0}
   spawnInBZ: 1
   spawnLocationBZ:
-    position: {x: 0, y: 0, z: 0}
+    position: {x: 548.13, y: -624.97, z: -1132.88}
     rotation: {x: 0, y: 0, z: 0}
