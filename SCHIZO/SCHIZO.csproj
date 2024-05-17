@@ -61,9 +61,4 @@
             <DependentUpon>%(FileName)</DependentUpon>
         </Compile>
     </ItemGroup>
-
-    <ItemGroup>
-        <Compile Remove="_old/**" />
-        <None Include="_old/**" />
-    </ItemGroup>
 </Project>
