@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90317e78863519241830d4d401ab5973, type: 3}
+  m_Name: Subtitles
+  m_EditorClassIdentifier: 
+  key: 
+  lines:
+  - key: program_in_c-01
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: 'Ariel, listen to me.
+
+      OO languages?
+
+      It''s a mess.'
+  - key: program_in_c-02
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: 'Programming in C is better than anything they''ve got over there!
+
+'
+  - key: program_in_c-03
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: 'The syntax might seem much sweeter where objects and subtypes play.
+
+'
+  - key: program_in_c-04
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: 'But frills like inheritance will only get in the way.
+
+'
+  - key: program_in_c-05
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: 'Admire C''s simple landscape - efficiently dangerous!
+
+'
+  - key: program_in_c-06
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: 'No templates or fancy pitfalls like Java and C++!
+
+'
+  - key: program_in_c-07
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: 'Program in C!
+
+      Program in C!'
+  - key: program_in_c-08
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: 'Pointers, assembly, manage your memory with malloc() and free()!
+
+'
+  - key: program_in_c-09
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: 'Don''t sink your app with runtime bloat, software in C will stay afloat!
+
+'
+  - key: program_in_c-10
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: Do what you want there, close to the hardware, program in C!
+  - key: program_in_c-11
+    actor: {fileID: 11400000, guid: c876d395530adba4a9b5828f4b47c062, type: 2}
+    text: 

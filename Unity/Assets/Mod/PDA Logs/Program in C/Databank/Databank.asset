@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1160e7f4151348eb97332e6bb0a2a034, type: 3}
+  m_Name: Databank
+  m_EditorClassIdentifier: 
+  scannable: 0
+  scanTime: 3
+  unlockSprite: {fileID: 0}
+  isImportantUnlock: 0
+  scanSounds: 
+  encyPathSN: DownloadedData/PublicDocs
+  encyPathBZ: DownloadedData
+  title: Program in C
+  texture: {fileID: 0}
+  description: {fileID: 4900000, guid: e0466577652a2d445be03448baaa3833, type: 3}
+  logVO: event:/SCHIZO/ency/pda_vedal_programinc

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="AudioFile" id="{c9f6b52b-b1a4-406d-87ca-7334e153f66f}">
 		<property name="assetPath">
-			<value>neuro logs/love vedal/lovevedal-07.ogg</value>
+			<value>pda logs/love vedal/lovevedal-07.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>24</value>
