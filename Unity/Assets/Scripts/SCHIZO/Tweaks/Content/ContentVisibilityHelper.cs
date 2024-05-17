@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace SCHIZO.Tweaks
+namespace SCHIZO.Tweaks.Content
 {
-    public sealed partial class ModdedContentVisibilityHelper : MonoBehaviour
+    public sealed partial class ContentVisibilityHelper : MonoBehaviour
     {
         public Transform target;
         public float blinkOnDuration;

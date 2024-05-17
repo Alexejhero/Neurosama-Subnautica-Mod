@@ -5,8 +5,16 @@ using UnityEngine;
 
 namespace SCHIZO.Helpers;
 
-public static class LinqExtensions
+public static class GameObjectEnumerableHelpers
 {
+    public static IEnumerable<GameObject> AllOfTechType(TechType techType)
+        => GameObject.FindObjectsOfType<TechTag>()
+            .Where(tag => tag.type == techType)
+            .Select(tag => tag.gameObject)
+        .Concat(GameObject.FindObjectsOfType<PrefabIdentifier>()
+            .Where(id => CraftData.GetTechType(id.gameObject, out _) == techType)
+            .Select(id => id.gameObject));
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IEnumerable<TComponent> SelectComponent<TComponent>(this IEnumerable<GameObject> gameObjects) where TComponent : Component
         => gameObjects

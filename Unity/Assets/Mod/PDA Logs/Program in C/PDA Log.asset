@@ -17,6 +17,8 @@ MonoBehaviour:
   pdaHandTargetSubtext: 
   encyData: {fileID: 11400000, guid: 48df323172a07e6458129a4f107a4d11, type: 2}
   subtitles: {fileID: 11400000, guid: e9b5711ac884240419579bc0dc328cdc, type: 2}
+  addPrefab: {fileID: 8279291613913538167, guid: e7248b5919e9c5c41817ead91f32f051,
+    type: 3}
   spawnInSN: 0
   spawnLocationSN:
     position: {x: 0, y: 0, z: 0}

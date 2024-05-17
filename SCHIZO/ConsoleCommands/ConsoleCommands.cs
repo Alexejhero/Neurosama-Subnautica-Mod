@@ -21,8 +21,7 @@ public static class ConsoleCommands
         if (!Player.main) return null;
         if (!UWE.Utils.TryParseEnum(techTypeName, out TechType techType))
         {
-            IEnumerable<string> techTypeNamesSuggestion = TechTypeExtensions.GetTechTypeNamesSuggestion(techTypeName);
-            return MessageHelpers.GetCommandOutput($"Could not find tech type for '{techTypeName}'. Did you mean:\n{string.Join("\n", techTypeNamesSuggestion)}");
+            return MessageHelpers.TechTypeNotFound(techTypeName);
         }
 
         List<PrefabIdentifier> items = PhysicsHelpers.ObjectsInRange(Player.main.transform, radius)

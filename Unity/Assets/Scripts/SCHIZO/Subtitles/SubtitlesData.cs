@@ -9,6 +9,7 @@ namespace SCHIZO.Subtitles
     [CreateAssetMenu(menuName = "SCHIZO/Subtitles/Subtitles Data")]
     public sealed partial class SubtitlesData : ModRegistryItem
     {
+        [Tooltip("Leave blank if these subtitles are for an ency PDA log")]
         public string key;
         [TableList]
         public List<SubtitleLine> lines;

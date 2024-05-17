@@ -4,6 +4,7 @@ using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
 using SCHIZO.Helpers;
 using SCHIZO.Items.Components;
+using UnityEngine;
 
 namespace SCHIZO.Items;
 
@@ -18,7 +19,10 @@ partial class PDAJournal
         }
         encyData.Register(key);
         if (subtitles)
+        {
+            subtitles.key = $"EncyDesc_{key}";
             Subtitles.SubtitlesHandler.RegisterMetadata(subtitles, encyData.description.text);
+        }
         PDAJournalPrefab.Register(this);
     }
 
@@ -53,6 +57,9 @@ partial class PDAJournal
                     if (!string.IsNullOrEmpty(journal.pdaHandTargetSubtext))
                         handTarget.secondaryTooltip = journal.pdaHandTargetSubtext;
                     handTarget.goal.key = journal.key;
+
+                    if (journal.addPrefab)
+                        GameObject.Instantiate(journal.addPrefab, prefab.transform);
 
                     DestroyOnStoryGoal preventDupes = prefab.EnsureComponent<DestroyOnStoryGoal>();
                     preventDupes.storyGoalSN = preventDupes.storyGoalBZ = journal.key;

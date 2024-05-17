@@ -1,6 +1,8 @@
-﻿namespace SCHIZO.Helpers;
+using System.Collections.Generic;
 
-public class MessageHelpers
+namespace SCHIZO.Helpers;
+
+public static class MessageHelpers
 {
     public static bool SuppressOutput = false;
 
@@ -13,5 +15,11 @@ public class MessageHelpers
     {
         if (suppressOutput ?? SuppressOutput) return null;
         return message;
+    }
+
+    public static string TechTypeNotFound(string techTypeName)
+    {
+        IEnumerable<string> techTypeNamesSuggestion = TechTypeExtensions.GetTechTypeNamesSuggestion(techTypeName);
+        return MessageHelpers.GetCommandOutput($"Could not find tech type for '{techTypeName}'. Did you mean:\n{string.Join("\n", techTypeNamesSuggestion)}");
     }
 }

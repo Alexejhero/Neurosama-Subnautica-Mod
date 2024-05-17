@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scannable: 0
   scanTime: 3
-  unlockSprite: {fileID: 0}
-  isImportantUnlock: 0
+  unlockSprite: {fileID: 21300000, guid: 03bb9a34a59c9a94a9eb865536ef90d2, type: 3}
+  isImportantUnlock: 1
   scanSounds: 
   encyPathSN: DownloadedData/PublicDocs
   encyPathBZ: DownloadedData
