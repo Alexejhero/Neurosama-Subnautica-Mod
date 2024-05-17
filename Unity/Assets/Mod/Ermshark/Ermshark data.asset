@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e01a095b5064d2684bcd4bbb3f09a8e, type: 3}
-  m_Name: Anneel data
+  m_Name: Ermshark data
   m_EditorClassIdentifier: 
-  _liveMixin: {fileID: 1459504946296119987}
-  prefab: {fileID: 2290084969310356491, guid: 8ecdbc56b0e6ddb4d818b31111203610, type: 3}
+  _liveMixin: {fileID: 1838783449033335020}
+  prefab: {fileID: 2061343355341963926, guid: a7efd04469290f14d91b13b1059d3284, type: 3}
   loader:
     id: 0
-  classId: anneel
-  displayName: Anneel
-  tooltip: '[PH] Very stretchy. Born in containment.
+  classId: ermshark
+  displayName: Ermshark
+  tooltip: '[PH] Aquarium-grown Ermshark.
 
-    <size=75%>(Model by bred)</size>'
-  icon: {fileID: 21300000, guid: 1f6b8c274fb392d47a69d0e749afcd3c, type: 3}
-  itemSize: {x: 6, y: 1}
+    <size=75%>(Model by w1n7er)</size>'
+  icon: {fileID: 0}
+  itemSize: {x: 4, y: 2}
   isCraftable: 0
   isBuildable: 0
   craftingTime: 2.5
-  pdaEncyInfo: {fileID: 11400000, guid: 9e6ad7304549275419607042e35a80ee, type: 2}
+  pdaEncyInfo: {fileID: 11400000, guid: dbc6837d8eb5b9f42a96dcb82632b52e, type: 2}
   knownTechInfo: {fileID: 0}
-  spawnData: {fileID: 11400000, guid: 17614fc394efcf845a823b428f774775, type: 2}
+  spawnData: {fileID: 11400000, guid: 794f76adb2698dc41921c7e61017eeb0, type: 2}
   unlockAtStart: 0
   registerInSN: 1
   recipeSN: {fileID: 0}
@@ -37,9 +37,9 @@ MonoBehaviour:
   techGroupSN: 14
   techCategorySN: -1
   requiredForUnlockSN:
-    isCustom: 1
+    isCustom: 0
     techType: 0
-    itemData: {fileID: 11400000}
+    itemData: {fileID: 0}
   equipmentTypeSN: 0
   quickSlotTypeSN: 0
   registerInBZ: 1
@@ -49,24 +49,24 @@ MonoBehaviour:
   craftTreePathBZ: 
   techGroupBZ: 13
   techCategoryBZ: -1
-  soundTypeBZ: 0
+  soundTypeBZ: 31
   requiredForUnlockBZ:
-    isCustom: 1
+    isCustom: 0
     techType: 0
-    itemData: {fileID: 11400000}
+    itemData: {fileID: 0}
   equipmentTypeBZ: 0
   quickSlotTypeBZ: 0
   coldResistanceBZ: 0
   isPickupable: 0
-  behaviourType: 3
+  behaviourType: 4
   acidImmune: 1
   bioReactorCharge: 0
-  waterParkData: {fileID: 11400000, guid: af52006e69cfb57469876f3d0697e63a, type: 2}
+  waterParkData: {fileID: 11400000, guid: fde275904e5e9624cab658c2c64381ed, type: 2}
   references:
     version: 1
     00000000:
       type: {class: CreatureLoader, ns: SCHIZO.Creatures, asm: SCHIZO}
---- !u!114 &1459504946296119987
+--- !u!114 &1838783449033335020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,13 +78,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5fc571188fd482ea82c2bafcbeb912d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
+  maxHealth: 20
   passDamageDataOnDeath: 0
   broadcastKillOnDeath: 1
   weldable: 0
   knifeable: 1
   destroyOnDeath: 0
-  minDamageForSound: 10
+  minDamageForSound: 0
   loopEffectBelowPercent: 0
   loopingDamageEffect: {fileID: 0}
   canResurrect: 0
