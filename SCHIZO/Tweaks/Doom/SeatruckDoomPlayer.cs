@@ -87,7 +87,7 @@ partial class SeatruckDoomPlayer : MonoBehaviour
     {
         if (IsControlling) return;
 
-        HandReticle.main.SetText(HandReticle.TextType.Hand, $"Play {DoomEngine.Instance.WindowTitle ?? "DOOM"}", false, GameInput.Button.LeftHand);
+        HandReticle.main.SetText(HandReticle.TextType.Hand, $"Play {DoomEngine.Instance.WindowTitle ?? "game"}", false, GameInput.Button.LeftHand);
         HandReticle.main.SetText(HandReticle.TextType.HandSubscript, "", false);
         HandReticle.main.SetIcon(HandReticle.IconType.Interact);
     }
