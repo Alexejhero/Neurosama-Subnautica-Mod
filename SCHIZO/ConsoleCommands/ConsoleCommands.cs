@@ -51,10 +51,10 @@ public static class ConsoleCommands
         ErrorMessage.AddMessage(string.Join(" ", args));
     }
 
-    [ConsoleCommand("say2"), UsedImplicitly]
-    public static string OnConsoleCommand_say2(params string[] args)
+    [ConsoleCommand("hint"), UsedImplicitly]
+    public static string OnConsoleCommand_hint(params string[] args)
     {
-        if (args is []) return "say2 [duration] <message>";
+        if (args is []) return "hint [duration] <message>";
         string message;
         if (float.TryParse(args[0], out float duration))
         {
