@@ -69,7 +69,14 @@ public static class ConsoleCommands
         return null;
     }
 
-    //[ConsoleCommand("duh")]
+    [ConsoleCommand("resetcam"), UsedImplicitly]
+    public static void OnConsoleCommand_resetcam()
+    {
+        SNCameraRoot.main.transform.localPosition = Vector3.zero;
+        SNCameraRoot.main.transform.localRotation = Quaternion.identity;
+    }
+
+    [ConsoleCommand("duh")]
     [UsedImplicitly]
     public static void DevMode()
     {
