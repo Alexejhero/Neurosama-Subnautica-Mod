@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31176ccc850eb4a40a6800859f45666b, type: 3}
-  m_Name: Spawns
-  m_EditorClassIdentifier:
+  m_Name: Egg Spawns
+  m_EditorClassIdentifier: 
   subnautica:
-    spawn: 1
+    spawn: 0
     spawnLocation: 0
     biomeFilters: []
   belowZero:
     spawn: 1
-    spawnLocation: 0
-    biomeFilters: []
+    spawnLocation: 2
+    biomeFilters:
+    - ShipWreck_Wall
   rules:
   - count: 1
-    probability: 0.01
+    probability: 1

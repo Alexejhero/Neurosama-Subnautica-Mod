@@ -3,6 +3,7 @@
     public enum BiomeSpawnLocation
     {
         OpenWater,
-        Surfaces
+        Surfaces,
+        Custom,
     }
 }

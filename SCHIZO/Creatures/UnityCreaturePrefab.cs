@@ -4,7 +4,6 @@ using ECCLibrary;
 using Nautilus.Handlers;
 using SCHIZO.Items;
 using UnityEngine;
-using UWE;
 using OurCreatureData = SCHIZO.Creatures.Data.CreatureData;
 
 namespace SCHIZO.Creatures;
@@ -33,19 +32,6 @@ public class UnityCreaturePrefab : UnityPrefab
             CraftDataHandler.SetQuickSlotType(ModItem, QuickSlotType.Selectable);
             CraftDataHandler.SetEquipmentType(ModItem, EquipmentType.Hand);
         }
-
-        // Required for LootDistribution/spawning system
-        WorldEntityDatabaseHandler.AddCustomInfo(UnityData.classId, new WorldEntityInfo
-        {
-            classId = UnityData.classId,
-            techType = ModItem,
-            cellLevel = UnityData.prefab.GetComponentInChildren<LargeWorldEntity>().cellLevel,
-            slotType = UnityData.prefab.GetComponentInChildren<EntityTag>().slotType,
-            localScale = Vector3.one,
-            prefabZUp = false,
-        });
-
-        // TODO: loot distribution data
     }
 
     protected override void SetupComponents(GameObject instance)
