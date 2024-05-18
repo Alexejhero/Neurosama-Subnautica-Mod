@@ -10,7 +10,9 @@ internal class DevBinds : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
             DevConsole.SendConsoleCommand("ghost");
+#if BELOWZERO
         if (Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.P))
             GameModeManager.SetOption(GameOption.TechnologyRequiresPower, !GameModeManager.GetOption<bool>(GameOption.TechnologyRequiresPower));
+#endif
     }
 }
