@@ -10,6 +10,7 @@ using SfxCallbacks = SCHIZO.Tweaks.Doom.DoomAudioNative.SoundModule.Callbacks;
 using MusCallbacks = SCHIZO.Tweaks.Doom.DoomAudioNative.MusicModule.Callbacks;
 using FMODUnity;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
+using JetBrains.Annotations;
 
 namespace SCHIZO.Tweaks.Doom;
 
@@ -26,6 +27,9 @@ internal static class DoomFmodAudio
     private const string DOOM_BUS_PREFIX = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/Doom";
     private const string SFX_EVENT = "event:/SCHIZO/doom/sfx";
     private const string MUS_EVENT = "event:/SCHIZO/doom/mus";
+
+    private const string MUTE_INGAME_MUSIC_SNAPSHOT = "snapshot:/SCHIZO/mute ingame music";
+    private static EventInstance _muteSnapshot;
 
     /// <summary>
     /// Emit sounds as though coming from this transform's position.<br/>
@@ -224,7 +228,7 @@ internal static class DoomFmodAudio
         _playingSong.setParameterByName("3D", Emitter ? 1 : 0).CheckResult();
         if (Emitter)
         {
-            _playingSong.set3DAttributes(RuntimeUtils.To3DAttributes(Emitter));
+            _playingSong.set3DAttributes(Emitter.To3DAttributes());
         }
     }
     #endregion
@@ -294,5 +298,17 @@ internal static class DoomFmodAudio
         return RESULT.OK;
     }
 
+    [UsedImplicitly] // for debugging
     private static string ToHex(this IntPtr ptr) => ptr.ToInt64().ToString("X");
+
+    public static void ToggleIngameMusicMute(bool mute)
+    {
+        if (!_muteSnapshot.isValid())
+        {
+            _muteSnapshot = RuntimeManager.CreateInstance(MUTE_INGAME_MUSIC_SNAPSHOT);
+            _muteSnapshot.start();
+            _muteSnapshot.release();
+        }
+        _muteSnapshot.setParameterByName("Intensity", mute ? 100 : 0);
+    }
 }

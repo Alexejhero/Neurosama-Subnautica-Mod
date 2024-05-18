@@ -15,6 +15,9 @@ partial class SeatruckDoomPlayer : MonoBehaviour
     private PowerRelay _power;
     private Vector3 _oldScreenScale;
     private bool _die;
+    public float hibernateTime = 30f;
+    private float _hibernateTimer;
+
     private void OnEnable()
     {
         if (DoomEngine.LastExitCode != 0 || !DoomNative.CheckDll())
@@ -29,6 +32,7 @@ partial class SeatruckDoomPlayer : MonoBehaviour
             Destroy(this);
             return;
         }
+        _ghost = MainCameraControl.main.gameObject.GetComponent<FreecamController>();
         _power = transform.parent.GetComponent<PowerRelay>();
         _pictureFrame.GetComponent<PictureFrame>().enabled = false;
         // here's where we would move the frame to be eye-level
@@ -185,22 +189,18 @@ partial class SeatruckDoomPlayer : MonoBehaviour
     {
         if (GameInput.instance.enabled == enable) return;
 
+        GameInput.moveDirection = Vector3.zero;
         GameInput.ClearInput();
         GameInput.instance.enabled = enable;
-        // todo completely disable game input (specifically the F-keys - debug stuff, feedback screen, UI, etc)
-        //Player.main.playerController.SetEnabled(!locked);
-        //FPSInputModule.current.lockMovement = locked;
-        //FPSInputModule.current.lockRotation = locked;
-        //FPSInputModule.current.lockPauseMenu = locked;
     }
 
     private static float _screenDistance = 0.5f;
+    private FreecamController _ghost;
     private void FreecamToScreen(bool looking)
     {
-        FreecamController ghost = MainCameraControl.main.gameObject.GetComponent<FreecamController>();
-        if (looking == ghost.mode) return;
+        if (looking == _ghost.mode) return;
 
-        ghost.FreecamToggle();
+        _ghost.FreecamToggle();
         //ghost.ghostMode = looking;
 
         if (!looking)
@@ -212,8 +212,8 @@ partial class SeatruckDoomPlayer : MonoBehaviour
         }
         Vector3 normal = _screenRenderer.transform.forward;
         Vector3 center = _screenRenderer.bounds.center;
-        ghost.tr.position = center - normal * _screenDistance;
-        ghost.tr.LookAt(center);
+        _ghost.tr.position = center - normal * _screenDistance;
+        _ghost.tr.LookAt(center);
     }
 
     private Queue<float> _escapePresses = [];
@@ -228,15 +228,11 @@ partial class SeatruckDoomPlayer : MonoBehaviour
 
         if (!_power.IsPowered())
         {
-            IsControlling = false;
-            if (_connection.enabled)
-            {
-                _connection.Disconnect();
-                _connection.enabled = false;
-            }
+            ShutDownScreen();
         }
         if (IsControlling)
         {
+            _hibernateTimer = 0;
             if (Input.GetKey(KeyCode.Escape))
             {
                 _escapeHeld += Time.deltaTime;
@@ -263,6 +259,23 @@ partial class SeatruckDoomPlayer : MonoBehaviour
                 _escapeHeld = 0;
                 _escapePresses.Clear();
             }
+        }
+        else if (_connection.enabled)
+        {
+            Vector3 toPlayer = Player.main.transform.position - transform.position;
+            if (toPlayer.sqrMagnitude > 900f || _hibernateTimer > hibernateTime)
+                ShutDownScreen();
+            _hibernateTimer += Time.deltaTime;
+        }
+    }
+
+    private void ShutDownScreen()
+    {
+        IsControlling = false;
+        if (_connection.enabled)
+        {
+            _connection.Disconnect();
+            _connection.enabled = false;
         }
     }
 }

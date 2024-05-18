@@ -117,6 +117,7 @@ internal partial class DoomEngine : MonoBehaviour
         {
             LogWarning("doom thread calling SetPaused, it's about to ouroboros itself");
         }
+        DoomFmodAudio.ToggleIngameMusicMute(!paused);
         if (paused)
         {
             _runningEvent.Reset();

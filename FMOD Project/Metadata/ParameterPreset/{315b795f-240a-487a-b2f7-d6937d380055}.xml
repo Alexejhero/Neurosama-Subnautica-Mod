@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{315b795f-240a-487a-b2f7-d6937d380055}">
+		<property name="name">
+			<value>Intensity</value>
+		</property>
+		<relationship name="folder">
+			<destination>{366f00ef-6e6f-4396-85d5-e5112f21c143}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{b14f8c33-a9ca-4a20-b2f4-a5774d1af1cf}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{b14f8c33-a9ca-4a20-b2f4-a5774d1af1cf}">
+		<property name="maximum">
+			<value>100</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>100</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{9018ad45-497d-46cf-b37a-49236fa23248}</destination>
+		</relationship>
+	</object>
+	<object class="ADSRModulator" id="{9018ad45-497d-46cf-b37a-49236fa23248}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>cursorPosition</value>
+		</property>
+	</object>
+</objects>
