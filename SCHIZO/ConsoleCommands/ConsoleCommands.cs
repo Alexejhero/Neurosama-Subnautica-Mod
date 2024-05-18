@@ -7,6 +7,7 @@ using FMODUnity;
 using JetBrains.Annotations;
 using Nautilus.Commands;
 using SCHIZO.Helpers;
+using SCHIZO.Tweaks;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -50,6 +51,35 @@ public static class ConsoleCommands
         ErrorMessage.AddMessage(string.Join(" ", args));
     }
 
+    [ConsoleCommand("say2"), UsedImplicitly]
+    public static string OnConsoleCommand_say2(params string[] args)
+    {
+        if (args is []) return "say2 [duration] <message>";
+        string message;
+        if (float.TryParse(args[0], out float duration))
+        {
+            message = string.Join(" ", args.Skip(1));
+        }
+        else
+        {
+            duration = 5;
+            message = string.Join(" ", args);
+        }
+        MessageHelpers.ShowHint(duration, message);
+        return null;
+    }
+
+    //[ConsoleCommand("duh")]
+    [UsedImplicitly]
+    public static void DevMode()
+    {
+        DevConsole.SendConsoleCommand("fastswim");
+        DevBinds existing = Player.main.gameObject.GetComponent<DevBinds>();
+        if (existing)
+            GameObject.Destroy(existing);
+        else
+            Player.main.gameObject.AddComponent<DevBinds>();
+    }
 #region FMOD
     public static string OnConsoleCommand_banks()
     {

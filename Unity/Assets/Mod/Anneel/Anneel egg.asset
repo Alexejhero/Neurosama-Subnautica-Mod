@@ -18,7 +18,7 @@ MonoBehaviour:
     id: 0
   classId: anneelEgg
   displayName: Anneel Egg
-  tooltip: 'A small egg from a fox eel. Occasionally emits an ultrasonic hic.
+  tooltip: '<size=50%>hic</size>                            <size=50%>erm</size>
 
     <size=75%>(Model
     by Toasted3)</size>'
@@ -29,7 +29,7 @@ MonoBehaviour:
   craftingTime: 2.5
   pdaEncyInfo: {fileID: 0}
   knownTechInfo: {fileID: 0}
-  spawnData: {fileID: 11400000, guid: b54acfb85a3dc5847925efdcebbc3774, type: 2}
+  spawnData: {fileID: 0}
   unlockAtStart: 1
   registerInSN: 1
   recipeSN: {fileID: 0}
