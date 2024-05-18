@@ -20,7 +20,7 @@ MonoBehaviour:
     spawn: 1
     spawnLocation: 2
     biomeFilters:
-    - LilyPads_Deep_Grass
+    - LilyPads_MegaTrench
   rules:
   - count: 1
-    probability: 1
+    probability: 0.1

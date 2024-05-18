@@ -10,6 +10,7 @@ partial class ContentVisibilityHelper
 {
     private float _blinkTimer;
     private List<Renderer> _renderers;
+    private bool _dead;
 
     private void Start()
     {
@@ -19,7 +20,12 @@ partial class ContentVisibilityHelper
         transform.parent.GetComponentsInChildren(true, _renderers);
         _renderers.RemoveAll(r => r.transform.IsChildOf(transform));
 
-        if (_renderers.Count < 1) Destroy(gameObject);
+        if (_renderers.Count < 1 || !_renderers[0])
+        {
+            _dead = true;
+            gameObject.SetActive(false);
+            return;
+        }
 
         // scale self with parent's mesh bounds
         Vector3 origScale = transform.localScale;
@@ -63,6 +69,7 @@ partial class ContentVisibilityHelper
     }
     private void LateUpdate()
     {
+        if (_dead) return;
         if (!ContentAlertManager.AlertsEnabled) return;
 
         Vector3 pos = Camera.main.transform.position;

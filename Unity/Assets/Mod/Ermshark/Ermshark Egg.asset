@@ -51,7 +51,7 @@ MonoBehaviour:
   craftingTime: 2.5
   pdaEncyInfo: {fileID: 0}
   knownTechInfo: {fileID: 0}
-  spawnData: {fileID: 0}
+  spawnData: {fileID: 11400000, guid: 35a911b79bbe1f9459216187bea1ce21, type: 2}
   unlockAtStart: 1
   registerInSN: 1
   recipeSN: {fileID: 0}
