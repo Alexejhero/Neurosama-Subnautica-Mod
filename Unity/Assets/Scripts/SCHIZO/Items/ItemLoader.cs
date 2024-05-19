@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using SCHIZO.Items.Data;
 using TriInspector;
 using OurCreatureData = SCHIZO.Creatures.Data.CreatureData;
@@ -7,26 +9,29 @@ namespace SCHIZO.Items
 {
     public partial class ItemLoader
     {
+        protected virtual HashSet<string> AllowedClassIds => [];
+        protected virtual Type[] AllowedItemDataTypes => [typeof(ItemData)];
         public virtual TriValidationResult AcceptsItem(ItemData item)
         {
             if (!item) return TriValidationResult.Valid;
 
-            Type type = item.GetType();
+            Type myType = GetType();
+            string myTypeName = myType.Name;
+            if (AllowedClassIds.Count > 0 && !AllowedClassIds.Any(c => item.classId.Equals(c, StringComparison.OrdinalIgnoreCase)))
+                return TriValidationResult.Error($"{myTypeName} only accepts Class Id {string.Join("/", AllowedClassIds)} so {item.classId} is not allowed");
 
-            if (type == typeof(OurCreatureData)) return Invalid(GetType().Name, item.GetType().Name);
-            if (type == typeof(ItemData)) return TriValidationResult.Valid;
+            Type itemType = item.GetType();
+            string itemTypeName = itemType.Name;
 
-            return Unknown(GetType().Name, item.GetType().Name);
+            return AllowedItemDataTypes.Contains(itemType)
+                ? TriValidationResult.Valid
+                : Invalid(myType, AllowedItemDataTypes, itemType);
         }
 
-        protected static TriValidationResult Unknown(string loaderType, string itemDataType)
+        protected static TriValidationResult Invalid(Type loaderType, Type[] acceptedDataTypes, Type itemDataType)
         {
-            return TriValidationResult.Warning($"{loaderType} has not explicitly defined if it accepts {itemDataType}!");
-        }
-
-        protected static TriValidationResult Invalid(string loaderType, string itemDataType)
-        {
-            return TriValidationResult.Error($"{loaderType} does not accept {itemDataType}!");
+            string names = string.Join("/", acceptedDataTypes.Select(t => t.Name));
+            return TriValidationResult.Error($"{loaderType.Name} only accepts {names} so {itemDataType.Name} is not allowed");
         }
     }
 }
