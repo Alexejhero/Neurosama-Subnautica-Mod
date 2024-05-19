@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using SCHIZO.Attributes;
 using SCHIZO.Creatures.Components;
+using SCHIZO.Creatures.Ermfish;
 using SCHIZO.Events.Ermcon;
 
 namespace SCHIZO.Patches;
@@ -13,15 +14,9 @@ internal static class DisableMoreComponentsInWaterPark
     [InitializeMod]
     public static void AddComponentsToDisable()
     {
-        // uncomment this if you really *really* care about 10ns
-        //int len = WaterParkCreature.behavioursToDisableInside.Length;
-        //Type[] arr = new Type[len + 3];
-        //WaterParkCreature.behavioursToDisableInside.CopyTo(arr, 0);
-        //arr[len] = typeof(CarryCreature);
-        //arr[len + 1] = typeof(ErmconAttendee);
-        //arr[len + 2] = typeof(ErmconPanelist);
         Type[] arr = WaterParkCreature.behavioursToDisableInside.Concat([
             typeof(CarryCreature),
+            typeof(ErmStack),
             typeof(ErmconAttendee),
             typeof(ErmconPanelist)
         ]).ToArray();
