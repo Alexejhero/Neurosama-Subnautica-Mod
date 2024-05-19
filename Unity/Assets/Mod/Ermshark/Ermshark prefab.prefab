@@ -184,6 +184,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entertainmentFactor: 1.5
   personalSpaceRadius: 4
+--- !u!114 &2618933489612733152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061343355341963926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0a8b9c1ef24e50856be88c997b2364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  multiplier: 0
+  damageType: 4
 --- !u!1 &2213092574367901767
 GameObject:
   m_ObjectHideFlags: 0
