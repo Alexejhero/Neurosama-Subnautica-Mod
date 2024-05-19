@@ -8,10 +8,10 @@ namespace SCHIZO.Helpers;
 public static class GameObjectEnumerableHelpers
 {
     public static IEnumerable<GameObject> AllOfTechType(TechType techType)
-        => GameObject.FindObjectsOfType<TechTag>()
+        => UnityEngine.Resources.FindObjectsOfTypeAll<TechTag>()
             .Where(tag => tag.type == techType)
             .Select(tag => tag.gameObject)
-        .Concat(GameObject.FindObjectsOfType<PrefabIdentifier>()
+        .Concat(UnityEngine.Resources.FindObjectsOfTypeAll<PrefabIdentifier>()
             .Where(id => CraftData.GetTechType(id.gameObject, out _) == techType)
             .Select(id => id.gameObject));
 
