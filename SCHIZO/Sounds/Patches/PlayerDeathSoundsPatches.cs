@@ -7,7 +7,7 @@ using SCHIZO.Sounds.Players;
 namespace SCHIZO.Sounds.Patches;
 
 [HarmonyPatch]
-internal class PlayerDeathSoundsPatches
+internal static class PlayerDeathSoundsPatches
 {
     [HarmonyPatch(typeof(Player), nameof(Player.OnKill))]
     [HarmonyPostfix]

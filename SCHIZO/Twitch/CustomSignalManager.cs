@@ -30,7 +30,6 @@ partial class CustomSignalManager
         // Load, however, triggers on *starting* load (and we don't have signals to correlate that early)
         SaveUtils.RegisterOnFinishLoadingEvent(OnGameLoad);
         SaveUtils.RegisterOnQuitEvent(OnGameQuit);
-        SignalPing.onDisableOnEnter += OnDisableOnEnter;
     }
 
     private IEnumerator Start()
@@ -100,7 +99,7 @@ partial class CustomSignalManager
         if (!signal) return;
         signalName = signal.descriptionKey;
         if (!isCustom)
-            LOGGER.LogWarning($"removing signal '{signalName}' that may have been from base game");
+            LOGGER.LogWarning($"removing possibly base game signal '{signalName}' at {signal.pos}");
 
         Destroy(signal.gameObject);
         _allSignals.Remove(signalName);
@@ -117,7 +116,7 @@ partial class CustomSignalManager
         if (!oldSignal) return;
         signalName = oldSignal.descriptionKey;
         if (!isCustom)
-            LOGGER.LogWarning($"replacing signal '{signalName}' that may have been from base game");
+            LOGGER.LogWarning($"replacing possibly base game signal '{signalName}' at {oldSignal.pos}");
 
         SignalPing newSignal = Instance.CreateSignal(oldSignal.pos, signalName);
         _customSignals[signalName] = newSignal;
@@ -132,19 +131,24 @@ partial class CustomSignalManager
     private static SignalPing FindSignal(string signalName, out bool isCustomSignal)
     {
         isCustomSignal = true;
-        SignalPing signal = _customSignals.PartialSearch(signalName);
+        SignalPing signal = _customSignals.PartialSearch(signalName, true);
         if (signal) return signal;
 
-        isCustomSignal = default;
-        return _allSignals.PartialSearch(signalName);
+        isCustomSignal = false;
+        return _allSignals.PartialSearch(signalName, true);
     }
 
-    private void OnDisableOnEnter(SignalPing signal)
+    [HarmonyPatch(typeof(SignalPing), nameof(SignalPing.OnTriggerEnter))]
+    [HarmonyPostfix]
+    private static void OnDisableOnEnter(SignalPing __instance, Collider other)
     {
-        string signalName = signal.descriptionKey;
+        if (!__instance.disableOnEnter) return;
+        if (other.gameObject != Player.main.gameObject) return;
+
+        string signalName = __instance.descriptionKey;
         if (!_customSignals.ContainsKey(signalName)) return;
 
-        Destroy(signal.gameObject);
+        Destroy(__instance.gameObject);
         _customSignals.Remove(signalName);
         _allSignals.Remove(signalName);
     }
