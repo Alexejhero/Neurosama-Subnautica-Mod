@@ -92,7 +92,6 @@ partial class TwitchIntegration
     }
 
     [ConsoleCommand("settwitchlogin"), UsedImplicitly]
-
     public static string OnConsoleCommand_settwitchlogin(string username, string token)
     {
         PlayerPrefs.SetString(_usernamePlayerPrefsKey, username);

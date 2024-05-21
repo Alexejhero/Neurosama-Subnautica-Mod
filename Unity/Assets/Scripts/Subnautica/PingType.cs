@@ -1,0 +1,24 @@
+public enum PingType
+{
+    None,
+	Lifepod,
+	Seamoth,
+	Cyclops,
+	Exosuit,
+	Rocket,
+	Beacon,
+	Signal,
+	MapRoomCamera,
+	Sunbeam,
+	Base,
+	SupplyDrop,
+	SupplyDropAlt,
+	Hoverbike,
+	SeatruckMainCabin,
+	SeatruckMainCabinWithModules,
+	SeatruckModule,
+	DropPod,
+	SpyPenguin,
+	ArchitectArtifact,
+	ControlRoom
+}

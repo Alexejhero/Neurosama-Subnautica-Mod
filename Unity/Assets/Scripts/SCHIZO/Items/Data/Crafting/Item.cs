@@ -16,5 +16,9 @@ namespace SCHIZO.Items.Data.Crafting
 
         [SerializeField, UsedImplicitly]
         private ItemData itemData;
+
+        public bool IsCustom => isCustom;
+        public TechType_All TechType => isCustom ? default : techType;
+        public ItemData ItemData => isCustom ? itemData : null;
     }
 }
