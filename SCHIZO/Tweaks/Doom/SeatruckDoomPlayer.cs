@@ -253,7 +253,7 @@ partial class SeatruckDoomPlayer : MonoBehaviour
                 if (_escapePresses.Count >= 3)
                     ShowExitHint();
             }
-            if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.LeftControl))
+            if (Input.GetKeyDown(KeyCode.Q) && Input.GetKey(KeyCode.LeftControl))
             {
                 IsControlling = false;
                 _escapeHeld = 0;
