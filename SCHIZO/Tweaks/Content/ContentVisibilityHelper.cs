@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using SCHIZO.ConsoleCommands;
+using SCHIZO.Commands;
 using UnityEngine;
 
 namespace SCHIZO.Tweaks.Content;
 
-[RegisterConsoleCommands]
+[RegisterCommands]
 partial class ContentVisibilityHelper
 {
     private float _blinkTimer;

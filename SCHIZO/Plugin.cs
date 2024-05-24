@@ -7,7 +7,7 @@ using ECCLibrary;
 using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Attributes;
-using SCHIZO.ConsoleCommands;
+using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Tweaks;
@@ -49,6 +49,6 @@ public sealed class Plugin : BaseUnityPlugin
 
         InitializeModAttribute.Run();
 
-        RegisterConsoleCommandsAttribute.RegisterAll();
+        RegisterCommandsAttribute.RegisterAll();
     }
 }

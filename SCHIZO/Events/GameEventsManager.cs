@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using Nautilus.Commands;
-using SCHIZO.ConsoleCommands;
+using SCHIZO.Commands;
+using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 
 namespace SCHIZO.Events;
 
-[RegisterConsoleCommands]
+[RegisterCommands]
 public partial class GameEventsManager
 {
     public static bool AutoStart

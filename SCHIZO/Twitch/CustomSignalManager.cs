@@ -6,7 +6,8 @@ using Nautilus.Handlers;
 using Nautilus.Json;
 using Nautilus.Json.Attributes;
 using Nautilus.Utility;
-using SCHIZO.ConsoleCommands;
+using SCHIZO.Commands;
+using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
 using UnityEngine;
 using UWE;
@@ -14,7 +15,7 @@ using UWE;
 namespace SCHIZO.Twitch;
 
 [HarmonyPatch]
-[RegisterConsoleCommands]
+[RegisterCommands]
 partial class CustomSignalManager
 {
     private static SaveData _data;

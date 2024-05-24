@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
-using Nautilus.Commands;
-using SCHIZO.ConsoleCommands;
+using SCHIZO.Commands;
+using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
 using UnityEngine;
 using UWE;
 
 namespace SCHIZO.Tweaks.Content;
 
-[RegisterConsoleCommands]
+[RegisterCommands]
 [HarmonyPatch]
 partial class ContentAlertManager
 {

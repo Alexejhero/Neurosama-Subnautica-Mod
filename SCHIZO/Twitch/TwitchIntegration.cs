@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using Nautilus.Commands;
-using SCHIZO.ConsoleCommands;
+using SCHIZO.Commands;
 using SCHIZO.Helpers;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
@@ -14,7 +12,7 @@ using UnityEngine;
 
 namespace SCHIZO.Twitch;
 
-[RegisterConsoleCommands]
+[RegisterCommands]
 partial class TwitchIntegration
 {
     private const string _usernamePlayerPrefsKey = "SCHIZO_TwitchIntegration_Username";
@@ -91,7 +89,7 @@ partial class TwitchIntegration
         MessageHelpers.SuppressOutput = false;
     }
 
-    [ConsoleCommand("settwitchlogin"), UsedImplicitly]
+    [ConsoleCommand("settwitchlogin")]
     public static string OnConsoleCommand_settwitchlogin(string username, string token)
     {
         PlayerPrefs.SetString(_usernamePlayerPrefsKey, username);

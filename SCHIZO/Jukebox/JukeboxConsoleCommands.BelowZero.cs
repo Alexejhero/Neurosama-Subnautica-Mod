@@ -2,11 +2,12 @@ using System;
 using JetBrains.Annotations;
 using Nautilus.Commands;
 using Nautilus.Handlers;
-using SCHIZO.ConsoleCommands;
+using SCHIZO.Commands;
+using SCHIZO.Commands.Attributes;
 using TrackId = Jukebox.UnlockableTrack;
 
 namespace SCHIZO.Jukebox;
-[RegisterConsoleCommands]
+[RegisterCommands]
 internal static class JukeboxConsoleCommands
 {
     [ConsoleCommand("unlocktrack"), UsedImplicitly]

@@ -5,15 +5,14 @@ using System.Text;
 using FMOD.Studio;
 using FMODUnity;
 using JetBrains.Annotations;
-using Nautilus.Commands;
 using SCHIZO.Helpers;
 using SCHIZO.Tweaks;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace SCHIZO.ConsoleCommands;
+namespace SCHIZO.Commands;
 
-[RegisterConsoleCommands]
+[RegisterCommands]
 public static class ConsoleCommands
 {
     [ConsoleCommand("isekai"), UsedImplicitly]
@@ -97,7 +96,7 @@ public static class ConsoleCommands
             b.getID(out Guid bankId);
             return $"{bankId} | {bankPath}";
         })));
-        return "Logged all banks, check console";
+        return "Logged all banks";
     }
 
     public static string OnConsoleCommand_buses(string bankFilter = "")
@@ -127,7 +126,7 @@ public static class ConsoleCommands
             }
         }
         LOGGER.LogMessage(sb.ToString());
-        return "Logged all buses, check console";
+        return "Logged all buses";
     }
 
     public static string OnConsoleCommand_vcas(string bankFilter = "")
@@ -156,7 +155,7 @@ public static class ConsoleCommands
             }
         }
         LOGGER.LogMessage(sb.ToString());
-        return "Logged all VCAs, check console";
+        return "Logged all VCAs";
     }
 
     public static string OnConsoleCommand_events(string bankFilter = "")
@@ -185,7 +184,7 @@ public static class ConsoleCommands
             }
         }
         LOGGER.LogMessage(sb.ToString());
-        return "Logged all events, check console";
+        return "Logged all events";
     }
 
     [ConsoleCommand("fmod"), UsedImplicitly]
