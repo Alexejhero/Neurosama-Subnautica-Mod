@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using HarmonyLib;
-using Nautilus.Commands;
 using Nautilus.Handlers;
 using Nautilus.Json;
 using Nautilus.Json.Attributes;
 using Nautilus.Utility;
-using SCHIZO.Commands;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
 using UnityEngine;

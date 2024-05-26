@@ -1,8 +1,8 @@
 using System;
 using System.Reflection;
-using SCHIZO.Commands.Input;
+using SCHIZO.Commands.Output;
 
-namespace SCHIZO.Commands;
+namespace SCHIZO.Commands.Base;
 
 public abstract class Command
 {
@@ -14,16 +14,24 @@ public abstract class Command
     {
         try
         {
-            ExecuteCore(ctx);
-            // todo process common results like ShowUsage etc
+            ctx.SetResult(ExecuteCore(ctx));
         }
         catch (Exception e)
         {
             ctx.SetError(e);
         }
+        switch (ctx.Result)
+        {
+            case null or CommonResults.OKResult:
+                break;
+            case CommonResults.ExceptionResult(Exception ex):
+                break; // todo
+            case CommonResults.ShowUsageResult:
+                break; // todo
+        }
     }
 
-    protected abstract void ExecuteCore(CommandExecutionContext ctx);
+    protected abstract object ExecuteCore(CommandExecutionContext ctx);
 
     public static Command FromMethod(MethodInfo method)
         => new MethodCommand(method);

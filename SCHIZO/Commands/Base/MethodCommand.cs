@@ -1,8 +1,7 @@
 using System;
 using System.Reflection;
-using SCHIZO.Commands.Input;
 
-namespace SCHIZO.Commands;
+namespace SCHIZO.Commands.Base;
 internal class MethodCommand : Command
 {
     public MethodInfo Method { get; protected set; }
@@ -14,8 +13,9 @@ internal class MethodCommand : Command
         // todo parse parameters
     }
 
-    protected override void ExecuteCore(CommandExecutionContext ctx)
+    protected override object ExecuteCore(CommandExecutionContext ctx)
     {
         // todo convert arguments
+        return null;
     }
 }

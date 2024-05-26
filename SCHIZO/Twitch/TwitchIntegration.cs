@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using SCHIZO.Commands;
+using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;

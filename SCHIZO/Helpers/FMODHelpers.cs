@@ -67,7 +67,7 @@ internal static class FMODHelpers
         if (string.IsNullOrEmpty(path)) return null;
 
         RuntimeManager.StudioSystem.lookupID(path, out Guid guidFromPath).CheckResult();
-        return guidFromPath.ToString();
+        return guidFromPath == default ? null : guidFromPath.ToString();
     }
 
     public static void PlayId(this FMOD_CustomEmitter emitter, string id, bool is3d = true)

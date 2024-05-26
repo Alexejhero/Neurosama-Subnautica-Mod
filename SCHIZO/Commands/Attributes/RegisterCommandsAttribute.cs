@@ -7,8 +7,9 @@ using Nautilus.Handlers;
 namespace SCHIZO.Commands.Attributes;
 
 [AttributeUsage(AttributeTargets.Class), MeansImplicitUse]
-internal sealed class RegisterCommandsAttribute : Attribute
+internal sealed class RegisterCommandsAttribute(string category = "Uncategorized") : Attribute
 {
+    public string Category { get; set; } = category;
     public static void RegisterAll()
     {
         PLUGIN_ASSEMBLY.GetTypes()

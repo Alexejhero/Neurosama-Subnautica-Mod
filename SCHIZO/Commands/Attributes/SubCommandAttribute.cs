@@ -1,5 +1,6 @@
 using System;
 using JetBrains.Annotations;
+using SCHIZO.Commands.Base;
 
 namespace SCHIZO.Commands.Attributes;
 

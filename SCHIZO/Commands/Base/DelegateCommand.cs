@@ -1,7 +1,6 @@
 using System;
-using SCHIZO.Commands.Input;
 
-namespace SCHIZO.Commands;
+namespace SCHIZO.Commands.Base;
 internal class DelegateCommand : Command
 {
     private readonly Func<object> _func;
@@ -9,8 +8,6 @@ internal class DelegateCommand : Command
     public DelegateCommand(Action action) => _func = () => { action(); return null; };
     public DelegateCommand(Func<object> func) => _func = func;
 
-    protected override void ExecuteCore(CommandExecutionContext ctx)
-    {
-        ctx.SetResult(_func());
-    }
+    protected override object ExecuteCore(CommandExecutionContext ctx)
+        => _func();
 }

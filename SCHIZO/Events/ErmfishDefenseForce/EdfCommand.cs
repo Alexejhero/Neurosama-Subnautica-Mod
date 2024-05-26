@@ -1,5 +1,5 @@
-using SCHIZO.Commands;
 using SCHIZO.Commands.Attributes;
+using SCHIZO.Commands.Base;
 using SCHIZO.Helpers;
 
 namespace SCHIZO.Events.ErmfishDefenseForce;
