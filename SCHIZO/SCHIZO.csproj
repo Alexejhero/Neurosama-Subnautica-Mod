@@ -22,10 +22,7 @@
         <Publicize Include="ECCLibrary:ECCLibrary.ObjectReferences" />
         <Publicize Include="Nautilus:Nautilus.Commands.ConsoleCommand" />
         <Publicize Include="Nautilus:Nautilus.Commands.Parameter" />
-        <Publicize Include="Nautilus:Nautilus.Commands.Parameter.TypeConverters" />
         <Publicize Include="Nautilus:Nautilus.Options.ModOptions._options" />
-        <Publicize Include="Nautilus:Nautilus.Patchers.ConsoleCommandsPatcher" />
-        <Publicize Include="Nautilus:Nautilus.Patchers.ConsoleCommandsPatcher.HandleCommand" />
     </ItemGroup>
 
     <ItemGroup>

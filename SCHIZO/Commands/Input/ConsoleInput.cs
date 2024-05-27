@@ -11,8 +11,15 @@ public class ConsoleInput : CommandInput
     private readonly string _args;
     private string[] _splitArgs;
 
+    public bool IsEmpty => string.IsNullOrEmpty(_input);
+
     public ConsoleInput(string input)
     {
+        if (string.IsNullOrEmpty(_input))
+        {
+            _input = _commandName = _args = null;
+            return;
+        }
         _input = input;
         (_commandName, _args) = _input.SplitOnce(' ');
     }
