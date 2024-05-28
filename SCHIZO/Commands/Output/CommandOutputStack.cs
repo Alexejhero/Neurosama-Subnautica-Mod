@@ -64,6 +64,7 @@ public sealed class CommandOutputStack
     /// <param name="command">Needed to determine usage for <see cref="CommonResults.ShowUsageResult"/>.</param>
     public void AddCommonResultTransformers(Command command)
     {
-
+        Sinks.Push(new LogExceptionSink());
+        Sinks.Push(new ShowUsage(command));
     }
 }

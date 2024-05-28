@@ -36,15 +36,6 @@ public abstract class Command
         }
         object result = ctx.Result;
         ctx.Output.ProcessOutput(ref result);
-        switch (ctx.Result)
-        {
-            case null or CommonResults.OKResult:
-                break;
-            case CommonResults.ExceptionResult(Exception ex):
-                break; // todo
-            case CommonResults.ShowUsageResult:
-                break; // todo
-        }
     }
 
     protected abstract object ExecuteCore(CommandExecutionContext ctx);

@@ -6,6 +6,7 @@ using Nautilus.Json;
 using Nautilus.Json.Attributes;
 using Nautilus.Utility;
 using SCHIZO.Commands.Attributes;
+using SCHIZO.Commands.Output;
 using SCHIZO.Helpers;
 using UnityEngine;
 using UWE;
@@ -78,18 +79,20 @@ partial class CustomSignalManager
         DisplayName = "Add Signal",
         Description = "Add a signal at the specified position",
         RegisterConsoleCommand = true)]
-    public static string AddSignal(float x, float y, float z, [TakeAll] string signalName)
+    public static object AddSignal(float x, float y, float z, [TakeAll] string signalName = "")
     {
         if (SaveLoadManager.temporarySavePath is null)
-            return "Can't add signal, game is not loaded";
+            return null;
         if (!_prefab)
             return "developer forgor prefab for custom signal, please point and laugh";
         if (string.IsNullOrEmpty(signalName))
-            return "Can't add signal with empty name";
+            return CommonResults.ShowUsage();
         if (_allSignals.ContainsKey(signalName))
-            return $"There is already a signal named \"{signalName}\"";
+            return $"Signal \"{signalName}\" already exists";
+
         Vector3 pos = new(x, y, z);
         _customSignals[signalName] = Instance.CreateSignal(pos, signalName);
+
         return null;
     }
 
@@ -97,12 +100,14 @@ partial class CustomSignalManager
         DisplayName = "Remove Signal",
         Description = "Remove the signal that matches the given name",
         RegisterConsoleCommand = true)]
-    public static void RemoveSignal([TakeAll] string signalName)
+    public static object RemoveSignal([TakeAll] string signalName = "")
     {
-        if (string.IsNullOrEmpty(signalName)) return;
+        if (string.IsNullOrEmpty(signalName))
+            return CommonResults.ShowUsage();
 
         SignalPing signal = FindSignal(signalName, out bool isCustom);
-        if (!signal) return;
+        if (!signal) return null;
+
         signalName = signal.descriptionKey;
         if (!isCustom)
             LOGGER.LogWarning($"removing possibly base game signal '{signalName}' at {signal.pos}");
@@ -110,18 +115,22 @@ partial class CustomSignalManager
         Destroy(signal.gameObject);
         _allSignals.Remove(signalName);
         _customSignals.Remove(signalName);
+
+        return CommonResults.OK();
     }
 
     [Command(Name = "replacesignal",
         DisplayName = "Replace Signal",
         Description = "Recreates the matching signal (use if the signal prefab classid changes)",
         RegisterConsoleCommand = true)]
-    public static void ReplaceSignal([TakeAll] string signalName)
+    public static object ReplaceSignal([TakeAll] string signalName = "")
     {
-        if (string.IsNullOrEmpty(signalName)) return;
+        if (string.IsNullOrEmpty(signalName))
+            return CommonResults.ShowUsage();
 
         SignalPing oldSignal = FindSignal(signalName, out bool isCustom);
-        if (!oldSignal) return;
+        if (!oldSignal) return null;
+
         signalName = oldSignal.descriptionKey;
         if (!isCustom)
             LOGGER.LogWarning($"replacing possibly base game signal '{signalName}' at {oldSignal.pos}");
@@ -134,6 +143,8 @@ partial class CustomSignalManager
 
         Destroy(oldSignal.gameObject);
         _allSignals.Remove(signalName);
+
+        return CommonResults.OK();
     }
 
     private static SignalPing FindSignal(string signalName, out bool isCustomSignal)

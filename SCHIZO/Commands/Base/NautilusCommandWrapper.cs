@@ -45,6 +45,7 @@ public sealed class NautilusCommandWrapper
             Output = new(),
         };
         ctx.Output.ModifyForConsoleNautilus(ctx);
+        ctx.Output.AddCommonResultTransformers(Command);
         Command.Execute(ctx);
         return ctx.Result;
     }
