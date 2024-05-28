@@ -13,7 +13,7 @@ using UWE;
 namespace SCHIZO.Twitch;
 
 [HarmonyPatch]
-[CommandCategory]
+[CommandCategory("Custom Signals")]
 partial class CustomSignalManager
 {
     private static SaveData _data;
@@ -59,20 +59,6 @@ partial class CustomSignalManager
             _customSignals[__instance.descriptionKey] = __instance;
     }
 
-    [ConsoleCommand("addsignal")]
-    public static string OnConsoleCommand_addsignal(float x, float y, float z, params string[] nameSplit)
-    {
-        if (SaveLoadManager.temporarySavePath is null)
-            return "Can't add signal, game is not loaded";
-        if (!_prefab)
-            return "developer forgor prefab for custom signal, please point and laugh";
-        string signalName = string.Join(" ", nameSplit);
-        if (_allSignals.ContainsKey(signalName))
-            return $"There is already a signal named \"{signalName}\"";
-        Vector3 pos = new(x, y, z);
-        _customSignals[signalName] = Instance.CreateSignal(pos, signalName);
-        return null;
-    }
     private SignalPing CreateSignal(Vector3 pos, string signalName)
     {
         GameObject signalObj = GameObject.Instantiate(_prefab, pos, Quaternion.identity);
@@ -88,12 +74,33 @@ partial class CustomSignalManager
         return signal;
     }
 
-    [ConsoleCommand("removesignal")]
-    public static void OnConsoleCommand_removesignal(params string[] nameSplit)
+    [Command(Name = "addsignal",
+        DisplayName = "Add Signal",
+        Description = "Add a signal at the specified position",
+        RegisterConsoleCommand = true)]
+    public static string AddSignal(float x, float y, float z, [TakeAll] string signalName)
     {
-        if (nameSplit.Length == 0) return;
+        if (SaveLoadManager.temporarySavePath is null)
+            return "Can't add signal, game is not loaded";
+        if (!_prefab)
+            return "developer forgor prefab for custom signal, please point and laugh";
+        if (string.IsNullOrEmpty(signalName))
+            return "Can't add signal with empty name";
+        if (_allSignals.ContainsKey(signalName))
+            return $"There is already a signal named \"{signalName}\"";
+        Vector3 pos = new(x, y, z);
+        _customSignals[signalName] = Instance.CreateSignal(pos, signalName);
+        return null;
+    }
 
-        string signalName = string.Join(" ", nameSplit);
+    [Command(Name = "removesignal",
+        DisplayName = "Remove Signal",
+        Description = "Remove the signal that matches the given name",
+        RegisterConsoleCommand = true)]
+    public static void RemoveSignal([TakeAll] string signalName)
+    {
+        if (string.IsNullOrEmpty(signalName)) return;
+
         SignalPing signal = FindSignal(signalName, out bool isCustom);
         if (!signal) return;
         signalName = signal.descriptionKey;
@@ -105,12 +112,14 @@ partial class CustomSignalManager
         _customSignals.Remove(signalName);
     }
 
-    [ConsoleCommand("replacesignal")]
-    public static void OnConsoleCommand_replacesignal(params string[] nameSplit)
+    [Command(Name = "replacesignal",
+        DisplayName = "Replace Signal",
+        Description = "Recreates the matching signal (use if the signal prefab classid changes)",
+        RegisterConsoleCommand = true)]
+    public static void ReplaceSignal([TakeAll] string signalName)
     {
-        if (nameSplit.Length == 0) return;
+        if (string.IsNullOrEmpty(signalName)) return;
 
-        string signalName = string.Join(" ", nameSplit);
         SignalPing oldSignal = FindSignal(signalName, out bool isCustom);
         if (!oldSignal) return;
         signalName = oldSignal.descriptionKey;

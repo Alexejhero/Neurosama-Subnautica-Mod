@@ -11,7 +11,6 @@ using UWE;
 
 namespace SCHIZO.Tweaks.Content;
 
-[CommandCategory]
 [HarmonyPatch]
 partial class ContentAlertManager
 {
@@ -43,35 +42,6 @@ partial class ContentAlertManager
     public static Action OnAlertsEnabledChanged;
 
     private static HashSet<TechType> _attached = [];
-
-    [ConsoleCommand("contentalerts")]
-    public static string OnConsoleCommand_contentalerts(params string[] args)
-    {
-        if (args is not [string subCommand, ..])
-            return ConCommandUsage;
-
-        switch (subCommand)
-        {
-            case "enable" or "disable":
-                AlertsEnabled = subCommand == "enable";
-                return null;
-            case "attach" or "detach" when args.Length > 1:
-                string techTypeName = args[1];
-                if (!UWE.Utils.TryParseEnum(techTypeName, out TechType techType))
-                    return MessageHelpers.TechTypeNotFound(techTypeName);
-                if (subCommand == "attach")
-                    AttachToTechType(techType);
-                else
-                    DetachFromTechType(techType);
-                return null;
-            case "clear":
-                foreach (TechType tt in _attached.ToList()) // modifying collection
-                    DetachFromTechType(tt);
-                return null;
-            default:
-                return ConCommandUsage;
-        }
-    }
 
     public static void AttachToTechType(TechType techType)
     {
@@ -124,5 +94,11 @@ partial class ContentAlertManager
     {
         ContentVisibilityHelper alert = target.GetComponentInChildren<ContentVisibilityHelper>();
         if (alert) GameObject.Destroy(alert.gameObject);
+    }
+
+    public static void Clear()
+    {
+        foreach (TechType tt in _attached.ToList()) // modifying collection
+            DetachFromTechType(tt);
     }
 }

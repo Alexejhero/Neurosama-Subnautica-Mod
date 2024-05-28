@@ -32,10 +32,10 @@ public sealed class NautilusCommandWrapper
     // needed bc "params" gets ignored on lambdas
     private void RegisterSelf()
     {
-        ConsoleCommandsHandler.RegisterConsoleCommand(Command.Name, NewMethod);
+        ConsoleCommandsHandler.RegisterConsoleCommand(Command.Name, Execute);
     }
 
-    private object NewMethod(params string[] args)
+    private object Execute(params string[] args)
     {
         Input.ConsoleInput input = new(string.Join(" ", args.Prepend(Command.Name)));
         CommandExecutionContext ctx = new()
