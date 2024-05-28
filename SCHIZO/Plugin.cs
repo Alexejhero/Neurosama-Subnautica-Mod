@@ -8,6 +8,7 @@ using HarmonyLib;
 using Nautilus.Handlers;
 using SCHIZO.Attributes;
 using SCHIZO.Commands.Attributes;
+using SCHIZO.Commands.Base;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using SCHIZO.Tweaks;
@@ -49,6 +50,6 @@ public sealed class Plugin : BaseUnityPlugin
 
         InitializeModAttribute.Run();
 
-        RegisterCommandsAttribute.RegisterAll();
+        CommandRegistry.RegisterAttributeDeclarations();
     }
 }

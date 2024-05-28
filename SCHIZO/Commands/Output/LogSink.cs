@@ -1,7 +1,7 @@
 using BepInEx.Logging;
 
 namespace SCHIZO.Commands.Output;
-internal sealed class LogSink : ISink
+public sealed class LogSink : ISink
 {
     public required LogLevel LogLevel { get; init; }
 
@@ -13,7 +13,7 @@ internal sealed class LogSink : ISink
     public static readonly LogSink Fatal = new() { LogLevel = LogLevel.Fatal };
     private LogSink() { }
 
-    public bool TryConsume(object output)
+    public bool TryConsume(ref object output)
     {
         if (output != null)
             LOGGER.Log(LogLevel, output);

@@ -15,7 +15,7 @@ public class ConsoleInput : CommandInput
 
     public ConsoleInput(string input)
     {
-        if (string.IsNullOrEmpty(_input))
+        if (string.IsNullOrEmpty(input))
         {
             _input = _commandName = _args = null;
             return;

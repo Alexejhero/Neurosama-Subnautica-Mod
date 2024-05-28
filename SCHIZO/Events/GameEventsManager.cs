@@ -9,7 +9,7 @@ using SCHIZO.Resources;
 
 namespace SCHIZO.Events;
 
-[RegisterCommands]
+[CommandCategory]
 public partial class GameEventsManager
 {
     public static bool AutoStart

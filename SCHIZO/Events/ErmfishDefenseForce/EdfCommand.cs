@@ -6,7 +6,8 @@ namespace SCHIZO.Events.ErmfishDefenseForce;
 
 [Command(Name = "edf",
     DisplayName = "Ermfish Defense Force",
-    Description = "Commands for EDF (Ermfish Defense Force).\nEDF is an event that will spawn ermsharks when the player is mean to ermfish.")]
+    Description = "Commands for EDF (Ermfish Defense Force).\nEDF is an event that will spawn ermsharks when the player is mean to ermfish.",
+    RegisterConsoleCommand = true)]
 public class EdfCommand : CompositeCommand
 {
     [SubCommand(DisplayName = "Check/set aggro", Description = "Leave value default to check aggro")]

@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace SCHIZO.Twitch;
 
-[RegisterCommands]
+[CommandCategory("Twitch")]
 partial class TwitchIntegration
 {
     private const string _usernamePlayerPrefsKey = "SCHIZO_TwitchIntegration_Username";
@@ -89,8 +89,11 @@ partial class TwitchIntegration
         MessageHelpers.SuppressOutput = false;
     }
 
-    [ConsoleCommand("settwitchlogin")]
-    public static string OnConsoleCommand_settwitchlogin(string username, string token)
+    [Command(Name = "settwitchlogin",
+        DisplayName = "Set Twitch Login",
+        Description = "Set your Twitch username and oauth token.\nYou can get a token from https://twitchtokengenerator.com (only scope `chat:read` is required)",
+        RegisterConsoleCommand = true)]
+    public static string SetTwitchLogin(string username, string token)
     {
         PlayerPrefs.SetString(_usernamePlayerPrefsKey, username);
         PlayerPrefs.SetString(_tokenPlayerPrefsKey, token);

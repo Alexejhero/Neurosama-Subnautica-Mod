@@ -11,7 +11,7 @@ using UWE;
 
 namespace SCHIZO.Tweaks.Content;
 
-[RegisterCommands]
+[CommandCategory]
 [HarmonyPatch]
 partial class ContentAlertManager
 {

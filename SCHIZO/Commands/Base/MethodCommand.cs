@@ -1,11 +1,17 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Nautilus.Commands;
+using SCHIZO.Commands.Attributes;
+using SCHIZO.Commands.Output;
 
 namespace SCHIZO.Commands.Base;
 internal class MethodCommand : Command
 {
     private readonly ConsoleCommand _proxy;
+    private readonly bool _lastTakeAll;
 
     public MethodCommand(MethodInfo method, object instance = null)
     {
@@ -16,19 +22,46 @@ internal class MethodCommand : Command
         else if (method.Name.IndexOf('>') >= 0) // mangled (delegate, lambda, inner function, etc...)
             throw new ArgumentException($"Use {nameof(DelegateCommand)} instead of {nameof(MethodCommand)} for delegate methods (lambda, inner function, etc.)");
         _proxy = new("", method, instance: instance);
+        ParameterInfo[] parameters = method.GetParameters();
+        if (parameters.Length == 0) return;
+
+        ParameterInfo lastParam = parameters[^1];
+        if (lastParam.ParameterType == typeof(string) && lastParam.GetCustomAttribute<TakeAllAttribute>() is { })
+            _lastTakeAll = true;
     }
 
     protected override object ExecuteCore(CommandExecutionContext ctx)
     {
-        // todo: do better (e.g. named parameters from JSON, remove unnecessary joining/splitting strings)
-        // it just needs a ton of code practically copied from how nautilus parses commands/args (because it's done sensibly enough there)
-        // which is meh at best
-        string[] args = ctx.Input.AsConsoleString().Split(' ');
+        // todo: do better (e.g. named parameters from JSON, remove unnecessary joining/splitting strings, parse enums, parse successive floats as vectors, etc.)
+        // it just needs a ton of code practically copied from how nautilus parses commands/args (because it already does like 80% of what we need)
+        // which as a practice is meh at best
+        int paramCount = _proxy.Parameters.Count;
+
+        string fullString = ctx.Input.AsConsoleString();
+        int firstSpace = fullString.IndexOf(' ');
+        IReadOnlyList<string> args;
+        if (firstSpace >= 0)
+        {
+            string argsString = fullString[(firstSpace + 1)..];
+            args = argsString.Split(' ');
+            if (_lastTakeAll && args.Count > paramCount)
+            {
+                args = args.Take(paramCount - 1)
+                    .Append(string.Join(" ", args.Skip(paramCount - 1)))
+                    .ToArray();
+            }
+        }
+        else
+        {
+            args = [];
+        }
+
         (int consumed, int parsed) = _proxy.TryParseParameters(args, out object[] parsedArgs);
-        bool consumedAll = consumed >= args.Length;
-        bool parsedAll = parsed == _proxy.Parameters.Count;
+        bool consumedAll = consumed >= args.Count;
+        bool parsedAll = parsed == paramCount;
         if (!consumedAll || !parsedAll)
-            throw new InvalidOperationException("placeholder message for MethodCommand arg parsing failure");
+            return CommonResults.ShowUsage();
+            //throw new InvalidOperationException("placeholder message for MethodCommand arg parsing failure");
         return _proxy.Invoke(parsedArgs);
     }
 }

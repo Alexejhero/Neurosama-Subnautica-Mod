@@ -3,7 +3,7 @@ namespace SCHIZO.Commands.Base;
 /// <summary>
 /// Wrapper around a base-game console command.
 /// </summary>
-public class ConsoleCommandWrapper : Command
+public class ConsoleWrapperCommand : Command
 {
     public string Command { get; set; }
 

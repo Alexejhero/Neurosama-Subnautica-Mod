@@ -7,7 +7,7 @@ namespace SCHIZO.Commands.Base;
 
 public class CompositeCommand : Command
 {
-    public Dictionary<string, Command> SubCommands { get; protected set; }
+    public Dictionary<string, Command> SubCommands { get; protected set; } = [];
 
     protected override object ExecuteCore(CommandExecutionContext ctx)
     {
@@ -19,7 +19,8 @@ public class CompositeCommand : Command
 
         CommandExecutionContext subCtx = ctx.GetSubContext(subCommand);
         subCommand.Execute(subCtx);
-        // todo process subcommand result
+        object subResult = subCtx.Result;
+        subCtx.Output.ProcessOutput(ref subResult);
         return null;
     }
 

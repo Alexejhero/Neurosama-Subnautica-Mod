@@ -13,7 +13,7 @@ using UWE;
 namespace SCHIZO.Twitch;
 
 [HarmonyPatch]
-[RegisterCommands]
+[CommandCategory]
 partial class CustomSignalManager
 {
     private static SaveData _data;

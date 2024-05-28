@@ -9,8 +9,7 @@ public class CommandExecutionContext
 {
     public Command RootCommand { get; init; }
     public CommandInput Input { get; init; }
-    // todo output object
-    //public CommandOutput Output { get; init; }
+    public CommandOutputStack Output { get; set; }
     public bool Silent { get; init; }
     public IEnumerable<object> Arguments => Input.Arguments;
 
@@ -30,6 +29,7 @@ public class CommandExecutionContext
         {
             RootCommand = RootCommand,
             Input = Input.GetSubCommandInput(),
+            Output = Output,
             Silent = Silent,
         };
     }

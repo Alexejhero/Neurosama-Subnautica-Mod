@@ -29,4 +29,10 @@ internal static class CollectionsHelpers
         return key is null ? null
             : dict[key];
     }
+
+    public static void PushRange<T>(this Stack<T> stack, IEnumerable<T> range)
+    {
+        foreach (T item in range)
+            stack.Push(item);
+    }
 }

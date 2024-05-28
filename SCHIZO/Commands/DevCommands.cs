@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace SCHIZO.Commands;
 
-[RegisterCommands("Developer")]
+[CommandCategory("Developer")]
 public static class DevCommands
 {
     [Command(Name = "isekai",
@@ -43,26 +43,20 @@ public static class DevCommands
         DisplayName = "Message (top left)",
         Description = "Display a text message in the top left corner of the screen.",
         RegisterConsoleCommand = true)]
-    public static object Say([TakeAll] string message)
+    public static void Say([TakeAll] string message = "")
     {
-        if (string.IsNullOrEmpty(message))
-            return CommonResults.ShowUsage();
-
         ErrorMessage.AddMessage(message);
-        return null;
     }
 
     [Command(Name = "hint",
         DisplayName = "Message (hint)",
         Description = "Display a hint message",
         RegisterConsoleCommand = true)]
-    public static object Hint([TakeAll] string message)
+    public static void Hint([TakeAll] string message = "")
     {
         if (string.IsNullOrEmpty(message))
-            return CommonResults.ShowUsage();
-
+            return;
         MessageHelpers.ShowHint(5, message);
-        return null;
     }
 
     [Command(Name = "resetcam",
@@ -71,6 +65,8 @@ public static class DevCommands
         RegisterConsoleCommand = true)]
     public static void ResetCam()
     {
+        if (!SNCameraRoot.main) return;
+
         SNCameraRoot.main.transform.localPosition = Vector3.zero;
         SNCameraRoot.main.transform.localRotation = Quaternion.identity;
     }
@@ -81,6 +77,8 @@ public static class DevCommands
         RegisterConsoleCommand = true)]
     public static void DevMode()
     {
+        if (!Player.main) return;
+
         DevConsole.SendConsoleCommand("fastswim");
 
         DevBinds binds = Player.main.gameObject.GetComponent<DevBinds>();

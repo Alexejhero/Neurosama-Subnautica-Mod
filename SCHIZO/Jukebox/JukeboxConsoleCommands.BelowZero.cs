@@ -7,7 +7,7 @@ using TrackId = Jukebox.UnlockableTrack;
 
 namespace SCHIZO.Jukebox;
 
-[RegisterCommands("Jukebox")]
+[CommandCategory("Jukebox")]
 internal static class JukeboxConsoleCommands
 {
     [Command(Name = "unlocktrack",
