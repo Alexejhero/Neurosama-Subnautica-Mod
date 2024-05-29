@@ -97,9 +97,7 @@ internal static class DoomNative
         {
             NativeAddIWADPath(DIR); // player can put their own wads into this folder
             NativeSetFallbackIWADPath(FALLBACK_WAD_PATH);
-            // womp womp, spread needs spans (-1h checking everything over like 3 times bc no exception gets logged smile)
-            // string[] argv = [Path.GetFullPath(DLL_PATH), ..args];
-            string[] argv = args.Prepend(Path.GetFullPath(DLL_PATH)).ToArray();
+            string[] argv = [Path.GetFullPath(DLL_PATH), ..args];
             NativeCreate(argv.Length, argv);
         }
     }
