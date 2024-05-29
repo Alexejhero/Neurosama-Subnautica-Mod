@@ -10,6 +10,7 @@
 
     <ItemGroup>
         <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+        <PackageReference Include="System.Memory" Version="4.5.5" />
         <PackageReference Include="TwitchLib" Version="3.5.3" Embed="true" GeneratePathProperty="true" />
         <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" />
 
