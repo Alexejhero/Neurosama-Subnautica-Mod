@@ -1,4 +1,4 @@
-using SCHIZO.Commands.Base;
+using SCHIZO.Commands.Context;
 
 namespace SCHIZO.Commands.Output;
 public sealed class SetResultSink(CommandExecutionContext ctx) : ISink

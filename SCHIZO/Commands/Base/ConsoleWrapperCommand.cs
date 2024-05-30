@@ -1,3 +1,5 @@
+using SCHIZO.Commands.Context;
+
 namespace SCHIZO.Commands.Base;
 
 /// <summary>
@@ -9,7 +11,7 @@ public class ConsoleWrapperCommand : Command
 
     protected override object ExecuteCore(CommandExecutionContext ctx)
     {
-        DevConsole.SendConsoleCommand($"{Command} {ctx.Input.AsConsoleString()}");
+        DevConsole.SendConsoleCommand(ctx.Input.AsConsoleString());
         return null;
     }
 }

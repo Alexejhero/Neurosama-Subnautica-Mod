@@ -1,36 +1,33 @@
 using System;
 using System.Collections.Generic;
+using SCHIZO.Commands.Base;
 using SCHIZO.Helpers;
 
 namespace SCHIZO.Commands.Input;
 
 public class ConsoleInput : CommandInput
 {
-    private readonly string _input;
-    private readonly string _commandName;
-    private readonly string _args;
+    public string InputString { get; }
+    public string Arguments { get; }
     private string[] _splitArgs;
-
-    public bool IsEmpty => string.IsNullOrEmpty(_input);
 
     public ConsoleInput(string input)
     {
         if (string.IsNullOrEmpty(input))
-        {
-            _input = _commandName = _args = null;
             return;
-        }
-        _input = input;
-        (_commandName, _args) = _input.SplitOnce(' ');
+
+        InputString = input;
+        Arguments = input.SplitOnce(' ').After;
     }
 
-    public override string CommandName => _commandName;
-    public override IEnumerable<object> Arguments => CacheArgs();
-    public override string AsConsoleString() => _input;
-    public override CommandInput GetSubCommandInput() => new ConsoleInput(_args);
+    public override string AsConsoleString() => InputString;
+    public override string GetSubCommandName()
+        => Arguments?.SplitOnce(' ').Before;
+    public override IEnumerable<object> GetPositionalArguments()
+        => CacheArgs() ?? [];
 
     private string[] CacheArgs()
-    {
-        return _splitArgs ??= _args.Split([' '], StringSplitOptions.RemoveEmptyEntries);
-    }
+        => _splitArgs ??= Arguments?.Split([' '], StringSplitOptions.RemoveEmptyEntries);
+    public override CommandInput GetSubCommandInput(Command subCommand)
+        => new ConsoleInput(Arguments) { Command = subCommand };
 }

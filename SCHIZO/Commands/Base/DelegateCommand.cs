@@ -1,4 +1,5 @@
 using System;
+using SCHIZO.Commands.Context;
 
 namespace SCHIZO.Commands.Base;
 internal class DelegateCommand : Command

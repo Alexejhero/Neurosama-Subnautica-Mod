@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
 
@@ -11,8 +12,7 @@ public class CompositeCommand : Command
 
     protected override object ExecuteCore(CommandExecutionContext ctx)
     {
-        CommandInput inp = ctx.Input.GetSubCommandInput();
-        if (inp is not { CommandName: string subCommandName })
+        if (ctx.Input.GetSubCommandName() is not string subCommandName)
             return CommonResults.ShowUsage();
         if (!SubCommands.TryGetValue(subCommandName, out Command subCommand))
             return CommonResults.ShowUsage();
@@ -21,7 +21,7 @@ public class CompositeCommand : Command
         subCommand.Execute(subCtx);
         object subResult = subCtx.Result;
         subCtx.Output.ProcessOutput(ref subResult);
-        return null;
+        return subResult;
     }
 
     public void AddSubCommand(Command subCommand)

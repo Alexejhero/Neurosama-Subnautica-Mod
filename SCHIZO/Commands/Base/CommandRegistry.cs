@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Nautilus.Handlers;
 using SCHIZO.Commands.Attributes;
 
 namespace SCHIZO.Commands.Base;
@@ -92,9 +91,9 @@ public static class CommandRegistry
         if (!derivesFromCommand)
         {
             LOGGER.LogError($"""
-                        {type.FullName} will not be registered as a command.
-                        Commands decorated with {nameof(CommandAttribute)} must derive from {nameof(Command)}.
-                        """);
+                {type.FullName} will not be registered as a command.
+                Commands decorated with {nameof(CommandAttribute)} must derive from {nameof(Command)}.
+                """);
             return;
         }
         Command command = (Command)Activator.CreateInstance(type);

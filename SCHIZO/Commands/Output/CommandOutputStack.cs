@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SCHIZO.Commands.Base;
+using SCHIZO.Commands.Context;
 using SCHIZO.Helpers;
 
 namespace SCHIZO.Commands.Output;
@@ -30,7 +31,6 @@ public sealed class CommandOutputStack
         // other's sinks will get processed first
         foreach (ISink sink in other.Sinks)
             Sinks.Push(sink);
-        //Sinks = new(other.Sinks.Concat(Sinks));
     }
 
     public Stack<ISink> Sinks { get; } = [];

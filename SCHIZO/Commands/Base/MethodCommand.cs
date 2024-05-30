@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 using Nautilus.Commands;
 using SCHIZO.Commands.Attributes;
+using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Output;
 
 namespace SCHIZO.Commands.Base;
@@ -63,6 +65,13 @@ internal class MethodCommand : Command
         if (!consumedAll || !parsedAll)
             return CommonResults.ShowUsage();
             //throw new InvalidOperationException("placeholder message for MethodCommand arg parsing failure");
-        return _proxy.Invoke(parsedArgs);
+        try
+        {
+            return _proxy.Invoke(parsedArgs);
+        }
+        catch (TargetInvocationException e) // very "helpful" wrapper
+        {
+            return CommonResults.Exception(e.InnerException);
+        }
     }
 }

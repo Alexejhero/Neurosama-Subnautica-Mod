@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SCHIZO.Helpers;
 internal static class CollectionsHelpers
@@ -35,4 +33,7 @@ internal static class CollectionsHelpers
         foreach (T item in range)
             stack.Push(item);
     }
+
+    public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue defaultValue = default)
+        => dict.TryGetValue(key, out TValue value) ? value : defaultValue;
 }

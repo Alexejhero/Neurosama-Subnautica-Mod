@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using SCHIZO.Commands.Attributes;
+using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Output;
 
 namespace SCHIZO.Commands.Base;
@@ -50,6 +51,8 @@ public abstract class Command
 
     internal void SetInfo(string name, string dispName, string desc, string remarks)
     {
+        if (name.IndexOf(' ') >= 0)
+            throw new ArgumentException($"Command name '{name}' must not contain spaces", nameof(name));
         Name = name;
         DisplayName = dispName;
         Description = desc;
