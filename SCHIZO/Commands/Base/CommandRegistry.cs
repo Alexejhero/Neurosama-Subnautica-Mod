@@ -34,9 +34,9 @@ public static class CommandRegistry
     public static bool TryGetCommand(string name, out Command command)
         => Commands.TryGetValue(name, out command);
 
-    public static void RegisterAttributeDeclarations()
+    public static void RegisterAttributeDeclarations(Assembly assembly)
     {
-        foreach (Type type in typeof(CommandRegistry).Assembly.DefinedTypes)
+        foreach (Type type in assembly.DefinedTypes)
         {
             if (type.GetCustomAttribute<CommandCategoryAttribute>() is { } registerCategory)
             {

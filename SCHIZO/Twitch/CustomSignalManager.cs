@@ -79,7 +79,7 @@ partial class CustomSignalManager
         DisplayName = "Add Signal",
         Description = "Add a signal at the specified position",
         RegisterConsoleCommand = true)]
-    public static object AddSignal(float x, float y, float z, [TakeAll] string signalName = "")
+    public static object AddSignal(float x, float y, float z, [TakeRemaining] string signalName = "")
     {
         if (SaveLoadManager.temporarySavePath is null)
             return null;
@@ -100,7 +100,7 @@ partial class CustomSignalManager
         DisplayName = "Remove Signal",
         Description = "Remove the signal that matches the given name",
         RegisterConsoleCommand = true)]
-    public static object RemoveSignal([TakeAll] string signalName = "")
+    public static object RemoveSignal([TakeRemaining] string signalName = "")
     {
         if (string.IsNullOrEmpty(signalName))
             return CommonResults.ShowUsage();
@@ -123,7 +123,7 @@ partial class CustomSignalManager
         DisplayName = "Replace Signal",
         Description = "Recreates the matching signal (use if the signal prefab classid changes)",
         RegisterConsoleCommand = true)]
-    public static object ReplaceSignal([TakeAll] string signalName = "")
+    public static object ReplaceSignal([TakeRemaining] string signalName = "")
     {
         if (string.IsNullOrEmpty(signalName))
             return CommonResults.ShowUsage();

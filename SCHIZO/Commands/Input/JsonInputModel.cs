@@ -1,18 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Control.Models.Game.Messages;
 
 namespace SCHIZO.Commands.Input;
 
 public sealed record JsonInputModel
 {
-    public enum CommandInvocationSource
-    {
-        Invalid,
-        Dev,
-        Crowd
-    }
-    public readonly record struct TwitchUser(string userName, string displayName);
-
     /// <summary>ID for logging/auditing.</summary>
     public Guid CorrelationId { get; set; }
     /// <summary>

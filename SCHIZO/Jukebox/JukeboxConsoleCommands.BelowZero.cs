@@ -15,7 +15,7 @@ internal static class JukeboxConsoleCommands
         Description = "",
         Remarks = "Track can be specified by enum name or value (e.g. `Track1` or just `1`)",
         RegisterConsoleCommand = true)]
-    public static object UnlockTrack([TakeAll] string track = "")
+    public static object UnlockTrack([TakeRemaining] string track = "")
     {
         if (string.IsNullOrEmpty(track))
             return CommonResults.ShowUsage();

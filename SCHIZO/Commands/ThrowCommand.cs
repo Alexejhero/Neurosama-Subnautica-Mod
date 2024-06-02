@@ -14,7 +14,7 @@ namespace SCHIZO.Commands;
 internal class ThrowCommand : CompositeCommand
 {
     [SubCommand("new")]
-    public static object Throw(string exceptionTypeName, [TakeAll] string message = "")
+    public static object Throw(string exceptionTypeName, [TakeRemaining] string message = "")
     {
         Type type = ReflectionCache.GetType(exceptionTypeName);
         if (type is null)

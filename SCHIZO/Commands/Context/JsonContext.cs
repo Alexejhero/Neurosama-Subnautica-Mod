@@ -4,9 +4,9 @@ using SCHIZO.Commands.Input;
 namespace SCHIZO.Commands.Context;
 internal class JsonContext : CommandExecutionContext
 {
-    public JsonInput JsonInput
+    public RemoteInput JsonInput
     {
-        get => (JsonInput) Input;
+        get => (RemoteInput) Input;
         init => Input = value;
     }
 

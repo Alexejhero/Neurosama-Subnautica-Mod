@@ -28,7 +28,7 @@ internal class MethodCommand : Command
         if (Parameters is null or { Count: 0 }) return;
 
         ParameterInfo lastParam = Parameters[^1];
-        if (lastParam.ParameterType == typeof(string) && lastParam.GetCustomAttribute<TakeAllAttribute>() is { })
+        if (lastParam.ParameterType == typeof(string) && lastParam.GetCustomAttribute<TakeRemainingAttribute>() is { })
             _lastTakeAll = true;
     }
 

@@ -1,50 +1,47 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Net.WebSockets;
+using Control.Components;
+using Control.Services;
+using Control.Setup;
+using Microsoft.AspNetCore.WebSockets;
+using SCHIZO.RemoteControl.Constants;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 IServiceCollection services = builder.Services;
-services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(op =>
-    {
-        op.Cookie.MaxAge = TimeSpan.FromDays(30);
-        op.Cookie.IsEssential = true;
-    })
-    .AddTwitch(op =>
-    {
-        op.Scope.Remove("user:read:email"); // we do not need email
-        op.ClientId = builder.Configuration.GetRequiredSection("Twitch")["ClientId"]!;
-        op.ClientSecret = builder.Configuration.GetRequiredSection("Twitch")["ClientSecret"]!;
+builder.Logging.AddConsole();
 
-        op.Validate();
-    });
-services.AddAuthorizationBuilder()
-    .AddPolicy("Developer", (policy) =>
-    {
-        policy.AddAuthenticationSchemes("Twitch");
-        policy.RequireAuthenticatedUser();
-        policy.RequireAssertion(ctx =>
-        {
-            List<string> allowedUsers = builder.Configuration.GetRequiredSection("Developers").Get<List<string>>()
-                ?? throw new InvalidOperationException("Developers must be a list of Twitch usernames (not display names)");
-            return allowedUsers.Contains(ctx.User.Identity?.Name!);
-        });
-    });
-services.AddRazorPages(op =>
-{
-    // anonymous by default
-    //op.Conventions.AuthorizePage("/Privacy", "Developer"); // defined as an attribute on the page model
-    //op.Conventions.AllowAnonymousToFolder("/"); // overrides all inner AuthorizePage so don't use it
-    //op.Conventions.AllowAnonymousToPage("/Index");
-    //op.Conventions.AllowAnonymousToPage("/Error");
-});
+services.AddWebSockets(op => op.KeepAliveInterval = TimeSpan.FromSeconds(10));
+
+services.AddSingleton<IsDeveloperService>();
+services.AddSingleton<GameConnectionManager>();
+services.AddScoped<UserService>();
+
+builder.AddAuth();
+services.AddHttpContextAccessor();
+services.AddHttpLogging(_ => { });
+
+services.AddScoped<GameConnectionService>();
+
+services.AddDistributedMemoryCache();
+services.AddSession();
+services.AddRateLimiter(RateLimiting.ConfigureRateLimiting);
+
+services.AddRazorComponents()
+    .AddInteractiveServerComponents()
+    .AddInteractiveWebAssemblyComponents();
 
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
+    app.UseWebAssemblyDebugging();
+    app.UseHttpLogging();
+}
+else
+{
+    app.UseExceptionHandler("/Error", true);
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -52,17 +49,29 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseWebSockets();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseAntiforgery();
+app.UseRateLimiter();
 
-app.MapRazorPages();
+app.UseSession();
 
-// "api"
-RouteGroupBuilder apiGroup = app.MapGroup("api");
-apiGroup.MapGet("/whoami", async (ctx) => await ctx.Response.WriteAsync(ctx.User.Identity?.Name ?? "Anonymous"))
-    .AllowAnonymous();
-apiGroup.MapGet("/dev", () => "buh")
-    .RequireAuthorization("Developer");
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode()
+    .AddInteractiveWebAssemblyRenderMode()
+    .AddAdditionalAssemblies(typeof(Control.Client._Imports).Assembly);
+
+app.MapGet(ConnectionConstants.ServerHostWebsocketEndpoint, async (HttpContext ctx) =>
+{
+    GameConnectionService connServ = ctx.RequestServices.GetRequiredService<GameConnectionService>();
+    if (!await connServ.VerifyHostConnectRequest()) return;
+
+    WebSocket socket = await ctx.WebSockets.AcceptWebSocketAsync();
+    if (socket.State != WebSocketState.Open)
+        throw new InvalidOperationException("Could not establish connection");
+    await connServ.HostConnected(socket);
+}).RequireAuthorization();
 
 app.Run();

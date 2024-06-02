@@ -1,0 +1,19 @@
+@page "/Account/Login"
+
+@using Microsoft.AspNetCore.Authentication
+
+@attribute [Authorize(AuthenticationSchemes = "Twitch")]
+@inject NavigationManager nav
+@inject IHttpContextAccessor http
+@rendermode InteractiveServer
+
+<h3>Login</h3>
+
+@code {
+    protected override Task OnInitializedAsync()
+    {
+        string? redirect = http.HttpContext?.Request.Query["ReturnUrl"];
+        nav.NavigateTo(redirect ?? "/", replace: true);
+        return Task.CompletedTask;
+    }
+}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8601737993611430877}
   - component: {fileID: 3432335084998374973}
   - component: {fileID: 5996699951319224428}
+  - component: {fileID: 8864828397280122737}
   m_Layer: 0
   m_Name: TwitchManager
   m_TagString: Untagged
@@ -66,3 +67,16 @@ MonoBehaviour:
     isCustom: 1
     techType: 0
     itemData: {fileID: 11400000, guid: b9c62606afd7fce4db1ccabe00dfdb64, type: 2}
+--- !u!114 &8864828397280122737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6294940666108985101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 789e1ca997af3c94aa927cf292de238c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultWebServerUrl: https://localhost:10987/

@@ -15,22 +15,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Non-project Files", "Non-pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Control", "Control\Control.csproj", "{157C36C7-C4AB-4253-93E9-13F134C2C00D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Control.Client", "Control.Client\Control.Client.csproj", "{FF1254C0-22ED-4E72-A9A3-E4FE1892F9CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		BelowZero|Any CPU = BelowZero|Any CPU
-		Control|Any CPU = Control|Any CPU
 		Subnautica|Any CPU = Subnautica|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.BelowZero|Any CPU.ActiveCfg = BelowZero|Any CPU
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.BelowZero|Any CPU.Build.0 = BelowZero|Any CPU
-		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Control|Any CPU.ActiveCfg = BelowZero|Any CPU
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Subnautica|Any CPU.ActiveCfg = Subnautica|Any CPU
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Subnautica|Any CPU.Build.0 = Subnautica|Any CPU
 		{157C36C7-C4AB-4253-93E9-13F134C2C00D}.BelowZero|Any CPU.ActiveCfg = Debug|Any CPU
-		{157C36C7-C4AB-4253-93E9-13F134C2C00D}.Control|Any CPU.ActiveCfg = Debug|Any CPU
-		{157C36C7-C4AB-4253-93E9-13F134C2C00D}.Control|Any CPU.Build.0 = Debug|Any CPU
+		{157C36C7-C4AB-4253-93E9-13F134C2C00D}.BelowZero|Any CPU.Build.0 = Debug|Any CPU
 		{157C36C7-C4AB-4253-93E9-13F134C2C00D}.Subnautica|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF1254C0-22ED-4E72-A9A3-E4FE1892F9CF}.BelowZero|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF1254C0-22ED-4E72-A9A3-E4FE1892F9CF}.BelowZero|Any CPU.Build.0 = Debug|Any CPU
+		{FF1254C0-22ED-4E72-A9A3-E4FE1892F9CF}.Subnautica|Any CPU.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

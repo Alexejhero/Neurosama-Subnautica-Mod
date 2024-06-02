@@ -43,7 +43,7 @@ public static class DevCommands
         DisplayName = "Message (top left)",
         Description = "Display a text message in the top left corner of the screen.",
         RegisterConsoleCommand = true)]
-    public static void Say([TakeAll] string message = "")
+    public static void Say([TakeRemaining] string message = "")
     {
         ErrorMessage.AddMessage(message);
     }
@@ -52,7 +52,7 @@ public static class DevCommands
         DisplayName = "Message (hint)",
         Description = "Display a hint message",
         RegisterConsoleCommand = true)]
-    public static void Hint([TakeAll] string message = "")
+    public static void Hint([TakeRemaining] string message = "")
     {
         if (string.IsNullOrEmpty(message))
             return;

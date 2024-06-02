@@ -50,6 +50,6 @@ public sealed class Plugin : BaseUnityPlugin
 
         InitializeModAttribute.Run();
 
-        CommandRegistry.RegisterAttributeDeclarations();
+        CommandRegistry.RegisterAttributeDeclarations(PLUGIN_ASSEMBLY);
     }
 }
