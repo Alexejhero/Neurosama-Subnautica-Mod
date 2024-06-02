@@ -22,8 +22,11 @@ public static class EdfPatches
     [HarmonyPostfix]
     public static void OnAttack(LiveMixin __instance, GameObject dealer)
     {
-        if (!ErmfishDefenseForce.instance) return;
-        if (dealer != Player.main.gameObject) return;
+        // NOTE: player dealer is almost always null in SN (knife, exosuit, etc)
+        // BZ exosuit dealer is null too (at least they fixed the knife i guess)
+        if (!ErmfishDefenseForce.instance || !dealer) return;
+        // vehicles and the like
+        if (!Player.main.transform.IsChildOf(dealer.transform)) return;
 
         ErmfishDefenseForce.instance.OnAttack(CraftData.GetTechType(__instance.gameObject));
     }
