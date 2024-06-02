@@ -161,6 +161,7 @@ partial class ErmfishDefenseForce
     {
         if (defender is null)
             yield break;
+        SpawnQueued = true;
         if (defender.maxGroupSize == 0)
         {
             ErrorMessage.AddMessage($"delopver forgor to set group size on {defender.ClassId} everybody point and laugh");
@@ -168,7 +169,6 @@ partial class ErmfishDefenseForce
         }
         int willSpawn = Random.RandomRangeInt(1, defender.maxGroupSize);
         if (debugSpawns) LOGGER.LogDebug($"(EDF) spawning {willSpawn} {defender.ClassId}");
-        SpawnQueued = true;
         TaskResult<GameObject> prefabTask = new();
         yield return defender.GetPrefab(prefabTask);
         GameObject prefab = prefabTask.Get();
