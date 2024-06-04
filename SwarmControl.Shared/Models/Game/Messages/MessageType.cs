@@ -1,4 +1,4 @@
-namespace Control.Models.Game.Messages;
+namespace SwarmControl.Models.Game.Messages;
 
 public enum MessageType
 {

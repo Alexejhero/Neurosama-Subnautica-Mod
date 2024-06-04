@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using SwarmControl.Shared.Models.Game;
 
-namespace Control.Models.Game.Messages;
+namespace SwarmControl.Models.Game.Messages;
 
 public sealed record HelloMessage : GameMessage
 {

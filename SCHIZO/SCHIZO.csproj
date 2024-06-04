@@ -52,6 +52,7 @@
         <EmbeddedResource Remove="Resources/AssetBundles/*.manifest" />
         <None Remove="Resources/AssetBundles/AssetBundles" />
         <None Remove="Resources/AssetBundles/AssetBundles.manifest" />
+        <Reference Include="System.Web" />
 
         <None Update="Resources/AssetBundles/*.manifest">
             <DependentUpon>%(FileName)</DependentUpon>

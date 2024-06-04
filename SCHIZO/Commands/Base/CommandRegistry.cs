@@ -7,6 +7,7 @@ namespace SCHIZO.Commands.Base;
 
 public static class CommandRegistry
 {
+    private const BindingFlags FLAGS = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
     public static Dictionary<string, Command> Commands = new(StringComparer.OrdinalIgnoreCase);
     public static Dictionary<string, List<Command>> Categories = [];
 
@@ -19,6 +20,7 @@ public static class CommandRegistry
 
         if (Commands.ContainsKey(command.Name))
             LOGGER.LogWarning($"Command {command.Name} already registered, overwriting with new");
+        LOGGER.LogDebug($"Registering {command.GetType().Name} {command.Name}");
         Commands[command.Name] = command;
         Categories.GetOrAddNew(category).Add(command);
     }
@@ -61,7 +63,7 @@ public static class CommandRegistry
             return;
         }
 
-        foreach (MethodInfo method in type.GetMethods())
+        foreach (MethodInfo method in type.GetMethods(FLAGS))
         {
             if (method.GetCustomAttribute<CommandAttribute>() is not { } commandAttr)
                 continue;
@@ -101,7 +103,7 @@ public static class CommandRegistry
         if (command is CompositeCommand composite)
         {
             // add subcommands
-            foreach (MethodInfo method in type.GetMethods())
+            foreach (MethodInfo method in type.GetMethods(FLAGS))
             {
                 if (method.GetCustomAttribute<SubCommandAttribute>() is not { } subcommandAttr)
                     continue;

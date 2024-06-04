@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Control.Models.Game.Messages;
+namespace SwarmControl.Models.Game.Messages;
 
 public sealed record InvokeCommandMessage : BackendMessage
 {

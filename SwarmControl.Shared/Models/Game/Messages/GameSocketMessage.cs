@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace Control.Models.Game.Messages;
+namespace SwarmControl.Models.Game.Messages;
 
 public abstract record GameSocketMessage
 {

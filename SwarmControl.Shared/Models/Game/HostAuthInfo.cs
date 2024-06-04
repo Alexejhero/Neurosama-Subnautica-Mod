@@ -1,4 +1,4 @@
-namespace Control.Models.Game;
+namespace SwarmControl.Models.Game;
 
 /// <summary>
 /// Authentication information for a "host" connection to the backend.
