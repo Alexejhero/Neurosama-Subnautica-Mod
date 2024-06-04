@@ -13,9 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Non-project Files", "Non-pr
 		Subnautica.props = Subnautica.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Control", "Control\Control.csproj", "{157C36C7-C4AB-4253-93E9-13F134C2C00D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Control.Client", "Control.Client\Control.Client.csproj", "{FF1254C0-22ED-4E72-A9A3-E4FE1892F9CF}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SwarmControl.Shared", "SwarmControl.Shared\SwarmControl.Shared.shproj", "{D410AD84-1EB0-4F43-B1AF-2149EBC5E2F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,17 +25,15 @@ Global
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.BelowZero|Any CPU.Build.0 = BelowZero|Any CPU
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Subnautica|Any CPU.ActiveCfg = Subnautica|Any CPU
 		{B37C5667-2245-47BC-B268-AA7D2FE105FE}.Subnautica|Any CPU.Build.0 = Subnautica|Any CPU
-		{157C36C7-C4AB-4253-93E9-13F134C2C00D}.BelowZero|Any CPU.ActiveCfg = Debug|Any CPU
-		{157C36C7-C4AB-4253-93E9-13F134C2C00D}.BelowZero|Any CPU.Build.0 = Debug|Any CPU
-		{157C36C7-C4AB-4253-93E9-13F134C2C00D}.Subnautica|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF1254C0-22ED-4E72-A9A3-E4FE1892F9CF}.BelowZero|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF1254C0-22ED-4E72-A9A3-E4FE1892F9CF}.BelowZero|Any CPU.Build.0 = Debug|Any CPU
-		{FF1254C0-22ED-4E72-A9A3-E4FE1892F9CF}.Subnautica|Any CPU.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0FCBA84-5FC1-4BF9-8266-B9788255358E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SwarmControl.Shared\SwarmControl.Shared.projitems*{b37c5667-2245-47bc-b268-aa7d2fe105fe}*SharedItemsImports = 5
+		SwarmControl.Shared\SwarmControl.Shared.projitems*{d410ad84-1eb0-4f43-b1af-2149ebc5e2f3}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

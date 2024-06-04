@@ -1,4 +1,4 @@
-namespace SCHIZO.RemoteControl.Constants;
+namespace SwarmControl.Constants;
 
 public static class ConnectionConstants
 {

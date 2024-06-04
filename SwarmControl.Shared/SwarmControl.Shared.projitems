@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>d410ad84-1eb0-4f43-b1af-2149ebc5e2f3</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SwarmControl.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Constants\ConnectionConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\CommandModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\HostAuthInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\CommandInvocationSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\CommandResultMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\ConsoleInputMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\GameSocketMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\HelloBackMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\HelloMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\InvokeCommandMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\MessageType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\TwitchUser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\ParameterModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)models\game\EnumDefinitionModel.cs" />
+  </ItemGroup>
+</Project>

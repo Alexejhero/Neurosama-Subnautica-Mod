@@ -14,7 +14,7 @@ using Control.Models.Game;
 using Control.Models.Game.Messages;
 using Newtonsoft.Json;
 using SCHIZO.Helpers;
-using SCHIZO.RemoteControl.Constants;
+using SwarmControl.Constants;
 
 namespace SCHIZO.RemoteControl;
 
