@@ -1,15 +1,26 @@
 using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
-namespace SwarmControl.Models.Game.Messages;
+namespace SwarmControl.Shared.Models.Game.Messages;
 
+#nullable enable
+[JsonObject(MemberSerialization = MemberSerialization.OptOut, NamingStrategyType = typeof(CamelCaseNamingStrategy))]
 public abstract record GameSocketMessage
 {
-    [JsonIgnore] // discriminator
+    [JsonRequired]
     public abstract MessageType MessageType { get; }
 
-    public Guid CorrelationId { get; set; }
-    public ulong Timestamp { get; set; }
+    public Guid CorrelationId { get; init; }
+    public long Timestamp { get; }
+
+    public GameSocketMessage()
+    {
+        Timestamp = Now();
+        CorrelationId = Guid.NewGuid();
+    }
+
+    private static long Now() => DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 }
 /// <summary>
 /// Message sent from the game to the backend.
@@ -21,4 +32,7 @@ public abstract record GameMessage : GameSocketMessage;
 public abstract record BackendMessage : GameSocketMessage
 {
     public TwitchUser? User { get; set; }
+
+    public string GetUsername() => User?.Username ?? "(Anonymous)";
+    public string GetDisplayName() => User?.DisplayName ?? "(Anonymous)";
 }

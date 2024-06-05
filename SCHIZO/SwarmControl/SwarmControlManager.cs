@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using System.Collections.Concurrent;
+using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 using SCHIZO.Attributes;
@@ -14,9 +17,11 @@ namespace SCHIZO.SwarmControl;
 partial class SwarmControlManager
 {
     private const string PLAYERPREFS_KEY = $"SCHIZO_{nameof(SwarmControlManager)}";
+    public const string COMMAND = "setswarmcontrolurl";
 
     public static SwarmControlManager Instance { get; private set; }
 
+    internal MessageProcessor Processor { get; private set; }
     public string BackendUrl
     {
         get => PlayerPrefs.GetString($"{PLAYERPREFS_KEY}_{nameof(BackendUrl)}", defaultWebServerUrl);
@@ -29,6 +34,7 @@ partial class SwarmControlManager
     {
         Instance = this;
         _socket = new();
+        Processor = new(_socket);
     }
 
     private void OnDestroy()
@@ -43,7 +49,7 @@ partial class SwarmControlManager
             .AddListener(() => Instance.ButtonPressed());
     }
 
-    [Command(Name = "setswarmcontrolurl", RegisterConsoleCommand = true)]
+    [Command(Name = COMMAND, RegisterConsoleCommand = true)]
     private static void SetUrl(string url)
     {
         Instance.BackendUrl = url;
@@ -60,15 +66,15 @@ partial class SwarmControlManager
     private void Connect()
     {
         CancellationTokenSource cts = new();
-        ShowConfirmation(cts);
+        ShowConfirmation("Connecting...\nA browser window should open shortly.", "Cancel");
+        StartCoroutine(WaitForConfirmationClose(cts));
         StartCoroutine(ConnectCoro(cts.Token));
     }
 
-    private void ShowConfirmation(CancellationTokenSource cts)
+    private void ShowConfirmation(string message, string buttonText = "OK")
     {
-        uGUI.main.confirmation.Show("Connecting...\nA browser window should open shortly.");
-        uGUI.main.confirmation.ok.GetComponentInChildren<TMP_Text>().text = "Cancel";
-        StartCoroutine(WaitForConfirmationClose(cts));
+        uGUI.main.confirmation.Show(message);
+        uGUI.main.confirmation.ok.GetComponentInChildren<TMP_Text>().text = buttonText;
     }
 
     private IEnumerator WaitForConfirmationClose(CancellationTokenSource cts)
@@ -79,6 +85,7 @@ partial class SwarmControlManager
         uGUI.main.confirmation.ok.GetComponentInChildren<TMP_Text>().text = "OK";
     }
 
+    private Coroutine _reconnectCoro;
     private IEnumerator ConnectCoro(CancellationToken ct)
     {
         Task<string> task = _socket.Connect(ct);
@@ -91,13 +98,16 @@ partial class SwarmControlManager
         if (_socket.IsConnected)
         {
             Assets.Mod_Options_SwarmControl.label = "Disconnect Swarm Control";
+            _reconnectCoro = StartCoroutine(AutoReconnectCoro());
         }
     }
 
     private void Disconnect()
     {
+        if (_reconnectCoro is { }) StopCoroutine(_reconnectCoro);
         if (!_socket.IsConnected) return;
         StartCoroutine(DisconnectCoro());
+
     }
 
     private IEnumerator DisconnectCoro()
@@ -109,5 +119,49 @@ partial class SwarmControlManager
             uGUI.main.confirmation.Show(task.Result);
 
         Assets.Mod_Options_SwarmControl.label = "Connect Swarm Control";
+    }
+
+    private ConcurrentQueue<Action> _onMainThread = [];
+    internal void QueueOnMainThread(Action action)
+    {
+        if (CurrentThreadIsMainThread())
+            action();
+        else
+            _onMainThread.Enqueue(action);
+    }
+
+    private void Update()
+    {
+        while (_onMainThread.TryDequeue(out Action action))
+            action();
+    }
+
+    private int _retries;
+    private const int MaxRetries = 5;
+    private IEnumerator AutoReconnectCoro()
+    {
+        while (_retries < MaxRetries)
+        {
+            // unfortunately the socket state stays "Open" even if the server stops replying to pings
+            // so detecting disconnects robustly is left as a "fun" exercise for the reader
+            // no you can't just ReceiveAsync with a timeout ct because cancelling it kills the socket, there's an issue on this that's closed as "by design" Smile
+            if (_socket.IsConnected)
+            {
+                _retries = 0;
+                yield return new WaitForSecondsRealtime(5);
+                continue;
+            }
+            LOGGER.LogDebug("Reconnecting...");
+            Task<bool> task = _socket.ConnectSocket();
+            yield return task.PoorMansAwait();
+            if (!task.Result)
+            {
+                _retries++;
+                yield return new WaitForSecondsRealtime(5);
+            }
+        }
+
+        LOGGER.LogWarning("Could not reconnect to websocket");
+        ShowConfirmation("Lost connection to server\nReconnect in options");
     }
 }

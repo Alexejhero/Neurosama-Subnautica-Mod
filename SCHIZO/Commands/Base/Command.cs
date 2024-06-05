@@ -2,7 +2,6 @@ using System;
 using System.Reflection;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Commands.Context;
-using SCHIZO.Commands.Output;
 
 namespace SCHIZO.Commands.Base;
 

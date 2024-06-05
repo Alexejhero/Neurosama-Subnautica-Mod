@@ -1,4 +1,6 @@
-namespace SwarmControl.Models.Game.Messages;
+using System.Diagnostics.CodeAnalysis;
+
+namespace SwarmControl.Shared.Models.Game.Messages;
 
 public sealed record ConsoleInputMessage : BackendMessage
 {

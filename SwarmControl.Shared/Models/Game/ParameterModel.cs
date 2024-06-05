@@ -1,8 +1,8 @@
 namespace SwarmControl.Shared.Models.Game;
 
-public class ParameterModel
+public class ParameterModel : NamedModel
 {
-    public string Name { get; set; }
     public string Type { get; set; }
     public bool IsOptional { get; set; }
+    public object DefaultValue { get; set; }
 }

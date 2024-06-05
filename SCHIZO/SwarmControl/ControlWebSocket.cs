@@ -1,33 +1,33 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.WebSockets;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using SwarmControl.Models.Game;
-using SwarmControl.Models.Game.Messages;
-using Newtonsoft.Json;
 using SCHIZO.Helpers;
 using SwarmControl.Constants;
+using SwarmControl.Shared.Models.Game.Messages;
+using SwarmControl.Shared.Models.Game;
 
 namespace SCHIZO.SwarmControl;
 
 #nullable enable
-internal class ControlWebSocket : IDisposable
+internal partial class ControlWebSocket : IDisposable
 {
+    public event Action? OnConnected;
+    public event Action<BackendMessage>? OnMessage;
+    public event Action<Exception>? OnError;
+    public event Action<WebSocketCloseStatus, string?>? OnClose;
+
+    public bool IsConnected => _socket.State == WebSocketState.Open;
+    public bool HaveAuthInfo => _authInfo.HasValue;
+
     private ClientWebSocket _socket = new();
     private HostAuthInfo? _authInfo;
     private string _nonce = null!;
     private bool _isDisposed;
-
-    public bool IsConnected => _socket.State == WebSocketState.Open;
-
 
     private ClientWebSocket MakeNewSocket()
     {
@@ -37,6 +37,8 @@ internal class ControlWebSocket : IDisposable
             Options = { KeepAliveInterval = TimeSpan.FromSeconds(5) }
         };
     }
+    public Uri BaseUri => new(SwarmControlManager.Instance.BackendUrl);
+
     /// <summary>
     /// Kick off the flow for connecting to the backend server.<br/>
     /// This will open a new browser window or tab so the backend can authenticate the user to Twitch.<br/>
@@ -48,27 +50,20 @@ internal class ControlWebSocket : IDisposable
     public async Task<string?> Connect(CancellationToken ct = default)
     {
         // open browser
-        Uri baseUri = new(SwarmControlManager.Instance.BackendUrl);
-        if (!baseUri.Scheme.StartsWith("http")) // no :^)
-            return """
+        if (!BaseUri.Scheme.StartsWith("http")) // no :^)
+            return $"""
                 Backend url is invalid
                 Press Shift+Enter to open the console
-                then enter "setswarmcontrolurl <backend url>"
+                then enter "{SwarmControlManager.COMMAND} <backend url>"
                 """;
-        if (_socket is not { State: WebSocketState.None })
-        {
-            LOGGER.LogWarning("Socket was opened, closing");
-            await _socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Reestablishing connection", default);
-            _socket = MakeNewSocket();
-        }
 
         // check if the server responds at all
         try
         {
-            int timeout = baseUri.IsLoopback ? 1 : 5;
+            int timeout = BaseUri.IsLoopback ? 1 : 5;
 
-            using HttpClient client = new() { BaseAddress = baseUri, Timeout = TimeSpan.FromSeconds(timeout) };
-            HttpRequestMessage request = new(HttpMethod.Head, "/");
+            using HttpClient client = new() { BaseAddress = BaseUri, Timeout = TimeSpan.FromSeconds(timeout) };
+            HttpRequestMessage request = new(HttpMethod.Options, "/");
             await client.SendAsync(request, ct);
         }
         catch (Exception e)
@@ -106,7 +101,7 @@ internal class ControlWebSocket : IDisposable
             return "Could not start listener";
         }
 
-        Uri hostLoginUri = new(baseUri, $"{ConnectionConstants.ServerHostEndpoint}?nonce={Uri.EscapeDataString(_nonce)}&port={port}");
+        Uri hostLoginUri = new(BaseUri, $"{ConnectionConstants.ServerHostEndpoint}?nonce={Uri.EscapeDataString(_nonce)}&port={port}");
         // top 10 windows funny moments
         Process.Start("explorer", $"\"{hostLoginUri}\"");
 
@@ -129,25 +124,9 @@ internal class ControlWebSocket : IDisposable
         if (_authInfo is not { TwitchUsername.Length: > 0, Token.Length: > 0 })
             return "Invalid response received\nBackend server may be misconfigured";
 
-        Uri wsBaseUri = new UriBuilder(baseUri) { Scheme = baseUri.Scheme == "https" ? "wss" : "ws" }.Uri;
-        Uri hostWebsocketUri = new(wsBaseUri, ConnectionConstants.ServerHostWebsocketEndpoint);
-
-        _socket.Options.SetRequestHeader(ConnectionConstants.TwitchUsernameHeader, _authInfo?.TwitchUsername);
-        _socket.Options.SetRequestHeader(ConnectionConstants.TokenHeader, Uri.EscapeDataString(_authInfo?.Token));
-
-        try
-        {
-            LOGGER.LogInfo("Connecting to websocket");
-            await _socket.ConnectAsync(hostWebsocketUri, default);
-        }
-        catch (Exception e)
-        {
-            LOGGER.LogWarning("surprise connection renegotiation");
-            LOGGER.LogError(e);
-            // socket disposes itself on connection error
-            _socket = MakeNewSocket();
+        if (!await ConnectSocket())
             return "Could not establish socket connection, try again";
-        }
+
         return $"Connected as {_authInfo?.TwitchUsername}";
 
         async Task<HostAuthInfo?> GetTokenAsync(HttpListener listener, CancellationToken ct = default)
@@ -201,6 +180,49 @@ internal class ControlWebSocket : IDisposable
         }
     }
 
+    public async Task<bool> ConnectSocket()
+    {
+        if (IsConnected) return true;
+        if (!HaveAuthInfo) return false;
+
+        if (_socket is not { State: WebSocketState.None })
+        {
+            // you can't reuse a socket that has already been opened at any point
+            LOGGER.LogWarning("Socket was opened, remaking");
+            if (_socket?.State is WebSocketState.Open or WebSocketState.CloseSent or WebSocketState.CloseReceived)
+                await _socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Reestablishing connection", default);
+            _socket = MakeNewSocket();
+        }
+
+        Uri wsBaseUri = new UriBuilder(BaseUri) { Scheme = BaseUri.Scheme == "https" ? "wss" : "ws" }.Uri;
+        Uri hostWebsocketUri = new(wsBaseUri, ConnectionConstants.ServerHostWebsocketEndpoint);
+
+        _socket.Options.SetRequestHeader(ConnectionConstants.TwitchUsernameHeader, _authInfo?.TwitchUsername);
+        _socket.Options.SetRequestHeader(ConnectionConstants.TokenHeader, Uri.EscapeDataString(_authInfo?.Token));
+
+        try
+        {
+            LOGGER.LogInfo("Connecting to websocket");
+            await _socket.ConnectAsync(hostWebsocketUri, default);
+        }
+        catch (Exception e)
+        {
+            LOGGER.LogWarning("failed to connect ws");
+            if (e is not WebSocketException)
+                LOGGER.LogError(e);
+            // socket disposes itself on connection error
+            _socket = MakeNewSocket();
+            return false;
+        }
+        OnConnected?.Invoke();
+#pragma warning disable CS4014 // on purpose, these are background threads
+        Task.Run(SendThread);
+        Task.Run(ReceiveThread);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
+        return true;
+    }
+
     public async Task<string?> Disconnect()
     {
         if (!IsConnected) return null;
@@ -209,68 +231,11 @@ internal class ControlWebSocket : IDisposable
         try
         {
             await _socket.CloseAsync(WebSocketCloseStatus.NormalClosure, null, default);
+            // don't call OnClose since it's an explicit disconnect request
         }
         catch { } // she'll be right
         _socket = MakeNewSocket();
         return "Disconnected";
-    }
-
-    public async Task SendStringAsync(string message, CancellationToken ct = default)
-    {
-        if (string.IsNullOrEmpty(message))
-            throw new ArgumentNullException(nameof(message));
-
-        ValidateOpen();
-
-        await _socket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(message)), WebSocketMessageType.Text, true, ct);
-    }
-
-    public async Task SendJsonAsync(GameMessage toSerialize)
-        => await SendStringAsync(JsonConvert.SerializeObject(toSerialize, Formatting.None));
-
-    public async Task<string> ReceiveStringAsync(CancellationToken ct = default)
-    {
-        ValidateOpen();
-
-        using MemoryStream ms = new();
-        using RentedArray<byte> rent = new(1024, true);
-
-        ArraySegment<byte> buffer = new(rent.Array);
-        WebSocketReceiveResult? result = null;
-        while (result is not { EndOfMessage: true })
-        {
-            result = await _socket.ReceiveAsync(buffer, ct);
-            if (result.MessageType != WebSocketMessageType.Text)
-            {
-                await _socket.CloseOutputAsync(WebSocketCloseStatus.InvalidMessageType, "Unexpected binary data", ct);
-                throw new InvalidDataException("Received unexpected binary data");
-            }
-            ms.Write(buffer.Array, 0, result.Count);
-        }
-        return Encoding.UTF8.GetString(ms.ToArray());
-    }
-
-    [MemberNotNull(nameof(_socket))]
-    private void ValidateOpen()
-    {
-        if (_socket?.State != WebSocketState.Open)
-            throw new InvalidOperationException("Socket not connected");
-    }
-
-    public async Task<BackendMessage> ReceiveMessageAsync(CancellationToken ct = default)
-    {
-        string json = await ReceiveStringAsync(ct);
-        Dictionary<string, object?> data = JsonConvert.DeserializeObject<Dictionary<string, object?>>(json)
-            ?? throw new InvalidDataException("Malformed message");
-        string? messageTypeName = data.GetOrDefault("messageType") as string;
-        if (string.IsNullOrEmpty(messageTypeName))
-            throw new InvalidDataException("Missing messageType");
-        if (!Enum.TryParse(messageTypeName, out MessageType type) || ReflectionCache.GetType($"Control.Models.Game.Messages.{type}Message") is not Type messageType)
-            throw new InvalidDataException("Invalid messageType");
-        if (!typeof(BackendMessage).IsAssignableFrom(messageType))
-            throw new InvalidDataException("Received a non-backend message from backend");
-        return (BackendMessage) (JsonConvert.DeserializeObject(json, messageType)
-            ?? throw new InvalidDataException("Failed to deserialize backend message"));
     }
 
     public void Dispose()

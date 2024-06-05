@@ -1,7 +1,3 @@
-﻿namespace SwarmControl.Models.Game.Messages;
+namespace SwarmControl.Shared.Models.Game.Messages;
 
-public readonly struct TwitchUser
-{
-    public readonly string UserName;
-    public readonly string DisplayName;
-}
+public record TwitchUser(string Username, string DisplayName);

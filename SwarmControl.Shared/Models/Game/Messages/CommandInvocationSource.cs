@@ -1,4 +1,4 @@
-﻿namespace SwarmControl.Models.Game.Messages;
+namespace SwarmControl.Shared.Models.Game.Messages;
 
 public enum CommandInvocationSource
 {

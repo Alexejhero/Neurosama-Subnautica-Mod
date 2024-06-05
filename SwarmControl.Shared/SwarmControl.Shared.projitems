@@ -12,8 +12,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Constants\ConnectionConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\CommandModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\HostAuthInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\CommandAvailabilityChangedMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\CommandInvocationSource.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\CommandResultMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\ResultMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\ConsoleInputMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\GameSocketMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\HelloBackMessage.cs" />
@@ -21,7 +22,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\InvokeCommandMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\MessageType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\TwitchUser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\NamedModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\ParameterModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)models\game\EnumDefinitionModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\EnumDefinitionModel.cs" />
   </ItemGroup>
 </Project>

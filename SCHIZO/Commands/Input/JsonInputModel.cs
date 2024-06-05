@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using SwarmControl.Models.Game.Messages;
+using SwarmControl.Shared.Models.Game.Messages;
 
 namespace SCHIZO.Commands.Input;
 
@@ -16,7 +16,7 @@ public sealed record JsonInputModel
     /// Twitch user that invoked the command.<br/>
     /// Crowd Control users can choose to redeem anonymously.
     /// </summary>
-    public TwitchUser? User { get; set; }
+    public TwitchUser User { get; set; }
     /// <summary>
     /// Timestamp for queueing/logging/auditing.
     /// </summary>

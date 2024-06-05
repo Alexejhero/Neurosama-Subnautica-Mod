@@ -1,13 +1,9 @@
 using System;
 using System.Buffers;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SCHIZO.Helpers;
-internal struct RentedArray<T>(int size, bool clearAfterUse) : IDisposable
+internal struct RentedArray<T>(int size, bool clearAfterUse = true) : IDisposable
 {
     private int _disposed;
     public bool ClearAfterUse { get; } = clearAfterUse;
