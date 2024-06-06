@@ -26,15 +26,15 @@ public class StringInput : CommandInput
         => ArgsString?.SplitOnce(' ').Before;
     public override IEnumerable<object> GetPositionalArguments()
         => CacheArgs() ?? [];
-    public override Dictionary<string, object> GetNamedArguments()
+    public override NamedArgs GetNamedArguments()
     {
         if (Command is not MethodCommand comm)
-            return [];
+            return new([]);
 
         MethodCommand.ArgParseResult res = comm.TryParsePositionalArgs(CacheArgs());
-        return res.ParsedArgs
+        return new(res.ParsedArgs
             .Zip(comm.Parameters, (a, b) => (a, b))
-            .ToDictionary(pair => pair.b.Name, pair => pair.a);
+            .ToDictionary(pair => pair.b.Name, pair => pair.a));
     }
 
     private string[] CacheArgs()

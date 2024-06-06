@@ -1,19 +1,26 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Nautilus.Extensions;
+using SwarmControl.Shared.Models.Game;
 
 namespace SCHIZO.Commands.Base;
 #nullable enable
-public class Parameter
+public class Parameter : NamedModel
 {
-    public string Name { get; internal set; }
-    public string? DisplayName { get; internal set; }
-    public string? Description { get; internal set; }
     public Type Type { get; internal set; }
     public Type UnderlyingValueType { get; internal set; }
     public bool IsOptional { get; internal set; }
-    public bool HasDefaultValue => _defaultValue == DBNull.Value;
+    public bool HasDefaultValue => _defaultValue != DBNull.Value;
     private object? _defaultValue = DBNull.Value;
+    /// <summary>
+    /// Default value for this parameter.<br/>
+    /// </summary>
+    /// <remarks>
+    /// If not set, this will be <see cref="DBNull.Value"/>, to differentiate from an explicitly set <see langword="null"/>.<br/>
+    /// If <see cref="IsOptional"/> is <see langword="true"/>, this will return <see cref="Type.Missing"/> instead (see <seealso href="https://learn.microsoft.com/en-us/dotnet/api/system.type.missing">documentation</seealso>).<br/>
+    /// See <see cref="ParameterInfo.DefaultValue"/> for more info (specifically the <seealso href="https://referencesource.microsoft.com/#mscorlib/system/reflection/parameterinfo.cs,569">reference source</seealso>).
+    /// </remarks>
     public object? DefaultValue
     {
         get
@@ -27,20 +34,21 @@ public class Parameter
         set => _defaultValue = value;
     }
 
-    public Parameter(string name, Type type, bool isOptional = false, string? displayName = null, string? description = null)
-        : this(name, type, DBNull.Value, displayName, description)
+    [SetsRequiredMembers]
+    public Parameter(NamedModel name, Type type, bool isOptional = false)
+        : this(name, type, DBNull.Value)
     {
         IsOptional = isOptional;
     }
-    public Parameter(string name, Type type, object? defaultValue, string? displayName = null, string? description = null)
+    [SetsRequiredMembers]
+    public Parameter(NamedModel name, Type type, object? defaultValue)
+        : base(name)
     {
-        Name = name;
-        DisplayName = displayName;
-        Description = description;
         Type = type;
         UnderlyingValueType = type.GetUnderlyingType();
         DefaultValue = defaultValue;
     }
+    [SetsRequiredMembers]
     public Parameter(ParameterInfo info)
         : this(info.Name, info.ParameterType, info.IsOptional)
     {

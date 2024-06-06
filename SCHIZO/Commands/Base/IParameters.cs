@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using SCHIZO.Commands.Base;
 
-namespace SCHIZO.SwarmControl.Redeems;
+namespace SCHIZO.Commands.Base;
 
 internal interface IParameters
 {

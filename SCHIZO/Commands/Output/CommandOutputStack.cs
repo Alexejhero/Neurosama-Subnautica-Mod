@@ -16,7 +16,8 @@ public sealed class CommandOutputStack
     /// <summary>
     /// Output stack that shows a UI message for the output like Nautilus but can suppress it if called silently.
     /// </summary>
-    public static CommandOutputStack ConsoleSelf = new([UiMessageSink.Sneaky]);
+    public static CommandOutputStack ConsoleSelf => new([UiMessageSink.Sneaky]);
+    public static CommandOutputStack Empty => new(NullSink.Instance);
 
     public CommandOutputStack() { }
     public CommandOutputStack(params ISink[] sinks) : this(sinks.AsEnumerable()) { }

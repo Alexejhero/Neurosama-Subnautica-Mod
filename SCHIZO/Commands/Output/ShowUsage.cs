@@ -1,6 +1,5 @@
 using System.Text;
 using SCHIZO.Commands.Base;
-using SCHIZO.SwarmControl.Redeems;
 
 namespace SCHIZO.Commands.Output;
 internal class ShowUsage(Command command) : ISink
@@ -20,12 +19,12 @@ internal class ShowUsage(Command command) : ISink
     public static string GetUsageString(Command command)
     {
         StringBuilder sb = new();
-        if (command is IParameters mc)
+        if (command is IParameters { Parameters: { } parameters})
         {
             sb.Append(command.Name);
-            foreach (Parameter param in mc.Parameters)
+            foreach (Parameter param in parameters)
             {
-                bool isOptional = param.IsOptional || param.Type.IsArray;
+                bool isOptional = param.IsOptional || param.HasDefaultValue || param.Type.IsArray;
                 string paramNameSurrounded = isOptional ? $"[{param.Name}]" : $"<{param.Name}>";
                 sb.Append($" {paramNameSurrounded}");
             }

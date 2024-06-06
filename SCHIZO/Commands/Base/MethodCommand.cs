@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Nautilus.Commands;
+using Nautilus.Extensions;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
-using SCHIZO.SwarmControl.Redeems;
 
 namespace SCHIZO.Commands.Base;
 #nullable enable
@@ -31,6 +31,8 @@ internal class MethodCommand : Command, IParameters
         Parameters = paramInfos
             .Select(pi => new Parameter(pi))
             .ToArray();
+        if (paramInfos.Length == 0) return;
+
         ParameterInfo lastParam = paramInfos[^1];
         if (lastParam.ParameterType == typeof(string) && lastParam.GetCustomAttribute<TakeRemainingAttribute>() is { })
             _lastTakeAll = true;
@@ -64,7 +66,7 @@ internal class MethodCommand : Command, IParameters
         };
     }
 
-    internal static ArgParseResult TryParseNamedArgs(Dictionary<string, object>? args, IReadOnlyList<Parameter> parameters)
+    internal static ArgParseResult TryParseNamedArgs(Dictionary<string, object?>? args, IReadOnlyList<Parameter> parameters)
     {
         int paramCount = parameters.Count;
 
@@ -72,15 +74,26 @@ internal class MethodCommand : Command, IParameters
             return new(true, paramCount == 0, []);
 
         List<object?> parsedArgs = [];
-        Dictionary<string, object> argsCopy = new(args);
+        Dictionary<string, object?> argsCopy = new(args);
         List<Parameter> paramsLeft = [.. parameters];
         for (int i = paramCount - 1; i >= 0; i--)
         {
             Parameter param = paramsLeft[i];
             if (argsCopy.TryGetValue(param.Name, out object? value))
             {
-                if (value.GetType() != param.Type)
+                // check value type is nullable
+                if (value is null)
+                {
+                    // allow reference types and nullable value type
+                    // forbid non-nullable value types
+                    if (param.Type.IsValueType && !param.Type.TryUnwrapNullableType(out _))
+                        break;
+                }
+                else if (value.GetType() != param.Type)
+                {
                     break;
+                }
+
                 parsedArgs.Add(value);
                 argsCopy.Remove(param.Name);
                 paramsLeft.RemoveAt(i);

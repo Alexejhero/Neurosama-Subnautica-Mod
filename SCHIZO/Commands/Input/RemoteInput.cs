@@ -28,7 +28,7 @@ public class RemoteInput : CommandInput
         }
     }
 
-    public override Dictionary<string, object> GetNamedArguments() => Model.Args ?? [];
+    public override NamedArgs GetNamedArguments() => new(Model.Args ?? []);
 
     public override CommandInput GetSubCommandInput(Command subCommand)
         => new RemoteInput()

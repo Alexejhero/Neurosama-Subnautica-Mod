@@ -27,17 +27,24 @@ public class FMODCommand : CompositeCommand
         if (string.IsNullOrEmpty(pathOrGuid))
             return "Null sound path";
 
-        if (distance <= 0 || !Camera.main)
+        try
         {
-            FMODHelpers.PlayPath2D(pathOrGuid);
+            if (distance <= 0 || !Camera.main)
+            {
+                FMODHelpers.PlayPath2D(pathOrGuid);
+            }
+            else
+            {
+                Vector3 deltaPos = UnityEngine.Random.onUnitSphere * distance;
+                Vector3 pos = Camera.main.transform.position + deltaPos;
+                RuntimeManager.PlayOneShot(pathOrGuid, pos);
+            }
+            return null;
         }
-        else
+        catch (EventNotFoundException e)
         {
-            Vector3 deltaPos = UnityEngine.Random.onUnitSphere * distance;
-            Vector3 pos = Camera.main.transform.position + deltaPos;
-            RuntimeManager.PlayOneShot(pathOrGuid, pos);
+            return $"FMOD event not found: {e.Message}";
         }
-        return null;
     }
     [SubCommand]
     public static string GetPath(string guid) => FMODHelpers.GetPath(guid);

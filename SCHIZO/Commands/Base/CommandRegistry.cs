@@ -38,16 +38,21 @@ public static class CommandRegistry
 
     public static void RegisterAttributeDeclarations(Assembly assembly)
     {
-        foreach (Type type in assembly.DefinedTypes)
+        foreach (Type type in assembly.GetTypes())
         {
-            if (type.GetCustomAttribute<CommandCategoryAttribute>() is { } registerCategory)
-            {
-                RegisterCategory(type, registerCategory);
-            }
-            else if (type.GetCustomAttribute<CommandAttribute>() is { } commandAttr)
+            CommandAttribute commandAttr = type.GetCustomAttribute<CommandAttribute>();
+            CommandCategoryAttribute categoryAttr = type.GetCustomAttribute<CommandCategoryAttribute>();
+            // todo pull the two methods below into this one (yes a megamethod)
+            // there are interactions/combos between the two attributes (e.g. [Command]+[CommandCategory] : Command)
+            if (commandAttr is { })
             {
                 RegisterCommand(type, commandAttr);
             }
+            else if (categoryAttr is { })
+            {
+                RegisterCategory(type, categoryAttr);
+            }
+            // todo register nested types ([Command] under static [CommandCategory], or [SubCommand] under CompositeCommand)
         }
     }
 
@@ -56,10 +61,8 @@ public static class CommandRegistry
         bool derivesFromCommand = typeof(Command).IsAssignableFrom(type);
         if (derivesFromCommand)
         {
-            LOGGER.LogError($"""
-                {nameof(CommandCategoryAttribute)} on {type.FullName} will be skipped.
-                The {nameof(CommandCategoryAttribute)} attribute is meant to register a category (collection) of separate commands and thus is not allowed on types deriving from {nameof(Command)} (single commands).
-                """);
+            LOGGER.LogDebug($"Registering single {type.Name} to {attr.Category}");
+            Register((Command)Activator.CreateInstance(type), attr.Category);
             return;
         }
 
