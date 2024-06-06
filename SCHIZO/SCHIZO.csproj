@@ -26,6 +26,7 @@
         <Publicize Include="Nautilus:Nautilus.Commands.ConsoleCommand" />
         <Publicize Include="Nautilus:Nautilus.Commands.Parameter" />
         <Publicize Include="Nautilus:Nautilus.Options.ModOptions._options" />
+        <Publicize Include="Nautilus:Nautilus.Extensions.TypeExtensions" />
     </ItemGroup>
 
     <ItemGroup>

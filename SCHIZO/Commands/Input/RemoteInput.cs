@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using SwarmControl.Shared.Models.Game.Messages;
 using SCHIZO.Commands.Base;
 using SCHIZO.Helpers;
@@ -20,12 +19,16 @@ public class RemoteInput : CommandInput
         if (Model.Args is not { Count: > 0 }) yield break;
         if (Command is not MethodCommand comm) yield break;
 
-        foreach (ParameterInfo p in comm.Parameters)
+        foreach (Parameter p in comm.Parameters)
         {
             if (Model.Args.TryGetValue(p.Name, out object? value))
                 yield return value;
+            else
+                yield return p.DefaultValue;
         }
     }
+
+    public override Dictionary<string, object> GetNamedArguments() => Model.Args ?? [];
 
     public override CommandInput GetSubCommandInput(Command subCommand)
         => new RemoteInput()

@@ -14,6 +14,7 @@ public abstract class CommandInput
     public virtual string AsConsoleString()
         => $"{Command.Name} {string.Join(" ", GetPositionalArguments())}";
     public abstract IEnumerable<object?> GetPositionalArguments();
+    public abstract Dictionary<string, object> GetNamedArguments();
 
     public abstract string? GetSubCommandName();
     public abstract CommandInput GetSubCommandInput(Command subCommand);

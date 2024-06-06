@@ -49,7 +49,7 @@ public sealed class NautilusCommandWrapper
         ConsoleCommandContext ctx = new()
         {
             Command = Command,
-            Input = new Input.ConsoleInput(input) { Command = Command },
+            Input = new Input.StringInput(input) { Command = Command },
             Output = new(),
         };
         ctx.Output.ModifyForConsoleNautilus(ctx);

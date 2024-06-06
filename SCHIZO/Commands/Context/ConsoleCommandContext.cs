@@ -3,9 +3,9 @@ using SCHIZO.Commands.Base;
 namespace SCHIZO.Commands.Context;
 internal class ConsoleCommandContext : CommandExecutionContext
 {
-    public Input.ConsoleInput ConsoleInput
+    public Input.StringInput ConsoleInput
     {
-        get => (Input.ConsoleInput)Input;
+        get => (Input.StringInput)Input;
         init => Input = value;
     }
 

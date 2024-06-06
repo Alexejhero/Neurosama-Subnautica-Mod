@@ -2,20 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.ExceptionServices;
 using Nautilus.Commands;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Commands.Context;
+using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
+using SCHIZO.SwarmControl.Redeems;
 
 namespace SCHIZO.Commands.Base;
-internal class MethodCommand : Command
+#nullable enable
+internal class MethodCommand : Command, IParameters
 {
     private readonly ConsoleCommand _proxy;
     private readonly bool _lastTakeAll;
-    public IReadOnlyList<ParameterInfo> Parameters { get; protected set;}
+    public IReadOnlyList<Parameter> Parameters { get; protected set; } = [];
 
-    public MethodCommand(MethodInfo method, object instance = null)
+    public MethodCommand(MethodInfo method, object? instance = null)
     {
         if (method.IsStatic && instance is { })
             throw new ArgumentException("Static method does not need instance");
@@ -24,54 +26,84 @@ internal class MethodCommand : Command
         else if (method.Name.IndexOf('>') >= 0) // mangled (delegate, lambda, inner function, etc...)
             throw new ArgumentException($"Use {nameof(DelegateCommand)} instead of {nameof(MethodCommand)} for delegate methods (lambda, inner function, etc.)");
         _proxy = new("", method, instance: instance);
-        Parameters = method.GetParameters();
-        if (Parameters is null or { Count: 0 }) return;
+        ParameterInfo[] paramInfos = method.GetParameters();
 
-        ParameterInfo lastParam = Parameters[^1];
+        Parameters = paramInfos
+            .Select(pi => new Parameter(pi))
+            .ToArray();
+        ParameterInfo lastParam = paramInfos[^1];
         if (lastParam.ParameterType == typeof(string) && lastParam.GetCustomAttribute<TakeRemainingAttribute>() is { })
             _lastTakeAll = true;
     }
 
+    internal readonly record struct ArgParseResult(bool ConsumedAllArgs, bool ParsedAllParams, object[] ParsedArgs);
+
     protected override object ExecuteCore(CommandExecutionContext ctx)
     {
-        // todo: do better (e.g. named parameters from JSON, remove unnecessary joining/splitting strings, parse enums, parse successive floats as vectors, etc.)
-        // it just needs a ton of code practically copied from how nautilus parses commands/args (because it already does like 80% of what we need)
-        // which as a practice is meh at best
-        int paramCount = Parameters.Count;
-
-        string fullString = ctx.Input.AsConsoleString();
-        int firstSpace = fullString.IndexOf(' ');
-        IReadOnlyList<string> args;
-        if (firstSpace >= 0)
-        {
-            string argsString = fullString[(firstSpace + 1)..];
-            args = argsString.Split(' ');
-            if (_lastTakeAll && args.Count > paramCount)
-            {
-                args = args.Take(paramCount - 1)
-                    .Append(string.Join(" ", args.Skip(paramCount - 1)))
-                    .ToArray();
-            }
-        }
-        else
-        {
-            args = [];
-        }
-
-        // specifically reimplementing this would be a massive pain
-        (int consumed, int parsed) = _proxy.TryParseParameters(args, out object[] parsedArgs);
-        bool consumedAll = consumed >= args.Count;
-        bool parsedAll = parsed == paramCount;
-        if (!consumedAll || !parsedAll)
+        ArgParseResult res = TryParseArgs(ctx);
+        if (!res.ConsumedAllArgs || !res.ParsedAllParams)
             return CommonResults.ShowUsage();
             //throw new InvalidOperationException("placeholder message for MethodCommand arg parsing failure");
         try
         {
-            return _proxy.Invoke(parsedArgs);
+            return _proxy.Invoke(res.ParsedArgs);
         }
         catch (TargetInvocationException e) // very "helpful" wrapper
         {
             return CommonResults.Exception(e.InnerException);
         }
+    }
+
+    protected virtual ArgParseResult TryParseArgs(CommandExecutionContext ctx)
+    {
+        return ctx.Input switch
+        {
+            StringInput consoleInput => TryParsePositionalArgs(consoleInput.GetPositionalArguments().Cast<string>().ToList()),
+            RemoteInput jsonInput => TryParseNamedArgs(jsonInput.Model.Args, Parameters),
+            _ => throw new InvalidOperationException("Unsupported command input type"),
+        };
+    }
+
+    internal static ArgParseResult TryParseNamedArgs(Dictionary<string, object>? args, IReadOnlyList<Parameter> parameters)
+    {
+        int paramCount = parameters.Count;
+
+        if (args is null)
+            return new(true, paramCount == 0, []);
+
+        List<object?> parsedArgs = [];
+        Dictionary<string, object> argsCopy = new(args);
+        List<Parameter> paramsLeft = [.. parameters];
+        for (int i = paramCount - 1; i >= 0; i--)
+        {
+            Parameter param = paramsLeft[i];
+            if (argsCopy.TryGetValue(param.Name, out object? value))
+            {
+                if (value.GetType() != param.Type)
+                    break;
+                parsedArgs.Add(value);
+                argsCopy.Remove(param.Name);
+                paramsLeft.RemoveAt(i);
+            }
+            else if (!param.IsOptional)
+            {
+                break;
+            }
+        }
+        return new(argsCopy.Count == 0, paramsLeft.Count == 0, [..parsedArgs]);
+    }
+
+    internal ArgParseResult TryParsePositionalArgs(IReadOnlyList<string> args)
+    {
+        int paramCount = Parameters.Count;
+        if (_lastTakeAll && args.Count > paramCount)
+        {
+            args = args.Take(paramCount - 1)
+                .Append(string.Join(" ", args.Skip(paramCount - 1)))
+                .ToArray();
+        }
+        // aaa i don't want to reimplement this
+        (int consumed, int parsed) = _proxy.TryParseParameters(args, out object[] parsedArgs);
+        return new(consumed == args.Count, parsed == Parameters.Count, parsedArgs);
     }
 }

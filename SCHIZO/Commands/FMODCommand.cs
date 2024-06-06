@@ -7,6 +7,7 @@ using FMODUnity;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Commands.Base;
 using SCHIZO.Helpers;
+using UnityEngine;
 
 namespace SCHIZO.Commands;
 
@@ -17,6 +18,27 @@ namespace SCHIZO.Commands;
     )]
 public class FMODCommand : CompositeCommand
 {
+    [SubCommand]
+    public static string Play(string pathOrGuid, float distance = 0)
+    {
+        if (Guid.TryParse(pathOrGuid, out Guid guid))
+            pathOrGuid = GetPath(guid.ToString());
+
+        if (string.IsNullOrEmpty(pathOrGuid))
+            return "Null sound path";
+
+        if (distance <= 0 || !Camera.main)
+        {
+            FMODHelpers.PlayPath2D(pathOrGuid);
+        }
+        else
+        {
+            Vector3 deltaPos = UnityEngine.Random.onUnitSphere * distance;
+            Vector3 pos = Camera.main.transform.position + deltaPos;
+            RuntimeManager.PlayOneShot(pathOrGuid, pos);
+        }
+        return null;
+    }
     [SubCommand]
     public static string GetPath(string guid) => FMODHelpers.GetPath(guid);
     [SubCommand]

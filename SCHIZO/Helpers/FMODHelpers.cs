@@ -39,8 +39,7 @@ internal static class FMODHelpers
         }
         else
         {
-            RuntimeManager.LoadedBank loadedBank = new() { Bank = bank, RefCount = 1 };
-            fmodRuntime.loadedBanks[fileName] = loadedBank;
+            fmodRuntime.loadedBanks[fileName] = new() { Bank = bank, RefCount = 1 };
         }
     }
 
