@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
+using SCHIZO.Commands.Output;
+using SwarmControl.Shared.Models.Game.Messages;
 
 namespace SCHIZO.Commands.Base;
 #nullable enable
@@ -19,7 +22,7 @@ internal abstract class ProxyCommand<T> : Command, IParameters
     protected ProxyCommand(string targetName)
     {
         Target = null!;
-        OnRegister += () =>
+        PostRegister += () =>
         {
             if (CommandRegistry.TryGetCommand(targetName, out Command targetMaybe)
                 && targetMaybe is T targetDefinitely)
@@ -44,20 +47,28 @@ internal abstract class ProxyCommand<T> : Command, IParameters
     }
     protected virtual JsonContext GetContextForTarget(JsonContext proxyCtx)
     {
+        RemoteInput targetInput = new()
+        {
+            Command = Target,
+            Model = proxyCtx.JsonInput.Model with
+            {
+                Args = GetTargetArgs(proxyCtx.JsonInput.Model.Args),
+                Announce = false,
+            },
+        };
         return new()
         {
             Command = Target,
-            Input = new RemoteInput()
-            {
-                Command = Target,
-                Model = proxyCtx.JsonInput.Model with
-                {
-                    Args = GetTargetArgs(proxyCtx.JsonInput.Model.Args),
-                },
-            },
-            Output = new(proxyCtx.Output.Sinks)
+            Input = targetInput,
+            Output = new([
+                NullSink.Instance, // stop it before it gets to default sinks (which would log the result twice)
+                new DelegateSink((ref object _) => {
+                    LOGGER.LogInfo($"{GetType().Name} {targetInput.AsConsoleString()}");
+                    return false;
+                }),
+            ])
         };
     }
-    // here, do things like adding default args
+    // here, do things like adding default args or overriding/converting to target command's param types
     protected abstract Dictionary<string, object?>? GetTargetArgs(Dictionary<string, object?>? proxyArgs);
 }

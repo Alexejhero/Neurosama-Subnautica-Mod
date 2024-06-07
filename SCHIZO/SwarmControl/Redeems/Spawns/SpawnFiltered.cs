@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using SCHIZO.Commands.Base;
 using SCHIZO.Commands.ConsoleCommands;
+using SCHIZO.Commands.Input;
 
 namespace SCHIZO.SwarmControl.Redeems.Spawns;
 #nullable enable
@@ -10,6 +11,7 @@ internal class SpawnFiltered<T> : ProxyCommand<SpawnCommand>
 {
     protected virtual string SpawnThingName => "Creature";
     protected virtual string TechTypeParamName => SpawnThingName.ToLowerInvariant();
+    protected virtual float SpawnDistance => 5;
 
     public override IReadOnlyList<Parameter> Parameters { get; }
 
@@ -18,7 +20,7 @@ internal class SpawnFiltered<T> : ProxyCommand<SpawnCommand>
         Parameters = [
             new(new(TechTypeParamName, SpawnThingName, $"The type of {TechTypeParamName} to spawn."),
                 typeof(T)),
-            new(new("behind", "Spawn Behind", "If checked, spawn the creature behind the player"),
+            new(new("behind", "Spawn Behind", "Spawn the creature behind the player"),
                 typeof(bool), defaultValue: false),
         ];
     }
@@ -27,17 +29,19 @@ internal class SpawnFiltered<T> : ProxyCommand<SpawnCommand>
     {
         if (proxyArgs is null)
             return null;
+        NamedArgs args = new(proxyArgs);
         Dictionary<string, object?> targetArgs = [];
-        if (proxyArgs.TryGetValue("creature", out object? proxyThingTypeBoxed)
-            && proxyThingTypeBoxed is T proxyThingType)
+        if (args.TryGetValue(TechTypeParamName, out T proxyThingType))
         {
-            targetArgs["techType"] = Enum.Parse(typeof(TechType), proxyThingType.ToString());
+            targetArgs["techType"] = proxyThingType.ToString();
         }
-        if (proxyArgs.TryGetValue("behind", out object? behindBoxed)
-            && behindBoxed is bool behind)
+        else
         {
-            targetArgs["distance"] = behind ? -5 : 5;
+            // console command will validate and return this in the error result
+            targetArgs["techType"] = $"INVALID_{args.GetOrDefault(TechTypeParamName, "null")}";
         }
+        bool behind = args.GetOrDefault("behind", false);
+        targetArgs["distance"] = behind ? -SpawnDistance : SpawnDistance;
 
         return targetArgs;
     }

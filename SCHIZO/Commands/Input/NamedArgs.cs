@@ -9,43 +9,82 @@ namespace SCHIZO.Commands.Input;
 public class NamedArgs(Dictionary<string, object?> args)
 {
     private readonly Dictionary<string, object?> _args = args;
+    public object? this[string name]
+    {
+        get => _args[name];
+        set => _args[name] = value;
+    }
+
+    public T GetOrDefault<T>(string name, T def = default!)
+    {
+        if (TryGetValue(name, out T? val))
+            return val!;
+        return def;
+    }
     public bool TryGetValue<T>(string name, [MaybeNullWhen(false)] out T value)
     {
         value = default;
         return _args.TryGetValue(name, out object? obj) && TryParseOrConvert(obj, out value);
     }
 
-    public bool TryParseOrConvert<T>(object? val, [MaybeNullWhen(false)] out T value)
+    // todo pull these out
+    public static bool TryParseOrConvert<T>(object? val, [MaybeNullWhen(false)] out T value)
     {
         value = default;
-        if (typeof(T).IsEnum)
+        if (TryParseOrConvert(val, typeof(T), out object? obj))
         {
-            return TryParseEnum(val, out value);
+            value = (T)obj!;
+            return true;
         }
-        if (val is T t)
+        return false;
+    }
+
+    public static bool TryParseOrConvert(object? val, Type type, [MaybeNullWhen(false)] out object? value)
+    {
+        value = default;
+        if (type.IsEnum)
         {
-            value = t;
+            return TryParseEnum(val, type, out value);
+        }
+        if (val is null)
+            return false;
+        if (type.IsAssignableFrom(val.GetType()))
+        {
+            value = val;
             return true;
         }
         // like Convert.ChangeType but you can register your own converters (somewhere) (i've heard)
-        TypeConverter? converter = TypeDescriptor.GetConverter(typeof(T));
+        TypeConverter? converter = TypeDescriptor.GetConverter(type);
         if (converter is null)
             return false;
         try
         {
-            value = (T)converter.ConvertFrom(val);
+            value = converter.ConvertFrom(val);
             return true;
-        } catch { }
+        }
+        catch { }
         try
         {
-            value = (T) Convert.ChangeType(val, typeof(T));
+            value = Convert.ChangeType(val, type);
             return true;
-        } catch { }
+        }
+        catch { }
 
         return false;
     }
 
-    private bool TryParseEnum<TEnum>(object? val, [MaybeNullWhen(false)] out TEnum value)
+    public static bool TryParseEnum<TEnum>(object? val, [MaybeNullWhen(false)] out TEnum value)
+    {
+        value = default;
+        if (TryParseEnum(val, typeof(TEnum), out object? obj))
+        {
+            value = (TEnum)obj!;
+            return true;
+        }
+        return false;
+    }
+
+    public static bool TryParseEnum(object? val, Type type, [MaybeNullWhen(false)] out object? value)
     {
         value = default;
         if (val is null)
@@ -54,7 +93,7 @@ public class NamedArgs(Dictionary<string, object?> args)
         {
             try
             {
-                value = (TEnum) Enum.Parse(typeof(TEnum), str, true);
+                value = Enum.Parse(type, str, true);
                 return true;
             } catch { return false; }
         }
@@ -62,7 +101,7 @@ public class NamedArgs(Dictionary<string, object?> args)
         {
             try
             {
-                value = (TEnum) Enum.ToObject(typeof(TEnum), val);
+                value = Enum.ToObject(type, val);
                 return true;
             } catch { return false; }
         }

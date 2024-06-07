@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SCHIZO.Helpers;
 using SwarmControl.Shared.Models.Game.Messages;
+using SCHIZO.Commands.Input;
 
 namespace SCHIZO.SwarmControl;
 
@@ -32,6 +33,8 @@ internal partial class ControlWebSocket
                 return;
             }
 
+            LOGGER.LogDebug($"Received JSON {msg}");
+
             BackendMessage? message = null;
             try
             {
@@ -43,7 +46,10 @@ internal partial class ControlWebSocket
                 OnError?.Invoke(e);
             }
             if (message is { })
+            {
+                LOGGER.LogInfo($"Received {message!.MessageType}");
                 OnMessage?.Invoke(message);
+            }
         }
     }
 
@@ -56,11 +62,11 @@ internal partial class ControlWebSocket
                 try
                 {
                     await SendStringInternal(JsonConvert.SerializeObject(msg, Formatting.None));
-                    LOGGER.LogInfo($"Sent {msg.MessageType} ({msg.CorrelationId})");
+                    LOGGER.LogInfo($"Sent {msg.MessageType} ({msg.Guid})");
                 }
                 catch (Exception e)
                 {
-                    LOGGER.LogError($"Error sending {msg.GetType().Name} ({msg.CorrelationId})");
+                    LOGGER.LogError($"Error sending {msg.GetType().Name} ({msg.Guid})");
                     LOGGER.LogError(e);
                     OnError?.Invoke(e);
                 }
@@ -87,7 +93,7 @@ internal partial class ControlWebSocket
     public void SendMessage(GameMessage message)
     {
         _sendQueue.Enqueue(message);
-        LOGGER.LogDebug($"Enqueued {message.MessageType} ({message.CorrelationId})");
+        LOGGER.LogDebug($"Enqueued {message.MessageType} ({message.Guid})");
     }
 
     private async Task<string?> ReceiveStringAsync(CancellationToken ct = default)
@@ -122,19 +128,27 @@ internal partial class ControlWebSocket
                 throw new InvalidDataException("Received invalid message type");
         }
     }
-    private static BackendMessage ConvertBackendMessage(string json)
+    private static BackendMessage? ConvertBackendMessage(string json)
     {
         Dictionary<string, object?> data = JsonConvert.DeserializeObject<Dictionary<string, object?>>(json)
             ?? throw new InvalidDataException("Malformed message");
-        string? messageTypeName = data.GetOrDefault("messageType") as string;
-        if (string.IsNullOrEmpty(messageTypeName))
+        NamedArgs args = new(data);
+        if (!args.TryGetValue("messageType", out MessageType type))
             throw new InvalidDataException("Missing messageType");
-        if (!Enum.TryParse(messageTypeName, out MessageType type) || ReflectionCache.GetType($"SwarmControl.Shared.Models.Game.Messages.{type}Message") is not Type messageType)
+        if (ReflectionCache.GetType($"SwarmControl.Shared.Models.Game.Messages.{type}Message") is not Type messageType)
             throw new InvalidDataException("Invalid messageType");
         if (!typeof(BackendMessage).IsAssignableFrom(messageType))
             throw new InvalidDataException("Received a non-backend message from backend");
-        return (BackendMessage) (JsonConvert.DeserializeObject(json, messageType)
-            ?? throw new InvalidDataException("Failed to deserialize backend message"));
+        try
+        {
+            return (BackendMessage) (JsonConvert.DeserializeObject(json, messageType)
+                ?? throw new InvalidDataException("Failed to deserialize backend message"));
+        }
+        catch (Exception ex)
+        {
+            LOGGER.LogError($"Error deserializing: {ex}");
+            return null;
+        }
     }
     [MemberNotNullWhen(true, nameof(_socket))]
     private bool CheckOpen() => _socket?.State == WebSocketState.Open;

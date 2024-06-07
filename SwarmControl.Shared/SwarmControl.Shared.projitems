@@ -16,10 +16,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\CommandInvocationSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\ResultMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\ConsoleInputMessage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\GameSocketMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\SocketMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\HelloBackMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\HelloMessage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\InvokeCommandMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\RedeemMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\MessageType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\TwitchUser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\NamedModel.cs" />

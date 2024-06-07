@@ -17,7 +17,8 @@ namespace SCHIZO.SwarmControl;
 partial class SwarmControlManager
 {
     private const string PLAYERPREFS_KEY = $"SCHIZO_{nameof(SwarmControlManager)}";
-    public const string COMMAND = "setswarmcontrolurl";
+    public const string COMMAND_URL = "sc_url";
+    public const string COMMAND_KEY = "sc_apikey";
 
     public static SwarmControlManager Instance { get; private set; }
 
@@ -26,6 +27,12 @@ partial class SwarmControlManager
     {
         get => PlayerPrefs.GetString($"{PLAYERPREFS_KEY}_{nameof(BackendUrl)}", defaultWebServerUrl);
         set => PlayerPrefs.SetString($"{PLAYERPREFS_KEY}_{nameof(BackendUrl)}", value);
+    }
+
+    public string PrivateApiKey
+    {
+        get => PlayerPrefs.GetString($"{PLAYERPREFS_KEY}_{nameof(PrivateApiKey)}", "");
+        set => PlayerPrefs.SetString($"{PLAYERPREFS_KEY}_{nameof(PrivateApiKey)}", value);
     }
 
     private ControlWebSocket _socket;
@@ -49,10 +56,15 @@ partial class SwarmControlManager
             .AddListener(() => Instance.ButtonPressed());
     }
 
-    [Command(Name = COMMAND, RegisterConsoleCommand = true)]
+    [Command(Name = COMMAND_URL, RegisterConsoleCommand = true)]
     private static void SetUrl(string url)
     {
         Instance.BackendUrl = url;
+    }
+    [Command(Name = COMMAND_KEY, RegisterConsoleCommand = true)]
+    private static void SetKey(string key)
+    {
+        Instance.PrivateApiKey = key;
     }
 
     private void ButtonPressed()
@@ -66,7 +78,7 @@ partial class SwarmControlManager
     private void Connect()
     {
         CancellationTokenSource cts = new();
-        ShowConfirmation("Connecting...\nA browser window should open shortly.", "Cancel");
+        ShowConfirmation("Connecting", "Cancel");
         StartCoroutine(WaitForConfirmationClose(cts));
         StartCoroutine(ConnectCoro(cts.Token));
     }
@@ -154,11 +166,9 @@ partial class SwarmControlManager
             LOGGER.LogDebug("Reconnecting...");
             Task<bool> task = _socket.ConnectSocket();
             yield return task.PoorMansAwait();
-            if (!task.Result)
-            {
-                _retries++;
-                yield return new WaitForSecondsRealtime(5);
-            }
+            if (!task.Result) _retries++;
+
+            yield return new WaitForSecondsRealtime(5);
         }
 
         LOGGER.LogWarning("Could not reconnect to websocket");

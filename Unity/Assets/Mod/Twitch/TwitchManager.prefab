@@ -79,4 +79,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 789e1ca997af3c94aa927cf292de238c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultWebServerUrl: https://localhost:10987/
+  defaultWebServerUrl: https://localhost:3000/
+  version: 0.1.0

@@ -10,6 +10,7 @@ public static class CommandRegistry
     private const BindingFlags FLAGS = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
     public static Dictionary<string, Command> Commands = new(StringComparer.OrdinalIgnoreCase);
     public static Dictionary<string, List<Command>> Categories = [];
+    private static bool _finishedAutoRegistration;
 
     public static void Register(Command command, string category = "Uncategorized")
     {
@@ -23,6 +24,8 @@ public static class CommandRegistry
         LOGGER.LogDebug($"Registering {command.GetType().Name} {command.Name}");
         Commands[command.Name] = command;
         Categories.GetOrAddNew(category).Add(command);
+        if (_finishedAutoRegistration)
+            command.CallPostRegister();
     }
 
     /// <summary>
@@ -42,11 +45,46 @@ public static class CommandRegistry
         {
             CommandAttribute commandAttr = type.GetCustomAttribute<CommandAttribute>();
             CommandCategoryAttribute categoryAttr = type.GetCustomAttribute<CommandCategoryAttribute>();
-            // todo pull the two methods below into this one (yes a megamethod)
-            // there are interactions/combos between the two attributes (e.g. [Command]+[CommandCategory] : Command)
+            // there are interactions/combos between the two attributes
+            // (e.g. [Command]+[CommandCategory] : Command) is a single command in a specific category
             if (commandAttr is { })
             {
-                RegisterCommand(type, commandAttr);
+                bool derivesFromCommand = typeof(Command).IsAssignableFrom(type);
+                bool isStaticClass = type.IsAbstract && type.IsSealed;
+
+                if (!derivesFromCommand || isStaticClass)
+                {
+                    LOGGER.LogWarning($"""
+                        {type.FullName} will not be registered as a command.
+                        Classes decorated with {nameof(CommandAttribute)} must derive from {nameof(Command)} and be non-static.
+                        """);
+                    continue;
+                }
+                Command command = (Command) Activator.CreateInstance(type);
+                command.SetInfo(commandAttr);
+                if (command is CompositeCommand composite)
+                {
+                    // composite commands act as a category
+                    foreach (MethodInfo method in type.GetMethods(FLAGS))
+                    {
+                        if (method.GetCustomAttribute<SubCommandAttribute>() is not { } subcommandAttr)
+                            continue;
+                        Command subcommand = method.IsStatic
+                            ? Command.FromStaticMethod(method)
+                            : Command.FromInstanceMethod(method, command);
+                        subcommand.SetInfo(subcommandAttr, method.Name.ToLowerInvariant());
+                        composite.AddSubCommand(subcommand);
+                    }
+
+                    Register(command, command.Name);
+                }
+                else
+                {
+                    Register(command, categoryAttr?.Category ?? "Uncategorized");
+                }
+
+                if (commandAttr.RegisterConsoleCommand)
+                    RegisterConsoleCommand(command);
             }
             else if (categoryAttr is { })
             {
@@ -54,6 +92,9 @@ public static class CommandRegistry
             }
             // todo register nested types ([Command] under static [CommandCategory], or [SubCommand] under CompositeCommand)
         }
+
+        Commands.Values.ForEach(command => command.CallPostRegister());
+        _finishedAutoRegistration = true;
     }
 
     private static void RegisterCategory(Type type, CommandCategoryAttribute attr)
@@ -87,40 +128,5 @@ public static class CommandRegistry
             if (commandAttr.RegisterConsoleCommand)
                 RegisterConsoleCommand(command);
         }
-    }
-
-    private static void RegisterCommand(Type type, CommandAttribute commandAttr)
-    {
-        bool derivesFromCommand = typeof(Command).IsAssignableFrom(type);
-
-        if (!derivesFromCommand)
-        {
-            LOGGER.LogError($"""
-                {type.FullName} will not be registered as a command.
-                Commands decorated with {nameof(CommandAttribute)} must derive from {nameof(Command)}.
-                """);
-            return;
-        }
-        Command command = (Command)Activator.CreateInstance(type);
-        command.SetInfo(commandAttr);
-        if (command is CompositeCommand composite)
-        {
-            // add subcommands
-            foreach (MethodInfo method in type.GetMethods(FLAGS))
-            {
-                if (method.GetCustomAttribute<SubCommandAttribute>() is not { } subcommandAttr)
-                    continue;
-                Command subcommand = method.IsStatic
-                    ? Command.FromStaticMethod(method)
-                    : Command.FromInstanceMethod(method, command);
-                subcommand.SetInfo(subcommandAttr, method.Name.ToLowerInvariant());
-                composite.AddSubCommand(subcommand);
-            }
-
-            Register(command, command.Name);
-        }
-
-        if (commandAttr.RegisterConsoleCommand)
-            RegisterConsoleCommand(command);
     }
 }

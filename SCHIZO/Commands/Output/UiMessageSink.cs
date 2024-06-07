@@ -2,6 +2,7 @@ using SCHIZO.Helpers;
 
 namespace SCHIZO.Commands.Output;
 
+#nullable enable
 internal sealed class UiMessageSink : ISink
 {
     /// <summary>
@@ -13,11 +14,11 @@ internal sealed class UiMessageSink : ISink
     public static UiMessageSink Loud { get; } = new() { IsSneaky = false };
     private UiMessageSink() { }
 
-    public bool TryConsume(ref object output)
+    public bool TryConsume(ref object? output)
     {
         bool suppress = IsSneaky && MessageHelpers.SuppressOutput;
         if (!suppress)
-            ErrorMessage.AddMessage(output.ToString());
+            ErrorMessage.AddMessage(output?.ToString());
         return false;
     }
 }

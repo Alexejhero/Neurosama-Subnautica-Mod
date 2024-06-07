@@ -15,7 +15,7 @@ public abstract class Command
     /// <summary>
     /// Identifier for the command. If registered as a console command, this is the command trigger.
     /// </summary>
-    public string Name { get; protected internal set; }
+    public string Name { get; protected internal set; } = null!;
     /// <summary>
     /// Reader-friendly name for the command.
     /// </summary>
@@ -76,6 +76,9 @@ public abstract class Command
         remarks: null);
     }
 
-    protected Action? OnRegister;
-    protected internal virtual void CallOnRegister() { }
+    protected Action? PostRegister;
+    protected internal void CallPostRegister()
+    {
+        PostRegister?.Invoke();
+    }
 }

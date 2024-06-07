@@ -11,13 +11,13 @@ public abstract record GameSocketMessage
     [JsonRequired]
     public abstract MessageType MessageType { get; }
 
-    public Guid CorrelationId { get; init; }
+    public Guid Guid { get; init; }
     public long Timestamp { get; }
 
     public GameSocketMessage()
     {
         Timestamp = Now();
-        CorrelationId = Guid.NewGuid();
+        Guid = Guid.NewGuid();
     }
 
     private static long Now() => DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
