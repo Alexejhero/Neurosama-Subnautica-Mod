@@ -98,7 +98,12 @@ internal class MethodCommand : Command, IParameters
                 argsCopy.Remove(param.Name);
                 paramsLeft.RemoveAt(i);
             }
-            else if (!param.IsOptional)
+            else if (param.IsOptional)
+            {
+                parsedArgs.Add(param.DefaultValue);
+                paramsLeft.RemoveAt(i);
+            }
+            else
             {
                 break;
             }

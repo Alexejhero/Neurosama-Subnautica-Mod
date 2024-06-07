@@ -20,7 +20,7 @@ public abstract class ConsoleWrapperCommand(string commandName) : Command, IPara
     protected override object? ExecuteCore(CommandExecutionContext ctx)
     {
         if (!DevConsole.commands.ContainsKey(Command))
-            return CommonResults.Error("Console command not found");
+            return CommonResults.Error($"Console command {Command} was not found");
         object?[] args = GetArgs(ctx).ToArray();
         int failArgIndex = ValidateArgs(args);
         if (failArgIndex >= 0)

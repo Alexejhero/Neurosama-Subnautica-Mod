@@ -4,6 +4,7 @@ using SCHIZO.Commands.Base;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
+using SCHIZO.Helpers;
 using SwarmControl.Shared.Models.Game.Messages;
 
 namespace SCHIZO.SwarmControl;
@@ -63,7 +64,7 @@ internal sealed class MessageProcessor
     private void OnRedeem(RedeemMessage msg)
     {
         Guid guid = msg.Guid;
-        if (!CommandRegistry.TryGetCommand(msg.Command, out Command command))
+        if (!CommandRegistry.TryGetCommand(msg.Command.SplitOnce(' ').Before, out Command command))
         {
             LOGGER.LogDebug($"{msg.GetUsername()} tried to redeem unknown command \"{msg.Command}\"");
             SendResult(guid, false, "Command not found");
@@ -78,15 +79,18 @@ internal sealed class MessageProcessor
                 Command = command,
                 Model = msg,
             },
-            Output = new CommandOutputStack(
+            Output = new CommandOutputStack([
                 //UiMessageSink.Loud,
+                NullSink.Instance,
+                LogSink.Info,
+                new ShowUsage(command),
                 new DelegateSink((ref object res) => {
                     if (res is null or CommonResults.OKResult && msg.Announce)
                     {
                         ErrorMessage.AddMessage($"{msg.GetDisplayName()} redeemed {msg.Title}");
                     }
                     return false;
-                })
+                })]
             )
         };
         SwarmControlManager.Instance.QueueOnMainThread(() =>
@@ -94,13 +98,23 @@ internal sealed class MessageProcessor
             try
             {
                 command.Execute(ctx);
-                if (ctx.Result is CommonResults.ErrorResult { message: string error })
+                switch (ctx.Result)
                 {
-                    SendResult(msg.Guid, false, error);
-                }
-                else
-                {
-                    SendResult(msg.Guid, true, ctx.Result?.ToString());
+                    case CommonResults.ErrorResult { message: string error }:
+                        SendResult(msg.Guid, false, error);
+                        break;
+                    case null or CommonResults.OKResult:
+                        SendResult(msg.Guid, true);
+                        break;
+                    case CommonResults.ExceptionResult { Exception: Exception e }:
+                        SendResult(msg.Guid, false, e.ToString());
+                        break;
+                    case CommonResults.ShowUsageResult:
+                        SendResult(msg.Guid, false, $"Incorrect command usage - {ShowUsage.GetUsageString(command)}");
+                        break;
+                    default:
+                        SendResult(msg.Guid, true, ctx.Result.ToString());
+                        break;
                 }
             }
             catch (Exception e)

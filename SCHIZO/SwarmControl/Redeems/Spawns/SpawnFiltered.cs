@@ -38,6 +38,7 @@ internal class SpawnFiltered<T> : ProxyCommand<SpawnCommand>
         else
         {
             // console command will validate and return this in the error result
+            // the prefix is to avoid it actually parsing into a valid tech type
             targetArgs["techType"] = $"INVALID_{args.GetOrDefault(TechTypeParamName, "null")}";
         }
         bool behind = args.GetOrDefault("behind", false);

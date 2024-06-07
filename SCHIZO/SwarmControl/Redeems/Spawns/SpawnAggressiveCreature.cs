@@ -15,4 +15,6 @@ internal class SpawnAggressiveCreature : SpawnFiltered<SpawnAggressiveCreature.A
         Cryptosuchus,
         SquidShark,
     }
+
+    protected override float SpawnDistance => 10;
 }
