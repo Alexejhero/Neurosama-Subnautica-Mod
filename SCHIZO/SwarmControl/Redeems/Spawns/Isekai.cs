@@ -6,9 +6,12 @@ namespace SCHIZO.SwarmControl.Redeems.Spawns;
 
 #nullable enable
 [CommandCategory("Spawns")]
-[Command(Name = "isekai_filtered",
+[Redeem(
+    Name = "redeem_isekai",
     DisplayName = "Isekai",
-    Description = "Snap a specific type of entity around the player")]
+    Description = "Snap a specific type of entity around the player.",
+    Announce = AnnounceType.DefaultAnnounce
+)]
 internal class Isekai : ProxyCommand<MethodCommand>
 {
     public enum IsekaiTechType

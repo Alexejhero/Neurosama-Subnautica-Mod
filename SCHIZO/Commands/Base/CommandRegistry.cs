@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using SCHIZO.Commands.Attributes;
+using SCHIZO.SwarmControl.Redeems;
 
 namespace SCHIZO.Commands.Base;
 
@@ -81,6 +82,11 @@ public static class CommandRegistry
                 else
                 {
                     Register(command, categoryAttr?.Category ?? "Uncategorized");
+                }
+
+                if (commandAttr is RedeemAttribute redeem)
+                {
+                    RedeemRegistry.Register(redeem, command);
                 }
 
                 if (commandAttr.RegisterConsoleCommand)

@@ -2,8 +2,11 @@ using SCHIZO.Commands.Attributes;
 
 namespace SCHIZO.SwarmControl.Redeems.Spawns;
 
-[Command(Name = "spawn_resource_common",
-    DisplayName = "Spawn Common Resource")]
+[Redeem(
+    Name = "spawn_resource_common",
+    DisplayName = "Spawn Common Resource",
+    Announce = AnnounceType.DefaultAnnounce
+)]
 internal class SpawnCommonResource : SpawnFiltered<SpawnCommonResource.CommonResources>
 {
     protected override string SpawnThingName => "Resource";

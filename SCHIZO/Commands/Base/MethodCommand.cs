@@ -133,7 +133,7 @@ internal class MethodCommand : Command, IParameters
             Parameter param = Parameters[i];
             if (i < args.Count)
             {
-                if (!NamedArgs.TryParseOrConvert(args[i], param.Type, out object? parsedVal))
+                if (!Conversion.TryParseOrConvert(args[i], param.Type, out object? parsedVal))
                     break;
                 parsedArgs[i] = parsedVal;
             }

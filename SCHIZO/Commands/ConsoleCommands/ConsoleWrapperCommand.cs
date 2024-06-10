@@ -61,7 +61,7 @@ public abstract class ConsoleWrapperCommand(string commandName) : Command, IPara
             object? arg = args[i];
             if (!param.IsOptional && (arg == DBNull.Value || arg == Type.Missing))
                 return i;
-            if (!NamedArgs.TryParseOrConvert(arg, param.Type, out _))
+            if (!Conversion.TryParseOrConvert(arg, param.Type, out _))
                 return i;
         }
         return -1;

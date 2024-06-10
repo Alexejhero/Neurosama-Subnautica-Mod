@@ -5,10 +5,12 @@ namespace SCHIZO.SwarmControl.Redeems.Spawns;
 
 #nullable enable
 [CommandCategory("Spawns")]
-[Command(Name = "spawn_passive",
+[Redeem(
+    Name = "spawn_passive",
     DisplayName = "Spawn Passive Creature",
-    Description = "Spawn a passive creature near the player")]
-//[Redeem]
+    Description = "Spawn a passive creature near the player",
+    Announce = AnnounceType.DefaultAnnounce
+)]
 internal class SpawnPassiveCreature : SpawnFiltered<SpawnPassiveCreature.PassiveCreature>
 {
     public enum PassiveCreature

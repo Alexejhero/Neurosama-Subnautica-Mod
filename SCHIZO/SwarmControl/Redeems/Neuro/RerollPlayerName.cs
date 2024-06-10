@@ -6,10 +6,12 @@ namespace SCHIZO.SwarmControl.Redeems.Neuro;
 
 #nullable enable
 [CommandCategory("Neuro")]
-[Command(Name = "redeem_rerollname",
-    DisplayName = "Change Vedal's Name",
-    Description = "Reroll Vedal's name in the Neuro integration."
-    )]
+[Redeem(
+    Name = "redeem_rerollname",
+    DisplayName = "Reroll Vedal's Name",
+    Description = "Reroll Vedal's name in the Neuro integration.",
+    Announce = AnnounceType.DefaultAnnounce
+)]
 internal class RerollPlayerName() : ProxyCommand<SetPlayerName>(SetPlayerName.COMMAND)
 {
     public static readonly string[] Names = [
@@ -26,7 +28,9 @@ internal class RerollPlayerName() : ProxyCommand<SetPlayerName>(SetPlayerName.CO
         "Voronoi",
         "Vernal",
         "Tutel",
-        "Visage"
+        "Visage",
+        "Dalveed",
+        "Harrison Temple",
     ];
 
     public override IReadOnlyList<Parameter> Parameters => [];

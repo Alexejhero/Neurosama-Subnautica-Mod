@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Constants\ConnectionConstants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\CommandModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\HostAuthInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\CommandAvailabilityChangedMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\CommandInvocationSource.cs" />

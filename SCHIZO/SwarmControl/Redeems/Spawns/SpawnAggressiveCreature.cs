@@ -4,9 +4,11 @@ namespace SCHIZO.SwarmControl.Redeems.Spawns;
 
 #nullable enable
 [CommandCategory("Spawns")]
-[Command(Name = "spawn_aggressive",
+[Redeem(Name = "spawn_aggressive",
     DisplayName = "Spawn Aggressive Creature",
-    Description = "Spawn an aggressive creature near the player")]
+    Description = "Spawn an aggressive creature near the player",
+    Announce = AnnounceType.DefaultAnnounce
+)]
 internal class SpawnAggressiveCreature : SpawnFiltered<SpawnAggressiveCreature.AggressiveCreatures>
 {
     public enum AggressiveCreatures
