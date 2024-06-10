@@ -130,9 +130,9 @@ internal partial class ControlWebSocket
     }
     private static BackendMessage? ConvertBackendMessage(string json)
     {
-        Dictionary<string, object?> data = JsonConvert.DeserializeObject<Dictionary<string, object?>>(json)
+        Dictionary<string, object> data = JsonConvert.DeserializeObject<Dictionary<string, object>>(json, [new MyConverter()])
             ?? throw new InvalidDataException("Malformed message");
-        NamedArgs args = new(data);
+        NamedArgs args = new(data!);
         if (!args.TryGetValue("messageType", out MessageType type))
             throw new InvalidDataException("Missing messageType");
         if (ReflectionCache.GetType($"SwarmControl.Shared.Models.Game.Messages.{type}Message") is not Type messageType)
@@ -141,7 +141,7 @@ internal partial class ControlWebSocket
             throw new InvalidDataException("Received a non-backend message from backend");
         try
         {
-            return (BackendMessage) (JsonConvert.DeserializeObject(json, messageType)
+            return (BackendMessage) (JsonConvert.DeserializeObject(json, messageType, [new MyConverter()])
                 ?? throw new InvalidDataException("Failed to deserialize backend message"));
         }
         catch (Exception ex)

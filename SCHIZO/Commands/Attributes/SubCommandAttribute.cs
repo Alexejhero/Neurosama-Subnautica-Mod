@@ -8,7 +8,7 @@ namespace SCHIZO.Commands.Attributes;
 /// Marks the given method to auto-register as a subcommand.
 /// <br/>
 /// <br/>
-/// <b>Not valid if declared on a non-<see cref="Command"/> class!</b>
+/// <b>Not valid if declared on a non-<see cref="CompositeCommand"/> class!</b>
 /// </summary>
 /// <param name="nameOverride">
 /// If provided, this name will be used for the subcommand.<br/>

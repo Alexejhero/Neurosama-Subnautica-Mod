@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: connect_swarmcontrol
   label: Connect Swarm Control
-  tooltip: This will open a new tab in your default browser.
+  tooltip: Did you remember to use the .reg file?
   disableIfAnyTrue: []
   disableIfAnyFalse: []
   onPressed:

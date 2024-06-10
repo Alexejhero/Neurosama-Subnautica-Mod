@@ -64,7 +64,7 @@ internal sealed class MessageProcessor
     private void OnRedeem(RedeemMessage msg)
     {
         Guid guid = msg.Guid;
-        if (!CommandRegistry.TryGetCommand(msg.Command.SplitOnce(' ').Before, out Command command))
+        if (!CommandRegistry.TryGetInnermostCommand(msg.Command.SplitOnce(' ').Before, out Command command))
         {
             LOGGER.LogDebug($"{msg.GetUsername()} tried to redeem unknown command \"{msg.Command}\"");
             SendResult(guid, false, "Command not found");

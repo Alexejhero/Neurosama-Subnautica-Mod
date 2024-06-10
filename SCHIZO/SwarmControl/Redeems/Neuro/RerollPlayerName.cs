@@ -31,6 +31,20 @@ internal class RerollPlayerName() : ProxyCommand<SetPlayerName>(SetPlayerName.CO
         "Visage",
         "Dalveed",
         "Harrison Temple",
+        "Hypervedal",
+        "Mosquito987",
+        "Coldfish",
+        "Ladev",
+        "Vedeal",
+        "Veed",
+        "Ved",
+        "Waddle",
+        "Weedle",
+        "Wordle",
+        "Veddie",
+        "Vedalyn",
+        "Vortex",
+        "Lemon"
     ];
 
     public override IReadOnlyList<Parameter> Parameters => [];

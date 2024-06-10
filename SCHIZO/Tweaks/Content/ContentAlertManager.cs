@@ -21,13 +21,6 @@ partial class ContentAlertManager
         Instance = this;
     }
 
-    private const string ConCommandUsage = """
-        contentalerts <option>
-        options:
-            <enable|disable> - all alerts
-            <attach|detach> <techtype> - attach to techtype
-            <clear> - detach all techtypes
-        """;
     private static bool _alerting;
     internal static bool AlertsEnabled
     {

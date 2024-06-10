@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
-using SwarmControl.Shared.Models.Game.Messages;
 
 namespace SCHIZO.Commands.Base;
 #nullable enable
 internal abstract class ProxyCommand<T> : Command, IParameters
-    where T : Command, IParameters
+    where T : Command
 {
     public T Target { get; private set; }
     public abstract IReadOnlyList<Parameter> Parameters { get; }
@@ -24,7 +22,7 @@ internal abstract class ProxyCommand<T> : Command, IParameters
         Target = null!;
         PostRegister += () =>
         {
-            if (CommandRegistry.TryGetCommand(targetName, out Command targetMaybe)
+            if (CommandRegistry.TryGetInnermostCommand(targetName, out Command targetMaybe)
                 && targetMaybe is T targetDefinitely)
             {
                 Target = targetDefinitely;

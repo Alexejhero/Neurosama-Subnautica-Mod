@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using SCHIZO.Commands.Attributes;
+using SCHIZO.Helpers;
 using SCHIZO.SwarmControl.Redeems;
 
 namespace SCHIZO.Commands.Base;
@@ -37,8 +38,18 @@ public static class CommandRegistry
         NautilusCommandWrapper.Register(command);
     }
 
-    public static bool TryGetCommand(string name, out Command command)
-        => Commands.TryGetValue(name, out command);
+    public static bool TryGetInnermostCommand(string name, out Command command)
+    {
+        (string before, string after) = name.SplitOnce(' ');
+        if (!Commands.TryGetValue(before, out command))
+            return false;
+        while (command is CompositeCommand comp)
+        {
+            if (!comp.SubCommands.TryGetValue(after, out command))
+                return false;
+        }
+        return true;
+    }
 
     public static void RegisterAttributeDeclarations(Assembly assembly)
     {

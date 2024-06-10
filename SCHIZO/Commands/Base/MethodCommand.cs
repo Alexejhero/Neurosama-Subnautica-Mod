@@ -74,7 +74,11 @@ internal class MethodCommand : Command, IParameters
         if (args is null)
             return new(true, parameters.All(p => p.IsOptional), []);
 
-        List<object?> parsedArgs = [];
+        object?[] parsedArgs = new object?[paramCount];
+        for (int i = 0; i < paramCount; i++)
+        {
+            parsedArgs[i] = DBNull.Value;
+        }
         Dictionary<string, object?> argsCopy = new(args);
         List<Parameter> paramsLeft = [.. parameters];
         for (int i = paramCount - 1; i >= 0; i--)
@@ -95,13 +99,13 @@ internal class MethodCommand : Command, IParameters
                     break;
                 }
 
-                parsedArgs.Add(value);
+                parsedArgs[i] = value;
                 argsCopy.Remove(param.Name);
                 paramsLeft.RemoveAt(i);
             }
             else if (param.IsOptional)
             {
-                parsedArgs.Add(param.DefaultValue);
+                parsedArgs[i] = param.DefaultValue;
                 paramsLeft.RemoveAt(i);
             }
             else

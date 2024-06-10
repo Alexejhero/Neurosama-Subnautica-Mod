@@ -13,6 +13,7 @@ internal sealed class Redeem(RedeemAttribute attr, Command command)
     public ParameterModel[] Args { get; set; } = command is not IParameters p ? []
         : p.Parameters.Select(p => new ParameterModel(p)).ToArray();
     public AnnounceType Announce { get; set; } = attr.Announce;
+    public bool Moderated { get; set; } = attr.Moderated;
 
     public string Image { get; set; } = "UNSET";
     public int Price { get; set; } = 99999999;
