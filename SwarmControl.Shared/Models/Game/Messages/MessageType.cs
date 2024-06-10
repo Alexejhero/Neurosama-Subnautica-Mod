@@ -9,9 +9,9 @@ public enum MessageType
     // game to backend
     Hello, // send command data
     Ping, // ping
+    Log,
     Result, // command/console result
-    GameLoadedStateChanged, // (global) redeems dependent on Player.main are open/closed
-    GamePausedStateChanged, // also global
+    IngameStateChanged, // (global) e.g. redeems dependent on Player.main, or stuff that freezes with time freezers (e.g. spawns?)
     CommandAvailabilityChanged, // individual command (for specific cases)
 
     // backend to game

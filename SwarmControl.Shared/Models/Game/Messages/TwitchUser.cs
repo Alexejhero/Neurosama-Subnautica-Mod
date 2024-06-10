@@ -7,4 +7,4 @@ namespace SwarmControl.Shared.Models.Game.Messages;
 /// <param name="Id">Channel ID.</param>
 /// <param name="Username">Login name.</param>
 /// <param name="DisplayName">What's displayed in chat.</param>
-public record TwitchUser(int Id, string? Username, string? DisplayName);
+public record TwitchUser(int Id, string Username, string DisplayName);

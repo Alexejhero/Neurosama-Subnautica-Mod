@@ -14,6 +14,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\HostAuthInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\CommandAvailabilityChangedMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\CommandInvocationSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\IngameStateChangedMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\LogMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\ResultMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\ConsoleInputMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game\Messages\SocketMessage.cs" />

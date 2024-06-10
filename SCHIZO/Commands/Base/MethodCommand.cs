@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Nautilus.Commands;
 using Nautilus.Extensions;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Commands.Context;
@@ -13,7 +12,8 @@ namespace SCHIZO.Commands.Base;
 #nullable enable
 internal class MethodCommand : Command, IParameters
 {
-    private readonly ConsoleCommand _proxy;
+    private readonly MethodInfo _method;
+    private readonly object? _instance;
     private readonly bool _lastTakeAll;
     public IReadOnlyList<Parameter> Parameters { get; protected set; } = [];
 
@@ -25,7 +25,8 @@ internal class MethodCommand : Command, IParameters
             throw new ArgumentException("Non-static method needs instance");
         else if (method.Name.IndexOf('>') >= 0) // mangled (delegate, lambda, inner function, etc...)
             throw new ArgumentException($"Use {nameof(DelegateCommand)} instead of {nameof(MethodCommand)} for delegate methods (lambda, inner function, etc.)");
-        _proxy = new("", method, instance: instance);
+        _method = method;
+        _instance = instance;
         ParameterInfo[] paramInfos = method.GetParameters();
 
         Parameters = paramInfos
@@ -38,7 +39,7 @@ internal class MethodCommand : Command, IParameters
             _lastTakeAll = true;
     }
 
-    internal readonly record struct ArgParseResult(bool ConsumedAllArgs, bool ParsedAllParams, object[] ParsedArgs);
+    internal readonly record struct ArgParseResult(bool ConsumedAllArgs, bool ParsedAllParams, object?[] ParsedArgs);
 
     protected override object ExecuteCore(CommandExecutionContext ctx)
     {
@@ -48,7 +49,7 @@ internal class MethodCommand : Command, IParameters
             //throw new InvalidOperationException("placeholder message for MethodCommand arg parsing failure");
         try
         {
-            return _proxy.Invoke(res.ParsedArgs);
+            return _method.Invoke(_instance, res.ParsedArgs);
         }
         catch (TargetInvocationException e) // very "helpful" wrapper
         {
@@ -71,7 +72,7 @@ internal class MethodCommand : Command, IParameters
         int paramCount = parameters.Count;
 
         if (args is null)
-            return new(true, paramCount == 0, []);
+            return new(true, parameters.All(p => p.IsOptional), []);
 
         List<object?> parsedArgs = [];
         Dictionary<string, object?> argsCopy = new(args);
@@ -113,6 +114,9 @@ internal class MethodCommand : Command, IParameters
 
     internal ArgParseResult TryParsePositionalArgs(IReadOnlyList<string> args)
     {
+        if (args is null)
+            return new(true, Parameters.All(p => p.IsOptional), []);
+
         int paramCount = Parameters.Count;
         if (_lastTakeAll && args.Count > paramCount)
         {
@@ -120,8 +124,31 @@ internal class MethodCommand : Command, IParameters
                 .Append(string.Join(" ", args.Skip(paramCount - 1)))
                 .ToArray();
         }
-        // aaa i don't want to reimplement this
-        (int consumed, int parsed) = _proxy.TryParseParameters(args, out object[] parsedArgs);
+
+        int consumed = 0, parsed = 0;
+
+        object?[] parsedArgs = new object?[paramCount];
+        for (int i = 0; i < paramCount; i++)
+        {
+            Parameter param = Parameters[i];
+            if (i < args.Count)
+            {
+                if (!NamedArgs.TryParseOrConvert(args[i], param.Type, out object? parsedVal))
+                    break;
+                parsedArgs[i] = parsedVal;
+            }
+            else if (param.IsOptional)
+            {
+                parsedArgs[i] = param.DefaultValue;
+            }
+            else
+            {
+                break;
+            }
+            consumed++;
+            parsed++;
+        }
+
         return new(consumed == args.Count, parsed == Parameters.Count, parsedArgs);
     }
 }

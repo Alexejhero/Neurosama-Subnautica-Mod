@@ -1,6 +1,7 @@
 using SCHIZO.Commands.Attributes;
 
 namespace SCHIZO.SwarmControl.Redeems.Spawns;
+
 #nullable enable
 [CommandCategory("Spawns")]
 [Command(Name = "spawn_aggressive",

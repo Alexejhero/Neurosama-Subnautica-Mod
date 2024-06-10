@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Commands.Base;
 
 namespace SCHIZO.SwarmControl.Redeems.Spawns;
+
 #nullable enable
 [CommandCategory("Spawns")]
 [Command(Name = "isekai_filtered",

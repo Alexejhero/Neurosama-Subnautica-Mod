@@ -5,6 +5,7 @@ using SCHIZO.Commands.ConsoleCommands;
 using SCHIZO.Commands.Input;
 
 namespace SCHIZO.SwarmControl.Redeems.Spawns;
+
 #nullable enable
 internal class SpawnFiltered<T> : ProxyCommand<SpawnCommand>
     where T : struct, Enum

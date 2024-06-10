@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
 namespace SwarmControl.Shared.Models.Game;
+
 #nullable enable
 public class CommandModel : NamedModel
 {

@@ -4,6 +4,7 @@ using SwarmControl.Shared.Models.Game.Messages;
 
 namespace SCHIZO.Commands.Input;
 
+#nullable enable
 public sealed record JsonInputModel
 {
     /// <summary>ID for logging/auditing.</summary>
@@ -16,7 +17,7 @@ public sealed record JsonInputModel
     /// Twitch user that invoked the command.<br/>
     /// Crowd Control users can choose to redeem anonymously.
     /// </summary>
-    public TwitchUser User { get; set; }
+    public TwitchUser? User { get; set; }
     /// <summary>
     /// Timestamp for queueing/logging/auditing.
     /// </summary>
@@ -32,10 +33,10 @@ public sealed record JsonInputModel
     /// In the case of composite commands, this is the whole string encompassing the parent command(s) and the subcommand name, e.g. <c>"command subcommand subsubcommand"</c>.<br/>
     /// For subcommands, this will start with the current command's name (e.g. <c>"subcommand subsubcommand"</c>).
     /// </remarks>
-    public string Command { get; set; }
+    public string Command { get; set; } = null!;
 
     /// <summary>
     /// Named arguments for the invocation.
     /// </summary>
-    public Dictionary<string, object> Args { get; set; }
+    public Dictionary<string, object?>? Args { get; set; }
 }

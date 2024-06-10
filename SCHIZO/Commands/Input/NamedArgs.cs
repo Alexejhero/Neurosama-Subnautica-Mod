@@ -63,6 +63,7 @@ public class NamedArgs(Dictionary<string, object?> args)
             return true;
         }
         catch { }
+        // fall back to Convert.ChangeType (TypeConverters don't convert between number types for some reason)
         try
         {
             value = Convert.ChangeType(val, type);

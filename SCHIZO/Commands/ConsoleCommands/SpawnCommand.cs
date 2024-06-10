@@ -11,12 +11,9 @@ namespace SCHIZO.Commands.ConsoleCommands;
 internal sealed class SpawnCommand() : ConsoleWrapperCommand("spawn")
 {
     private static readonly Parameter[] _parameters = [
-        new(new NamedModel("techType", "TechType", "The tech type to spawn."),
-            typeof(TechType)),
-        new(new NamedModel("count", "Count", "Amount of entities to spawn."),
-            typeof(int), 1),
-        new(new NamedModel("distance", "Distance", "Maximum distance from the player. Can be negative to spawn behind."),
-            typeof(float), true)
+        new(new NamedModel("techType", "TechType", "The tech type to spawn."), typeof(TechType)),
+        new NumericParameter(new NamedModel("count", "Count", "Amount of entities to spawn."), true, 1),
+        new NumericParameter(new NamedModel("distance", "Distance", "Maximum distance from the player. Spawns behind if negative."), false, true)
     ];
     public override IReadOnlyList<Parameter> Parameters => [.. _parameters];
 }
