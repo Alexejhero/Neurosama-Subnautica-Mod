@@ -25,7 +25,7 @@ internal class ExportRedeems : Command
                 .Select(p => p.ActualType)
                 .Where(t => t.IsEnum)
                 .Select(e => new EnumDefinitionModel(e))
-                .ToDictionary(e => e.Name, e => e),
+                .ToDictionary(e => e.Name, e => e.Values),
             Redeems = allRedeems,
         };
         string json = JsonConvert.SerializeObject(config, new JsonSerializerSettings()

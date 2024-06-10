@@ -37,7 +37,7 @@ internal class Isekai : ProxyCommand<MethodCommand>
     {
         Parameters = [
             new(new("creature", "Creature", "Creature to isekai."), typeof(IsekaiTechType)),
-            new(new("range", "Range", null), typeof(Range), defaultValue: Range.Near),
+            new(new("range", "Range", null), typeof(Range)),
         ];
     }
 

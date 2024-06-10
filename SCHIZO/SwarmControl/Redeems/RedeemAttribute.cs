@@ -7,4 +7,5 @@ namespace SCHIZO.SwarmControl.Redeems;
 internal class RedeemAttribute : CommandAttribute
 {
     public AnnounceType Announce { get; set; }
+    public bool Moderated { get; set; }
 }

@@ -12,7 +12,7 @@ public enum MessageType
     Log,
     Result, // command/console result
     IngameStateChanged, // (global) e.g. redeems dependent on Player.main, or stuff that freezes with time freezers (e.g. spawns?)
-    CommandAvailabilityChanged, // individual command (for specific cases)
+    //CommandAvailabilityChanged, // individual command (for specific cases)
 
     // backend to game
     HelloBack, // hello ack

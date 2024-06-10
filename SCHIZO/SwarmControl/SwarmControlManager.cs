@@ -25,7 +25,7 @@ partial class SwarmControlManager
     internal MessageProcessor Processor { get; private set; }
     public string BackendUrl
     {
-        get => PlayerPrefs.GetString($"{PLAYERPREFS_KEY}_{nameof(BackendUrl)}", defaultWebServerUrl);
+        get => PlayerPrefs.GetString($"{PLAYERPREFS_KEY}_{nameof(BackendUrl)}", defaultBackendUrl);
         set => PlayerPrefs.SetString($"{PLAYERPREFS_KEY}_{nameof(BackendUrl)}", value);
     }
 

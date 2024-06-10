@@ -11,12 +11,13 @@ namespace SCHIZO.SwarmControl.Redeems.UGC;
     Name = "redeem_say",
     DisplayName = "Send Text",
     Description = "Display text in the top left of the screen",
-    Announce = AnnounceType.AlwaysSilent // the message itself is the announcement
+    Announce = AnnounceType.AlwaysSilent, // the message itself is the announcement
+    Moderated = true
 )]
 internal class Say() : ProxyCommand<MethodCommand>("say")
 {
     public override IReadOnlyList<Parameter> Parameters => [
-        new TextParameter(new NamedModel("message", "The message to display")) {
+        new TextParameter(new NamedModel("message", "Message", "The message to display")) {
             MinLength = 1
         }
     ];
