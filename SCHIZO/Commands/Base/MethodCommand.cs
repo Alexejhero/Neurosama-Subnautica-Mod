@@ -77,43 +77,32 @@ internal class MethodCommand : Command, IParameters
         object?[] parsedArgs = new object?[paramCount];
         for (int i = 0; i < paramCount; i++)
         {
-            parsedArgs[i] = DBNull.Value;
+            parsedArgs[i] = parameters[i].DefaultValue;
         }
-        Dictionary<string, object?> argsCopy = new(args);
-        List<Parameter> paramsLeft = [.. parameters];
-        for (int i = paramCount - 1; i >= 0; i--)
+        int consumed = 0;
+        int parsed = 0;
+        NamedArgs argsButBetter = new(args);
+        for (int i = 0; i < paramCount; i++)
         {
-            Parameter param = paramsLeft[i];
-            if (argsCopy.TryGetValue(param.Name, out object? value))
+            Parameter param = parameters[i];
+            if (argsButBetter.TryGetValue(param.Name, out object? obj)
+                && Conversion.TryParseOrConvert(obj, param.Type, out object? value))
             {
-                // check value type is nullable
-                if (value is null)
-                {
-                    // allow reference types and nullable value type
-                    // forbid non-nullable value types
-                    if (param.Type.IsValueType && !param.Type.TryUnwrapNullableType(out _))
-                        break;
-                }
-                else if (value.GetType() != param.Type)
-                {
-                    break;
-                }
-
                 parsedArgs[i] = value;
-                argsCopy.Remove(param.Name);
-                paramsLeft.RemoveAt(i);
+                consumed++;
+                parsed++;
             }
             else if (param.IsOptional)
             {
-                parsedArgs[i] = param.DefaultValue;
-                paramsLeft.RemoveAt(i);
+                // parsedArgs[i] = param.DefaultValue; // already default from above init
+                parsed++;
             }
             else
             {
                 break;
             }
         }
-        return new(argsCopy.Count == 0, paramsLeft.Count == 0, [..parsedArgs]);
+        return new(consumed == args.Count, parsed == parameters.Count, parsedArgs);
     }
 
     internal ArgParseResult TryParsePositionalArgs(IReadOnlyList<string> args)
@@ -134,23 +123,28 @@ internal class MethodCommand : Command, IParameters
         object?[] parsedArgs = new object?[paramCount];
         for (int i = 0; i < paramCount; i++)
         {
+            parsedArgs[i] = Parameters[i].DefaultValue;
+        }
+        for (int i = 0; i < paramCount; i++)
+        {
             Parameter param = Parameters[i];
             if (i < args.Count)
             {
                 if (!Conversion.TryParseOrConvert(args[i], param.Type, out object? parsedVal))
                     break;
                 parsedArgs[i] = parsedVal;
+                consumed++;
+                parsed++;
             }
             else if (param.IsOptional)
             {
-                parsedArgs[i] = param.DefaultValue;
+                // parsedArgs[i] = param.DefaultValue; // set above
+                parsed++;
             }
             else
             {
                 break;
             }
-            consumed++;
-            parsed++;
         }
 
         return new(consumed == args.Count, parsed == Parameters.Count, parsedArgs);

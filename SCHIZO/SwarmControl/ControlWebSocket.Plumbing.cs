@@ -47,7 +47,7 @@ internal partial class ControlWebSocket
             }
             if (message is { })
             {
-                LOGGER.LogInfo($"Received {message!.MessageType}");
+                LOGGER.LogInfo($"Received {message.MessageType} {message.Guid}");
                 OnMessage?.Invoke(message);
             }
         }
@@ -62,19 +62,41 @@ internal partial class ControlWebSocket
                 try
                 {
                     await SendStringInternal(JsonConvert.SerializeObject(msg, Formatting.None));
-                    LOGGER.LogInfo($"Sent {msg.MessageType} ({msg.Guid})");
+                    if (msg.MessageType != MessageType.Ping)
+                        LOGGER.LogInfo($"Sent {msg.MessageType} ({msg.Guid})");
                 }
                 catch (Exception e)
                 {
                     LOGGER.LogError($"Error sending {msg.GetType().Name} ({msg.Guid})");
-                    LOGGER.LogError(e);
-                    OnError?.Invoke(e);
+                    if (msg.MessageType != MessageType.Ping)
+                    {
+                        LOGGER.LogWarning($"Re-queueing {msg.GetType().Name} ({msg.Guid})");
+                        _sendQueue.Enqueue(msg);
+                    }
+                    if (e is WebSocketException we && we.WebSocketErrorCode == WebSocketError.ConnectionClosedPrematurely)
+                    {
+                        _socket.Dispose();
+                        OnClose?.Invoke((WebSocketCloseStatus)1006, null);
+                    }
+                    else
+                    {
+                        OnError?.Invoke(e);
+                    }
                 }
             }
             else
             {
                 await Task.Delay(TimeSpan.FromMilliseconds(200));
             }
+        }
+    }
+
+    private async Task PingThread()
+    {
+        while (IsConnected)
+        {
+            await Task.Delay(2000);
+            SendMessage(new PingMessage());
         }
     }
 
@@ -93,7 +115,8 @@ internal partial class ControlWebSocket
     public void SendMessage(GameMessage message)
     {
         _sendQueue.Enqueue(message);
-        LOGGER.LogDebug($"Enqueued {message.MessageType} ({message.Guid})");
+        if (message.MessageType != MessageType.Ping)
+            LOGGER.LogDebug($"Enqueued {message.MessageType} ({message.Guid})");
     }
 
     private async Task<string?> ReceiveStringAsync(CancellationToken ct = default)

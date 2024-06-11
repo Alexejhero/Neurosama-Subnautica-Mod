@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: connect_swarmcontrol
   label: Connect Swarm Control
-  tooltip: Did you remember to use the .reg file?
+  tooltip: Remember to set the backend URL and API key in the console (SHIFT+Enter)
+    with sc_url and sc_apikey
   disableIfAnyTrue: []
   disableIfAnyFalse: []
   onPressed:

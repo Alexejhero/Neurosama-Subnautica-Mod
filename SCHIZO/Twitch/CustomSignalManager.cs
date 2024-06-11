@@ -82,18 +82,18 @@ partial class CustomSignalManager
     public static object AddSignal(float x, float y, float z, [TakeRemaining] string signalName = "")
     {
         if (SaveLoadManager.temporarySavePath is null)
-            return null;
+            return CommonResults.Error("No loaded game");
         if (!_prefab)
-            return "developer forgor prefab for custom signal, please point and laugh";
+            return CommonResults.Error("developer forgor prefab for custom signal, please point and laugh");
         if (string.IsNullOrEmpty(signalName))
             return CommonResults.ShowUsage();
         if (_allSignals.ContainsKey(signalName))
-            return $"Signal \"{signalName}\" already exists";
+            return CommonResults.Error($"Signal \"{signalName}\" already exists");
 
         Vector3 pos = new(x, y, z);
         _customSignals[signalName] = Instance.CreateSignal(pos, signalName);
 
-        return null;
+        return CommonResults.OK();
     }
 
     [Command(Name = "removesignal",

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Commands.Base;
+using SCHIZO.Commands.Input;
 
 namespace SCHIZO.SwarmControl.Redeems.Spawns;
 
@@ -48,13 +49,13 @@ internal class Isekai : ProxyCommand<MethodCommand>
         if (proxyArgs is null)
             return null;
         Dictionary<string, object?> targetArgs = [];
-        if (proxyArgs.TryGetValue("creature", out object? proxyThingTypeBoxed)
-            && proxyThingTypeBoxed is IsekaiTechType proxyThingType)
+        NamedArgs args = new(proxyArgs);
+        if (args.TryGetValue("creature", out IsekaiTechType proxyThingType))
         {
-            targetArgs["techTypeName"] = proxyThingType.ToString();
+            targetArgs["techType"] = proxyThingType.ToString();
         }
-        if (proxyArgs.TryGetValue("range", out object? rangeBoxed)
-            && rangeBoxed is Range range)
+        targetArgs["proportion"] = 1f;
+        if (args.TryGetValue("range", out Range range))
         {
             targetArgs["radius"] = range switch
             {

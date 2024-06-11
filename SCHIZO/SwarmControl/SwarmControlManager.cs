@@ -149,7 +149,7 @@ partial class SwarmControlManager
     }
 
     private int _retries;
-    private const int MaxRetries = 5;
+    private const int MaxRetries = int.MaxValue;
     private IEnumerator AutoReconnectCoro()
     {
         while (_retries < MaxRetries)
