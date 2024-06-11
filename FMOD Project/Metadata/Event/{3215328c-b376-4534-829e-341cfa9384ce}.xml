@@ -5,7 +5,7 @@
 			<value>player_death</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{18ed83b5-f268-4ef4-aa2f-e4917c0f1443}</destination>
@@ -67,9 +67,6 @@
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{45a2db69-fb1e-4127-b12b-23a31e094a28}">
-		<property name="maxVoices">
-			<value>1</value>
-		</property>
 		<property name="priority">
 			<value>3</value>
 		</property>
@@ -140,6 +137,7 @@
 	<object class="MixerBusEffectChain" id="{a18af778-d04a-4d1b-955c-194bc33f8a95}">
 		<relationship name="effects">
 			<destination>{b18569bf-9d3b-4f8f-bf74-94ae089116a7}</destination>
+			<destination>{3871e5d2-2162-480e-af1f-8a09872bdfa2}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{d711e5f0-8e02-4f2f-bc8c-af938247a0b5}" />
@@ -165,6 +163,7 @@
 	</object>
 	<object class="MixerBusPanner" id="{2bbfc07d-903d-421d-a109-858143aadd87}" />
 	<object class="MixerBusFader" id="{b18569bf-9d3b-4f8f-bf74-94ae089116a7}" />
+	<object class="SpatialiserEffect" id="{3871e5d2-2162-480e-af1f-8a09872bdfa2}" />
 	<object class="Automator" id="{e7c9ed0d-5c1a-44bf-b760-38d5386725cf}">
 		<property name="nameOfPropertyBeingAutomated">
 			<value>duration</value>
