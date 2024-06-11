@@ -67,6 +67,17 @@ partial class SwarmControlManager
         Instance.PrivateApiKey = key;
     }
 
+    [Command(Name = "sc_rc", RegisterConsoleCommand = true)]
+    private static void ManualReconnect()
+    {
+        Task.Run(async () =>
+        {
+            await Instance._socket.Disconnect();
+            if (!await Instance._socket.ConnectSocket())
+                LOGGER.LogError("Manual reconnect failed");
+        });
+    }
+
     private void ButtonPressed()
     {
         if (!_socket.IsConnected)
