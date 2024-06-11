@@ -11,8 +11,7 @@ namespace SCHIZO.SwarmControl.Redeems.UGC;
     Name = "redeem_hint",
     DisplayName = "Send Hint",
     Description = "Display a message in the center of the screen",
-    Announce = AnnounceType.AlwaysSilent, // the message itself is the announcement
-    Moderated = true
+    Announce = false // the message itself is the announcement
 )]
 internal class Hint() : ProxyCommand<MethodCommand>("hint")
 {

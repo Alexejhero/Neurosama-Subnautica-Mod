@@ -9,7 +9,7 @@ namespace SCHIZO.SwarmControl.Redeems.Alerts;
 [Redeem(Name = "redeem_attachalert",
     DisplayName = "Attach Alert",
     Description = "Attach an alert to an entity.",
-    Announce = AnnounceType.DefaultSilent
+    Announce = false
 )]
 internal class AttachAlert() : ProxyCommand<MethodCommand>("contentalerts attach")
 {

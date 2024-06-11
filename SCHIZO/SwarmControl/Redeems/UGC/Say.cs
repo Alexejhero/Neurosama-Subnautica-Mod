@@ -11,8 +11,7 @@ namespace SCHIZO.SwarmControl.Redeems.UGC;
     Name = "redeem_say",
     DisplayName = "Send Text",
     Description = "Display text in the top left of the screen",
-    Announce = AnnounceType.AlwaysSilent, // the message itself is the announcement
-    Moderated = true
+    Announce = false // the message itself is the announcement
 )]
 internal class Say() : ProxyCommand<MethodCommand>("say")
 {

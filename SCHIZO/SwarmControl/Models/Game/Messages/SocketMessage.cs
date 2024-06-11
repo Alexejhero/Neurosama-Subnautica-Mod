@@ -33,6 +33,6 @@ public abstract record BackendMessage : SocketMessage
 {
     public TwitchUser? User { get; set; }
 
-    public string GetUsername() => User?.Username ?? "(Anonymous)";
-    public string GetDisplayName() => User?.DisplayName ?? "(Anonymous)";
+    public string GetUsername() => User?.Login ?? "(Someone)";
+    public string GetDisplayName() => User?.DisplayName ?? "(Someone)";
 }

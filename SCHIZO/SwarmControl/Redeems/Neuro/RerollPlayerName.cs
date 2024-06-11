@@ -9,8 +9,7 @@ namespace SCHIZO.SwarmControl.Redeems.Neuro;
 [Redeem(
     Name = "redeem_rerollname",
     DisplayName = "Reroll Vedal's Name",
-    Description = "Reroll Vedal's name in the Neuro integration.",
-    Announce = AnnounceType.DefaultAnnounce
+    Description = "Reroll Vedal's name in the Neuro integration."
 )]
 internal class RerollPlayerName() : ProxyCommand<SetPlayerName>(SetPlayerName.COMMAND)
 {

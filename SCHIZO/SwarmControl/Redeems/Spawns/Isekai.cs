@@ -10,8 +10,7 @@ namespace SCHIZO.SwarmControl.Redeems.Spawns;
 [Redeem(
     Name = "redeem_isekai",
     DisplayName = "Isekai",
-    Description = "Snap a specific type of entity around the player.",
-    Announce = AnnounceType.DefaultAnnounce
+    Description = "Snap a specific type of entity around the player."
 )]
 internal class Isekai : ProxyCommand<MethodCommand>
 {

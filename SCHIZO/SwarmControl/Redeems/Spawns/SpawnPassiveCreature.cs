@@ -1,5 +1,4 @@
 using SCHIZO.Commands.Attributes;
-using SCHIZO.Commands.Base;
 
 namespace SCHIZO.SwarmControl.Redeems.Spawns;
 
@@ -8,8 +7,7 @@ namespace SCHIZO.SwarmControl.Redeems.Spawns;
 [Redeem(
     Name = "spawn_passive",
     DisplayName = "Spawn Passive Creature",
-    Description = "Spawn a passive creature near the player",
-    Announce = AnnounceType.DefaultAnnounce
+    Description = "Spawn a passive creature near the player"
 )]
 internal class SpawnPassiveCreature : SpawnFiltered<SpawnPassiveCreature.PassiveCreature>
 {

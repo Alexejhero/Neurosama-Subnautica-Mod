@@ -9,8 +9,7 @@ namespace SCHIZO.SwarmControl.Redeems.Neuro;
 [CommandCategory("Neuro")]
 [Redeem(Name = COMMAND,
     DisplayName = "Set Vedal's Name",
-    Description = "Set Vedal's name in the Neuro integration.",
-    Announce = AnnounceType.DefaultAnnounce
+    Description = "Set Vedal's name in the Neuro integration."
 )]
 internal class SetPlayerName() : ConsoleWrapperCommand("immersion set player")
 {

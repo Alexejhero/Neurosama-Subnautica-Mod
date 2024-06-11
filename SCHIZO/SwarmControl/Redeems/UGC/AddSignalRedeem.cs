@@ -9,9 +9,7 @@ namespace SCHIZO.SwarmControl.Redeems.UGC;
 [Redeem(
     Name = "redeem_addsignal",
     DisplayName = "Add Beacon",
-    Description = "Adds a beacon ping to the map.",
-    Announce = AnnounceType.AlwaysAnnounce,
-    Moderated = true
+    Description = "Adds a beacon ping to the map."
 )]
 internal class AddSignalRedeem() : ProxyCommand<MethodCommand>("addsignal")
 {

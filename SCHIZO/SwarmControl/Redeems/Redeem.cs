@@ -12,12 +12,11 @@ internal sealed class Redeem(RedeemAttribute attr, Command command)
     public string Description { get; set; } = attr.Description;
     public ParameterModel[] Args { get; set; } = command is not IParameters p ? []
         : p.Parameters.Select(p => new ParameterModel(p)).ToArray();
-    public AnnounceType Announce { get; set; } = attr.Announce;
-    public bool Moderated { get; set; } = attr.Moderated;
+    public bool Announce { get; set; } = attr.Announce;
 
-    public string Image { get; set; } = "UNSET";
-    public int Price { get; set; } = 99999999;
-    public string Sku { get; set; } = "UNSET";
+    public string Image { get; set; } = "https://vedalai.github.io/swarm-control/Erm.png";
+    public int Price { get; set; } = 1;
+    public string Sku { get; set; } = "bits1";
     public bool Disabled { get; set; }
     public bool Hidden { get; set; }
 
