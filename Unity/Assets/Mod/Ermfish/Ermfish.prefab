@@ -454,7 +454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEvent: event:/SCHIZO/creatures/ermfish/player_death
-  emitter: {fileID: 0}
+  emitter: {fileID: 5648931341203019549}
 --- !u!114 &5574741202301287243
 MonoBehaviour:
   m_ObjectHideFlags: 0
