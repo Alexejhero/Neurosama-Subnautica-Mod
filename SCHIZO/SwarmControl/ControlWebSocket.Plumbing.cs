@@ -18,7 +18,7 @@ namespace SCHIZO.SwarmControl;
 internal partial class ControlWebSocket
 {
     private readonly ConcurrentQueue<GameMessage> _sendQueue = [];
-    private DateTime _lastSend;
+    private DateTime _lastPong;
 
     private async Task ReceiveThread()
     {
@@ -38,6 +38,7 @@ internal partial class ControlWebSocket
             try
             {
                 message = ConvertBackendMessage(json);
+                _lastPong = DateTime.UtcNow;
             }
             catch (InvalidDataException e)
             {
@@ -64,7 +65,6 @@ internal partial class ControlWebSocket
             {
                 try
                 {
-                    _lastSend = DateTime.UtcNow;
                     await SendStringInternal(JsonConvert.SerializeObject(msg, Formatting.None));
                     if (msg.MessageType != MessageType.Ping)
                         LOGGER.LogInfo($"Sent {msg.MessageType} ({msg.Guid})");
@@ -77,7 +77,7 @@ internal partial class ControlWebSocket
                         LOGGER.LogWarning($"Re-queueing {msg.GetType().Name} ({msg.Guid})");
                         _sendQueue.Enqueue(msg);
                     }
-                    if (e is WebSocketException we && we.WebSocketErrorCode == WebSocketError.ConnectionClosedPrematurely)
+                    if (e is WebSocketException we)
                     {
                         _socket.Dispose();
                         OnClose?.Invoke((WebSocketCloseStatus)1006, null);
@@ -100,9 +100,14 @@ internal partial class ControlWebSocket
         while (IsConnected)
         {
             await Task.Delay(1000);
-            if (_sendQueue.IsEmpty && _lastSend.AddSeconds(2) < DateTime.UtcNow)
+            if (_sendQueue.IsEmpty)
             {
                 SendMessage(new PingMessage());
+            }
+            if (_lastPong.AddSeconds(5) < DateTime.UtcNow)
+            {
+                _socket.Dispose();
+                OnClose?.Invoke(WebSocketCloseStatus.EndpointUnavailable, null);
             }
         }
     }
