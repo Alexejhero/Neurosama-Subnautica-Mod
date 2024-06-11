@@ -18,9 +18,9 @@ internal sealed class ContentAlertsCommand : CompositeCommand
     private void ToggleAlerts(bool enabled) => ContentAlertManager.AlertsEnabled = enabled;
 
     [SubCommand(Description = "Attach content alerts to a specific item or creature (\"tech type\").")]
-    internal void Attach(string techTypeName) => ToggleTechType(techTypeName, true);
+    internal void Attach(string techType) => ToggleTechType(techType, true);
     [SubCommand(Description = "Detach content alerts from a specific item or creature (\"tech type\").")]
-    internal void Detach(string techTypeName) => ToggleTechType(techTypeName, false);
+    internal void Detach(string techType) => ToggleTechType(techType, false);
 
     private object ToggleTechType(string techTypeName, bool attach)
     {

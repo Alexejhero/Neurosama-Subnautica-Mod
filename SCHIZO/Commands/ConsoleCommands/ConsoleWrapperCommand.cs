@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Nautilus.Patchers;
 using SCHIZO.Commands.Base;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
+using SCHIZO.Helpers;
 
 namespace SCHIZO.Commands.ConsoleCommands;
 
@@ -17,10 +19,17 @@ public abstract class ConsoleWrapperCommand(string commandName) : Command, IPara
     public string Command { get; } = commandName;
     public abstract IReadOnlyList<Parameter> Parameters { get; }
 
+    private static bool CommandExists(string command)
+    {
+        return DevConsole.commands.ContainsKey(command)
+            || ConsoleCommandsPatcher.ConsoleCommands.ContainsKey(command);
+    }
+
     protected override object? ExecuteCore(CommandExecutionContext ctx)
     {
-        if (!DevConsole.commands.ContainsKey(Command))
-            return CommonResults.Error($"Console command {Command} was not found");
+        string rootCommand = Command.SplitOnce(' ').Before; // subcommands
+        if (!CommandExists(rootCommand))
+            return CommonResults.Error($"Console command {rootCommand} was not found");
         object?[] args = GetArgs(ctx).ToArray();
         int failArgIndex = ValidateArgs(args);
         if (failArgIndex >= 0)

@@ -22,4 +22,6 @@ internal sealed class Redeem(RedeemAttribute attr, Command command)
 
     [JsonIgnore]
     public Command Command { get; } = command;
+    [JsonIgnore]
+    public bool Export { get; set; } = attr.Export;
 }

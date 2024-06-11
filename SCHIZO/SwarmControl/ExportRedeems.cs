@@ -16,17 +16,19 @@ internal class ExportRedeems : Command
 {
     protected override object ExecuteCore(CommandExecutionContext ctx)
     {
-        Dictionary<string, Redeem> allRedeems = RedeemRegistry.Redeems;
+        IEnumerable<Redeem> allRedeems = RedeemRegistry.Redeems.Values
+            .Where(r => r.Export);
 
         var config = new
         {
-            Enums = allRedeems.Values
+            Enums = allRedeems
                 .SelectMany(r => r.Args)
                 .Select(p => p.ActualType)
                 .Where(t => t.IsEnum)
                 .Select(e => new EnumDefinitionModel(e))
                 .ToDictionary(e => e.Name, e => e.Values),
-            Redeems = allRedeems,
+            Redeems = allRedeems
+                .ToDictionary(r => r.Id),
         };
         string json = JsonConvert.SerializeObject(config, new JsonSerializerSettings()
         {

@@ -11,4 +11,5 @@ internal class RedeemAttribute : CommandAttribute
     /// For redeems that already display messages (or big secret funnies), this should be <see langword="false"/>.
     /// </summary>
     public bool Announce { get; set; } = true;
+    public bool Export { get; set; } = true;
 }
