@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Nautilus.Extensions;
-using SwarmControl.Shared.Models.Game;
+using SwarmControl.Models.Game;
 
 namespace SCHIZO.Commands.Base;
 #nullable enable

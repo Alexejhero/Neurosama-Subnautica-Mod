@@ -5,7 +5,7 @@ using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
 using SCHIZO.Helpers;
-using SwarmControl.Shared.Models.Game.Messages;
+using SwarmControl.Models.Game.Messages;
 
 namespace SCHIZO.SwarmControl;
 

@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using SwarmControl.Shared.Models.Game;
+using SwarmControl.Models.Game;
 
 namespace SCHIZO.Commands.Base;
 #nullable enable

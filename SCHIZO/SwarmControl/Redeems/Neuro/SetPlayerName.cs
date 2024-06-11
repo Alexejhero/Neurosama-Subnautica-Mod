@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Commands.Base;
 using SCHIZO.Commands.ConsoleCommands;
-using SwarmControl.Shared.Models.Game;
+using SwarmControl.Models.Game;
 
 namespace SCHIZO.SwarmControl.Redeems.Neuro;
 

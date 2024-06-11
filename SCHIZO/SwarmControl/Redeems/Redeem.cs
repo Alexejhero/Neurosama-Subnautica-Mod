@@ -1,7 +1,7 @@
 using System.Linq;
 using Newtonsoft.Json;
 using SCHIZO.Commands.Base;
-using SwarmControl.Shared.Models.Game;
+using SwarmControl.Models.Game;
 
 namespace SCHIZO.SwarmControl.Redeems;
 

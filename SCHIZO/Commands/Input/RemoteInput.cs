@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using SwarmControl.Shared.Models.Game.Messages;
+using SwarmControl.Models.Game.Messages;
 using SCHIZO.Commands.Base;
 using SCHIZO.Helpers;
 

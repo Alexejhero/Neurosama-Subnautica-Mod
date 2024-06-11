@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Commands.Base;
-using SwarmControl.Shared.Models.Game;
+using SwarmControl.Models.Game;
 
 namespace SCHIZO.Commands.ConsoleCommands;
 

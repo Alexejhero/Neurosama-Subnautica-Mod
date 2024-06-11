@@ -7,7 +7,7 @@ using SCHIZO.Commands.Base;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Output;
 using SCHIZO.SwarmControl.Redeems;
-using SwarmControl.Shared.Models.Game;
+using SwarmControl.Models.Game;
 
 namespace SCHIZO.SwarmControl;
 [Command(Name = "sc_export",

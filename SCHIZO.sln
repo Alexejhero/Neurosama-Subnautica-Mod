@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Non-project Files", "Non-pr
 		Subnautica.props = Subnautica.props
 	EndProjectSection
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SwarmControl.Shared", "SwarmControl.Shared\SwarmControl.Shared.shproj", "{D410AD84-1EB0-4F43-B1AF-2149EBC5E2F3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		BelowZero|Any CPU = BelowZero|Any CPU
@@ -31,9 +29,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0FCBA84-5FC1-4BF9-8266-B9788255358E}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		SwarmControl.Shared\SwarmControl.Shared.projitems*{b37c5667-2245-47bc-b268-aa7d2fe105fe}*SharedItemsImports = 5
-		SwarmControl.Shared\SwarmControl.Shared.projitems*{d410ad84-1eb0-4f43-b1af-2149ebc5e2f3}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

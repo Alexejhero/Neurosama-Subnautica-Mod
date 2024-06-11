@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SCHIZO.Helpers;
-using SwarmControl.Shared.Models.Game.Messages;
+using SwarmControl.Models.Game.Messages;
 using SCHIZO.Commands.Input;
 
 namespace SCHIZO.SwarmControl;
@@ -18,14 +18,15 @@ namespace SCHIZO.SwarmControl;
 internal partial class ControlWebSocket
 {
     private readonly ConcurrentQueue<GameMessage> _sendQueue = [];
+    private DateTime _lastSend;
 
     private async Task ReceiveThread()
     {
         while (IsConnected)
         {
-            string? msg = await ReceiveStringAsync();
+            string? json = await ReceiveStringAsync();
 
-            if (msg is null) // close
+            if (json is null) // close
             {
                 LOGGER.LogDebug("Received nothing, closing");
                 await _socket.CloseOutputAsync(WebSocketCloseStatus.NormalClosure, null, default);
@@ -33,21 +34,23 @@ internal partial class ControlWebSocket
                 return;
             }
 
-            LOGGER.LogDebug($"Received JSON {msg}");
-
             BackendMessage? message = null;
             try
             {
-                message = ConvertBackendMessage(msg);
+                message = ConvertBackendMessage(json);
             }
             catch (InvalidDataException e)
             {
-                LOGGER.LogError($"Websocket recv message parse error: {e.Message}");
+                LOGGER.LogError($"Websocket recv message parse error: {e.Message} (json was {json})");
                 OnError?.Invoke(e);
             }
             if (message is { })
             {
-                LOGGER.LogInfo($"Received {message.MessageType} {message.Guid}");
+                if (message.MessageType != MessageType.Pong)
+                {
+                    LOGGER.LogDebug($"Received JSON {json}");
+                    LOGGER.LogInfo($"Received {message.MessageType} {message.Guid}");
+                }
                 OnMessage?.Invoke(message);
             }
         }
@@ -61,6 +64,7 @@ internal partial class ControlWebSocket
             {
                 try
                 {
+                    _lastSend = DateTime.UtcNow;
                     await SendStringInternal(JsonConvert.SerializeObject(msg, Formatting.None));
                     if (msg.MessageType != MessageType.Ping)
                         LOGGER.LogInfo($"Sent {msg.MessageType} ({msg.Guid})");
@@ -95,8 +99,11 @@ internal partial class ControlWebSocket
     {
         while (IsConnected)
         {
-            await Task.Delay(2000);
-            SendMessage(new PingMessage());
+            await Task.Delay(1000);
+            if (_sendQueue.IsEmpty && _lastSend.AddSeconds(2) < DateTime.UtcNow)
+            {
+                SendMessage(new PingMessage());
+            }
         }
     }
 
@@ -158,8 +165,8 @@ internal partial class ControlWebSocket
         NamedArgs args = new(data!);
         if (!args.TryGetValue("messageType", out MessageType type))
             throw new InvalidDataException("Missing messageType");
-        if (ReflectionCache.GetType($"SwarmControl.Shared.Models.Game.Messages.{type}Message") is not Type messageType)
-            throw new InvalidDataException("Invalid messageType");
+        if (ReflectionCache.GetType($"SwarmControl.Models.Game.Messages.{type}Message") is not Type messageType)
+            throw new InvalidDataException($"Invalid messageType - no message record defined for {type}");
         if (!typeof(BackendMessage).IsAssignableFrom(messageType))
             throw new InvalidDataException("Received a non-backend message from backend");
         try

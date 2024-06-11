@@ -1,15 +1,10 @@
 using System;
-using System.Diagnostics;
-using System.Net;
 using System.Net.Http;
 using System.Net.WebSockets;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
-using SCHIZO.Helpers;
-using SwarmControl.Constants;
-using SwarmControl.Shared.Models.Game.Messages;
-using SwarmControl.Shared.Models.Game;
+using SwarmControl.Models.Game.Messages;
+using SwarmControl.Models.Game;
 
 namespace SCHIZO.SwarmControl;
 
@@ -92,9 +87,9 @@ internal partial class ControlWebSocket : IDisposable
         }
 
         Uri wsBaseUri = new UriBuilder(BaseUri) { Scheme = BaseUri.Scheme == "https" ? "wss" : "ws" }.Uri;
-        Uri hostWebsocketUri = new(wsBaseUri, ConnectionConstants.ServerHostWebsocketEndpoint);
+        Uri hostWebsocketUri = new(wsBaseUri, "/private/socket");
 
-        _socket.Options.SetRequestHeader("Authorization", $"Bearer {SwarmControlManager.Instance.PrivateApiKey}");
+        _socket.Options.SetRequestHeader("Authorization", $"Bearer {Uri.EscapeDataString(SwarmControlManager.Instance.PrivateApiKey)}");
 
         try
         {

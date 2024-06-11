@@ -6,8 +6,6 @@
     </PropertyGroup>
 
     <Import Project="$(SolutionDir)/Subnautica.props" Condition=" '$(Configuration)' == 'Subnautica' " />
-
-    <Import Project="..\SwarmControl.Shared\SwarmControl.Shared.projitems" Label="Shared" />
     <Import Project="$(SolutionDir)/BelowZero.props" Condition=" '$(Configuration)' == 'BelowZero' " />
 
     <ItemGroup>
