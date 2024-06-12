@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Linq;
 using Newtonsoft.Json;
 using SCHIZO.Commands.Base;
@@ -12,6 +13,7 @@ internal sealed class Redeem(RedeemAttribute attr, Command command)
     public string Description { get; set; } = attr.Description;
     public ParameterModel[] Args { get; set; } = command is not IParameters p ? []
         : p.Parameters.Select(p => new ParameterModel(p)).ToArray();
+    [DefaultValue(true)]
     public bool Announce { get; set; } = attr.Announce;
 
     public string Image { get; set; } = "https://vedalai.github.io/swarm-control/Erm.png";

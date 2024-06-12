@@ -131,4 +131,29 @@ internal static class FMODHelpers
         evt.stop(STOP_MODE.IMMEDIATE);
         evt.release();
     }
+
+    public static EventInstance PlayOneShot(string soundEvent, Vector3? position = null)
+        => PlayOneShot(RuntimeManager.PathToGUID(soundEvent), position);
+
+    public static EventInstance PlayOneShot(Guid guid, Vector3? position = null)
+    {
+        EventInstance evt = RuntimeManager.CreateInstance(guid);
+        if (position.HasValue)
+            evt.set3DAttributes(position.Value.To3DAttributes());
+        evt.start();
+        evt.release();
+        return evt;
+    }
+
+    public static EventInstance PlayOneShotAttached(string soundEvent, GameObject gameObject)
+        => PlayOneShotAttached(RuntimeManager.PathToGUID(soundEvent), gameObject);
+
+    public static EventInstance PlayOneShotAttached(Guid guid, GameObject gameObject)
+    {
+        EventInstance evt = RuntimeManager.CreateInstance(guid);
+        RuntimeManager.AttachInstanceToGameObject(evt, gameObject.transform, gameObject.GetComponent<Rigidbody>());
+        evt.start();
+        evt.release();
+        return evt;
+    }
 }

@@ -163,7 +163,6 @@ partial class SwarmControlManager
         if (_reconnectCoro is { }) StopCoroutine(_reconnectCoro);
         if (!_socket.IsConnected) return;
         StartCoroutine(DisconnectCoro());
-
     }
 
     private IEnumerator DisconnectCoro()
