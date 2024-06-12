@@ -42,7 +42,9 @@ partial class SwarmControlManager
     public bool CanSpawn => Ingame
         && Player.main
         && Player.main.IsUnderwaterForSwimming()
+#if BELOWZERO
         && !Player.main.IsPilotingSeatruck()
+#endif
         && !Player.main.IsInBase()
         //&& Time.timeScale > 0
         ;
@@ -64,7 +66,7 @@ partial class SwarmControlManager
     private IEnumerator OnLoadCoro()
     {
         uGUI gui = uGUI.main;
-        yield return new WaitUntil(() => gui.loading && !gui.loading.IsLoading);
+        yield return new WaitUntil(() => gui.loading && !gui.loading.isLoading);
         Ingame = true;
         SendIngameStateMsg();
     }
