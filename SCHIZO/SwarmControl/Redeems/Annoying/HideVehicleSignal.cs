@@ -72,7 +72,7 @@ internal class HideVehicleSignal : Command, IParameters
         {
             if (!p.enabled) continue;
 
-            p.enabled = false;
+            p.OnDisable(); // we don't want to store them as disabled in the save file
             _disabledPings.Add(p);
         }
         LOGGER.LogInfo($"{nameof(HideVehicleSignal)} activated - disabled {_disabledPings.Count} pings");
@@ -84,7 +84,7 @@ internal class HideVehicleSignal : Command, IParameters
         foreach (PingInstance p in _disabledPings)
         {
             if (!p) continue;
-            p.enabled = true;
+            p.OnEnable();
         }
         LOGGER.LogInfo($"{nameof(HideVehicleSignal)} deactivated");
         _disabledPings.Clear();
