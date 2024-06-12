@@ -4,10 +4,13 @@ using System.Collections.Concurrent;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Cci;
+using Nautilus.Utility;
 using SCHIZO.Attributes;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
+using SwarmControl.Models.Game.Messages;
 using TMPro;
 using UnityEngine;
 
@@ -37,11 +40,28 @@ partial class SwarmControlManager
 
     private ControlWebSocket _socket;
 
+    public bool Ingame { get; private set; }
+    public bool CanSpawn { get; private set; }
+
     private void Awake()
     {
         Instance = this;
         _socket = new();
         Processor = new(_socket);
+        SaveUtils.RegisterOnFinishLoadingEvent(OnLoad);
+        SaveUtils.RegisterOnQuitEvent(OnQuit);
+    }
+
+    private void OnLoad()
+    {
+        Ingame = true;
+        SendIngameStateMsg();
+    }
+
+    private void OnQuit()
+    {
+        Ingame = false;
+        SendIngameStateMsg();
     }
 
     private void OnDestroy()
@@ -159,15 +179,26 @@ partial class SwarmControlManager
             action();
     }
 
+    private void FixedUpdate()
+    {
+        bool canSpawn = Player.main
+            && Player.main.IsUnderwaterForSwimming()
+            && !Player.main.IsPilotingSeatruck()
+            && !Player.main.IsInBase()
+            ;
+        if (canSpawn != CanSpawn)
+        {
+            CanSpawn = canSpawn;
+            SendIngameStateMsg();
+        }
+    }
+
     private int _retries;
     private const int MaxRetries = int.MaxValue;
     private IEnumerator AutoReconnectCoro()
     {
         while (_retries < MaxRetries)
         {
-            // unfortunately the socket state stays "Open" even if the server stops replying to pings
-            // so detecting disconnects robustly is left as a "fun" exercise for the reader
-            // no you can't just ReceiveAsync with a timeout ct because cancelling it kills the socket, there's an issue on this that's closed as "by design" Smile
             if (_socket.IsConnected)
             {
                 _retries = 0;
@@ -184,5 +215,17 @@ partial class SwarmControlManager
 
         LOGGER.LogWarning("Could not reconnect to websocket");
         ShowConfirmation("Lost connection to server\nReconnect in options");
+    }
+
+    internal void SendIngameStateMsg()
+    {
+        if (_socket.IsConnected)
+        {
+            _socket.SendMessage(new IngameStateChangedMessage()
+            {
+                Ingame = Ingame,
+                CanSpawn = CanSpawn,
+            });
+        }
     }
 }

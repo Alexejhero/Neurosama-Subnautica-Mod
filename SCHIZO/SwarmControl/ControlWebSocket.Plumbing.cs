@@ -65,7 +65,7 @@ internal partial class ControlWebSocket
             {
                 try
                 {
-                    await SendStringInternal(JsonConvert.SerializeObject(msg, Formatting.None));
+                    await SendStringInternal(JsonConvert.SerializeObject(msg, Formatting.None), msg.MessageType != MessageType.Ping);
                     if (msg.MessageType != MessageType.Ping)
                         LOGGER.LogInfo($"Sent {msg.MessageType} ({msg.Guid})");
                 }
@@ -103,6 +103,7 @@ internal partial class ControlWebSocket
             if (_sendQueue.IsEmpty)
             {
                 SendMessage(new PingMessage());
+                await Task.Delay(1000);
             }
             if (_lastPong.AddSeconds(5) < DateTime.UtcNow)
             {
@@ -112,7 +113,7 @@ internal partial class ControlWebSocket
         }
     }
 
-    private async Task SendStringInternal(string message, CancellationToken ct = default)
+    private async Task SendStringInternal(string message, bool print = true, CancellationToken ct = default)
     {
         if (string.IsNullOrEmpty(message))
             throw new ArgumentNullException(nameof(message));
@@ -120,7 +121,8 @@ internal partial class ControlWebSocket
         if (!CheckOpen())
             throw new InvalidOperationException("Socket not connected");
 
-        LOGGER.LogDebug($"SEND:\n{message}");
+        if (print)
+            LOGGER.LogDebug($"SEND:\n{message}");
         await _socket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(message)), WebSocketMessageType.Text, true, ct);
     }
 
@@ -131,7 +133,8 @@ internal partial class ControlWebSocket
             LOGGER.LogDebug($"Enqueued {message.MessageType} ({message.Guid})");
     }
 
-    private async Task<string?> ReceiveStringAsync(CancellationToken ct = default)
+    // note: cancelling in ReceiveAsync kills the socket, there's an issue on this that's closed as "by design" Smile
+    private async Task<string?> ReceiveStringAsync(CancellationToken killSocketCt = default)
     {
         if (!CheckOpen())
             return null;
@@ -144,7 +147,7 @@ internal partial class ControlWebSocket
         int totalBytes = 0;
         while (result is not { EndOfMessage: true })
         {
-            result = await _socket.ReceiveAsync(buffer, ct);
+            result = await _socket.ReceiveAsync(buffer, killSocketCt);
             ms.Write(buffer.Array, 0, result.Count);
             totalBytes += result.Count;
         }
@@ -156,10 +159,10 @@ internal partial class ControlWebSocket
             case WebSocketMessageType.Text:
                 return Encoding.UTF8.GetString(ms.ToArray());
             case WebSocketMessageType.Binary:
-                await _socket.CloseOutputAsync(WebSocketCloseStatus.InvalidMessageType, "Unexpected binary data", ct);
+                await _socket.CloseOutputAsync(WebSocketCloseStatus.InvalidMessageType, "Unexpected binary data", killSocketCt);
                 throw new InvalidDataException("Received unexpected binary data");
             default:
-                await _socket.CloseOutputAsync(WebSocketCloseStatus.InvalidMessageType, "Invalid message type", ct);
+                await _socket.CloseOutputAsync(WebSocketCloseStatus.InvalidMessageType, "Invalid message type", killSocketCt);
                 throw new InvalidDataException("Received invalid message type");
         }
     }

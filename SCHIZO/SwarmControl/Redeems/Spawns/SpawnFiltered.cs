@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using SCHIZO.Commands.Base;
 using SCHIZO.Commands.ConsoleCommands;
+using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
+using SCHIZO.Commands.Output;
 
 namespace SCHIZO.SwarmControl.Redeems.Spawns;
 
@@ -24,6 +26,13 @@ internal class SpawnFiltered<T> : ProxyCommand<SpawnCommand>
             new(new("behind", "Spawn Behind", "Spawn the creature behind the player"),
                 typeof(bool), defaultValue: false),
         ];
+    }
+
+    protected override object? ExecuteCore(CommandExecutionContext ctx)
+    {
+        if (!SwarmControlManager.Instance.CanSpawn)
+            return CommonResults.Error("Cannot spawn at this time.");
+        return base.ExecuteCore(ctx);
     }
 
     protected override Dictionary<string, object?>? GetTargetArgs(Dictionary<string, object?>? proxyArgs)

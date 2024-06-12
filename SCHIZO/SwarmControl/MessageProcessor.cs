@@ -49,11 +49,15 @@ internal sealed class MessageProcessor
 
     private void OnHelloBack(HelloBackMessage helloBack)
     {
-        if (helloBack.Allowed) return;
+        if (!helloBack.Allowed)
+        {
+            LOGGER.LogError("Server rejected handshake");
+            _socket.Disconnect().Start();
+            uGUI.main.confirmation.Show("Server rejected handshake\nConnection is not possible");
+            return;
+        }
 
-        LOGGER.LogError("Server rejected handshake");
-        _socket.Disconnect().Start();
-        uGUI.main.confirmation.Show("Server rejected handshake\nConnection is not possible");
+        SwarmControlManager.Instance.SendIngameStateMsg();
     }
     private void OnConsoleInput(ConsoleInputMessage msg)
     {
