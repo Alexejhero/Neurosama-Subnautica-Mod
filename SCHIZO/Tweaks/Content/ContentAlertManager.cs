@@ -78,15 +78,17 @@ partial class ContentAlertManager
 
     public static void AttachContentAlert(Transform target)
     {
-        if (!target || target.GetComponentInChildren<ContentVisibilityHelper>()) return;
+        if (!target || target.transform.Find($"{Instance.alertPrefab.name} (Clone)")) return;
 
         Instantiate(Instance.alertPrefab, target);
     }
 
     public static void DetachContentAlert(Transform target)
     {
-        ContentVisibilityHelper alert = target.GetComponentInChildren<ContentVisibilityHelper>();
-        if (alert) GameObject.Destroy(alert.gameObject);
+        foreach (ContentVisibilityHelper alert in target.GetComponentsInChildren<ContentVisibilityHelper>())
+        {
+            if (alert) GameObject.Destroy(alert.gameObject);
+        }
     }
 
     public static void Clear()
