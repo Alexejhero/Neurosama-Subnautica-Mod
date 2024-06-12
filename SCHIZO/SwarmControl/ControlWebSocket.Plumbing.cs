@@ -151,7 +151,7 @@ internal partial class ControlWebSocket
             ms.Write(buffer.Array, 0, result.Count);
             totalBytes += result.Count;
         }
-        LOGGER.LogDebug($"Received {result.MessageType} ({totalBytes} bytes)");
+        // LOGGER.LogDebug($"Received {result.MessageType} ({totalBytes} bytes)");
         switch (result.MessageType)
         {
             case WebSocketMessageType.Close:
