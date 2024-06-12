@@ -89,7 +89,7 @@ internal sealed class MessageProcessor
                 LogSink.Info,
                 new ShowUsage(command),
                 new DelegateSink((ref object res) => {
-                    if (res is null or CommonResults.OKResult && msg.Announce)
+                    if (res is null or string or CommonResults.OKResult && msg.Announce)
                     {
                         ErrorMessage.AddMessage($"{msg.GetDisplayName()} redeemed {msg.Title}");
                     }

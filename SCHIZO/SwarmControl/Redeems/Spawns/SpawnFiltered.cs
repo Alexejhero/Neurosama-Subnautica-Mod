@@ -1,10 +1,13 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using SCHIZO.Commands.Base;
 using SCHIZO.Commands.ConsoleCommands;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
+using UnityEngine;
+using UWE;
 
 namespace SCHIZO.SwarmControl.Redeems.Spawns;
 
@@ -31,8 +34,16 @@ internal class SpawnFiltered<T> : ProxyCommand<SpawnCommand>
     protected override object? ExecuteCore(CommandExecutionContext ctx)
     {
         if (!SwarmControlManager.Instance.CanSpawn)
-            return CommonResults.Error("Cannot spawn at this time.");
-        return base.ExecuteCore(ctx);
+        {
+            // return fake OK and queue the actual spawn
+            JsonContext targetCtx = GetContextForTarget((JsonContext)ctx);
+            CoroutineHost.StartCoroutine(QueueSpawn(targetCtx));
+            return "Your spawn redeem is queued.";
+        }
+        else
+        {
+            return base.ExecuteCore(ctx);
+        }
     }
 
     protected override Dictionary<string, object?>? GetTargetArgs(Dictionary<string, object?>? proxyArgs)
@@ -55,5 +66,11 @@ internal class SpawnFiltered<T> : ProxyCommand<SpawnCommand>
         targetArgs["distance"] = behind ? -SpawnDistance : SpawnDistance;
 
         return targetArgs;
+    }
+
+    private IEnumerator QueueSpawn(JsonContext ctx)
+    {
+        yield return new WaitUntil(() => SwarmControlManager.Instance.CanSpawn);
+        Target.Execute(ctx);
     }
 }

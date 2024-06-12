@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
-using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Cci;
 using Nautilus.Utility;
 using SCHIZO.Attributes;
 using SCHIZO.Commands.Attributes;
@@ -41,7 +39,13 @@ partial class SwarmControlManager
     private ControlWebSocket _socket;
 
     public bool Ingame { get; private set; }
-    public bool CanSpawn { get; private set; }
+    public bool CanSpawn => Ingame
+        && Player.main
+        && Player.main.IsUnderwaterForSwimming()
+        && !Player.main.IsPilotingSeatruck()
+        && !Player.main.IsInBase()
+        //&& Time.timeScale > 0
+        ;
 
     private void Awake()
     {
@@ -54,6 +58,13 @@ partial class SwarmControlManager
 
     private void OnLoad()
     {
+        StartCoroutine(OnLoadCoro());
+    }
+
+    private IEnumerator OnLoadCoro()
+    {
+        uGUI gui = uGUI.main;
+        yield return new WaitUntil(() => gui.loading && !gui.loading.IsLoading);
         Ingame = true;
         SendIngameStateMsg();
     }
@@ -179,20 +190,6 @@ partial class SwarmControlManager
             action();
     }
 
-    private void FixedUpdate()
-    {
-        bool canSpawn = Player.main
-            && Player.main.IsUnderwaterForSwimming()
-            && !Player.main.IsPilotingSeatruck()
-            && !Player.main.IsInBase()
-            ;
-        if (canSpawn != CanSpawn)
-        {
-            CanSpawn = canSpawn;
-            SendIngameStateMsg();
-        }
-    }
-
     private int _retries;
     private const int MaxRetries = int.MaxValue;
     private IEnumerator AutoReconnectCoro()
@@ -224,7 +221,6 @@ partial class SwarmControlManager
             _socket.SendMessage(new IngameStateChangedMessage()
             {
                 Ingame = Ingame,
-                CanSpawn = CanSpawn,
             });
         }
     }
