@@ -28,7 +28,9 @@ internal class Say() : ProxyCommand<MethodCommand>("say")
         string submitter = input.Model.GetDisplayName();
         NamedArgs args = input.GetNamedArguments();
         args.TryGetValue("message", out string? message);
-        args["message"] = $"{submitter}: {message ?? "(no message)"}";
+        if (string.IsNullOrWhiteSpace(message))
+            message = "(no message)";
+        args["message"] = $"{submitter}: {message}";
         return base.GetContextForTarget(proxyCtx);
     }
 

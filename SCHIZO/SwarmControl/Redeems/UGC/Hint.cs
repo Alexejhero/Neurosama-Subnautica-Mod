@@ -16,7 +16,7 @@ namespace SCHIZO.SwarmControl.Redeems.UGC;
 internal class Hint() : ProxyCommand<MethodCommand>("hint")
 {
     public override IReadOnlyList<Parameter> Parameters => [
-        new TextParameter(new NamedModel("message", "The message to display")) {
+        new TextParameter(new NamedModel("message", "Message", "The message to display")) {
             MinLength = 1
         }
     ];
@@ -28,7 +28,9 @@ internal class Hint() : ProxyCommand<MethodCommand>("hint")
         string submitter = input.Model.GetDisplayName();
         NamedArgs args = input.GetNamedArguments();
         args.TryGetValue("message", out string? message);
-        args["message"] = $"{submitter}: {message ?? "(no message)"}";
+        if (string.IsNullOrWhiteSpace(message))
+            message = "(no message)";
+        args["message"] = $"{submitter}: {message}";
         return base.GetContextForTarget(proxyCtx);
     }
 
