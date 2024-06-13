@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.WebSockets;
 using SCHIZO.Commands.Base;
 using SCHIZO.Commands.Context;
@@ -13,6 +14,10 @@ namespace SCHIZO.SwarmControl;
 internal sealed class MessageProcessor
 {
     private readonly ControlWebSocket _socket;
+
+    //private readonly Dictionary<Guid, RedeemMessage> _redeems = [];
+    private readonly Dictionary<Guid, ResultMessage> _results = [];
+
     public MessageProcessor(ControlWebSocket socket)
     {
         _socket = socket;
@@ -72,6 +77,13 @@ internal sealed class MessageProcessor
         {
             LOGGER.LogDebug($"{msg.GetUsername()} tried to redeem unknown command \"{msg.Command}\"");
             SendResult(guid, false, "Command not found");
+            return;
+        }
+        // prevents server replaying redeems in case we receive one but the game doesn't acknowledge it or something (so the server thinks it didn't send and replays it later)
+        // ...but we do still want to be able to replay manually
+        if (msg.Source == CommandInvocationSource.Swarm && _results.TryGetValue(guid, out ResultMessage? result))
+        {
+            _socket.SendMessage(result);
             return;
         }
 
@@ -138,11 +150,13 @@ internal sealed class MessageProcessor
 
     private void SendResult(Guid guid, bool success, string? message = null)
     {
-        _socket.SendMessage(new ResultMessage()
+        ResultMessage msg = new()
         {
             Guid = guid,
             Success = success,
             Message = message
-        });
+        };
+        _results[msg.Guid] = msg;
+        _socket.SendMessage(msg);
     }
 }

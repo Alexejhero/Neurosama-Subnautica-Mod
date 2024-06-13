@@ -46,6 +46,7 @@ partial class SwarmControlManager
         && !Player.main.IsPilotingSeatruck()
 #endif
         && !Player.main.IsInBase()
+        && !Player.main.cinematicModeActive
         //&& Time.timeScale > 0
         ;
 
