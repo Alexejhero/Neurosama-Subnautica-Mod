@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SCHIZO.Commands.Base;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Output;
 using UnityEngine;
-using UWE;
 
 namespace SCHIZO.SwarmControl.Redeems.Annoying;
 
@@ -18,32 +16,18 @@ namespace SCHIZO.SwarmControl.Redeems.Annoying;
 internal class HideVehicleSignal : Command, IParameters
 {
     public IReadOnlyList<Parameter> Parameters => [];
-    private Coroutine _timer = null!;
-    private float _timeLeft;
-    private bool _active;
+    private EggTimer _timer;
     private static float Duration = 30f;
 
-    private IEnumerator TimerCoro()
+    public HideVehicleSignal()
     {
-        while (true)
-        {
-            yield return null;
-            if (!_active) continue;
-
-            _timeLeft -= Time.deltaTime;
-            if (_timeLeft <= 0)
-            {
-                _timeLeft = 0;
-                Deactivate();
-            }
-        }
+        _timer = new(Activate, Deactivate);
     }
 
     protected override object ExecuteCore(CommandExecutionContext ctx)
     {
-        _timer ??= CoroutineHost.StartCoroutine(TimerCoro());
-        _timeLeft += Duration;
-        Activate();
+        _timer.AddTime(Duration);
+        _timer.Start();
         return CommonResults.OK();
     }
 
@@ -65,8 +49,6 @@ internal class HideVehicleSignal : Command, IParameters
 
     private void Activate()
     {
-        if (_active) return;
-        _active = true;
         PingInstance[] allPings = GameObject.FindObjectsOfType<PingInstance>();
         foreach (PingInstance p in allPings.Where(p => _vehiclePingTypes.Contains(p.pingType)))
         {
@@ -79,8 +61,6 @@ internal class HideVehicleSignal : Command, IParameters
     }
     private void Deactivate()
     {
-        if (!_active) return;
-        _active = false;
         foreach (PingInstance p in _disabledPings)
         {
             if (!p) continue;
