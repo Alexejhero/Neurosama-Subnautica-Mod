@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="AudioFile" id="{2f4853f6-4616-43cf-befd-82a952ae3021}">
 		<property name="assetPath">
-			<value>Discord Disconnect Sound [mCRI5vnuc-I].mp3</value>
+			<value>misc/Discord Disconnect Sound [mCRI5vnuc-I].mp3</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

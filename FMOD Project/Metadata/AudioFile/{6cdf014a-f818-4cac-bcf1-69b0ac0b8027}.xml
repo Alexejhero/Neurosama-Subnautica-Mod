@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="AudioFile" id="{6cdf014a-f818-4cac-bcf1-69b0ac0b8027}">
 		<property name="assetPath">
-			<value>Discord Join Sound Effect (download) [W8svHrWMC1c].mp3</value>
+			<value>misc/Discord Join Sound Effect (download) [W8svHrWMC1c].mp3</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

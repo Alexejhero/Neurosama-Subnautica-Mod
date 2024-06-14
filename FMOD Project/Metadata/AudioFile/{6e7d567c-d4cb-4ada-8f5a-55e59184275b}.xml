@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="AudioFile" id="{6e7d567c-d4cb-4ada-8f5a-55e59184275b}">
 		<property name="assetPath">
-			<value>Grindr Notification Sound ｜ Free Sound Effects [kURiwTXmGZg].mp3</value>
+			<value>misc/Grindr Notification Sound ｜ Free Sound Effects [kURiwTXmGZg].mp3</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>
