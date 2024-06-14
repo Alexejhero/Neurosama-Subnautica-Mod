@@ -1,4 +1,5 @@
 using SCHIZO.Commands.Attributes;
+using SCHIZO.SwarmControl.Redeems.Enums;
 
 namespace SCHIZO.SwarmControl.Redeems.Spawns;
 
@@ -8,15 +9,7 @@ namespace SCHIZO.SwarmControl.Redeems.Spawns;
     DisplayName = "Spawn Aggressive Creature",
     Description = "Spawn an aggressive creature near the player"
 )]
-internal class SpawnAggressiveCreature : SpawnFiltered<SpawnAggressiveCreature.AggressiveCreatures>
+internal class SpawnAggressiveCreature : SpawnFiltered<AggressiveCreature>
 {
-    public enum AggressiveCreatures
-    {
-        Ermshark,
-        LilyPaddler,
-        Cryptosuchus,
-        SquidShark,
-    }
-
     protected override float SpawnDistance => 10;
 }

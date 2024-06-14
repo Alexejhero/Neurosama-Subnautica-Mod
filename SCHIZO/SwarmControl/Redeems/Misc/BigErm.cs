@@ -7,12 +7,13 @@ using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Output;
 using SCHIZO.Creatures.Components;
 using SCHIZO.Creatures.Ermfish;
+using SCHIZO.Events.Ermcon;
 using SCHIZO.Helpers;
 using SCHIZO.Sounds.Players;
 using UnityEngine;
 using UWE;
 
-namespace SCHIZO.SwarmControl.Redeems.Spawns;
+namespace SCHIZO.SwarmControl.Redeems.Misc;
 
 #nullable enable
 [Redeem(Name = "redeem_bigerm",
@@ -87,6 +88,13 @@ internal class BigErm : Command, IParameters
         bigErm.GetComponent<Carryable>().enabled = false;
         bigErm.GetComponent<CarryCreature>().enabled = false;
         bigErm.GetComponent<ErmStack>().enabled = false;
+
+        ErmconAttendee ermconVisitor = bigErm.GetComponent<ErmconAttendee>();
+        if (ermconVisitor)
+            UnityEngine.Object.Destroy(ermconVisitor);
+        ErmconPanelist ermconHost = bigErm.EnsureComponent<ErmconPanelist>();
+        ermconHost.entertainmentFactor = 5f;
+
         bigErm.GetComponentsInChildren<SoundPlayer>()
             .ForEach(plr =>
             {
