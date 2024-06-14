@@ -72,6 +72,7 @@ internal class SeaMonkeyDeliverySystem : Command, IParameters
         }
 
         SeaMonkeyBringGift gift = monke.GetComponent<SeaMonkeyBringGift>();
+        gift.maxRange = 9999f;
         gift.evaluatePriority = 999f;
         GameObject itemInstance = GameObject.Instantiate(itemPrefab);
         gift.heldItem.Hold(itemInstance);

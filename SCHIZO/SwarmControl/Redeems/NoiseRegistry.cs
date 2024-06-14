@@ -23,7 +23,11 @@ internal static class NoiseRegistry
     public static readonly Dictionary<TrollNoise, string> Troll = new()
     {
         [TrollNoise.SomeoneTellVedal] = "event:/SCHIZO/troll/someone_tell_vedal",
+#if BELOWZERO
         [TrollNoise.Leviathan] = "event:/bz/creature/shadow_leviathan/post_kill_roar",
+#else
+        [TrollNoise.Leviathan] = "", // todo when i can be bothered
+#endif
         [TrollNoise.UsbDisconnect] = "event:/SCHIZO/troll/usb_disconnect",
         [TrollNoise.UsbConnect] = "event:/SCHIZO/troll/usb_connect",
         [TrollNoise.DiscordDisconnect] = "event:/SCHIZO/troll/discord_dc",

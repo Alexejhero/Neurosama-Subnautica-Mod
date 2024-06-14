@@ -87,6 +87,8 @@ public partial class Ermcon
             return;
         }
 
+        targets.RemoveWhere(t => !t);
+
         if (time > _lastSearchTime + _minSearchInterval * (1 + targets.Count))
         {
             targets.AddRange(InviteInfluencers(gameObject));
@@ -94,7 +96,7 @@ public partial class Ermcon
         }
 
         // untarget any deconstructed
-        List<Constructable> constructables = targets.Select(c => c.gameObject).SelectComponent<Constructable>().ToList();
+        List<Constructable> constructables = targets.Where(t => t).Select(t => t.gameObject).SelectComponent<Constructable>().ToList();
         foreach (Constructable con in constructables)
         {
             if (con.constructedAmount < 0.90f) // small buffer to prevent spam
