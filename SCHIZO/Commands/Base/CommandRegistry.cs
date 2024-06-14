@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using SCHIZO.Commands.Attributes;
+using SCHIZO.Commands.ConsoleCommands;
 using SCHIZO.Helpers;
 using SCHIZO.SwarmControl.Redeems;
 
@@ -101,7 +102,20 @@ public static class CommandRegistry
                 }
 
                 if (commandAttr.RegisterConsoleCommand)
-                    RegisterConsoleCommand(command);
+                {
+                    if (command is ConsoleWrapperCommand concommand && concommand.Command == command.Name)
+                    {
+                        LOGGER.LogWarning($"""
+                            {command.Name} is a {nameof(ConsoleWrapperCommand)} wrapper around a console command of the same name.
+                            It will thus not be registered as a console command to avoid collisions.
+                            Please remove {nameof(CommandAttribute.RegisterConsoleCommand)} from the attribute or rename the command to no longer collide.
+                            """);
+                    }
+                    else
+                    {
+                        RegisterConsoleCommand(command);
+                    }
+                }
             }
             else if (categoryAttr is { })
             {
