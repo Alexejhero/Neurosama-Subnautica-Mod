@@ -25,6 +25,7 @@ internal class ExportRedeems : Command
                 .SelectMany(r => r.Args)
                 .Select(p => p.ActualType)
                 .Where(t => t.IsEnum)
+                .Distinct()
                 .Select(e => new EnumDefinitionModel(e))
                 .ToDictionary(e => e.Name, e => e.Values),
             Redeems = allRedeems
