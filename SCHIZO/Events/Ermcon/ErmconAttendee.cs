@@ -230,6 +230,7 @@ public partial class ErmconAttendee : IHandTarget
     private ErmconPanelist PickAnotherBooth()
     {
         return Ermcon.instance.targets
+            .Where(t => t.gameObject != gameObject) // except self (where applicable)
             .GroupBy(t => (timeFactor: _visited.GetOrDefault(t, 0f) / t.entertainmentFactor, t.entertainmentFactor))
             .OrderBy(group => group.Key.timeFactor)
             .ThenByDescending(group => group.Key.entertainmentFactor)

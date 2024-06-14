@@ -82,15 +82,17 @@ internal class BigErm : Command, IParameters
 
     private void GetBigAndWinWildPrizes(GameObject bigErm)
     {
-        bigErm.transform.localScale = new(Scale, Scale, Scale);
         bigErm.GetComponent<Pickupable>().isPickupable = false;
         bigErm.GetComponent<Carryable>().enabled = false;
         bigErm.GetComponent<CarryCreature>().enabled = false;
         bigErm.GetComponent<ErmStack>().enabled = false;
+        // if you put this higher the whole stack gets embiggened
+        // the viewer only paid for one big erm so we clearly can't have this happen
+        bigErm.transform.localScale = new(Scale, Scale, Scale);
 
-        ErmconAttendee ermconVisitor = bigErm.GetComponent<ErmconAttendee>();
-        if (ermconVisitor)
-            UnityEngine.Object.Destroy(ermconVisitor);
+        //ErmconAttendee ermconVisitor = bigErm.GetComponent<ErmconAttendee>();
+        //if (ermconVisitor)
+        //    UnityEngine.Object.Destroy(ermconVisitor);
         ErmconPanelist ermconHost = bigErm.EnsureComponent<ErmconPanelist>();
         ermconHost.entertainmentFactor = 5f;
 
