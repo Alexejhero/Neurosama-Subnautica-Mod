@@ -1,3 +1,5 @@
+using System.Runtime.Serialization;
+
 namespace SCHIZO.SwarmControl.Redeems;
 
 public enum CommonTechTypes
@@ -7,7 +9,9 @@ public enum CommonTechTypes
     Ermshark,
     Tutel,
     Anneel,
+    [EnumMember(Value = "Neuro fumo")]
     NeuroFumoItem,
+    [EnumMember(Value = "Evil fumo")]
     EvilFumoItem,
 
     // resources
@@ -18,6 +22,7 @@ public enum CommonTechTypes
     Silver,
     Lead,
     Gold,
+    [EnumMember(Value = "Scrap Metal")]
     ScrapMetal,
     Lithium,
     Magnetite,
@@ -26,6 +31,7 @@ public enum CommonTechTypes
     Diamond,
 
     // creatures
+    [EnumMember(Value = "Arctic Peeper")]
     ArcticPeeper,
     Bladderfish,
 

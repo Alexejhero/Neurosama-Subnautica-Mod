@@ -22,7 +22,7 @@ namespace SCHIZO.SwarmControl.Redeems.Helpful;
 internal class SeaMonkeyDeliverySystem : Command, IParameters
 {
     public IReadOnlyList<Parameter> Parameters => [
-        new Parameter(new("item", "Item", "Item you wish delivered."), typeof(CommonResources))
+        new Parameter(new("item", "Item", "Item you wish delivered."), typeof(CommonItems))
     ];
 
     protected override object ExecuteCore(CommandExecutionContext ctx)
@@ -32,7 +32,7 @@ internal class SeaMonkeyDeliverySystem : Command, IParameters
         TechType item;
         try
         {
-            if (!ctx.Input.GetNamedArguments().TryGetValue("item", out CommonResources itemFiltered))
+            if (!ctx.Input.GetNamedArguments().TryGetValue("item", out CommonItems itemFiltered))
                 return CommonResults.Error("Invalid item");
             item = (TechType) Enum.Parse(typeof(TechType), itemFiltered.ToString());
         }

@@ -29,6 +29,7 @@ public sealed class MidasTouch : Command, IParameters
         TechType.Kyanite,
         TechType.Nickel,
 
+#if BELOWZERO // cba
         TechType.TwistyBridgesMushroomChunk,
         TechType.GenericRibbon,
         TechType.JeweledDiskPiece, // table coral
@@ -53,6 +54,7 @@ public sealed class MidasTouch : Command, IParameters
         TechType.BigFilteredWater,
         TechType.DisinfectedWater,
         TechType.FilteredWater,
+#endif
     ];
 
     public IReadOnlyList<Parameter> Parameters => [];

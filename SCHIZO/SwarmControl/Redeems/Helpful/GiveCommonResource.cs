@@ -9,7 +9,7 @@ namespace SCHIZO.SwarmControl.Redeems.Helpful;
     DisplayName = "Give Common Resource",
     Export = false /// deprecated in favor of <see cref="SeaMonkeyDeliverySystem"/>
 )]
-internal class GiveCommonResource : ItemFiltered<CommonResources>
+internal class GiveCommonResource : ItemFiltered<CommonItems>
 {
     protected override string SpawnThingName => "Item";
 }
