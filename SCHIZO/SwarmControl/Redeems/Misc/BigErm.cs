@@ -18,7 +18,7 @@ namespace SCHIZO.SwarmControl.Redeems.Misc;
 #nullable enable
 [Redeem(Name = "redeem_bigerm",
     DisplayName = "Big Erm",
-    Description = "It's time to Get Big"
+    Description = "The Erm Moon sends its regards"
 )]
 internal class BigErm : Command, IParameters
 {

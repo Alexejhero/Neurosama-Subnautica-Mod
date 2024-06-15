@@ -12,7 +12,7 @@ namespace SCHIZO.Resources;
 
 public static class Assets
 {
-    private const int _rnd = 2142497487;
+    private const int _rnd = -1269642852;
 
     private static readonly UnityEngine.AssetBundle _a = ResourceManager.GetAssetBundle("assets");
 
@@ -26,5 +26,6 @@ public static class Assets
     public static SCHIZO.Options.Bool.ToggleModOption Mod_Options_EnableAutomaticEvents = _a.LoadAsset<SCHIZO.Options.Bool.ToggleModOption>("Assets/Mod/Options/Enable automatic events.asset");
     public static SCHIZO.Options.Button.ButtonModOption Mod_Options_SwarmControl = _a.LoadAsset<SCHIZO.Options.Button.ButtonModOption>("Assets/Mod/Options/Swarm Control.asset");
     public static SCHIZO.Registering.ModRegistry Mod_Registry = _a.LoadAsset<SCHIZO.Registering.ModRegistry>("Assets/Mod/Registry.asset");
+    public static UnityEngine.GameObject Mod_SwarmControl_DeadPixel = _a.LoadAsset<UnityEngine.GameObject>("Assets/Mod/Swarm Control/DeadPixel.prefab");
     public static UnityEngine.Material Mod_VFX_ARGCensor_ARGcensorMat = _a.LoadAsset<UnityEngine.Material>("Assets/Mod/VFX/ARG Censor/ARGcensor_mat.mat");
 }

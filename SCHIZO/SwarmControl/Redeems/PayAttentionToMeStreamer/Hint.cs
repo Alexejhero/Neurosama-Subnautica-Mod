@@ -1,46 +1,42 @@
+using System.Collections;
 using System.Collections.Generic;
+using SCHIZO.Commands;
 using SCHIZO.Commands.Base;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
-using SwarmControl.Models.Game;
+using SCHIZO.Commands.Output;
+using SwarmControl.Models.Game.Messages;
+using UnityEngine;
+using UWE;
 
 namespace SCHIZO.SwarmControl.Redeems.PayAttentionToMeStreamer;
 
 #nullable enable
 [Redeem(
     Name = "redeem_hint",
-    DisplayName = "Send Hint",
-    Description = "Display a message in the center of the screen",
+    DisplayName = "Send Message",
+    Description = "Your next Twitch chat message will be displayed in-game",
     Announce = false // the message itself is the announcement
 )]
-internal class Hint() : ProxyCommand<MethodCommand>("hint")
+internal class Hint : Command, IParameters
 {
-    public override IReadOnlyList<Parameter> Parameters => [
-        new TextParameter(new NamedModel("message", "Message", "The message to display")) {
-            MinLength = 1
-        }
-    ];
+    public IReadOnlyList<Parameter> Parameters => [];
 
-    protected override JsonContext GetContextForTarget(JsonContext proxyCtx)
+    protected override object? ExecuteCore(CommandExecutionContext ctx)
     {
-        RemoteInput input = proxyCtx.JsonInput;
-        input.Model.Announce = false;
-        string submitter = input.Model.GetDisplayName();
-        NamedArgs args = input.GetNamedArguments();
-        args.TryGetValue("message", out string? message);
-        if (string.IsNullOrWhiteSpace(message))
-            message = "(no message)";
-        args["message"] = $"{submitter}: {message}";
-        return base.GetContextForTarget(proxyCtx);
+        RedeemMessage? model = (ctx.Input as RemoteInput)?.Model;
+        TwitchUser? user = model?.User;
+        if (user is null)
+            return CommonResults.Error("Could not get user");
+        CoroutineHost.StartCoroutine(Coro(user));
+        return "Success - the next message you send in Twitch chat will be displayed in-game.";
     }
 
-    protected override Dictionary<string, object?> GetTargetArgs(Dictionary<string, object?>? proxyArgs)
+    private IEnumerator Coro(TwitchUser user)
     {
-        if (proxyArgs is null) return [];
-
-        return new Dictionary<string, object?>
-        {
-            { "message", proxyArgs["message"] }
-        };
+        string? message = null;
+        Twitch.TwitchIntegration.AddNextMessageCallback(user, (msg) => message = msg ?? "(no message)");
+        yield return new WaitUntil(() => message is { });
+        DevCommands.Hint($"{user.DisplayName}: {message}");
     }
 }

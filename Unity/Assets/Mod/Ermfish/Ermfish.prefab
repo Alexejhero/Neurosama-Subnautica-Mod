@@ -565,6 +565,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NameTag
       objectReference: {fileID: 0}
+    - target: {fileID: 1798442205062231381, guid: e0c81479ecf70ff4bbc5d8cdbf5653ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2229945086217208043, guid: e0c81479ecf70ff4bbc5d8cdbf5653ce,
         type: 3}
       propertyPath: m_FontSize
@@ -639,6 +644,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: ' '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6243598954101647917, guid: e0c81479ecf70ff4bbc5d8cdbf5653ce,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6243598954101647917, guid: e0c81479ecf70ff4bbc5d8cdbf5653ce,
         type: 3}

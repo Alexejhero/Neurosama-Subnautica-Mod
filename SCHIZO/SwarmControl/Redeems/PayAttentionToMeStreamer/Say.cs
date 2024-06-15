@@ -11,6 +11,7 @@ namespace SCHIZO.SwarmControl.Redeems.PayAttentionToMeStreamer;
     Name = "redeem_say",
     DisplayName = "Send Text",
     Description = "Display text in the top left of the screen",
+    Export = false, /// deprecated in favor of <see cref="Hint"/>
     Announce = false // the message itself is the announcement
 )]
 internal class Say() : ProxyCommand<MethodCommand>("say")

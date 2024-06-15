@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using SCHIZO.Commands.Attributes;
+using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
 using SCHIZO.Helpers;
 using SCHIZO.Tweaks;
@@ -86,5 +89,53 @@ public static class DevCommands
             binds.enabled = !binds.enabled;
         else
             Player.main.gameObject.AddComponent<DevBinds>();
+    }
+
+    [Command(Name = "_get",
+        DisplayName = "Get static member",
+        Description = "Get value of a static member",
+        RegisterConsoleCommand = true)]
+    public static object PrintField(string typeName, string memberName)
+    {
+        Type type = ReflectionCache.GetType(typeName);
+        if (type is null) return $"Could not find type '{typeName}'";
+        MemberInfo[] member = type.GetMember(memberName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        if (member is null) return $"Could not find '{memberName}' in type '{typeName}' (must be static)";
+        return ReflectionHelpers.GetStaticMemberValue<object>(member.Single());
+    }
+
+    [Command(Name = "_set",
+        DisplayName = "Set static member",
+        Description = "Set value of a static member",
+        RegisterConsoleCommand = true)]
+    public static object SetField(string typeName, string memberName, string valueStr)
+    {
+        Type type = ReflectionCache.GetType(typeName);
+        if (type is null) return $"Could not find type '{typeName}'";
+        MemberInfo member = type.GetMember(memberName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).Single();
+        if (member is null) return $"Could not find '{memberName}' in type '{typeName}' (must be static)";
+        Type memberType = member switch
+        {
+            PropertyInfo p => p.PropertyType,
+            FieldInfo f => f.FieldType,
+            _ => null
+        };
+        if (memberType is null) return $"'{memberName}' is not a property or field";
+
+        if (!Conversion.TryParseOrConvert(valueStr, memberType, out object value))
+        {
+            return $"Could not convert '{valueStr}' to type '{memberType}'";
+        }
+        switch (member)
+        {
+            case PropertyInfo prop:
+                prop.SetValue(null, value);
+                return null;
+            case FieldInfo field:
+                field.SetValue(null, value);
+                return null;
+            default:
+                throw new InvalidOperationException("Unreachable");
+        }
     }
 }

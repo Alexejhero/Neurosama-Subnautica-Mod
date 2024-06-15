@@ -102,14 +102,17 @@ partial class SwarmControlManager
     }
 
     [Command(Name = "sc_rc", RegisterConsoleCommand = true)]
-    private static void ManualReconnect()
+    private static void ManualReconnectCommand()
     {
-        Task.Run(async () =>
-        {
-            await Instance._socket.Disconnect();
-            if (!await Instance._socket.ConnectSocket())
-                LOGGER.LogError("Manual reconnect failed");
-        });
+        _ = Instance.ManualReconnect();
+    }
+
+    private async Task ManualReconnect()
+    {
+        await _socket.Disconnect();
+        if (!await _socket.ConnectSocket())
+            QueueOnMainThread(() => LOGGER.LogWarning("Manual reconnect failed"));
+        _reconnectCoro ??= StartCoroutine(AutoReconnectCoro());
     }
 
     private void ButtonPressed()
@@ -161,7 +164,11 @@ partial class SwarmControlManager
 
     private void Disconnect()
     {
-        if (_reconnectCoro is { }) StopCoroutine(_reconnectCoro);
+        if (_reconnectCoro is { })
+        {
+            StopCoroutine(_reconnectCoro);
+            _reconnectCoro = null;
+        }
         if (!_socket.IsConnected) return;
         StartCoroutine(DisconnectCoro());
     }

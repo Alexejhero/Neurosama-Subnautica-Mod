@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
+using SCHIZO.SwarmControl;
+using SwarmControl.Models.Game.Messages;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
@@ -40,6 +43,7 @@ partial class TwitchIntegration
         _client.OnJoinedChannel += (_, evt) => LOGGER.LogInfo($"Joined Twitch channel {evt.Channel}");
         _client.OnFailureToReceiveJoinConfirmation += (_, evt) => LOGGER.LogError($"Could not join Twitch channel: {evt.Exception.Details}");
         _client.OnMessageReceived += Client_OnMessageReceived;
+        _client.OnUserTimedout += Client_OnTimeoutReceived;
 
         string username = PlayerPrefs.GetString(_usernamePlayerPrefsKey, "");
         string token = PlayerPrefs.GetString(_tokenPlayerPrefsKey, "");
@@ -56,10 +60,17 @@ partial class TwitchIntegration
         _client.Connect();
     }
 
+    private void Client_OnTimeoutReceived(object sender, OnUserTimedoutArgs e)
+    {
+        if (!_timeoutCallbacks.TryRemove(e.UserTimeout.TargetUserId, out Action cb)) return;
+        SwarmControlManager.Instance.QueueOnMainThread(cb);
+    }
+
     private void Client_OnMessageReceived(object _, OnMessageReceivedArgs evt)
     {
         ChatMessage message = evt.ChatMessage;
-
+        TwitchUser user = new(message.UserId, message.Username, message.DisplayName);
+        InvokeCallbacksOnMessage(user, message.Message);
         if (!IsUserWhitelisted(message.Username)) return; // ensure I don't get isekaid
         if (!CheckPrefix(message.Message)) return;
 
@@ -98,5 +109,40 @@ partial class TwitchIntegration
         PlayerPrefs.SetString(_usernamePlayerPrefsKey, username);
         PlayerPrefs.SetString(_tokenPlayerPrefsKey, token);
         return "Twitch login updated. Please restart Subnautica.";
+    }
+
+    private static ConcurrentDictionary<string, (Action<string> Callback, float ModerationDelay)> _nextMessageCallbacks = [];
+    private static ConcurrentDictionary<string, Action> _timeoutCallbacks = [];
+    public static void AddNextMessageCallback(TwitchUser user, Action<string> callback, float moderationDelay = 5f)
+    {
+        _nextMessageCallbacks.AddOrUpdate(user.Id, (callback, moderationDelay), (_, existing) =>
+        {
+            // i love delegates
+            existing.Callback += callback;
+            existing.ModerationDelay = Mathf.Max(existing.ModerationDelay, moderationDelay);
+            return existing;
+        });
+    }
+
+    private static void InvokeCallbacksOnMessage(TwitchUser user, string message)
+    {
+        if (!_nextMessageCallbacks.TryRemove(user.Id, out (Action<string> callback, float delay) existing))
+            return;
+
+        if (existing.delay <= 0)
+        {
+            SwarmControlManager.Instance.QueueOnMainThread(() => existing.callback(message));
+            return;
+        }
+        bool timedOut = false;
+        Action cb = () => timedOut = true;
+        _timeoutCallbacks.AddOrUpdate(user.Id, cb, (_, existing) => existing + cb);
+        Task.Delay(TimeSpan.FromSeconds(existing.delay)).ContinueWith(t =>
+        {
+            _timeoutCallbacks.TryRemove(user.Id, out _);
+            if (timedOut)
+                message = "(filtered)";
+            SwarmControlManager.Instance.QueueOnMainThread(() => existing.callback(message));
+        });
     }
 }

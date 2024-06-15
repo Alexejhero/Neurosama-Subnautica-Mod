@@ -87,7 +87,7 @@ partial class CustomSignalManager
             return CommonResults.Error("developer forgor prefab for custom signal, please point and laugh");
         if (string.IsNullOrEmpty(signalName))
             return CommonResults.ShowUsage();
-        if (_allSignals.ContainsKey(signalName))
+        if (_allSignals.ContainsKey(signalName) || _customSignals.ContainsKey(signalName))
             return CommonResults.Error($"Signal \"{signalName}\" already exists");
 
         Vector3 pos = new(x, y, z);

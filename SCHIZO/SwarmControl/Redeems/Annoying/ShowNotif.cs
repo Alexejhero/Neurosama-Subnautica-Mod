@@ -4,8 +4,8 @@ using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Output;
 
 namespace SCHIZO.SwarmControl.Redeems.Annoying;
-#nullable enable
 
+#nullable enable
 [Redeem(
     Name = "redeem_notif",
     DisplayName = "Ping Alex",
@@ -24,10 +24,10 @@ internal class ShowNotif : Command, IParameters
         "OperationCanceledException: The operation was canceled.",
         "The parameter is incorrect",
         """
-        System.Net.WebSockets.WebSocketException (0x80004005): The 'System.Net.WebSockets.ServerWebSocket' instance cannot be used for communication because it has been transitioned into the 'Aborted' state.
-        ---> System.Net.WebSockets.WebSocketException (0x80004005): An internal WebSocket error occurred. Please see the innerException, if present, for more details. ---> System.Net.HttpListenerException (0x80004005): An operation was attempted on a nonexistent network connection
-        at System.Net.WebSockets.WebSocketHttpListenerDuplexStream.WriteAsyncFast(HttpListenerAsyncEventArgs eventArgs)
-        at System.Net.WebSockets.WebSocketHttpListenerDuplexStream.d__9.MoveNext()
+        System.Net.WebSockets.WebSocketException (0x80004005): The 'System.Net.WebSockets.ClientWebSocket' instance cannot be used for communication because it has been transitioned into the 'Aborted' state.
+        ---> System.Net.WebSockets.WebSocketException (0x80004005): An internal WebSocket error occurred. Please see the innerException, if present, for more details. ---> System.Net.HttpClientException (0x80004005): An operation was attempted on a nonexistent network connection
+        at System.Net.WebSockets.WebSocketHttpClientDuplexStream.WriteAsyncFast(HttpClientAsyncEventArgs eventArgs)
+        at System.Net.WebSockets.WebSocketHttpClientDuplexStream.d__9.MoveNext()
         --- End of stack trace from previous location where exception was thrown ---
         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)

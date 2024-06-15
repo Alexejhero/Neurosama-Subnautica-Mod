@@ -47,11 +47,8 @@ internal class NameTagErmfish : Command, IParameters
             .Select(tag => tag.gameObject)
             .FirstOrDefault(erm =>
             {
-                NameTag tag = erm.GetComponentInChildren<NameTag>();
-                if (!tag) return false;
-                if (!string.IsNullOrWhiteSpace(tag.textMesh.text)) return false;
-
-                return true;
+                NameTag tag = erm.GetComponentInChildren<NameTag>(true);
+                return tag && !tag.isActiveAndEnabled;
             });
 
         RemoteInput? input = ctx.Input as RemoteInput;
@@ -91,10 +88,10 @@ internal class NameTagErmfish : Command, IParameters
 
     private void SetNameTag(GameObject ermfish, string? user)
     {
-        NameTag tag = ermfish.GetComponentInChildren<NameTag>();
-        if (!tag) return;
-        if (!string.IsNullOrWhiteSpace(tag.textMesh.text)) return;
+        NameTag tag = ermfish.GetComponentInChildren<NameTag>(true);
+        if (!tag || tag.isActiveAndEnabled) return;
 
         tag.textMesh.text = user;
+        tag.gameObject.SetActive(true);
     }
 }
