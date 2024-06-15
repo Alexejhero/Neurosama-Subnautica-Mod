@@ -1,7 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using SCHIZO.Commands.Base;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Output;
+using UnityEngine;
+using UWE;
 
 namespace SCHIZO.SwarmControl.Redeems.Annoying;
 [Redeem(
@@ -17,7 +20,14 @@ internal class SpinHimAround : Command, IParameters
         if (!Player.main) return CommonResults.Error("Requires a loaded game.");
 
         Player.main.lilyPaddlerHypnosis.StartHypnosis(DayNightCycle.main.timePassed);
+        CoroutineHost.StartCoroutine(Coro());
 
         return CommonResults.OK();
+    }
+
+    private IEnumerator Coro()
+    {
+        yield return new WaitForSeconds(5);
+        Player.main.lilyPaddlerHypnosis.StopHypnosis();
     }
 }

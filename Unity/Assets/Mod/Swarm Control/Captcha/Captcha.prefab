@@ -490,7 +490,6 @@ MonoBehaviour:
   image: {fileID: 3156584312642716640}
   timerText: {fileID: 1408579787417287750}
   input: {fileID: 270100004553668293}
-  inputBlocker: {fileID: 0}
   data:
   - image: {fileID: 21300000, guid: 1c9fd624d12320f4d9775f086f677616, type: 3}
     text: evil is my favourite
@@ -503,11 +502,11 @@ MonoBehaviour:
   - image: {fileID: 21300000, guid: b99f59bf616050548bb18a4fdab021cd, type: 3}
     text: i wear programmer socks
   - image: {fileID: 21300000, guid: 93833cf1ce22dd24e81781856a48e346, type: 3}
-    text: ?w4a?5ix,df nc2.dlnj]x2d6
+    text: \?w4a\?5ix,df nc2\.dlnj]x2d6
   - image: {fileID: 21300000, guid: 9368afe56f79db24d9729424e05ef21f, type: 3}
-    text: iIll??llI [i]]iIiIl
+    text: iIll\?\?llI \[i]]iIiIl
   - image: {fileID: 21300000, guid: 5a5020aa8d51dfc44a752504e875c46a, type: 3}
-    text: 21
+    text: 9\s?\+\s?10\s?=\s?\?
   - image: {fileID: 21300000, guid: 01aee213274ad424b957fec89652a7bd, type: 3}
     text: bark
 --- !u!1 &2241360548984123650

@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace SCHIZO.SwarmControl
@@ -20,10 +21,11 @@ namespace SCHIZO.SwarmControl
         public CaptchaData[] data;
 
         [Serializable]
-        public struct CaptchaData
+        public partial class CaptchaData
         {
             public Sprite image;
-            public string text;
+            [FormerlySerializedAs("text")]
+            public string textRegex;
         }
 
         // /ScreenCanvas/Confirmation

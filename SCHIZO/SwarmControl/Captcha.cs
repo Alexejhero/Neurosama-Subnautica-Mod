@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text.RegularExpressions;
 using SCHIZO.DataStructures;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,10 @@ namespace SCHIZO.SwarmControl;
 
 partial class Captcha : uGUI_InputGroup
 {
+    partial class CaptchaData
+    {
+        public Regex regex;
+    }
     private float _timeLeft;
     private bool _open;
     private bool _ticking;
@@ -26,6 +31,7 @@ partial class Captcha : uGUI_InputGroup
         base.Awake();
         input.onValueChanged.AddListener(OnValueChanged);
         _data = [.. data];
+        _data.ForEach(d => d.regex = new Regex(d.textRegex, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant));
         gameObject.SetActive(false);
         // i can't get my own blocker working so i'm just gonna yoink this one
         CoroutineHost.StartCoroutine(InitCoro());
@@ -104,7 +110,7 @@ partial class Captcha : uGUI_InputGroup
 
     public void OnValueChanged(string value)
     {
-        if (string.Equals(value, _current.text, System.StringComparison.InvariantCultureIgnoreCase))
+        if (_current.regex?.IsMatch(value) ?? true)
             StartCoroutine(CloseSuccess());
     }
 

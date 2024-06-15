@@ -9,8 +9,8 @@ namespace SCHIZO.SwarmControl.Redeems.Spawns;
 [CommandCategory("Spawns")]
 [Redeem(
     Name = "redeem_isekai",
-    DisplayName = "Isekai",
-    Description = "Snap a specific type of entity around the player."
+    DisplayName = "Remove Entities",
+    Description = "Snap a specific type of entity around the player. Does not include inventory/containers."
 )]
 internal class Isekai : ProxyCommand<MethodCommand>
 {
@@ -21,23 +21,19 @@ internal class Isekai : ProxyCommand<MethodCommand>
         Tutel,
         Ermshark,
         Bladderfish,
-        Cryptosuchus,
+
         Titanium,
+        Copper,
+        Silver,
+        Lead,
+        Gold,
         Diamond,
         Ruby,
-        Gold,
-        Copper,
-    }
-    public enum Range
-    {
-        Near,
-        Far,
     }
     public Isekai() : base("isekai")
     {
         Parameters = [
-            new(new("creature", "Creature", "Creature to isekai."), typeof(IsekaiTechType)),
-            new(new("range", "Range", null), typeof(Range)),
+            new(new("creature", "Type", "Which entities to remove."), typeof(IsekaiTechType)),
         ];
     }
 
@@ -54,15 +50,7 @@ internal class Isekai : ProxyCommand<MethodCommand>
             targetArgs["techType"] = proxyThingType.ToString();
         }
         targetArgs["proportion"] = 1f;
-        if (args.TryGetValue("range", out Range range))
-        {
-            targetArgs["radius"] = range switch
-            {
-                Range.Near => 20,
-                Range.Far => 50,
-                _ => 0
-            };
-        }
+        targetArgs["radius"] = 50f;
 
         return targetArgs;
     }

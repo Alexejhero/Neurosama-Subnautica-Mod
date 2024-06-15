@@ -27,11 +27,15 @@ internal class SaveGame : Command, IParameters
     {
         if (!Player.main)
             return CommonResults.Error("Requires a loaded game");
-        if (PDA.time - _lastSave >= 60f) // yoink money from spammers
+        if (PDA.time - _lastSave >= 60f)
         {
             CoroutineHost.StartCoroutine(IngameMenu.main.SaveGameAsync());
             _lastSave = PDA.time;
+            return CommonResults.OK();
         }
-        return CommonResults.OK();
+        else // yoink money from spammers
+        {
+            return "Last save was less than a minute ago. Rest assured the game is saved.";
+        }
     }
 }
