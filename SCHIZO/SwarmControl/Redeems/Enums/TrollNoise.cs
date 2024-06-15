@@ -17,4 +17,10 @@ internal enum TrollNoise
     [EnumMember(Value = "USB Connect")]
     UsbConnect,
     Grindr,
+    [EnumMember(Value = "Filian Scream")]
+    FilianScream,
+    [EnumMember(Value = "Program in C")]
+    ProgramInC,
+    [EnumMember(Value = "Stereo Knock")]
+    StereoKnock,
 }
