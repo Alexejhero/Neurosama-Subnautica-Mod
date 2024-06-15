@@ -15,6 +15,8 @@ public enum CommonItems
     NeuroFumoItem,
     [EnumMember(Value = "Evil fumo")]
     EvilFumoItem,
+    Ermfish,
+    Tutel,
 
     Gold,
     [EnumMember(Value = "Table Coral")]

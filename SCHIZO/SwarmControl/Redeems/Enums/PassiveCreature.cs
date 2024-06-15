@@ -13,4 +13,17 @@ public enum PassiveCreature
     Boomerang,
     [EnumMember(Value = "Spinner Fish")]
     SpinnerFish,
+    Hoopfish,
+    Spinefish,
+    [EnumMember(Value = "Pengling")]
+    PenguinBaby,
+    [EnumMember(Value = "Pengwing")]
+    Penguin,
+    Rockgrub,
+    [EnumMember(Value = "Noot Fish")]
+    NootFish,
+    [EnumMember(Value = "Discus Fish")]
+    DiscusFish,
+    [EnumMember(Value = "Feather Fish")]
+    FeatherFishRed,
 }
