@@ -5,8 +5,8 @@ using SCHIZO.Resources;
 using UnityEngine;
 
 namespace SCHIZO.SwarmControl.Redeems.Annoying;
-#nullable enable
 
+#nullable enable
 [Redeem(
     Name = "redeem_deadpixel",
     DisplayName = "Dead Pixel",
