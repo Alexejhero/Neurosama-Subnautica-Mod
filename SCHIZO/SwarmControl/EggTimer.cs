@@ -54,13 +54,13 @@ internal class EggTimer : IDisposable
     {
         if (_active) return;
         _active = true;
-        _onStart();
+        _onStart?.Invoke();
     }
     public void End()
     {
         if (!_active) return;
         _active = false;
-        _onEnd();
+        _onEnd?.Invoke();
     }
 
     public void Dispose()

@@ -15,7 +15,7 @@ internal static class NoiseRegistry
         [NormalNoise.ErmsharkAmbient] = "event:/SCHIZO/creatures/ermshark/ambient",
         [NormalNoise.ErmsharkAttack] = "event:/SCHIZO/creatures/ermshark/attack",
         [NormalNoise.ErmsharkHurt] = "event:/SCHIZO/creatures/ermshark/hurt",
-        [NormalNoise.TutelAmbient] = "event:/SCHIZO/creatures/tutel/ambient",
+        [NormalNoise.TutelAmbient] = "event:/SCHIZO/creatures/tutel/ambient_world",
         [NormalNoise.TutelCook] = "event:/SCHIZO/creatures/tutel/cook",
         [NormalNoise.TutelEat] = "event:/SCHIZO/creatures/tutel/eat"
     };

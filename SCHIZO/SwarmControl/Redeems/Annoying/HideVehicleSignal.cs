@@ -11,13 +11,13 @@ namespace SCHIZO.SwarmControl.Redeems.Annoying;
 [Redeem(
     Name = "redeem_hidecarpings",
     DisplayName = "Hide Vehicle Signals",
-    Description = "Hides vehicle and base signals for 30 seconds."
+    Description = "Hides vehicle and base signals for 1 minute."
 )]
 internal class HideVehicleSignal : Command, IParameters
 {
     public IReadOnlyList<Parameter> Parameters => [];
-    private EggTimer _timer;
-    private static float Duration = 30f;
+    private readonly EggTimer _timer;
+    private static float Duration = 60f;
 
     public HideVehicleSignal()
     {

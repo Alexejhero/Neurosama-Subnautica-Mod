@@ -33,7 +33,6 @@ partial class Captcha : uGUI_InputGroup
         _data = [.. data];
         _data.ForEach(d => d.regex = new Regex(d.textRegex, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant));
         gameObject.SetActive(false);
-        // i can't get my own blocker working so i'm just gonna yoink this one
         CoroutineHost.StartCoroutine(InitCoro());
     }
 
@@ -41,6 +40,7 @@ partial class Captcha : uGUI_InputGroup
     {
         yield return new WaitUntil(() => uGUI.main && uGUI.main.confirmation && uGUI_FeedbackCollector.main);
 
+        // i couldn't get my own input blocker working so i'm just gonna yoink this one
         _inputBlocker = uGUI_FeedbackCollector.main.inputBlocker;
 
         Image redBackground = uGUI.main.confirmation.transform.GetChild(0).GetComponent<Image>();
