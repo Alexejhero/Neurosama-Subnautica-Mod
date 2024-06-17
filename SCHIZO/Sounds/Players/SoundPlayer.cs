@@ -102,21 +102,30 @@ partial class SoundPlayer
     {
         LastPlay = Time.time;
 
-        if (emitter) emitter.PlayPath(soundEvent, Is3D);
+        EventInstance evt;
+        if (emitter)
+        {
+            emitter.PlayPath(soundEvent, Is3D);
+            evt = emitter.evt;
+        }
         else
         {
-            _playingEvents.Add(Is3D
+            evt = Is3D
                 ? FMODHelpers.PlayPath2D(soundEvent)
-                : FMODHelpers.PlayPath3DAttached(soundEvent, transform));
+                : FMODHelpers.PlayPath3DAttached(soundEvent, transform);
+            _playingEvents.Add(evt);
         }
+        onPlay.Invoke(evt);
     }
 
     private void PlayDetached()
     {
         LastPlay = Time.time;
 
-        if (Is3D) RuntimeManager.PlayOneShot(soundEvent, transform.position);
-        else RuntimeManager.PlayOneShotAttached(soundEvent, Player.main.gameObject);
+        EventInstance evt = Is3D
+            ? FMODHelpers.PlayOneShot(soundEvent, transform.position)
+            : FMODHelpers.PlayOneShotAttached(soundEvent, Player.main.gameObject);
+        onPlay.Invoke(evt);
     }
 
     public void Stop()

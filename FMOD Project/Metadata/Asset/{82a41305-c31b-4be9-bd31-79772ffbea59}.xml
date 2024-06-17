@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="EncodableAsset" id="{82a41305-c31b-4be9-bd31-79772ffbea59}">
 		<property name="assetPath">
-			<value>neuro logs/hate vedal/</value>
+			<value>pda logs/hate vedal/</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{ed559c48-6dff-4cc2-8829-33aeecf805d3}</destination>

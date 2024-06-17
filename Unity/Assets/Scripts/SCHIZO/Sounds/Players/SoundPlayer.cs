@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using SCHIZO.Interop.Subnautica;
 using TriInspector;
 using UnityEngine;
+using SCHIZO.Helpers;
 
 namespace SCHIZO.Sounds.Players
 {
@@ -13,6 +14,8 @@ namespace SCHIZO.Sounds.Players
 
         [SerializeField, ShowIf(nameof(Is3D)), Required, UsedImplicitly]
         private _FMOD_CustomEmitter emitter;
+
+        public FmodEventInstanceUnityEvent onPlay;
 
         protected abstract bool Is3D { get; }
     }

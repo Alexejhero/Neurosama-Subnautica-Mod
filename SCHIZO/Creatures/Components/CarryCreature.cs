@@ -153,6 +153,7 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
 
     public bool TryPickup(Carryable getCarried)
     {
+        if (!enabled) return false;
         if (!getCarried || getCarried.gameObject == gameObject) return false;
         if (target) Drop();
         target = getCarried;
@@ -161,8 +162,8 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
 
     private bool TryPickupTarget()
     {
-        if (!target || !target.gameObject || !target.gameObject.activeInHierarchy) return false;
-        if (!target.CanBePickedUp(this)) return false;
+        if (!enabled) return false;
+        if (!target || !target.CanBePickedUp(this)) return false;
 
         if (target.GetComponentInParent<Player>())
         {

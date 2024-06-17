@@ -36,7 +36,7 @@ partial class ModOption
         }
     }
 
-    public abstract Type GetOptionUpdaterType();
+    public virtual Type GetOptionUpdaterType() => typeof(OptionUpdater);
 }
 
 partial class ModOption<TValue>
@@ -55,8 +55,6 @@ partial class ModOption<TValue>
     protected abstract TValue ValueInternal { get; set; }
 
     public event Action<TValue> OnValueChanged;
-
-    public override Type GetOptionUpdaterType() => typeof(OptionUpdater);
 }
 
 partial class ModOption<TValue, TUpdater>

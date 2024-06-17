@@ -1,47 +1,29 @@
-using SCHIZO.Interop.Subnautica.Enums;
-
 namespace SCHIZO.Items.Data.Crafting;
 
 partial class Item
 {
-    private TechType _techType;
+    private TechType? _techType;
     private string _classId;
 
     public TechType GetTechType()
-    {
-        if (_techType != TechType.None) return _techType;
+        => _techType ??= CacheTechType();
 
-        if (!isCustom)
-        {
-            return _techType = (TechType) techType;
-        }
-        else
-        {
-            if (!itemData) return _techType = TechType.None;
-            return _techType = itemData.ModItem;
-        }
+    private TechType CacheTechType()
+    {
+        return isCustom ? (itemData ? itemData.ModItem : default)
+            : (TechType) techType;
     }
 
     public string GetClassID()
-    {
-        if (!string.IsNullOrWhiteSpace(_classId)) return _classId;
+        => _classId ??= CacheClassID();
 
-        if (!isCustom)
-        {
-            if (GetTechType() == TechType.None) return _classId = string.Empty;
-            return _classId = CraftData.GetClassIdForTechType(GetTechType());
-        }
-        else
-        {
-            if (!itemData) return _classId = string.Empty;
-            return _classId = itemData.classId;
-        }
+    private string CacheClassID()
+    {
+        return isCustom ? (itemData ? itemData.classId : null)
+            : CraftData.GetClassIdForTechType(GetTechType()); // returns null if not found
     }
 
     public static bool IsValid(Item item)
-    {
-        if (item.isCustom && !item.itemData) return false;
-        if (!item.isCustom && item.techType == TechType_All.None) return false;
-        return true;
-    }
+        => item.isCustom ? item.itemData
+            : item.techType != default;
 }

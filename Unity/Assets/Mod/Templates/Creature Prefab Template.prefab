@@ -44,14 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e8e4146e29e16b458e08415cc34a663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rootGameObject: {fileID: 5049378406231838710}
+  levelOfDetail: {fileID: -3623193925210079658}
   animator: {fileID: 0}
+  rootGameObject: {fileID: 5049378406231838710}
   animationMoveMaxSpeed: 4
   animationMaxPitch: 30
   animationMaxTilt: 45
   useStrafeAnimation: 0
   dampTime: 0.5
-  levelOfDetail: {fileID: -3623193925210079658}
 --- !u!114 &666221737875956283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +144,6 @@ MonoBehaviour:
   respawn: 1
   respawnOnlyIfKilledByCreature: 0
   respawnInterval: 300
-  respawnerPrefab: {fileID: 0}
   sink: 1
 --- !u!114 &-8111771393798685051
 MonoBehaviour:
@@ -171,6 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e97d27e69d04d1f819f4859df043828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelOfDetail: {fileID: -3623193925210079658}
   rootTransform: {fileID: 4430336063030548523}
   rootSegment: {fileID: 0}
   trails: []
@@ -249,7 +249,6 @@ MonoBehaviour:
   segmentSnapSpeed: 5
   maxSegmentOffset: -1
   allowDisableOnScreen: 1
-  levelOfDetail: {fileID: -3623193925210079658}
 --- !u!114 &-7421542958749478918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,11 +649,12 @@ MonoBehaviour:
   animator: {fileID: 0}
   locomotion: {fileID: 3919769461741374411}
   liveMixin: {fileID: -3418686219161457082}
-  referenceAnimation: 0
-  subnauticaModel: {fileID: 0}
-  belowZeroModel: {fileID: 0}
-  leftHandIKTargetOverrideBZ: {fileID: 0}
-  rightHandIKTargetOverrideBZ: {fileID: 0}
+  data:
+    referenceAnimation: 0
+    subnauticaModel: {fileID: 0}
+    belowZeroModel: {fileID: 0}
+    leftHandIKTargetOverrideBZ: {fileID: 0}
+    rightHandIKTargetOverrideBZ: {fileID: 0}
 --- !u!114 &-916793966807223697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,32 +722,6 @@ MonoBehaviour:
   lookAhead: 1
   respectLOD: 1
   inertia: 1
---- !u!114 &818708038637812476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5049378406231838710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ced542045b015443a6b6a2ec516286c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialSize: 0.1
-  maxSize: 0.6
-  outsideSize: 1
-  daysToGrow: 1
-  isPickupableOutside: 1
-  canBreed: 1
-  eggOrChild:
-    isCustom: 0
-    techType: 0
-    itemData: {fileID: 0}
-  adult:
-    isCustom: 0
-    techType: 0
-    itemData: {fileID: 0}
 --- !u!114 &1175131139517652999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -836,9 +810,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fe7cd25fedc56428574c91124f6530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundCollection: {fileID: 0}
-  bus: 
+  soundEvent: 
   emitter: {fileID: 8210446819742810007}
+  deathSound: 
 --- !u!114 &2742326128842612785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -906,8 +880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08298562675c4c18ba4b1d9744b135e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundCollection: {fileID: 0}
-  bus: 
+  soundEvent: 
   emitter: {fileID: 0}
   minDelayDefault: {fileID: 0}
   maxDelayDefault: {fileID: 0}
@@ -921,6 +894,7 @@ MonoBehaviour:
     modOption: {fileID: 11400000, guid: d2d8f608de10fb64d90460a0634789bf, type: 2}
     value: 0
     calculateMode: 0
+  disabledOption: {fileID: 0}
   pickupable: {fileID: 3036659393320280015}
 --- !u!114 &3525315510431984540
 MonoBehaviour:
@@ -958,9 +932,9 @@ MonoBehaviour:
   ignoreUnderWaterTargets: 0
   predictTargetMovement: 0
   attackStartRoar: 0
-  _attackStartSound: {fileID: 0}
-  _attackLoopSound: {fileID: 0}
-  _attackStartFXcontrol: {fileID: 0}
+  attackStartSound: {fileID: 0}
+  attackLoopSound: {fileID: 0}
+  attackStartFXcontrol: {fileID: 0}
 --- !u!114 &3919769461741374411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1168,8 +1142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f19711010743bfa5da92c65afc5b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundCollection: {fileID: 0}
-  bus: Nautilus.Utility.AudioUtils+BusPaths:UnderwaterCreatures
+  soundEvent: 
   emitter: {fileID: 8210446819742810007}
   minDelayDefault: {fileID: 0}
   maxDelayDefault: {fileID: 0}
@@ -1183,6 +1156,7 @@ MonoBehaviour:
     modOption: {fileID: 11400000, guid: 87f6c7eace682d841a58b07957ee144d, type: 2}
     value: 0
     calculateMode: 0
+  disabledOption: {fileID: 0}
   pickupable: {fileID: 3036659393320280015}
   constructable: {fileID: 0}
 --- !u!114 &7808515654292971840
@@ -1247,6 +1221,18 @@ MonoBehaviour:
   followParent: 1
   restartOnPlay: 0
   debug: 0
+--- !u!114 &-8929360122309418297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5049378406231838710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2647107b87797714aa90fa2ca1c7eca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4074388638642951939
 PrefabInstance:
   m_ObjectHideFlags: 0

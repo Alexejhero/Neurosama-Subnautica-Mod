@@ -107,11 +107,6 @@ internal partial class DoomEngine : MonoBehaviour
     public void Disconnect(IDoomClient client)
     {
         // theoretically this should only ever get called from the unity thread
-        if (!IsInitialized)
-        {
-            LogError("DoomPlayer should have been initialized by the time Disconnect gets called");
-            Initialize();
-        }
         _clientManager.Remove(client);
     }
 
@@ -122,6 +117,7 @@ internal partial class DoomEngine : MonoBehaviour
         {
             LogWarning("doom thread calling SetPaused, it's about to ouroboros itself");
         }
+        DoomFmodAudio.ToggleIngameMusicMute(!paused);
         if (paused)
         {
             _runningEvent.Reset();

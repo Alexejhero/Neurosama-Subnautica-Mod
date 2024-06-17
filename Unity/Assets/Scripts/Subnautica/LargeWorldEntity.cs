@@ -14,4 +14,5 @@ public class LargeWorldEntity : MonoBehaviour
         Batch = 10, // 0x0000000A
         Global = 100, // 0x00000064
     }
+    private void OnEnable() {}
 }

@@ -11,8 +11,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31176ccc850eb4a40a6800859f45666b, type: 3}
   m_Name: Spawns
-  m_EditorClassIdentifier: 
-  spawnLocation: 0
+  m_EditorClassIdentifier:
+  subnautica:
+    spawn: 1
+    spawnLocation: 0
+    biomeFilters: []
+  belowZero:
+    spawn: 1
+    spawnLocation: 0
+    biomeFilters: []
   rules:
   - count: 1
     probability: 0.005

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -9,6 +10,7 @@ using SCHIZO.Items.Data;
 using SCHIZO.Registering;
 using SCHIZO.Spawns;
 using UnityEngine;
+using UWE;
 using Object = UnityEngine.Object;
 
 namespace SCHIZO.Items;
@@ -125,16 +127,34 @@ public class UnityPrefab : CustomPrefab
 #endif
         }
 
-        if (ModItem.ItemData.spawnData)
+        if (ModItem.ItemData.spawnData && ModItem.ItemData.spawnData.Spawn)
         {
             List<LootDistributionData.BiomeData> lootDistData = [];
 
-            foreach (BiomeType biome in ModItem.ItemData.spawnData.spawnLocation.GetBiomes())
+            foreach (BiomeType biome in ModItem.ItemData.spawnData.GetBiomes())
             {
                 lootDistData.AddRange(ModItem.ItemData.spawnData.rules.Select(rule => rule.GetBiomeData(biome)));
             }
 
-            if (lootDistData.Count > 0) LootDistributionHandler.AddLootDistributionData(ModItem.PrefabInfo.ClassID, lootDistData.ToArray());
+            if (lootDistData.Count > 0)
+            {
+                LootDistributionHandler.AddLootDistributionData(ModItem.PrefabInfo.ClassID, lootDistData.ToArray());
+
+                LargeWorldEntity lwe = UnityData.prefab.GetComponentInChildren<LargeWorldEntity>();
+                EntityTag entTag = UnityData.prefab.GetComponentInChildren<EntityTag>();
+                if (!lwe) throw new InvalidOperationException($"{nameof(LargeWorldEntity)} missing on prefab {ModItem.PrefabInfo.ClassID}");
+                if (!entTag) throw new InvalidOperationException($"{nameof(EntityTag)} missing on prefab {ModItem.PrefabInfo.ClassID}");
+                // Required for LootDistribution/spawning system
+                WorldEntityDatabaseHandler.AddCustomInfo(UnityData.classId, new WorldEntityInfo
+                {
+                    classId = UnityData.classId,
+                    techType = ModItem,
+                    cellLevel = lwe.cellLevel,
+                    slotType = entTag.slotType,
+                    localScale = Vector3.one,
+                    prefabZUp = false,
+                });
+            }
         }
 
 #if BELOWZERO

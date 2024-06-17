@@ -41,7 +41,8 @@ partial class Carryable
     }
 
     public bool CanBePickedUp(CarryCreature pickuper) => !isCarried && Time.time - _lastPickedUpTime > 5f
-                && (CanAttach?.Multicast().All(f => f(this, pickuper)) ?? true);
+        && isActiveAndEnabled
+        && (CanAttach?.Multicast().All(f => f(this, pickuper)) ?? true);
 
     private void DisableComponents()
     {

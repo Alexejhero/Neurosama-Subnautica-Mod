@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ccb8c039e34e44ebdee40c7d89e4a4, type: 3}
+  m_Name: Egg Spawns Manual
+  m_EditorClassIdentifier: 
+  spawns:
+  - game: 2
+    locations:
+    - position: {x: 607.7, y: -456.1, z: -1150.5}
+      rotation: {x: 0.15, y: 358.3, z: 16.85}
+    - position: {x: 696.3, y: -481, z: -1030}
+      rotation: {x: 20.3, y: 1, z: 5.6}
+    - position: {x: 566.5, y: -485.5, z: -932.2}
+      rotation: {x: 354.8, y: 150.3, z: 349.4}
+    - position: {x: 466.4, y: -535.4, z: -879.5}
+      rotation: {x: 333.7, y: 3.1, z: 355.9}
+    - position: {x: 390, y: -584.2, z: -1006.55}
+      rotation: {x: 9.6, y: 0.5, z: 13.4}
+    - position: {x: 510.6, y: -599.85, z: -978.1}
+      rotation: {x: 324.6, y: 351.4, z: 10.65}
+    - position: {x: 551.15, y: -626.2, z: -1141.7}
+      rotation: {x: 0, y: 355, z: 0}
+    - position: {x: 412.3, y: -597.6, z: -931.8}
+      rotation: {x: 340.46, y: 359.8, z: 1.2}
+    - position: {x: 577.4, y: -562.8, z: -896.46}
+      rotation: {x: 327, y: 320, z: 19.3}
+    - position: {x: 555.7, y: -509.6, z: -810.2}
+      rotation: {x: 7.1, y: 318.1, z: 1.1}
+    - position: {x: 545.2, y: -488.7, z: -1094.4}
+      rotation: {x: 0.6, y: 359.6, z: 348.4}
+    item:
+      isCustom: 1
+      techType: 0
+      itemData: {fileID: 11400000, guid: 3c39cd24ddaaa5340a4528d2ede7d218, type: 2}

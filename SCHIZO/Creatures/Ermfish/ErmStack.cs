@@ -72,7 +72,15 @@ public sealed partial class ErmStack
     public ErmStack FindTarget()
     {
         TechType selfTechType = CraftData.GetTechType(gameObject);
-        bool EcoTargetFilter(IEcoTarget et) => CraftData.GetTechType(et.GetGameObject()) == selfTechType && et.GetGameObject() != gameObject;
+        bool EcoTargetFilter(IEcoTarget et)
+        {
+            GameObject obj = et.GetGameObject();
+            if (CraftData.GetTechType(obj) != selfTechType) return false;
+            if (obj == gameObject) return false;
+
+            ErmStack otherStack = obj.GetComponent<ErmStack>();
+            return otherStack && otherStack.isActiveAndEnabled && !otherStack.nextSocket;
+        }
 
         ErmStack target = FindNearest_EcoTarget() !?? FindNearest_TechType();
         return target;
@@ -94,7 +102,7 @@ public sealed partial class ErmStack
                 .OfTechType(selfTechType)
                 .SelectComponentInParent<ErmStack>()
                 .OrderByDistanceTo(gameObject.transform.position)
-                .FirstOrDefault(s => !s.nextSocket && s != this);
+                .FirstOrDefault(s => s.isActiveAndEnabled && !s.nextSocket && s != this);
         }
     }
 

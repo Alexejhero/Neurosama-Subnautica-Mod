@@ -50,11 +50,8 @@ internal static class SubtitlesHandler
     // TODO fix in nautilus
     public static void RegisterMetadata(SubtitlesData data, string fullText)
     {
-        Language.MetaData lang = new(fullText,
-            data.lines
-                .Select(line => new Language.LineData(line.text, null, null))
-                .ToList()
+        Language.main.metadata[data.key] = new(fullText,
+            data.lines.ConvertAll(line => new Language.LineData(line.text, null, null))
         );
-        Language.main.metadata[data.key] = lang;
     }
 }

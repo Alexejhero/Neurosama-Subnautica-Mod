@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using SCHIZO.Attributes;
 using SCHIZO.Options.Bool;
 using TriInspector;
@@ -10,6 +10,8 @@ namespace SCHIZO.Options.Generic
     public abstract partial class ModOption : ScriptableObject
     {
         [Careful] public string id;
+        public string label;
+        [TextArea(1, 5)] public string tooltip;
 
         [Group("disabling"), ListDrawerSettings] public List<ToggleModOption> disableIfAnyTrue;
         [Group("disabling"), ListDrawerSettings] public List<ToggleModOption> disableIfAnyFalse;
@@ -17,9 +19,7 @@ namespace SCHIZO.Options.Generic
 
     public abstract partial class ModOption<TValue> : ModOption where TValue : struct
     {
-        public string label;
         public TValue defaultValue;
-        [TextArea(1, 5)] public string tooltip;
     }
 
     // ReSharper disable once UnusedTypeParameter

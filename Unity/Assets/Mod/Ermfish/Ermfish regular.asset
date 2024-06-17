@@ -34,6 +34,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e01a095b5064d2684bcd4bbb3f09a8e, type: 3}
   m_Name: Ermfish regular
   m_EditorClassIdentifier: 
+  _liveMixin: {fileID: -3458999335469021941}
   prefab: {fileID: 8756873621844092796, guid: d45ff3e2d24b2cc458a03f9268d36be2, type: 3}
   loader:
     id: 0
@@ -47,7 +48,6 @@ MonoBehaviour:
   isCraftable: 0
   isBuildable: 0
   craftingTime: 2.5
-  itemSounds: {fileID: 11400000, guid: bfb77f100ed7e6e4fb42c9b05bcb00af, type: 2}
   pdaEncyInfo: {fileID: 11400000, guid: 8b76d116f9af8fc499d4c055bf652966, type: 2}
   knownTechInfo: {fileID: 11400000, guid: 89b8b3505e3ad2e48b2f9b7c378e4bbe, type: 2}
   spawnData: {fileID: 11400000, guid: e2225811e9aca6841bed9a0838164f1d, type: 2}
@@ -57,7 +57,7 @@ MonoBehaviour:
   craftTreeTypeSN: 0
   craftTreePathSN: 
   techGroupSN: 14
-  techCategorySN: 0
+  techCategorySN: -1
   requiredForUnlockSN:
     isCustom: 1
     techType: 0
@@ -70,8 +70,7 @@ MonoBehaviour:
   craftTreeTypeBZ: 0
   craftTreePathBZ: 
   techGroupBZ: 13
-  techCategoryBZ: 0
-  knownTechInfoBZ: {fileID: 11400000, guid: 89b8b3505e3ad2e48b2f9b7c378e4bbe, type: 2}
+  techCategoryBZ: -1
   soundTypeBZ: 31
   requiredForUnlockBZ:
     isCustom: 1
@@ -80,11 +79,11 @@ MonoBehaviour:
   equipmentTypeBZ: 0
   quickSlotTypeBZ: 0
   coldResistanceBZ: 0
-  _liveMixin: {fileID: -3458999335469021941}
   isPickupable: 1
   behaviourType: 2
   acidImmune: 1
   bioReactorCharge: 200
+  waterParkData: {fileID: 11400000, guid: 4fe0ca91f46f6904a81a523cb879fab5, type: 2}
   references:
     version: 1
     00000000:

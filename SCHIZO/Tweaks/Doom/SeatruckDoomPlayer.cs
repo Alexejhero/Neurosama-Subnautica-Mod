@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,8 +12,12 @@ partial class SeatruckDoomPlayer : MonoBehaviour
     private GenericHandTarget _oldHandTarget;
     private GenericHandTarget _ourHandTarget;
     private DoomFrontend _connection;
+    private PowerRelay _power;
     private Vector3 _oldScreenScale;
     private bool _die;
+    public float hibernateTime = 30f;
+    private float _hibernateTimer;
+
     private void OnEnable()
     {
         if (DoomEngine.LastExitCode != 0 || !DoomNative.CheckDll())
@@ -29,6 +32,8 @@ partial class SeatruckDoomPlayer : MonoBehaviour
             Destroy(this);
             return;
         }
+        _ghost = MainCameraControl.main.gameObject.GetComponent<FreecamController>();
+        _power = transform.parent.GetComponent<PowerRelay>();
         _pictureFrame.GetComponent<PictureFrame>().enabled = false;
         // here's where we would move the frame to be eye-level
         // but it's part of the seatruck mesh...
@@ -63,6 +68,7 @@ partial class SeatruckDoomPlayer : MonoBehaviour
 
     private void OnDisable()
     {
+        IsControlling = false;
         if (_connection)
         {
             _connection.enabled = false;
@@ -86,10 +92,25 @@ partial class SeatruckDoomPlayer : MonoBehaviour
     private void OnHandHover(HandTargetEventData eventData)
     {
         if (IsControlling) return;
+        if (!_power.IsPowered())
+        {
+            HandReticle.main.SetText(HandReticle.TextType.Hand, "Unpowered", false);
+            HandReticle.main.SetText(HandReticle.TextType.HandSubscript, "", false);
+            HandReticle.main.SetIcon(HandReticle.IconType.HandDeny);
+            return;
+        }
 
         HandReticle.main.SetText(HandReticle.TextType.Hand, $"Play {DoomEngine.Instance.WindowTitle ?? "DOOM"}", false, GameInput.Button.LeftHand);
         HandReticle.main.SetText(HandReticle.TextType.HandSubscript, "", false);
         HandReticle.main.SetIcon(HandReticle.IconType.Interact);
+    }
+    private void OnHandClick(HandTargetEventData eventData)
+    {
+        if (!_power.IsPowered()) return;
+        if (IsControlling) return;
+
+        _connection.enabled = true;
+        IsControlling = true;
     }
     private bool _hintUnderstood;
     private bool _controlling;
@@ -105,14 +126,14 @@ partial class SeatruckDoomPlayer : MonoBehaviour
             ToggleGameInput(!value);
             _connection.PlayerPlaying = value;
             _handTrigger.gameObject.SetActive(!value);
-            ParentToSeatruck(value);
+            FreecamToScreen(value);
+            ToggleCrosshair(value);
             if (value)
             {
                 // todo make another transform below (so it comes from a "speaker")
                 DoomFmodAudio.Emitter = _screen; // center of screen
                 _connection.Connect();
-                LookAtScreen();
-                if (!_hintUnderstood) ShowHint();
+                if (!_hintUnderstood) ShowExitHint();
             }
             else
             {
@@ -121,18 +142,22 @@ partial class SeatruckDoomPlayer : MonoBehaviour
             }
         }
     }
-    private static void ShowHint()
+
+    private void ToggleCrosshair(bool value)
+    {
+        if (value)
+            HandReticle.main.RequestCrosshairHide();
+        else
+            HandReticle.main.UnrequestCrosshairHide();
+    }
+
+    private static void ShowExitHint()
     {
         uGUI_PopupMessage msg = Hint.main.message;
         msg.SetText("Press <color=yellow>Ctrl+Q</color> to exit", TextAnchor.MiddleLeft);
         msg.Show(-1, 0f, 0.25f, 0.25f, null);
     }
 
-    private void OnHandClick(HandTargetEventData eventData)
-    {
-        _connection.enabled = true;
-        IsControlling = true;
-    }
     private Texture _oldTex;
     private void PlayerConnected()
     {
@@ -164,51 +189,31 @@ partial class SeatruckDoomPlayer : MonoBehaviour
     {
         if (GameInput.instance.enabled == enable) return;
 
+        GameInput.moveDirection = Vector3.zero;
         GameInput.ClearInput();
         GameInput.instance.enabled = enable;
-        // todo completely disable game input (specifically the F-keys - debug stuff, feedback screen, UI, etc)
-        //Player.main.playerController.SetEnabled(!locked);
-        //FPSInputModule.current.lockMovement = locked;
-        //FPSInputModule.current.lockRotation = locked;
-        //FPSInputModule.current.lockPauseMenu = locked;
     }
 
-    private void LookAtScreen()
+    private static float _screenDistance = 0.5f;
+    private FreecamController _ghost;
+    private void FreecamToScreen(bool looking)
     {
-        Vector3 center = _screenRenderer.bounds.center;
-        //RuntimeDebugDraw.Draw.DrawLine(center, Camera.main.transform.position, null, 5, false);
-        StartCoroutine(LookAtCoro(center));
-    }
-    private IEnumerator LookAtCoro(Vector3 target)
-    {
-        MainCameraControl cam = MainCameraControl.main;
-        Vector2 lookError;
-        do
+        if (looking == _ghost.mode) return;
+
+        _ghost.FreecamToggle();
+        //ghost.ghostMode = looking;
+
+        if (!looking)
         {
-            yield return null;
-            Vector3 lookPoint = Camera.main.ScreenToWorldPoint(new(Screen.width / 2f, Screen.height / 2f));
-            Vector3 plrToMe = target - lookPoint;
-            Vector3 direction = plrToMe.normalized;
-
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            Quaternion camRotation = cam.cameraOffsetTransform.rotation;
-            Quaternion lookErrorQ = Quaternion.Inverse(camRotation) * targetRotation;
-            lookError = lookErrorQ.eulerAngles;
-            lookError.x = lookError.x > 180 ? lookError.x - 360 : lookError.x < -180 ? lookError.x + 360 : lookError.x;
-            lookError.y = lookError.y > 180 ? lookError.y - 360 : lookError.y < -180 ? lookError.y + 360 : lookError.y;
-            if (Mathf.Approximately(lookError.x, 0) && Mathf.Approximately(lookError.y, 0))
-                continue;
-            float yawDelta = lookError.y * Time.deltaTime * 5;
-            float pitchDelta = lookError.x * Time.deltaTime * 5;
-            cam.rotationX += yawDelta;
-            cam.rotationY -= pitchDelta;
+            Transform cam = SNCameraRoot.main.transform;
+            cam.localPosition = Vector3.zero;
+            cam.localRotation = Quaternion.identity;
+            return;
         }
-        while (IsControlling);
-    }
-
-    private void ParentToSeatruck(bool parent)
-    {
-        Player.main.transform.parent = parent ? transform : null;
+        Vector3 normal = _screenRenderer.transform.forward;
+        Vector3 center = _screenRenderer.bounds.center;
+        _ghost.tr.position = center - normal * _screenDistance;
+        _ghost.tr.LookAt(center);
     }
 
     private Queue<float> _escapePresses = [];
@@ -220,13 +225,19 @@ partial class SeatruckDoomPlayer : MonoBehaviour
             Destroy(this);
             return;
         }
+
+        if (!_power.IsPowered())
+        {
+            ShutDownScreen();
+        }
         if (IsControlling)
         {
+            _hibernateTimer = 0;
             if (Input.GetKey(KeyCode.Escape))
             {
                 _escapeHeld += Time.deltaTime;
-                if (_escapeHeld > 3f)
-                    ShowHint();
+                if (_escapeHeld > 1f)
+                    ShowExitHint();
             }
             else
             {
@@ -234,20 +245,37 @@ partial class SeatruckDoomPlayer : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                // 5 presses in 5 seconds
+                // 3 presses in 5 seconds
                 while (_escapePresses.Count > 0 && Time.time - _escapePresses.Peek() > 5f)
                     _escapePresses.Dequeue();
 
                 _escapePresses.Enqueue(Time.time);
-                if (_escapePresses.Count >= 5)
-                    ShowHint();
+                if (_escapePresses.Count >= 3)
+                    ShowExitHint();
             }
-            if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.LeftControl))
+            if (Input.GetKeyDown(KeyCode.Q) && Input.GetKey(KeyCode.LeftControl))
             {
                 IsControlling = false;
                 _escapeHeld = 0;
                 _escapePresses.Clear();
             }
+        }
+        else if (_connection.enabled)
+        {
+            Vector3 toPlayer = Player.main.transform.position - transform.position;
+            if (toPlayer.sqrMagnitude > 900f || _hibernateTimer > hibernateTime)
+                ShutDownScreen();
+            _hibernateTimer += Time.deltaTime;
+        }
+    }
+
+    private void ShutDownScreen()
+    {
+        IsControlling = false;
+        if (_connection.enabled)
+        {
+            _connection.Disconnect();
+            _connection.enabled = false;
         }
     }
 }

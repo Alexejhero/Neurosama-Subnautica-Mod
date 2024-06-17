@@ -14,7 +14,8 @@ partial class ErmfishDefenseForce
 
     private HashSet<TechType> _techTypes;
     public List<GameObject> ActiveDefenders { get; private set; }
-    public float CurrentAggro { get; set; }
+    public float CurrentAggro { get; private set; }
+    public bool SpawnQueued { get; private set; }
 
     partial class Defender
     {
@@ -37,9 +38,9 @@ partial class ErmfishDefenseForce
         }
     }
 
-    public override bool IsOccurring => _spawning || ActiveDefenders.Count > 0;
+    private bool _active;
+    public override bool IsOccurring => _active;
 
-    private bool _spawning;
     public bool debugKarma;
     public bool debugSpawns;
 
@@ -64,10 +65,14 @@ partial class ErmfishDefenseForce
     }
     public void AddAggro(float delta, [CallerMemberName] string source = null)
     {
+        if (Mathf.Approximately(delta, 0)) return;
+
         CurrentAggro += delta;
         if (debugKarma)
         {
-            LOGGER.LogDebug($"({source}) aggro {(delta >= 0 ? '+' : '-')}{Mathf.Abs(delta)}={CurrentAggro}");
+            string deltaString = delta.ToString();
+            if (delta > 0) deltaString = "+" + deltaString;
+            LOGGER.LogDebug($"({source}) aggro {deltaString}={CurrentAggro}");
         }
     }
 
@@ -82,24 +87,24 @@ partial class ErmfishDefenseForce
 
     internal void Reset()
     {
-        OnPlayerKilledByDefender(null);
-    }
-
-    protected override bool ShouldStartEvent()
-    {
+        ActiveDefenders.ForEach(Destroy);
+        ActiveDefenders.Clear();
         if (CurrentAggro > 0)
-            AddAggro(-decay * Time.deltaTime);
-
-        return !_spawning
-            && CurrentAggro > (IsFirstTime ? firstTimeThreshold : spawnThreshold)
-            && player && !player.currentSub
-#if BELOWZERO
-            && player.currentInterior is null // don't spawn indoors
-#endif
-            && player.IsUnderwaterForSwimming(); // there are no land kill squads... yet
+            AddAggro(-CurrentAggro);
     }
+
+    protected override bool ShouldStartEvent() => true;
 
     protected override void UpdateLogic()
+    {
+        UpdateDefenders();
+        if (CurrentAggro > 0)
+            AddAggro(-decay * Time.deltaTime);
+        if (ShouldSpawn())
+            SpawnSquad();
+    }
+
+    private void UpdateDefenders()
     {
         for (int i = 0; i < ActiveDefenders.Count; i++)
         {
@@ -113,15 +118,20 @@ partial class ErmfishDefenseForce
             ActiveDefenders.RemoveAtSwapBack(i);
             i--;
         }
+    }
 
-        // spawn another squad even if the previous one is still alive
-        if (ShouldStartEvent())
-            StartEvent();
-        else if (ActiveDefenders.Count == 0)
-            EndEvent();
+    private bool ShouldSpawn()
+    {
+        return _active && !SpawnQueued
+            && CurrentAggro > (IsFirstTime ? firstTimeThreshold : spawnThreshold);
     }
 
     protected override void UpdateRender() { }
+
+    private void SpawnSquad()
+    {
+        StartCoroutine(SpawnDefenderGroup(RollRandomDefender()));
+    }
 
     private Defender RollRandomDefender()
     {
@@ -151,6 +161,7 @@ partial class ErmfishDefenseForce
     {
         if (defender is null)
             yield break;
+        SpawnQueued = true;
         if (defender.maxGroupSize == 0)
         {
             ErrorMessage.AddMessage($"delopver forgor to set group size on {defender.ClassId} everybody point and laugh");
@@ -158,11 +169,15 @@ partial class ErmfishDefenseForce
         }
         int willSpawn = Random.RandomRangeInt(1, defender.maxGroupSize);
         if (debugSpawns) LOGGER.LogDebug($"(EDF) spawning {willSpawn} {defender.ClassId}");
-        _spawning = true;
         TaskResult<GameObject> prefabTask = new();
         yield return defender.GetPrefab(prefabTask);
         GameObject prefab = prefabTask.Get();
         if (!prefab) yield break;
+
+        ErrorMessage.AddMessage(messages.GetRandom()); // notify of impending shark attack
+
+        while (!CanSpawn()) yield return null;
+
         CurrentAggro = 0;
 
         // todo check free space
@@ -206,26 +221,33 @@ partial class ErmfishDefenseForce
             if (lwe) LargeWorldStreamer.main.cellManager.UnregisterEntity(lwe);
         }
         if (debugSpawns) LOGGER.LogDebug($"(EDF) spawned {spawned} {defender.ClassId}");
-        _spawning = false;
+        SpawnQueued = false;
     }
 
-    public override void StartEvent()
+    private bool CanSpawn()
     {
-        if (!IsOccurring)
-        {
-            base.StartEvent();
-        }
-        ErrorMessage.AddMessage(messages.GetRandom());
-
-        StartCoroutine(SpawnDefenderGroup(RollRandomDefender()));
+        bool canSpawn;
+        canSpawn = player && !player.currentSub
+#if BELOWZERO
+                    && player.currentInterior is null // don't spawn indoors
+#endif
+                    && player.IsUnderwaterForSwimming(); // there are no land kill squads... yet
+        return canSpawn;
     }
 
     public void OnPlayerKilledByDefender(GameObject defender)
+        => Reset();
+
+    public override void StartEvent()
     {
-        ActiveDefenders.ForEach(Destroy);
-        ActiveDefenders.Clear();
-        if (CurrentAggro > 0)
-            AddAggro(-CurrentAggro);
-        EndEvent();
+        _active = true;
+        base.StartEvent();
+    }
+
+    public override void EndEvent()
+    {
+        _active = false;
+        Reset();
+        base.EndEvent();
     }
 }

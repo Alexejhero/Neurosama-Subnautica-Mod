@@ -21,6 +21,9 @@ namespace SCHIZO.Creatures.Data
         [Group("creaturedata")]
         public float bioReactorCharge;
 
+        [Group("creaturedata")]
+        public ModdedWaterParkCreatureData waterParkData;
+
         #region TriInspector stuff
 
         protected override bool ShowPickupableProps() => isPickupable;

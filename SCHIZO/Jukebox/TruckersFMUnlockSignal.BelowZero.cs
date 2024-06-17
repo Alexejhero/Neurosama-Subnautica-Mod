@@ -44,6 +44,7 @@ partial class TruckersFMUnlockSignal
         {
             DestroySignal();
             enabled = false;
+            return;
         }
 
         if (signal) return;

@@ -1,3 +1,4 @@
+using System;
 using SCHIZO.Attributes;
 using SCHIZO.Items.Data;
 using SCHIZO.Registering;
@@ -21,6 +22,7 @@ namespace SCHIZO.Items
         [Required]
         public PDAEncyclopediaInfo encyData;
         public Subtitles.SubtitlesData subtitles;
+        public GameObject addPrefab;
 
         [GroupNext("Subnautica")]
         public bool spawnInSN;
@@ -30,5 +32,13 @@ namespace SCHIZO.Items
         public bool spawnInBZ;
         [Careful, EnableIf(nameof(spawnInBZ))]
         public SpawnLocation spawnLocationBZ;
+
+        private void OnValidate()
+        {
+            if (subtitles)
+            {
+                subtitles.key = $"EncyDesc_{key}";
+            }
+        }
     }
 }

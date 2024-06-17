@@ -34,6 +34,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e01a095b5064d2684bcd4bbb3f09a8e, type: 3}
   m_Name: Tutel fish
   m_EditorClassIdentifier: 
+  _liveMixin: {fileID: -3872750893360604716}
   prefab: {fileID: 936897676119936064, guid: cf37468f3b2eaea4ca60b4f263a20e84, type: 3}
   loader:
     id: 0
@@ -78,11 +79,11 @@ MonoBehaviour:
   equipmentTypeBZ: 0
   quickSlotTypeBZ: 0
   coldResistanceBZ: 0
-  _liveMixin: {fileID: -3872750893360604716}
   isPickupable: 1
   behaviourType: 8
   acidImmune: 1
   bioReactorCharge: 200
+  waterParkData: {fileID: 11400000, guid: bfc6f6379fff5324cb0339f0213fdbb6, type: 2}
   references:
     version: 1
     00000000:

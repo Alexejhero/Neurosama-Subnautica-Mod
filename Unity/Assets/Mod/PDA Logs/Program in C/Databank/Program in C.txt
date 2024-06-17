@@ -1,0 +1,12 @@
+Ariel, listen to me. OO languages? It's a mess.
+Programming in C is better than anything they've got over there!
+
+The syntax might seem much sweeter where objects and subtypes play.
+But frills like inheritance will only get in the way.
+Admire C's simple landscape - efficiently dangerous!
+No templates or fancy pitfalls like Java and C++!
+
+Program in C! Program in C!
+Pointers, assembly, manage your memory with malloc() and free()!
+Don't sink your app with runtime bloat, software in C will stay afloat!
+Do what you want there, close to the hardware, program in C!

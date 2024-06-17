@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="AudioFile" id="{c0703bc1-c02c-4dda-bb98-f72bed727e7b}">
 		<property name="assetPath">
-			<value>neuro logs/hate vedal/hatevedal-03.ogg</value>
+			<value>pda logs/hate vedal/hatevedal-03.ogg</value>
 		</property>
 		<property name="isStreaming">
 			<value>true</value>

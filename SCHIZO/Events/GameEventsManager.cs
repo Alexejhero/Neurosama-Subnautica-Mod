@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using Nautilus.Commands;
-using SCHIZO.ConsoleCommands;
+using SCHIZO.Commands;
+using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 
 namespace SCHIZO.Events;
 
-[RegisterConsoleCommands]
+[CommandCategory("Game Events")]
 public partial class GameEventsManager
 {
     public static bool AutoStart
@@ -31,19 +31,6 @@ public partial class GameEventsManager
         gameObject.GetComponents(Events);
     }
 
-    [ConsoleCommand("autoevents"), UsedImplicitly]
-    public static string OnConsoleCommand_autoevents(bool? arg = null)
-    {
-        if (arg is not { } value)
-        {
-            return $"Events are currently {FormatAutoStart(AutoStart)}";
-        }
-
-        AutoStart = value;
-
-        return MessageHelpers.GetCommandOutput($"Events are now {FormatAutoStart(arg.Value)}");
-    }
-
 #if DEBUG_ERMCON
     public void Update()
     {
@@ -57,14 +44,33 @@ public partial class GameEventsManager
     }
 #endif
 
-    [ConsoleCommand("event"), UsedImplicitly]
-    public static string OnConsoleCommand_event(string eventName, bool start)
+    [Command(Name = "autoevents",
+        DisplayName = "Auto Event Start",
+        Description = "Get or set whether events start automatically",
+        RegisterConsoleCommand = true)]
+    public static string AutoEvents(bool? arg = null)
     {
-        GameEvent @event = Events.FirstOrDefault(e => e.EventName.Equals(eventName, System.StringComparison.OrdinalIgnoreCase));
+        if (arg is not { } value)
+            return $"Events are currently {FormatAutoStart(AutoStart)}";
+
+        AutoStart = value;
+
+        return MessageHelpers.GetCommandOutput($"Events are now {FormatAutoStart(arg.Value)}");
+    }
+
+    [Command(Name = "event",
+        DisplayName = "Toggle Event",
+        Description = "Start or stop a specific game event",
+        RegisterConsoleCommand = true)]
+    public static string Event(string eventName, bool start)
+    {
+        GameEvent @event = Events.Find(e => e.EventName.Equals(eventName, System.StringComparison.OrdinalIgnoreCase));
         if (!@event) return MessageHelpers.GetCommandOutput($"No event named '{eventName}'");
 
-        if (start) @event.StartEvent();
-        else @event.EndEvent();
+        if (start)
+            @event.StartEvent();
+        else
+            @event.EndEvent();
         return MessageHelpers.GetCommandOutput($"{FormatStartEnd(start)}ed event {@event.GetType().Name}");
     }
 

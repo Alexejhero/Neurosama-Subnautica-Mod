@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e01a095b5064d2684bcd4bbb3f09a8e, type: 3}
+  m_Name: Anneel data
+  m_EditorClassIdentifier: 
+  _liveMixin: {fileID: 1459504946296119987}
+  prefab: {fileID: 2290084969310356491, guid: 8ecdbc56b0e6ddb4d818b31111203610, type: 3}
+  loader:
+    id: 0
+  classId: anneel
+  displayName: Anneel
+  tooltip: 'Known for spilling drinks - keep away from liquid containers.
+
+    <size=75%>(Model
+    by bred)</size>'
+  icon: {fileID: 21300000, guid: 1f6b8c274fb392d47a69d0e749afcd3c, type: 3}
+  itemSize: {x: 5, y: 1}
+  isCraftable: 0
+  isBuildable: 0
+  craftingTime: 2.5
+  pdaEncyInfo: {fileID: 11400000, guid: 9e6ad7304549275419607042e35a80ee, type: 2}
+  knownTechInfo: {fileID: 0}
+  spawnData: {fileID: 11400000, guid: 17614fc394efcf845a823b428f774775, type: 2}
+  unlockAtStart: 0
+  registerInSN: 1
+  recipeSN: {fileID: 0}
+  craftTreeTypeSN: 0
+  craftTreePathSN: 
+  techGroupSN: 14
+  techCategorySN: -1
+  requiredForUnlockSN:
+    isCustom: 1
+    techType: 0
+    itemData: {fileID: 11400000}
+  equipmentTypeSN: 0
+  quickSlotTypeSN: 0
+  registerInBZ: 1
+  recipeBZ: {fileID: 0}
+  canBeRecycledBZ: 1
+  craftTreeTypeBZ: 0
+  craftTreePathBZ: 
+  techGroupBZ: 13
+  techCategoryBZ: -1
+  soundTypeBZ: 0
+  requiredForUnlockBZ:
+    isCustom: 1
+    techType: 0
+    itemData: {fileID: 11400000}
+  equipmentTypeBZ: 0
+  quickSlotTypeBZ: 0
+  coldResistanceBZ: 0
+  isPickupable: 0
+  behaviourType: 3
+  acidImmune: 1
+  bioReactorCharge: 0
+  waterParkData: {fileID: 11400000, guid: af52006e69cfb57469876f3d0697e63a, type: 2}
+  references:
+    version: 1
+    00000000:
+      type: {class: CreatureLoader, ns: SCHIZO.Creatures, asm: SCHIZO}
+--- !u!114 &1459504946296119987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5fc571188fd482ea82c2bafcbeb912d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 200
+  passDamageDataOnDeath: 0
+  broadcastKillOnDeath: 1
+  weldable: 0
+  knifeable: 1
+  destroyOnDeath: 0
+  minDamageForSound: 10
+  loopEffectBelowPercent: 0
+  loopingDamageEffect: {fileID: 0}
+  canResurrect: 0

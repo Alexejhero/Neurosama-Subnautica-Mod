@@ -5,7 +5,7 @@
 			<value>door-open-close-45475.mp3 from Pixabay</value>
 		</property>
 		<property name="assetPath">
-			<value>neuro logs/hate vedal/door-close.ogg</value>
+			<value>pda logs/hate vedal/door-close.ogg</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>24</value>

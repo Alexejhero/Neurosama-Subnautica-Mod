@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="AudioFile" id="{532599c5-77c9-4519-99fe-faf8aa4215ed}">
 		<property name="assetPath">
-			<value>Neuro_bwaa.mp3</value>
+			<value>noises/neuro/Neuro_bwaa.mp3</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>
