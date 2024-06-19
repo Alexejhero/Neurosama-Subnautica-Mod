@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
@@ -8,7 +9,7 @@ using UnityEngine;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace SCHIZO.Helpers;
-internal static class FMODHelpers
+internal static partial class FMODHelpers
 {
     /// <summary>
     /// Attempts to load an FMOD bank from embedded resources.
@@ -53,28 +54,38 @@ internal static class FMODHelpers
     {
         LoadBankFromResources($"{name}.bank", throwOnFail);
     }
-    // TODO this can fail if the path/id aren't found but i cba to write the Try___ methods right now
+
+    // TODO these can fail if the path/id aren't found but i cba to write the Try___ methods right now
     public static string GetPath(string guid)
     {
         if (!Guid.TryParse(guid, out Guid guid_)) return null;
 
-        RuntimeManager.StudioSystem.lookupPath(guid_, out string pathFromId).CheckResult();
+        return GetPath(guid_);
+    }
+    public static string GetPath(Guid guid)
+    {
+        RuntimeManager.StudioSystem.lookupPath(guid, out string pathFromId).CheckResult();
         return pathFromId;
     }
     public static string GetId(string path)
     {
-        if (string.IsNullOrEmpty(path)) return null;
+        Guid guid = GetGuid(path);
+        return guid == default ? null : guid.ToString();
+    }
+    public static Guid GetGuid(string path)
+    {
+        if (string.IsNullOrEmpty(path)) return default;
 
-        RuntimeManager.StudioSystem.lookupID(path, out Guid guidFromPath).CheckResult();
-        return guidFromPath == default ? null : guidFromPath.ToString();
+        RuntimeManager.StudioSystem.lookupID(path, out Guid guid).CheckResult();
+        return guid;
     }
 
-    public static void PlayId(this FMOD_CustomEmitter emitter, string id, bool is3d = true)
-        => PlayFmod(emitter, GetPath(id), id, is3d);
+    public static void PlayGuid(this FMOD_CustomEmitter emitter, Guid guid, bool is3d = true)
+        => PlayFmod(emitter, GetPath(guid), guid, is3d);
     public static void PlayPath(this FMOD_CustomEmitter emitter, string path, bool is3d = true)
-        => PlayFmod(emitter, path, GetId(path), is3d);
+        => PlayFmod(emitter, path, GetGuid(path), is3d);
 
-    public static void PlayFmod(this FMOD_CustomEmitter emitter, string path, string id, bool is3d, float delay = 0)
+    public static void PlayFmod(this FMOD_CustomEmitter emitter, string path, Guid guid, bool is3d, float delay = 0)
     {
         if (string.IsNullOrEmpty(path)) return;
 
@@ -84,7 +95,7 @@ internal static class FMODHelpers
             return;
         }
 
-        emitter.SetAsset(AudioUtils.GetFmodAsset(path, id));
+        emitter.SetAsset(GetFmodAsset(path, guid));
         emitter.SetParameterValue("3D", is3d ? 1 : 0);
         emitter.SetParameterValue("Delay", delay);
 
@@ -155,5 +166,55 @@ internal static class FMODHelpers
         evt.start();
         evt.release();
         return evt;
+    }
+
+    private static Dictionary<Guid, FMODAsset> _fmodAssetPool = [];
+    public static FMODAsset GetFmodAsset(string path)
+    {
+        if (string.IsNullOrEmpty(path)) return null;
+
+        Guid guid = GetGuid(path);
+        if (guid == default)
+        {
+            LOGGER.LogWarning($"Tried to get FMODAsset for unknown path \"{path}\"");
+            return null;
+        }
+        return GetFmodAssetNoCheck(path, guid);
+    }
+    public static FMODAsset GetFmodAsset(Guid guid)
+    {
+        if (guid == default) return null;
+        string path = GetPath(guid);
+
+        if (path is null)
+        {
+            LOGGER.LogWarning($"Tried to get FMODAsset for unknown guid {guid}");
+            return null;
+        }
+
+        return GetFmodAssetNoCheck(path, guid);
+    }
+    public static FMODAsset GetFmodAsset(string path, Guid guid)
+    {
+        if (string.IsNullOrEmpty(path)) return null;
+
+        if (guid != GetGuid(path))
+        {
+            LOGGER.LogWarning($"Tried to get FMODAsset for path \"{path}\" and guid {guid} which don't match!");
+            return null;
+        }
+        return GetFmodAssetNoCheck(path, guid);
+    }
+
+    private static FMODAsset GetFmodAssetNoCheck(string path, Guid guid)
+    {
+        if (_fmodAssetPool.TryGetValue(guid, out FMODAsset asset) && asset)
+            return asset;
+
+        asset = ScriptableObject.CreateInstance<FMODAsset>();
+        asset.path = path;
+        asset.id = guid.ToString();
+        _fmodAssetPool[guid] = asset;
+        return asset;
     }
 }

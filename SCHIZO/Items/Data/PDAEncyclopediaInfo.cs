@@ -1,5 +1,4 @@
 using Nautilus.Handlers;
-using Nautilus.Utility;
 using SCHIZO.Helpers;
 using SCHIZO.Sounds;
 
@@ -21,8 +20,7 @@ partial class PDAEncyclopediaInfo
     public void Register(string key)
     {
         string path = RetargetHelpers.Pick(encyPathSN, encyPathBZ);
-        FMODAsset vo = string.IsNullOrEmpty(logVO) ? null
-            : AudioUtils.GetFmodAsset(logVO);
+        FMODAsset vo = FMODHelpers.GetFmodAsset(logVO);
         PDAHandler.AddEncyclopediaEntry(key, path, title, description!?.text,
             image: texture, popupImage: unlockSprite,
             unlockSound: isImportantUnlock ? PDAHandler.UnlockImportant : PDAHandler.UnlockBasic,

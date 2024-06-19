@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using ECCLibrary;
 using Nautilus.Handlers;
+using SCHIZO.Helpers;
 using SCHIZO.Items;
 using UnityEngine;
 using OurCreatureData = SCHIZO.Creatures.Data.CreatureData;
@@ -22,10 +22,10 @@ public class UnityCreaturePrefab : UnityPrefab
     {
         base.SetItemProperties();
 
-        CreatureDataUtils.SetBehaviorType(ModItem, UnityData.BehaviourType);
+        CreatureData.behaviourTypeList[ModItem] = UnityData.BehaviourType;
 
-        if (UnityData.acidImmune) CreatureDataUtils.SetAcidImmune(ModItem);
-        if (UnityData.bioReactorCharge > 0) CreatureDataUtils.SetBioreactorCharge(ModItem, UnityData.bioReactorCharge);
+        if (UnityData.acidImmune) DamageSystem.acidImmune = [.. DamageSystem.acidImmune, ModItem];
+        if (UnityData.bioReactorCharge > 0) BaseBioReactor.charge[ModItem] = UnityData.bioReactorCharge;
 
         if (UnityData.isPickupable)
         {
@@ -42,22 +42,22 @@ public class UnityCreaturePrefab : UnityPrefab
         CreatureDeath creatureDeath = instance.GetComponent<CreatureDeath>();
         if (creatureDeath)
         {
-            creatureDeath.respawnerPrefab = ObjectReferences.respawnerPrefab;
+            creatureDeath.respawnerPrefab = ObjectReferences.RespawnerPrefab;
         }
 
         SoundOnDamage soundOnDamage = instance.GetComponent<SoundOnDamage>();
         if (soundOnDamage)
         {
-            if (soundOnDamage.damageType == DamageType.Collide) soundOnDamage.sound = ECCSoundAssets.FishSplat;
+            if (soundOnDamage.damageType == DamageType.Collide) soundOnDamage.sound = FMODHelpers.GameEvents.FishSplat;
             else LOGGER.LogWarning($"Creature {PrefabInfo.ClassID} has SoundOnDamage component with damage type {soundOnDamage.damageType} which is not supported");
         }
 
         LiveMixin liveMixin = instance.GetComponent<LiveMixin>();
         if (liveMixin && liveMixin.data)
         {
-            liveMixin.data.damageEffect = ObjectReferences.genericCreatureHit;
-            liveMixin.data.deathEffect = ObjectReferences.genericCreatureHit;
-            liveMixin.data.electricalDamageEffect = ObjectReferences.electrocutedEffect;
+            liveMixin.data.damageEffect = ObjectReferences.GenericCreatureHit;
+            liveMixin.data.deathEffect = ObjectReferences.GenericCreatureHit;
+            liveMixin.data.electricalDamageEffect = ObjectReferences.ElectrocutedEffect;
         }
 
         if (UnityData.waterParkData)

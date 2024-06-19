@@ -1,4 +1,4 @@
-using ECCLibrary.Data;
+using Nautilus.Extensions;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Data;
@@ -14,8 +14,12 @@ partial class ModdedWaterParkCreatureData
         data.daysToGrow = daysToGrow;
         data.isPickupableOutside = isPickupableOutside;
         data.canBreed = canBreed;
-        data.eggOrChildPrefab = !string.IsNullOrWhiteSpace(eggOrChild.GetClassID()) ? new CustomGameObjectReference(eggOrChild.GetClassID()) : null;
-        data.adultPrefab = !string.IsNullOrWhiteSpace(adult.GetClassID()) ? new CustomGameObjectReference(adult.GetClassID()) : null;
+        string eggId = eggOrChild?.GetClassID();
+        string adultId = adult?.GetClassID();
+        data.eggOrChildPrefab = string.IsNullOrEmpty(eggId) ? null : new(eggId);
+        data.eggOrChildPrefab?.ForceValid();
+        data.adultPrefab = string.IsNullOrEmpty(adultId) ? null : new(adultId);
+        data.adultPrefab?.ForceValid();
 
         return data;
     }

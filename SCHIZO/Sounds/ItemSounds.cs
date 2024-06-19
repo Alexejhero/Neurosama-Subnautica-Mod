@@ -31,8 +31,8 @@ partial class ItemSounds
         if (tool)
         {
             PlayerTool Tool = (PlayerTool)tool;
-            Tool.drawSound = Tool.drawSoundUnderwater = AudioUtils.GetFmodAsset(draw);
-            Tool.holsterSoundAboveWater = Tool.holsterSoundUnderwater = AudioUtils.GetFmodAsset(holster);
+            Tool.drawSound = Tool.drawSoundUnderwater = FMODHelpers.GetFmodAsset(draw);
+            Tool.holsterSoundAboveWater = Tool.holsterSoundUnderwater = FMODHelpers.GetFmodAsset(holster);
         }
     }
 

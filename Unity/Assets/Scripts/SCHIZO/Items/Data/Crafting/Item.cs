@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using JetBrains.Annotations;
 using SCHIZO.Interop.Subnautica.Enums;
 using UnityEngine;
@@ -9,7 +9,7 @@ namespace SCHIZO.Items.Data.Crafting
     public sealed partial class Item
     {
         [SerializeField, UsedImplicitly]
-        private bool isCustom = false;
+        private bool isCustom;
 
         [SerializeField, UsedImplicitly]
         private TechType_All techType;
