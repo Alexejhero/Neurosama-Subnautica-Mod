@@ -143,4 +143,11 @@ internal static class HarmonyHelpers
         }
         return new CodeInstruction(opcode, needsOperand ? local : null);
     }
+
+    public static CodeInstruction CallInstruction(this MethodInfo method)
+    {
+        return method.IsVirtual
+            ? new CodeInstruction(OpCodes.Callvirt, method)
+            : new CodeInstruction(OpCodes.Call, method);
+    }
 }

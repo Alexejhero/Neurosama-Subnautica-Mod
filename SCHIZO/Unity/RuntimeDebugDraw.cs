@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using SCHIZO.Helpers;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -70,7 +71,6 @@ namespace RuntimeDebugDraw
             CheckAndBuildHiddenRTDrawObject();
             color ??= DrawDefaultColor;
 			_rtDraw.RegisterLine(start, end, color.Value, duration, !depthTest);
-			return;
 		}
 
         /// <summary>
@@ -87,24 +87,56 @@ namespace RuntimeDebugDraw
 			CheckAndBuildHiddenRTDrawObject();
             color ??= DrawDefaultColor;
             _rtDraw.RegisterLine(start, start + dir, color.Value, duration, !depthTest);
-			return;
 		}
 
-		/// <summary>
-		/// Draw a text at given position.
+        /// <summary>
+		///	Draw a bounding box between <paramref name="start"/> and <paramref name="end"/>.
 		/// </summary>
-		/// <param name="pos">Position</param>
-		/// <param name="text">String of the text.</param>
-		/// <param name="color">Color for the text.</param>
-		/// <param name="size">Font size for the text.</param>
-		/// <param name="duration">How long the text should be visible for after the current frame.</param>
-		/// <param name="popUp">Set to true to let the text moving up, so multiple texts at the same position can be visible.</param>
-		public static void DrawText(Vector3 pos, string text, Color? color = null, int size = DrawTextDefaultSize, float duration = 0, bool popUp = true)
+		/// <param name="start">The first point (in world space) the box should encapsulate.</param>
+		/// <param name="end">The second point (in world space) the box should encapsulate.</param>
+		/// <param name="color">Color of the lines.</param>
+		/// <param name="duration">How long the drawing stays visible for after the current frame.</param>
+		/// <param name="depthTest">Whether the drawing should be obscured by objects closer to the camera.</param>
+		public static void DrawBox(Vector3 start, Vector3 end, Color? color = null, float duration = 0, bool depthTest = true)
+        {
+            CheckAndBuildHiddenRTDrawObject();
+            color ??= DrawDefaultColor;
+
+            foreach ((Vector3 first, Vector3 second) in start.BoxEdges(end))
+                _rtDraw.RegisterLine(first, second, color.Value, duration, !depthTest);
+        }
+
+        /// <summary>
+		///	Draw a bounding cube between <paramref name="start"/> and <paramref name="end"/>.
+		/// </summary>
+		/// <param name="start">The first point (in world space) the cube should encapsulate.</param>
+		/// <param name="end">The second point (in world space) the cube should encapsulate.</param>
+		/// <param name="color">Color of the lines.</param>
+		/// <param name="duration">How long the drawing stays visible for after the current frame.</param>
+		/// <param name="depthTest">Whether the drawing should be obscured by objects closer to the camera.</param>
+		public static void DrawCube(Vector3 start, Vector3 end, Color? color = null, float duration = 0, bool depthTest = true)
+        {
+            CheckAndBuildHiddenRTDrawObject();
+            color ??= DrawDefaultColor;
+
+            foreach ((Vector3 first, Vector3 second) in start.CubeEdges(end))
+                _rtDraw.RegisterLine(first, second, color.Value, duration, !depthTest);
+        }
+
+        /// <summary>
+        /// Draw a text at given position.
+        /// </summary>
+        /// <param name="pos">Position</param>
+        /// <param name="text">String of the text.</param>
+        /// <param name="color">Color for the text.</param>
+        /// <param name="size">Font size for the text.</param>
+        /// <param name="duration">How long the text should be visible for after the current frame.</param>
+        /// <param name="popUp">Set to true to let the text moving up, so multiple texts at the same position can be visible.</param>
+        public static void DrawText(Vector3 pos, string text, Color? color = null, int size = DrawTextDefaultSize, float duration = 0, bool popUp = true)
 		{
 			CheckAndBuildHiddenRTDrawObject();
             color ??= DrawDefaultColor;
             _rtDraw.RegisterDrawText(pos, text, color.Value, size, duration, popUp);
-			return;
 		}
 
 		/// <summary>
@@ -122,7 +154,6 @@ namespace RuntimeDebugDraw
             color ??= DrawDefaultColor;
 			_rtDraw.RegisterAttachText(transform, strFunc, offset.Value, color.Value, size);
 
-			return;
 		}
 		#endregion
 
@@ -371,6 +402,7 @@ namespace RuntimeDebugDraw
 
 			return;
 		}
+        // todo an actual thing for arbitrary polygons
 
 		private void RebuildDrawLineBatchMesh()
 		{
