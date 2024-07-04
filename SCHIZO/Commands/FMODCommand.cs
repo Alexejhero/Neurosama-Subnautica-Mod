@@ -6,6 +6,7 @@ using FMOD.Studio;
 using FMODUnity;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Commands.Base;
+using SCHIZO.Commands.Output;
 using SCHIZO.Helpers;
 using UnityEngine;
 
@@ -15,17 +16,17 @@ namespace SCHIZO.Commands;
     DisplayName = "FMOD",
     Description = "Commands for working with FMOD",
     RegisterConsoleCommand = true
-    )]
+)]
 public class FMODCommand : CompositeCommand
 {
     [SubCommand]
-    public static string Play(string pathOrGuid, float distance = 0)
+    public static object Play(string pathOrGuid, float distance = 0)
     {
         if (Guid.TryParse(pathOrGuid, out Guid guid))
-            pathOrGuid = GetPath(guid.ToString());
+            pathOrGuid = FMODHelpers.GetPath(guid);
 
         if (string.IsNullOrEmpty(pathOrGuid))
-            return "Null sound path";
+            return CommonResults.Error("Null sound path");
 
         try
         {
@@ -39,17 +40,17 @@ public class FMODCommand : CompositeCommand
                 Vector3 pos = Camera.main.transform.position + deltaPos;
                 RuntimeManager.PlayOneShot(pathOrGuid, pos);
             }
-            return null;
+            return CommonResults.OK();
         }
-        catch (EventNotFoundException e)
+        catch (EventNotFoundException)
         {
-            return $"FMOD event not found: {e.Message}";
+            return CommonResults.Error($"FMOD event not found: {pathOrGuid}");
         }
     }
-    [SubCommand]
-    public static string GetPath(string guid) => FMODHelpers.GetPath(guid);
-    [SubCommand]
-    public static string GetId(string path) => FMODHelpers.GetId(path);
+    [SubCommand(NameOverride = "path")]
+    public static object GetPath(string guid) => (object)FMODHelpers.GetPath(guid) ?? CommonResults.Error("Not found");
+    [SubCommand(NameOverride = "id")]
+    public static object GetId(string path) => (object)FMODHelpers.GetId(path) ?? CommonResults.Error("Not found");
 
     // all of these were adapted from https://discord.com/channels/324207629784186882/324207629784186882/1065010826571956294
     [SubCommand]

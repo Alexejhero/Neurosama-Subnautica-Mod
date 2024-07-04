@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace SCHIZO.Items.Gymbag;
 
-public sealed class Gymbag : ClonePrefab
+[method: SetsRequiredMembers]
+public sealed class Gymbag(ModItem modItem) : ClonePrefab(modItem, CLONE_TARGET)
 {
     private const TechType CLONE_TARGET =
 #if SUBNAUTICA
@@ -14,11 +15,6 @@ public sealed class Gymbag : ClonePrefab
 #endif
 
     public static readonly string GymbagStorageLabel = IS_BELOWZERO ? "QUANTUM GYMBAG" : "GYMBAG";
-    [SetsRequiredMembers]
-    // ReSharper disable once ConvertToPrimaryConstructor
-    public Gymbag(ModItem modItem) : base(modItem, CLONE_TARGET)
-    {
-    }
 
     protected override void ModifyClone(GameObject prefab)
     {

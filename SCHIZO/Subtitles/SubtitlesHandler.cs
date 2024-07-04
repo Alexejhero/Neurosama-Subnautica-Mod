@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using UWE;
+#if BELOWZERO
+using System.Linq;
 using GameSubtitles = Subtitles;
+#endif
 
 namespace SCHIZO.Subtitles;
 
@@ -13,10 +15,10 @@ namespace SCHIZO.Subtitles;
 internal static class SubtitlesHandler
 {
     // here for debuggability
-    public static readonly Dictionary<string, SubtitlesData> Subtitles = [];
+    public static Dictionary<string, SubtitlesData> CustomSubtitles { get; } = [];
 #if BELOWZERO
     // runtime data
-    public static readonly Dictionary<string, Actor[]> ActorTurns = [];
+    public static Dictionary<string, Actor[]> ActorTurns { get; } = [];
 #endif
     static SubtitlesHandler()
     {
@@ -25,7 +27,7 @@ internal static class SubtitlesHandler
 
     public static void Register(SubtitlesData data)
     {
-        Subtitles[data.key] = data;
+        CustomSubtitles[data.key] = data;
 
         data.lines.ForEach(line => LanguageHandler.SetLanguageLine(line.key, line.text));
     }
@@ -35,7 +37,7 @@ internal static class SubtitlesHandler
 #if BELOWZERO
         while (!GameSubtitles._main)
             yield return null;
-        foreach (SubtitlesData data in Subtitles.Values)
+        foreach (SubtitlesData data in CustomSubtitles.Values)
         {
             ActorTurns[data.key] = data.lines.Select(l => (Actor)l.actor).ToArray();
             GameSubtitles.main.subtitles[data.key] = ActorTurns[data.key];

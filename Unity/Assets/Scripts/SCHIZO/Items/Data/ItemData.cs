@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using JetBrains.Annotations;
 using SCHIZO.Attributes;
 using SCHIZO.Interop.Subnautica.Enums;
@@ -39,7 +39,7 @@ namespace SCHIZO.Items.Data
         public Sprite icon;
 
         [CommonData, HideIf(nameof(HidePickupableProps)), HideIf(nameof(isBuildable)), Careful]
-        public Vector2Int itemSize = new Vector2Int(1, 1);
+        public Vector2Int itemSize = new(1, 1);
 
         [CommonData, HideIf(nameof(HidePickupableProps)), HideIf(nameof(isBuildable)), Careful]
         public bool isCraftable;

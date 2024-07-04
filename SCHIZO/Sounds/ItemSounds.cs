@@ -31,8 +31,8 @@ partial class ItemSounds
         if (tool)
         {
             PlayerTool Tool = (PlayerTool)tool;
-            Tool.drawSound = Tool.drawSoundUnderwater = AudioUtils.GetFmodAsset(draw);
-            Tool.holsterSoundAboveWater = Tool.holsterSoundUnderwater = AudioUtils.GetFmodAsset(holster);
+            Tool.drawSound = Tool.drawSoundUnderwater = FMODHelpers.GetFmodAsset(draw);
+            Tool.holsterSoundAboveWater = Tool.holsterSoundUnderwater = FMODHelpers.GetFmodAsset(holster);
         }
     }
 
@@ -44,13 +44,17 @@ partial class ItemSounds
     public void OnPickup(Pickupable _)
     {
         FMODHelpers.PlayPath2D(pickup);
-        GetComponent<WorldAmbientSoundPlayer>()!?.Stop();
+        WorldAmbientSoundPlayer player = GetComponent<WorldAmbientSoundPlayer>();
+        if (player) player.Stop();
     }
     // called through SendMessage (i love unity)
     public void OnDrop()
     {
         FMODHelpers.StopAllInstances(holster);
-        GetComponentsInChildren<InventoryAmbientSoundPlayer>().ForEach(p => p.Stop());
+        foreach (InventoryAmbientSoundPlayer p in GetComponentsInChildren<InventoryAmbientSoundPlayer>())
+        {
+            p.Stop();
+        }
         emitter.PlayPath(drop);
     }
 

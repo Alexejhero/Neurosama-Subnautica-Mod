@@ -191,7 +191,7 @@ public static class CustomJukeboxTrackPatches
         track.OnLoadFail();
         if (track.ShouldRetryLoad)
         {
-            LOGGER.LogWarning($"Custom track failed to load, trying again");
+            LOGGER.LogWarning("Custom track failed to load, trying again");
             InitCustomTrack(__instance, track);
             return false;
         }

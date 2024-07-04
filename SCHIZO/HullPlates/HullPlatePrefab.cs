@@ -25,7 +25,7 @@ public sealed class HullPlatePrefab : CustomPrefab
 
         if (!_hullPlate.deprecated)
         {
-            Texture2D overrideIcon = hullPlate.overrideIcon !?? hullPlate.texture;
+            Texture2D overrideIcon = hullPlate.overrideIcon.Or(hullPlate.texture);
             overrideIcon = overrideIcon.Scale(177, 176).Translate(-21, -38).Crop(loader.hiddenIcon.width, loader.hiddenIcon.height);
             Texture2D newIcon = hullPlate.hidden ? loader.hiddenIcon : TextureHelpers.BlendAlpha(loader.hiddenIcon, overrideIcon);
             Info.WithIcon(ImageUtils.LoadSpriteFromTexture(newIcon));
@@ -47,7 +47,7 @@ public sealed class HullPlatePrefab : CustomPrefab
         GameObject instance = GameObject.Instantiate(task.GetResult());
         TextureHider hider = instance.AddComponent<TextureHider>();
         MeshRenderer mesh = instance.FindChild("Icon").GetComponent<MeshRenderer>();
-        mesh.material.mainTexture = _hullPlate.texture !?? _loader.missingTexture;
+        mesh.material.mainTexture = _hullPlate.texture.Or(_loader.missingTexture);
         mesh.enabled = false;
         hider.rend = mesh;
         instance.name = _hullPlate.classId;

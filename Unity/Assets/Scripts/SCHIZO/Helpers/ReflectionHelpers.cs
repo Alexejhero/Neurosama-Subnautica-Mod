@@ -46,7 +46,7 @@ namespace SCHIZO.Helpers
             if (method != null)
             {
                 object thisArg = method.IsStatic ? null : instance;
-                return (T) method.Invoke(thisArg, Array.Empty<object>());
+                return (T) method.Invoke(thisArg, null);
             }
 
             throw new Exception($"Failed to retrieve member value with name {name}");
@@ -76,8 +76,8 @@ namespace SCHIZO.Helpers
                 if (!typeof(T).IsAssignableFrom(method.ReturnType))
                     throw new ArgumentException($"Member (method) return type {method.ReturnType} cannot be assigned to {typeof(T)}");
                 if (method.GetParameters().Length != 0)
-                    throw new ArgumentException($"Member (method) must have no parameters");
-                return (T) method.Invoke(null, Array.Empty<object>());
+                    throw new ArgumentException("Member (method) must have no parameters");
+                return (T) method.Invoke(null, null);
             }
             throw new NotSupportedException($"Unsupported member type {member.GetType().Name}");
         }

@@ -61,7 +61,7 @@ public partial class GameEvent : IStoryGoalListener
 
     public void Unlock()
     {
-        StoryGoalHelpers.Trigger(Goals.Unlock);
+        StoryGoalHelpers.Complete(Goals.Unlock);
         IsUnlocked = true;
     }
 
@@ -78,7 +78,7 @@ public partial class GameEvent : IStoryGoalListener
         IsFirstTime = !StoryGoalHelpers.IsCompleted(Goals.FirstTime);
         if (IsFirstTime)
         {
-            StoryGoalHelpers.Trigger(Goals.FirstTime);
+            StoryGoalHelpers.Complete(Goals.FirstTime);
             msg += " (first time)";
         }
         LOGGER.LogMessage(msg);
@@ -106,7 +106,10 @@ public partial class GameEvent : IStoryGoalListener
 
     protected void FixedUpdate()
     {
-        if (IsOccurring) UpdateLogic();
+        if (IsOccurring)
+        {
+            UpdateLogic();
+        }
         else
         {
             bool ableToAutoStart = canAutoStart

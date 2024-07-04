@@ -137,7 +137,7 @@ partial class TwitchIntegration
         bool timedOut = false;
         Action cb = () => timedOut = true;
         _timeoutCallbacks.AddOrUpdate(user.Id, cb, (_, existing) => existing + cb);
-        Task.Delay(TimeSpan.FromSeconds(existing.delay)).ContinueWith(t =>
+        Task.Delay(TimeSpan.FromSeconds(existing.delay)).ContinueWith(__ =>
         {
             _timeoutCallbacks.TryRemove(user.Id, out _);
             if (timedOut)

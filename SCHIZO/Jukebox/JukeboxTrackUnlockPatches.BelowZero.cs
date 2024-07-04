@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using HarmonyLib;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ namespace SCHIZO.Jukebox;
 [HarmonyPatch]
 public static class JukeboxTrackUnlockPatches
 {
-    internal static readonly Dictionary<string, Sprite> CustomUnlockSprites = new();
+    internal static readonly Dictionary<string, Sprite> CustomUnlockSprites = [];
 
     [HarmonyPatch(typeof(uGUI_PopupNotification), nameof(uGUI_PopupNotification.OnUnlockTrack))]
     [HarmonyPrefix]

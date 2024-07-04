@@ -15,7 +15,7 @@ public static class ResourceManager
     }
 
     private static readonly Assembly _assembly = Assembly.GetExecutingAssembly();
-    private static readonly Dictionary<string, object> _cache = new();
+    private static readonly Dictionary<string, object> _cache = [];
 
     public static AssetBundle GetAssetBundle(string name)
     {

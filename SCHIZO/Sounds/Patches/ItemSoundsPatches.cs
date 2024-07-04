@@ -48,7 +48,7 @@ public static class ItemSoundsPatches
         }
     }
 
-    private static float delayPerItem = 0.2f;
+    private const float DelayPerItem = 0.2f;
     [HarmonyPatch(typeof(Crafter), nameof(Crafter.OnCraftingBegin))]
     [HarmonyPostfix]
     public static void PlayCustomCookSound(Crafter __instance, TechType techType) // the craft result
@@ -62,7 +62,7 @@ public static class ItemSoundsPatches
         foreach (NIngredient ingredient in ingredients)
         {
             for (int i = 0; i < ingredient.amount; i++)
-                ItemSounds.OnCook(__instance, ingredient.techType, delayPerItem * i);
+                ItemSounds.OnCook(__instance, ingredient.techType, DelayPerItem * i);
         }
     }
 }

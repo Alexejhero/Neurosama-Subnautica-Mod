@@ -1,4 +1,4 @@
-﻿using SCHIZO.Attributes;
+using SCHIZO.Attributes;
 using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using SCHIZO.Items.Data;
 using TriInspector;
@@ -8,7 +8,7 @@ namespace SCHIZO.Creatures.Data
 {
     [CreateAssetMenu(menuName = "SCHIZO/Creatures/Creature Data")]
     [DeclareBoxGroup("creaturedata", Title = "Creature Data")]
-    public partial class CreatureData : ItemData
+    public sealed partial class CreatureData : ItemData
     {
         [PropertyOrder(1), Careful] public bool isPickupable;
 

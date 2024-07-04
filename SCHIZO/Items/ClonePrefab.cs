@@ -1,19 +1,13 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using Nautilus.Assets.PrefabTemplates;
 using UnityEngine;
 
 namespace SCHIZO.Items;
 
-public abstract class ClonePrefab : UnityPrefab
+[method: SetsRequiredMembers]
+public abstract class ClonePrefab(ModItem item, TechType cloned) : UnityPrefab(item)
 {
-    protected readonly TechType clonedTechType;
-
-    [SetsRequiredMembers]
-    // ReSharper disable once ConvertToPrimaryConstructor
-    protected ClonePrefab(ModItem item, TechType cloned) : base(item)
-    {
-        clonedTechType = cloned;
-    }
+    protected readonly TechType clonedTechType = cloned;
 
     protected sealed override NautilusPrefabConvertible GetPrefab()
     {

@@ -15,7 +15,8 @@ using Object = UnityEngine.Object;
 
 namespace SCHIZO.Items;
 
-public class UnityPrefab : CustomPrefab
+[method: SetsRequiredMembers]
+public class UnityPrefab(ModItem item) : CustomPrefab(item)
 {
     #region Prefab cache
 
@@ -30,16 +31,9 @@ public class UnityPrefab : CustomPrefab
 
     #endregion
 
-    internal ModItem ModItem { get; }
+    internal ModItem ModItem { get; } = item;
     protected ItemData UnityData => ModItem.ItemData;
     protected PrefabInfo PrefabInfo => ModItem.PrefabInfo;
-
-    [SetsRequiredMembers]
-    // ReSharper disable once ConvertToPrimaryConstructor
-    public UnityPrefab(ModItem item) : base(item)
-    {
-        ModItem = item;
-    }
 
     public new void Register()
     {
@@ -70,82 +64,82 @@ public class UnityPrefab : CustomPrefab
 
     protected virtual void SetItemProperties()
     {
-        if (ModItem.ItemData.isCraftable && ModItem.ItemData.CraftTreeType != CraftTree.Type.None)
+        if (UnityData.isCraftable && UnityData.CraftTreeType != CraftTree.Type.None)
         {
-            CraftTreeHandler.AddCraftingNode(ModItem.ItemData.CraftTreeType, ModItem, ModItem.ItemData.CraftTreePath);
-            CraftDataHandler.SetCraftingTime(ModItem, ModItem.ItemData.craftingTime);
+            CraftTreeHandler.AddCraftingNode(UnityData.CraftTreeType, ModItem, UnityData.CraftTreePath);
+            CraftDataHandler.SetCraftingTime(ModItem, UnityData.craftingTime);
         }
 
-        if (ModItem.ItemData.isBuildable)
+        if (UnityData.isBuildable)
         {
             CraftDataHandler.AddBuildable(ModItem);
         }
 
-        if (ModItem.ItemData.Recipe)
+        if (UnityData.Recipe)
         {
-            CraftDataHandler.SetRecipeData(ModItem, ModItem.ItemData.Recipe.Convert());
+            CraftDataHandler.SetRecipeData(ModItem, UnityData.Recipe.Convert());
         }
 
-        if (ModItem.ItemData.TechGroup != TechGroup.Uncategorized)
+        if (UnityData.TechGroup != TechGroup.Uncategorized)
         {
-            CraftDataHandler.AddToGroup(ModItem.ItemData.TechGroup, ModItem.ItemData.TechCategory, ModItem);
+            CraftDataHandler.AddToGroup(UnityData.TechGroup, UnityData.TechCategory, ModItem);
         }
 
-        ModItem.ItemData.pdaEncyInfo!?.Register(this);
-        ModItem.ItemData.knownTechInfo!?.Register(this);
+        if (UnityData.pdaEncyInfo) UnityData.pdaEncyInfo.Register(this);
+        if (UnityData.knownTechInfo) UnityData.knownTechInfo.Register(this);
 
-        if (ModItem.ItemData.unlockAtStart)
+        if (UnityData.unlockAtStart)
         {
             KnownTechHandler.UnlockOnStart(ModItem);
         }
-        else if (ModItem.ItemData.RequiredForUnlock != TechType.None)
+        else if (UnityData.RequiredForUnlock != TechType.None)
         {
             KnownTechHandler.SetAnalysisTechEntry(new KnownTech.AnalysisTech
             {
-                techType = ModItem.ItemData.RequiredForUnlock,
+                techType = UnityData.RequiredForUnlock,
                 unlockTechTypes = [ModItem],
             });
         }
 
-        if (ModItem.ItemData.EquipmentType != EquipmentType.None)
+        if (UnityData.EquipmentType != EquipmentType.None)
         {
-            CraftDataHandler.SetEquipmentType(ModItem, ModItem.ItemData.EquipmentType);
+            CraftDataHandler.SetEquipmentType(ModItem, UnityData.EquipmentType);
         }
 
-        if (ModItem.ItemData.EquipmentType == EquipmentType.Hand)
+        if (UnityData.EquipmentType == EquipmentType.Hand)
         {
-            if (ModItem.ItemData.QuickSlotType != QuickSlotType.None)
+            if (UnityData.QuickSlotType != QuickSlotType.None)
             {
-                CraftDataHandler.SetQuickSlotType(ModItem, ModItem.ItemData.QuickSlotType);
+                CraftDataHandler.SetQuickSlotType(ModItem, UnityData.QuickSlotType);
             }
 
 #if BELOWZERO
-            if (ModItem.ItemData.coldResistanceBZ > 0)
+            if (UnityData.coldResistanceBZ > 0)
             {
-                CraftDataHandler.SetColdResistance(ModItem, ModItem.ItemData.coldResistanceBZ);
+                CraftDataHandler.SetColdResistance(ModItem, UnityData.coldResistanceBZ);
             }
 #endif
         }
 
-        if (ModItem.ItemData.spawnData && ModItem.ItemData.spawnData.Spawn)
+        if (UnityData.spawnData && UnityData.spawnData.Spawn)
         {
             List<LootDistributionData.BiomeData> lootDistData = [];
 
-            foreach (BiomeType biome in ModItem.ItemData.spawnData.GetBiomes())
+            foreach (BiomeType biome in UnityData.spawnData.GetBiomes())
             {
-                lootDistData.AddRange(ModItem.ItemData.spawnData.rules.Select(rule => rule.GetBiomeData(biome)));
+                lootDistData.AddRange(UnityData.spawnData.rules.Select(rule => rule.GetBiomeData(biome)));
             }
 
             if (lootDistData.Count > 0)
             {
-                LootDistributionHandler.AddLootDistributionData(ModItem.PrefabInfo.ClassID, lootDistData.ToArray());
+                LootDistributionHandler.AddLootDistributionData(PrefabInfo.ClassID, [.. lootDistData]);
 
                 LargeWorldEntity lwe = UnityData.prefab.GetComponentInChildren<LargeWorldEntity>();
                 EntityTag entTag = UnityData.prefab.GetComponentInChildren<EntityTag>();
-                if (!lwe) throw new InvalidOperationException($"{nameof(LargeWorldEntity)} missing on prefab {ModItem.PrefabInfo.ClassID}");
-                if (!entTag) throw new InvalidOperationException($"{nameof(EntityTag)} missing on prefab {ModItem.PrefabInfo.ClassID}");
+                if (!lwe) throw new InvalidOperationException($"{nameof(LargeWorldEntity)} missing on prefab {PrefabInfo.ClassID}");
+                if (!entTag) throw new InvalidOperationException($"{nameof(EntityTag)} missing on prefab {PrefabInfo.ClassID}");
                 // Required for LootDistribution/spawning system
-                WorldEntityDatabaseHandler.AddCustomInfo(UnityData.classId, new WorldEntityInfo
+                WorldEntityDatabaseHandler.AddCustomInfo(UnityData.classId, new()
                 {
                     classId = UnityData.classId,
                     techType = ModItem,
@@ -158,14 +152,14 @@ public class UnityPrefab : CustomPrefab
         }
 
 #if BELOWZERO
-        if (!ModItem.ItemData.canBeRecycledBZ)
+        if (!UnityData.canBeRecycledBZ)
         {
             Recyclotron.bannedTech.Add(ModItem);
         }
 
-        if (ModItem.ItemData.SoundTypeBZ != TechData.SoundType.Default)
+        if (UnityData.SoundTypeBZ != TechData.SoundType.Default)
         {
-            CraftDataHandler.SetSoundType(ModItem, ModItem.ItemData.SoundTypeBZ);
+            CraftDataHandler.SetSoundType(ModItem, UnityData.SoundTypeBZ);
         }
 #endif
     }

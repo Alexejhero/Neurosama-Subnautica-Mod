@@ -44,7 +44,7 @@ public sealed class JukeboxDiskPrefab
                 JukeboxDisk diskComp = prefab.EnsureComponent<JukeboxDisk>();
                 diskComp.track = track;
                 if (!string.IsNullOrEmpty(track.unlockFmodEvent))
-                    diskComp.acquireSound = AudioUtils.GetFmodAsset(track.unlockFmodEvent, FMODHelpers.GetId(track.unlockFmodEvent));
+                    diskComp.acquireSound = FMODHelpers.GetFmodAsset(track.unlockFmodEvent);
 
                 DestroyDuplicates unique = prefab.EnsureComponent<DestroyDuplicates>();
                 unique.identifier = prefab.GetComponent<PrefabIdentifier>();

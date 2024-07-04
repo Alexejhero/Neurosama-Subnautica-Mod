@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TriInspector;
 using SCHIZO.Items.Data.Crafting;
@@ -21,8 +21,9 @@ namespace SCHIZO.HullPlates
         {
             hullPlates.Sort((a, b) =>
             {
-                return a.deprecated.CompareTo(b.deprecated) * 2 +
-                       Math.Sign(string.Compare(a.name, b.name, StringComparison.Ordinal));
+                int deprecated = a.deprecated.CompareTo(b.deprecated);
+                if (deprecated != 0) return deprecated;
+                return Math.Sign(string.CompareOrdinal(a.name, b.name));
             });
         }
     }

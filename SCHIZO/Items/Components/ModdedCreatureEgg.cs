@@ -1,4 +1,4 @@
-using ECCLibrary.Data;
+using Nautilus.Extensions;
 
 namespace SCHIZO.Items.Components;
 
@@ -12,7 +12,16 @@ partial class ModdedCreatureEgg
             LOGGER.LogWarning($"{nameof(creatureEgg)} was not assigned to {this}, creating new - deserialization (e.g. loading hatching progress from save) will fail!");
             creatureEgg = gameObject.AddComponent<CreatureEgg>();
         }
-        Egg.creaturePrefab = new CustomGameObjectReference(creature.GetClassID());
+
+        string creatureId = creature.GetClassID();
+        if (string.IsNullOrEmpty(creatureId))
+        {
+            LOGGER.LogError($"No creature assigned to egg {this}, destroying");
+            Destroy(this);
+            return;
+        }
+        Egg.creaturePrefab = new(creatureId);
+        Egg.creaturePrefab.ForceValid();
         Egg.creatureType = creature.GetTechType();
     }
 }

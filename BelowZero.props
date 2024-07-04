@@ -10,7 +10,6 @@
 
     <ItemGroup>
         <Reference Include="../Dependencies/BelowZero/FMODUnity.dll" />
-        <Reference Include="../Install/BelowZero/BepInEx/plugins/ECCLibrary/ECCLibrary.dll" />
     </ItemGroup>
 
     <ItemGroup>

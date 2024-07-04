@@ -6,7 +6,7 @@ using UnityEngine;
 namespace SwarmControl.Models.Game;
 
 #nullable enable
-public class ParameterModel : NamedModel
+public class ParameterModel(Parameter param) : NamedModel(param)
 {
     public enum ParameterType
     {
@@ -17,19 +17,10 @@ public class ParameterModel : NamedModel
         Vector3
     }
     [JsonIgnore]
-    public Type ActualType { get; set; }
-    public object Type { get; set; }
-    public bool Required { get; set; }
-    public object? DefaultValue { get; set; }
-
-    public ParameterModel(Parameter param)
-        : base(param)
-    {
-        ActualType = param.Type;
-        Type = GetTypeToken(param.Type);
-        Required = !param.IsOptional;
-        DefaultValue = param.HasDefaultValue ? param.DefaultValue : null;
-    }
+    public Type ActualType { get; set; } = param.Type;
+    public object Type { get; set; } = GetTypeToken(param.Type);
+    public bool Required { get; set; } = !param.IsOptional;
+    public object? DefaultValue { get; set; } = param.HasDefaultValue ? param.DefaultValue : null;
 
     private static object GetTypeToken(Type type)
     {

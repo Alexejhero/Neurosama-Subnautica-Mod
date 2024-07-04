@@ -31,7 +31,9 @@ partial class SoundPlayer
         {
             if (evt.getPlaybackState(out PLAYBACK_STATE state) != FMOD.RESULT.OK
                 || state == PLAYBACK_STATE.STOPPED)
+            {
                 evt.release();
+            }
         }
         _playingEvents.RemoveAll(evt => !evt.isValid());
     }
@@ -130,7 +132,7 @@ partial class SoundPlayer
 
     public void Stop()
     {
-        emitter!?.Stop();
+        if (emitter) emitter.Stop();
         _playingEvents.ForEach(FMODHelpers.StopAndRelease);
         _playingEvents.Clear();
     }

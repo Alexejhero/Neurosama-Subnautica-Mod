@@ -1,4 +1,5 @@
 using Nautilus.Extensions;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Items.FumoItem;
@@ -57,14 +58,12 @@ partial class EvilFumoItemTool
         knife = default;
 
         QuickSlots slots = Inventory.main.quickSlots;
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < slots.slotCount; i++)
         {
-            InventoryItem item = slots.GetSlotItem(i);
-            if (item is null || !item.item)
-                continue;
-            knife = item.item.GetComponent<Knife>();
-            if (!knife) continue;
-            return true;
+            Pickupable item = slots.GetSlotItem(i)?.item;
+            if (!item) continue;
+            knife = item.GetComponent<Knife>();
+            if (knife) return true;
         }
         return false;
     }
@@ -74,7 +73,7 @@ partial class EvilFumoItemTool
         UWE.Utils.SetCollidersEnabled(stolenKnife.gameObject, false);
         UWE.Utils.SetIsKinematic(stolenKnife.GetComponent<Rigidbody>(), true);
         UWE.Utils.SetEnabled(stolenKnife.GetComponent<LargeWorldEntity>(), false);
-        stolenKnife.transform.SetParent(knifeSocket.Exists() ?? transform, true);
+        stolenKnife.transform.SetParent(knifeSocket.Or(transform), true);
         stolenKnife.transform.localScale *= _knifeScale;
     }
     protected override void FixedUpdate()
@@ -124,6 +123,6 @@ partial class EvilFumoItemTool
         UWE.Utils.SetCollidersEnabled(colliderTarget, true);
         UWE.Utils.SetIsKinematic(stolenKnife.GetComponent<Rigidbody>(), false);
         if (stolenKnife.GetComponent<LargeWorldEntity>().Exists() is { } lwe)
-            LargeWorldStreamer.main!?.cellManager.RegisterEntity(lwe);
+            LargeWorldStreamer.main.cellManager.RegisterEntity(lwe);
     }
 }

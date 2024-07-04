@@ -58,7 +58,7 @@ partial class SneakyFumoSpawner
 
     private IEnumerator TheFumoAppears()
     {
-        StoryGoalHelpers.Trigger(_storyGoal);
+        StoryGoalHelpers.Complete(_storyGoal);
 
         yield return GetPrefab();
         if (!_prefab) yield break;

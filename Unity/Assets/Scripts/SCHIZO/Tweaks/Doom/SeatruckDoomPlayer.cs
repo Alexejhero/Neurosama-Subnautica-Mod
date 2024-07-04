@@ -5,6 +5,5 @@ namespace SCHIZO.Tweaks.Doom
         : UnityEngine.MonoBehaviour
 #endif
     {
-
     }
 }

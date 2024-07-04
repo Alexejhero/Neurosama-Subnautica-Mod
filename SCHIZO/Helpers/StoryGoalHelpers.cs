@@ -20,8 +20,12 @@ public static class StoryGoalHelpers
     public static bool IsCompleted(string goal) => !IsStoryEnabled() || string.IsNullOrEmpty(goal) ||
                                                    (StoryGoalManager.main && StoryGoalManager.main.IsGoalComplete(goal));
 
-    /// <returns>Whether the handlers for this goal were notified of completion - i.e. whether the goal wasn't completed before this trigger.</returns>
-    public static bool Trigger(string goal) => StoryGoalManager.main.OnGoalComplete(goal);
+    /// <summary>
+    /// "Trigger" (complete) the given story goal.<br/>
+    /// If the goal is new (not already completed), any attached handlers will be notified.
+    /// </summary>
+    /// <returns>Whether this call is the one that completed the goal - i.e. if nothing else completed it before.</returns>
+    public static bool Complete(string goal) => StoryGoalManager.main.OnGoalComplete(goal);
 
     public static void Reset(string goal)
     {

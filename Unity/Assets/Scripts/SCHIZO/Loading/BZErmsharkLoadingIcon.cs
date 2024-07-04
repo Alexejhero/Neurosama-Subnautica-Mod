@@ -13,7 +13,7 @@ namespace SCHIZO.Loading
         public Texture2D texture;
         public int rows;
         public int columns;
-        
+
         [GroupNext("Animations")]
         public FrameAnimation idle;
         public FrameAnimation moving;

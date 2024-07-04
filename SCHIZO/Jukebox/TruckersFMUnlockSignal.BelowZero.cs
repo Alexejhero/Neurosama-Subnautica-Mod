@@ -82,13 +82,13 @@ partial class TruckersFMUnlockSignal
 
     [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.OnUnlock))]
     [HarmonyPostfix]
-    public static void HookOnUnlock(BZJukebox __instance, TrackId track)
+    public static void HookOnUnlock(TrackId track)
     {
         onTrackUnlocked?.Invoke(track);
     }
     [HarmonyPatch(typeof(BZJukebox), nameof(BZJukebox.Deserialize))]
     [HarmonyPostfix]
-    public static void HookOnDeserialize(BZJukebox __instance, List<TrackId> tracks)
+    public static void HookOnDeserialize(List<TrackId> tracks)
     {
         foreach (TrackId track in tracks)
             onTrackUnlocked?.Invoke(track);

@@ -27,8 +27,8 @@ public class RandomList<T>(RandomList<T>.IInitialStateModifier initialStateModif
         }
     }
 
-    private readonly List<T> _remainingItems = new();
-    private readonly List<T> _usedItems = new();
+    private readonly List<T> _remainingItems = [];
+    private readonly List<T> _usedItems = [];
     private readonly IInitialStateModifier _ism = initialStateModifier ?? new DefaultInitialStateModifier();
 
     private bool _initialized;
