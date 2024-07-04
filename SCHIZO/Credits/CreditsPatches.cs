@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
@@ -16,7 +16,7 @@ public static class CreditsPatches
 #if BELOWZERO
             AccessTools.Method(typeof(UnityEngine.MonoBehaviour), nameof(UnityEngine.MonoBehaviour.Invoke));
 #else
-            AccessTools.Method(typeof(TMPro.TMP_Text), nameof(TMPro.TMP_Text.SetText), new[] { typeof(string), typeof(bool) });
+            AccessTools.Method(typeof(TMPro.TMP_Text), nameof(TMPro.TMP_Text.SetText), [typeof(string), typeof(bool)]);
 #endif
 
         [HarmonyTranspiler, UsedImplicitly]
@@ -41,7 +41,7 @@ public static class CreditsPatches
 #if BELOWZERO
                 __instance.centerText.SetText(creditsManager.GetCreditsTextBZ() + __instance.centerText.text);
 #else
-                float oldHeight = 14100;//__instance.textField.preferredHeight;
+                const float oldHeight = 14100;//__instance.textField.preferredHeight;
                 __instance.textField.SetText(creditsManager.GetCreditsTextSN() + __instance.textField.text);
                 __instance.scrollSpeed = __instance.textField.preferredHeight * __instance.scrollSpeed / oldHeight;
                 __instance.scrollStep = __instance.textField.preferredHeight * __instance.scrollStep / oldHeight;

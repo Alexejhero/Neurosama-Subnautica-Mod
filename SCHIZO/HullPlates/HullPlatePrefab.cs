@@ -39,9 +39,7 @@ public sealed class HullPlatePrefab : CustomPrefab
 
     private IEnumerator GetPrefab(IOut<GameObject> gameObject)
     {
-#pragma warning disable CS0612 // Type or member is obsolete
-        CoroutineTask<GameObject> task = CraftData.GetPrefabForTechTypeAsync(TechType.DioramaHullPlate);
-#pragma warning restore CS0612 // Type or member is obsolete
+        CoroutineTask<GameObject> task = CraftData.GetPrefabForTechTypeAsync(HullPlateTechType);
         yield return task;
 
         GameObject instance = GameObject.Instantiate(task.GetResult());
@@ -53,4 +51,9 @@ public sealed class HullPlatePrefab : CustomPrefab
         instance.name = _hullPlate.classId;
         gameObject.Set(instance);
     }
+    // lol. lmao, even
+#if BELOWZERO
+#pragma warning disable CS0612 // Type or member is obsolete
+#endif
+    private const TechType HullPlateTechType = TechType.DioramaHullPlate;
 }
