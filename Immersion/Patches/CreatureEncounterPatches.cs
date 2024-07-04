@@ -1,13 +1,17 @@
 using Immersion.Trackers;
-using Nautilus.Extensions;
 
 namespace Immersion.Patches;
 
 [HarmonyPatch]
 public static class CreatureEncounterPatches
 {
-#nullable enable
-    private static CreatureEncounters? Encounters => COMPONENT_HOLDER.GetComponent<CreatureEncounters>().Exists();
+    private static CreatureEncounters Encounters => COMPONENT_HOLDER.GetComponent<CreatureEncounters>();
+
+    private static void Notify(TechType techType, MonoBehaviour target)
+    {
+        CreatureEncounters comp = Encounters;
+        if (comp) comp.NotifyCreatureEncounter(techType, target);
+    }
 
     [HarmonyPatch(typeof(SpikeyTrapAttachTarget), nameof(SpikeyTrapAttachTarget.Attach))]
     [HarmonyPostfix]
@@ -15,14 +19,14 @@ public static class CreatureEncounterPatches
     {
         if (__instance.player != Player.main) return;
 
-        Encounters?.NotifyCreatureEncounter(TechType.SpikeyTrap, Player.main);
+        Notify(TechType.SpikeyTrap, Player.main);
     }
 
     [HarmonyPatch(typeof(PlayerLilyPaddlerHypnosis), nameof(PlayerLilyPaddlerHypnosis.StartHypnosis))]
     [HarmonyPostfix]
     public static void NotifyLilyPaddlerHypnosis()
     {
-        Encounters?.NotifyCreatureEncounter(TechType.LilyPaddler, Player.main);
+        Notify(TechType.LilyPaddler, Player.main);
     }
 
     [HarmonyPatch(typeof(IceWormJumpScareTrigger), nameof(IceWormJumpScareTrigger.InvokeJumpScareEvent))]
@@ -31,7 +35,7 @@ public static class CreatureEncounterPatches
     {
         if (!__instance.used) return;
 
-        Encounters?.NotifyCreatureEncounter(TechType.IceWorm, Player.main);
+        Notify(TechType.IceWorm, Player.main);
     }
 
     private static readonly Dictionary<string, TechType> _cinematics = new() {
@@ -49,7 +53,7 @@ public static class CreatureEncounterPatches
     public static void NotifyCinematicAttack(PlayerCinematicController __instance, Player setplayer)
     {
         if (_cinematics.TryGetValue(__instance.playerViewAnimationName, out TechType techType))
-            Encounters?.NotifyCreatureEncounter(techType, setplayer);
+            Notify(techType, setplayer);
     }
 
     //[HarmonyPatch(typeof(PlayerCinematicController), nameof(PlayerCinematicController.Start))]
@@ -66,14 +70,14 @@ public static class CreatureEncounterPatches
         // this one can fail so we do a check (and use the field instead of the param)
         if (!__instance.heldSeatruck) return;
 
-        Encounters?.NotifyCreatureEncounter(__instance.creatureType, __instance.heldSeatruck);
+        Notify(__instance.creatureType, __instance.heldSeatruck);
     }
 
     [HarmonyPatch(typeof(LeviathanMeleeAttack), nameof(LeviathanMeleeAttack.GrabExosuit))]
     [HarmonyPostfix]
-    public static void NotifyGrabSeatruck(LeviathanMeleeAttack __instance, Exosuit exosuit)
+    public static void NotifyGrabPrawnSuit(LeviathanMeleeAttack __instance, Exosuit exosuit)
     {
         // can't fail so use param
-        Encounters?.NotifyCreatureEncounter(__instance.creatureType, exosuit);
+        Notify(__instance.creatureType, exosuit);
     }
 }

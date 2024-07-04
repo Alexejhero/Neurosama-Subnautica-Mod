@@ -11,7 +11,7 @@ namespace Immersion.Formatting;
 /// <param name="IsContraction">Contraction of "X is". E.g. "<b>They're</b> the focus."</param>
 /// <param name="HasContraction">Contraction of "X has". E.g. "<b>I've</b> done it."</param>
 /// <param name="Reflexive">Reflects back to the subject. E.g. "It seems they've placed <b>themself</b> in a precarious position."</param>
-[DebuggerDisplay(@"{DebuggerDisplay,nq}")]
+[DebuggerDisplay("{DebuggerDisplay,nq}")]
 public readonly record struct PronounSet(string Subject, string Object, string Possessive, string IsContraction, string HasContraction, string Reflexive)
 {
     #region Predefined
@@ -33,6 +33,8 @@ public readonly record struct PronounSet(string Subject, string Object, string P
     public static bool TryParse(string formatted, out PronounSet pronouns)
     {
         pronouns = default;
+        if (string.IsNullOrEmpty(formatted))
+            return false;
         string[] parts = formatted.Split('/');
         foreach (PronounSet existing in DefinedSets)
         {
@@ -52,11 +54,10 @@ public readonly record struct PronounSet(string Subject, string Object, string P
                 pronouns = existing;
                 return true;
             }
-        };
+        }
         // these three are the absolute minimum required
         if (parts is not [string subject, string @object, string possessive, ..])
-            // we can't really do much with 2 and below if they're not already defined (caught above) so let's give up
-            return false;
+            return false; // we can't really do much with 2 and below if they're not already defined (caught above) so let's give up
         (string isContraction, string hasContraction, string reflexive) = parts.Length switch
         {
             // we're the happiest with a full set

@@ -29,6 +29,7 @@ internal class ConsoleCommands : MonoBehaviour
     private static string ProcessCommand(IReadOnlyList<string> args)
     {
         if (args is not [_, ..]) // shorter to type than { Count: > 0 } ;)
+        {
             return $"""
                 Usage:
                 {Command} {SetUsage}
@@ -40,6 +41,8 @@ internal class ConsoleCommands : MonoBehaviour
                     (e.g. `{Command} {ManualSendExample}`)
                 {Command} {ForcePrioUsage}
                 """;
+        }
+
         string subCommand = args[0].ToLower();
         return subCommand switch
         {
@@ -114,6 +117,7 @@ internal class ConsoleCommands : MonoBehaviour
     private static string SetPronouns(string fullArg)
     {
         if (!PronounSet.TryParse(fullArg, out PronounSet pronounSet))
+        {
             return """
                 Could not parse pronouns.
                 Pronoun sets consist of six parts:
@@ -127,6 +131,8 @@ internal class ConsoleCommands : MonoBehaviour
                 For others, at least <color=yellow>Subj/Obj/Poss</color> are required.
                 Example: he/him/his
                 """;
+        }
+
         Globals.PlayerPronouns = pronounSet;
         return $"Pronouns set to <color=green>{pronounSet}</color>";
     }

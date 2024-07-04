@@ -51,7 +51,7 @@ public sealed class Backseating : Tracker
     private List<Bar> bars;
 
     private float _nextUpdate;
-    private float _updateInterval = 1f;
+    private float UpdateInterval { get; } = 1f;
 
     protected override void Awake()
     {
@@ -111,7 +111,7 @@ public sealed class Backseating : Tracker
         float time = Time.fixedTime;
         if (time < _nextUpdate) return;
 
-        _nextUpdate = time + _updateInterval;
+        _nextUpdate = time + UpdateInterval;
 
         if (!Player.main) return;
         if (!liveMixin) liveMixin = Player.main.liveMixin;

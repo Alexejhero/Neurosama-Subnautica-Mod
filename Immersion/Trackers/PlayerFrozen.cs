@@ -1,5 +1,4 @@
 using Immersion.Formatting;
-using Nautilus.Extensions;
 
 namespace Immersion.Trackers;
 
@@ -29,7 +28,8 @@ public sealed class PlayerFrozen : Tracker
     {
         if (!isFrozen) return;
 
-        bool isActuallyFrozen = Player.main.Exists()?.frozenMixin.Exists()?.frozen ?? false;
+        bool isActuallyFrozen = Player.main && Player.main.frozenMixin
+            && Player.main.frozenMixin.frozen;
 
         if (!isActuallyFrozen) OnUnfrozen();
     }

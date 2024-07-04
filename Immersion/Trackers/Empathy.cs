@@ -20,11 +20,11 @@ public sealed class Empathy : Tracker
     ];
 
     private float _timeLastNotified;
-    private static float _penglingCooldown = 5f;
-    private static float _roadkillCooldown = 60f; // no spam
+    private static float PenglingCooldown { get; } = 5f;
+    private static float RoadkillCooldown { get; } = 60f; // no spam
 
-    public void OnPenglingPickedUp() => Notify(_penglingMessages, _penglingCooldown);
-    public void OnRoadkill() => Notify(_roadkillMessages, _roadkillCooldown);
+    public void OnPenglingPickedUp() => Notify(_penglingMessages, PenglingCooldown);
+    public void OnRoadkill() => Notify(_roadkillMessages, RoadkillCooldown);
 
     private void Notify(string[] messages, float cooldown)
     {
@@ -33,8 +33,7 @@ public sealed class Empathy : Tracker
 
         React(Priority.Low, Format.FormatPlayer(messages.GetRandom()));
     }
-#nullable enable
-    private static Empathy? Instance => COMPONENT_HOLDER.GetComponent<Empathy>().Exists();
+    private static Empathy Instance => COMPONENT_HOLDER.GetComponent<Empathy>().Exists();
 
     [HarmonyPatch(typeof(PenguinGroupDefense), nameof(PenguinGroupDefense.AddAggressionToTarget))]
     [HarmonyPostfix]
@@ -42,7 +41,7 @@ public sealed class Empathy : Tracker
     {
         if (target != Player.main.gameObject) return;
 
-        Instance?.OnPenglingPickedUp();
+        if (Instance) Instance.OnPenglingPickedUp();
     }
 
     [HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.TakeDamage))]
@@ -53,6 +52,6 @@ public sealed class Empathy : Tracker
         if (type != DamageType.Collide || !dealer || __instance.IsAlive()) return;
         if (!dealer.GetComponent<SeaTruckSegment>() || !__instance.GetComponent<Creature>()) return;
 
-        Instance?.OnRoadkill();
+        if (Instance) Instance.OnRoadkill();
     }
 }

@@ -4,20 +4,42 @@ namespace Immersion;
 
 public static class Globals
 {
-    private const string _PLAYER_NAME_PLAYERPREFS_KEY = "Immersion_PlayerName";
-    private const string _BASEURL_PLAYARPREFS_KEY = "Immersion_BaseURL";
-    private const string _PRONOUNS_PLAYARPREFS_KEY = "Immersion_BaseURL";
+    private const string PlayerNameKey = $"{nameof(Immersion)}_PlayerName";
+    private const string BaseUrlKey = $"{nameof(Immersion)}_BaseURL";
+    private const string PronounsKey = $"{nameof(Immersion)}_Pronouns";
+
+    private const string DefaultPlayerName = "Vedal";
+    private const string DefaultUrl = "http://localhost:8000/subnautica/";
+    private static readonly PronounSet DefaultPronouns = PronounSet.HeHim;
 
     public static string PlayerName
     {
-        get => PlayerPrefs.GetString(_PLAYER_NAME_PLAYERPREFS_KEY, "Vedal");
-        set => PlayerPrefs.SetString(_PLAYER_NAME_PLAYERPREFS_KEY, value);
+        get => PlayerPrefs.GetString(PlayerNameKey, DefaultPlayerName);
+        set => PlayerPrefs.SetString(PlayerNameKey, value);
     }
-    public static PronounSet PlayerPronouns { get; set; } = PronounSet.HeHim;
-
     public static string BaseUrl
     {
-        get => PlayerPrefs.GetString(_BASEURL_PLAYARPREFS_KEY, "http://localhost:8000/subnautica/");
-        set => PlayerPrefs.SetString(_BASEURL_PLAYARPREFS_KEY, value);
+        get => PlayerPrefs.GetString(BaseUrlKey, DefaultUrl);
+        set => PlayerPrefs.SetString(BaseUrlKey, value);
+    }
+
+    private static PronounSet? _playerPronouns;
+    public static PronounSet PlayerPronouns
+    {
+        get
+        {
+            if (_playerPronouns.HasValue)
+                return _playerPronouns.Value;
+
+            if (!PronounSet.TryParse(PlayerPrefs.GetString(PronounsKey, ""), out PronounSet pronouns))
+                _playerPronouns = DefaultPronouns;
+            PlayerPronouns = pronouns;
+            return _playerPronouns.Value;
+        }
+        set
+        {
+            _playerPronouns = value;
+            PlayerPrefs.SetString(PronounsKey, value.ToString());
+        }
     }
 }
