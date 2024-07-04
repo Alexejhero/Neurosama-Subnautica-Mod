@@ -9,9 +9,7 @@ partial class Recipe
 
     public RecipeData Convert()
     {
-        if (_converted != null) return _converted;
-
-        return _converted = new RecipeData
+        return _converted ??= new()
         {
             craftAmount = craftAmount,
             Ingredients = [..ingredients.Where(Ingredient.IsValid).Select(t => t.Convert())],

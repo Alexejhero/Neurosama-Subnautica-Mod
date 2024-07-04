@@ -1,5 +1,3 @@
 namespace SCHIZO.Creatures.Tutel;
 
-partial class Tutel
-{
-}
+partial class Tutel;

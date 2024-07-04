@@ -37,11 +37,11 @@ partial class GymbagManager
             if (CurrentOpenedRootGymbag != null)
             {
                 CurrentOpenedRootGymbag.isEnabled = true;
-                GetItemIcon(CurrentOpenedRootGymbag)?.SetChroma(1f);
+                SetChroma(CurrentOpenedRootGymbag, 1f);
             }
 
             item.isEnabled = false;
-            GetItemIcon(item)?.SetChroma(0f);
+            SetChroma(item, 0);
             CurrentOpenedRootGymbag = item;
         }
 
@@ -54,10 +54,16 @@ partial class GymbagManager
         return InventoryUGUI.items.GetOrDefault(item, null);
     }
 
+    public void SetChroma(InventoryItem item, float chroma)
+    {
+        uGUI_ItemIcon icon = GetItemIcon(item);
+        if (icon) icon.SetChroma(chroma);
+    }
+
     private static bool PlayerInventoryContains(InventoryItem item)
     {
         IList<InventoryItem> matchingItems = Inventory.main.container.GetItems(item.item.GetTechType());
-        return matchingItems != null && matchingItems.Contains(item);
+        return matchingItems?.Contains(item) == true;
     }
 
     #region Mouse Position

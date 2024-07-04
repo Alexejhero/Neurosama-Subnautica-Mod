@@ -77,7 +77,8 @@ dotnet_style_qualification_for_event = false:suggestion
 dotnet_style_qualification_for_field = false:suggestion
 dotnet_style_qualification_for_method = false:suggestion
 dotnet_style_qualification_for_property = false:suggestion
-dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
+# https://github.com/dotnet/roslyn/issues/52904
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
 
 # ReSharper properties
 resharper_autodetect_indent_settings = true
@@ -133,7 +134,17 @@ resharper_web_config_module_not_resolved_highlighting = warning
 resharper_web_config_type_not_resolved_highlighting = warning
 resharper_web_config_wrong_module_highlighting = warning
 
+dotnet_diagnostic.RCS1123.severity = none # parentheses in expressions (covered by default dotnet analyzers)
+dotnet_diagnostic.RCS1213.severity = none # unused methods (^)
+dotnet_diagnostic.RCS1163.severity = none # unused parameter (^)
+
 [*.{appxmanifest,asax,ascx,aspx,axaml,build,cg,cginc,compute,cs,cshtml,dtd,fx,fxh,hlsl,hlsli,hlslinc,master,nuspec,paml,razor,resw,resx,shader,skin,usf,ush,vb,xaml,xamlx,xoml,xsd}]
 indent_style = space
 indent_size = 4
 tab_width = 4
+
+[/Unity/**/*.cs]
+dotnet_diagnostic.RCS1251.severity = none # braces on empty classes
+
+[/Unity/Packages/**/*.cs]
+generated_code = true

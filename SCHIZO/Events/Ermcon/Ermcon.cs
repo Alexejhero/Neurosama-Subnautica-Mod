@@ -121,7 +121,7 @@ public partial class Ermcon
         int totalAttendance = Mathf.Min(MaxAttendance, erms.Count);
         if (totalAttendance <= 0)
         {
-            MessageHelpers.WriteCommandOutput($"Nobody wanted to go to Ermcon :(");
+            MessageHelpers.WriteCommandOutput("Nobody wanted to go to Ermcon :(");
             return;
         }
         LOGGER.LogMessage($"The upcoming Ermcon will be visited by {totalAttendance} afficionados");

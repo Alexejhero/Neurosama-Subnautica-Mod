@@ -46,7 +46,7 @@ public partial class ErmconAttendee : IHandTarget
     {
         base.Awake();
         _savedPatience = patience;
-        _visited = new Dictionary<ErmconPanelist, float>();
+        _visited = [];
         // "meta"-priority - this number determines the order in which actions get *evaluated*
         // and the priority obtained from Evaluate() actually determines which action gets *performed*
         evaluatePriority = 99f;
@@ -123,7 +123,8 @@ public partial class ErmconAttendee : IHandTarget
             StopPerform(time);
             return;
         }
-        if (!UpdateTarget(deltaTime)) return;
+        UpdateTarget(deltaTime);
+        if (!CurrentTarget) return;
 
         Vector3 targetPos = CurrentTarget.transform.position;
         Vector3 toTarget = targetPos - swim.transform.position;
@@ -148,19 +149,20 @@ public partial class ErmconAttendee : IHandTarget
         swim.LookAt(CurrentTarget.transform);
     }
 
-    /// <returns>A <see cref="bool" /> indicating whether we have an active target.</returns>
-    private bool UpdateTarget(float deltaTime)
+    private void UpdateTarget(float deltaTime)
     {
         if (!CurrentTarget)
         {
             LogSelf("no target");
-            return SwitchTarget();
+            SwitchTarget();
+            return;
         }
         Constructable con = CurrentTarget.GetComponent<Constructable>();
         if (con && con.amount < 1)
         {
             LogSelf("target deconstructed");
-            return SwitchTarget();
+            SwitchTarget();
+            return;
         }
 
         float timeOnTarget = _visited.GetOrDefault(CurrentTarget, 0f);
@@ -181,9 +183,8 @@ public partial class ErmconAttendee : IHandTarget
         if (boredom > patience)
         {
             LogSelf($"switching {boredom}>{patience} (away from {CurrentTarget})");
-            return SwitchTarget();
+            SwitchTarget();
         }
-        return true;
     }
 
     public override void StopPerform(float time)
@@ -192,16 +193,15 @@ public partial class ErmconAttendee : IHandTarget
         enabled = false;
     }
 
-    // priority activity
-    public override float Evaluate(float time) => 99f;
+    public override float Evaluate(float time) => 99f; // priority activity
 
-    public bool SwitchTarget(ErmconPanelist forceTarget = null)
+    public void SwitchTarget(ErmconPanelist forceTarget = null)
     {
-        CurrentTarget = forceTarget ? forceTarget : PickAnotherBooth();
+        CurrentTarget = forceTarget.Or(PickAnotherBooth);
         if (!CurrentTarget)
         {
             LogSelf("could not find a target!");
-            return false;
+            return;
         }
         string msg = $"switching to {CurrentTarget}";
         if (!_visited.ContainsKey(CurrentTarget))
@@ -212,8 +212,6 @@ public partial class ErmconAttendee : IHandTarget
         }
         LogSelf(msg);
         boredom = 0;
-
-        return true;
     }
 
     /// <summary>
@@ -231,10 +229,12 @@ public partial class ErmconAttendee : IHandTarget
     {
         return Ermcon.instance.targets
             .Where(t => t && t.gameObject != gameObject) // except self (where applicable)
-            .GroupBy(t => (timeFactor: _visited.GetOrDefault(t, 0f) / t.entertainmentFactor, t.entertainmentFactor))
+            .GroupBy(t => (timeFactor: _visited.GetOrDefault(t) / t.entertainmentFactor, t.entertainmentFactor))
             .OrderBy(group => group.Key.timeFactor)
             .ThenByDescending(group => group.Key.entertainmentFactor)
-            .FirstOrDefault()?.ToList().GetRandom();
+            .FirstOrDefault()
+            ?.ToList()
+            .GetRandom();
     }
 
     public void CycleDebug(int? forceLevel = null)

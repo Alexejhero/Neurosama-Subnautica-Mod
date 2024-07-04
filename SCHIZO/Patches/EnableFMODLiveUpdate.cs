@@ -10,7 +10,7 @@ public static class EnableFMODLiveUpdate
     [HarmonyPatch(typeof(Platform), nameof(Platform.IsLiveUpdateEnabled), MethodType.Getter)]
     [HarmonyPrefix]
 #endif
-    public static bool EnableLiveUpdate(RuntimeManager __instance, out bool __result)
+    public static bool EnableLiveUpdate(out bool __result)
     {
         __result = true;
         return false;
@@ -18,7 +18,7 @@ public static class EnableFMODLiveUpdate
     // mostly useless information like cpu/ram usage
     //[HarmonyPatch(typeof(Platform), nameof(Platform.IsOverlayEnabled), MethodType.Getter)]
     //[HarmonyPrefix]
-    public static bool EnableOverlay(RuntimeManager __instance, out bool __result)
+    public static bool EnableOverlay(out bool __result)
     {
         __result = true;
         return false;

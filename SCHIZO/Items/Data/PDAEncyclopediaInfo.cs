@@ -21,7 +21,8 @@ partial class PDAEncyclopediaInfo
     {
         string path = RetargetHelpers.Pick(encyPathSN, encyPathBZ);
         FMODAsset vo = FMODHelpers.GetFmodAsset(logVO);
-        PDAHandler.AddEncyclopediaEntry(key, path, title, description!?.text,
+        string desc = description ? description.text : null;
+        PDAHandler.AddEncyclopediaEntry(key, path, title, desc,
             image: texture, popupImage: unlockSprite,
             unlockSound: isImportantUnlock ? PDAHandler.UnlockImportant : PDAHandler.UnlockBasic,
             voiceLog: vo);

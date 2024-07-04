@@ -15,8 +15,8 @@ namespace SCHIZO.SwarmControl.Redeems.Misc;
 internal class Floaties : Command, IParameters
 {
     public IReadOnlyList<Parameter> Parameters => [];
-    private static readonly float buoyancyForce = 50f;
-    private static readonly float Duration = 10f;
+    internal static float BuoyancyForce = 50f;
+    internal static float Duration = 10f;
     private readonly EggTimer _timer;
 
     public Floaties()
@@ -40,7 +40,7 @@ internal class Floaties : Command, IParameters
         Rigidbody rb = Player.main.rigidBody;
         if (rb.velocity.y * Time.fixedDeltaTime < depth)
         {
-            Vector3 vector = Vector3.up * buoyancyForce;
+            Vector3 vector = Vector3.up * BuoyancyForce;
             rb.AddForce(vector, ForceMode.Acceleration);
         }
     }

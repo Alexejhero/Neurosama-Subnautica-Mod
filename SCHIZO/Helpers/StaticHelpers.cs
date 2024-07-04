@@ -24,7 +24,7 @@ partial class StaticHelpers
         }
     }
 
-    private static readonly Dictionary<string, object> _cache = new();
+    private static readonly Dictionary<string, object> _cache = [];
 
     public static T GetValue<T>(string fieldOrPropertyColonName)
     {
@@ -83,6 +83,6 @@ partial class StaticHelpers
 
         MethodInfo p = type.GetProperty(splits[1], BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)!.GetGetMethod(true);
 
-        _cache.Add(fieldOrPropertyColonName, p.Invoke(null, Array.Empty<object>()));
+        _cache.Add(fieldOrPropertyColonName, p.Invoke(null, null));
     }
 }

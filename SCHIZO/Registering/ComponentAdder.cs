@@ -13,7 +13,7 @@ partial class ComponentAdder
     private record struct Target(MethodInfo method, Mode mode);
     private record struct Entry(Type targetType, GameObject prefab);
 
-    private static readonly Dictionary<Target, List<Entry>> _toInstantiate = new();
+    private static readonly Dictionary<Target, List<Entry>> _toInstantiate = [];
 
     protected override void Register()
     {

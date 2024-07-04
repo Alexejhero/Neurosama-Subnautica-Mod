@@ -19,7 +19,7 @@ public partial class GameEventsManager
     }
 
     private static GameEventsManager Instance { get; set; }
-    private static List<GameEvent> Events { get; set; } = new();
+    private static List<GameEvent> Events { get; set; } = [];
 
     private void Awake()
     {

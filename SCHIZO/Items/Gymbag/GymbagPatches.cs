@@ -56,7 +56,7 @@ public static class GymbagPatches
 
         if (opener.CurrentOpenedRootGymbag is { } && !opener.OpeningGymbag)
         {
-            opener.GetItemIcon(opener.CurrentOpenedRootGymbag)?.SetChroma(1f);
+            opener.SetChroma(opener.CurrentOpenedRootGymbag, 1);
             opener.CurrentOpenedRootGymbag.isEnabled = true;
             opener.CurrentOpenedRootGymbag = null;
         }

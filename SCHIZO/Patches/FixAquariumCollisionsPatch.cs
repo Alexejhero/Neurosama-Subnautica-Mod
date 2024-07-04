@@ -13,5 +13,5 @@ public static class FixAquariumCollisionsPatch
 
     [HarmonyPatch(typeof(SubRoot), nameof(SubRoot.OnCollisionEnter))]
     [HarmonyPrefix]
-    public static bool FixAquariumCollisionSound(SubRoot __instance, Collision col) => !col.gameObject.GetComponent<Aquarium>();
+    public static bool FixAquariumCollisionSound(Collision col) => !col.gameObject.GetComponent<Aquarium>();
 }

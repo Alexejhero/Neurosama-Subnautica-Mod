@@ -82,18 +82,17 @@ public sealed partial class ErmStack
             return otherStack && otherStack.isActiveAndEnabled && !otherStack.nextSocket;
         }
 
-        ErmStack target = FindNearest_EcoTarget() !?? FindNearest_TechType();
-        return target;
+        return FindNearest_EcoTarget().Or(FindNearest_TechType);
 
         ErmStack FindNearest_EcoTarget()
         {
             EcoTarget selfEcoTarget = GetComponent<EcoTarget>();
             if (!selfEcoTarget || selfEcoTarget.type == EcoTargetType.None) return null;
 
-            return EcoRegionManager.main!?
-                .FindNearestTarget(selfEcoTarget.type, transform.position, EcoTargetFilter)?
-                .GetGameObject()!?
-                .GetComponent<ErmStack>();
+            GameObject targetObj = EcoRegionManager.main
+                .FindNearestTarget(selfEcoTarget.type, transform.position, EcoTargetFilter)
+                ?.GetGameObject();
+            return targetObj ? targetObj.GetComponent<ErmStack>() : null;
         }
 
         ErmStack FindNearest_TechType()

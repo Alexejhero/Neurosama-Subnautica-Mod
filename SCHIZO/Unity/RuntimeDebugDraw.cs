@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -70,31 +71,24 @@ namespace RuntimeDebugDraw
             CheckAndBuildHiddenRTDrawObject();
             color ??= DrawDefaultColor;
 			_rtDraw.RegisterLine(start, end, color.Value, duration, !depthTest);
-			return;
 		}
 
         /// <summary>
         /// Draws a line from <paramref name="start"/> to <paramref name="start"/> + <paramref name="dir"/> in world coordinates.
         /// </summary>
         /// <inheritdoc cref="DrawLine(Vector3, Vector3, Color?, float, bool)"/>
-        /// <param name="start"></param>
         /// <param name="dir">Direction and length of the ray.</param>
-        /// <param name="color"></param>
-        /// <param name="duration"></param>
-        /// <param name="depthTest"></param>
         public static void DrawRay(Vector3 start, Vector3 dir, Color? color = null, float duration = 0, bool depthTest = true)
 		{
 			CheckAndBuildHiddenRTDrawObject();
             color ??= DrawDefaultColor;
             _rtDraw.RegisterLine(start, start + dir, color.Value, duration, !depthTest);
-			return;
 		}
 
 		/// <summary>
-		/// Draw a text at given position.
+		/// Draw text at the given world position.
 		/// </summary>
-		/// <param name="pos">Position</param>
-		/// <param name="text">String of the text.</param>
+		/// <param name="pos">World position.</param>
 		/// <param name="color">Color for the text.</param>
 		/// <param name="size">Font size for the text.</param>
 		/// <param name="duration">How long the text should be visible for after the current frame.</param>
@@ -104,25 +98,21 @@ namespace RuntimeDebugDraw
 			CheckAndBuildHiddenRTDrawObject();
             color ??= DrawDefaultColor;
             _rtDraw.RegisterDrawText(pos, text, color.Value, size, duration, popUp);
-			return;
 		}
 
 		/// <summary>
 		/// Attach text to a transform.
 		/// </summary>
+        /// <inheritdoc cref="DrawText(Vector3, string, Color?, int, float, bool)"/>
 		/// <param name="transform">Target transform to attach text to.</param>
-		/// <param name="strFunc">Function will be called on every frame to get a string as attached text. </param>
+		/// <param name="strFunc">Called every frame to get the text to display.</param>
 		/// <param name="offset">Text attach offset to transform position.</param>
-		/// <param name="color">Color for the text.</param>
-		/// <param name="size">Font size for the text.</param>
 		public static void AttachText(Transform transform, Func<string> strFunc, Vector3? offset = null, Color? color = null, int size = DrawTextDefaultSize)
 		{
 			CheckAndBuildHiddenRTDrawObject();
             offset ??= Vector3.zero;
             color ??= DrawDefaultColor;
 			_rtDraw.RegisterAttachText(transform, strFunc, offset.Value, color.Value, size);
-
-			return;
 		}
 		#endregion
 
@@ -138,13 +128,8 @@ namespace RuntimeDebugDraw
 		private const string HIDDEN_PARENT_NAME = "________HIDDEN_C4F6A87F298241078E21C0D7C1D87A76_";
 		private static void CheckAndBuildHiddenRTDrawObject()
 		{
-			if (_rtDraw != null)
-				return;
-
-			//	try reuse existing one first
-			_rtDraw = Object.FindObjectOfType<RuntimeDebugDraw>();
-			if (_rtDraw != null)
-				return;
+			if (!_rtDraw) _rtDraw = Object.FindObjectOfType<RuntimeDebugDraw>();
+			if (_rtDraw) return;
 
             //	instantiate an hidden gameobject w/ RuntimeDebugDraw attached.
             //	hardcode an GUID in the name so one won't accidentally get this by name.
@@ -156,8 +141,6 @@ namespace RuntimeDebugDraw
 			parent.hideFlags = HideFlags.HideAndDontSave;
 			if (Application.isPlaying)
                 Object.DontDestroyOnLoad(parent);
-
-			return;
 		}
 		#endregion
 	}
@@ -170,7 +153,7 @@ namespace RuntimeDebugDraw
 		static DrawEditor()
 		{
 			//	set a low execution order
-			var name = typeof(RuntimeDebugDraw.RuntimeDebugDraw).Name;
+			string name = typeof(RuntimeDebugDraw.RuntimeDebugDraw).Name;
 			foreach (UnityEditor.MonoScript monoScript in UnityEditor.MonoImporter.GetAllRuntimeMonoScripts())
 			{
 				if (name != monoScript.name)
@@ -187,7 +170,7 @@ namespace RuntimeDebugDraw
 #endif
 	#endregion
 
-    	internal class RuntimeDebugDraw : MonoBehaviour
+    internal class RuntimeDebugDraw : MonoBehaviour
 	{
 		#region Basics
 		private void CheckInitialized()
@@ -201,27 +184,20 @@ namespace RuntimeDebugDraw
 				_AlwaysBatch = new BatchedLineDraw(depthTest: false);
 				_lineEntries = new List<DrawLineEntry>(16);
 
-				_textStyle = new GUIStyle();
-				_textStyle.alignment = TextAnchor.UpperLeft;
-				_drawTextEntries = new List<DrawTextEntry>(16);
+                _textStyle = new GUIStyle { alignment = TextAnchor.UpperLeft };
+                _drawTextEntries = new List<DrawTextEntry>(16);
 				_attachTextEntries = new List<AttachTextEntry>(16);
 			}
-
-			return;
 		}
 
 		private void Awake()
 		{
 			CheckInitialized();
-
-			return;
 		}
 
 		private void OnGUI()
 		{
 			DrawTextOnGUI();
-
-			return;
 		}
 
 #if UNITY_EDITOR
@@ -237,25 +213,19 @@ namespace RuntimeDebugDraw
 		{
 			TickAndDrawLines();
 			TickTexts();
-
-			return;
 		}
 
 		private void OnDestroy()
 		{
 			_AlwaysBatch.Dispose();
 			_ZTestBatch.Dispose();
-
-			return;
 		}
 
-		private void Clear()
+		public void Clear()
 		{
 			_drawTextEntries.Clear();
 			_lineEntries.Clear();
 			_linesNeedRebuild = true;
-
-			return;
 		}
 		#endregion
 
@@ -278,23 +248,21 @@ namespace RuntimeDebugDraw
 			public Mesh mesh;
 			public Material mat;
 
-            private readonly List<Vector3> _vertices = new();
-			private readonly List<Color> _colors = new();
-			private readonly List<int> _indices = new();
+            private readonly List<Vector3> _vertices = [];
+			private readonly List<Color> _colors = [];
+			private readonly List<int> _indices = [];
 
 			public BatchedLineDraw(bool depthTest)
 			{
-				mesh = new Mesh();
+				mesh = new();
 				mesh.MarkDynamic();
 
 				//	relying on a builtin shader, but it shouldn't change that much.
-				mat = new Material(Shader.Find($"Hidden/Internal-Colored"));
+				mat = new(Shader.Find("Hidden/Internal-Colored"));
 				mat.SetInt("_ZTest", depthTest
 					? 4	// LEqual
 					: 0	// Always
-					);
-
-				return;
+				);
 			}
 
 			public void AddLine(Vector3 from, Vector3 to, Color color)
@@ -306,8 +274,6 @@ namespace RuntimeDebugDraw
 				int verticeCount = _vertices.Count;
 				_indices.Add(verticeCount - 2);
 				_indices.Add(verticeCount - 1);
-
-				return;
 			}
 
 			public void Clear()
@@ -316,25 +282,19 @@ namespace RuntimeDebugDraw
 				_vertices.Clear();
 				_colors.Clear();
 				_indices.Clear();
-
-				return;
 			}
 
 			public void BuildBatch()
 			{
 				mesh.SetVertices(_vertices);
 				mesh.SetColors(_colors);
-				mesh.SetIndices(_indices.ToArray(), MeshTopology.Lines, 0);	// cant get rid of this alloc for now
-
-				return;
+				mesh.SetIndices([.._indices], MeshTopology.Lines, 0);	// cant get rid of this alloc for now
 			}
 
 			public void Dispose()
 			{
                 DestroyImmediate(mesh);
                 DestroyImmediate(mat);
-
-				return;
 			}
 		}
 
@@ -346,18 +306,10 @@ namespace RuntimeDebugDraw
 		{
 			CheckInitialized();
 
-			DrawLineEntry entry = null;
-			for (int ix = 0; ix < _lineEntries.Count; ix++)
+			DrawLineEntry entry = _lineEntries.Find(e => !e.occupied);
+			if (entry is null)
 			{
-				if (!_lineEntries[ix].occupied)
-				{
-					entry = _lineEntries[ix];
-					break;
-				}
-			}
-			if (entry == null)
-			{
-				entry = new DrawLineEntry();
+				entry = new();
 				_lineEntries.Add(entry);
 			}
 
@@ -368,8 +320,6 @@ namespace RuntimeDebugDraw
 			entry.timer = timer;
 			entry.noZTest = noZTest;
 			_linesNeedRebuild = true;
-
-			return;
 		}
 
 		private void RebuildDrawLineBatchMesh()
@@ -377,22 +327,14 @@ namespace RuntimeDebugDraw
 			_ZTestBatch.Clear();
 			_AlwaysBatch.Clear();
 
-			for (int ix = 0; ix < _lineEntries.Count; ix++)
-			{
-                DrawLineEntry entry = _lineEntries[ix];
-				if (!entry.occupied)
-					continue;
-
-				if (entry.noZTest)
-					_AlwaysBatch.AddLine(entry.start, entry.end, entry.color);
-				else
-					_ZTestBatch.AddLine(entry.start, entry.end, entry.color);
-			}
+            foreach (DrawLineEntry entry in _lineEntries.Where(e => e.occupied))
+            {
+                BatchedLineDraw batch = entry.noZTest ? _AlwaysBatch : _ZTestBatch;
+				batch.AddLine(entry.start, entry.end, entry.color);
+            }
 
 			_ZTestBatch.BuildBatch();
 			_AlwaysBatch.BuildBatch();
-
-			return;
 		}
 
 		private void TickAndDrawLines()
@@ -404,24 +346,19 @@ namespace RuntimeDebugDraw
 			}
 
 			//	draw on UI layer which should bypass most postFX setups
-			Graphics.DrawMesh(_AlwaysBatch.mesh, Vector3.zero, Quaternion.identity, _AlwaysBatch.mat, layer: Draw.DrawLineLayer ,camera : null, submeshIndex : 0,properties: null, castShadows : false, receiveShadows : false);
-			Graphics.DrawMesh(_ZTestBatch.mesh, Vector3.zero, Quaternion.identity, _ZTestBatch.mat, layer: Draw.DrawLineLayer ,camera : null, submeshIndex : 0,properties: null, castShadows : false, receiveShadows : false);
+			Graphics.DrawMesh(_AlwaysBatch.mesh, Vector3.zero, Quaternion.identity, _AlwaysBatch.mat, Draw.DrawLineLayer, null, 0, null, false, false);
+			Graphics.DrawMesh(_ZTestBatch.mesh, Vector3.zero, Quaternion.identity, _ZTestBatch.mat, Draw.DrawLineLayer, null, 0, null, false, false);
 
 			//	update timer late so every added entry can be drawed for at least one frame
-			for (int ix = 0; ix < _lineEntries.Count; ix++)
-			{
-                DrawLineEntry entry = _lineEntries[ix];
-				if (!entry.occupied)
-					continue;
+            foreach (DrawLineEntry entry in _lineEntries.Where(e => e.occupied))
+            {
 				entry.timer -= Time.deltaTime;
 				if (entry.timer < 0)
 				{
 					entry.occupied = false;
 					_linesNeedRebuild = true;
 				}
-			}
-
-			return;
+            }
 		}
 		#endregion
 
@@ -438,7 +375,7 @@ namespace RuntimeDebugDraw
 		private class DrawTextEntry
 		{
 			public bool occupied;
-			public GUIContent content;
+			public GUIContent content = new();
 			public Vector3 anchor;
 			public int size;
 			public Color color;
@@ -449,33 +386,20 @@ namespace RuntimeDebugDraw
 			//	Text entries needs to be draw in both OnGUI/OnDrawGizmos, need flags for mark
 			//	has been visited by both
 			public DrawFlag flag = DrawFlag.None;
-
-			public DrawTextEntry()
-			{
-				content = new GUIContent();
-				return;
-			}
 		}
 
 		private class AttachTextEntry
 		{
 			public bool occupied;
-			public GUIContent content;
+			public GUIContent content = new();
 			public Vector3 offset;
 			public int size;
 			public Color color;
-
 
 			public Transform transform;
 			public Func<string> strFunc;
 
 			public DrawFlag flag = DrawFlag.None;
-
-			public AttachTextEntry()
-			{
-				content = new GUIContent();
-				return;
-			}
 		}
 
 		private List<DrawTextEntry> _drawTextEntries;
@@ -486,18 +410,10 @@ namespace RuntimeDebugDraw
 		{
 			CheckInitialized();
 
-			DrawTextEntry entry = null;
-			for (int ix = 0; ix < _drawTextEntries.Count; ix++)
+			DrawTextEntry entry = _drawTextEntries.Find(e => !e.occupied);
+			if (entry is null)
 			{
-				if (!_drawTextEntries[ix].occupied)
-				{
-					entry = _drawTextEntries[ix];
-					break;
-				}
-			}
-			if (entry == null)
-			{
-				entry = new DrawTextEntry();
+				entry = new();
 				_drawTextEntries.Add(entry);
 			}
 
@@ -514,26 +430,16 @@ namespace RuntimeDebugDraw
 			//	in builds consider gizmo is already drawn
 			entry.flag = DrawFlag.DrawnGizmo;
 #endif
-
-			return;
 		}
 
 		public void RegisterAttachText(Transform target, Func<string> strFunc, Vector3 offset, Color color, int size)
 		{
 			CheckInitialized();
 
-			AttachTextEntry entry = null;
-			for (int ix = 0; ix < _attachTextEntries.Count; ix++)
+			AttachTextEntry entry = _attachTextEntries.Find(e => !e.occupied);
+			if (entry is null)
 			{
-				if (!_attachTextEntries[ix].occupied)
-				{
-					entry = _attachTextEntries[ix];
-					break;
-				}
-			}
-			if (entry == null)
-			{
-				entry = new AttachTextEntry();
+				entry = new();
 				_attachTextEntries.Add(entry);
 			}
 
@@ -551,33 +457,22 @@ namespace RuntimeDebugDraw
 			//	in builds consider gizmo is already drawn
 			entry.flag = DrawFlag.DrawnGizmo;
 #endif
-
-			return;
 		}
 
 		private void TickTexts()
 		{
-			for (int ix = 0; ix < _drawTextEntries.Count; ix++)
-			{
-                DrawTextEntry entry = _drawTextEntries[ix];
-				if (!entry.occupied)
-					continue;
+            foreach (DrawTextEntry entry in _drawTextEntries.Where(e => e.occupied))
+            {
 				entry.timer -= Time.deltaTime;
-				if (entry.flag == DrawFlag.DrawnAll)
-				{
-					if (entry.timer < 0)
-					{
-						entry.occupied = false;
-					}
-					//	actually no need to tick DrawFlag as it won't move
-				}
-			}
+                if (entry.flag == DrawFlag.DrawnAll && entry.timer < 0)
+                {
+                    entry.occupied = false;
+                    //	actually no need to tick DrawFlag as it won't move
+                }
+            }
 
-			for (int ix = 0; ix < _attachTextEntries.Count; ix++)
-			{
-                AttachTextEntry entry = _attachTextEntries[ix];
-				if (!entry.occupied)
-					continue;
+            foreach (AttachTextEntry entry in _attachTextEntries.Where(e => e.occupied))
+            {
 				if (entry.transform == null)
 				{
 					entry.occupied = false;
@@ -595,39 +490,25 @@ namespace RuntimeDebugDraw
 					entry.flag = DrawFlag.DrawnGizmo;
 #endif
 				}
-			}
-
-
-			return;
+            }
 		}
 
 		private void DrawTextOnGUI()
 		{
             Camera camera = Draw.GetDebugDrawCamera();
-			if (camera == null)
-				return;
+			if (!camera) return;
 
-			for (int ix = 0; ix < _drawTextEntries.Count; ix++)
-			{
-                DrawTextEntry entry = _drawTextEntries[ix];
-				if (!entry.occupied)
-					continue;
-
+            foreach (DrawTextEntry entry in _drawTextEntries.Where(e => e.occupied))
+            {
 				GUIDrawTextEntry(camera, entry);
 				entry.flag |= DrawFlag.DrawnGUI;
-			}
+            }
 
-			for (int ix = 0; ix < _attachTextEntries.Count; ix++)
-			{
-                AttachTextEntry entry = _attachTextEntries[ix];
-				if (!entry.occupied)
-					continue;
-
+            foreach (AttachTextEntry entry in _attachTextEntries.Where(e => e.occupied))
+            {
 				GUIAttachTextEntry(camera, entry);
 				entry.flag |= DrawFlag.DrawnGUI;
-			}
-
-			return;
+            }
 		}
 
 		private void GUIDrawTextEntry(Camera camera, DrawTextEntry entry)
@@ -639,15 +520,13 @@ namespace RuntimeDebugDraw
 			if (entry.popUp)
 			{
 				float ratio = entry.timer / entry.duration;
-				screenPos.y -=  (1 - ratio * ratio) * entry.size * 1.5f;
+				screenPos.y -= (1 - ratio * ratio) * entry.size * 1.5f;
 			}
 
 			_textStyle.normal.textColor = entry.color;
 			_textStyle.fontSize = entry.size;
 			Rect rect = new(screenPos, _textStyle.CalcSize(entry.content));
 			GUI.Label(rect, entry.content, _textStyle);
-
-			return;
 		}
 
 		private void GUIAttachTextEntry(Camera camera, AttachTextEntry entry)
@@ -663,42 +542,31 @@ namespace RuntimeDebugDraw
 			_textStyle.fontSize = entry.size;
 			Rect rect = new(screenPos, _textStyle.CalcSize(entry.content));
 			GUI.Label(rect, entry.content, _textStyle);
-
-			return;
 		}
-
 
 #if UNITY_EDITOR
 		private void DrawTextOnDrawGizmos()
 		{
-			if (!(Camera.current == Draw.GetDebugDrawCamera()
-				|| Camera.current == UnityEditor.SceneView.lastActiveSceneView.camera))
+			if (Camera.current != Draw.GetDebugDrawCamera()
+				&& Camera.current != UnityEditor.SceneView.lastActiveSceneView.camera)
 				return;
 
-			var camera = Camera.current;
-			if (camera == null)
+			Camera camera = Camera.current;
+			if (!camera)
 				return;
 
 			UnityEditor.Handles.BeginGUI();
-			for (int ix = 0; ix < _drawTextEntries.Count; ix++)
-			{
-				var entry = _drawTextEntries[ix];
-				if (!entry.occupied)
-					continue;
-
+            foreach (DrawTextEntry entry in _drawTextEntries.Where(e => e.occupied))
+            {
 				GUIDrawTextEntry(camera, entry);
 				entry.flag |= DrawFlag.DrawnGizmo;
-			}
+            }
 
-			for (int ix = 0; ix < _attachTextEntries.Count; ix++)
-			{
-				var entry = _attachTextEntries[ix];
-				if (!entry.occupied)
-					continue;
-
+            foreach (AttachTextEntry entry in _attachTextEntries.Where(e => e.occupied))
+            {
 				GUIAttachTextEntry(camera, entry);
 				entry.flag |= DrawFlag.DrawnGizmo;
-			}
+            }
 
 			UnityEditor.Handles.EndGUI();
 

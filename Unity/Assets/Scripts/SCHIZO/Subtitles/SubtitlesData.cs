@@ -24,5 +24,4 @@ namespace SCHIZO.Subtitles
             public string text;
         }
     }
-
 }

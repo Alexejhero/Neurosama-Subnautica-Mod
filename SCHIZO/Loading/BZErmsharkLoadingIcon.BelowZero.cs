@@ -175,8 +175,11 @@ partial class BZErmsharkLoadingIcon
                         if (isOurs)
                             @this.speedCurve = instance.idleToMovingSpeedCurve;
                     }
-                    else 
+                    else
+                    {
                         @this.time %= duration;
+                    }
+
                     break;
                 case uGUI_SceneLoading.State.Move:
                     {

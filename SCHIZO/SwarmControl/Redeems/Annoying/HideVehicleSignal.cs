@@ -17,7 +17,7 @@ internal class HideVehicleSignal : Command, IParameters
 {
     public IReadOnlyList<Parameter> Parameters => [];
     private readonly EggTimer _timer;
-    private static float Duration = 60f;
+    internal static float Duration = 60f;
 
     public HideVehicleSignal()
     {
@@ -45,7 +45,7 @@ internal class HideVehicleSignal : Command, IParameters
 #endif
     ];
 
-    private List<PingInstance> _disabledPings = [];
+    private readonly List<PingInstance> _disabledPings = [];
 
     private void Activate()
     {

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,6 +9,6 @@ namespace SCHIZO.Registering
     public partial class CompoundModRegistryItem : ModRegistryItem
     {
         [FormerlySerializedAs("registered"), ListDrawerSettings(AlwaysExpanded = true)]
-        public List<ModRegistryItem> registryItems = new List<ModRegistryItem>();
+        public List<ModRegistryItem> registryItems = [];
     }
 }

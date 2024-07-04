@@ -23,7 +23,7 @@ partial class ErmfishDefenseForce
 
         public IEnumerator GetPrefab(IOut<GameObject> prefab)
         {
-            if (_prefab is null)
+            if (!_prefab)
             {
                 IPrefabRequest request = PrefabDatabase.GetPrefabAsync(ClassId);
                 yield return request;

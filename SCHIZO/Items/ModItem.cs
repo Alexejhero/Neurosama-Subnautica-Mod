@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Nautilus.Assets;
 using SCHIZO.Items.Data;
@@ -7,7 +7,7 @@ namespace SCHIZO.Items;
 
 public sealed class ModItem
 {
-    private static readonly HashSet<string> _registeredItems = new();
+    private static readonly HashSet<string> _registeredItems = [];
 
     public ItemData ItemData { get; }
     public PrefabInfo PrefabInfo { get; }

@@ -20,7 +20,7 @@ namespace SCHIZO.Items.Data
         [SerializeField, UsedImplicitly, Dropdown(nameof(UnlockSounds))]
         private string unlockSound;
 
-        [SerializeField, Required]
+        [Required]
         public Sprite unlockSprite;
 
         [StaticHelpers.Cache]

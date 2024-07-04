@@ -1,4 +1,5 @@
 using System.Collections;
+using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Creatures.Components;
@@ -125,7 +126,8 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         if (targetPickedUp || EcoTargetType == EcoTargetType.None) return;
 
         IEcoTarget ecoTarget = EcoRegionManager.main!?.FindNearestTarget(EcoTargetType, transform.position, _isTargetValidFilter, 1);
-        Carryable newTarget = ecoTarget?.GetGameObject()!?.GetComponent<Carryable>();
+        GameObject targetObj = ecoTarget?.GetGameObject();
+        Carryable newTarget = targetObj ? targetObj.GetComponent<Carryable>() : null;
         if (!newTarget || newTarget == target || !newTarget.GetComponent<Rigidbody>()) return;
         if (newTarget.gameObject == gameObject) return; // holy hell
 
@@ -141,8 +143,7 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         if (newTarget.gameObject == gameObject) return;
 
         target = newTarget;
-        Transform targetTransform = newTarget.attachPlug !?? newTarget.transform;
-        swimToTarget.target = targetTransform;
+        swimToTarget.target = newTarget.attachPlug.Or(newTarget.transform);
     }
 
     public void ClearTarget()
@@ -234,7 +235,7 @@ partial class CarryCreature : IOnTakeDamage, IOnMeleeAttack
         UWE.Utils.SetCollidersEnabled(colliderTarget, true);
         UWE.Utils.SetIsKinematic(targetObject.GetComponent<Rigidbody>(), false);
         if (targetObject.GetComponent<LargeWorldEntity>() is { } lwe)
-            LargeWorldStreamer.main!?.cellManager.RegisterEntity(lwe);
+            LargeWorldStreamer.main.cellManager.RegisterEntity(lwe);
     }
 
     public void OnDisable() => Drop();

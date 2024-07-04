@@ -21,7 +21,7 @@ partial class Carryable
     private float _nextCarryNoiseTime;
     private float _lastPickedUpTime;
     private List<Behaviour> _disabledComponents;
-    private static readonly List<Type> toDisable =
+    private static readonly List<Type> _toDisable =
     [
         typeof(WorldAmbientSoundPlayer),
         typeof(SwimBehaviour),
@@ -47,7 +47,7 @@ partial class Carryable
     private void DisableComponents()
     {
         _disabledComponents.Clear();
-        foreach (Type type in toDisable)
+        foreach (Type type in _toDisable)
         {
             Behaviour comp = GetComponent(type) as Behaviour;
             if (!comp || !comp.enabled) continue;

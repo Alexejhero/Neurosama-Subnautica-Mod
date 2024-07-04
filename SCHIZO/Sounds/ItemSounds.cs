@@ -44,13 +44,17 @@ partial class ItemSounds
     public void OnPickup(Pickupable _)
     {
         FMODHelpers.PlayPath2D(pickup);
-        GetComponent<WorldAmbientSoundPlayer>()!?.Stop();
+        WorldAmbientSoundPlayer player = GetComponent<WorldAmbientSoundPlayer>();
+        if (player) player.Stop();
     }
     // called through SendMessage (i love unity)
     public void OnDrop()
     {
         FMODHelpers.StopAllInstances(holster);
-        GetComponentsInChildren<InventoryAmbientSoundPlayer>().ForEach(p => p.Stop());
+        foreach (InventoryAmbientSoundPlayer p in GetComponentsInChildren<InventoryAmbientSoundPlayer>())
+        {
+            p.Stop();
+        }
         emitter.PlayPath(drop);
     }
 

@@ -15,7 +15,7 @@ public sealed class SavedRandomList<T> : IEnumerable<T>
     {
         private record struct RegistryKey(string Value);
 
-        private readonly HashSet<string> _identifiers = new();
+        private readonly HashSet<string> _identifiers = [];
 
         public bool Register(IdentifiableItem item)
         {

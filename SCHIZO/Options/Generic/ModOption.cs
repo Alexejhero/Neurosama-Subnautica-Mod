@@ -7,7 +7,7 @@ namespace SCHIZO.Options.Generic;
 
 partial class ModOption
 {
-    public static Dictionary<OptionItem, ModOption> OptionItems { get; } = new();
+    public static Dictionary<OptionItem, ModOption> OptionItems { get; } = [];
 
     public OptionItem GetOptionItem()
     {

@@ -32,10 +32,7 @@ internal partial class ControlWebSocket : IDisposable
     public Uri BaseUri => new(SwarmControlManager.Instance.BackendUrl);
 
     /// <summary>
-    /// Kick off the flow for connecting to the backend server.<br/>
-    /// This will open a new browser window or tab so the backend can authenticate the user to Twitch.<br/>
-    /// When the user is authenticated, the browser will send back the <see cref="HostAuthInfo"/>.<br/>
-    /// The game will use it when establishing a web socket connection to the backend.
+    /// Attempt to connect to the backend server.<br/>
     /// </summary>
     /// <param name="ct">Token to cancel connecting.</param>
     /// <returns>If an error occurred, a <see cref="string"/> describing the error (to be shown to the user). Otherwise, <see langword="null"/>.</returns>
@@ -43,11 +40,13 @@ internal partial class ControlWebSocket : IDisposable
     {
         // open browser
         if (!BaseUri.Scheme.StartsWith("http")) // no :^)
+        {
             return $"""
                 Backend url is invalid
                 Press Shift+Enter to open the console
                 then enter "{SwarmControlManager.COMMAND_URL} <backend url>"
                 """;
+        }
 
         // check if the server responds at all
         try
@@ -96,9 +95,7 @@ internal partial class ControlWebSocket : IDisposable
             LOGGER.LogInfo("Connecting to websocket");
             await _socket.ConnectAsync(hostWebsocketUri, default);
             if (_socket.State != WebSocketState.Open)
-            {
                 return false;
-            }
         }
         catch (Exception e)
         {

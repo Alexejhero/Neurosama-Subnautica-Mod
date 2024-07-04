@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,7 +11,7 @@ namespace SCHIZO.Credits
     public sealed class CreditsData : ScriptableObject
     {
         [ListDrawerSettings(AlwaysExpanded = true)]
-        public List<CreditsEntry> mainCredits = new();
+        public List<CreditsEntry> mainCredits = [];
 
         [TextArea(1, 10)]
         public string extraCredits;
@@ -54,7 +54,7 @@ namespace SCHIZO.Credits
 
     public static class CreditsTypeExtensions
     {
-        private static readonly Dictionary<CreditsData.CreditsType, CreditsData.CreditAttribute> _cache = new();
+        private static readonly Dictionary<CreditsData.CreditsType, CreditsData.CreditAttribute> _cache = [];
 
         public static IEnumerable<CreditsData.CreditsType> ToList(this CreditsData.CreditsType type)
         {

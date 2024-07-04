@@ -6,9 +6,7 @@ partial class Ingredient
 
     public NIngredient Convert()
     {
-        if (_converted != null) return _converted;
-
-        return _converted = new NIngredient(item.GetTechType(), amount);
+        return _converted ??= new NIngredient(item.GetTechType(), amount);
     }
 
     public static bool IsValid(Ingredient ingredient)

@@ -24,8 +24,8 @@ internal class BigErm : Command, IParameters
 {
     public IReadOnlyList<Parameter> Parameters => [];
 
-    private static readonly int Scale = 5;
-    private static readonly float Pitch = -2.0f;
+    internal static int Scale = 5;
+    internal static float Pitch = -2.0f;
     private static GameObject? _ermfishPrefab;
     private static TechType _ermfishTechType;
 
