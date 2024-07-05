@@ -1,4 +1,4 @@
-﻿name: Create and publish package
+name: Create and publish package
 
 on:
   release:
@@ -21,14 +21,14 @@ jobs:
 
     - name: Get artifact (local testing)
       if: ${{ env.ACT }}
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: SCHIZO-${{ matrix.configuration }}
         path: Install/${{ matrix.configuration }}/BepInEx/plugins/SCHIZO/
 
     - name: Get artifact from build
       if: ${{ !env.ACT }}
-      uses: dawidd6/action-download-artifact@v2
+      uses: dawidd6/action-download-artifact@v6
       with:
         workflow: build.yml
         name: SCHIZO-${{ matrix.configuration }}
@@ -44,14 +44,14 @@ jobs:
 
     - name: Upload the release (local testing)
       if: ${{ env.ACT }}
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Release-${{ matrix.configuration }}
         path: Install/SCHIZO-${{ matrix.configuration }}*
 
     - name: Update the release
       if: ${{ !env.ACT }}
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         files: |
           Install/SCHIZO-${{ matrix.configuration }}-with-dependencies.zip

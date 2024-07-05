@@ -1,4 +1,4 @@
-﻿name: Build
+name: Build
 
 on:
   push:
@@ -27,14 +27,14 @@ jobs:
       with:
         submodules: recursive
 
-    - uses: actions/setup-dotnet@v3
+    - uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0
+        dotnet-version: 8
 
     - name: Build mod
       run: dotnet build SCHIZO.sln -c ${{ matrix.configuration }}
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: SCHIZO-${{ matrix.configuration }}
         path: SCHIZO/bin/${{ matrix.configuration }}/net472/SCHIZO.dll
