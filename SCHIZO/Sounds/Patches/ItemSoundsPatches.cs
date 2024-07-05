@@ -1,10 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection.Emit;
 using HarmonyLib;
 using JetBrains.Annotations;
-using SCHIZO.Helpers;
-using SCHIZO.Sounds.Players;
 using UnityEngine;
 
 namespace SCHIZO.Sounds.Patches;

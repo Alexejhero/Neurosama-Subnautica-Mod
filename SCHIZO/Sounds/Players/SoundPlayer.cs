@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
-using FMODUnity;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
 using UnityEngine;

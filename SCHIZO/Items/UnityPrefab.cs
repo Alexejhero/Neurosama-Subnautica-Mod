@@ -8,9 +8,7 @@ using Nautilus.Utility;
 using SCHIZO.Helpers;
 using SCHIZO.Items.Data;
 using SCHIZO.Registering;
-using SCHIZO.Spawns;
 using UnityEngine;
-using UWE;
 using Object = UnityEngine.Object;
 
 namespace SCHIZO.Items;

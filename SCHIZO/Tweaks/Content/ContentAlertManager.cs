@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
-using SCHIZO.Commands;
-using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
 using UnityEngine;
 using UWE;

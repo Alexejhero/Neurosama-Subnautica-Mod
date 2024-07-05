@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using SCHIZO.Commands.Context;
-using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
 
 namespace SCHIZO.Commands.Base;

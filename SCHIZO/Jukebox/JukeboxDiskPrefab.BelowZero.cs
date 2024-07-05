@@ -3,7 +3,6 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Utility;
-using SCHIZO.Creatures.Components;
 using SCHIZO.Helpers;
 using UnityEngine;
 

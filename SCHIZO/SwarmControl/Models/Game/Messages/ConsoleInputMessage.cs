@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace SwarmControl.Models.Game.Messages;
 
 public sealed record ConsoleInputMessage : BackendMessage

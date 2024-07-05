@@ -6,6 +6,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SCHIZO", "SCHIZO\SCHIZO.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Non-project Files", "Non-project Files", "{FEDF144D-4CF9-4C95-9E95-6A6344DCCE05}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		BelowZero.props = BelowZero.props
 		Directory.Build.props = Directory.Build.props
 		nuget.config = nuget.config

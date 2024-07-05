@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
-using Nautilus.Utility;
 using SCHIZO.Resources;
 using UnityEngine;
 using STOP_MODE = FMOD.Studio.STOP_MODE;

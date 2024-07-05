@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using SCHIZO.Items.Data;
 using TriInspector;
 using UnityEngine;
 

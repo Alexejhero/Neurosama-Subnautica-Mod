@@ -1,4 +1,3 @@
-using System;
 using SCHIZO.Attributes;
 using SCHIZO.Items.Data;
 using SCHIZO.Registering;

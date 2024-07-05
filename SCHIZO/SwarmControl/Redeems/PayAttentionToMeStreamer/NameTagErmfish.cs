@@ -6,7 +6,6 @@ using SCHIZO.Commands.Base;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
-using SCHIZO.Creatures.Components;
 using SCHIZO.Helpers;
 using UnityEngine;
 using UWE;

@@ -138,6 +138,7 @@ dotnet_diagnostic.RCS1123.severity = none # parentheses in expressions (covered 
 dotnet_diagnostic.RCS1213.severity = none # unused methods (^)
 dotnet_diagnostic.RCS1163.severity = none # unused parameter (^)
 dotnet_diagnostic.RCS1139.severity = none # missing <summary> on xmldoc (<see cref> is used in places as a way to easily link to random methods)
+dotnet_diagnostic.IDE0005.severity = warning # unused using directive
 
 [*.{appxmanifest,asax,ascx,aspx,axaml,build,cg,cginc,compute,cs,cshtml,dtd,fx,fxh,hlsl,hlsli,hlslinc,master,nuspec,paml,razor,resw,resx,shader,skin,usf,ush,vb,xaml,xamlx,xoml,xsd}]
 indent_style = space

@@ -4,7 +4,6 @@ using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 using SwarmControl.Models.Game.Messages;
-using SwarmControl.Models.Game;
 
 namespace SCHIZO.SwarmControl;
 

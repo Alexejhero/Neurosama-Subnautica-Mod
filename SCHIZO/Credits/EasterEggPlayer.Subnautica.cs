@@ -1,4 +1,3 @@
-using SCHIZO.Helpers;
 using UnityEngine;
 
 namespace SCHIZO.Credits;

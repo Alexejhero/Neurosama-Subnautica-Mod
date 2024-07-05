@@ -6,7 +6,6 @@ using SCHIZO.Interop.Subnautica.Enums.BelowZero;
 using SCHIZO.Interop.Subnautica.Enums.Subnautica;
 using SCHIZO.Items.Data.Crafting;
 using SCHIZO.Registering;
-using SCHIZO.Sounds;
 using SCHIZO.Spawns;
 using TriInspector;
 using UnityEngine;

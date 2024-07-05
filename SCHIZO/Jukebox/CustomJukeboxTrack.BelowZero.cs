@@ -1,9 +1,6 @@
 using System;
 using FMOD;
 using Nautilus.Handlers;
-using Nautilus.Utility;
-using SCHIZO.Helpers;
-using UnityEngine;
 using BZJukebox = Jukebox;
 
 namespace SCHIZO.Jukebox;
