@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Nautilus.Extensions;
 using UnityEngine;
 
 namespace SCHIZO.Helpers;
@@ -13,7 +14,8 @@ public static class GameObjectEnumerableHelpers
             .Select(tag => tag.gameObject)
         .Concat(UnityEngine.Resources.FindObjectsOfTypeAll<PrefabIdentifier>()
             .Where(id => CraftData.GetTechType(id.gameObject, out _) == techType)
-            .Select(id => id.gameObject));
+            .Select(id => id.gameObject))
+        .Where(go => !go.IsPrefab());
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IEnumerable<TComponent> SelectComponent<TComponent>(this IEnumerable<GameObject> gameObjects) where TComponent : Component

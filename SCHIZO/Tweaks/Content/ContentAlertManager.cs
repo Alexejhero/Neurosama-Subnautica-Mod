@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using SCHIZO.Helpers;
 using UnityEngine;
-using UWE;
 
 namespace SCHIZO.Tweaks.Content;
 
@@ -19,14 +17,14 @@ partial class ContentAlertManager
         Instance = this;
     }
 
-    private static bool _alerting;
+    private static bool _alertsEnabled;
     internal static bool AlertsEnabled
     {
-        get => _alerting;
+        get => _alertsEnabled;
         set
         {
-            if (_alerting == value) return;
-            _alerting = value;
+            if (_alertsEnabled == value) return;
+            _alertsEnabled = value;
             OnAlertsEnabledChanged?.Invoke();
         }
     }
@@ -36,7 +34,7 @@ partial class ContentAlertManager
 
     public static void AttachToTechType(TechType techType)
     {
-        _attached.Add(techType);
+        if (!_attached.Add(techType)) return;
         foreach (GameObject obj in GameObjectEnumerableHelpers.AllOfTechType(techType))
         {
             AttachContentAlert(obj.transform);
@@ -56,34 +54,35 @@ partial class ContentAlertManager
     [HarmonyPostfix]
     private static void ClassIdAwake(UniqueIdentifier __instance)
     {
-        if (__instance is PrefabIdentifier)
-            CoroutineHost.StartCoroutine(Coro(__instance));
+        if (CraftData.entClassTechTable is null) return;
+
+        if (__instance is not PrefabIdentifier { classId.Length: >0 } pid) return;
+
+        TechType techType = CraftData.entClassTechTable.GetOrDefault(pid.classId);
+        if (!_attached.Contains(techType)) return;
+
+        AttachContentAlert(pid.transform);
     }
 
-    private static IEnumerator Coro(UniqueIdentifier uid)
+    [HarmonyPatch(typeof(TechTag), MethodType.Constructor)]
+    [HarmonyPostfix]
+    private static void TechTagAwake(TechTag __instance)
     {
-        while (CraftData.entClassTechTable is null)
-            yield return null;
-        yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.15f));
-        if (!uid || uid.classId is null) yield break;
+        if (!_attached.Contains(__instance.type)) return;
 
-        TechType techType = CraftData.GetTechType(uid.gameObject, out _);
-        if (techType == TechType.None) yield break;
-        if (!_attached.Contains(techType)) yield break;
-
-        AttachContentAlert(uid.transform);
+        AttachContentAlert(__instance.transform);
     }
 
     public static void AttachContentAlert(Transform target)
     {
-        if (!target || target.transform.Find($"{Instance.alertPrefab.name} (Clone)")) return;
+        if (!target || target.transform.Find($"{Instance.alertPrefab.name}(Clone)")) return;
 
         Instantiate(Instance.alertPrefab, target);
     }
 
     public static void DetachContentAlert(Transform target)
     {
-        foreach (ContentVisibilityHelper alert in target.GetComponentsInChildren<ContentVisibilityHelper>())
+        foreach (ContentVisibilityHelper alert in target.GetComponentsInChildren<ContentVisibilityHelper>(true))
         {
             if (alert) GameObject.Destroy(alert.gameObject);
         }

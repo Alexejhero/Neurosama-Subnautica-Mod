@@ -32,9 +32,8 @@ public static class Globals
                 return _playerPronouns.Value;
 
             if (!PronounSet.TryParse(PlayerPrefs.GetString(PronounsKey, ""), out PronounSet pronouns))
-                _playerPronouns = DefaultPronouns;
-            PlayerPronouns = pronouns;
-            return _playerPronouns.Value;
+                pronouns = DefaultPronouns;
+            return PlayerPronouns = pronouns;
         }
         set
         {
