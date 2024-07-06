@@ -47,12 +47,18 @@ internal class ConsoleCommands : MonoBehaviour
         return subCommand switch
         {
             "set" => SetGlobal(args),
+            "trackers" => ListTrackers(),
             "enable" or "disable" => EnableDisable(args),
             "mute" or "unmute" => ManualMute(subCommand is "mute"),
             "react" or "send" => ManualSend(args),
             "prio" or "noprio" => SetForceLowPrio(subCommand is "noprio"),
             _ => $"Unknown sub-command {subCommand}, type `{Command}` to see usage"
         };
+    }
+
+    private static string ListTrackers()
+    {
+        return string.Join(", ", Tracker.trackerTypes.Keys.Prepend("sender"));
     }
 
     private static string SetGlobal(IReadOnlyList<string> args)

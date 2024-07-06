@@ -17,6 +17,10 @@ internal class SpawnFiltered<T> : ProxyCommand<SpawnCommand>
     protected virtual string SpawnThingName => "Creature";
     protected virtual string TechTypeParamName => SpawnThingName.ToLowerInvariant();
     protected virtual float SpawnDistance => 5;
+    /// <summary>
+    /// After this many seconds, the spawned object will be destroyed.
+    /// </summary>
+    protected virtual float Lifetime => float.PositiveInfinity;
 
     public override IReadOnlyList<Parameter> Parameters { get; }
 
@@ -63,6 +67,7 @@ internal class SpawnFiltered<T> : ProxyCommand<SpawnCommand>
         }
         bool behind = args.GetOrDefault("behind", false);
         targetArgs["distance"] = behind ? -SpawnDistance : SpawnDistance;
+        targetArgs["lifetime"] = Lifetime;
 
         return targetArgs;
     }

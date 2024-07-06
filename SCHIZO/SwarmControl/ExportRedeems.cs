@@ -5,9 +5,9 @@ using Newtonsoft.Json.Serialization;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Commands.Base;
 using SCHIZO.Commands.Context;
-using SCHIZO.Commands.Output;
 using SCHIZO.SwarmControl.Redeems;
 using SwarmControl.Models.Game;
+using UnityEngine;
 
 namespace SCHIZO.SwarmControl;
 [Command(Name = "sc_export",
@@ -40,7 +40,8 @@ internal class ExportRedeems : Command
             NullValueHandling = NullValueHandling.Ignore,
         });
         LOGGER.LogInfo(json);
+        GUIUtility.systemCopyBuffer = json;
 
-        return CommonResults.OK();
+        return "Redeems JSON logged and copied to clipboard";
     }
 }

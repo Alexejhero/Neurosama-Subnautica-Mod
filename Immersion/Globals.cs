@@ -5,8 +5,9 @@ namespace Immersion;
 public static class Globals
 {
     private const string PlayerNameKey = $"{nameof(Immersion)}_PlayerName";
-    private const string BaseUrlKey = $"{nameof(Immersion)}_BaseURL";
     private const string PronounsKey = $"{nameof(Immersion)}_Pronouns";
+    private const string BaseUrlKey = $"{nameof(Immersion)}_BaseURL";
+    private const string ApiKeyKey = $"{nameof(Immersion)}_ApiKey";
 
     private const string DefaultPlayerName = "Vedal";
     private const string DefaultUrl = "http://localhost:8000/subnautica/";
@@ -21,6 +22,11 @@ public static class Globals
     {
         get => PlayerPrefs.GetString(BaseUrlKey, DefaultUrl);
         set => PlayerPrefs.SetString(BaseUrlKey, value);
+    }
+    public static string ApiKey
+    {
+        get => PlayerPrefs.GetString(ApiKeyKey, "");
+        set => PlayerPrefs.SetString(ApiKeyKey, value);
     }
 
     private static PronounSet? _playerPronouns;

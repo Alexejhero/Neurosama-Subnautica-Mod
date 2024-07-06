@@ -16,7 +16,7 @@ MonoBehaviour:
   - name: 2Pfrog
     credits: 16
   - name: AlexejheroDev
-    credits: 257
+    credits: 769
   - name: Arras
     credits: 2
   - name: Azit
@@ -42,17 +42,21 @@ MonoBehaviour:
   - name: Goldenbeasty
     credits: 128
   - name: Govorunb
-    credits: 289
+    credits: 801
   - name: greencap
     credits: 132
   - name: Hakuhan
     credits: 16
   - name: Heiroflife
     credits: 2
+  - name: Hjalnir
+    credits: 32
   - name: Kat
     credits: 132
   - name: Kaz
     credits: 16
+  - name: Leota
+    credits: 64
   - name: Lorx
     credits: 16
   - name: Moloch
@@ -71,8 +75,12 @@ MonoBehaviour:
     credits: 16
   - name: Sandro
     credits: 16
+  - name: shyd3r
+    credits: 64
   - name: SomeOldGuy
     credits: 16
+  - name: SomeRandomNiko
+    credits: 512
   - name: sugarph
     credits: 16
   - name: Troobs
@@ -81,10 +89,15 @@ MonoBehaviour:
     credits: 132
   - name: vanorsigma
     credits: 2
+  - name: Vedal987
+    credits: 512
   - name: w1n7er
     credits: 142
+  - name: wivboo
+    credits: 32
   - name: yamplum
     credits: 80
   - name: YuG
     credits: 132
-  extraCredits: 
+  - name: Zyrenth
+    credits: 512

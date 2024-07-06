@@ -132,8 +132,7 @@ public sealed class OxygenAlerts : Tracker
 
                 if (swimDistance > depth)
                 {
-                    LOGGER.LogDebug($"Close to surface {swimDistance} > {depth}");
-
+                    //LOGGER.LogDebug($"Close to surface {swimDistance} > {depth}");
                     continue;
                 }
 
@@ -151,7 +150,7 @@ public sealed class OxygenAlerts : Tracker
                     float dist = (interior.GetGameObject().transform.position - _player.transform.position).magnitude;
                     if (swimDistance > dist)
                     {
-                        LOGGER.LogDebug($"Base close by {swimDistance} > {dist}");
+                        //LOGGER.LogDebug($"Base close by {swimDistance} > {dist}");
                         continue;
                     }
                 }
