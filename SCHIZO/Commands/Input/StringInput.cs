@@ -28,10 +28,10 @@ public class StringInput : CommandInput
         => CacheArgs() ?? [];
     public override NamedArgs GetNamedArguments()
     {
-        if (Command is not MethodCommand comm)
+        if (Command is not IParameters comm)
             return new([]);
 
-        MethodCommand.ArgParseResult res = comm.TryParsePositionalArgs(CacheArgs());
+        MethodCommand.ArgParseResult res = MethodCommand.TryParsePositionalArgs(CacheArgs(), comm.Parameters);
         return new(res.ParsedArgs
             .Zip(comm.Parameters, (a, b) => (a, b))
             .ToDictionary(pair => pair.b.Name, pair => pair.a));

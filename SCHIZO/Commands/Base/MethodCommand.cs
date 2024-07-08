@@ -56,11 +56,12 @@ internal class MethodCommand : Command, IParameters
         }
     }
 
+    // todo: pull all of these out
     protected virtual ArgParseResult TryParseArgs(CommandExecutionContext ctx)
     {
         return ctx.Input switch
         {
-            StringInput consoleInput => TryParsePositionalArgs(consoleInput.GetPositionalArguments().Cast<string>().ToList()),
+            StringInput consoleInput => TryParsePositionalArgs(consoleInput.GetPositionalArguments().Cast<string>().ToList(), Parameters, _lastTakeAll),
             RemoteInput jsonInput => TryParseNamedArgs(jsonInput.Model.Args, Parameters),
             _ => throw new InvalidOperationException("Unsupported command input type"),
         };
@@ -104,13 +105,13 @@ internal class MethodCommand : Command, IParameters
         return new(consumed == args.Count, parsed == parameters.Count, parsedArgs);
     }
 
-    internal ArgParseResult TryParsePositionalArgs(IReadOnlyList<string> args)
+    internal static ArgParseResult TryParsePositionalArgs(IReadOnlyList<string> args, IReadOnlyList<Parameter> parameters, bool lastTakeAll = false)
     {
         if (args is null)
-            return new(true, Parameters.All(p => p.IsOptional), []);
+            return new(true, parameters.All(p => p.IsOptional), []);
 
-        int paramCount = Parameters.Count;
-        if (_lastTakeAll && args.Count > paramCount)
+        int paramCount = parameters.Count;
+        if (lastTakeAll && args.Count > paramCount)
         {
             args = args.Take(paramCount - 1)
                 .Append(string.Join(" ", args.Skip(paramCount - 1)))
@@ -122,11 +123,11 @@ internal class MethodCommand : Command, IParameters
         object?[] parsedArgs = new object?[paramCount];
         for (int i = 0; i < paramCount; i++)
         {
-            parsedArgs[i] = Parameters[i].DefaultValue;
+            parsedArgs[i] = parameters[i].DefaultValue;
         }
         for (int i = 0; i < paramCount; i++)
         {
-            Parameter param = Parameters[i];
+            Parameter param = parameters[i];
             if (i < args.Count)
             {
                 if (!Conversion.TryParseOrConvert(args[i], param.Type, out object? parsedVal))
@@ -146,6 +147,6 @@ internal class MethodCommand : Command, IParameters
             }
         }
 
-        return new(consumed == args.Count, parsed == Parameters.Count, parsedArgs);
+        return new(consumed == args.Count, parsed == parameters.Count, parsedArgs);
     }
 }
