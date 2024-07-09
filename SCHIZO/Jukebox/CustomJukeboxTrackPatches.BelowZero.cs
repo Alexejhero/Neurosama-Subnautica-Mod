@@ -268,8 +268,8 @@ public static class CustomJukeboxTrackPatches
         __instance.SetPositionKnobVisible(!__instance.IsPlayingStream(out _));
     }
 
-    [HarmonyPatch(typeof(File), nameof(File.Exists))]
-    [HarmonyPostfix]
+    //[HarmonyPatch(typeof(File), nameof(File.Exists))]
+    //[HarmonyPostfix]
     public static void DebugStuff(string path)
     {
         if (string.IsNullOrEmpty(path)) return;
