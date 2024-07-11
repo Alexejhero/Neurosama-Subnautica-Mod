@@ -33,9 +33,9 @@ internal class SaveGame : Command, IParameters
             _lastSave = PDA.time;
             return CommonResults.OK();
         }
-        else // yoink money from spammers
+        else
         {
-            return "Last save was less than a minute ago. Rest assured the game is saved.";
+            return CommonResults.Deny("Last save was less than a minute ago. You will be credited back for this redeem.");
         }
     }
 }

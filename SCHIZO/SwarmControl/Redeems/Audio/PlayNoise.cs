@@ -10,7 +10,8 @@ namespace SCHIZO.SwarmControl.Redeems.Audio;
 [Redeem(
     Name = "redeem_noise",
     DisplayName = "Play Sound",
-    Announce = false
+    Announce = false,
+    Export = false
 )]
 internal class PlayNoise : Command, IParameters
 {

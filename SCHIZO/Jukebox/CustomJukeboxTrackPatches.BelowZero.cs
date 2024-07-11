@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using System.Reflection.Emit;
 using FMOD;
@@ -268,7 +267,7 @@ public static class CustomJukeboxTrackPatches
         __instance.SetPositionKnobVisible(!__instance.IsPlayingStream(out _));
     }
 
-    //[HarmonyPatch(typeof(File), nameof(File.Exists))]
+    //[HarmonyPatch(typeof(System.IO.File), nameof(System.IO.File.Exists))]
     //[HarmonyPostfix]
     public static void DebugStuff(string path)
     {

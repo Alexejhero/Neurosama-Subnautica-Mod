@@ -10,7 +10,8 @@ namespace SCHIZO.SwarmControl.Redeems.Misc;
 [Redeem(
     Name = "redeem_midas",
     DisplayName = "Midas' Touch",
-    Description = "And all that glitters is gold"
+    Description = "And all that glitters is gold",
+    Export = false
 )]
 public sealed class MidasTouch : Command, IParameters
 {
@@ -67,7 +68,7 @@ public sealed class MidasTouch : Command, IParameters
             .ToArray();
         if (items.Length == 0)
         {
-            return CommonResults.Error("No items to turn");
+            return CommonResults.Deny("No items to turn");
         }
         foreach (InventoryItem item in items)
         {

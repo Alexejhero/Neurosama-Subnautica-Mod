@@ -20,7 +20,7 @@ internal class ShowCaptcha : Command, IParameters
 
     protected override object? ExecuteCore(CommandExecutionContext ctx)
     {
-        if (!Player.main) return CommonResults.Error("Requires a loaded game.");
+        if (!Player.main) return CommonResults.Deny("Requires a loaded game.");
         if (!Captcha.Instance) return CommonResults.Error("Captcha not found.");
 
         CoroutineHost.StartCoroutine(Coro());

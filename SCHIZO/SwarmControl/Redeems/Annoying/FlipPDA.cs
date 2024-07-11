@@ -28,7 +28,7 @@ internal class FlipPDA : Command, IParameters
 
     protected override object ExecuteCore(CommandExecutionContext ctx)
     {
-        if (!Player.main) return CommonResults.Error("Requires a loaded game.");
+        if (!Player.main) return CommonResults.Deny("Requires a loaded game.");
 
         PDA pda = Player.main.GetPDA();
         if (!pda) return CommonResults.Error("Could not get PDA."); // should never ever ever happen

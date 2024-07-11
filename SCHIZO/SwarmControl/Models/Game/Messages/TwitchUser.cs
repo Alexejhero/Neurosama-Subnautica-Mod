@@ -4,7 +4,15 @@ namespace SwarmControl.Models.Game.Messages;
 /// <summary>
 /// Twitch user info.
 /// </summary>
-/// <param name="Id">Channel ID.</param>
-/// <param name="Login">Username/channel name.</param>
-/// <param name="DisplayName">What's displayed in chat.</param>
-public record TwitchUser(string Id, string Login, string DisplayName);
+/// <param name="id">Channel ID.</param>
+/// <param name="login">Username/channel name.</param>
+/// <param name="displayName">The name you see in chat.</param>
+public class TwitchUser(string id, string? login = null, string? displayName = null)
+{
+    /// <summary>Twitch's internal channel ID that corresponds to this user.</summary>
+    public string Id { get; } = id;
+    /// <summary>Username/channel name.</summary>
+    public string Login { get; } = login ?? id;
+    /// <summary>The name displayed in chat.</summary>
+    public string DisplayName { get; } = displayName ?? login ?? id;
+}

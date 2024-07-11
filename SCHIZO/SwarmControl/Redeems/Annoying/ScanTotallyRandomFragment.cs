@@ -8,10 +8,12 @@ using UWE;
 
 namespace SCHIZO.SwarmControl.Redeems.Annoying;
 
+[System.Obsolete("This was only ever going to be funny for one stream", true)]
 [Redeem(
     Name = "redeem_scanrandomfragment",
     DisplayName = "Scan Random Fragment",
-    Description = "Auto-scans a random fragment, chosen by fair dice roll."
+    Description = "Auto-scans a random fragment, chosen by fair dice roll.",
+    Export = false
 )]
 internal class ScanTotallyRandomFragment : Command, IParameters
 {

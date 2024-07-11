@@ -76,7 +76,7 @@ internal sealed class MessageProcessor
         if (!CommandRegistry.TryGetInnermostCommand(msg.Command.SplitOnce(' ').Before, out Command command))
         {
             LOGGER.LogDebug($"{msg.GetUsername()} tried to redeem unknown command \"{msg.Command}\"");
-            SendResult(guid, false, "Command not found");
+            SendResult(guid, ResultMessage.ResultKind.Error, "Command not found");
             return;
         }
         // prevents server replaying redeems in case we receive one but the game doesn't acknowledge it or something (so the server thinks it didn't send and replays it later)
@@ -117,25 +117,28 @@ internal sealed class MessageProcessor
                 switch (ctx.Result)
                 {
                     case CommonResults.ErrorResult { message: string error }:
-                        SendResult(msg.Guid, false, error);
+                        SendResult(msg.Guid, ResultMessage.ResultKind.Error, error);
+                        break;
+                    case CommonResults.DenyResult { reason: string reason }:
+                        SendResult(msg.Guid, ResultMessage.ResultKind.Deny, reason);
                         break;
                     case null or CommonResults.OKResult:
-                        SendResult(msg.Guid, true);
+                        SendResult(msg.Guid, ResultMessage.ResultKind.Success);
                         break;
                     case CommonResults.ExceptionResult { Exception: Exception e }:
-                        SendResult(msg.Guid, false, e.ToString());
+                        SendResult(msg.Guid, ResultMessage.ResultKind.Error, e.ToString());
                         break;
                     case CommonResults.ShowUsageResult:
-                        SendResult(msg.Guid, false, $"Incorrect command usage - {ShowUsage.GetUsageString(command)}");
+                        SendResult(msg.Guid, ResultMessage.ResultKind.Error, $"Incorrect command usage - {ShowUsage.GetUsageString(command)}");
                         break;
                     default:
-                        SendResult(msg.Guid, true, ctx.Result.ToString());
+                        SendResult(msg.Guid, ResultMessage.ResultKind.Success, ctx.Result.ToString());
                         break;
                 }
             }
             catch (Exception e)
             {
-                SendResult(msg.Guid, false, e.ToString());
+                SendResult(msg.Guid, ResultMessage.ResultKind.Error, e.ToString());
             }
         });
     }
@@ -148,12 +151,12 @@ internal sealed class MessageProcessor
         });
     }
 
-    private void SendResult(Guid guid, bool success, string? message = null)
+    private void SendResult(Guid guid, ResultMessage.ResultKind kind, string? message = null)
     {
         ResultMessage msg = new()
         {
             Guid = guid,
-            Success = success,
+            Status = kind,
             Message = message
         };
         _results[msg.Guid] = msg;

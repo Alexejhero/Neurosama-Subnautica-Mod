@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace SwarmControl.Models.Game.Messages;
 
 #nullable enable
-[method: SetsRequiredMembers]
-public sealed record RedeemMessage() : BackendMessage()
+public sealed record RedeemMessage : BackendMessage
 {
     public override MessageType MessageType => MessageType.Redeem;
 

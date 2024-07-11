@@ -16,9 +16,10 @@ using UWE;
 namespace SCHIZO.SwarmControl.Redeems.Misc;
 
 #nullable enable
-[Redeem(Name = "redeem_bigerm",
+[Redeem(
+    Name = "redeem_bigerm",
     DisplayName = "Big Erm",
-    Description = "The Erm Moon sends its regards"
+    Description = "Convert a nearby ermfish to be Big. The Erm Moon sends its regards"
 )]
 internal class BigErm : Command, IParameters
 {

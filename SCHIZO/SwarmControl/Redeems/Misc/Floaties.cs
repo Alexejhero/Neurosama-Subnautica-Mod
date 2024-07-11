@@ -26,6 +26,8 @@ internal class Floaties : Command, IParameters
 
     protected override object ExecuteCore(CommandExecutionContext ctx)
     {
+        if (!Player.main.IsUnderwaterForSwimming())
+            return CommonResults.Deny("Player must be swimming underwater");
         _timer.AddTime(Duration);
         _timer.Start();
         return CommonResults.OK();

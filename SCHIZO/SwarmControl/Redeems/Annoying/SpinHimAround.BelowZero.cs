@@ -17,7 +17,7 @@ internal class SpinHimAround : Command, IParameters
 
     protected override object ExecuteCore(CommandExecutionContext ctx)
     {
-        if (!Player.main) return CommonResults.Error("Requires a loaded game.");
+        if (!Player.main) return CommonResults.Deny("Requires a loaded game.");
 
         Player.main.lilyPaddlerHypnosis.StartHypnosis(DayNightCycle.main.timePassed);
         CoroutineHost.StartCoroutine(Coro());

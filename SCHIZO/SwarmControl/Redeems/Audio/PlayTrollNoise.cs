@@ -12,7 +12,8 @@ namespace SCHIZO.SwarmControl.Redeems.Audio;
     Name = "redeem_trollnoise",
     DisplayName = "Play Troll Sound",
     Description = "IMPORTANT: Leviathan sound will not play if not underwater",
-    Announce = false
+    Announce = false,
+    Export = false
 )]
 internal class PlayTrollNoise : Command, IParameters
 {

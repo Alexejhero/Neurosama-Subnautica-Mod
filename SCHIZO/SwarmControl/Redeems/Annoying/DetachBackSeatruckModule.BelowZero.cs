@@ -18,10 +18,10 @@ internal class DetachBackSeatruckModule : Command, IParameters
 
     protected override object? ExecuteCore(CommandExecutionContext ctx)
     {
-        if (!Player.main) return CommonResults.Error("Requires a loaded game.");
+        if (!Player.main) return CommonResults.Deny("Requires a loaded game.");
 
         SeaTruckUpgrades cabin = GameObject.FindObjectOfType<SeaTruckUpgrades>();
-        if (!cabin) return CommonResults.Error("Sea Truck not found.");
+        if (!cabin) return CommonResults.Deny("Sea Truck not found.");
 
         SeaTruckSegment cabinSegment = cabin.GetComponent<SeaTruckSegment>();
         SeaTruckSegment rearSegment = cabinSegment;
@@ -29,7 +29,7 @@ internal class DetachBackSeatruckModule : Command, IParameters
             rearSegment = rearSegment.rearConnection.connection.truckSegment;
 
         if (rearSegment == cabinSegment)
-            return CommonResults.Error("Sea Truck not connected to any modules.");
+            return CommonResults.Deny("Sea Truck is not connected to any modules.");
 
         rearSegment.Detach();
 

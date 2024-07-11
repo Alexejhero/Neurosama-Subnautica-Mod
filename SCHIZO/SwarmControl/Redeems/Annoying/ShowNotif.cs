@@ -9,7 +9,8 @@ namespace SCHIZO.SwarmControl.Redeems.Annoying;
 [Redeem(
     Name = "redeem_notif",
     DisplayName = "Ping Alex",
-    Description = "This will log an error on the backend, pinging Alex for no reason"
+    Description = "This will log an error on the backend, pinging Alex for no reason",
+    Export = false
 )]
 internal class ShowNotif : Command, IParameters
 {
