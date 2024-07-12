@@ -9,7 +9,8 @@ using UWE;
 namespace SCHIZO.SwarmControl.Redeems.Annoying;
 [Redeem(
     Name = "redeem_spin",
-    DisplayName = "Spin him around and make him dizzy"
+    DisplayName = "MODS",
+    Description = "Spin him around and make him dizzy"
 )]
 internal class SpinHimAround : Command, IParameters
 {
