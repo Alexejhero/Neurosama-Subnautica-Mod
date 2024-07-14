@@ -21,8 +21,7 @@ public sealed class SavedRandomList<T> : IEnumerable<T>
         {
             string identifier = item.Identifier;
 
-            if (_identifiers.Contains(identifier)) throw new InvalidOperationException($"Duplicate identifier: {identifier}");
-            _identifiers.Add(identifier);
+            if (!_identifiers.Add(identifier)) throw new InvalidOperationException($"Duplicate identifier: {identifier}");
 
             // possible gotcha to look out for: PlayerPrefsExtra stores some values like Vectors in multiple keys, so HasKey might return false even if the keys exist
             // not the case for booleans though

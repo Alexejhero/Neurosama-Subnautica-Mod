@@ -95,15 +95,15 @@ public sealed class Backseating : Tracker
         CoroutineHost.StartCoroutine(ToggleHypothermiaAlerts(!enabled));
     }
 
-    private void ToggleSurvivalAlerts(bool enabled)
+    private void ToggleSurvivalAlerts(bool enable)
     {
-        SurvivalAlertPatches.EnableSurvivalAlerts = enabled;
+        SurvivalAlertPatches.EnableSurvivalAlerts = enable;
     }
-    private IEnumerator ToggleHypothermiaAlerts(bool enabled)
+    private IEnumerator ToggleHypothermiaAlerts(bool enable)
     {
         yield return new WaitUntil(() => bodyTemp);
         PDANotification notif = bodyTemp.hypothermiaWarningNotification;
-        notif.nextPlayTime = enabled ? 0 : float.PositiveInfinity;
+        notif.nextPlayTime = enable ? 0 : float.PositiveInfinity;
     }
 
     public void FixedUpdate()

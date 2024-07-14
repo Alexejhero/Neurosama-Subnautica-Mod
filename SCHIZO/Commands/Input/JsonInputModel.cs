@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using SwarmControl.Models.Game.Messages;
+using SCHIZO.SwarmControl.Models.Game.Messages;
 
 namespace SCHIZO.Commands.Input;
 

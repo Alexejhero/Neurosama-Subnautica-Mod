@@ -8,8 +8,8 @@ using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
 using SCHIZO.Helpers;
+using SCHIZO.SwarmControl.Models.Game.Messages;
 using SCHIZO.Twitch;
-using SwarmControl.Models.Game.Messages;
 using UnityEngine;
 using UWE;
 
@@ -55,7 +55,7 @@ internal class NameTagErmfish : Command, IParameters
 
         RemoteInput? input = ctx.Input as RemoteInput;
         TwitchUser? user = input?.Model.User;
-        if (user is not { DisplayName: { } dispName })
+        if (user is null)
             return CommonResults.Error("Could not get username");
 
         if (ermfish)

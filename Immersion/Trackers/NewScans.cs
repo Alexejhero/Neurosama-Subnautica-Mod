@@ -16,8 +16,8 @@ public sealed class NewScans : Tracker
 
     internal void NotifyScanned(TechType techType)
     {
-        string name = Language.main.TryGet(techType, out string nameMaybe) ? nameMaybe : Format.ToTitleCase(techType);
-        string message = Format.FormatPlayer($"{{player}} has discovered a new creature: {name}.");
+        string techName = Language.main.TryGet(techType, out string nameMaybe) ? nameMaybe : Format.ToTitleCase(techType);
+        string message = Format.FormatPlayer($"{{player}} has discovered a new creature: {techName}.");
 
         string encyKey = PDAScanner.GetEntryData(techType).encyclopedia;
         if (!PDAEncyclopedia.GetEntryData(encyKey, out PDAEncyclopedia.EntryData data)) return;

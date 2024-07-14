@@ -9,14 +9,12 @@ namespace SCHIZO.SwarmControl;
 internal class EggTimer : IDisposable
 {
     private readonly Coroutine _timerCoro;
-    private readonly Action _onStart;
-    private readonly Action _onEnd;
+    private readonly Action? _onStart;
+    private readonly Action? _onEnd;
     private readonly Action? _onTick;
-    private bool _active;
-    private float _timeLeft;
 
-    public bool IsActive => _active;
-    public float TimeLeft => _timeLeft;
+    public bool IsActive { get; private set; }
+    public float TimeLeft { get; private set; }
 
     public EggTimer(Action onStart, Action onEnd, Action? onTick = null)
     {
@@ -28,8 +26,8 @@ internal class EggTimer : IDisposable
 
     public void AddTime(float seconds)
     {
-        _timeLeft += seconds;
-        if (_timeLeft > 0)
+        TimeLeft += seconds;
+        if (TimeLeft > 0)
             Start();
     }
 
@@ -38,13 +36,13 @@ internal class EggTimer : IDisposable
         while (true)
         {
             yield return new WaitForFixedUpdate();
-            if (!_active) continue;
+            if (!IsActive) continue;
 
             _onTick?.Invoke();
-            _timeLeft -= Time.fixedDeltaTime;
-            if (_timeLeft <= 0)
+            TimeLeft -= Time.fixedDeltaTime;
+            if (TimeLeft <= 0)
             {
-                _timeLeft = 0;
+                TimeLeft = 0;
                 End();
             }
         }
@@ -52,14 +50,14 @@ internal class EggTimer : IDisposable
 
     public void Start()
     {
-        if (_active) return;
-        _active = true;
+        if (IsActive) return;
+        IsActive = true;
         _onStart?.Invoke();
     }
     public void End()
     {
-        if (!_active) return;
-        _active = false;
+        if (!IsActive) return;
+        IsActive = false;
         _onEnd?.Invoke();
     }
 

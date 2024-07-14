@@ -4,12 +4,12 @@ namespace Immersion.Trackers;
 
 partial class StoryGoals
 {
-    private record class Description(string Message, bool IsImportant = false)
+    private record Description(string Message, bool IsImportant = false)
     {
         public Priority Priority => IsImportant ? Priority.High : Priority.Low;
         public static implicit operator Description(string Message) => new(Message);
     }
-    private static Dictionary<string, Description> StoryGoalDescriptions = new(StoryGoal.KeyComparer)
+    private static readonly Dictionary<string, Description> StoryGoalDescriptions = new(StoryGoal.KeyComparer)
     {
         // sorted roughly in story order
 

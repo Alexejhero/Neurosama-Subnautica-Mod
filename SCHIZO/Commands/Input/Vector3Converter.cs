@@ -49,7 +49,7 @@ internal class Vector3Converter : TypeConverter
         return destinationType == typeof(Vector3);
     }
 
-    public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+    public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object? value)
     {
         if (value is string[] arr && TryConvertStringArray(arr, out Vector3 v))
             return v;

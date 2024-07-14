@@ -5,7 +5,7 @@ using SCHIZO.Commands.Base;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
-using SwarmControl.Models.Game.Messages;
+using SCHIZO.SwarmControl.Models.Game.Messages;
 using UnityEngine;
 using UWE;
 

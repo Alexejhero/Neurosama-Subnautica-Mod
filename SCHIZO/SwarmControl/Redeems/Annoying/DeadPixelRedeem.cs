@@ -20,9 +20,8 @@ internal class DeadPixelRedeem : Command, IParameters
     protected override object? ExecuteCore(CommandExecutionContext ctx)
     {
         Vector2 coords = new(Random.Range(0, 1920), Random.Range(0, 1080));
-        GameObject instance = GameObject.Instantiate(Assets.Mod_SwarmControl_DeadPixel);
+        GameObject instance = GameObject.Instantiate(Assets.Mod_SwarmControl_DeadPixel, uGUI.main.screenCanvas.transform, false);
         instance.EnsureComponent<DeadPixel>().duration = Duration;
-        instance.transform.SetParent(uGUI.main.screenCanvas.transform, false);
         instance.transform.localPosition = new Vector2(coords.x-960, coords.y-540);
         return $"Your pixel is at {coords}";
     }

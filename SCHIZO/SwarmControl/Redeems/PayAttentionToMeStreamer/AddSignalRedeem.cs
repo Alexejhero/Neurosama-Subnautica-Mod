@@ -4,8 +4,8 @@ using SCHIZO.Commands.Base;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
+using SCHIZO.SwarmControl.Models.Game.Messages;
 using SCHIZO.Twitch;
-using SwarmControl.Models.Game.Messages;
 using UnityEngine;
 using UWE;
 

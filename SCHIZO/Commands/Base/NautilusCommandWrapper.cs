@@ -34,6 +34,7 @@ public sealed class NautilusCommandWrapper
         }
         NautilusCommandWrapper wrapper = new(command);
         wrapper.RegisterWithNautilus();
+        _registered[command.Name] = wrapper;
         return wrapper;
     }
 

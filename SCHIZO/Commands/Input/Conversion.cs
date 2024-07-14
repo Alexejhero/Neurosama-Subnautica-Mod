@@ -18,7 +18,7 @@ internal static class Conversion
         return false;
     }
 
-    public static bool TryParseOrConvert(object? val, Type type, [MaybeNullWhen(false)] out object? value)
+    public static bool TryParseOrConvert(object? val, Type type, out object? value)
     {
         value = default;
         if (type.IsEnum)
@@ -27,7 +27,7 @@ internal static class Conversion
         }
         if (val is null)
             return false;
-        if (type.IsAssignableFrom(val.GetType()))
+        if (type.IsInstanceOfType(val))
         {
             value = val;
             return true;
@@ -64,7 +64,7 @@ internal static class Conversion
         return false;
     }
 
-    public static bool TryParseEnum(object? val, Type type, [MaybeNullWhen(false)] out object? value)
+    public static bool TryParseEnum(object? val, Type type, out object? value)
     {
         value = default;
         if (val is null)

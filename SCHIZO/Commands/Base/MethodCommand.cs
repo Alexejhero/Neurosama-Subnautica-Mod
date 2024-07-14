@@ -14,15 +14,15 @@ internal class MethodCommand : Command, IParameters
     private readonly MethodInfo _method;
     private readonly object? _instance;
     private readonly bool _lastTakeAll;
-    public IReadOnlyList<Parameter> Parameters { get; protected set; } = [];
+    public IReadOnlyList<Parameter> Parameters { get; protected set; }
 
     public MethodCommand(MethodInfo method, object? instance = null)
     {
         if (method.IsStatic && instance is { })
             throw new ArgumentException("Static method does not need instance");
-        else if (!method.IsStatic && instance is null)
+        if (!method.IsStatic && instance is null)
             throw new ArgumentException("Non-static method needs instance");
-        else if (method.Name.IndexOf('>') >= 0) // mangled (delegate, lambda, inner function, etc...)
+        if (method.Name.IndexOf('>') >= 0) // mangled (delegate, lambda, inner function, etc...)
             throw new ArgumentException($"Use {nameof(DelegateCommand)} instead of {nameof(MethodCommand)} for delegate methods (lambda, inner function, etc.)");
         _method = method;
         _instance = instance;
@@ -105,7 +105,7 @@ internal class MethodCommand : Command, IParameters
         return new(consumed == args.Count, parsed == parameters.Count, parsedArgs);
     }
 
-    internal static ArgParseResult TryParsePositionalArgs(IReadOnlyList<string> args, IReadOnlyList<Parameter> parameters, bool lastTakeAll = false)
+    internal static ArgParseResult TryParsePositionalArgs(IReadOnlyList<string>? args, IReadOnlyList<Parameter> parameters, bool lastTakeAll = false)
     {
         if (args is null)
             return new(true, parameters.All(p => p.IsOptional), []);

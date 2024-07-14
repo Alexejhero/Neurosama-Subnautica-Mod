@@ -12,7 +12,6 @@ namespace SCHIZO.Helpers
 
         private class Cache<TKey, TValue>(Func<TKey, TValue> getValueFunc)
         {
-            private readonly Func<TKey, TValue> getValueFunc = getValueFunc;
             private readonly Dictionary<TKey, TValue> _cache = [];
 
             public TValue GetCached(TKey key)

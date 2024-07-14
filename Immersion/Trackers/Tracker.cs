@@ -19,7 +19,7 @@ public abstract class Tracker : MonoBehaviour
     public static bool ForceLowPriority
     {
         get => PlayerPrefsExtra.GetBool(forceLowPrioPrefsKey, false);
-        set => PlayerPrefsExtra.SetBool(forceLowPrioPrefsKey, false);
+        set => PlayerPrefsExtra.SetBool(forceLowPrioPrefsKey, value);
     }
     private string startEnabledPrefsKey => $"{GetType().FullName}_Enabled";
     internal bool startEnabled

@@ -1,4 +1,4 @@
-namespace SwarmControl.Models.Game.Messages;
+namespace SCHIZO.SwarmControl.Models.Game.Messages;
 
 #nullable enable
 internal record LogMessage : GameMessage

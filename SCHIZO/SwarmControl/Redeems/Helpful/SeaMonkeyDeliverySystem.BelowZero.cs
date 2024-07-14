@@ -69,6 +69,7 @@ internal class SeaMonkeyDeliverySystem : Command, IParameters
                 yield break;
             }
             LOGGER.LogDebug("(SMDS) Got prefab");
+            _itemPrefabCache[item] = itemPrefab;
         }
 
         SeaMonkeyBringGift gift = monke.GetComponent<SeaMonkeyBringGift>();

@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
-using SwarmControl.Models.Game.Messages;
+using SCHIZO.SwarmControl.Models.Game.Messages;
 
 namespace SCHIZO.SwarmControl;
 
@@ -52,7 +52,9 @@ internal partial class ControlWebSocket : IDisposable
         {
             int timeout = BaseUri.IsLoopback ? 1 : 5;
 
-            using HttpClient client = new() { BaseAddress = BaseUri, Timeout = TimeSpan.FromSeconds(timeout) };
+            using HttpClient client = new();
+            client.BaseAddress = BaseUri;
+            client.Timeout = TimeSpan.FromSeconds(timeout);
             HttpRequestMessage request = new(HttpMethod.Options, "/");
             await client.SendAsync(request, ct);
         }

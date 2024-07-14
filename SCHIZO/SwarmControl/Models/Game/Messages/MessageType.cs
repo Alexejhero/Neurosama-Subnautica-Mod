@@ -1,7 +1,7 @@
 //using Newtonsoft.Json;
 //using Newtonsoft.Json.Converters;
 
-namespace SwarmControl.Models.Game.Messages;
+namespace SCHIZO.SwarmControl.Models.Game.Messages;
 
 //[JsonConverter(typeof(StringEnumConverter))]
 public enum MessageType

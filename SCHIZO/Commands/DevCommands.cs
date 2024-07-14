@@ -99,7 +99,7 @@ public static class DevCommands
         Type type = ReflectionCache.GetType(typeName);
         if (type is null) return $"Could not find type '{typeName}'";
         MemberInfo[] member = type.GetMember(memberName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-        if (member is null) return $"Could not find '{memberName}' in type '{typeName}' (must be static)";
+        if (member.Length == 0) return $"Could not find '{memberName}' in type '{typeName}' (must be static)";
         return ReflectionHelpers.GetStaticMemberValue<object>(member.Single());
     }
 
@@ -111,7 +111,7 @@ public static class DevCommands
     {
         Type type = ReflectionCache.GetType(typeName);
         if (type is null) return $"Could not find type '{typeName}'";
-        MemberInfo member = type.GetMember(memberName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).Single();
+        MemberInfo member = type.GetMember(memberName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).SingleOrDefault();
         if (member is null) return $"Could not find '{memberName}' in type '{typeName}' (must be static)";
         Type memberType = member switch
         {

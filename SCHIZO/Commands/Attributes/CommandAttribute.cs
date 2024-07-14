@@ -1,8 +1,10 @@
 using System;
+using JetBrains.Annotations;
 
 namespace SCHIZO.Commands.Attributes;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+[MeansImplicitUse]
 public class CommandAttribute : Attribute
 {
     public required string Name { get; set; }

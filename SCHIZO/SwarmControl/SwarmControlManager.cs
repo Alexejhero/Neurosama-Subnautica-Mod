@@ -8,7 +8,7 @@ using SCHIZO.Attributes;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.Resources;
-using SwarmControl.Models.Game.Messages;
+using SCHIZO.SwarmControl.Models.Game.Messages;
 using TMPro;
 using UnityEngine;
 

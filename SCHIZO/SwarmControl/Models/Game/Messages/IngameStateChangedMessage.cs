@@ -1,4 +1,4 @@
-namespace SwarmControl.Models.Game.Messages;
+namespace SCHIZO.SwarmControl.Models.Game.Messages;
 
 internal record IngameStateChangedMessage : GameMessage
 {

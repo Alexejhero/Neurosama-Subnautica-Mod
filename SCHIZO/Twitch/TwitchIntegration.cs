@@ -9,7 +9,7 @@ using Newtonsoft.Json.Serialization;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.SwarmControl;
-using SwarmControl.Models.Game.Messages;
+using SCHIZO.SwarmControl.Models.Game.Messages;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;

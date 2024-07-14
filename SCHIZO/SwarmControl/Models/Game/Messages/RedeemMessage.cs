@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SwarmControl.Models.Game.Messages;
+namespace SCHIZO.SwarmControl.Models.Game.Messages;
 
 #nullable enable
 public sealed record RedeemMessage : BackendMessage

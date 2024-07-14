@@ -9,8 +9,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SCHIZO.Helpers;
-using SwarmControl.Models.Game.Messages;
 using SCHIZO.Commands.Input;
+using SCHIZO.SwarmControl.Models.Game.Messages;
 
 namespace SCHIZO.SwarmControl;
 
@@ -77,7 +77,7 @@ internal partial class ControlWebSocket
                         LOGGER.LogWarning($"Re-queueing {msg.GetType().Name} ({msg.Guid})");
                         _sendQueue.Enqueue(msg);
                     }
-                    if (e is WebSocketException we)
+                    if (e is WebSocketException)
                     {
                         _socket.Dispose();
                         OnClose?.Invoke((WebSocketCloseStatus)1006, null);
@@ -144,12 +144,12 @@ internal partial class ControlWebSocket
 
         ArraySegment<byte> buffer = new(rent.Array);
         WebSocketReceiveResult? result = null;
-        int totalBytes = 0;
+        // int totalBytes = 0;
         while (result is not { EndOfMessage: true })
         {
             result = await _socket.ReceiveAsync(buffer, killSocketCt);
             ms.Write(buffer.Array, 0, result.Count);
-            totalBytes += result.Count;
+            // totalBytes += result.Count;
         }
         // LOGGER.LogDebug($"Received {result.MessageType} ({totalBytes} bytes)");
         switch (result.MessageType)

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
-namespace SwarmControl.Models.Game.Messages;
+namespace SCHIZO.SwarmControl.Models.Game.Messages;
 
 #nullable enable
 public sealed record ResultMessage : GameMessage

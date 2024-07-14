@@ -216,7 +216,7 @@ partial class SeatruckDoomPlayer : MonoBehaviour
         _ghost.tr.LookAt(center);
     }
 
-    private Queue<float> _escapePresses = [];
+    private readonly Queue<float> _escapePresses = [];
     private float _escapeHeld;
     private void Update()
     {

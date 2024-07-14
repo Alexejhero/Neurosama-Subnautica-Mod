@@ -14,8 +14,7 @@ internal static class ObjectHelpers
     public static T Or<T>(this T obj, T other)
         where T : UnityEngine.Object
     {
-        if (obj) return obj;
-        return other;
+        return obj ? obj : other;
     }
 
     /// <summary>
@@ -25,7 +24,6 @@ internal static class ObjectHelpers
     public static T Or<T>(this T obj, Func<T> other)
         where T : UnityEngine.Object
     {
-        if (obj) return obj;
-        return other();
+        return obj ? obj : other();
     }
 }

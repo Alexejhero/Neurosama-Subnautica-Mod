@@ -2,7 +2,7 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace SwarmControl.Models.Game.Messages;
+namespace SCHIZO.SwarmControl.Models.Game.Messages;
 
 #nullable enable
 [JsonObject(MemberSerialization = MemberSerialization.OptOut, NamingStrategyType = typeof(CamelCaseNamingStrategy))]
@@ -11,14 +11,8 @@ public abstract record SocketMessage
     [JsonRequired]
     public abstract MessageType MessageType { get; }
 
-    public Guid Guid { get; init; }
-    public long Timestamp { get; }
-
-    public SocketMessage()
-    {
-        Timestamp = Now();
-        Guid = Guid.NewGuid();
-    }
+    public Guid Guid { get; init; } = Guid.NewGuid();
+    public long Timestamp { get; } = Now();
 
     private static long Now() => DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 }

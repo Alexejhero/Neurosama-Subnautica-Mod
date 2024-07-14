@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace SwarmControl.Models.Game.Messages;
+namespace SCHIZO.SwarmControl.Models.Game.Messages;
 
 [method: SetsRequiredMembers]
-public sealed record HelloMessage() : GameMessage()
+public sealed record HelloMessage() : GameMessage
 {
     public override MessageType MessageType => MessageType.Hello;
     public string Version { get; init; }

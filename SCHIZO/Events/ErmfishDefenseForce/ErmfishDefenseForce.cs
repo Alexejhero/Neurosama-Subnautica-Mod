@@ -48,7 +48,7 @@ partial class ErmfishDefenseForce
     {
         instance = this;
 
-        _techTypes = new(protectedSpecies.Select(data => (TechType)data.ModItem));
+        _techTypes = [..protectedSpecies.Select(data => (TechType) data.ModItem)];
         ActiveDefenders = [];
     }
 
@@ -200,8 +200,8 @@ partial class ErmfishDefenseForce
             if (blockingHit.point != default)
                 spawnPos = blockingHit.point + blockingHit.normal * 0.1f;
 
-            GameObject instance = GameObject.Instantiate(prefab);
-            instance.transform.position = spawnPos;
+            GameObject spawnInstance = GameObject.Instantiate(prefab);
+            spawnInstance.transform.position = spawnPos;
             if (debugSpawns)
             {
                 if (blockingHit.point != default)
@@ -211,13 +211,13 @@ partial class ErmfishDefenseForce
                 spawnMarker.transform.position = spawnPos;
                 Destroy(spawnMarker, 10f);
             }
-            instance.transform.LookAt(player.transform);
+            spawnInstance.transform.LookAt(player.transform);
 
-            ActiveDefenders.Add(instance);
+            ActiveDefenders.Add(spawnInstance);
             spawned++;
 
             // don't save
-            LargeWorldEntity lwe = instance.GetComponent<LargeWorldEntity>();
+            LargeWorldEntity lwe = spawnInstance.GetComponent<LargeWorldEntity>();
             if (lwe) LargeWorldStreamer.main.cellManager.UnregisterEntity(lwe);
         }
         if (debugSpawns) LOGGER.LogDebug($"(EDF) spawned {spawned} {defender.ClassId}");
@@ -226,12 +226,11 @@ partial class ErmfishDefenseForce
 
     private bool CanSpawn()
     {
-        bool canSpawn;
-        canSpawn = player && !player.currentSub
+        bool canSpawn = player && !player.currentSub
 #if BELOWZERO
-                    && player.currentInterior is null // don't spawn indoors
+            && player.currentInterior is null // don't spawn indoors
 #endif
-                    && player.IsUnderwaterForSwimming(); // there are no land kill squads... yet
+            && player.IsUnderwaterForSwimming(); // there are no land kill squads... yet
         return canSpawn;
     }
 

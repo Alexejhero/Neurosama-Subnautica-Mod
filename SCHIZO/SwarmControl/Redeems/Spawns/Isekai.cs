@@ -12,7 +12,7 @@ namespace SCHIZO.SwarmControl.Redeems.Spawns;
     DisplayName = "Remove Entities",
     Description = "Snap a specific type of entity around the player. Does not include inventory/containers."
 )]
-internal class Isekai : ProxyCommand<MethodCommand>
+internal class Isekai() : ProxyCommand<MethodCommand>("isekai")
 {
     public enum IsekaiTechType
     {
@@ -30,14 +30,9 @@ internal class Isekai : ProxyCommand<MethodCommand>
         Diamond,
         Ruby,
     }
-    public Isekai() : base("isekai")
-    {
-        Parameters = [
-            new(new("creature", "Type", "Which entities to remove."), typeof(IsekaiTechType)),
-        ];
-    }
 
     public override IReadOnlyList<Parameter> Parameters { get; }
+        = [new(new("creature", "Type", "Which entities to remove."), typeof(IsekaiTechType))];
 
     protected override Dictionary<string, object?>? GetTargetArgs(Dictionary<string, object?>? proxyArgs)
     {

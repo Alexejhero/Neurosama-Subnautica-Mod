@@ -83,7 +83,7 @@ internal partial class DoomEngine : MonoBehaviour
         else
             ScheduleUnityThread(action);
     }
-    private ConcurrentQueue<Action> _unityThreadQueue = new();
+    private readonly ConcurrentQueue<Action> _unityThreadQueue = new();
     internal void ScheduleUnityThread(Action action)
     {
         _unityThreadQueue.Enqueue(action);
@@ -173,7 +173,7 @@ internal partial class DoomEngine : MonoBehaviour
     }
 
     // without the lock, the main thread randomly freezes (presumably due to simultaneous access to _XXXKeys)
-    private object _inputSync = new();
+    private readonly object _inputSync = new();
     // holding input state until the doom thread consumes it
     private readonly HashSet<DoomKey> _pressedKeys = [];
     private readonly HashSet<DoomKey> _heldKeys = [];
