@@ -57,6 +57,7 @@ public sealed class CommandOutputStack
     {
         Sinks.Clear();
         Sinks.Push(new SetResultSink(ctx));
+        Sinks.Push(new SuppressOutputSink());
     }
 
     /// <summary>
