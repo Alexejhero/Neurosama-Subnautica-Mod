@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using SCHIZO.Commands.Attributes;
 using SCHIZO.Helpers;
 using SCHIZO.SwarmControl;
@@ -56,6 +60,7 @@ partial class TwitchIntegration
         ConnectionCredentials credentials = new(username, token);
 
         _client.Initialize(credentials, targetChannel);
+        _httpClient.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse($"Bearer {token}");
 
         _client.Connect();
     }
@@ -111,8 +116,8 @@ partial class TwitchIntegration
         return "Twitch login updated. Please restart Subnautica.";
     }
 
-    private static ConcurrentDictionary<string, (Action<string> Callback, float ModerationDelay)> _nextMessageCallbacks = [];
-    private static ConcurrentDictionary<string, Action> _timeoutCallbacks = [];
+    private static readonly ConcurrentDictionary<string, (Action<string> Callback, float ModerationDelay)> _nextMessageCallbacks = [];
+    private static readonly ConcurrentDictionary<string, Action> _timeoutCallbacks = [];
     public static void AddNextMessageCallback(TwitchUser user, Action<string> callback, float moderationDelay = 5f)
     {
         _nextMessageCallbacks.AddOrUpdate(user.Id, (callback, moderationDelay), (_, existing) =>
@@ -136,7 +141,7 @@ partial class TwitchIntegration
         }
         bool timedOut = false;
         Action cb = () => timedOut = true;
-        _timeoutCallbacks.AddOrUpdate(user.Id, cb, (_, existing) => existing + cb);
+        _timeoutCallbacks.AddOrUpdate(user.Id, cb, (_, curr) => curr + cb);
         Task.Delay(TimeSpan.FromSeconds(existing.delay)).ContinueWith(__ =>
         {
             _timeoutCallbacks.TryRemove(user.Id, out _);
@@ -144,5 +149,48 @@ partial class TwitchIntegration
                 message = "(filtered)";
             SwarmControlManager.Instance.QueueOnMainThread(() => existing.callback(message));
         });
+    }
+
+    private static readonly Dictionary<string, Color> _colors = [];
+    private static bool _dead; // in case clientid is wrong and twitch api call fails
+
+    public static async Task<Color> GetUserChatColor(string userId)
+    {
+        if (_colors.TryGetValue(userId, out Color cached)) return cached;
+        if (_dead) return Color.white;
+
+        try
+        {
+            // manual http call due to https://github.com/TwitchLib/TwitchLib/issues/1126
+            string respJson = await _httpClient.GetStringAsync($"helix/chat/color?user_id={userId}");
+            if (string.IsNullOrEmpty(respJson)) return Color.white;
+
+            UserColorResponseModel resp = JsonConvert.DeserializeObject<UserColorResponseModel>(respJson);
+            string c = resp.Data[0].Color;
+            return _colors[userId] = ColorUtility.TryParseHtmlString(c, out Color color)
+                ? color
+                : Color.white;
+        }
+        catch (Exception e)
+        {
+            LOGGER.LogError($"Failed to get user color for {userId}: {e}");
+            _dead = true;
+            return Color.white;
+        }
+    }
+
+    private static readonly HttpClient _httpClient = new()
+    {
+        BaseAddress = new("https://api.twitch.tv/"),
+        DefaultRequestHeaders = { { "Client-Id", "gp762nuuoqcoxypju8c569th9wz7q5" } }, // https://twitchtokengenerator.com
+    };
+
+    [JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
+    internal class UserColorResponseModel
+    {
+        public UserColorResponseItemModel[] Data { get; set; }
+
+        [JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
+        public record UserColorResponseItemModel(string UserId, string UserName, string UserLogin, string Color);
     }
 }

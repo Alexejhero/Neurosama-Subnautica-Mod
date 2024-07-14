@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using SCHIZO.Commands.Base;
 using SCHIZO.Commands.Context;
 using SCHIZO.Commands.Input;
 using SCHIZO.Commands.Output;
 using SCHIZO.Helpers;
+using SCHIZO.Twitch;
+using SwarmControl.Models.Game.Messages;
 using UnityEngine;
 using UWE;
 
@@ -51,13 +54,13 @@ internal class NameTagErmfish : Command, IParameters
             });
 
         RemoteInput? input = ctx.Input as RemoteInput;
-        string? user = input?.Model.GetDisplayName();
-        if (string.IsNullOrEmpty(user))
+        TwitchUser? user = input?.Model.User;
+        if (user is not { DisplayName: { } dispName })
             return CommonResults.Error("Could not get username");
 
         if (ermfish)
         {
-            SetNameTag(ermfish, user);
+            CoroutineHost.StartCoroutine(SetNameTag(ermfish, user));
             return CommonResults.OK();
         }
         else
@@ -67,7 +70,7 @@ internal class NameTagErmfish : Command, IParameters
         }
     }
 
-    private IEnumerator SpawnCoro(string? user)
+    private IEnumerator SpawnCoro(TwitchUser? user)
     {
         if (!_ermfishPrefab)
         {
@@ -82,15 +85,21 @@ internal class NameTagErmfish : Command, IParameters
 
         GameObject ermfish = Utils.CreatePrefab(_ermfishPrefab);
         yield return null;
-        SetNameTag(ermfish, user);
+        yield return SetNameTag(ermfish, user);
     }
 
-    private void SetNameTag(GameObject ermfish, string? user)
+    private IEnumerator SetNameTag(GameObject ermfish, TwitchUser? user)
     {
-        NameTag tag = ermfish.GetComponentInChildren<NameTag>(true);
-        if (!tag || tag.isActiveAndEnabled) return;
+        if (user is not { DisplayName: { } dispName }) yield break;
 
-        tag.textMesh.text = user;
+        NameTag tag = ermfish.GetComponentInChildren<NameTag>(true);
+        if (!tag || tag.isActiveAndEnabled) yield break;
+
+        tag.textMesh.text = dispName;
         tag.gameObject.SetActive(true);
+
+        Task<Color> task = TwitchIntegration.GetUserChatColor(user.Id);
+        yield return task.PoorMansAwait();
+        tag.textMesh.color = task.Result;
     }
 }
