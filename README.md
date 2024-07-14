@@ -11,4 +11,4 @@ Hull plates code based on ahk1221's [Custom Hull Plates](https://github.com/MrPu
 Using code based on Lee23's [ECCLibrary](https://github.com/LeeTwentyThree/ECCLibrary/releases/latest) mod
 
 ### Credits
-![credits](https://github.com/Alexejhero/Neurosama-Subnautica-Mod/assets/3830522/fef46e4f-2cea-4d5d-a5d8-1d5769a7124e)
+![credits](https://github.com/user-attachments/assets/ac25d748-d375-4eb6-bf2c-e688dad6b990)

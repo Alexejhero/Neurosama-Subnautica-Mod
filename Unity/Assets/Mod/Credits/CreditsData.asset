@@ -55,6 +55,8 @@ MonoBehaviour:
     credits: 132
   - name: Kaz
     credits: 16
+  - name: LeBogoo
+    credits: 512
   - name: Leota
     credits: 64
   - name: Lorx
@@ -89,7 +91,7 @@ MonoBehaviour:
     credits: 132
   - name: vanorsigma
     credits: 2
-  - name: Vedal987
+  - name: vedal987
     credits: 512
   - name: w1n7er
     credits: 142
