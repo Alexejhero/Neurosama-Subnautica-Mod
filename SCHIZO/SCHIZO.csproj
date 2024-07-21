@@ -33,7 +33,7 @@
         </Compile>
         <Compile Remove="$(SolutionDir)/Unity/Assets/Scripts/SCHIZO/**/*.Unity.cs" />
 
-        <Compile Include="$(SolutionDir)/Unity/Library/PackageCache/com.codewriter.triinspector@*/Runtime/**/*.cs" Visible="False" />
+        <Compile Include="$(SolutionDir)/Unity/Packages/Tri-Inspector/Runtime/**/*.cs" Visible="False" />
 
         <Folder Include="Attributes" />
         <Folder Include="TriInspector" />

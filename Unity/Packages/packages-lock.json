@@ -7,13 +7,12 @@
       "dependencies": {}
     },
     "com.codewriter.triinspector": {
-      "version": "https://github.com/codewriter-packages/Tri-Inspector.git",
+      "version": "file:Tri-Inspector",
       "depth": 0,
-      "source": "git",
+      "source": "embedded",
       "dependencies": {
         "com.unity.localization": "1.0.0"
-      },
-      "hash": "67ee3d8adaf6f3faf50da8dc33b57ec7964f98bb"
+      }
     },
     "com.coffee.csharp-compiler-settings": {
       "version": "https://github.com/mob-sakai/CSharpCompilerSettingsForUnity.git",

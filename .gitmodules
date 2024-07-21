@@ -1,0 +1,3 @@
+[submodule "Unity/Packages/Tri-Inspector"]
+	path = Unity/Packages/Tri-Inspector
+	url = https://github.com/Govorunb/Tri-Inspector
