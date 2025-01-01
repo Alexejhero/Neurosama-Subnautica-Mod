@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SCHIZO.Helpers;
 
 namespace SCHIZO.Spawns;
@@ -16,7 +17,8 @@ partial class BiomeSpawnData
             BiomeSpawnLocation.OpenWater => BiomeHelpers.GetBiomesEndingInAny("_Open", "_Open_CreatureOnly"),
             BiomeSpawnLocation.Surfaces => BiomeHelpers.GetBiomesEndingInAny("Ground", "Wall", "Floor", "Ledge",
                 "CaveEntrance", "CavePlants", "SandFlat", "ShellTunnelHuge", "Grass", "Sand", "Mountains", "Beach"),
-            BiomeSpawnLocation.Custom => BiomeHelpers.GetBiomesContainingAny(Data.biomeFilters),
+            BiomeSpawnLocation.Custom => BiomeHelpers.GetBiomesMatching(Data.biomeFilters),
+            BiomeSpawnLocation.CopyFromOthers => BiomeHelpers.GetBiomesFor(Data.copyFrom.Cast<TechType>()),
             _ => throw new InvalidOperationException($"Invalid spawn location {Location}")
         };
     }

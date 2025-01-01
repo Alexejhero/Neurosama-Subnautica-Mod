@@ -137,4 +137,25 @@ public static class DevCommands
                 throw new InvalidOperationException("Unreachable");
         }
     }
+
+
+    [Command(Name = "dump_spawn_biomes",
+        DisplayName = "Dump Spawn Biomes",
+        Description = "List the biomes where a given techtype is registered to spawn",
+        RegisterConsoleCommand = true)]
+    public static string DumpSpawnBiomes(string classIdOrTechType)
+    {
+        string classId = Guid.TryParse(classIdOrTechType, out Guid guid) ? guid.ToString()
+            : UWE.Utils.TryParseEnum(classIdOrTechType, out TechType techType) ? CraftData.GetClassIdForTechType(techType)
+            : null;
+
+        if (classId is null) return MessageHelpers.TechTypeNotFound(classIdOrTechType);
+
+        CSVEntitySpawner spawner = GameObject.FindObjectOfType<CSVEntitySpawner>();
+        LootDistributionData lootData = spawner ? spawner.lootDistribution : BiomeHelpers.baseGameLootData;
+
+        return lootData.srcDistribution.TryGetValue(classId, out LootDistributionData.SrcData srcData)
+            ? string.Join(",", srcData.distribution.Select(bd => bd.biome))
+            : $"No data for {classIdOrTechType}";
+    }
 }

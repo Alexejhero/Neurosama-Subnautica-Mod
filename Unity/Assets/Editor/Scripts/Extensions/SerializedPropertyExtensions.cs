@@ -28,7 +28,7 @@ namespace Editor.Scripts.Extensions
         public static T GetCustomAttribute<T>(this SerializedProperty prop) where T : Attribute
         {
             FieldInfo info = prop.GetFieldInfoAndStaticType(out _);
-            return info.GetCustomAttribute<T>();
+            return info?.GetCustomAttribute<T>();
         }
 
         public static bool TryGetAttributeInHierarchy<T>(this SerializedProperty prop, out T attribute, out SerializedProperty ancestorWithAttribute) where T : Attribute

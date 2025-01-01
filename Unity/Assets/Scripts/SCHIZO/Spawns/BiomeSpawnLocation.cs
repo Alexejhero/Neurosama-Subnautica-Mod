@@ -5,5 +5,6 @@
         OpenWater,
         Surfaces,
         Custom,
+        CopyFromOthers,
     }
 }
